@@ -73,8 +73,8 @@ struct AnmVm {
     unsigned char unknown_030[0xC];
     Float2 scale;               // +0x03C
     unsigned char unknown_044[8];
-    float sprite_height;        // +0x04C
-    float sprite_width;         // +0x050
+    float sprite_width;         // +0x04C (matches Entity::sprite_width)
+    float sprite_height;        // +0x050 (matches Entity::sprite_height)
     unsigned char unknown_054[0x340 - 0x54];
     Float3 offset;              // +0x340
     unsigned char unknown_34c[0x10];
@@ -276,8 +276,8 @@ struct Enemy {
     Float2Interp relative_orbit_interp;     // +0x0288
     Shooter shooters[8];            // +0x02C4
     Float3 shoot_offset[8];         // +0x1344
-    float hitbox_width;             // +0x13A4
-    float hitbox_height;            // +0x13A8
+    float visible_width;            // +0x13A4 (visible_size.x in EnemyTick)
+    float visible_height;           // +0x13A8 (visible_size.y in EnemyTick)
     float bounds_x, bounds_y, bounds_width, bounds_height;  // +0x13AC
     unsigned char unknown_13bc[4];
     int life;                       // +0x13C0

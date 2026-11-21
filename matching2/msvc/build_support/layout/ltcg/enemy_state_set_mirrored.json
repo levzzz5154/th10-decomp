@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "name": "enemy_state_set_mirrored",
-  "source": "src/unreferenced/FUN.cpp_40cde0.cpp",
+  "source": "src/unreferenced/fun_40cde0.cpp",
   "driver": "build_support/layout/ltcg/enemy_state_set_mirrored_context.cpp",
   "headers": [],
   "image_base": "0x00400000",

@@ -7,6 +7,13 @@
 
 #include "../../../layout/ltcg/front_hud_pair/result_dispatcher.cpp"
 #include "../../../../src/game/pause/result_menu_open.cpp"
+#include "../../../layout/ltcg/result_open/allocate.cpp"
+#include "../../../layout/ltcg/result_open/descriptor.cpp"
+#include "../../../layout/ltcg/result_open/entity_init.cpp"
+#include "../../../layout/ltcg/result_open/find.cpp"
+#include "../../../layout/ltcg/result_open/music.cpp"
+#include "../../../layout/ltcg/result_open/registrar.cpp"
+#include "../../../layout/ltcg/result_open/secondary_back.cpp"
 #include "../../../layout/ltcg/result_open/dispatcher_handle_helpers.cpp"
 #include "../../../layout/ltcg/result_open/dispatcher_animation_helpers.cpp"
 #include "../../../layout/ltcg/result_open/dispatcher_input_mode.cpp"

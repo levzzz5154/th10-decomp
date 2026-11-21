@@ -1,5 +1,5 @@
 // Compiler context and ABI anchors only; none of these bytes enter the image.
-#include "../../../src/unreferenced/FUN.cpp_4490e0.cpp"
+#include "../../../src/unreferenced/fun_4490e0.cpp"
 
 extern "C" void* __cdecl operator_new2(unsigned int size);
 extern "C" void* __cdecl Entity_Constructor_00402050(void* entity);

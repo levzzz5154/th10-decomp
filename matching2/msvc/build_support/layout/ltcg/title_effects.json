@@ -2,6 +2,9 @@
   "schema_version": 2,
   "name": "title_effects_0041fdd0",
   "source": "src/game/loading/loading_signature.cpp",
+  "compilation_units": {
+    "src/game/loading/loading_signature.cpp": "build_support/layout/units/loading_signature_unit.cpp"
+  },
   "additional_sources": [
     "src/game/loading/loading_on_draw.cpp"
   ],

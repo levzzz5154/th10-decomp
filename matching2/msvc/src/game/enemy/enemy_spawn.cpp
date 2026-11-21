@@ -12,6 +12,24 @@
 #include "th10/game/enemy_spawn.hpp"
 #include <string.h>
 
+enum EnemyDropItemId {
+    ENEMY_DROP_POWER_SMALL = 1,
+    ENEMY_DROP_POWER_LARGE = 4,
+    ENEMY_DROP_POWER_BOSS_SMALL = 10,
+    ENEMY_DROP_POWER_BOSS_LARGE = 11
+};
+
+enum EnemySpawnKind {
+    ENEMY_KIND_FAIRY = 1
+};
+
+enum EnemyDeathEffectId {
+    ENEMY_DEATH_EFFECT_RED = 0x164,
+    ENEMY_DEATH_EFFECT_BLUE = 0x167,
+    ENEMY_DEATH_EFFECT_YELLOW = 0x16A,
+    ENEMY_DEATH_EFFECT_GREEN = 0x16D
+};
+
 #pragma code_seg(".text$0040cfb0_fn")
 Enemy4* EnemySpawn2::Create(EnemyCtrlSpawnView* manager, const char* entry) {
     Enemy4* enemy = new Enemy4(entry);
@@ -29,36 +47,36 @@ Enemy4* EnemySpawn2::Create(EnemyCtrlSpawnView* manager, const char* entry) {
 
     if (enemy->data.flags.boss_items) {
         int item = enemy->data.drop_item;
-        if (item == 1)
-            item = 10;
-        else if (item == 4)
-            item = 11;
+        if (item == ENEMY_DROP_POWER_SMALL)
+            item = ENEMY_DROP_POWER_BOSS_SMALL;
+        else if (item == ENEMY_DROP_POWER_LARGE)
+            item = ENEMY_DROP_POWER_BOSS_LARGE;
         enemy->data.drop_item = item;
     }
 
     enemy->data.death_sound = (manager->created & 1) + 2;
-    enemy->data.death_effect = 0x167;
-    if (enemy->data.kind == 1) {
+    enemy->data.death_effect = ENEMY_DEATH_EFFECT_BLUE;
+    if (enemy->data.kind == ENEMY_KIND_FAIRY) {
         switch (enemy->data.kind_index) {
         case 0:
         case 20:
         case 49:
-            enemy->data.death_effect = 0x167;
+            enemy->data.death_effect = ENEMY_DEATH_EFFECT_BLUE;
             break;
         case 5:
         case 25:
         case 50:
-            enemy->data.death_effect = 0x164;
+            enemy->data.death_effect = ENEMY_DEATH_EFFECT_RED;
             break;
         case 15:
         case 35:
         case 52:
-            enemy->data.death_effect = 0x16D;
+            enemy->data.death_effect = ENEMY_DEATH_EFFECT_GREEN;
             break;
         case 10:
         case 30:
         case 51:
-            enemy->data.death_effect = 0x16A;
+            enemy->data.death_effect = ENEMY_DEATH_EFFECT_YELLOW;
             break;
         }
     }

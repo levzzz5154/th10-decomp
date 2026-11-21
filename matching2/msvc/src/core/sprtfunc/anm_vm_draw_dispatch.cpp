@@ -11,12 +11,12 @@
 // compiler tail-merges them into retail's single `or eax,-1; ret` block, and it
 // keeps ESI and EDI because the case bodies use them as argument registers.
 //
-// Eight of the ten case targets are still assembly, and each one enters on
-// registers no MSVC declaration names (EAX, EDX, ESI, EDI or the stack), so
-// each is compiled into this cluster as a compiled ABI anchor placed at its
-// retail address by the layout's gaps: see the dispatcher anchor block in
-// build_support/layout/ltcg/render_batch_context.cpp.  None of those bodies is recovered
-// code; only their parameter homes matter.
+// All ten case targets are recovered C++ units across sprtfunc/, but because
+// each enters on private /GL registers (EAX, EDX, ESI, EDI or the stack), the
+// targets outside this cluster are compiled here as ABI anchors placed at
+// their retail addresses by the layout's gaps (see the dispatcher anchor block
+// in build_support/layout/ltcg/render_batch_context.cpp).  Only their parameter
+// homes matter to this cluster.
 //
 // The tenth, 0x00444CE0, is the recovered SprtCtrl::DrawStrip, whose
 // body is a definition in this same link (layout/ltcg/anm_batch_flush2
@@ -62,24 +62,44 @@ extern "C" __declspec(noinline) int FadedQuadDraw(SprtCtrlBatchView* manager,
 extern "C" __declspec(noinline) int EntityDraw5(RenderEntity* entity,
                                                                SprtCtrlBatchView* manager);
 
+enum AnmDrawFlag {
+    ANM_DRAW_VISIBLE = 1,
+    ANM_DRAW_ACTIVE = 2,
+    ANM_DRAW_MODE_SHIFT = 22,
+    ANM_DRAW_MODE_MASK = 0xF
+};
+
+enum AnmDrawMode {
+    ANM_DRAW_QUAD_2D = 0,
+    ANM_DRAW_QUAD_ROTATED = 1,
+    ANM_DRAW_QUAD_2D_ALT = 2,
+    ANM_DRAW_QUAD_ROTATED_ALT = 3,
+    ANM_DRAW_PROJECTED_QUAD = 4,
+    ANM_DRAW_BILLBOARD_5 = 5,
+    ANM_DRAW_BILLBOARD_6 = 6,
+    ANM_DRAW_FADED_QUAD = 7,
+    ANM_DRAW_PROJECTED_ALT = 8,
+    ANM_DRAW_STRIP = 9
+};
+
 #pragma code_seg(".text$06hdispatch")
 extern "C" __declspec(noinline) int __cdecl asm_FUN_004451c0_004451c0(
         SprtCtrlBatchView* manager, RenderEntity* entity) {
     unsigned int flags = entity->flags;
-    if (!(flags & 1)) return -1;
-    if (!(flags & 2)) return -1;
+    if (!(flags & ANM_DRAW_VISIBLE)) return -1;
+    if (!(flags & ANM_DRAW_ACTIVE)) return -1;
     if (((const unsigned char*)&entity->color)[3] == 0) return -1;
-    switch ((flags >> 22) & 0xF) {
-    case 0: return EntityDraw(entity, manager);
-    case 1: return BuildRotatedQuad(manager, entity);
-    case 4: return entity->SubmitProjectedQuad(manager);
-    case 5: return EntityDraw4(manager, entity);
-    case 6: return EntityDraw3(manager, entity);
-    case 7: return FadedQuadDraw(manager, entity);
-    case 8: return EntityDraw5(entity, manager);
-    case 9: return manager->DrawStrip(entity, entity->strip_vertices, entity->strip_count * 2);
-    case 2: return EntityDraw2(entity, manager);
-    case 3: return BuildRotatedQuadAlt(manager, entity);
+    switch ((flags >> ANM_DRAW_MODE_SHIFT) & ANM_DRAW_MODE_MASK) {
+    case ANM_DRAW_QUAD_2D: return EntityDraw(entity, manager);
+    case ANM_DRAW_QUAD_ROTATED: return BuildRotatedQuad(manager, entity);
+    case ANM_DRAW_PROJECTED_QUAD: return entity->SubmitProjectedQuad(manager);
+    case ANM_DRAW_BILLBOARD_5: return EntityDraw4(manager, entity);
+    case ANM_DRAW_BILLBOARD_6: return EntityDraw3(manager, entity);
+    case ANM_DRAW_FADED_QUAD: return FadedQuadDraw(manager, entity);
+    case ANM_DRAW_PROJECTED_ALT: return EntityDraw5(entity, manager);
+    case ANM_DRAW_STRIP: return manager->DrawStrip(entity, entity->strip_vertices, entity->strip_count * 2);
+    case ANM_DRAW_QUAD_2D_ALT: return EntityDraw2(entity, manager);
+    case ANM_DRAW_QUAD_ROTATED_ALT: return BuildRotatedQuadAlt(manager, entity);
     }
     return 0;
 }

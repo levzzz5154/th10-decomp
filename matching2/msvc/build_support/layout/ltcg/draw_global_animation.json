@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "name": "draw_global_animation",
-  "source": "src/unreferenced/FUN.cpp_449440.cpp",
+  "source": "src/unreferenced/fun_449440.cpp",
   "driver": "build_support/layout/ltcg/draw_global_animation_00449440_context.cpp",
   "headers": [],
   "image_base": "0x00400000",

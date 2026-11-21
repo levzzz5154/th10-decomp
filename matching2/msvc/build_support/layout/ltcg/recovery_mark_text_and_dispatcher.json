@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "name": "recovery_mark_text_and_dispatcher",
-  "source": "src/core/sprtlib/recovery_mark_text_and_dispatcher.cpp",
+  "source": "src/core/sprtlib/sprite_text_dispatcher.cpp",
   "driver": "build_support/layout/ltcg/recovery_mark_text_and_dispatcher_004479d0_context.cpp",
   "headers": [
     "include/th10/platform/sound_queue.hpp",
@@ -38,7 +38,7 @@
       "address": "0x004479D0",
       "size": 127,
       "actual_abi": "Retail: resource EDI, font EAX, text EBX, texture/x/color/mode stack; RET16",
-      "source": "src/core/sprtlib/recovery_mark_text_and_dispatcher.cpp"
+      "source": "src/core/sprtlib/sprite_text_dispatcher.cpp"
     },
     {
       "name": "RecoveryTextVm::MarkText",
@@ -47,7 +47,7 @@
       "address": "0x00447A50",
       "size": 141,
       "actual_abi": "Retail: VM ESI, manager/color/format fixed stack homes plus variadic payload; plain RET",
-      "source": "src/core/sprtlib/recovery_mark_text_and_dispatcher.cpp"
+      "source": "src/core/sprtlib/sprite_text_dispatcher.cpp"
     },
     {
       "name": "HintUpdateView::Update",

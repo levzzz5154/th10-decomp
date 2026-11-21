@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "name": "recovery_script_executor",
-  "source": "src/game/ending/recovery_script_executor.cpp",
+  "source": "src/game/ending/ending_script_execute.cpp",
   "driver": "build_support/layout/ltcg/recovery_script_executor_context.cpp",
   "headers": [
     "include/th10/platform/sound_queue.hpp",
@@ -1430,7 +1430,7 @@
   "roots": [],
   "included_sources": [
     "src/core/sound/sound_queue.cpp",
-    "src/core/sprtlib/recovery_mark_text_and_dispatcher.cpp",
+    "src/core/sprtlib/sprite_text_dispatcher.cpp",
     "build_support/layout/ltcg/recovery_mark_text_and_dispatcher_004479d0_context.cpp",
     "build_support/layout/ltcg/marktext_dispatcher_context/recovery_script_executor_core_anchors.cpp",
     "build_support/layout/ltcg/marktext_dispatcher_context/recovery_script_executor_anchor.cpp",

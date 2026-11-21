@@ -1,8 +1,4 @@
 #include "th10/render/native_render_targets.hpp"
-#include "../../../build_support/layout/ltcg/native_render_targets/dependencies.cpp"
-#include "../sprtlib/animation_manager_clear_indexed_resources.cpp"
-#include "../../../build_support/layout/ltcg/native_render_targets/capture_context.cpp"
-#include "../../../build_support/layout/ltcg/native_render_targets/prepare_context.cpp"
 #pragma code_seg(".text$a04targets")
 void SprtCtrlTargetsView::FinishTargets() {
     if (capture_bank>=0) {

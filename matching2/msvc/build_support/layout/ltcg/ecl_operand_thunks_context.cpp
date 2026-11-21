@@ -1,5 +1,5 @@
 // Compiler context and ABI anchors only; none of these bytes enter the image.
-#include "../../../src/unreferenced/FUN.cpp_40c650.cpp"
+#include "../../../src/unreferenced/fun_40c650.cpp"
 
 float __fastcall ResolveSlotFloatValue(int selector, EclOperandSlot* slot, float operand);
 int ResolveEntityIntOperand(EclEntityVm* vm, int selector);

@@ -142,6 +142,30 @@ static __forceinline RecoveryMusicVm* MusicFindInPlace(
 __declspec(noinline) RecoveryMusicVm* __stdcall MusicValidate(
     RecoveryHandle* handle);
 
+enum MusicRoomPhase {
+    MUSIC_ROOM_LOAD = 0,
+    MUSIC_ROOM_REVEAL_DELAY = 1,
+    MUSIC_ROOM_BROWSE = 2,
+    MUSIC_ROOM_EXIT = 3
+};
+
+enum MusicRoomKeyMask {
+    MUSIC_KEY_CANCEL = 0x000Au,
+    MUSIC_KEY_UP = 0x0010,
+    MUSIC_KEY_DOWN = 0x0020,
+    MUSIC_KEY_CONFIRM = 0x1001u
+};
+
+enum MusicRoomSfxId {
+    MUSIC_SFX_CANCEL = 11,
+    MUSIC_SFX_MOVE = 12
+};
+
+enum MusicRoomTextColor {
+    MUSIC_COLOR_SPOILER = 0x8080FFu,
+    MUSIC_COLOR_NORMAL = 0xFFFFFFu
+};
+
 // Show the next line of the chosen track's comment, every other frame. A
 // track that has not been heard shows the spoiler warning instead, until the
 // player confirms a second time.
@@ -151,10 +175,10 @@ static __forceinline void MusicRevealLine(Title* room) {
             MusicValidate(&room->preview_handles[room->preview_cursor]);
         RecoveryTextVm* text = reinterpret_cast<RecoveryTextVm*>(object);
         if (!recovery_music_player[0x1D892 + room->displayed_track] && room->preview_armed)
-            text->MarkText(g_sprt_ctrl, 0x8080FFu,
+            text->MarkText(g_sprt_ctrl, MUSIC_COLOR_SPOILER,
                            recovery_music_preview_table[room->preview_cursor]);
         else
-            text->MarkText(g_sprt_ctrl, 0xFFFFFFu, static_cast<const char*>(
+            text->MarkText(g_sprt_ctrl, MUSIC_COLOR_NORMAL, static_cast<const char*>(
                 room->preview_lines[room->displayed_track][room->preview_cursor]));
         object->stop_frame = 2;
         ++room->preview_cursor;
@@ -170,7 +194,7 @@ __declspec(noinline) int __stdcall TitleMusicRoom(Title* room) {
     AnimationManager9* requests;
 
     switch (room->phase) {
-    case 0:
+    case MUSIC_ROOM_LOAD:
         if (room->timer.current == 1) {
             room->cursor.item_count = 6;
             MusicSelect(room->cursor, 0);
@@ -227,10 +251,10 @@ __declspec(noinline) int __stdcall TitleMusicRoom(Title* room) {
                 RecoveryMusicVm* object = MusicValidateInPlace(&room->row_handles[index]);
                 RecoveryTextVm* text = reinterpret_cast<RecoveryTextVm*>(object);
                 if (recovery_music_player[0x1D892 + index])
-                    text->MarkText(g_sprt_ctrl, 0xFFFFFFu,
+                    text->MarkText(g_sprt_ctrl, MUSIC_COLOR_NORMAL,
                                    static_cast<const char*>(room->comments[index]));
                 else
-                    text->MarkText(g_sprt_ctrl, 0xFFFFFFu,
+                    text->MarkText(g_sprt_ctrl, MUSIC_COLOR_NORMAL,
                                    recovery_music_locked_format, index + 1);
                 if (index < room->scroll_origin || index >= room->scroll_origin + 10)
                     object->flags &= ~2u;
@@ -246,25 +270,25 @@ __declspec(noinline) int __stdcall TitleMusicRoom(Title* room) {
             }
         }
         if (room->timer.current >= 10) {
-            room->phase = 1;
+            room->phase = MUSIC_ROOM_REVEAL_DELAY;
             MusicResetTimer(&room->timer);
         }
         break;
-    case 1:
+    case MUSIC_ROOM_REVEAL_DELAY:
         MusicRevealLine(room);
         if (room->timer.current > 4)
-            room->SetTimerTarget(2);
+            room->SetTimerTarget(MUSIC_ROOM_BROWSE);
         break;
-    case 2: {
+    case MUSIC_ROOM_BROWSE: {
         MusicRevealLine(room);
         MenuCursor* cursor = &room->cursor;
         cursor->previous_selection = cursor->selection;
-        if (g_input_keys_raw.InputMaskActive(0x10))
+        if (g_input_keys_raw.InputMaskActive(MUSIC_KEY_UP))
             cursor->Advance(-1);
-        if (g_input_keys_raw.InputMaskActive(0x20))
+        if (g_input_keys_raw.InputMaskActive(MUSIC_KEY_DOWN))
             cursor->Advance(1);
         if (cursor->previous_selection != cursor->selection) {
-            g_sound_manager.Queue(12, 0);
+            g_sound_manager.Queue(MUSIC_SFX_MOVE, 0);
             // Keep the cursor inside the ten visible rows.
             int scroll = room->scroll_origin;
             int selection = cursor->selection;
@@ -296,7 +320,7 @@ __declspec(noinline) int __stdcall TitleMusicRoom(Title* room) {
             }
             room->preview_armed = 0;
         }
-        if (g_input_keys_held & 0x1001u) {
+        if (g_input_keys_held & MUSIC_KEY_CONFIRM) {
             // Confirm: clear the comment lines and play the track.
             for (int row = 0; row < 8; ++row)
                 MusicSetTreeFrame(MusicFind(room->preview_handles[row].value), 3);
@@ -321,10 +345,10 @@ __declspec(noinline) int __stdcall TitleMusicRoom(Title* room) {
             room->preview_armed = 0;
             break;
         }
-        if (!(g_input_keys_held & 0xAu))
+        if (!(g_input_keys_held & MUSIC_KEY_CANCEL))
             break;
 leave_room:
-        // Cancel, or no comment file: drop the screen and go to phase 3.
+        // Cancel, or no comment file: drop the screen and go to exit phase.
         if (room->file_buffer != 0) {
             crt_free(room->file_buffer);
             room->file_buffer = 0;
@@ -338,12 +362,12 @@ leave_room:
             MusicSetTreeFrame(MusicFindInPlace(
                 reinterpret_cast<RecoveryLookupContext*>(g_sprt_ctrl),
                 room->preview_handles[row].value), 1);
-        g_sound_manager.Queue(11, 0);
-        room->phase = 3;
+        g_sound_manager.Queue(MUSIC_SFX_CANCEL, 0);
+        room->phase = MUSIC_ROOM_EXIT;
         MusicResetTimer(&room->timer);
         break;
     }
-    case 3:
+    case MUSIC_ROOM_EXIT:
         if (room->timer.current >= 10) {
             room->ClearAnimationSlot(103);
             room->SetSlotFrame(90, 8);

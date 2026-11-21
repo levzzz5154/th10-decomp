@@ -206,7 +206,7 @@ int ScriptTable2::Resolve(const char* name) {
     return 0;
 }
 
-// src/script/sptlib/fun.cpp_450700.cpp
+// src/script/sptlib/ecl_bind_name.cpp
 #pragma code_seg(".text$00450700_bnd")
 int __fastcall BindName(EnemyRecord* record, const char* name) {
     ScriptTable2* script_table = record->table;

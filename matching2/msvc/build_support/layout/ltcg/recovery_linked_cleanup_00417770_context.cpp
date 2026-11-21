@@ -1,5 +1,5 @@
 // Compiler context only; never selected as recovered game code.
-#include "../../../src/game/front/recovery_linked_cleanup.cpp"
+#include "../../../src/game/front/front_linked_cleanup.cpp"
 
 extern "C" ScoreChain* g_laser_manager;
 

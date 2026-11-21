@@ -34,46 +34,61 @@ extern "C" int __fastcall LinearShakeUpdate(void*);
 extern "C" int __fastcall EnvelopeShakeUpdate(void*);
 extern "C" int __fastcall ScreenEffectRemove(void*);
 extern "C" float g_game_speed;
+// Note: FadeOutUpdate (0x0043BD40) fades the overlay OUT (alpha 255 -> 0,
+// revealing the screen), while FadeInUpdate (0x0043C230) fades the overlay IN
+// (alpha 0 -> 255, covering the screen).
+enum ScreenEffectMode {
+    SCREEN_MODE_FADE_IN_FULL = 0,
+    SCREEN_MODE_SHAKE_LINEAR = 1,
+    SCREEN_MODE_FADE_OUT_PLAYFIELD = 2,
+    SCREEN_MODE_FADE_IN_PLAYFIELD = 3,
+    SCREEN_MODE_FLASH = 4,
+    SCREEN_MODE_FADE_OUT_FULL = 5,
+    SCREEN_MODE_DIM_FULL = 6,
+    SCREEN_MODE_DIM_PLAYFIELD = 7,
+    SCREEN_MODE_SHAKE_ENVELOPE = 8
+};
+
 #pragma code_seg(".text$03selector")
 void Screen::Configure(int priority, int selected_mode,
         int first, int second, int third, int fourth) {
     // Parameters retain their shared representation; each update routine
     // interprets them as colors, durations, repetition counts, or shake limits.
     switch (selected_mode) {
-    case 0:
+    case SCREEN_MODE_FADE_IN_FULL:
         primary = CreateEffectPrimary(this,14,reinterpret_cast<void*>(FadeOutUpdate));
         secondary = CreateEffectSecondary(this,priority,reinterpret_cast<void*>(ViewportOverlayDraw));
         break;
-    case 1:
+    case SCREEN_MODE_SHAKE_LINEAR:
         primary = CreateEffectPrimary(this,14,reinterpret_cast<void*>(LinearShakeUpdate));
         break;
-    case 2:
+    case SCREEN_MODE_FADE_OUT_PLAYFIELD:
         primary = CreateEffectPrimary(this,14,reinterpret_cast<void*>(FadeInUpdate));
         secondary = CreateEffectSecondary(this,priority,reinterpret_cast<void*>(PlayfieldOverlayDraw));
         break;
-    case 3:
+    case SCREEN_MODE_FADE_IN_PLAYFIELD:
         opacity = 255;
         primary = CreateEffectPrimary(this,14,reinterpret_cast<void*>(FadeOutUpdate));
         secondary = CreateEffectSecondary(this,priority,reinterpret_cast<void*>(PlayfieldOverlayDraw));
         break;
-    // Keep the two viewport fades adjacent for the shared registration tail.
-    case 5:
+    // MATCH: keep the two viewport fades adjacent for the shared registration tail.
+    case SCREEN_MODE_FADE_OUT_FULL:
         primary = CreateEffectPrimary(this,14,reinterpret_cast<void*>(FadeInUpdate));
         secondary = CreateEffectSecondary(this,priority,reinterpret_cast<void*>(ViewportOverlayDraw));
         break;
-    case 4:
+    case SCREEN_MODE_FLASH:
         primary = CreateEffectPrimary(this,14,reinterpret_cast<void*>(ColorPulseUpdate));
         secondary = CreateEffectSecondary(this,priority,reinterpret_cast<void*>(ColorPulseDraw));
         break;
-    case 6:
+    case SCREEN_MODE_DIM_FULL:
         primary = CreateEffectPrimary(this,14,reinterpret_cast<void*>(HalfOpacityFadeUpdate));
         secondary = CreateEffectSecondary(this,priority,reinterpret_cast<void*>(ScreenOverlayDraw));
         break;
-    case 7:
+    case SCREEN_MODE_DIM_PLAYFIELD:
         primary = CreateEffectPrimary(this,14,reinterpret_cast<void*>(HalfOpacityFadeUpdate));
         secondary = CreateEffectSecondary(this,priority,reinterpret_cast<void*>(PlayfieldHalfOpacityDraw));
         break;
-    case 8:
+    case SCREEN_MODE_SHAKE_ENVELOPE:
         primary = CreateEffectPrimary(this,14,reinterpret_cast<void*>(EnvelopeShakeUpdate));
         break;
     }

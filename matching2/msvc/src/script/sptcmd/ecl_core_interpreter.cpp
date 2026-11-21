@@ -28,6 +28,73 @@ static void DebugLog(const char* format, ...) {}
         } \
     } while (0)
 
+// Core ECL VM opcodes (0..87); owner-specific opcodes (>= 0x100) delegate to owner->Execute().
+enum EclCoreOpcode {
+    ECL_NOP = 0,
+    ECL_DELETE = 1,
+    ECL_RETURN = 10,
+    ECL_CALL = 11,
+    ECL_JMP = 12,
+    ECL_JMP_Z = 13,
+    ECL_JMP_NZ = 14,
+    ECL_SPAWN_CHILD = 15,
+    ECL_SPAWN_CHILD_ID = 16,
+    ECL_KILL_CHILD = 17,
+    ECL_PAUSE_CHILD = 18,
+    ECL_RESUME_CHILD = 19,
+    ECL_SET_CHILD_STATE = 20,
+    ECL_RESET_VAR_BINDINGS = 21,
+    ECL_DEBUG_LOG = 30,
+    ECL_STACK_ALLOC = 40,
+    ECL_STACK_FREE = 41,
+    ECL_PUSH_INT = 42,
+    ECL_POP_INT = 43,
+    ECL_PUSH_FLOAT = 44,
+    ECL_POP_FLOAT = 45,
+    ECL_ADD_I = 50,
+    ECL_ADD_F = 51,
+    ECL_SUB_I = 52,
+    ECL_SUB_F = 53,
+    ECL_MUL_I = 54,
+    ECL_MUL_F = 55,
+    ECL_DIV_I = 56,
+    ECL_DIV_F = 57,
+    ECL_MOD_I = 58,
+    ECL_CMP_EQ_I = 59,
+    ECL_CMP_EQ_F = 60,
+    ECL_CMP_NE_I = 61,
+    ECL_CMP_NE_F = 62,
+    ECL_CMP_LT_I = 63,
+    ECL_CMP_LT_F = 64,
+    ECL_CMP_LE_I = 65,
+    ECL_CMP_LE_F = 66,
+    ECL_CMP_GT_I = 67,
+    ECL_CMP_GT_F = 68,
+    ECL_CMP_GE_I = 69,
+    ECL_CMP_GE_F = 70,
+    ECL_NOT_I = 71,
+    ECL_NOT_F = 72,
+    ECL_OR_I = 73,
+    ECL_AND_I = 74,
+    ECL_BIT_XOR = 75,
+    ECL_BIT_OR = 76,
+    ECL_BIT_AND = 77,
+    ECL_DEC_INT = 78,
+    ECL_SIN = 79,
+    ECL_COS = 80,
+    ECL_POLAR_TO_XY = 81,
+    ECL_NORMALIZE_ANGLE = 82,
+    ECL_WAIT = 83,
+    ECL_NEG_I = 84,
+    ECL_NEG_F = 85,
+    ECL_LENGTH_SQ = 86,
+    ECL_ATAN2_DELTA = 87
+};
+
+enum EclVmFlag {
+    ECL_VM_PAUSED = 1
+};
+
 int EclVm::Run(float delta) {
     if (instr == 0) return -1;
     EclInstr** pc = &instr;
@@ -37,12 +104,12 @@ int EclVm::Run(float delta) {
             switch (instruction->id) {
             // VM termination and return. A saved PC is the call instruction; the
             // normal advance below steps past it after restoring the caller's time.
-            case 0:
+            case ECL_NOP:
                 break;
-            case 1:
+            case ECL_DELETE:
                 *pc = 0;
                 return -1;
-            case 10:
+            case ECL_RETURN:
                 stack.Pop();
                 if (stack.sp == 0) {
                     *pc = 0;
@@ -57,32 +124,32 @@ int EclVm::Run(float delta) {
                 break;
 
             // Spawn or update a child VM selected by its ID.
-            case 15:
+            case ECL_SPAWN_CHILD:
                 owner->SpawnChild(-1, 0);
                 break;
-            case 21:
+            case ECL_RESET_VAR_BINDINGS:
                 owner->ResetVariableBindings();
                 break;
-            case 16:
+            case ECL_SPAWN_CHILD_ID:
                 owner->SpawnChild(
                     IntValue(1, instruction->i[(unsigned int)(instruction->i[0] + 4) / 4]), 1);
                 break;
-            case 17: {
+            case ECL_KILL_CHILD: {
                 EclNode* node = owner->FindVariable(IntOperand(0));
                 if (node) node->vm->instr = 0;
                 break;
             }
-            case 18: {
+            case ECL_PAUSE_CHILD: {
                 EclNode* node = owner->FindVariable(IntOperand(0));
-                if (node) node->vm->flags |= 1;
+                if (node) node->vm->flags |= ECL_VM_PAUSED;
                 break;
             }
-            case 19: {
+            case ECL_RESUME_CHILD: {
                 EclNode* node = owner->FindVariable(IntOperand(0));
-                if (node) node->vm->flags &= ~1;
+                if (node) node->vm->flags &= ~ECL_VM_PAUSED;
                 break;
             }
-            case 20: {
+            case ECL_SET_CHILD_STATE: {
                 EclNode* node = owner->FindVariable(IntOperand(0));
                 if (node) {
                     EclVm* child = node->vm;
@@ -93,22 +160,22 @@ int EclVm::Run(float delta) {
 
             // Calls and relative branches replace the PC. Continue dispatch at the
             // new instruction without applying the normal instruction-size advance.
-            case 11:
+            case ECL_CALL:
                 if (Start(this, 0)) return -1;
                 continue;
-            case 14: {
+            case ECL_JMP_NZ: {
                 int condition;
                 PopInt(&condition);
                 if (condition) goto relative_jump;
                 break;
             }
-            case 13: {
+            case ECL_JMP_Z: {
                 int condition;
                 PopInt(&condition);
                 if (condition) break;
             }
             // A zero condition falls through to the unconditional jump.
-            case 12:
+            case ECL_JMP:
             relative_jump:
                 {
                     EclInstr* branch = *pc;
@@ -116,33 +183,33 @@ int EclVm::Run(float delta) {
                     *pc = (EclInstr*)((char*)branch + branch->i[0]);
                 }
                 continue;
-            case 83:
+            case ECL_WAIT:
                 time -= (float)IntOperand(0);
                 break;
 
             // Stack frames, then typed transfers between operands and the stack.
-            case 40:
+            case ECL_STACK_ALLOC:
                 stack.Push(IntOperand(0));
                 break;
-            case 41:
+            case ECL_STACK_FREE:
                 stack.Pop();
                 break;
-            case 42: {
+            case ECL_PUSH_INT: {
                 int value = IntOperand(0);
                 stack.Write('i', 4, &value);
                 break;
             }
-            case 43: {
+            case ECL_POP_INT: {
                 int* destination = IntDest(0);
                 PopInt(destination);
                 break;
             }
-            case 44: {
+            case ECL_PUSH_FLOAT: {
                 float value = FloatOperand(0);
                 stack.Write('f', 4, &value);
                 break;
             }
-            case 45: {
+            case ECL_POP_FLOAT: {
                 float* destination = FloatDest(0);
                 PopFloat(destination);
                 break;
@@ -150,31 +217,31 @@ int EclVm::Run(float delta) {
 
             // Integer arithmetic reuses the left operand storage for the result:
             // the integer and float operations both push from that same word.
-            case 50: {
+            case ECL_ADD_I: {
                 ECL_POP_PAIR(int, PopInt, left_storage, right_storage);
                 left_storage = left_storage + right_storage;
                 stack.Write('i', 4, &left_storage);
                 break;
             }
-            case 52: {
+            case ECL_SUB_I: {
                 ECL_POP_PAIR(int, PopInt, left_storage, right_storage);
                 left_storage = left_storage - right_storage;
                 stack.Write('i', 4, &left_storage);
                 break;
             }
-            case 54: {
+            case ECL_MUL_I: {
                 ECL_POP_PAIR(int, PopInt, left_storage, right_storage);
                 left_storage = left_storage * right_storage;
                 stack.Write('i', 4, &left_storage);
                 break;
             }
-            case 56: {
+            case ECL_DIV_I: {
                 ECL_POP_PAIR(int, PopInt, left_storage, right_storage);
                 left_storage = left_storage / right_storage;
                 stack.Write('i', 4, &left_storage);
                 break;
             }
-            case 58: {
+            case ECL_MOD_I: {
                 ECL_POP_PAIR(int, PopInt, left_storage, right_storage);
                 left_storage = left_storage % right_storage;
                 stack.Write('i', 4, &left_storage);
@@ -182,25 +249,25 @@ int EclVm::Run(float delta) {
             }
 
             // Floating-point arithmetic uses the same pop order and a float result tag.
-            case 51: {
+            case ECL_ADD_F: {
                 ECL_POP_PAIR(float, PopFloat, left_storage, right_storage);
                 left_storage = left_storage + right_storage;
                 stack.Write('f', 4, &left_storage);
                 break;
             }
-            case 53: {
+            case ECL_SUB_F: {
                 ECL_POP_PAIR(float, PopFloat, left_storage, right_storage);
                 left_storage = left_storage - right_storage;
                 stack.Write('f', 4, &left_storage);
                 break;
             }
-            case 55: {
+            case ECL_MUL_F: {
                 ECL_POP_PAIR(float, PopFloat, left_storage, right_storage);
                 left_storage = left_storage * right_storage;
                 stack.Write('f', 4, &left_storage);
                 break;
             }
-            case 57: {
+            case ECL_DIV_F: {
                 ECL_POP_PAIR(float, PopFloat, left_storage, right_storage);
                 left_storage = left_storage / right_storage;
                 stack.Write('f', 4, &left_storage);
@@ -208,7 +275,7 @@ int EclVm::Run(float delta) {
             }
 
             // Integer comparisons and logical NOT produce an integer result.
-            case 59: {
+            case ECL_CMP_EQ_I: {
                 ECL_POP_PAIR(int, PopInt, left_storage, right_storage);
                 const int left_operand = left_storage;
                 const int right_operand = right_storage;
@@ -216,7 +283,7 @@ int EclVm::Run(float delta) {
                 stack.Write('i', 4, &result);
                 break;
             }
-            case 61: {
+            case ECL_CMP_NE_I: {
                 ECL_POP_PAIR(int, PopInt, left_storage, right_storage);
                 const int left_operand = left_storage;
                 const int right_operand = right_storage;
@@ -224,7 +291,7 @@ int EclVm::Run(float delta) {
                 stack.Write('i', 4, &result);
                 break;
             }
-            case 63: {
+            case ECL_CMP_LT_I: {
                 ECL_POP_PAIR(int, PopInt, left_storage, right_storage);
                 const int left_operand = left_storage;
                 const int right_operand = right_storage;
@@ -232,7 +299,7 @@ int EclVm::Run(float delta) {
                 stack.Write('i', 4, &result);
                 break;
             }
-            case 65: {
+            case ECL_CMP_LE_I: {
                 ECL_POP_PAIR(int, PopInt, left_storage, right_storage);
                 const int left_operand = left_storage;
                 const int right_operand = right_storage;
@@ -240,7 +307,7 @@ int EclVm::Run(float delta) {
                 stack.Write('i', 4, &result);
                 break;
             }
-            case 67: {
+            case ECL_CMP_GT_I: {
                 ECL_POP_PAIR(int, PopInt, left_storage, right_storage);
                 const int left_operand = left_storage;
                 const int right_operand = right_storage;
@@ -248,7 +315,7 @@ int EclVm::Run(float delta) {
                 stack.Write('i', 4, &result);
                 break;
             }
-            case 69: {
+            case ECL_CMP_GE_I: {
                 ECL_POP_PAIR(int, PopInt, left_storage, right_storage);
                 const int left_operand = left_storage;
                 const int right_operand = right_storage;
@@ -256,7 +323,7 @@ int EclVm::Run(float delta) {
                 stack.Write('i', 4, &result);
                 break;
             }
-            case 71: {
+            case ECL_NOT_I: {
                 int value;
                 PopInt(&value);
                 int result = value == 0;
@@ -265,7 +332,7 @@ int EclVm::Run(float delta) {
             }
 
             // Floating-point comparisons also push an integer, not a float.
-            case 60: {
+            case ECL_CMP_EQ_F: {
                 ECL_POP_PAIR(float, PopFloat, left_storage, right_storage);
                 const float left_operand = left_storage;
                 const float right_operand = right_storage;
@@ -273,7 +340,7 @@ int EclVm::Run(float delta) {
                 stack.Write('i', 4, &result);
                 break;
             }
-            case 62: {
+            case ECL_CMP_NE_F: {
                 EclStack* operands = &stack;
                 float right_storage;
                 PopFloat(&right_storage);
@@ -285,7 +352,7 @@ int EclVm::Run(float delta) {
                 stack.Write('i', 4, &result);
                 break;
             }
-            case 64: {
+            case ECL_CMP_LT_F: {
                 ECL_POP_PAIR(float, stack.PopFloat, left_storage, right_storage);
                 const float left_operand = left_storage;
                 const float right_operand = right_storage;
@@ -293,7 +360,7 @@ int EclVm::Run(float delta) {
                 stack.Write('i', 4, &result);
                 break;
             }
-            case 66: {
+            case ECL_CMP_LE_F: {
                 ECL_POP_PAIR(float, PopFloat, left_storage, right_storage);
                 const float left_operand = left_storage;
                 const float right_operand = right_storage;
@@ -301,7 +368,7 @@ int EclVm::Run(float delta) {
                 stack.Write('i', 4, &result);
                 break;
             }
-            case 68: {
+            case ECL_CMP_GT_F: {
                 ECL_POP_PAIR(float, PopFloat, left_storage, right_storage);
                 const float left_operand = left_storage;
                 const float right_operand = right_storage;
@@ -309,7 +376,7 @@ int EclVm::Run(float delta) {
                 stack.Write('i', 4, &result);
                 break;
             }
-            case 70: {
+            case ECL_CMP_GE_F: {
                 ECL_POP_PAIR(float, PopFloat, left_storage, right_storage);
                 const float left_operand = left_storage;
                 const float right_operand = right_storage;
@@ -317,7 +384,7 @@ int EclVm::Run(float delta) {
                 stack.Write('i', 4, &result);
                 break;
             }
-            case 72: {
+            case ECL_NOT_F: {
                 float value;
                 PopFloat(&value);
                 int result = (value == 0.0f) ? 1 : 0;
@@ -326,31 +393,31 @@ int EclVm::Run(float delta) {
             }
 
             // Logical and bitwise operations on integer stack words.
-            case 73: {
+            case ECL_OR_I: {
                 ECL_POP_PAIR(int, PopInt, left, right);
                 int result = (left || right) ? 1 : 0;
                 stack.Write('i', 4, &result);
                 break;
             }
-            case 74: {
+            case ECL_AND_I: {
                 ECL_POP_PAIR(int, PopInt, left, right);
                 int result = (left && right) ? 1 : 0;
                 stack.Write('i', 4, &result);
                 break;
             }
-            case 75: {
+            case ECL_BIT_XOR: {
                 ECL_POP_PAIR(int, PopInt, left, right);
                 int result = left ^ right;
                 stack.Write('i', 4, &result);
                 break;
             }
-            case 76: {
+            case ECL_BIT_OR: {
                 ECL_POP_PAIR(int, stack.PopInt, left, right);
                 int result = left | right;
                 stack.Write('i', sizeof(int), &result);
                 break;
             }
-            case 77: {
+            case ECL_BIT_AND: {
                 ECL_POP_PAIR(int, PopInt, left, right);
                 int result = left & right;
                 stack.Write('i', 4, &result);
@@ -358,14 +425,14 @@ int EclVm::Run(float delta) {
             }
 
             // Negation and post-decrement.
-            case 84: {
+            case ECL_NEG_I: {
                 int value;
                 PopInt(&value);
                 value = -value;
                 stack.Write('i', 4, &value);
                 break;
             }
-            case 85: {
+            case ECL_NEG_F: {
                 // Negate the integer word, then write it back with the float tag.
                 int word;
                 PopFloat((float*)&word);
@@ -373,7 +440,7 @@ int EclVm::Run(float delta) {
                 stack.Write('f', 4, &word);
                 break;
             }
-            case 78: {
+            case ECL_DEC_INT: {
                 int original_value = IntOperand(0);
                 int* destination = IntDest(0);
                 *destination = original_value - 1;
@@ -382,39 +449,39 @@ int EclVm::Run(float delta) {
             }
 
             // Trigonometry and vector operations.
-            case 79: {
+            case ECL_SIN: {
                 float angle;
                 PopFloat(&angle);
                 float result = (float)sin(angle);
                 stack.Write('f', 4, &result);
                 break;
             }
-            case 80: {
+            case ECL_COS: {
                 float angle;
                 PopFloat(&angle);
                 float result = (float)cos(angle);
                 stack.Write('f', 4, &result);
                 break;
             }
-            case 81: {
+            case ECL_POLAR_TO_XY: {
                 EclPolar vector;
                 vector.SetPolar(Angle_Normalize(FloatOperand(2)), FloatOperand(3));
                 *FloatDest(0) = vector.x;
                 *FloatDest(1) = vector.y;
                 break;
             }
-            case 86: {
+            case ECL_LENGTH_SQ: {
                 float x = FloatOperand(1);
                 float y = FloatOperand(2);
                 *FloatDest(0) = y * y + x * x;
                 break;
             }
-            case 82: {
+            case ECL_NORMALIZE_ANGLE: {
                 float* destination = FloatDest(0);
                 *destination = Angle_Normalize(FloatOperand(0));
                 break;
             }
-            case 87: {
+            case ECL_ATAN2_DELTA: {
                 float x = FloatOperand(2) - FloatOperand(0);
                 float y = FloatOperand(3) - FloatOperand(1);
                 y = (float)atan2(y, x);
@@ -424,7 +491,7 @@ int EclVm::Run(float delta) {
 
             // Packed debug format and typed arguments. The cursor scans the format
             // string while instr still points to the header and argument descriptors.
-            case 30: {
+            case ECL_DEBUG_LOG: {
                 instruction = (EclInstr*)(instruction->s + 4);
                 char* buffer = (char*)malloc(0x400);
                 buffer[0] = 0;

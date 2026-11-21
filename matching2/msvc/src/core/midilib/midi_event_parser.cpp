@@ -111,6 +111,37 @@ static __forceinline unsigned __int64 MidiEventElapsedTicks(MidiSequencer* seque
             sequencer->tempo_microseconds));
 }
 
+enum MidiMessageType {
+    MIDI_MSG_NOTE_OFF = 0x80,
+    MIDI_MSG_NOTE_ON = 0x90,
+    MIDI_MSG_POLY_AFTERTOUCH = 0xA0,
+    MIDI_MSG_CONTROL_CHANGE = 0xB0,
+    MIDI_MSG_PROGRAM_CHANGE = 0xC0,
+    MIDI_MSG_CHANNEL_PRESSURE = 0xD0,
+    MIDI_MSG_PITCH_BEND = 0xE0,
+    MIDI_MSG_SYSTEM = 0xF0
+};
+
+enum MidiSystemStatus {
+    MIDI_STATUS_SYSEX = 0xF0,
+    MIDI_STATUS_META = 0xFF
+};
+
+enum MidiMetaEventType {
+    MIDI_META_END_OF_TRACK = 0x2F,
+    MIDI_META_SET_TEMPO = 0x51
+};
+
+enum MidiControllerNumber {
+    MIDI_CC_BANK_SELECT = 0,
+    MIDI_CC_LOOP_START = 2,
+    MIDI_CC_LOOP_END = 4,
+    MIDI_CC_CHANNEL_VOLUME = 7,
+    MIDI_CC_PAN = 10,
+    MIDI_CC_REVERB = 0x5B,
+    MIDI_CC_CHORUS = 0x5D
+};
+
 #pragma code_seg(".text$60parser")
 extern "C" __declspec(noinline) void __stdcall ProcessMidiEvent2(
     MidiSequencer* sequencer,
@@ -128,8 +159,8 @@ extern "C" __declspec(noinline) void __stdcall ProcessMidiEvent2(
     const unsigned char channel = status & 0x0f;
     const unsigned char message_type = status & 0xf0;
     switch (message_type) {
-    case 0xf0:
-        if (status == 0xf0) {
+    case MIDI_MSG_SYSTEM:
+        if (status == MIDI_STATUS_SYSEX) {
             // System exclusive: hand the payload to the device in its own
             // buffer, kept in a ring of 32 until the device returns it.
             if (sequencer->midi_headers[sequencer->midi_header_index] != 0)
@@ -145,7 +176,7 @@ extern "C" __declspec(noinline) void __stdcall ProcessMidiEvent2(
             memset(header, 0, sizeof(*header));
 
             header->data = static_cast<unsigned char*>(asm_malloc_00452706(length + 1));
-            header->data[0] = 0xf0;
+            header->data[0] = MIDI_STATUS_SYSEX;
             header->flags = 0;
             header->buffer_length = length + 1;
             int index;
@@ -162,17 +193,17 @@ extern "C" __declspec(noinline) void __stdcall ProcessMidiEvent2(
             }
 
             sequencer->midi_header_index = (sequencer->midi_header_index + 1) % 32;
-        } else if (status == 0xff) {
+        } else if (status == MIDI_STATUS_META) {
             // Meta event.
             const unsigned char meta_type = *track->cursor++;
             const int length = ReadMidiVariableLength(track->cursor);
-            if (meta_type == 0x2f) {
+            if (meta_type == MIDI_META_END_OF_TRACK) {
                 // End of track.
                 track->active = 0;
                 return;
             }
 
-            if (meta_type == 0x51) {
+            if (meta_type == MIDI_META_SET_TEMPO) {
                 // Tempo change: bank the time played at the old tempo first.
                 sequencer->event_tick_base += MidiEventElapsedTicks(sequencer);
                 sequencer->elapsed_timer_ticks = 0;
@@ -187,16 +218,16 @@ extern "C" __declspec(noinline) void __stdcall ProcessMidiEvent2(
             }
         }
         break;
-    case 0x80:
-    case 0x90:
-    case 0xa0:
-    case 0xb0:
-    case 0xe0:
+    case MIDI_MSG_NOTE_OFF:
+    case MIDI_MSG_NOTE_ON:
+    case MIDI_MSG_POLY_AFTERTOUCH:
+    case MIDI_MSG_CONTROL_CHANGE:
+    case MIDI_MSG_PITCH_BEND:
         data1 = *track->cursor++;
         data2 = *track->cursor++;
         break;
-    case 0xc0:
-    case 0xd0:
+    case MIDI_MSG_PROGRAM_CHANGE:
+    case MIDI_MSG_CHANNEL_PRESSURE:
         data1 = *track->cursor++;
         data2 = 0;
         break;
@@ -204,26 +235,26 @@ extern "C" __declspec(noinline) void __stdcall ProcessMidiEvent2(
 
     MidiPlaybackState* state = reinterpret_cast<MidiPlaybackState*>(sequencer);
     switch (message_type) {
-    case 0x90:
+    case MIDI_MSG_NOTE_ON:
         if (data2 != 0) {
             data1 += state->transpose;
             state->channels[channel].held_notes[data1 >> 3] |= 1 << (data1 & 7);
             break;
         }
         // A note-on with zero velocity releases the key.
-    case 0x80:
+    case MIDI_MSG_NOTE_OFF:
         data1 += state->transpose;
         state->channels[channel].held_notes[data1 >> 3] &= ~(1 << (data1 & 7));
         break;
-    case 0xc0:
+    case MIDI_MSG_PROGRAM_CHANGE:
         state->channels[channel].program = data1;
         break;
-    case 0xb0:
+    case MIDI_MSG_CONTROL_CHANGE:
         switch (data1) {
-        case 0:
+        case MIDI_CC_BANK_SELECT:
             state->channels[channel].bank = data2;
             break;
-        case 7: {
+        case MIDI_CC_CHANNEL_VOLUME: {
             state->channels[channel].volume = data2;
             int volume = static_cast<int>(static_cast<float>(data2) * state->fade_volume);
             if (volume < 0)
@@ -234,16 +265,16 @@ extern "C" __declspec(noinline) void __stdcall ProcessMidiEvent2(
             data2 = static_cast<unsigned char>(volume);
             break;
         }
-        case 0x5b:
+        case MIDI_CC_REVERB:
             state->channels[channel].reverb = data2;
             break;
-        case 0x5d:
+        case MIDI_CC_CHORUS:
             state->channels[channel].chorus = data2;
             break;
-        case 10:
+        case MIDI_CC_PAN:
             state->channels[channel].pan = data2;
             break;
-        case 2: {
+        case MIDI_CC_LOOP_START: {
             // Loop start: remember every track's position and the clock.
             MidiTrack* saved_track = state->tracks;
             int index;
@@ -256,7 +287,7 @@ extern "C" __declspec(noinline) void __stdcall ProcessMidiEvent2(
             state->loop_clock.event_tick_base = state->clock.event_tick_base;
             break;
         }
-        case 4: {
+        case MIDI_CC_LOOP_END: {
             // Loop end: jump back to the remembered position.
             MidiTrack* saved_track = state->tracks;
             int index;
@@ -273,7 +304,7 @@ extern "C" __declspec(noinline) void __stdcall ProcessMidiEvent2(
         break;
     }
 
-    if (status < 0xf0 && state->output != 0) {
+    if (status < MIDI_MSG_SYSTEM && state->output != 0) {
         union { unsigned int word; unsigned char bytes[4]; } message;
         message.bytes[1] = data1;
         message.bytes[0] = status;

@@ -1,6 +1,6 @@
 // Unselected compiler context; includes the genuine maintained helper bodies.
 #define TH10_CLEAR_BUCKETS_CODE_SEG ".text$03buckets"
-#include "../../../src/game/hint/recovery_clear_eight_buckets.cpp"
+#include "../../../src/game/hint/hint_clear_buckets.cpp"
 #undef TH10_CLEAR_BUCKETS_CODE_SEG
 #include "../../../src/game/hint/resource_manager_cleanup.cpp"
 #define TH10_SCHEDULER_REMOVE_ONLY

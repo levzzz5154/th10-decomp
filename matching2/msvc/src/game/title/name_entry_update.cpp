@@ -16,6 +16,19 @@
 
 enum { GridColumns = 13, MaxNameLength = 8 };
 enum NameEntryPhase { StartEntry, WaitForInput, EditName, CloseEntry };
+enum NameEntryKeyMask {
+    KEY_CANCEL = 0x000A,
+    KEY_UP = 0x0010,
+    KEY_DOWN = 0x0020,
+    KEY_LEFT = 0x0040,
+    KEY_RIGHT = 0x0080,
+    KEY_CONFIRM = 0x1001
+};
+enum NameEntrySfxId {
+    SFX_CONFIRM = 10,
+    SFX_CANCEL = 11,
+    SFX_MOVE = 12
+};
 
 // An empty menu retains the requested selection.
 static __forceinline void SelectClampedItem(MenuCursor& cursor, int index) {
@@ -112,60 +125,60 @@ static __forceinline int UpdateNameEntryScreen(const NameEntryScreen& screen) {
             KeyRepeatState* input = &g_input_keys_raw;
             MenuCursor* grid = &room->keyboard.grid;
             grid->previous_selection = grid->selection;
-            if ((short)input->InputMaskActive(0x10)) grid->Advance(-GridColumns);
-            if ((short)input->InputMaskActive(0x20)) grid->Advance(GridColumns);
-            if ((short)input->InputMaskActive(0x40)) {
+            if ((short)input->InputMaskActive(KEY_UP)) grid->Advance(-GridColumns);
+            if ((short)input->InputMaskActive(KEY_DOWN)) grid->Advance(GridColumns);
+            if ((short)input->InputMaskActive(KEY_LEFT)) {
                 if (grid->selection % GridColumns != 0)
                     grid->Advance(-1);
                 else
                     grid->Advance(GridColumns - 1);
             }
-            if ((short)input->InputMaskActive(0x80)) {
+            if ((short)input->InputMaskActive(KEY_RIGHT)) {
                 if (grid->selection % GridColumns != GridColumns - 1)
                     grid->Advance(1);
                 else
                     grid->Advance(1 - GridColumns);
             }
             if (grid->previous_selection != grid->selection)
-                g_sound_manager.Queue(12, 0);
+                g_sound_manager.Queue(SFX_MOVE, 0);
         }
-        if (g_input_keys_held & 0x1001) {
+        if (g_input_keys_held & KEY_CONFIRM) {
             if (room->keyboard.name_confirmed == 0) {
                 const char* characters = g_name_entry_grid;
                 int count = strlen(characters);
                 int cell = room->keyboard.grid.selection;
                 if (cell < count - 3) {
                     WriteNameCharacter(*room, characters[cell], count);
-                    g_sound_manager.Queue(10, 0);
+                    g_sound_manager.Queue(SFX_CONFIRM, 0);
                 } else if (cell == count - 3) {
                     WriteNameCharacter(*room, ' ', count);
-                    g_sound_manager.Queue(10, 0);
+                    g_sound_manager.Queue(SFX_CONFIRM, 0);
                 } else if (cell == count - 2) {
                     if (room->keyboard.name_length == 0)
                         break;
                     EraseLastNameCharacter(*room);
-                    g_sound_manager.Queue(10, 0);
+                    g_sound_manager.Queue(SFX_CONFIRM, 0);
                 } else if (cell == count - 1) {
                     SaveSelectedName(room, room->keyboard.name);
                     room->SetTimerTarget(CloseEntry);
-                    g_sound_manager.Queue(10, 0);
+                    g_sound_manager.Queue(SFX_CONFIRM, 0);
                 } else {
-                    g_sound_manager.Queue(10, 0);
+                    g_sound_manager.Queue(SFX_CONFIRM, 0);
                 }
             } else {
                 room->SetTimerTarget(CloseEntry);
-                g_sound_manager.Queue(10, 0);
+                g_sound_manager.Queue(SFX_CONFIRM, 0);
             }
         }
-        if (g_input_keys_held & 0xa) {
+        if (g_input_keys_held & KEY_CANCEL) {
             if (room->keyboard.name_confirmed == 0) {
                 if (room->keyboard.name_length == 0)
                     break;
-                g_sound_manager.Queue(11, 0);
+                g_sound_manager.Queue(SFX_CANCEL, 0);
                 EraseLastNameCharacter(*room);
             } else {
                 room->SetTimerTarget(CloseEntry);
-                g_sound_manager.Queue(10, 0);
+                g_sound_manager.Queue(SFX_CONFIRM, 0);
             }
         }
         break;

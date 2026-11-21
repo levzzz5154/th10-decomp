@@ -15,7 +15,7 @@
     "build_support/layout/ltcg/large_player_dependencies/callback.cpp",
     "build_support/layout/ltcg/large_player_dependencies/menu.cpp",
     "build_support/layout/ltcg/large_player_dependencies/caller.cpp",
-    "src/game/player/recovery_create_large_resource_state.cpp"
+    "src/game/player/player_create_state.cpp"
   ],
   "headers": [
     "include/th10/game/large_player_native.hpp",

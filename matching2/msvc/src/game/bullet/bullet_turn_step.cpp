@@ -1,28 +1,17 @@
-// 0x00407A30: aim toward the player and decelerate between speed resets.
-#include <math.h>
-#include "th10/math/angle.hpp"
+// 0x00407780: turn by a fixed angle and decelerate between speed resets.
 #include "th10/platform/sound_queue.hpp"
 extern "C" float flt_0_99, flt_1_01, g_game_speed;
 #include "th10/game/bullet_deceleration.hpp"
-#include "th10/game/player.hpp"
-extern "C" float flt_0;
-#pragma code_seg(".text$01haim")
-void BulletDeceleration::AimStep() {
+#pragma code_seg(".text$01bullet")
+void BulletDeceleration::TurnStep() {
     int length = duration;
     float magnitude;
     if (current >= length) {
         if (sound_id >= 0)
             g_sound_manager.Queue(sound_id, 0);
         if (++iteration >= limit)
-            flags &= ~0x80u;
-        double dx = g_player->position.x - position_x;
-        double dy = g_player->position.y - position_y;
-        float heading;
-        if (dy == flt_0 && dx == flt_0)
-            heading = 1.57079637f;
-        else
-            heading = (float)atan2(dy, dx);
-        angle = Angle_NormalizeSum(heading, angle_step);
+            flags &= ~BULLET_EX_TURN;
+        angle = angle_step + angle;
         magnitude = speed = next_speed;
         unsigned int initial_flags = timer_flags;
         if (!(initial_flags & 1)) {
@@ -45,8 +34,8 @@ void BulletDeceleration::AimStep() {
         ++current;
         elapsed += 1.0f;
     } else {
-        const volatile float& old_elapsed = elapsed;
-        current = int(elapsed = old_elapsed + *(const float*)time_scale);
+        float step = *time_scale;
+        current = int(elapsed = step + elapsed);
     }
 }
 #pragma code_seg()

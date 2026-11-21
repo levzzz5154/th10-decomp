@@ -1,11 +1,11 @@
 {
   "schema_version": 1,
   "name": "window_midi_native",
-  "source": "src/core/main/fun.cpp_4390e0.cpp",
+  "source": "src/core/main/window_procedure.cpp",
   "additional_sources": [
-    "src/core/midilib/fun.cpp_43aeb0.cpp",
-    "src/core/midilib/fun.cpp_43ae20.cpp",
-    "src/core/midilib/fun.cpp_43a910.cpp"
+    "src/core/midilib/midi_complete_header.cpp",
+    "src/core/midilib/midi_shutdown.cpp",
+    "src/core/midilib/midi_cleanup.cpp"
   ],
   "headers": [
     "include/th10/platform/window_midi_native.hpp",
@@ -19,7 +19,7 @@
   "functions": [
     {
       "name": "WindowProcedure",
-      "source": "src/core/main/fun.cpp_4390e0.cpp",
+      "source": "src/core/main/window_procedure.cpp",
       "symbol": "_WindowProcedure@16",
       "section": ".text$10window",
       "address": "0x004390E0",
@@ -28,7 +28,7 @@
     },
     {
       "name": "ShutdownMidi",
-      "source": "src/core/midilib/fun.cpp_43ae20.cpp",
+      "source": "src/core/midilib/midi_shutdown.cpp",
       "symbol": "_ShutdownMidi@4",
       "section": ".text$18shutdown",
       "address": "0x0043AE20",
@@ -37,7 +37,7 @@
     },
     {
       "name": "CompleteMidiHeader2",
-      "source": "src/core/midilib/fun.cpp_43aeb0.cpp",
+      "source": "src/core/midilib/midi_complete_header.cpp",
       "symbol": "_CompleteMidiHeader2@8",
       "section": ".text$20complete",
       "address": "0x0043AEB0",
@@ -46,7 +46,7 @@
     },
     {
       "name": "CleanupMidi",
-      "source": "src/core/midilib/fun.cpp_43a910.cpp",
+      "source": "src/core/midilib/midi_cleanup.cpp",
       "symbol": "_CleanupMidi@4",
       "section": ".text$16destroy",
       "address": "0x0043A910",

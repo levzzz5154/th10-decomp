@@ -4,7 +4,7 @@
 #include "../../../../src/core/zwave/sound_stream_create_file.cpp"
 #include "stop.cpp"
 #include "../sound_interfaces_dependencies/fill.cpp"
-#include "../../../../src/core/zwave/recovery_initialize_single_interface.cpp"
+#include "../../../../src/core/zwave/sound_stream_init_single.cpp"
 #include "open.cpp"
 #include "../sound_interfaces_dependencies/rewind.cpp"
 #include "../sound_interfaces_dependencies/read.cpp"

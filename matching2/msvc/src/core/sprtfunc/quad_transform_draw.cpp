@@ -36,8 +36,8 @@ int EntityDraw5(RenderEntity* entity, SprtCtrlBatchView* manager) {
     RenderMatrix4x4 tex_matrix;
 
     unsigned int flags = entity->flags;
-    if (!(flags & 1)) return -1;
-    if (!(flags & 2)) return -1;
+    if (!(flags & RENDER_FLAG_VISIBLE)) return -1;
+    if (!(flags & RENDER_FLAG_ACTIVE)) return -1;
     if (((const unsigned char*)&entity->color)[3] == 0) return -1;
 
     if (manager->quad_count) manager->Flush();
@@ -67,28 +67,28 @@ int EntityDraw5(RenderEntity* entity, SprtCtrlBatchView* manager) {
 
     RenderEntityMatrixView* const view = (RenderEntityMatrixView*)entity;
     world = view->world_transform;
-    switch ((entity->flags >> 18) & 3u) {
-    case 0:
+    switch ((entity->flags >> RENDER_FLAG_ANCHOR_X_SHIFT) & RENDER_FLAG_ANCHOR_MASK) {
+    case ANCHOR_X_CENTER:
         world.m[12] = entity->render_offset.x + entity->position.x + entity->base_position.x;
         break;
-    case 1:
+    case ANCHOR_X_LEFT:
         world.m[12] = (entity->render_offset.x + entity->position.x + entity->base_position.x)
                     - fabsf(entity->sprite_width * entity->scale_x * 0.5f);
         break;
-    case 2:
+    case ANCHOR_X_RIGHT:
         world.m[12] = fabsf(entity->sprite_width * entity->scale_x * 0.5f)
                     + entity->render_offset.x + entity->position.x + entity->base_position.x;
         break;
     }
-    switch ((entity->flags >> 20) & 3u) {
-    case 0:
+    switch ((entity->flags >> RENDER_FLAG_ANCHOR_Y_SHIFT) & RENDER_FLAG_ANCHOR_MASK) {
+    case ANCHOR_Y_CENTER:
         world.m[13] = entity->render_offset.y + entity->position.y + entity->base_position.y;
         break;
-    case 1:
+    case ANCHOR_Y_TOP:
         world.m[13] = (entity->render_offset.y + entity->position.y + entity->base_position.y)
                     - fabsf(entity->sprite_height * entity->scale_y * 0.5f);
         break;
-    case 2:
+    case ANCHOR_Y_BOTTOM:
         world.m[13] = fabsf(entity->sprite_height * entity->scale_y * 0.5f)
                     + entity->render_offset.y + entity->position.y + entity->base_position.y;
         break;

@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "name": "score_gauge_publish",
-  "source": "src/game/player/fun.cpp",
+  "source": "src/game/player/player_set_fixed_position.cpp",
   "driver": "build_support/layout/ltcg/score_gauge_publish_00428e10_context.cpp",
   "headers": [
     "include/th10/game/player.hpp",

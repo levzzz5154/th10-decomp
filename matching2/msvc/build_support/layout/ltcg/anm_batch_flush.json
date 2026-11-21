@@ -45,7 +45,7 @@
       "address": "0x00405300",
       "size": 60,
       "actual_abi": "state in ESI; index in EBX; plain RET",
-      "source": "src/game/background/fun.cpp"
+      "source": "src/game/background/render_stage_select_default.cpp"
     },
     {
       "name": "CardRuntime_ReleaseFlaggedEntityArrays",
@@ -103,7 +103,7 @@
     },
     {
       "name": "ClearAndPresentTwice",
-      "source": "src/core/screen/recovery_reset_device_streams.cpp",
+      "source": "src/core/screen/clear_and_present_twice.cpp",
       "symbol": "?ClearAndPresentTwice@@YGHI@Z",
       "section": ".text$01aclear",
       "address": "0x0043BC40",
@@ -112,7 +112,7 @@
     },
     {
       "name": "ApplyDefaultViewport",
-      "source": "src/core/screen/viewport_apply_default_retail.cpp",
+      "source": "src/core/screen/viewport_apply_default.cpp",
       "symbol": "?ApplyDefaultViewport@@YGHI@Z",
       "section": ".text$01capply",
       "address": "0x0043BCD0",
@@ -256,7 +256,7 @@
     },
     {
       "name": "EntityDraw4",
-      "source": "src/core/sprtfunc/fun.cpp_444580.cpp",
+      "source": "src/core/sprtfunc/projected_quad_draw.cpp",
       "symbol": "_EntityDraw4@8",
       "section": ".text$06b07fade",
       "address": "0x444580",
@@ -1270,9 +1270,9 @@
   "additional_sources": [
     "src/core/screen/draws.cpp",
     "src/game/laser/laser_line_draw.cpp",
-    "src/game/background/fun.cpp",
+    "src/game/background/render_stage_select_default.cpp",
     "src/game/front/game_state_overlay_draw.cpp",
-    "src/core/screen/recovery_reset_device_streams.cpp",
+    "src/core/screen/clear_and_present_twice.cpp",
     "src/game/card/card_release_flagged_entities.cpp",
     "src/game/card/card_release_flagged_entity_arrays.cpp",
     "src/game/card/card_run_array_release_callback.cpp",
@@ -1286,7 +1286,7 @@
     "src/game/mother/camera_setup.cpp",
     "src/core/sprtfunc/edge_strip_draw.cpp",
     "src/core/sprtfunc/entity_submit_projected.cpp",
-    "src/core/sprtfunc/fun.cpp_444580.cpp",
+    "src/core/sprtfunc/projected_quad_draw.cpp",
     "src/core/sprtfunc/quad_build_rotated.cpp",
     "src/core/sprtfunc/quad_transform_draw.cpp",
     "src/core/sprtfunc/quad_vertex_append.cpp",
@@ -1296,7 +1296,7 @@
     "src/core/screen/special_quad.cpp",
     "src/core/sprtfunc/sprite_quad_submit.cpp",
     "src/core/sprtfunc/sprite_quad_submit_mirrored.cpp",
-    "src/core/screen/viewport_apply_default_retail.cpp",
+    "src/core/screen/viewport_apply_default.cpp",
     "src/game/laser/laser_grow_draw.cpp",
     "src/game/mother/app_on_draw_flush.cpp",
     "src/core/sprtfunc/render_entity_draw_fan.cpp",

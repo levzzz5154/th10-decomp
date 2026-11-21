@@ -5,55 +5,76 @@
 // 0x0042C580: the scheduler callback, a tail jump with the screen in ECX.
 #include "th10/game/spt_test_update.hpp"
 
+enum SptTestState {
+    SPTTEST_STATE_INIT = 0,
+    SPTTEST_STATE_MENU = 1,
+    SPTTEST_STATE_LOADING = 2,
+    SPTTEST_STATE_RUNNING = 4
+};
+
+enum SptTestMenuItem {
+    SPTTEST_ITEM_FILE = 0,
+    SPTTEST_ITEM_ENTRY = 1,
+    SPTTEST_ITEM_QUIT = 2
+};
+
+enum SptTestKeyMask {
+    SPTTEST_KEY_UP = 0x0010,
+    SPTTEST_KEY_DOWN = 0x0020,
+    SPTTEST_KEY_LEFT = 0x0040,
+    SPTTEST_KEY_RIGHT = 0x0080,
+    SPTTEST_KEY_CONFIRM = 0x1001
+};
+
 #pragma code_seg(".text$b1update")
 int SptTest2::Update() {
     SptTestFindData find;
     switch (state) {
-    case 4:
+    case SPTTEST_STATE_RUNNING:
         SptTest_TickVm(resource, 1.0f);
         if (resource && resource->active->running) break;
         if (resource) resource->Retire(1);
         resource = 0;
-        state = 1;
+        state = SPTTEST_STATE_MENU;
         break;
-    case 1:
+    case SPTTEST_STATE_MENU:
         SptTest_Remember(&menu);
-        if (g_input_keys_raw.Active(0x20)) menu.Advance(1);
-        if (g_input_keys_raw.Active(0x10)) menu.Advance(-1);
+        if (g_input_keys_raw.Active(SPTTEST_KEY_DOWN)) menu.Advance(1);
+        if (g_input_keys_raw.Active(SPTTEST_KEY_UP)) menu.Advance(-1);
         switch (menu.selection) {
-        case 2:
-            if (g_input_keys_raw.repeated & 0x1001)
+        case SPTTEST_ITEM_QUIT:
+            if (g_input_keys_raw.repeated & SPTTEST_KEY_CONFIRM)
                 SptTest_SetGameMode(&g_application, 3);
             break;
-        case 1:
+        case SPTTEST_ITEM_ENTRY:
             if (parser) {
                 SptTest_Remember(&entry_cursor);
-                if (g_input_keys_raw.MaskActive(0x80)) entry_cursor.Advance(1);
-                if (g_input_keys_raw.MaskActive(0x40)) entry_cursor.Advance(-1);
-                if (g_input_keys_raw.pressed & 0x1001) {
+                if (g_input_keys_raw.MaskActive(SPTTEST_KEY_RIGHT)) entry_cursor.Advance(1);
+                if (g_input_keys_raw.MaskActive(SPTTEST_KEY_LEFT)) entry_cursor.Advance(-1);
+                if (g_input_keys_raw.pressed & SPTTEST_KEY_CONFIRM) {
                     if (resource) {
                         resource->Retire(1);
                         resource = 0;
                     }
                     const char* name = parser->entries[entry_cursor.selection].name;
                     resource = parser->CreateVm(name);
-                    state = 4;
+                    state = SPTTEST_STATE_RUNNING;
                 }
             }
             break;
-        case 0:
+        case SPTTEST_ITEM_FILE:
             SptTest_Remember(&file_cursor);
-            if (g_input_keys_raw.Active(0x80)) file_cursor.Advance(1);
-            if (g_input_keys_raw.Active(0x40)) file_cursor.Advance(-1);
-            if (g_input_keys_raw.repeated & 0x1001) {
+            if (g_input_keys_raw.Active(SPTTEST_KEY_RIGHT)) file_cursor.Advance(1);
+            if (g_input_keys_raw.Active(SPTTEST_KEY_LEFT)) file_cursor.Advance(-1);
+            if (g_input_keys_raw.repeated & SPTTEST_KEY_CONFIRM) {
                 flags &= ~2u;
                 reinterpret_cast<PlatformWorker*>(&worker)->Start(this, SptTest_LoadThread);
-                state = 2;
+                state = SPTTEST_STATE_LOADING;
             }
             break;
         }
         break;
-    case 0: {
+    case SPTTEST_STATE_INIT: {
         ClearScriptNames();
         int count = 0;
         void* search = FindFirstFileA("../../data/*.ecl", &find);
@@ -83,7 +104,7 @@ int SptTest2::Update() {
         entry_cursor.item_count = 1;
         entry_cursor.wrap = 1;
         SptTest_Select(entry_cursor, 0);
-        state = 1;
+        state = SPTTEST_STATE_MENU;
         position_x = 0.0f;
         position_y = 32.0f;
         position_z = 0.0f;

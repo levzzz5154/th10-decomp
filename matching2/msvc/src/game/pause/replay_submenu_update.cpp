@@ -27,22 +27,51 @@ __forceinline void SelectInList(SubmenuCursor* cursor, int item) {
         cursor->selection = item;
 }
 
+enum SubmenuStateId {
+    SUBMENU_WAIT_ENTRY = 6,
+    SUBMENU_SETUP_SCORE = 7,
+    SUBMENU_SAVE_CHOICE = 8,
+    SUBMENU_REPLAY_BROWSER = 10,
+    SUBMENU_REPLAY_NAME_EDITOR = 11,
+    SUBMENU_SCORE_NAME_EDITOR = 12,
+    SUBMENU_FINAL_EXIT = 13,
+    SUBMENU_CLOSED = 21
+};
+
+enum SubmenuKeyMask {
+    KEY_CONFIRM = 0x1001,
+    KEY_CANCEL = 0x000A,
+    KEY_UP = 0x0010,
+    KEY_DOWN = 0x0020,
+    KEY_LEFT = 0x0040,
+    KEY_RIGHT = 0x0080
+};
+
+enum SubmenuSfxId {
+    SFX_CONFIRM = 10,
+    SFX_CANCEL = 11,
+    SFX_MOVE = 12,
+    SFX_REPLAY_SAVED = 44
+};
+
 #pragma code_seg(".text$02h")
+// MATCH: named single-use bool predicates (e.g. `entry_delay`, `rows_up`)
+// reach retail's OptCmpHashVal symbol-table slab so MSVC selects identical SIB bytes.
 extern "C" __declspec(noinline) void __stdcall SubmenuUpdate(SubmenuState* state) {
     char path[64];
     switch (state->state) {
-    case 6:
+    case SUBMENU_WAIT_ENTRY:
         // The confirm gate: after ten ticks, sound 10 and start the setup.
         { bool entry_delay = state->timer.field_04 < 10;
         if (entry_delay) break; }
-        { bool gate_idle = (g_input_keys_held & 0x1001) == 0;
+        { bool gate_idle = (g_input_keys_held & KEY_CONFIRM) == 0;
         if (gate_idle) break; }
-        g_sound_manager.Queue(10, 0);
-        state->state = 7;
+        g_sound_manager.Queue(SFX_CONFIRM, 0);
+        state->state = SUBMENU_SETUP_SCORE;
         state->background.SetStopFrame(2);
         state->timer.SetSchedulerValue(0);
         return;
-    case 7:
+    case SUBMENU_SETUP_SCORE:
         { bool setup_delay = state->timer.field_04 < 10;
         if (setup_delay) break; }
         SubUpdateFrameMaximum(g_front);
@@ -55,7 +84,7 @@ extern "C" __declspec(noinline) void __stdcall SubmenuUpdate(SubmenuState* state
             bool new_high_score = g_globals_score.score > *slot;
             if (new_high_score)
                 *slot = g_globals_score.score;
-            state->state = 8;
+            state->state = SUBMENU_SAVE_CHOICE;
             state->rows.item_count = 3;
             state->rows.wrap = 1;
             SelectInList(&state->rows, 2);
@@ -67,48 +96,48 @@ extern "C" __declspec(noinline) void __stdcall SubmenuUpdate(SubmenuState* state
         state->timer.SetSchedulerValue(0);
         { bool plain_entry = state->no_entry == 0;
         if (plain_entry) {
-            state->state = 12;
+            state->state = SUBMENU_SCORE_NAME_EDITOR;
             reinterpret_cast<SubAnimNode&>(state->background).ClearFlag();
             return;
         } }
-        state->state = 8;
+        state->state = SUBMENU_SAVE_CHOICE;
         state->rows.item_count = 3;
         state->rows.wrap = 1;
         SelectInList(&state->rows, 2);
         state->background.StopAtFrame3();
         state->background.SetStopFrame((unsigned short)(state->rows.selection + 7));
         return;
-    case 8: {
+    case SUBMENU_SAVE_CHOICE: {
         // The save choice: navigate, confirm into the replay browser or the
         // alternate flow, cancel back to the three rows.
         SubmenuCursor* rows = &state->rows;
         rows->previous_selection = rows->selection;
-        bool rows_up = ChoiceInputActive(&g_input_keys_raw, 0x10) != 0;
+        bool rows_up = ChoiceInputActive(&g_input_keys_raw, KEY_UP) != 0;
         if (rows_up)
             rows->Advance(-1);
-        bool rows_down = ChoiceInputActive(&g_input_keys_raw, 0x20) != 0;
+        bool rows_down = ChoiceInputActive(&g_input_keys_raw, KEY_DOWN) != 0;
         if (rows_down)
             rows->Advance(1);
         bool rows_moved = rows->previous_selection != rows->selection;
         if (rows_moved) {
             state->background.SetStopFrame((unsigned short)rows->selection + 7);
-            g_sound_manager.Queue(12, 0);
+            g_sound_manager.Queue(SFX_MOVE, 0);
         }
-        bool rows_confirm = (g_input_keys_held & 0x1001) != 0;
+        bool rows_confirm = (g_input_keys_held & KEY_CONFIRM) != 0;
         if (rows_confirm) {
             // The rows selection is derived at each live point: the child
             // lookup id here and the dispatch switch after the setup calls
             // (retail reads the cursor twice).
             int id = rows->selection;
             state->background.FindChildRef(id + 0x7C).StopAtFrame6();
-            g_sound_manager.Queue(10, 0);
-            state->state = 13;
+            g_sound_manager.Queue(SFX_CONFIRM, 0);
+            state->state = SUBMENU_FINAL_EXIT;
             state->timer.SetSchedulerValue(0);
             SubUpdateFrameMaximum(g_front);
             id = rows->selection;
             switch (id) {
             case 1:
-                state->state = 10;
+                state->state = SUBMENU_REPLAY_BROWSER;
                 state->timer.SetSchedulerValue(0);
                 reinterpret_cast<SubAnimNode&>(state->background).ClearFlag();
                 rows->PushSelection();
@@ -121,15 +150,15 @@ extern "C" __declspec(noinline) void __stdcall SubmenuUpdate(SubmenuState* state
                 }
             break;
             case 2:
-                state->state = 13;
+                state->state = SUBMENU_FINAL_EXIT;
                 state->timer.SetSchedulerValue(0);
-                g_sound_manager.Queue(10, 0);
+                g_sound_manager.Queue(SFX_CONFIRM, 0);
                 break;
             }
         }
-        bool rows_cancel = (g_input_keys_held & 0xA) != 0;
+        bool rows_cancel = (g_input_keys_held & KEY_CANCEL) != 0;
         if (rows_cancel) {
-            g_sound_manager.Queue(11, 0);
+            g_sound_manager.Queue(SFX_CANCEL, 0);
             bool not_cancel_row = rows->selection != 2;
             if (not_cancel_row) {
                 SelectInList(rows, 2);
@@ -138,7 +167,7 @@ extern "C" __declspec(noinline) void __stdcall SubmenuUpdate(SubmenuState* state
         }
         return;
     }
-    case 10:
+    case SUBMENU_REPLAY_BROWSER:
         // Replay-row browsing over the rows cursor; confirming hands the
         // shared list cursor over to the keyboard editor.
         { bool browser_delay = state->timer.field_04 < 10;
@@ -146,18 +175,18 @@ extern "C" __declspec(noinline) void __stdcall SubmenuUpdate(SubmenuState* state
         {
         SubmenuCursor* rows = &state->rows;
         rows->previous_selection = rows->selection;
-        bool browser_up = (short)g_input_keys_raw.InputMaskActive(0x10) != 0;
+        bool browser_up = (short)g_input_keys_raw.InputMaskActive(KEY_UP) != 0;
         if (browser_up)
             rows->Advance(-1);
-        bool browser_down = (short)g_input_keys_raw.InputMaskActive(0x20) != 0;
+        bool browser_down = (short)g_input_keys_raw.InputMaskActive(KEY_DOWN) != 0;
         if (browser_down)
             rows->Advance(1);
         bool browser_moved = rows->previous_selection != rows->selection;
         if (browser_moved)
-            g_sound_manager.Queue(12, 0);
-        bool browser_confirm = (g_input_keys_held & 0x1001) != 0;
+            g_sound_manager.Queue(SFX_MOVE, 0);
+        bool browser_confirm = (g_input_keys_held & KEY_CONFIRM) != 0;
         if (browser_confirm) {
-            state->state = 11;
+            state->state = SUBMENU_REPLAY_NAME_EDITOR;
             state->timer.SetSchedulerValue(0);
             SubmenuCursor* list = &state->list;
             SelectInList(list, 0);
@@ -189,13 +218,13 @@ extern "C" __declspec(noinline) void __stdcall SubmenuUpdate(SubmenuState* state
             } while (length > 0);
 timed_length:
             state->name_length = length;
-            g_sound_manager.Queue(10, 0);
+            g_sound_manager.Queue(SFX_CONFIRM, 0);
             return;
         }
-        bool browser_cancel = (g_input_keys_held & 0xA) != 0;
+        bool browser_cancel = (g_input_keys_held & KEY_CANCEL) != 0;
         if (browser_cancel) {
             // Cancel: release the 25 replay managers and restore the rows.
-            state->state = 8;
+            state->state = SUBMENU_SAVE_CHOICE;
             state->timer.SetSchedulerValue(0);
             reinterpret_cast<SubAnimNode&>(state->background).SetFlag();
             state->rows.PopSelection();
@@ -211,32 +240,32 @@ timed_length:
                 }
                 state->handles[index] = 0;
             }
-            state->state = 8;
+            state->state = SUBMENU_SAVE_CHOICE;
             state->timer.SetSchedulerValue(0);
-            g_sound_manager.Queue(11, 0);
+            g_sound_manager.Queue(SFX_CANCEL, 0);
         }
         return;
     }
-    case 11: {
+    case SUBMENU_REPLAY_NAME_EDITOR: {
         // The 13-column keyboard editor: letters, space, backspace, save.
         bool editor_delay = state->timer.field_04 < 10;
         if (editor_delay) break;
         SubmenuCursor* list = &state->list;
         list->previous_selection = list->selection;
-        bool editor_up = (short)g_input_keys_raw.InputMaskActive(0x10) != 0;
+        bool editor_up = (short)g_input_keys_raw.InputMaskActive(KEY_UP) != 0;
         if (editor_up)
             list->Advance(-13);
-        bool editor_down = (short)g_input_keys_raw.InputMaskActive(0x20) != 0;
+        bool editor_down = (short)g_input_keys_raw.InputMaskActive(KEY_DOWN) != 0;
         if (editor_down)
             list->Advance(13);
-        bool editor_left = (short)g_input_keys_raw.InputMaskActive(0x40) != 0;
+        bool editor_left = (short)g_input_keys_raw.InputMaskActive(KEY_LEFT) != 0;
         if (editor_left) {
             if (list->selection % 13)
                 list->Advance(-1);
             else
                 list->Advance(12);
         }
-        bool editor_right = (short)g_input_keys_raw.InputMaskActive(0x80) != 0;
+        bool editor_right = (short)g_input_keys_raw.InputMaskActive(KEY_RIGHT) != 0;
         if (editor_right) {
             if (list->selection % 13 != 12)
                 list->Advance(1);
@@ -245,8 +274,8 @@ timed_length:
         }
         bool editor_moved = list->previous_selection != list->selection;
         if (editor_moved)
-            g_sound_manager.Queue(12, 0);
-        bool editor_confirm = (g_input_keys_held & 0x1001) != 0;
+            g_sound_manager.Queue(SFX_MOVE, 0);
+        bool editor_confirm = (g_input_keys_held & KEY_CONFIRM) != 0;
         if (editor_confirm) {
             const char* grid = g_name_entry_grid;
             int length = (int)strlen(grid);
@@ -278,32 +307,32 @@ timed_length:
                     return;
                 --state->name_length;
                 state->name[state->name_length] = ' ';
-                g_sound_manager.Queue(11, 0);
+                g_sound_manager.Queue(SFX_CANCEL, 0);
                 return;
             } else if (selection == length - 1) {
                 // The save column: serialize the replay under the typed name.
-                g_sound_manager.Queue(44, 0);
+                g_sound_manager.Queue(SFX_REPLAY_SAVED, 0);
                 asm_sprintf_00452ae8(path, "th10_%.2d.rpy", state->rows.selection + 1);
                 SubPlatformResource_Destroy(
                     reinterpret_cast<PlatformResource*>(state->handles[state->rows.selection]));
                 asm_FUN_00429b60_00429b60(g_replay, path, state->name);
                 int save_row = state->rows.selection;
                 state->handles[save_row] = ReplayManager_Create3(path);
-                state->state = 10;
+                state->state = SUBMENU_REPLAY_BROWSER;
                 state->timer.SetSchedulerValue(0);
                 strcpy(g_score->last_name, state->name);
                 return;
             }
             // The letter/space cells queue the append sound and fall through
             // to the cancel test in the same frame.
-            g_sound_manager.Queue(10, 0);
+            g_sound_manager.Queue(SFX_CONFIRM, 0);
         }
-        bool editor_cancel = (g_input_keys_held & 0xA) != 0;
+        bool editor_cancel = (g_input_keys_held & KEY_CANCEL) != 0;
         if (editor_cancel) {
-            g_sound_manager.Queue(11, 0);
+            g_sound_manager.Queue(SFX_CANCEL, 0);
             bool has_letters = state->name_length != 0;
             if (!has_letters) {
-                state->state = 10;
+                state->state = SUBMENU_REPLAY_BROWSER;
                 state->timer.SetSchedulerValue(0);
             } else {
                 --state->name_length;
@@ -313,7 +342,7 @@ timed_length:
         }
         return;
     }
-    case 12: {
+    case SUBMENU_SCORE_NAME_EDITOR: {
         // The alternate keyboard path; the no_entry latch swaps the editing
         // pass for the task re-registration.
         if (state->timer.field_04 < 10) break;
@@ -321,26 +350,26 @@ timed_length:
         if (plain_editing) {
             SubmenuCursor* list = &state->list;
             list->previous_selection = list->selection;
-            if ((short)g_input_keys_raw.InputMaskActive(0x10))
+            if ((short)g_input_keys_raw.InputMaskActive(KEY_UP))
                 list->Advance(-13);
-            if ((short)g_input_keys_raw.InputMaskActive(0x20))
+            if ((short)g_input_keys_raw.InputMaskActive(KEY_DOWN))
                 list->Advance(13);
-            if ((short)g_input_keys_raw.InputMaskActive(0x40)) {
+            if ((short)g_input_keys_raw.InputMaskActive(KEY_LEFT)) {
                 if (list->selection % 13)
                     list->Advance(-1);
                 else
                     list->Advance(12);
             }
-            if ((short)g_input_keys_raw.InputMaskActive(0x80)) {
+            if ((short)g_input_keys_raw.InputMaskActive(KEY_RIGHT)) {
                 if (list->selection % 13 != 12)
                     list->Advance(1);
                 else
                     list->Advance(-12);
             }
             if (list->previous_selection != list->selection)
-                g_sound_manager.Queue(12, 0);
+                g_sound_manager.Queue(SFX_MOVE, 0);
         }
-        bool editor_confirm = (g_input_keys_held & 0x1001) != 0;
+        bool editor_confirm = (g_input_keys_held & KEY_CONFIRM) != 0;
         if (editor_confirm) {
             if (state->no_entry == 0) {
                 const char* grid = g_name_entry_grid;
@@ -377,18 +406,18 @@ timed_length:
                     strcpy(slot, state->name);
                     strcpy(g_score->last_name, state->name);
                     reinterpret_cast<SubAnimNode&>(state->background).SetFlag();
-                    state->state = 8;
+                    state->state = SUBMENU_SAVE_CHOICE;
                     state->rows.item_count = 3;
                     state->rows.wrap = 1;
                     SelectInList(&state->rows, 0);
                     state->background.StopAtFrame3();
                     state->background.SetStopFrame((short)(state->rows.selection + 7));
                 }
-                g_sound_manager.Queue(10, 0);
+                g_sound_manager.Queue(SFX_CONFIRM, 0);
                 goto cancel_check;
             }
             reinterpret_cast<SubAnimNode&>(state->background).SetFlag();
-            state->state = 8;
+            state->state = SUBMENU_SAVE_CHOICE;
             state->rows.item_count = 3;
             state->rows.wrap = 1;
             SelectInList(&state->rows, 0);
@@ -396,28 +425,28 @@ timed_length:
             state->background.SetStopFrame((short)(state->rows.selection + 7));
         }
         cancel_check:
-        if (g_input_keys_held & 0xA) {
+        if (g_input_keys_held & KEY_CANCEL) {
             if (state->rows.selection >= 0) {
                 if (state->name_length == 0)
                     return;
-                g_sound_manager.Queue(11, 0);
+                g_sound_manager.Queue(SFX_CANCEL, 0);
                 --state->name_length;
                 state->name[state->name_length] = ' ';
                 return;
             }
-            state->state = 8;
+            state->state = SUBMENU_SAVE_CHOICE;
             state->rows.item_count = 3;
             SelectInList(&state->rows, 0);
             state->timer.SetSchedulerValue(0);
-            g_sound_manager.Queue(10, 0);
+            g_sound_manager.Queue(SFX_CONFIRM, 0);
         }
         return;
     }
-    case 13:
+    case SUBMENU_FINAL_EXIT:
         // The final choice: 0 launches the next scene, 1/2 set the input mode.
         if (state->timer.field_04 < 12) break;
         reinterpret_cast<SubTimedState*>(state)->InitializeTimedState();
-        state->state = 21;
+        state->state = SUBMENU_CLOSED;
         switch (state->rows.selection) {
         case 0:
             g_main_state = state->extra_cleared != 0 ? 10 : 13;
@@ -433,21 +462,3 @@ timed_length:
     }
 }
 #pragma code_seg()
-
-// The private-ABI dependency bodies, co-compiled into this cluster and
-// anchored at their retail addresses.
-#include "../../../build_support/layout/ltcg/replay_submenu/find.cpp"
-#include "../../../build_support/layout/ltcg/replay_submenu/setstop.cpp"
-#include "../../../build_support/layout/ltcg/replay_submenu/child.cpp"
-#include "../../../build_support/layout/ltcg/replay_submenu/mark6.cpp"
-#include "../../../build_support/layout/ltcg/replay_submenu/stop3.cpp"
-#include "../../../build_support/layout/ltcg/replay_submenu/stop1.cpp"
-#include "../../../build_support/layout/ltcg/replay_submenu/nodeflag.cpp"
-#include "../../../build_support/layout/ltcg/replay_submenu/inputmode.cpp"
-#include "../../../build_support/layout/ltcg/replay_submenu/timer.cpp"
-#include "../../../build_support/layout/ltcg/replay_submenu/queue.cpp"
-#include "../../../build_support/layout/ltcg/replay_submenu/cursor.cpp"
-#include "../../../build_support/layout/ltcg/replay_submenu/frame.cpp"
-#include "../../../build_support/layout/ltcg/replay_submenu/timed.cpp"
-#include "../../../build_support/layout/ltcg/replay_submenu/destroy.cpp"
-#include "../../../build_support/layout/ltcg/replay_submenu/mask.cpp"

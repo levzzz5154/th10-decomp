@@ -159,10 +159,13 @@
       "kind": "data"
     }
   ],
-  "source": "src/game/mother/main_task_tick_wave18.cpp",
+  "source": "src/game/mother/main_task_tick.cpp",
+  "compilation_units": {
+    "src/game/mother/main_task_tick.cpp": "build_support/layout/units/main_task_tick_unit.cpp"
+  },
   "additional_sources": [
     "src/game/mother/main_task_update_mode.cpp",
-    "src/game/mother/sound_fade_tick_wave18.cpp",
+    "src/game/mother/sound_fade_tick.cpp",
     "src/core/zwave/platform_set_operation_deadline.cpp",
     "src/core/zwave/sound_fade_steps.cpp"
   ],
@@ -175,7 +178,7 @@
       "address": "0x0041FF80",
       "size": 113,
       "actual_abi": "owner ECX; no stack arguments; plain RET",
-      "source": "src/game/mother/main_task_tick_wave18.cpp"
+      "source": "src/game/mother/main_task_tick.cpp"
     },
     {
       "name": "MainTaskUpdateMode",
@@ -193,7 +196,7 @@
       "address": "0x00421E00",
       "size": 225,
       "actual_abi": "owner EAX; plain RET",
-      "source": "src/game/mother/sound_fade_tick_wave18.cpp"
+      "source": "src/game/mother/sound_fade_tick.cpp"
     },
     {
       "name": "PlatformInterfaceState_0044D4E0_SetOperationDeadline",

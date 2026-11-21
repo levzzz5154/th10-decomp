@@ -1,5 +1,5 @@
 // Compiler context only; never selected as recovered game code.
-#include "../../../src/unreferenced/FUN.cpp_4356c0.cpp"
+#include "../../../src/unreferenced/fun_4356c0.cpp"
 
 #pragma code_seg(".text$03context")
 int __stdcall InstallVtableCompilerContext(FileInterface2** objects, int count) {

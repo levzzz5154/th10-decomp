@@ -15,15 +15,15 @@ int ItemSpawnManager::ConvertItems() {
         if (item->motion.state == Inactive)
             continue;
         int kind = item->motion.kind;
-        if (kind != 1 && kind != 4)
+        if (kind != ITEM_POWER_SMALL && kind != ITEM_POWER_LARGE)
             continue;
         item->motion.state = Inactive;
-        if (kind == 1) {
-            Spawn(&item->motion.position, 9, -1, -1.5707964f, 2.2f);
-        } else if (kind == 4) {
-            Spawn(&item->motion.position, 9, -1, -1.5707964f, 2.2f);
-        } else if (kind == 10 || kind == 11) {
-            Spawn(&item->motion.position, 5, -1, -1.5707964f, 2.2f);
+        if (kind == ITEM_POWER_SMALL) {
+            Spawn(&item->motion.position, ITEM_FAITH_CONVERTED, -1, -1.5707964f, 2.2f);
+        } else if (kind == ITEM_POWER_LARGE) {
+            Spawn(&item->motion.position, ITEM_FAITH_CONVERTED, -1, -1.5707964f, 2.2f);
+        } else if (kind == ITEM_POWER_SMALL_BOSS || kind == ITEM_POWER_LARGE_BOSS) {
+            Spawn(&item->motion.position, ITEM_POINT_FULL_POWER, -1, -1.5707964f, 2.2f);
         } else {
             continue;
         }

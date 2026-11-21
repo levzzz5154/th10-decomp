@@ -1,4 +1,4 @@
-#include "../../../src/core/main/fun.cpp_4390e0.cpp"
+#include "../../../src/core/main/window_procedure.cpp"
 extern "C" __declspec(noinline) int ShutdownMidi(MidiSequencer*);
 extern "C" unsigned char* __stdcall ShutdownReadFile(const char*,int*,int);
 struct ShutdownTextLog { char* Append(char*, ...); };

@@ -1,9 +1,9 @@
 {
   "schema_version": 1,
   "name": "split_resource_path_0041a050",
-  "source": "src/game/hint/recovery_split_resource_path.cpp",
+  "source": "src/game/hint/hint_split_resource_path.cpp",
   "additional_sources": [
-    "src/game/hint/recovery_trim_whitespace.cpp"
+    "src/game/hint/hint_trim_whitespace.cpp"
   ],
   "driver": "build_support/layout/ltcg/split_resource_path_0041a050_context.cpp",
   "headers": [],
@@ -17,7 +17,7 @@
       "address": "0x0041A050",
       "size": 75,
       "actual_abi": "line in EAX; value in EBX; key in EDI; plain RET through tail jumps",
-      "source": "src/game/hint/recovery_split_resource_path.cpp"
+      "source": "src/game/hint/hint_split_resource_path.cpp"
     },
     {
       "name": "TrimWhitespace",
@@ -26,7 +26,7 @@
       "address": "0x0041A0A0",
       "size": 114,
       "actual_abi": "text in EAX; result in EAX; plain RET",
-      "source": "src/game/hint/recovery_trim_whitespace.cpp"
+      "source": "src/game/hint/hint_trim_whitespace.cpp"
     }
   ],
   "context": {

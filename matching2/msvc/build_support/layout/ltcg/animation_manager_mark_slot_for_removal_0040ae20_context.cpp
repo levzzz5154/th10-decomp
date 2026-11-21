@@ -1,5 +1,5 @@
 // Compiler context only; its bytes are not recovered game code.
-#include "../../../src/unreferenced/FUN.cpp_40ae20.cpp"
+#include "../../../src/unreferenced/fun_40ae20.cpp"
 #include "../../../src/core/sprtlib/animation_manager_mark_resource_for_removal.cpp"
 
 #pragma code_seg(".text$zzcontext")

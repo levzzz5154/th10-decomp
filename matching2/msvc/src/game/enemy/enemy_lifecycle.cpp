@@ -1,9 +1,5 @@
 #include "../../../build_support/include/asm_symbols.hpp"
 
-
-
-
-
 // 0x0040DAE0. Teardown of one enemy record: unlink it from the manager's list,
 // drop it from the selector's name tables and the active-enemy slot table,
 // detach it from the current game state and release its owned allocation list.
@@ -94,6 +90,11 @@ void EnemyLink::Unlink() {
     prev = 0;
 }
 
+enum EnemyLifecycleFlags {
+    ENEMY_FLAG_REGISTERED_SLOT = 0x8000,
+    ANM_FLAG_MARK_FOR_REMOVAL = 0x4000000
+};
+
 void __stdcall Enemy_Release(Enemy5* self) {
     EnemyCtrlLifecycleView* manager = *(EnemyCtrlLifecycleView**)&g_enemy_ctrl;
     self->vtable = (int)&g_enemy_vtable_live;
@@ -103,7 +104,7 @@ void __stdcall Enemy_Release(Enemy5* self) {
         manager->tail = self->link.prev;
     self->link.Unlink();
     --manager->count;
-    if (self->flags & 0x8000)
+    if (self->flags & ENEMY_FLAG_REGISTERED_SLOT)
         manager->entries[self->index] = 0;
 
     EnemySelector* selector = *(EnemySelector**)&g_sprt_ctrl;
@@ -122,11 +123,11 @@ void __stdcall Enemy_Release(Enemy5* self) {
             if (node != 0) {
                 SelectorTarget* target = (SelectorTarget*)node->owner;
                 if (target != 0) {
-                    target->flags |= 0x4000000;
+                    target->flags |= ANM_FLAG_MARK_FOR_REMOVAL;
                     if (target->unknown_018 == 0) {
                         for (MemberNode* member = target->members; member != 0;
                              member = member->next)
-                            member->target->flags |= 0x4000000;
+                            member->target->flags |= ANM_FLAG_MARK_FOR_REMOVAL;
                     }
                 }
             }

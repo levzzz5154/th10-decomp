@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "name": "evaluate_curve_0044c350",
-  "source": "src/core/zunlib/fun.cpp",
+  "source": "src/core/zunlib/easing_curve.cpp",
   "driver": "build_support/layout/ltcg/evaluate_curve_0044c350_context.cpp",
   "headers": [
     "include/th10/math/interpolator.hpp",

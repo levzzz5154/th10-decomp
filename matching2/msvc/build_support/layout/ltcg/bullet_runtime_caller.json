@@ -4,10 +4,10 @@
   "source": "src/game/bullet/bullet_runtime_update.cpp",
   "additional_sources": [
     "build_support/layout/ltcg/bullet_runtime_dependencies/animation_manager_queue_resource.cpp",
-    "build_support/layout/ltcg/bullet_runtime_dependencies/fun.cpp_407a30.cpp",
-    "build_support/layout/ltcg/bullet_runtime_dependencies/fun.cpp_407be0.cpp",
+    "build_support/layout/ltcg/bullet_runtime_dependencies/bullet_aim_step.cpp",
+    "build_support/layout/ltcg/bullet_runtime_dependencies/bullet_bounce.cpp",
     "src/game/bullet/player_wrap_horizontal.cpp",
-    "build_support/layout/ltcg/bullet_runtime_dependencies/fun.cpp_407780.cpp",
+    "build_support/layout/ltcg/bullet_runtime_dependencies/bullet_turn_step.cpp",
     "src/game/bullet/player_wrap_vertical.cpp",
     "build_support/layout/ltcg/bullet_runtime_dependencies/player_animation_advance_frame.cpp",
     "build_support/layout/ltcg/bullet_runtime_dependencies/field_contact.cpp",

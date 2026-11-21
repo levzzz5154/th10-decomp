@@ -20,35 +20,37 @@
 // member is compiled as a native LTCG cluster; the arguments are floats (an
 // integer first parameter makes the whole-program pass take it in EAX and the
 // region then emits ret 14h).
+// Same 0x1C-byte layout as StageFog (th10/render/stage_fog.hpp): fog range
+// (start, end), float BGRA channels and their packed device-colour bytes.
 #pragma code_seg(".text$01wordcolor")
 struct WordColor {
-    float f_00;
-    float f_04;
-    float f_08;
-    float f_0c;
-    float f_10;
-    float f_14;
-    unsigned char b_18;
-    unsigned char b_19;
-    unsigned char b_1a;
-    unsigned char b_1b;
+    float start;
+    float end;
+    float blue;
+    float green;
+    float red;
+    float alpha;
+    unsigned char packed_blue;
+    unsigned char packed_green;
+    unsigned char packed_red;
+    unsigned char packed_alpha;
 
-    __declspec(noinline) WordColor* Initialize(float a0, float a1, float a2,
-                                                       float a3, float a4, float a5);
+    __declspec(noinline) WordColor* Initialize(float fog_start, float fog_end,
+                                               float b, float g, float r, float a);
 };
 
-WordColor* WordColor::Initialize(float a0, float a1, float a2,
-                                                   float a3, float a4, float a5) {
-    f_00 = a0;
-    f_04 = a1;
-    f_08 = a2;
-    f_0c = a3;
-    f_10 = a4;
-    f_14 = a5;
-    b_18 = (unsigned char)a2;
-    b_19 = (unsigned char)a3;
-    b_1a = (unsigned char)a4;
-    b_1b = (unsigned char)a5;
+WordColor* WordColor::Initialize(float fog_start, float fog_end,
+                                 float b, float g, float r, float a) {
+    start = fog_start;
+    end = fog_end;
+    blue = b;
+    green = g;
+    red = r;
+    alpha = a;
+    packed_blue = (unsigned char)b;
+    packed_green = (unsigned char)g;
+    packed_red = (unsigned char)r;
+    packed_alpha = (unsigned char)a;
     return this;
 }
 #pragma code_seg()

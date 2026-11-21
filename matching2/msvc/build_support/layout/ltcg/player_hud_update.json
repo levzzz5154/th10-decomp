@@ -84,7 +84,7 @@
   "included_sources": [
     "src/core/sprtanim/animation_object_configure_from_resource.cpp",
     "src/core/sprtlib/animation_manager_set_translated_position.cpp",
-    "src/core/sprtlib/animation_manager_set_stop_frame_from_handle_retail.cpp",
+    "src/core/sprtlib/animation_manager_set_stop_frame_from_handle.cpp",
     "build_support/layout/ltcg/position_setter_find_anchor.cpp"
   ],
   "absolute_symbols": [

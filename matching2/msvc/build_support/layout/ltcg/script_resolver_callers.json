@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "name": "script_resolver_callers",
-  "source": "src/script/sptlib/fun.cpp_450700.cpp",
+  "source": "src/script/sptlib/ecl_bind_name.cpp",
   "driver": "build_support/layout/ltcg/script_resolver_callers_context.cpp",
   "headers": [
     "include/script_resolver.hpp",
@@ -26,7 +26,7 @@
       "address": "0x00450700",
       "size": 30,
       "actual_abi": "owner ESI; name ECX; result EAX; RET",
-      "source": "src/script/sptlib/fun.cpp_450700.cpp"
+      "source": "src/script/sptlib/ecl_bind_name.cpp"
     },
     {
       "name": "BindTable",

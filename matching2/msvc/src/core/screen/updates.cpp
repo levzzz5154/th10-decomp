@@ -27,10 +27,22 @@ struct ScreenFadeIn {
 typedef char AnimationCursor_0043bd40_size_must_be_40[
     sizeof(ScreenFadeIn) == 0x40 ? 1 : -1];
 
+enum ScreenTaskResult {
+    SCREEN_TASK_STOP = 0,
+    SCREEN_TASK_CONTINUE = 1,
+    SCREEN_TASK_REMOVE = 7
+};
+
+enum ScreenShakeDirection {
+    SCREEN_SHAKE_ZERO = 0,
+    SCREEN_SHAKE_POSITIVE = 1,
+    SCREEN_SHAKE_NEGATIVE = 2
+};
+
 #pragma code_seg(".text$07bd40")
 int ScreenFadeIn::Tick() {
     if (g_screen_effects_frozen != 0)
-        return 7;
+        return SCREEN_TASK_REMOVE;
 
     int divisor = length;
     if (divisor != 0) {
@@ -41,10 +53,10 @@ int ScreenFadeIn::Tick() {
     }
 
     if (frame >= divisor)
-        return 7;
+        return SCREEN_TASK_REMOVE;
 
     reinterpret_cast<FrameTimer*>(reinterpret_cast<unsigned char*>(this) + 0x30)->Tick();
-    return 1;
+    return SCREEN_TASK_CONTINUE;
 }
 #pragma code_seg()
 
@@ -81,7 +93,7 @@ typedef char AnimationCursor_0043c230_size_must_fit[
 #pragma code_seg(".text$09c230")
 int ScreenFadeOut::Tick() {
     if (g_screen_effects_frozen != 0)
-        return 7;
+        return SCREEN_TASK_REMOVE;
 
     int divisor = length;
     if (divisor != 0) {
@@ -95,7 +107,7 @@ int ScreenFadeOut::Tick() {
     }
 
     if (frame >= divisor + 2)
-        return 7;
+        return SCREEN_TASK_REMOVE;
 
     void* state = g_game;
     if (state == 0 || (((*(unsigned int*)((char*)state + 0x58) >> 2) |
@@ -103,7 +115,7 @@ int ScreenFadeOut::Tick() {
         reinterpret_cast<FrameTimer*>(reinterpret_cast<unsigned char*>(this) +
                                       0x30)->Tick();
     }
-    return 1;
+    return SCREEN_TASK_CONTINUE;
 }
 #pragma code_seg()
 
@@ -145,7 +157,7 @@ typedef char AnimationCursor_0043c460_size_must_fit[
 int ScreenFlash::Tick() {
     int mode = *(unsigned char*)((unsigned char*)this + 0x27);
     if (g_screen_effects_frozen != 0)
-        return 0;
+        return SCREEN_TASK_STOP;
 
     int divisor = length;
     if (frame < divisor) {
@@ -157,13 +169,13 @@ int ScreenFlash::Tick() {
     } else {
         value = 0;
         if (--countdown <= 0)
-            return 0;
+            return SCREEN_TASK_STOP;
         reinterpret_cast<PlayerSchedulerRecord*>(reinterpret_cast<unsigned char*>(this) + 0x30)
             ->SetSchedulerValue(0);
     }
 
     reinterpret_cast<FrameTimer*>(reinterpret_cast<unsigned char*>(this) + 0x30)->Tick();
-    return 1;
+    return SCREEN_TASK_CONTINUE;
 }
 #pragma code_seg()
 
@@ -183,11 +195,11 @@ extern "C" float g_screen_shake_y;                   // 0x00491E68, screen shake
 #pragma code_seg(".text$12b_shake")
 int Screen::UpdateEnvelopeShake() {
     if (g_screen_effects_frozen)
-        return 7;
+        return SCREEN_TASK_REMOVE;
     if (!g_game ||
         (((g_game->flags >> 2) | g_game->flags) & 1) ||
         (g_game->flags & 0x72))
-        return 1;
+        return SCREEN_TASK_CONTINUE;
 
     timer.Tick();
     float ratio;
@@ -200,19 +212,19 @@ int Screen::UpdateEnvelopeShake() {
                  (unsigned int)parameter20 - timer.Elapsed()) /
                 (unsigned int)parameter28;
     else
-        return 7;
+        return SCREEN_TASK_REMOVE;
 
     float amount = duration_or_strength * ratio;
     switch (g_rng.NextRandomModulo(3)) {
-    case 0: g_screen_shake_x = 0.0f; break;
-    case 1: g_screen_shake_x = amount; break;
-    case 2: g_screen_shake_x = -amount; break;
+    case SCREEN_SHAKE_ZERO: g_screen_shake_x = 0.0f; break;
+    case SCREEN_SHAKE_POSITIVE: g_screen_shake_x = amount; break;
+    case SCREEN_SHAKE_NEGATIVE: g_screen_shake_x = -amount; break;
     }
     switch (g_rng.NextRandomModulo(3)) {
-    case 0: g_screen_shake_y = 0.0f; break;
-    case 1: g_screen_shake_y = amount; break;
-    case 2: g_screen_shake_y = -amount; break;
+    case SCREEN_SHAKE_ZERO: g_screen_shake_y = 0.0f; break;
+    case SCREEN_SHAKE_POSITIVE: g_screen_shake_y = amount; break;
+    case SCREEN_SHAKE_NEGATIVE: g_screen_shake_y = -amount; break;
     }
-    return 1;
+    return SCREEN_TASK_CONTINUE;
 }
 #pragma code_seg()

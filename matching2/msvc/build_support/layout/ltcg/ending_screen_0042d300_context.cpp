@@ -3,7 +3,7 @@
 // the animation-slot and timer leaves it calls.
 #include "../../../src/game/title/ending_screen.cpp"
 #include "ending_screen_dependencies/title_dispatcher.cpp"
-#include "../../../src/game/title/recovery_animation_slot_frames.cpp"
+#include "../../../src/game/title/title_animation_slot_frames.cpp"
 #include "th10/game/recovery_script_executor_caller.hpp"
 #include "th10/game/title_menu.hpp"
 #pragma code_seg(".text$0040a000_context")

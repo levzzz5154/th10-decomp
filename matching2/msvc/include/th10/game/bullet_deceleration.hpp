@@ -1,5 +1,13 @@
 #ifndef TH10_BULLET_DECELERATION_HPP
 #define TH10_BULLET_DECELERATION_HPP
+enum BulletExFlag {
+    BULLET_EX_TURN = 0x40u,
+    BULLET_EX_AIM = 0x80u,
+    BULLET_EX_BOUNCE_BOTTOM = 0x400u,
+    BULLET_EX_BOUNCE_MASK = 0x08000C00u,
+    BULLET_EX_NO_Y_BOUNCE = 0x08000000u
+};
+
 struct BulletDecelerationVector2 {
     float x, y;
     void SetPolar(float angle, float speed);

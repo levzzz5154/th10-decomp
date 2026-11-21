@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "name": "positioned_secondary_back",
-  "source": "src/unreferenced/FUN.cpp_448fb0.cpp",
+  "source": "src/unreferenced/fun_448fb0.cpp",
   "driver": "build_support/layout/ltcg/positioned_secondary_back_00448fb0_context.cpp",
   "headers": [],
   "image_base": "0x00400000",
@@ -30,7 +30,7 @@
       "section": ".text$05qscreen",
       "address": "0x00449010",
       "size": 118,
-      "source": "src/unreferenced/FUN.cpp_449010.cpp",
+      "source": "src/unreferenced/fun_449010.cpp",
       "actual_abi": "position EDI; three stack args; RET 12"
     }
   ],
@@ -147,7 +147,7 @@
   ],
   "additional_sources": [
     "src/core/sprtlib/animation_manager_create_secondary_back.cpp",
-    "src/unreferenced/FUN.cpp_449010.cpp"
+    "src/unreferenced/fun_449010.cpp"
   ],
   "constant_aliases": [
     {

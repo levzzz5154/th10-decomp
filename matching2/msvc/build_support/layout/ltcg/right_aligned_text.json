@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "name": "right_aligned_text_00447ae0",
-  "source": "src/core/sprtlib/recovery_right_aligned_text.cpp",
+  "source": "src/core/sprtlib/sprite_draw_right_aligned_text.cpp",
   "driver": "build_support/layout/ltcg/right_aligned_text_00447ae0_context.cpp",
   "headers": [
     "include/th10/platform/sound_queue.hpp",
@@ -32,7 +32,7 @@
       "section": ".text$00447ae0_fn",
       "address": "0x00447AE0",
       "size": 204,
-      "source": "src/core/sprtlib/recovery_right_aligned_text.cpp",
+      "source": "src/core/sprtlib/sprite_draw_right_aligned_text.cpp",
       "actual_abi": "VM ESI; manager/color/format stack homes followed by variadic payload; plain RET"
     },
     {
@@ -41,7 +41,7 @@
       "section": ".text$00447bb0_fn",
       "address": "0x00447BB0",
       "size": 194,
-      "source": "src/core/sprtlib/recovery_centered_text.cpp",
+      "source": "src/core/sprtlib/sprite_draw_centered_text.cpp",
       "actual_abi": "VM ESI; manager/color/format stack homes followed by variadic payload; plain RET"
     }
   ],
@@ -1368,7 +1368,7 @@
     "build_support/layout/ltcg/right_aligned_text_context/recovery_script_executor_creation_anchors.cpp",
     "build_support/layout/ltcg/right_aligned_text_context/recovery_script_executor_caller.cpp",
     "build_support/layout/ltcg/right_aligned_text_context/recovery_script_executor_indicator_anchors.cpp",
-    "src/core/sprtlib/recovery_centered_text.cpp",
+    "src/core/sprtlib/sprite_draw_centered_text.cpp",
     "build_support/layout/ltcg/right_aligned_text_context/recovery_script_executor_caller_433ef0.cpp",
     "build_support/layout/ltcg/right_aligned_text_context/recovery_script_executor.cpp",
     "build_support/layout/ltcg/right_aligned_text_context/recovery_animation_slot_frames.cpp",

@@ -17,20 +17,20 @@ extern "C" __declspec(noinline) int EntityDraw(RenderEntity* entity,
     float half_height = height * 0.5f;
     float left, top;
 
-    switch ((entity->flags >> 18) & 3) {
-    case 0:
+    switch ((entity->flags >> RENDER_FLAG_ANCHOR_X_SHIFT) & RENDER_FLAG_ANCHOR_MASK) {
+    case ANCHOR_X_CENTER:
         left = (float)floor(entity->render_offset.x + entity->position.x
                             + entity->base_position.x - width * 0.5f);
         g_quad_vertices[0].x = g_quad_vertices[2].x = left;
         g_quad_vertices[1].x = g_quad_vertices[3].x = g_quad_vertices[2].x + width;
         break;
-    case 1:
+    case ANCHOR_X_LEFT:
         left = entity->base_position.x + entity->position.x + entity->render_offset.x;
         g_quad_vertices[0].x = g_quad_vertices[2].x = left;
         g_quad_vertices[1].x = g_quad_vertices[3].x =
             entity->base_position.x + entity->position.x + width + entity->render_offset.x;
         break;
-    case 2:
+    case ANCHOR_X_RIGHT:
         g_quad_vertices[0].x = g_quad_vertices[2].x =
             entity->base_position.x + entity->position.x + entity->render_offset.x - width;
         g_quad_vertices[1].x = g_quad_vertices[3].x =
@@ -38,20 +38,20 @@ extern "C" __declspec(noinline) int EntityDraw(RenderEntity* entity,
         break;
     }
 
-    switch ((entity->flags >> 20) & 3) {
-    case 0:
+    switch ((entity->flags >> RENDER_FLAG_ANCHOR_Y_SHIFT) & RENDER_FLAG_ANCHOR_MASK) {
+    case ANCHOR_Y_CENTER:
         top = (float)floor(entity->render_offset.y + entity->position.y
                            + entity->base_position.y - half_height);
         g_quad_vertices[0].y = g_quad_vertices[1].y = top;
         g_quad_vertices[2].y = g_quad_vertices[3].y = g_quad_vertices[1].y + height;
         break;
-    case 1:
+    case ANCHOR_Y_TOP:
         top = (entity->position.y + entity->render_offset.y) + entity->base_position.y;
         g_quad_vertices[0].y = g_quad_vertices[1].y = top;
         g_quad_vertices[2].y = g_quad_vertices[3].y =
             ((entity->position.y + entity->render_offset.y) + entity->base_position.y) + height;
         break;
-    case 2:
+    case ANCHOR_Y_BOTTOM:
         g_quad_vertices[0].y = g_quad_vertices[1].y =
             (entity->position.y + entity->render_offset.y) + entity->base_position.y - height;
         g_quad_vertices[2].y = g_quad_vertices[3].y =

@@ -41,22 +41,46 @@ static __forceinline void DisableItem3(MenuCursor& cursor, int item) {
     ++cursor.disabled_count;
 }
 
+enum CharacterSelectPhase {
+    CHAR_PHASE_ENTER = 0,
+    CHAR_PHASE_WAIT_OPEN = 1,
+    CHAR_PHASE_ACTIVE = 2,
+    CHAR_PHASE_CONFIRM_LEAVE = 3,
+    CHAR_PHASE_CANCEL_LEAVE = 4
+};
+
+enum CharacterSelectConstants {
+    CHAR_REIMU = 0,
+    CHAR_MARISA = 1,
+    CHAR_COUNT = 2,
+    CHAR_DIFFICULTY_EXTRA = 4,
+    CHAR_KEY_CANCEL = 0x000A,
+    CHAR_KEY_LEFT = 0x0040,
+    CHAR_KEY_RIGHT = 0x0080,
+    CHAR_KEY_CONFIRM = 0x1001,
+    CHAR_SFX_CONFIRM = 10,
+    CHAR_SFX_CANCEL = 11,
+    CHAR_SFX_MOVE = 12,
+    CHAR_TARGET_DIFFICULTY = 6,
+    CHAR_TARGET_SHOT_TYPE = 8
+};
+
 #pragma code_seg(".text$004306a0_fn")
 __declspec(noinline) int __stdcall TitleMode7(Title* room) {
     switch (room->phase) {
-    case 0:
-        room->cursor.item_count = 2;
-        if (g_globals_difficulty == 4) {
+    case CHAR_PHASE_ENTER:
+        room->cursor.item_count = CHAR_COUNT;
+        if (g_globals_difficulty == CHAR_DIFFICULTY_EXTRA) {
             TitleScoreFile* score = g_score;
-            if (!score->cleared[0][0] && !score->cleared[0][1] && !score->cleared[0][2]) {
-                if (room->cursor.selection == 0)
-                    SelectItem6(room->cursor, 1);
-                DisableItem3(room->cursor, 0);
+            if (!score->cleared[CHAR_REIMU][0] && !score->cleared[CHAR_REIMU][1] && !score->cleared[CHAR_REIMU][2]) {
+                if (room->cursor.selection == CHAR_REIMU)
+                    SelectItem6(room->cursor, CHAR_MARISA);
+                DisableItem3(room->cursor, CHAR_REIMU);
             }
-            if (!score->cleared[1][0] && !score->cleared[1][1] && !score->cleared[1][2]) {
-                if (room->cursor.selection == 1)
-                    SelectItem6(room->cursor, 0);
-                DisableItem3(room->cursor, 1);
+            if (!score->cleared[CHAR_MARISA][0] && !score->cleared[CHAR_MARISA][1] && !score->cleared[CHAR_MARISA][2]) {
+                if (room->cursor.selection == CHAR_MARISA)
+                    SelectItem6(room->cursor, CHAR_REIMU);
+                DisableItem3(room->cursor, CHAR_MARISA);
             }
         }
         RecoveryMusicInstallSlot(room, 99);
@@ -66,25 +90,25 @@ __declspec(noinline) int __stdcall TitleMode7(Title* room) {
             3, reinterpret_cast<RecoveryLookupContext*>(g_sprt_ctrl),
             room->animation_slots[125]);
         room->SetSlotFrame(125, room->cursor.selection + 0x11);
-        room->SetTimerTarget(1);
-    case 1:
+        room->SetTimerTarget(CHAR_PHASE_WAIT_OPEN);
+    case CHAR_PHASE_WAIT_OPEN:
         if (room->timer.current > 6)
-            room->SetTimerTarget(2);
+            room->SetTimerTarget(CHAR_PHASE_ACTIVE);
         break;
-    case 2: {
+    case CHAR_PHASE_ACTIVE: {
         MenuCursor* cursor = &room->cursor;
         cursor->previous_selection = cursor->selection;
-        if ((short)g_input_keys_raw.InputMaskActive(0x40)) cursor->Advance(-1);
-        if ((short)g_input_keys_raw.InputMaskActive(0x80)) cursor->Advance(1);
+        if ((short)g_input_keys_raw.InputMaskActive(CHAR_KEY_LEFT)) cursor->Advance(-1);
+        if ((short)g_input_keys_raw.InputMaskActive(CHAR_KEY_RIGHT)) cursor->Advance(1);
         if (cursor->previous_selection != cursor->selection) {
-            g_sound_manager.Queue(12, 0);
+            g_sound_manager.Queue(CHAR_SFX_MOVE, 0);
             reinterpret_cast<TitleAnimationSlotView*>(room)->RestartSlot(125);
             room->SetSlotFrame(125, cursor->selection + 7);
         }
-        if (g_input_keys_held & 0xa) {
-            room->SetTimerTarget(4);
-            g_sound_manager.Queue(11, 0);
-        } else if (g_input_keys_held & 0x1001) {
+        if (g_input_keys_held & CHAR_KEY_CANCEL) {
+            room->SetTimerTarget(CHAR_PHASE_CANCEL_LEAVE);
+            g_sound_manager.Queue(CHAR_SFX_CANCEL, 0);
+        } else if (g_input_keys_held & CHAR_KEY_CONFIRM) {
             AnimationHandle15* handle =
                 reinterpret_cast<AnimationHandle15*>(&room->animation_slots[125]);
             {
@@ -103,15 +127,15 @@ __declspec(noinline) int __stdcall TitleMode7(Title* room) {
                 AnimationRef2 child = handle->FindChildRef(0x7c - room->cursor.selection);
                 reinterpret_cast<AnimationHandle11*>(&child)->SetStopFrame(1);
             }
-            g_sound_manager.Queue(10, 0);
-            room->SetTimerTarget(3);
+            g_sound_manager.Queue(CHAR_SFX_CONFIRM, 0);
+            room->SetTimerTarget(CHAR_PHASE_CONFIRM_LEAVE);
         }
         break;
     }
-    case 3:
+    case CHAR_PHASE_CONFIRM_LEAVE:
         if (room->timer.current >= 14) {
             room->ClearAnimationSlot(99);
-            room->DisableTimerWithOwner(8);
+            room->DisableTimerWithOwner(CHAR_TARGET_SHOT_TYPE);
             int character = room->cursor.selection;
             int previous = g_globals_character;
             g_globals_character = character;
@@ -123,11 +147,11 @@ __declspec(noinline) int __stdcall TitleMode7(Title* room) {
                 UpdateBoundedCounter(g_globals_shot_type, reinterpret_cast<unsigned int*>(&room->cursor));
         }
         break;
-    case 4:
+    case CHAR_PHASE_CANCEL_LEAVE:
         if (room->timer.current >= 6) {
             room->ClearAnimationSlot(125);
             room->ClearAnimationSlot(99);
-            room->DisableTimerWithOwner(6);
+            room->DisableTimerWithOwner(CHAR_TARGET_DIFFICULTY);
             g_globals_character = room->cursor.selection;
             room->cursor.PopSelection();
         }

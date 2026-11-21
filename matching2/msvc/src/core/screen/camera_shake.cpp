@@ -26,9 +26,17 @@ static __forceinline unsigned ShakeRandom() {
     unsigned short next = g_rng.NextWord();
     return (unsigned)next | ((unsigned)next << 16);
 }
+enum LinearShakeConstants {
+    LINEAR_SHAKE_CONTINUE = 1,
+    LINEAR_SHAKE_REMOVE = 7,
+    LINEAR_SHAKE_ZERO = 0,
+    LINEAR_SHAKE_POSITIVE = 1,
+    LINEAR_SHAKE_NEGATIVE = 2
+};
+
 extern "C" __declspec(noinline) int __fastcall LinearShakeUpdate(void* context) {
     Screen* self = static_cast<Screen*>(context);
-    if (g_screen_effects_frozen) return 7;
+    if (g_screen_effects_frozen) return LINEAR_SHAKE_REMOVE;
     self->timer.previous = (unsigned)self->timer.current;
     if (*self->timer.speed > g_frame_timer_normal_lower && *self->timer.speed < g_frame_timer_normal_upper) {
         self->timer.current = (int)((unsigned)self->timer.current + 1u);
@@ -38,25 +46,25 @@ extern "C" __declspec(noinline) int __fastcall LinearShakeUpdate(void* context) 
         self->timer.current = (int)self->timer.elapsed;
     }
     int limit = self->duration_or_strength;
-    if (self->timer.current >= limit) return 7;
+    if (self->timer.current >= limit) return LINEAR_SHAKE_REMOVE;
     int start = self->parameter20;
     int delta = (int)((unsigned)self->parameter24 - (unsigned)start);
-    // The product is rounded to float and named before the divide: that is
+    // MATCH: the product is rounded to float and named before the divide: that is
     // the placement retail's code shows, with the fidiv late, inside the
     // second random draw.
     float scaled = (float)((float)delta * self->timer.elapsed);
     float amount = scaled / limit + start;
     ShakeRandom();
     switch (ShakeRandom() % 3u) {
-    case 0: g_screen_shake_x = 0.0f; break;
-    case 1: g_screen_shake_x = amount; break;
-    case 2: g_screen_shake_x = -amount; break;
+    case LINEAR_SHAKE_ZERO: g_screen_shake_x = 0.0f; break;
+    case LINEAR_SHAKE_POSITIVE: g_screen_shake_x = amount; break;
+    case LINEAR_SHAKE_NEGATIVE: g_screen_shake_x = -amount; break;
     }
     ShakeRandom();
     switch (ShakeRandom() % 3u) {
-    case 0: g_screen_shake_y = 0.0f; break;
-    case 1: g_screen_shake_y = amount; break;
-    case 2: g_screen_shake_y = -amount; break;
+    case LINEAR_SHAKE_ZERO: g_screen_shake_y = 0.0f; break;
+    case LINEAR_SHAKE_POSITIVE: g_screen_shake_y = amount; break;
+    case LINEAR_SHAKE_NEGATIVE: g_screen_shake_y = -amount; break;
     }
-    return 1;
+    return LINEAR_SHAKE_CONTINUE;
 }

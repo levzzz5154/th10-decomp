@@ -11,10 +11,19 @@ static __forceinline ResultAnimationId CreateDigit(void* resource, int index) {
     reinterpret_cast<ResultAnimationResource*>(resource)->InitializeObject(object, index);
     return reinterpret_cast<ResultAnimationLists*>(g_sprt_ctrl)->RegisterPrimaryBack(object);
 }
+enum ResultOverlayKind {
+    OVERLAY_SPELL_BONUS = 0,
+    OVERLAY_BONUS_FAILED = 1,
+    OVERLAY_EXTEND = 2,
+    OVERLAY_HIGH_SCORE = 3,
+    OVERLAY_FULL_POWER = 4,
+    OVERLAY_HISTORY_BONUS = 6
+};
+
 #pragma code_seg(".text$004172e0_fn")
 void __stdcall ResultOverlay_SetMode(int kind, ResultOverlayState* front, int number) {
     switch (kind) {
-    case 0: {
+    case OVERLAY_SPELL_BONUS: {
         front->caption.Release();
         front->caption.id = ResultAnimation_CreatePrimary(front->captions, 71, 15);
         int leading_digit_seen = 0;
@@ -41,23 +50,23 @@ void __stdcall ResultOverlay_SetMode(int kind, ResultOverlayState* front, int nu
         }
         break;
     }
-    case 1:
+    case OVERLAY_BONUS_FAILED:
         front->caption.Release();
         front->caption.id = ResultAnimation_CreatePrimary(front->captions, 72, 15);
         break;
-    case 2:
+    case OVERLAY_EXTEND:
         front->secondary.Release();
         front->secondary.id = ResultAnimation_CreatePrimary(front->captions, 73, 15);
         break;
-    case 3:
+    case OVERLAY_HIGH_SCORE:
         front->secondary.Release();
         front->secondary.id = ResultAnimation_CreatePrimary(front->captions, 74, 15);
         break;
-    case 4:
+    case OVERLAY_FULL_POWER:
         front->secondary.Release();
         front->secondary.id = ResultAnimation_CreatePrimary(front->captions, 75, 15);
         break;
-    case 6:
+    case OVERLAY_HISTORY_BONUS:
         front->caption.Release();
         front->caption.id = ResultAnimation_CreatePrimary(front->captions, 76, 15);
         break;

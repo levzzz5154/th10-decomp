@@ -47,14 +47,35 @@ static __forceinline void StopConfirmedChild(Title* room, int slot) {
     }
 }
 
+enum DifficultySelectPhase {
+    DIFF_PHASE_ENTER = 0,
+    DIFF_PHASE_WAIT_OPEN = 1,
+    DIFF_PHASE_ACTIVE = 2,
+    DIFF_PHASE_CONFIRM_LEAVE = 3,
+    DIFF_PHASE_CANCEL_LEAVE = 4
+};
+
+enum DifficultySelectConstants {
+    DIFF_LEVEL_EXTRA = 4,
+    DIFF_KEY_CANCEL = 0x000A,
+    DIFF_KEY_UP = 0x0010,
+    DIFF_KEY_DOWN = 0x0020,
+    DIFF_KEY_CONFIRM = 0x1001,
+    DIFF_SFX_CONFIRM = 10,
+    DIFF_SFX_CANCEL = 11,
+    DIFF_SFX_MOVE = 12,
+    DIFF_TARGET_MAIN_MENU = 2,
+    DIFF_TARGET_CHARACTER = 7
+};
+
 #pragma code_seg(".text$00430320_fn")
 __declspec(noinline) int __stdcall TitleMode6(Title* room) {
-    int slot = (g_globals_difficulty >= 4) + 0x77;
+    int slot = (g_globals_difficulty >= DIFF_LEVEL_EXTRA) + 0x77;
     void* handle;
     switch (room->phase) {
-    case 0:
+    case DIFF_PHASE_ENTER:
         EnsureTitleMenuBackdrop(room, handle);
-        room->cursor.item_count = g_globals_difficulty < 4 ? 4 : 1;
+        room->cursor.item_count = g_globals_difficulty < DIFF_LEVEL_EXTRA ? 4 : 1;
         room->ClearAnimationSlot(slot);
         RecoveryMusicInstallSlot(room, slot);
         AnimationManager_SetStopFrameAndRun(
@@ -62,54 +83,54 @@ __declspec(noinline) int __stdcall TitleMode6(Title* room) {
             room->animation_slots[slot]);
         room->SetSlotFrame(slot, room->cursor.selection + 0x11);
         RecoveryMusicInstallSlot(room, 98);
-        room->SetTimerTarget(1);
-    case 1:
+        room->SetTimerTarget(DIFF_PHASE_WAIT_OPEN);
+    case DIFF_PHASE_WAIT_OPEN:
         if (room->timer.current > 6)
-            room->SetTimerTarget(2);
+            room->SetTimerTarget(DIFF_PHASE_ACTIVE);
         break;
-    case 2:
-        if (g_globals_difficulty < 4) {
+    case DIFF_PHASE_ACTIVE:
+        if (g_globals_difficulty < DIFF_LEVEL_EXTRA) {
             MenuCursor* cursor = &room->cursor;
             cursor->previous_selection = cursor->selection;
-            if ((short)g_input_keys_raw.InputMaskActive(0x10)) cursor->Advance(-1);
-            if ((short)g_input_keys_raw.InputMaskActive(0x20)) cursor->Advance(1);
+            if ((short)g_input_keys_raw.InputMaskActive(DIFF_KEY_UP)) cursor->Advance(-1);
+            if ((short)g_input_keys_raw.InputMaskActive(DIFF_KEY_DOWN)) cursor->Advance(1);
             if (cursor->previous_selection != cursor->selection) {
-                g_sound_manager.Queue(12, 0);
+                g_sound_manager.Queue(DIFF_SFX_MOVE, 0);
                 reinterpret_cast<TitleAnimationSlotView*>(room)->RestartSlot(slot);
                 room->SetSlotFrame(slot, (short)cursor->selection + 7);
             }
         }
-        if (g_input_keys_held & 0xa) {
-            room->SetTimerTarget(4);
-            g_sound_manager.Queue(11, 0);
+        if (g_input_keys_held & DIFF_KEY_CANCEL) {
+            room->SetTimerTarget(DIFF_PHASE_CANCEL_LEAVE);
+            g_sound_manager.Queue(DIFF_SFX_CANCEL, 0);
             room->ClearAnimationSlot(slot);
-        } else if (g_input_keys_held & 0x1001) {
+        } else if (g_input_keys_held & DIFF_KEY_CONFIRM) {
             room->SetSlotFrame(slot, 6);
             StopConfirmedChild(room, slot);
-            room->SetTimerTarget(3);
-            g_sound_manager.Queue(10, 0);
+            room->SetTimerTarget(DIFF_PHASE_CONFIRM_LEAVE);
+            g_sound_manager.Queue(DIFF_SFX_CONFIRM, 0);
         }
         break;
-    case 3:
+    case DIFF_PHASE_CONFIRM_LEAVE:
         if (room->timer.current >= 14) {
             room->ClearAnimationSlot(98);
-            room->DisableTimerWithOwner(7);
-            if (g_globals_difficulty < 4)
+            room->DisableTimerWithOwner(DIFF_TARGET_CHARACTER);
+            if (g_globals_difficulty < DIFF_LEVEL_EXTRA)
                 g_globals_difficulty = room->cursor.selection;
             room->cursor.PushSelection();
             room->cursor.item_count = 2;
             UpdateBoundedCounter(g_globals_character, reinterpret_cast<unsigned int*>(&room->cursor));
         }
         break;
-    case 4:
+    case DIFF_PHASE_CANCEL_LEAVE:
         if (room->timer.current >= 6) {
             room->ClearAnimationSlot(98);
             room->SetSlotFrame(0x5a, 8);
             room->SetSlotFrame(0x5b, 8);
             room->ClearAnimationSlot(94);
             RecoveryMusicStopHandle(&room->fallback_handle);
-            room->DisableTimerWithOwner(2);
-            if (g_globals_difficulty < 4)
+            room->DisableTimerWithOwner(DIFF_TARGET_MAIN_MENU);
+            if (g_globals_difficulty < DIFF_LEVEL_EXTRA)
                 g_globals_difficulty = room->cursor.selection;
             else
                 g_globals_difficulty = reinterpret_cast<TitleDifficultyView*>(room)->saved_difficulty;

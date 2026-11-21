@@ -1,7 +1,7 @@
 {
   "schema_version": 2,
   "name": "score_manager_native",
-  "source": "src/game/score/effect_manager_initialize_pools_retail.cpp",
+  "source": "src/game/score/score_manager_construct.cpp",
   "headers": [
     "include/th10/game/score_archive_manager.hpp",
     "include/th10/game/score_file.hpp"
@@ -323,6 +323,9 @@
     }
   ],
   "owned_includes": {
-    "src/game/score/score_manager_create.cpp": "src/game/score/effect_manager_initialize_pools_retail.cpp"
+    "src/game/score/score_manager_create.cpp": "src/game/score/score_manager_construct.cpp"
+  },
+  "compilation_units": {
+    "src/game/score/score_manager_construct.cpp": "build_support/layout/units/score_manager_construct_unit.cpp"
   }
 }

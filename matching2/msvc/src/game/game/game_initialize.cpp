@@ -10,10 +10,6 @@
 #include "th10/game/title_draw.hpp"
 #include "th10/game/score_file.hpp"
 #include "th10/core/func_ctrl.hpp"
-#include "../../../build_support/layout/ltcg/stage_startup/callback_task.hpp"
-#include "../../../build_support/layout/ltcg/stage_startup/path_reset.cpp"
-#include "../../../build_support/layout/ltcg/stage_startup/set_clock.cpp"
-#include "../../../build_support/layout/ltcg/stage_startup/retire_callbacks.cpp"
 
 struct Game {
     CallbackPair callbacks;
@@ -47,21 +43,21 @@ extern int g_screen_effects_frozen;
 extern const double dbl_0;
 __declspec(dllimport) void __stdcall Sleep(unsigned int);
 __declspec(noinline) int* __stdcall SchedulerTask_Create(int callback);
-void* __stdcall ReplayCreate(int replay_mode, const char* file);
-void* __stdcall CreateStageState(const char* file, int option);
-void* __stdcall CreateItems();
-void* __cdecl CreatePlayerResources();
-void* __stdcall CreateProjectiles();
-void* __stdcall CreateEffects();
-void* __cdecl CreateScore();
-void* __stdcall CreateTimerResources();
-void* __cdecl Hint_Create();
-void* __cdecl CreateLargeResources();
-int __stdcall SetupScoreTask(void* task);
-void* __stdcall CreateEnemies(const char* file);
-void* __stdcall CreateBulletState();
-void* __cdecl CreateFixedState();
-void* __stdcall CreatePlayer();
+void* __stdcall ReplayCreate(int replay_mode, const char* file);  // 0x00429610: ReplayManager_Create
+void* __stdcall CreateStageState(const char* file, int option);   // 0x00402640: BackGround_Create
+void* __stdcall CreateItems();                                    // 0x00414830: Front_Create (HUD)
+void* __cdecl CreatePlayerResources();                            // 0x00425020: Player_Create
+void* __stdcall CreateProjectiles();                              // 0x00406060: BulletManager_Create
+void* __stdcall CreateEffects();                                  // 0x0041AED0: ItemManager_Create
+void* __cdecl CreateScore();                                      // 0x0041C290: LaserManager_Create
+void* __stdcall CreateTimerResources();                           // 0x00422360: Pause_Create
+void* __cdecl Hint_Create();                                      // 0x00419090: Hint_Create
+void* __cdecl CreateLargeResources();                             // 0x0042B660: SmollScore_Create
+int __stdcall SetupScoreTask(void* task);                         // 0x00413A20: Front_ResetForStage
+void* __stdcall CreateEnemies(const char* file);                  // 0x0040D6B0: EnemyCtrl_Create
+void* __stdcall CreateBulletState();                              // 0x0040AF90: EffectManager_Create
+void* __cdecl CreateFixedState();                                 // 0x004056B0: Bomb_Create
+void* __stdcall CreatePlayer();                                   // 0x00408C90: Card_Create (spell card panel)
 int __stdcall StopMusic();
 int __stdcall LoadMusic(int slot, const char* file);
 void __stdcall ReleaseAnimations(void* state);

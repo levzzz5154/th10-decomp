@@ -32,12 +32,37 @@ static __forceinline void DisableItem4(MenuCursor& cursor, int item) {
     ++cursor.disabled_count;
 }
 
+enum ShotSelectPhase {
+    SHOT_PHASE_ENTER = 0,
+    SHOT_PHASE_WAIT_OPEN = 1,
+    SHOT_PHASE_ACTIVE = 2,
+    SHOT_PHASE_CONFIRM_LEAVE = 3,
+    SHOT_PHASE_CANCEL_LEAVE = 4
+};
+
+enum ShotSelectConstants {
+    SHOT_TYPE_COUNT = 3,
+    SHOT_DIFFICULTY_EXTRA = 4,
+    SHOT_GLOBAL_FLAG_PRACTICE = 0x10,
+    SHOT_KEY_CANCEL = 0x000A,
+    SHOT_KEY_UP = 0x0010,
+    SHOT_KEY_DOWN = 0x0020,
+    SHOT_KEY_CONFIRM = 0x1001,
+    SHOT_SFX_CONFIRM = 10,
+    SHOT_SFX_CANCEL = 11,
+    SHOT_SFX_MOVE = 12,
+    SHOT_TARGET_LEAVE = 3,
+    SHOT_TARGET_CHARACTER = 7,
+    SHOT_TARGET_PRACTICE_STAGE = 9,
+    SHOT_MAIN_MODE_GAME = 7
+};
+
 #pragma code_seg(".text$00430a60_fn")
 __declspec(noinline) int __stdcall TitleMode8(Title* room) {
     switch (room->phase) {
-    case 0:
-        room->cursor.item_count = 3;
-        if (g_globals_difficulty == 4) {
+    case SHOT_PHASE_ENTER:
+        room->cursor.item_count = SHOT_TYPE_COUNT;
+        if (g_globals_difficulty == SHOT_DIFFICULTY_EXTRA) {
             TitleScoreFile* score = g_score;
             if (!score->cleared[g_globals_character][0]) {
                 if (room->cursor.selection == 0) {
@@ -74,7 +99,7 @@ __declspec(noinline) int __stdcall TitleMode8(Title* room) {
             3, reinterpret_cast<RecoveryLookupContext*>(g_sprt_ctrl),
             room->animation_slots[g_globals_character + 150]);
         room->SetSlotFrame(g_globals_character + 150, room->cursor.selection + 0x11);
-        room->SetTimerTarget(1);
+        room->SetTimerTarget(SHOT_PHASE_WAIT_OPEN);
         if (g_score->shots[g_globals_character][0].clears[g_globals_difficulty] == 0) {
             AnimationRef2 child = reinterpret_cast<AnimationHandle15*>(
                 &room->animation_slots[g_globals_character + 150])->FindChildRef(g_globals_character * 3 + 0x8a);
@@ -90,26 +115,26 @@ __declspec(noinline) int __stdcall TitleMode8(Title* room) {
                 &room->animation_slots[g_globals_character + 150])->FindChildRef(g_globals_character * 3 + 0x8c);
             reinterpret_cast<AnimationHandle12*>(&child)->ClearFlag();
         }
-    case 1:
+    case SHOT_PHASE_WAIT_OPEN:
         if (room->timer.current > 6)
-            room->SetTimerTarget(2);
+            room->SetTimerTarget(SHOT_PHASE_ACTIVE);
         break;
-    case 2: {
+    case SHOT_PHASE_ACTIVE: {
         MenuCursor* cursor = &room->cursor;
         cursor->previous_selection = cursor->selection;
-        if ((short)g_input_keys_raw.InputMaskActive(0x10)) cursor->Advance(-1);
-        if ((short)g_input_keys_raw.InputMaskActive(0x20)) cursor->Advance(1);
+        if ((short)g_input_keys_raw.InputMaskActive(SHOT_KEY_UP)) cursor->Advance(-1);
+        if ((short)g_input_keys_raw.InputMaskActive(SHOT_KEY_DOWN)) cursor->Advance(1);
         if (cursor->previous_selection != cursor->selection) {
-            g_sound_manager.Queue(12, 0);
+            g_sound_manager.Queue(SHOT_SFX_MOVE, 0);
             reinterpret_cast<TitleAnimationSlotView*>(room)->RestartSlot(g_globals_character + 150);
             room->SetSlotFrame(g_globals_character + 150, cursor->selection + 7);
         }
-        if (g_input_keys_held & 0xa) {
-            room->SetTimerTarget(4);
-            g_sound_manager.Queue(11, 0);
-        } else if (g_input_keys_held & 0x1001) {
-            room->SetTimerTarget(3);
-            g_sound_manager.Queue(10, 0);
+        if (g_input_keys_held & SHOT_KEY_CANCEL) {
+            room->SetTimerTarget(SHOT_PHASE_CANCEL_LEAVE);
+            g_sound_manager.Queue(SHOT_SFX_CANCEL, 0);
+        } else if (g_input_keys_held & SHOT_KEY_CONFIRM) {
+            room->SetTimerTarget(SHOT_PHASE_CONFIRM_LEAVE);
+            g_sound_manager.Queue(SHOT_SFX_CONFIRM, 0);
             AnimationRef2 child = reinterpret_cast<AnimationHandle15*>(
                 &room->animation_slots[g_globals_character + 150])->FindChildRef(
                     cursor->selection + (g_globals_character * 3 + 0x3f) * 2);
@@ -117,24 +142,24 @@ __declspec(noinline) int __stdcall TitleMode8(Title* room) {
         }
         break;
     }
-    case 3:
+    case SHOT_PHASE_CONFIRM_LEAVE:
         if (room->timer.current == 10) {
-            if ((g_globals_flags & 0x10) == 0) {
+            if ((g_globals_flags & SHOT_GLOBAL_FLAG_PRACTICE) == 0) {
                 g_ascii_manager->EnsureAnimationResource(480.0f, 392.0f);
                 RecoveryAscii_Create(0x2b, 5, 0x20, 0, 0, 0);
             } else {
                 g_globals_shot_type = room->cursor.selection;
                 room->cursor.PushSelection();
                 room->ClearAnimationSlot(100);
-                room->DisableTimerWithOwner(9);
+                room->DisableTimerWithOwner(SHOT_TARGET_PRACTICE_STAGE);
             }
         }
         if (room->timer.current >= 40) {
             g_globals_shot_type = room->cursor.selection;
             room->cursor.PushSelection();
-            if ((g_globals_flags & 0x10) == 0) {
-                room->DisableTimerWithOwner(3);
-                if (g_globals_difficulty < 4) {
+            if ((g_globals_flags & SHOT_GLOBAL_FLAG_PRACTICE) == 0) {
+                room->DisableTimerWithOwner(SHOT_TARGET_LEAVE);
+                if (g_globals_difficulty < SHOT_DIFFICULTY_EXTRA) {
                     g_stage_route_current = &g_stage_routes[1];
                     g_globals_stage = 1;
                     g_globals_stage_shown = 1;
@@ -143,19 +168,19 @@ __declspec(noinline) int __stdcall TitleMode8(Title* room) {
                     g_globals_stage = ExtraStageIndex;
                     g_globals_stage_shown = ExtraStageIndex;
                 }
-                g_main_state = 7;
+                g_main_state = SHOT_MAIN_MODE_GAME;
                 Music_FadeOut(6.0f);
             } else {
                 room->ClearAnimationSlot(100);
-                room->DisableTimerWithOwner(9);
+                room->DisableTimerWithOwner(SHOT_TARGET_PRACTICE_STAGE);
             }
         }
         break;
-    case 4:
+    case SHOT_PHASE_CANCEL_LEAVE:
         if (room->timer.current >= 6) {
             room->ClearAnimationSlot(g_globals_character + 150);
             room->ClearAnimationSlot(100);
-            room->DisableTimerWithOwner(7);
+            room->DisableTimerWithOwner(SHOT_TARGET_CHARACTER);
             room->cursor.PopSelection();
         }
         break;

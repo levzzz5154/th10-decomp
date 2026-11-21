@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "name": "item_line_bounded_0041f400_2026_09_28",
-  "source": "src/game/laser/fun.cpp",
+  "source": "src/game/laser/line_laser_create_segments.cpp",
   "driver": "build_support/layout/ltcg/item_line_runtime/driver.cpp",
   "headers": [
     "include/th10/game/entity.hpp",

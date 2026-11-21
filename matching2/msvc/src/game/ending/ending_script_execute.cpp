@@ -78,21 +78,51 @@ static __forceinline void CreateModeSlotAnimation(
             state->command->arguments[2], 15));
 }
 
+enum EndingScriptOpcode {
+    END_OP_STOP = 0,
+    END_OP_PRINT_TEXT = 3,
+    END_OP_CLEAR_TEXT = 4,
+    END_OP_WAIT = 5,
+    END_OP_WAIT_AND_RESET = 6,
+    END_OP_LOAD_RESOURCE_ASYNC = 7,
+    END_OP_CREATE_SPRITE = 8,
+    END_OP_SET_TEXT_COLOR = 9,
+    END_OP_PLAY_BGM = 10,
+    END_OP_FADE_OUT_BGM = 11,
+    END_OP_LOAD_NEXT_SCRIPT = 12,
+    END_OP_FADE_IN = 13,
+    END_OP_FADE_OUT = 14,
+    END_OP_CREATE_SPRITE_NORMAL = 15,
+    END_OP_CREATE_SPRITE_HARD = 16,
+    END_OP_CREATE_SPRITE_LUNATIC = 17
+};
+
+enum EndingScriptFlags {
+    END_FLAG_SKIP_ALLOWED = 1u,
+    END_FLAG_SKIP_LOCKED = 2u,
+    END_FLAG_ASYNC_BUSY = 4u
+};
+
+enum EndingInputMask {
+    END_KEY_FAST_FORWARD = 0x100u,
+    END_KEY_CONFIRM = 0x1001u
+};
+
 extern "C" __declspec(noinline) int __stdcall RecoveryScript_Execute2(RecoveryScriptState* state) {
     void* output_records[3];
     const unsigned int flags = state->flags;
-    if (flags & 4u)
+    if (flags & END_FLAG_ASYNC_BUSY)
         return 0;
-    if (!(OWNER->flags_020 & 1u) && !(flags & 2u) &&
-        (INPUT_MASK & 0x100u) && (flags & 1u))
+    if (!(OWNER->flags_020 & 1u) && !(flags & END_FLAG_SKIP_LOCKED) &&
+        (INPUT_MASK & END_KEY_FAST_FORWARD) && (flags & END_FLAG_SKIP_ALLOWED))
         state->command_timer.Set(state->command->frame);
 
     while (state->command_timer.current >= static_cast<int>(state->command->frame)) {
         RecoveryCommand* command = state->command;
         switch (command->opcode) {
-        case 0:
+        case END_OP_STOP:
             return -1;
-        case 3:
+        case END_OP_PRINT_TEXT:
             if (state->text_ring_position == 0) {
                 for (int i = 0; i < 5; ++i) {
                     RecoveryTextVm* object = ValidateInPlace(&state->text_handles[i]);
@@ -116,22 +146,22 @@ extern "C" __declspec(noinline) int __stdcall RecoveryScript_Execute2(RecoverySc
                     state->text_ring_position = 0;
             }
             break;
-        case 4: {
+        case END_OP_CLEAR_TEXT: {
             RecoveryHandle* handle = state->text_handles;
             for (int remaining = 5; remaining != 0; --remaining, ++handle)
                 handle->StopAtFrame3();
             break;
         }
-        case 5:
+        case END_OP_WAIT:
             if (state->wait_timer.current <= 0)
                 state->wait_timer.Set(command->arguments[0]);
             state->wait_timer.Advance(-1.0f);
             if (state->command->arguments[0] < 0)
                 state->wait_timer.Set(999);
-            if (!(SOUND_FLAGS & 0x1001u) && state->wait_timer.current > 0) {
+            if (!(SOUND_FLAGS & END_KEY_CONFIRM) && state->wait_timer.current > 0) {
                 if (OWNER->flags_020 & 1u)
                     return 0;
-                if (!(INPUT_MASK & 0x100u))
+                if (!(INPUT_MASK & END_KEY_FAST_FORWARD))
                     return 0;
                 if (state->wait_timer.current % 6 != 0)
                     return 0;
@@ -141,14 +171,14 @@ extern "C" __declspec(noinline) int __stdcall RecoveryScript_Execute2(RecoverySc
                 state->wait_timer.Set(0);
             }
             break;
-        case 6:
+        case END_OP_WAIT_AND_RESET:
             if (state->wait_timer.current <= 0)
                 state->wait_timer.Set(command->arguments[0]);
             state->wait_timer.Advance(-1.0f);
-            if (!(SOUND_FLAGS & 0x1001u) && state->wait_timer.current > 0) {
+            if (!(SOUND_FLAGS & END_KEY_CONFIRM) && state->wait_timer.current > 0) {
                 if (OWNER->flags_020 & 1u)
                     return 0;
-                if (!(INPUT_MASK & 0x100u))
+                if (!(INPUT_MASK & END_KEY_FAST_FORWARD))
                     return 0;
                 if (state->wait_timer.current % 6 != 0)
                     return 0;
@@ -159,15 +189,15 @@ extern "C" __declspec(noinline) int __stdcall RecoveryScript_Execute2(RecoverySc
             state->text_ring_position = 0;
             RING_FLAG = 0;
             break;
-        case 7:
+        case END_OP_LOAD_RESOURCE_ASYNC:
             g_ascii_manager->EnsureAnimationResource(480.0f, 392.0f);
             reinterpret_cast<AnimationManager13*>(g_sprt_ctrl)->ClearResourceSlot(state->command->arguments[0] + 29);
-            state->flags |= 4u;
+            state->flags |= END_FLAG_ASYNC_BUSY;
             state->background_data = reinterpret_cast<const unsigned char*>(state->command) + 8;
             state->worker.Start(state, recovery_background_thread);
             state->command = NextRecoveryCommand(state->command);
             return 0;
-        case 8: {
+        case END_OP_CREATE_SPRITE: {
             void* record;
             unsigned int* handle = &state->animation_handles[command->arguments[0]];
             RecoverySetFlag(reinterpret_cast<RecoveryLookupContext*>(g_sprt_ctrl), static_cast<int>(*handle));
@@ -178,22 +208,22 @@ extern "C" __declspec(noinline) int __stdcall RecoveryScript_Execute2(RecoverySc
                     state->command->arguments[2], 15));
             break;
         }
-        case 15:
+        case END_OP_CREATE_SPRITE_NORMAL:
             if (GAME_MODE == 1)
                 CreateModeSlotAnimation(state, &output_records[0]);
             break;
-        case 16:
+        case END_OP_CREATE_SPRITE_HARD:
             if (GAME_MODE == 2)
                 CreateModeSlotAnimation(state, &output_records[1]);
             break;
-        case 17:
+        case END_OP_CREATE_SPRITE_LUNATIC:
             if (GAME_MODE == 3)
                 CreateModeSlotAnimation(state, &output_records[2]);
             break;
-        case 9:
+        case END_OP_SET_TEXT_COLOR:
             state->color = static_cast<unsigned int>(command->arguments[0]);
             break;
-        case 10: {
+        case END_OP_PLAY_BGM: {
             recovery_replace_extension(0, reinterpret_cast<const char*>(command) + 4);
             const char* name = reinterpret_cast<const char*>(state->command) + 4;
             if (strcmp(name, "bgm/th10_13.wav") == 0)
@@ -202,11 +232,11 @@ extern "C" __declspec(noinline) int __stdcall RecoveryScript_Execute2(RecoverySc
                 recovery_play_dummy(0, 16);
             break;
         }
-        case 11:
+        case END_OP_FADE_OUT_BGM:
             recovery_play_random_voice(3.0f);
-            state->flags &= ~1u;
+            state->flags &= ~END_FLAG_SKIP_ALLOWED;
             break;
-        case 12: {
+        case END_OP_LOAD_NEXT_SCRIPT: {
             for (int i = 0; i < 5; ++i) {
                 RecoverySetFlag(reinterpret_cast<RecoveryLookupContext*>(g_sprt_ctrl), static_cast<int>(state->text_handles[i].value));
                 state->text_handles[i].value = 0;
@@ -220,13 +250,13 @@ extern "C" __declspec(noinline) int __stdcall RecoveryScript_Execute2(RecoverySc
             state->command_timer.Set(0);
             state->wait_timer.Set(0);
             state->color = 0xFFFFFFu;
-            state->flags |= 2u;
+            state->flags |= END_FLAG_SKIP_LOCKED;
             continue;
         }
-        case 13:
+        case END_OP_FADE_IN:
             RecoveryAscii_Create(0x31, 0, static_cast<unsigned int>(command->arguments[0]), 0, 0, 0);
             break;
-        case 14:
+        case END_OP_FADE_OUT:
             RecoveryAscii_Create(0x31, 5, static_cast<unsigned int>(command->arguments[0]), 0, 0, 0);
             break;
         }

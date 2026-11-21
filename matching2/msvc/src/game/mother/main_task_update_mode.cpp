@@ -15,98 +15,100 @@ int MainTaskStateWave18::UpdateMode() {
         previous_mode = previous;
         overlay_color = 0xFF000000;
         switch (next_mode) {
-        case 0:
-            // Start-up: without the shared state the application quits.
-            next_mode = 1;
+        case MAIN_MODE_BOOT:
+            // Start-up: create the loading/bootstrap task (0x0041FD00); quit on failure.
+            next_mode = MAIN_MODE_LOADING;
             created_state = ModeCreateStateWave18();
             if (created_state) break;
-            next_mode = 3;
+            next_mode = MAIN_MODE_QUIT;
             goto quit;
-        case 4:
-            // Start the game.
+        case MAIN_MODE_TITLE:
+            // Open the title / main menu screen (Title_Create at 0x0042CD50).
             switch (previous) {
-            case 7:
+            case MAIN_MODE_GAME:
                 Game_Delete(g_game);
-            case 1:
-            case 2:
+            case MAIN_MODE_LOADING:
+            case MAIN_MODE_INIT_DONE:
                 ModeCreateProgressWave18();
                 break;
-            case 14:
+            case MAIN_MODE_ENDING:
                 ScoreOwnedObject_Destroy(g_ending);
                 ModeCreateProgressWave18();
                 break;
             }
             break;
-        case 15:
-            // Start the game from its third entry point.
+        case MAIN_MODE_TITLE_RETURN:
+            // Return to the title screen with request 3 (e.g. replay save / post-run).
             switch (previous) {
-            case 2:
+            case MAIN_MODE_INIT_DONE:
                 break;
-            case 14:
+            case MAIN_MODE_ENDING:
                 ScoreOwnedObject_Destroy(g_ending);
                 break;
-            case 7:
+            case MAIN_MODE_GAME:
                 Game_Delete(g_game);
                 break;
             default:
                 goto done;
             }
-            next_mode = 4;
+            next_mode = MAIN_MODE_TITLE;
             g_main_mode_request = 3;
             ModeCreateProgressWave18();
             break;
-        case 7:
-            // Open the menu screen.
-            if (previous == 4) Title_Delete(g_title);
+        case MAIN_MODE_GAME:
+            // Start normal gameplay (Game_Create(0) at 0x004180E0).
+            if (previous == MAIN_MODE_TITLE) Title_Delete(g_title);
             ui_mode = 1;
             ModeCreateUiWave18(0);
             break;
-        case 12:
-            if (previous == 4) Title_Delete(g_title);
-            next_mode = 7;
+        case MAIN_MODE_GAME_REPLAY:
+            // Start replay playback (Game_Create(1)).
+            if (previous == MAIN_MODE_TITLE) Title_Delete(g_title);
+            next_mode = MAIN_MODE_GAME;
             ui_mode = 1;
             ModeCreateUiWave18(1);
             break;
-        case 11: {
-            // Reopen the menu screen with the argument it had.
+        case MAIN_MODE_GAME_RESTART: {
+            // Restart gameplay preserving the replay_mode argument.
             unsigned int argument = reinterpret_cast<GameUiArgumentWave18*>(g_game)->argument;
             ui_mode = 0;
-            if (previous == 7) Game_Delete(g_game);
-            next_mode = 7;
+            if (previous == MAIN_MODE_GAME) Game_Delete(g_game);
+            next_mode = MAIN_MODE_GAME;
             ModeCreateUiWave18(argument);
             break;
         }
-        case 10:
-            // Reopen the menu screen for the stage shown last.
+        case MAIN_MODE_GAME_NEXT_STAGE:
+            // Advance to stage_shown and start gameplay for that stage.
             Game_Delete(g_game);
             ui_mode = 1;
-            next_mode = 7;
+            next_mode = MAIN_MODE_GAME;
             GameState()->stage = GameState()->stage_shown;
             g_stage_route_current = g_stage_routes + GameState()->stage_shown;
             ModeCreateUiWave18(0);
             break;
-        case 13:
+        case MAIN_MODE_GAME_RELOAD:
+            // Tear down and recreate gameplay for the current stage.
             Game_Delete(g_game);
             ui_mode = 1;
-            next_mode = 7;
+            next_mode = MAIN_MODE_GAME;
             ModeCreateUiWave18(0);
             break;
-        case 14:
-            // Open the result screen.
-            if (previous == 7) Game_Delete(g_game);
+        case MAIN_MODE_ENDING:
+            // Open the ending / staffroll screen (0x0040B940).
+            if (previous == MAIN_MODE_GAME) Game_Delete(g_game);
             ModeCreateSmallWave18();
             break;
-        case 3:
+        case MAIN_MODE_QUIT:
         quit:
             ModeReleaseGlobalsWave18();
             LeaveSlot(5);
-            return 4;
+            return MAIN_TASK_QUIT;
         }
     done:
         current_mode = next_mode;
         imp_LeaveCriticalSection(critical_sections[5]);
         --lock_depth[5];
     }
-    return 1;
+    return MAIN_TASK_CONTINUE;
 }
 #pragma code_seg()

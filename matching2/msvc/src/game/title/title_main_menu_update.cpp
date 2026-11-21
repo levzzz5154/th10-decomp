@@ -45,135 +45,182 @@ static __forceinline void RunCursorSlot(Title* room) {
         room->animation_slots[0]);
 }
 
+enum MainMenuPhase {
+    MAIN_MENU_ENTER = 0,
+    MAIN_MENU_WAIT_OPEN = 1,
+    MAIN_MENU_ACTIVE = 2,
+    MAIN_MENU_TRANSITION = 4
+};
+
+enum MainMenuItem {
+    MENU_ITEM_START = 0,
+    MENU_ITEM_EXTRA_START = 1,
+    MENU_ITEM_PRACTICE_START = 2,
+    MENU_ITEM_REPLAY = 3,
+    MENU_ITEM_PLAYER_DATA = 4,
+    MENU_ITEM_MUSIC_ROOM = 5,
+    MENU_ITEM_OPTIONS = 6,
+    MENU_ITEM_QUIT = 7,
+    MENU_ITEM_COUNT = 8
+};
+
+enum MainMenuKeyMask {
+    MAIN_KEY_CANCEL = 0x000A,
+    MAIN_KEY_UP = 0x0010,
+    MAIN_KEY_DOWN = 0x0020,
+    MAIN_KEY_CONFIRM = 0x1001
+};
+
+enum MainMenuSfx {
+    MAIN_SFX_CONFIRM = 10,
+    MAIN_SFX_CANCEL = 11,
+    MAIN_SFX_MOVE = 12
+};
+
+enum MainMenuTargetMode {
+    MAIN_TARGET_LEAVE = 3,
+    MAIN_TARGET_OPTIONS = 4,
+    MAIN_TARGET_DIFFICULTY = 6,
+    MAIN_TARGET_SPELL_RECORD = 11,
+    MAIN_TARGET_REPLAY_SELECT = 12,
+    MAIN_TARGET_MUSIC_ROOM = 14
+};
+
+enum MainMenuConstants {
+    MAIN_GLOBAL_FLAG_PRACTICE = 0x10,
+    MAIN_DIFFICULTY_NORMAL = 1,
+    MAIN_DIFFICULTY_EXTRA = 4
+};
+
 #pragma code_seg(".text$0042d420_fn")
 __declspec(noinline) int __stdcall TitleMainMenu(Title* room) {
     switch (room->phase) {
-    case 0:
-        room->cursor.item_count = 8;
+    case MAIN_MENU_ENTER:
+        room->cursor.item_count = MENU_ITEM_COUNT;
         if (!reinterpret_cast<ScoreFileProgress*>(g_score)->HasAnyClear())
-            DisableItem2(room->cursor, 1);
-        if (g_globals_flags & 0x10) {
-            SelectItem3(room->cursor, 2);
-            g_globals_flags &= ~0x10u;
+            DisableItem2(room->cursor, MENU_ITEM_EXTRA_START);
+        if (g_globals_flags & MAIN_GLOBAL_FLAG_PRACTICE) {
+            SelectItem3(room->cursor, MENU_ITEM_PRACTICE_START);
+            g_globals_flags &= ~(unsigned int)MAIN_GLOBAL_FLAG_PRACTICE;
         }
         if (reinterpret_cast<RecoveryLookup*>(g_sprt_ctrl)->Find(
                 reinterpret_cast<RecoveryLookupContext*>(g_sprt_ctrl),
                 room->animation_slots[88]) == 0)
             RecoveryMusicInstallSlot(room, 88);
         RecoveryMusicInstallSlot(room, 0);
-        room->SetTimerTarget(1);
-    case 1:
+        room->SetTimerTarget(MAIN_MENU_WAIT_OPEN);
+    case MAIN_MENU_WAIT_OPEN:
         if (room->timer.current > 10) {
-            room->SetTimerTarget(2);
+            room->SetTimerTarget(MAIN_MENU_ACTIVE);
             RunCursorSlot(room);
             room->SetSlotFrame(0, room->cursor.selection + 0x11);
         }
         break;
-    case 2: {
+    case MAIN_MENU_ACTIVE: {
         MenuCursor* cursor = &room->cursor;
         cursor->previous_selection = cursor->selection;
-        if ((short)g_input_keys_raw.InputMaskActive(0x10)) cursor->Advance(-1);
-        if ((short)g_input_keys_raw.InputMaskActive(0x20)) cursor->Advance(1);
+        if ((short)g_input_keys_raw.InputMaskActive(MAIN_KEY_UP)) cursor->Advance(-1);
+        if ((short)g_input_keys_raw.InputMaskActive(MAIN_KEY_DOWN)) cursor->Advance(1);
         if (cursor->previous_selection != cursor->selection) {
-            g_sound_manager.Queue(12, 0);
+            g_sound_manager.Queue(MAIN_SFX_MOVE, 0);
             RunCursorSlot(room);
             room->SetSlotFrame(0, cursor->selection + 7);
         }
-        if (g_input_keys_held & 0xa) {
-            if (cursor->selection == 7)
+        if (g_input_keys_held & MAIN_KEY_CANCEL) {
+            if (cursor->selection == MENU_ITEM_QUIT)
                 goto quit;
-            g_sound_manager.Queue(11, 0);
-            SelectItem3(*cursor, 7);
+            g_sound_manager.Queue(MAIN_SFX_CANCEL, 0);
+            SelectItem3(*cursor, MENU_ITEM_QUIT);
             reinterpret_cast<TitleAnimationSlotView*>(room)->RestartSlot(0);
             room->SetSlotFrame(0, cursor->selection + 7);
         }
-        if (g_input_keys_held & 0x1001) {
+        if (g_input_keys_held & MAIN_KEY_CONFIRM) {
             room->SetSlotFrame(0, 6);
             switch (cursor->selection) {
-            case 0:
-            case 1:
-            case 2:
-            case 3:
-            case 4:
-                g_sound_manager.Queue(10, 0);
+            case MENU_ITEM_START:
+            case MENU_ITEM_EXTRA_START:
+            case MENU_ITEM_PRACTICE_START:
+            case MENU_ITEM_REPLAY:
+            case MENU_ITEM_PLAYER_DATA:
+                g_sound_manager.Queue(MAIN_SFX_CONFIRM, 0);
                 room->SetSlotFrame(0x5a, 7);
                 room->SetSlotFrame(0x5b, 7);
-                room->SetTimerTarget(4);
+                room->SetTimerTarget(MAIN_MENU_TRANSITION);
                 break;
-            case 5:
-                g_sound_manager.Queue(10, 0);
+            case MENU_ITEM_MUSIC_ROOM:
+                g_sound_manager.Queue(MAIN_SFX_CONFIRM, 0);
                 room->SetSlotFrame(0x5a, 7);
                 room->SetSlotFrame(0x5b, 7);
-                room->SetTimerTarget(4);
-                g_sound_manager.Queue(10, 0);
+                room->SetTimerTarget(MAIN_MENU_TRANSITION);
+                g_sound_manager.Queue(MAIN_SFX_CONFIRM, 0);
                 break;
-            case 6:
-                g_sound_manager.Queue(10, 0);
-                room->SetTimerTarget(4);
+            case MENU_ITEM_OPTIONS:
+                g_sound_manager.Queue(MAIN_SFX_CONFIRM, 0);
+                room->SetTimerTarget(MAIN_MENU_TRANSITION);
                 reinterpret_cast<TitleAnimationSlotView*>(room)->RestartSlot(0x5a);
                 reinterpret_cast<TitleAnimationSlotView*>(room)->RestartSlot(0x5b);
                 break;
-            case 7:
+            case MENU_ITEM_QUIT:
             quit:
-                g_sound_manager.Queue(11, 0);
-                room->SetTimerTarget(4);
+                g_sound_manager.Queue(MAIN_SFX_CANCEL, 0);
+                room->SetTimerTarget(MAIN_MENU_TRANSITION);
                 break;
             }
         }
         break;
     }
-    case 4:
+    case MAIN_MENU_TRANSITION:
         if (room->timer.current >= 20) {
             MenuCursor* cursor = &room->cursor;
             switch (cursor->selection) {
-            case 0:
-                g_globals_flags &= ~0x10u;
+            case MENU_ITEM_START:
+                g_globals_flags &= ~(unsigned int)MAIN_GLOBAL_FLAG_PRACTICE;
                 room->ClearAnimationSlot(88);
-                room->DisableTimerWithOwner(6);
+                room->DisableTimerWithOwner(MAIN_TARGET_DIFFICULTY);
                 cursor->PushSelection();
-                if (g_globals_difficulty >= 4)
-                    g_globals_difficulty = 1;
+                if (g_globals_difficulty >= MAIN_DIFFICULTY_EXTRA)
+                    g_globals_difficulty = MAIN_DIFFICULTY_NORMAL;
                 UpdateBoundedCounter(g_globals_difficulty, reinterpret_cast<unsigned int*>(cursor));
                 break;
-            case 1:
-                g_globals_flags &= ~0x10u;
+            case MENU_ITEM_EXTRA_START:
+                g_globals_flags &= ~(unsigned int)MAIN_GLOBAL_FLAG_PRACTICE;
                 room->ClearAnimationSlot(88);
-                room->DisableTimerWithOwner(6);
+                room->DisableTimerWithOwner(MAIN_TARGET_DIFFICULTY);
                 cursor->PushSelection();
                 reinterpret_cast<TitleDifficultyView*>(room)->saved_difficulty = g_globals_difficulty;
-                g_globals_difficulty = 4;
+                g_globals_difficulty = MAIN_DIFFICULTY_EXTRA;
                 SelectItem3(*cursor, 0);
                 break;
-            case 2:
-                g_globals_flags |= 0x10;
+            case MENU_ITEM_PRACTICE_START:
+                g_globals_flags |= MAIN_GLOBAL_FLAG_PRACTICE;
                 room->ClearAnimationSlot(88);
-                room->DisableTimerWithOwner(6);
+                room->DisableTimerWithOwner(MAIN_TARGET_DIFFICULTY);
                 cursor->PushSelection();
-                if (g_globals_difficulty >= 4)
-                    g_globals_difficulty = 1;
+                if (g_globals_difficulty >= MAIN_DIFFICULTY_EXTRA)
+                    g_globals_difficulty = MAIN_DIFFICULTY_NORMAL;
                 UpdateBoundedCounter(g_globals_difficulty, reinterpret_cast<unsigned int*>(cursor));
                 break;
-            case 3:
+            case MENU_ITEM_REPLAY:
                 room->ClearAnimationSlot(88);
-                room->DisableTimerWithOwner(12);
+                room->DisableTimerWithOwner(MAIN_TARGET_REPLAY_SELECT);
                 cursor->PushSelection();
                 break;
-            case 4:
+            case MENU_ITEM_PLAYER_DATA:
                 room->ClearAnimationSlot(88);
-                room->DisableTimerWithOwner(11);
+                room->DisableTimerWithOwner(MAIN_TARGET_SPELL_RECORD);
                 cursor->PushSelection();
                 break;
-            case 5:
+            case MENU_ITEM_MUSIC_ROOM:
                 room->ClearAnimationSlot(88);
-                room->DisableTimerWithOwner(14);
+                room->DisableTimerWithOwner(MAIN_TARGET_MUSIC_ROOM);
                 cursor->PushSelection();
                 break;
-            case 6:
-                room->DisableTimerWithOwner(4);
+            case MENU_ITEM_OPTIONS:
+                room->DisableTimerWithOwner(MAIN_TARGET_OPTIONS);
                 cursor->PushSelection();
                 break;
-            case 7:
-                room->DisableTimerWithOwner(3);
+            case MENU_ITEM_QUIT:
+                room->DisableTimerWithOwner(MAIN_TARGET_LEAVE);
                 break;
             }
         }

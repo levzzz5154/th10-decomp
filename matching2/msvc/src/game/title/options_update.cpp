@@ -72,66 +72,105 @@ static __forceinline void RunCursorSlot2(Title* room) {
         room->animation_slots[1]);
 }
 
+enum OptionsPhase {
+    OPT_PHASE_ENTER = 0,
+    OPT_PHASE_WAIT_OPEN = 1,
+    OPT_PHASE_ACTIVE = 2,
+    OPT_PHASE_TRANSITION = 4
+};
+
+enum OptionsItem {
+    OPT_ITEM_SCREEN_MODE = 0,
+    OPT_ITEM_MUSIC_VOLUME = 1,
+    OPT_ITEM_SOUND_VOLUME = 2,
+    OPT_ITEM_KEY_CONFIG = 3,
+    OPT_ITEM_DEFAULTS = 4,
+    OPT_ITEM_QUIT = 5,
+    OPT_ITEM_COUNT = 6
+};
+
+enum OptionsKeyMask {
+    OPT_KEY_BOMB_CANCEL = 0x0002,
+    OPT_KEY_ESC = 0x0008,
+    OPT_KEY_UP = 0x0010,
+    OPT_KEY_DOWN = 0x0020,
+    OPT_KEY_LEFT = 0x0040,
+    OPT_KEY_RIGHT = 0x0080,
+    OPT_KEY_CONFIRM = 0x1001
+};
+
+enum OptionsSfx {
+    OPT_SFX_TEST = 4,
+    OPT_SFX_CONFIRM = 10,
+    OPT_SFX_CANCEL = 11,
+    OPT_SFX_MOVE = 12
+};
+
+enum OptionsTargetMode {
+    OPT_TARGET_MAIN_MENU = 2,
+    OPT_TARGET_KEY_CONFIG = 5
+};
+
 #pragma code_seg(".text$0042d920_fn")
 __declspec(noinline) int __stdcall TitleOptions(Title* room) {
     switch (room->phase) {
-    case 0:
-        room->cursor.item_count = 6;
-        SelectItem4(room->cursor, 0);
+    case OPT_PHASE_ENTER:
+        room->cursor.item_count = OPT_ITEM_COUNT;
+        SelectItem4(room->cursor, OPT_ITEM_SCREEN_MODE);
         RecoveryMusicInstallSlot(room, 1);
         RefreshOptions2(room);
-        room->SetTimerTarget(1);
-    case 1:
+        room->SetTimerTarget(OPT_PHASE_WAIT_OPEN);
+    case OPT_PHASE_WAIT_OPEN:
         if (room->timer.current > 6) {
-            room->SetTimerTarget(2);
+            room->SetTimerTarget(OPT_PHASE_ACTIVE);
             RunCursorSlot2(room);
             ShowScreenMode(room);
             room->SetSlotFrame(1, room->cursor.selection + 0x11);
         }
         break;
-    case 2: {
+    case OPT_PHASE_ACTIVE: {
         MenuCursor* cursor = &room->cursor;
         cursor->previous_selection = cursor->selection;
-        if ((short)g_input_keys_raw.InputMaskActive(0x10)) cursor->Advance(-1);
-        if ((short)g_input_keys_raw.InputMaskActive(0x20)) cursor->Advance(1);
+        if ((short)g_input_keys_raw.InputMaskActive(OPT_KEY_UP)) cursor->Advance(-1);
+        if ((short)g_input_keys_raw.InputMaskActive(OPT_KEY_DOWN)) cursor->Advance(1);
         if (cursor->previous_selection != cursor->selection) {
-            application_state.sound.Queue(12, 0);
+            application_state.sound.Queue(OPT_SFX_MOVE, 0);
             RunCursorSlot2(room);
             room->SetSlotFrame(1, room->cursor.selection + 7);
         }
-        if (g_input_keys_held & 8)
+        if (g_input_keys_held & OPT_KEY_ESC)
             goto cancel;
-        if (g_input_keys_held & 2) {
+        if (g_input_keys_held & OPT_KEY_BOMB_CANCEL) {
         cancel:
-            if (room->cursor.selection == 5) {
+            if (room->cursor.selection == OPT_ITEM_QUIT) {
                 room->SetSlotFrame(1, 6);
-                application_state.sound.Queue(11, 0);
-                room->SetTimerTarget(4);
+                application_state.sound.Queue(OPT_SFX_CANCEL, 0);
+                room->SetTimerTarget(OPT_PHASE_TRANSITION);
             } else {
-                application_state.sound.Queue(11, 0);
-                SelectItem4(room->cursor, 5);
+                application_state.sound.Queue(OPT_SFX_CANCEL, 0);
+                SelectItem4(room->cursor, OPT_ITEM_QUIT);
                 reinterpret_cast<TitleAnimationSlotView*>(room)->RestartSlot(1);
                 room->SetSlotFrame(1, room->cursor.selection + 7);
             }
         } else {
             // The test sound of the sound volume item.
-            if (room->cursor.selection == 2
+            if (room->cursor.selection == OPT_ITEM_SOUND_VOLUME
                     && reinterpret_cast<FrameCounterPair*>(&room->timer)->AtInterval(60))
-                application_state.sound.Queue(4, 0);
+                application_state.sound.Queue(OPT_SFX_TEST, 0);
             RecoveryLookupContext* manager;
-            if ((short)g_input_keys_raw.InputMaskActive(0x40)) {
+            if ((short)g_input_keys_raw.InputMaskActive(OPT_KEY_LEFT)) {
                 manager = reinterpret_cast<RecoveryLookupContext*>(g_sprt_ctrl);
                 switch (room->cursor.selection) {
-                case 0:
+                case OPT_ITEM_SCREEN_MODE:
                     if (g_key_bindings.screen_mode > 0)
                         --g_key_bindings.screen_mode;
                     else
                         g_key_bindings.screen_mode = 2;
                     ShowModeLabels(manager, room);
-                    application_state.sound.Queue(12, 0);
+                    application_state.sound.Queue(OPT_SFX_MOVE, 0);
                     break;
-                case 1:
-                    // Both paths converge on the label refresh; MSVC's LTCG tail-duplicates
+                case OPT_ITEM_MUSIC_VOLUME:
+                    // MATCH: both paths converge on the label refresh; MSVC's LTCG tail-duplicates
                     // the call into each branch, which keeps the `mov edi,ebp` argument
                     // setup per-branch and the decrement a split `add al,0xfb` instead of
                     // the folded `add byte ptr [mem],0xfb` a shared call site would fold to.
@@ -143,7 +182,7 @@ __declspec(noinline) int __stdcall TitleOptions(Title* room) {
                 refresh_music:
                     RefreshOptions2(room);
                     break;
-                case 2:
+                case OPT_ITEM_SOUND_VOLUME:
                     if (g_key_bindings.sound_volume < 5) {
                         g_key_bindings.sound_volume = 0;
                         goto refresh_sound;
@@ -156,23 +195,23 @@ __declspec(noinline) int __stdcall TitleOptions(Title* room) {
             }
             else
                 manager = reinterpret_cast<RecoveryLookupContext*>(g_sprt_ctrl);
-            if ((short)g_input_keys_raw.InputMaskActive(0x80)) {
+            if ((short)g_input_keys_raw.InputMaskActive(OPT_KEY_RIGHT)) {
                 switch (room->cursor.selection) {
-                case 0:
+                case OPT_ITEM_SCREEN_MODE:
                     if (g_key_bindings.screen_mode < 2)
                         ++g_key_bindings.screen_mode;
                     else
                         g_key_bindings.screen_mode = 0;
-                    application_state.sound.Queue(12, 0);
+                    application_state.sound.Queue(OPT_SFX_MOVE, 0);
                     ShowModeLabels(manager, room);
                     break;
-                case 1:
+                case OPT_ITEM_MUSIC_VOLUME:
                     g_key_bindings.music_volume += 5;
                     if (g_key_bindings.music_volume > 100)
                         g_key_bindings.music_volume = 100;
                     RefreshOptions2(room);
                     break;
-                case 2:
+                case OPT_ITEM_SOUND_VOLUME:
                     g_key_bindings.sound_volume += 5;
                     if (g_key_bindings.sound_volume > 100)
                         g_key_bindings.sound_volume = 100;
@@ -180,43 +219,43 @@ __declspec(noinline) int __stdcall TitleOptions(Title* room) {
                     break;
                 }
             }
-            if (g_input_keys_held & 0x1001) {
+            if (g_input_keys_held & OPT_KEY_CONFIRM) {
                 switch (room->cursor.selection) {
-                case 5:
+                case OPT_ITEM_QUIT:
                     room->SetSlotFrame(1, 6);
-                    application_state.sound.Queue(11, 0);
-                    room->SetTimerTarget(4);
+                    application_state.sound.Queue(OPT_SFX_CANCEL, 0);
+                    room->SetTimerTarget(OPT_PHASE_TRANSITION);
                     break;
-                case 4:
+                case OPT_ITEM_DEFAULTS:
                     g_key_bindings.music_volume = 100;
                     g_key_bindings.sound_volume = 80;
                     g_key_bindings.screen_mode = 0;
                     RefreshOptions2(room);
                     ShowModeLabels(manager, room);
-                    application_state.sound.Queue(10, 0);
+                    application_state.sound.Queue(OPT_SFX_CONFIRM, 0);
                     break;
-                case 3:
+                case OPT_ITEM_KEY_CONFIG:
                     room->SetSlotFrame(1, 6);
-                    application_state.sound.Queue(10, 0);
-                    room->SetTimerTarget(4);
+                    application_state.sound.Queue(OPT_SFX_CONFIRM, 0);
+                    room->SetTimerTarget(OPT_PHASE_TRANSITION);
                     break;
                 }
             }
         }
         break;
     }
-    case 4:
+    case OPT_PHASE_TRANSITION:
         if (room->timer.current >= 10) {
             MenuCursor* cursor = &room->cursor;
             switch (cursor->selection) {
-            case 3:
-                room->DisableTimerWithOwner(5);
+            case OPT_ITEM_KEY_CONFIG:
+                room->DisableTimerWithOwner(OPT_TARGET_KEY_CONFIG);
                 cursor->PushSelection();
                 break;
-            case 5:
+            case OPT_ITEM_QUIT:
                 reinterpret_cast<TitleAnimationSlotView*>(room)->StopSlot(0x5a);
                 reinterpret_cast<TitleAnimationSlotView*>(room)->StopSlot(0x5b);
-                room->DisableTimerWithOwner(2);
+                room->DisableTimerWithOwner(OPT_TARGET_MAIN_MENU);
                 cursor->PopSelection();
                 break;
             }

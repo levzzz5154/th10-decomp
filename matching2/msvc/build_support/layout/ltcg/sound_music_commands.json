@@ -433,7 +433,7 @@
     "src/core/zwave/sound_stream_start.cpp",
     "src/core/zwave/platform_set_operation_deadline.cpp",
     "src/core/zwave/platform_invoke_configured.cpp",
-    "src/core/zwave/streamer_restart_retail.cpp",
+    "src/core/zwave/streamer_restart.cpp",
     "src/core/zwave/platform_select_stream_record.cpp",
     "build_support/layout/ltcg/native_sound_shutdown/aggregate.cpp",
     "src/core/zwave/platform_find_available.cpp",

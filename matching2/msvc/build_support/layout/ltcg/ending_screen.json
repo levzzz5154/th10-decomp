@@ -1578,8 +1578,8 @@
     "build_support/layout/ltcg/recovery_script_executor_indicator_anchors.cpp",
     "build_support/layout/ltcg/recovery_script_executor_text_anchors.cpp",
     "build_support/layout/ltcg/recovery_script_executor_text_sibling_anchors.cpp",
-    "src/game/title/recovery_animation_slot_frames.cpp",
-    "src/game/title/recovery_install_animation_slot.cpp",
+    "src/game/title/title_animation_slot_frames.cpp",
+    "src/game/title/title_install_animation_slot.cpp",
     "build_support/contexts/legacy/game/recovery_script_executor.cpp"
   ],
   "data_aliases": [

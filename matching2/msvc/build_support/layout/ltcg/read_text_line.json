@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "name": "read_text_line_0044c000",
-  "source": "src/unreferenced/FUN.cpp_44c000.cpp",
+  "source": "src/unreferenced/fun_44c000.cpp",
   "driver": "build_support/layout/ltcg/read_text_line_0044c000_context.cpp",
   "headers": [],
   "image_base": "0x00400000",

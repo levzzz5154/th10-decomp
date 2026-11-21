@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "name": "recovery_select_archive_entry_0043d790",
-  "source": "src/core/sound/recovery_select_archive_entry.cpp",
+  "source": "src/core/sound/sound_select_archive_entry.cpp",
   "additional_sources": [
     "src/core/zwave/platform_select_stream_record.cpp"
   ],

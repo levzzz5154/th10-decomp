@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "name": "entity_quad_projection",
-  "source": "src/core/sprtfunc/fun.cpp_444240.cpp",
+  "source": "src/core/sprtfunc/projected_entity_quad.cpp",
   "driver": "build_support/layout/ltcg/entity_quad_projection_00444240_context.cpp",
   "headers": [],
   "image_base": "0x00400000",

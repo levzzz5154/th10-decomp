@@ -303,7 +303,7 @@
     "build_support/layout/ltcg/sound_interfaces_dependencies/fill.cpp",
     "build_support/layout/ltcg/sound_interfaces_dependencies/rewind.cpp",
     "build_support/layout/ltcg/sound_interfaces_dependencies/read.cpp",
-    "src/core/zwave/recovery_initialize_single_interface.cpp"
+    "src/core/zwave/sound_stream_init_single.cpp"
   ],
   "additional_sources": [
     "build_support/contexts/legacy/platform/sound_music_launch.cpp"

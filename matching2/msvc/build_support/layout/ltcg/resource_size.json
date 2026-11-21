@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "name": "resource_size",
-  "source": "src/pack/file/resource_get_file_size_retail.cpp",
+  "source": "src/pack/file/resource_get_file_size.cpp",
   "driver": "build_support/layout/ltcg/resource_size_context.cpp",
   "included_sources": [
     "src/pack/arcmngr/dat_archive_find_size.cpp"

@@ -11,7 +11,7 @@
     "include/th10/game/resource_cleanup.hpp"
   ],
   "included_sources": [
-    "src/game/hint/recovery_clear_eight_buckets.cpp",
+    "src/game/hint/hint_clear_buckets.cpp",
     "src/core/zunlib/scheduler_tasks.cpp"
   ],
   "image_base": "0x00400000",

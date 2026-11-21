@@ -24,7 +24,7 @@
       "section": ".text$01anchor",
       "address": "0x00421F00",
       "size": 71,
-      "source": "src/game/mother/recovery_initialize_large_state.cpp",
+      "source": "src/game/mother/supervisor_initialize_state.cpp",
       "actual_abi": "state ESI; EAX pointer result; RET"
     },
     {
@@ -92,7 +92,7 @@
   ],
   "roots": [],
   "additional_sources": [
-    "src/game/mother/recovery_initialize_large_state.cpp",
+    "src/game/mother/supervisor_initialize_state.cpp",
     "src/game/game/game_config_defaults.cpp"
   ],
   "included_sources": []

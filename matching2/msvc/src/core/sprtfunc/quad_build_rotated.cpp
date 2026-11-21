@@ -25,9 +25,9 @@ static __forceinline int SubmitRotatedCorners(SprtCtrlBatchView* manager, Render
     return manager->SubmitSpriteQuad(entity, 0);
 }
 
-#pragma code_seg(".text$06b03rotquad")
-extern "C" __declspec(noinline) int BuildRotatedQuad(
-        SprtCtrlBatchView* manager, RenderEntity* entity) {
+// MATCH: retail uses x87 FSINCOS; MSVC 7.1 emits separate sin/cos intrinsics
+// for C++ calls, so both rotated entry points share this helper.
+static __forceinline int BuildRotatedQuadBody(SprtCtrlBatchView* manager, RenderEntity* entity) {
     float ca, sa;
     float angle;
 
@@ -45,26 +45,17 @@ extern "C" __declspec(noinline) int BuildRotatedQuad(
 
     return SubmitRotatedCorners(manager, entity, ca, sa);
 }
+
+#pragma code_seg(".text$06b03rotquad")
+extern "C" __declspec(noinline) int BuildRotatedQuad(
+        SprtCtrlBatchView* manager, RenderEntity* entity) {
+    return BuildRotatedQuadBody(manager, entity);
+}
 #pragma code_seg()
 
 #pragma code_seg(".text$06b04rotquad")
 extern "C" __declspec(noinline) int BuildRotatedQuadAlt(
         SprtCtrlBatchView* manager, RenderEntity* entity) {
-    float ca, sa;
-    float angle;
-
-    if (entity->rotation.z == 0.0f) {
-        return EntityDraw2(entity, manager);
-    }
-
-    angle = entity->rotation.z;
-    __asm {
-        fld angle
-        fsincos
-        fstp ca
-        fstp sa
-    }
-
-    return SubmitRotatedCorners(manager, entity, ca, sa);
+    return BuildRotatedQuadBody(manager, entity);
 }
 #pragma code_seg()

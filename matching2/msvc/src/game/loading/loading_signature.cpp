@@ -46,7 +46,3 @@ extern "C" int __stdcall TitleEffectsAdvance(TitleEffectState* state) {
     return 1;
 }
 #pragma code_seg()
-
-// Complete existing animation dependencies provide the private LTCG ABIs.
-// The layout exports only this worker and its real scheduler callback.
-#include "../../../build_support/layout/ltcg/animation_public_callers_anchors.cpp"

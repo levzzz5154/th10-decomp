@@ -1,4 +1,5 @@
-// 0x0042AE60 is the score manager constructor, despite its historical filename.
+// 0x0042AE60: ScoreArchiveManager constructor — loads the score file,
+// initializes the random table and per-shot record defaults, and parses sections.
 #include <string.h>
 #include "th10/game/score_archive_manager.hpp"
 char* __stdcall Archive_LoadFile(const char*,int*,int);
@@ -19,9 +20,3 @@ ScoreArchiveManager::ScoreArchiveManager() {
     LoadSections();
 }
 #pragma code_seg()
-
-// Complete original allocating caller and private compiler-visible helpers.
-#include "score_manager_create.cpp"
-
-#include "../../../build_support/layout/ltcg/score_manager_dependencies/decrypt.cpp"
-#include "../../../build_support/layout/ltcg/score_manager_dependencies/archive_load.cpp"

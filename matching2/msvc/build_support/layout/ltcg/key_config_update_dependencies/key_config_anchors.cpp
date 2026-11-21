@@ -5,7 +5,7 @@
 #include "../../../../src/game/title/key_config.cpp"
 #undef code_seg
 #define code_seg(name) code_seg(".text$0042f8b0_fn")
-#include "../../../../src/game/title/fun.cpp"
+#include "../../../../src/game/title/key_config_refresh_digits.cpp"
 #undef code_seg
 #pragma code_seg()
 __forceinline void KeyConfigMatrix::SetIdentity() {

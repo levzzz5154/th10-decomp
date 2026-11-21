@@ -1,2 +1,2 @@
 // Unselected compiler context of the key configuration screen 0x0042F540.
-#include "../../../../src/game/title/recovery_install_animation_slot.cpp"
+#include "../../../../src/game/title/title_install_animation_slot.cpp"

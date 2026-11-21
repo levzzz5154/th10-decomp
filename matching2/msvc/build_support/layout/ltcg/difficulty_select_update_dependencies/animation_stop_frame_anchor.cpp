@@ -4,6 +4,6 @@
 #define SprtCtrl RecoveryLookup
 #define AnimationLookupContext RecoveryLookupContext
 #define code_seg(name) code_seg(".text$00449470_fn")
-#include "../../../../src/core/sprtlib/animation_manager_set_stop_frame_from_handle_retail.cpp"
+#include "../../../../src/core/sprtlib/animation_manager_set_stop_frame_from_handle.cpp"
 #undef code_seg
 #pragma code_seg()

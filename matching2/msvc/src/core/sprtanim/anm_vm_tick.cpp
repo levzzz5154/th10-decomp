@@ -17,9 +17,114 @@
 #define INT_DEST_PTR() Anm_IntRef(&ins->i[0], vm, 0, ins->var_mask)
 #define FLOAT_DEST_PTR() Anm_FloatRef(vm, 0, &ins->f[0], ins->var_mask)
 
-#define SCRIPT_END_OPCODE (-1)
-#define INTERRUPT_LABEL_OPCODE 64
-#define STRIP_DRAW_TYPE 9
+enum AnmOpcode {
+    ANM_SCRIPT_END = -1,
+    ANM_NOP = 0,
+    ANM_DELETE = 1,
+    ANM_STOP = 2,
+    ANM_SET_SPRITE = 3,
+    ANM_JMP = 4,
+    ANM_JMP_DEC = 5,
+    ANM_SET_INT = 6,
+    ANM_SET_FLOAT = 7,
+    ANM_ADD_INT = 8,
+    ANM_ADD_FLOAT = 9,
+    ANM_SUB_INT = 10,
+    ANM_SUB_FLOAT = 11,
+    ANM_MUL_INT = 12,
+    ANM_MUL_FLOAT = 13,
+    ANM_DIV_INT = 14,
+    ANM_DIV_FLOAT = 15,
+    ANM_MOD_INT = 16,
+    ANM_MOD_FLOAT = 17,
+    ANM_ADD_INT_3 = 18,
+    ANM_ADD_FLOAT_3 = 19,
+    ANM_SUB_INT_3 = 20,
+    ANM_SUB_FLOAT_3 = 21,
+    ANM_MUL_INT_3 = 22,
+    ANM_MUL_FLOAT_3 = 23,
+    ANM_DIV_INT_3 = 24,
+    ANM_DIV_FLOAT_3 = 25,
+    ANM_MOD_INT_3 = 26,
+    ANM_MOD_FLOAT_3 = 27,
+    ANM_JMP_EQ_INT = 28,
+    ANM_JMP_EQ_FLOAT = 29,
+    ANM_JMP_NE_INT = 30,
+    ANM_JMP_NE_FLOAT = 31,
+    ANM_JMP_LT_INT = 32,
+    ANM_JMP_LT_FLOAT = 33,
+    ANM_JMP_LE_INT = 34,
+    ANM_JMP_LE_FLOAT = 35,
+    ANM_JMP_GT_INT = 36,
+    ANM_JMP_GT_FLOAT = 37,
+    ANM_JMP_GE_INT = 38,
+    ANM_JMP_GE_FLOAT = 39,
+    ANM_RAND_INT = 40,
+    ANM_RAND_FLOAT = 41,
+    ANM_SIN = 42,
+    ANM_COS = 43,
+    ANM_TAN = 44,
+    ANM_ACOS = 45,
+    ANM_ATAN = 46,
+    ANM_NORMALIZE_ANGLE = 47,
+    ANM_SET_POS = 48,
+    ANM_SET_ROT = 49,
+    ANM_SET_SCALE = 50,
+    ANM_SET_ALPHA = 51,
+    ANM_SET_COLOR = 52,
+    ANM_SET_ANGULAR_VEL = 53,
+    ANM_SET_SCALE_GROWTH = 54,
+    ANM_FADE_ALPHA_TO_ZERO = 55,
+    ANM_INTERP_POS = 56,
+    ANM_INTERP_COLOR = 57,
+    ANM_INTERP_ALPHA = 58,
+    ANM_INTERP_ROT = 59,
+    ANM_INTERP_SCALE = 60,
+    ANM_FLIP_X = 61,
+    ANM_FLIP_Y = 62,
+    ANM_WAIT_INTERRUPT = 63,
+    ANM_INTERRUPT_LABEL = 64,
+    ANM_SET_ANCHOR = 65,
+    ANM_SET_BLEND = 66,
+    ANM_SET_DRAW_TYPE = 67,
+    ANM_SET_LAYER = 68,
+    ANM_HIDE_AND_WAIT = 69,
+    ANM_SET_SCROLL_X = 70,
+    ANM_SET_SCROLL_Y = 71,
+    ANM_SET_VISIBLE = 72,
+    ANM_SET_FLAG_11 = 73,
+    ANM_SET_SCROLL_OFFSET = 74,
+    ANM_WAIT = 75,
+    ANM_SET_COLOR2 = 76,
+    ANM_SET_ALPHA2 = 77,
+    ANM_INTERP_COLOR2 = 78,
+    ANM_INTERP_ALPHA2 = 79,
+    ANM_SET_FLAG_15 = 80,
+    ANM_RETURN_INTERRUPT = 81,
+    ANM_SET_FLAG_27 = 82,
+    ANM_BAKE_OFFSET = 83,
+    ANM_ALLOC_STRIP = 84,
+    ANM_SET_FLAG_28 = 85,
+    ANM_SET_IGNORE_SPEED = 86,
+    ANM_SET_REPLAY_RNG = 87,
+    ANM_SPAWN_PRIMARY_BACK = 88,
+    ANM_SET_FLAG_31 = 89,
+    ANM_SPAWN_SECONDARY_BACK = 90,
+    ANM_SPAWN_PRIMARY_FRONT = 91,
+    ANM_SPAWN_SECONDARY_FRONT = 92
+};
+
+enum AnmFlagBits {
+    ANM_FLAG_SCALED = 0x8,
+    ANM_FLAG_FLIP_X = 0x200,
+    ANM_FLAG_FLIP_Y = 0x400
+};
+
+enum AnmDrawType {
+    ANM_DRAW_STRIP = 9,
+    ANM_DRAW_RING = 10
+};
+
 // The PC is byte-addressed. Keep the calculation at the use site: extra
 // inlined functions can change the x87 operand order in the strip loop.
 #define INSTRUCTION_AT(base, byte_offset) ((AnmInstr*)((char*)(base) + (byte_offset)))
@@ -56,77 +161,77 @@ int __stdcall AnmVm::Tick(AnmVm* vm) {
     // continues here to check the target's timestamp before executing it.
     while ((ins = vm->pc)->time <= vm->time.current) {
         switch (ins->id) {
-        case SCRIPT_END_OPCODE:
-        case 1:
+        case ANM_SCRIPT_END:
+        case ANM_DELETE:
             vm->visible = 0;
-            // Fall through: case 2 ends the script without changing visibility.
-        case 2:
+            // Fall through: ANM_STOP ends the script without changing visibility.
+        case ANM_STOP:
             vm->pc = 0;
             g_game_speed = saved_speed;
             return 1;
-        case 86:
+        case ANM_SET_IGNORE_SPEED:
             vm->f29 = READ_INT(0);
             break;
 
         // Spawn on either list, front or back, and inherit position and offset.
-        case 88: {
+        case ANM_SPAWN_PRIMARY_BACK: {
             AnmHandle handle;
             Anm_CreatePrimaryBack(vm->anm, &handle, READ_INT(0), vm->layer);
             AttachChild(vm, &handle);
             break;
         }
-        case 91: {
+        case ANM_SPAWN_PRIMARY_FRONT: {
             AnmHandle handle;
             Anm_CreatePrimaryFront(vm->anm, &handle, READ_INT(0), vm->layer);
             AttachChild(vm, &handle);
             break;
         }
-        case 90: {
+        case ANM_SPAWN_SECONDARY_BACK: {
             AnmHandle handle;
             Anm_CreateSecondaryBack(vm->anm, &handle, READ_INT(0), vm->layer);
             AttachChild(vm, &handle);
             break;
         }
-        case 92: {
+        case ANM_SPAWN_SECONDARY_FRONT: {
             AnmHandle handle;
             Anm_CreateSecondaryFront(vm->anm, &handle, READ_INT(0), vm->layer);
             AttachChild(vm, &handle);
             break;
         }
 
-        case 3:
+        case ANM_SET_SPRITE:
             vm->visible = 1;
             vm->anm->SetSprite(vm, READ_INT(0));
             vm->sprite_time = vm->time.current;
             break;
-        case 50:
+        case ANM_SET_SCALE:
             vm->scale.x = READ_FLOAT(0);
             vm->scale.y = READ_FLOAT(1);
             vm->scaled = 1;
             break;
-        case 51:
+        case ANM_SET_ALPHA:
             vm->alpha = READ_INT(0);
             break;
-        case 52:
+        case ANM_SET_COLOR:
             vm->red = READ_INT(0);
             vm->green = READ_INT(1);
             vm->blue = READ_INT(2);
             break;
-        case 77:
+        case ANM_SET_ALPHA2:
             vm->alpha2 = READ_INT(0);
             break;
-        case 76:
+        case ANM_SET_COLOR2:
             vm->red2 = READ_INT(0);
             vm->green2 = READ_INT(1);
             vm->blue2 = READ_INT(2);
             break;
 
         // The target is a byte offset from the script base, paired with a frame.
-        case 4:
+        case ANM_JMP:
             vm->time.Set(ins->i[1]);
             vm->pc = INSTRUCTION_AT(vm->script, ins->i[0]);
             continue;
-        case 5:
+        case ANM_JMP_DEC:
             --*INT_DEST_PTR();
             // Test through the read path after writing the destination.
             if (READ_INT(0) > 0) {
@@ -137,60 +242,61 @@ int __stdcall AnmVm::Tick(AnmVm* vm) {
             break;
 
         // Toggle the flip bit and mark the scale dirty in the same flag word.
-        case 61: {
-            unsigned int f = vm->flags ^ 0x200 | 8;
+        // MATCH: retail writes the updated flag word both before and after negating scale.
+        case ANM_FLIP_X: {
+            unsigned int f = vm->flags ^ ANM_FLAG_FLIP_X | ANM_FLAG_SCALED;
             vm->flags = f;
             vm->scale.x = vm->scale.x * -1.0f;
             vm->flags = f;
             break;
         }
-        case 62: {
-            unsigned int f = vm->flags ^ 0x400 | 8;
+        case ANM_FLIP_Y: {
+            unsigned int f = vm->flags ^ ANM_FLAG_FLIP_Y | ANM_FLAG_SCALED;
             vm->flags = f;
             vm->scale.y = vm->scale.y * -1.0f;
             vm->flags = f;
             break;
         }
-        case 49:
+        case ANM_SET_ROT:
             vm->rotation.x = READ_FLOAT(0);
             vm->rotation.y = READ_FLOAT(1);
             vm->rotation.z = READ_FLOAT(2);
             vm->rotated = 1;
             break;
-        case 53:
+        case ANM_SET_ANGULAR_VEL:
             vm->angular_velocity.x = READ_FLOAT(0);
             vm->angular_velocity.y = READ_FLOAT(1);
             vm->angular_velocity.z = READ_FLOAT(2);
             vm->rotated = 1;
             break;
-        case 54:
+        case ANM_SET_SCALE_GROWTH:
             vm->scale_growth.x = READ_FLOAT(0);
             vm->scale_growth.y = READ_FLOAT(1);
             break;
-        case 55:
+        case ANM_FADE_ALPHA_TO_ZERO:
             vm->StartAlpha(READ_INT(1), 0, vm->alpha, ins->b[0]);
             break;
-        case 66:
+        case ANM_SET_BLEND:
             vm->blend = ins->i[0];
             break;
-        case 48:
+        case ANM_SET_POS:
             if (!vm->alt_position)
                 vm->position = Float3(READ_FLOAT(0), READ_FLOAT(1), READ_FLOAT(2));
             else
                 vm->position2 = Float3(READ_FLOAT(0), READ_FLOAT(1), READ_FLOAT(2));
             break;
 
-        case 0:
-        case INTERRUPT_LABEL_OPCODE:
+        case ANM_NOP:
+        case ANM_INTERRUPT_LABEL:
             break;
-        case 75:
+        case ANM_WAIT:
             vm->time.Decrement(READ_INT(0));
             break;
 
-        case 69:
+        case ANM_HIDE_AND_WAIT:
             vm->visible = 0;
-            // Fall through to the same wait as case 63, now hidden.
-        case 63:
+            // Fall through to the same wait as ANM_WAIT_INTERRUPT, now hidden.
+        case ANM_WAIT_INTERRUPT:
             if (vm->pending_interrupt == 0) {
                 vm->stopped = 1;
                 // Keep the PC here. Back up one tick before the common
@@ -204,14 +310,14 @@ int __stdcall AnmVm::Tick(AnmVm* vm) {
             AnmInstr* fallback = 0;
             // First exact label wins; otherwise use the last -1 label seen.
             for (;;) {
-                if (cursor->id == INTERRUPT_LABEL_OPCODE && vm->pending_interrupt == cursor->i[0]) break;
-                if (cursor->id == SCRIPT_END_OPCODE) break;
-                if (cursor->id == INTERRUPT_LABEL_OPCODE && cursor->i[0] == -1) fallback = cursor;
+                if (cursor->id == ANM_INTERRUPT_LABEL && vm->pending_interrupt == cursor->i[0]) break;
+                if (cursor->id == ANM_SCRIPT_END) break;
+                if (cursor->id == ANM_INTERRUPT_LABEL && cursor->i[0] == -1) fallback = cursor;
                 cursor = INSTRUCTION_AT(cursor, cursor->size);
             }
             vm->pending_interrupt = 0;
             vm->stopped = 0;
-            if (cursor->id != INTERRUPT_LABEL_OPCODE) {
+            if (cursor->id != ANM_INTERRUPT_LABEL) {
                 if (fallback == 0) {
                     vm->time.Advance(-1.0f);
                     goto update_frame;
@@ -227,36 +333,36 @@ int __stdcall AnmVm::Tick(AnmVm* vm) {
             vm->visible = 1;
             continue;
         }
-        case 81:
+        case ANM_RETURN_INTERRUPT:
             vm->time = vm->saved_time;
             vm->pc = vm->saved_pc;
             continue;
 
-        case 72:
+        case ANM_SET_VISIBLE:
             vm->visible = ins->i[0];
             break;
-        case 65:
+        case ANM_SET_ANCHOR:
             vm->scroll_x_mode = ins->w[0];
             vm->scroll_y_mode = ins->w[1];
             break;
-        case 70:
+        case ANM_SET_SCROLL_X:
             vm->uv_scroll_speed.x = READ_FLOAT(0);
             break;
-        case 71:
+        case ANM_SET_SCROLL_Y:
             vm->uv_scroll_speed.y = READ_FLOAT(0);
             break;
-        case 73:
+        case ANM_SET_FLAG_11:
             vm->f11 = ins->i[0];
             break;
-        case 74:
+        case ANM_SET_SCROLL_OFFSET:
             vm->f13 = ins->i[0];
             break;
-        case 89:
+        case ANM_SET_FLAG_31:
             vm->f31 = ins->i[0];
             break;
 
         // Arm interpolators now; their first evaluation is in the frame update.
-        case 56:
+        case ANM_INTERP_POS:
             vm->position_interp.end_time = READ_INT(0);
             vm->position_interp.control_1 = g_zero_vector;
             vm->position_interp.control_2 = g_zero_vector;
@@ -268,7 +374,7 @@ int __stdcall AnmVm::Tick(AnmVm* vm) {
             vm->position_interp.goal = Float3(READ_FLOAT(2), READ_FLOAT(3), READ_FLOAT(4));
             vm->position_interp.Restart();
             break;
-        case 57: {
+        case ANM_INTERP_COLOR: {
             Rgb from;
             from.b = vm->blue;
             from.g = vm->green;
@@ -277,10 +383,10 @@ int __stdcall AnmVm::Tick(AnmVm* vm) {
             vm->StartColor(&from.b, &to.b, READ_INT(0), ins->b[4]);
             break;
         }
-        case 58:
+        case ANM_INTERP_ALPHA:
             vm->StartAlpha(READ_INT(0), ins->b[4], vm->alpha, READ_INT(2));
             break;
-        case 78: {
+        case ANM_INTERP_COLOR2: {
             Rgb from;
             from.b = vm->blue2;
             from.g = vm->green2;
@@ -289,10 +395,10 @@ int __stdcall AnmVm::Tick(AnmVm* vm) {
             vm->StartColor2(&from.b, &to.b, READ_INT(0), ins->b[4]);
             break;
         }
-        case 79:
+        case ANM_INTERP_ALPHA2:
             vm->StartAlpha2(READ_INT(0), ins->b[4], vm->alpha2, READ_INT(2));
             break;
-        case 59: {
+        case ANM_INTERP_ROT: {
             Float3 goal(READ_FLOAT(2), READ_FLOAT(3), READ_FLOAT(4));
             vm->rotation_interp.end_time = READ_INT(0);
             vm->rotation_interp.control_1 = g_zero_vector;
@@ -304,7 +410,7 @@ int __stdcall AnmVm::Tick(AnmVm* vm) {
             vm->rotated = 1;
             break;
         }
-        case 60: {
+        case ANM_INTERP_SCALE: {
             Float2 goal(READ_FLOAT(2), READ_FLOAT(3));
             int time = READ_INT(0);
             vm->StartScale(time, ins->b[4], &vm->scale, &goal);
@@ -312,87 +418,87 @@ int __stdcall AnmVm::Tick(AnmVm* vm) {
             break;
         }
 
-        case 67:
+        case ANM_SET_DRAW_TYPE:
             vm->type = ins->i[0];
-            if (vm->type == 10) vm->InitRing();
+            if (vm->type == ANM_DRAW_RING) vm->InitRing();
             break;
-        case 83:
+        case ANM_BAKE_OFFSET:
             vm->position = vm->offset;
             vm->offset.x = 0.0f;
             vm->offset.y = 0.0f;
             vm->offset.z = 0.0f;
             break;
-        case 84:
-            vm->type = STRIP_DRAW_TYPE;
+        case ANM_ALLOC_STRIP:
+            vm->type = ANM_DRAW_STRIP;
             vm->strip = (AnmVertex*)malloc(READ_INT(0) * sizeof(AnmVertex) * 2);
             break;
 
         // Assignment, then three-operand arithmetic: slot 0 = slot 1 op slot 2.
-        case 6: {
+        case ANM_SET_INT: {
             int value = READ_INT(1);
             *INT_DEST_PTR() = value;
             break;
         }
-        case 7: {
+        case ANM_SET_FLOAT: {
             float value = READ_FLOAT(1);
             *FLOAT_DEST_PTR() = value;
             break;
         }
-        case 18: {
+        case ANM_ADD_INT_3: {
             int a = READ_INT(1);
             int b = READ_INT(2);
             *INT_DEST_PTR() = a + b;
             break;
         }
-        case 19: {
+        case ANM_ADD_FLOAT_3: {
             float a = READ_FLOAT(1);
             float b = READ_FLOAT(2);
             *FLOAT_DEST_PTR() = a + b;
             break;
         }
-        case 20: {
+        case ANM_SUB_INT_3: {
             int a = READ_INT(1);
             int b = READ_INT(2);
             *INT_DEST_PTR() = a - b;
             break;
         }
-        case 21: {
+        case ANM_SUB_FLOAT_3: {
             float a = READ_FLOAT(1);
             float b = READ_FLOAT(2);
             *FLOAT_DEST_PTR() = a - b;
             break;
         }
-        case 22: {
+        case ANM_MUL_INT_3: {
             int a = READ_INT(1);
             int b = READ_INT(2);
             *INT_DEST_PTR() = a * b;
             break;
         }
-        case 23: {
+        case ANM_MUL_FLOAT_3: {
             float a = READ_FLOAT(1);
             float b = READ_FLOAT(2);
             *FLOAT_DEST_PTR() = a * b;
             break;
         }
-        case 24: {
+        case ANM_DIV_INT_3: {
             int a = READ_INT(1);
             int b = READ_INT(2);
             *INT_DEST_PTR() = a / b;
             break;
         }
-        case 25: {
+        case ANM_DIV_FLOAT_3: {
             float a = READ_FLOAT(1);
             float b = READ_FLOAT(2);
             *FLOAT_DEST_PTR() = a / b;
             break;
         }
-        case 26: {
+        case ANM_MOD_INT_3: {
             int a = READ_INT(1);
             int b = READ_INT(2);
             *INT_DEST_PTR() = a % b;
             break;
         }
-        case 27: {
+        case ANM_MOD_FLOAT_3: {
             // Both float remainder forms read the divisor before the dividend.
             float b = READ_FLOAT(2);
             float a = READ_FLOAT(1);
@@ -401,56 +507,56 @@ int __stdcall AnmVm::Tick(AnmVm* vm) {
         }
 
         // In-place forms: slot 0 is both the input and the destination.
-        case 8: {
+        case ANM_ADD_INT: {
             int value = READ_INT(1);
             *INT_DEST_PTR() += value;
             break;
         }
-        case 9: {
+        case ANM_ADD_FLOAT: {
             float value = READ_FLOAT(1);
             float* target = FLOAT_DEST_PTR();
             *target = *target + value;
             break;
         }
-        case 10: {
+        case ANM_SUB_INT: {
             int value = READ_INT(1);
             *INT_DEST_PTR() -= value;
             break;
         }
-        case 11: {
+        case ANM_SUB_FLOAT: {
             float value = READ_FLOAT(1);
             float* target = FLOAT_DEST_PTR();
             *target = *target - value;
             break;
         }
-        case 12: {
+        case ANM_MUL_INT: {
             int value = READ_INT(1);
             *INT_DEST_PTR() *= value;
             break;
         }
-        case 13: {
+        case ANM_MUL_FLOAT: {
             float value = READ_FLOAT(1);
             float* target = FLOAT_DEST_PTR();
             *target = *target * value;
             break;
         }
-        case 14: {
+        case ANM_DIV_INT: {
             int value = READ_INT(1);
             *INT_DEST_PTR() /= value;
             break;
         }
-        case 15: {
+        case ANM_DIV_FLOAT: {
             float value = READ_FLOAT(1);
             float* target = FLOAT_DEST_PTR();
             *target = *target / value;
             break;
         }
-        case 16: {
+        case ANM_MOD_INT: {
             int value = READ_INT(1);
             *INT_DEST_PTR() %= value;
             break;
         }
-        case 17: {
+        case ANM_MOD_FLOAT: {
             float b = READ_FLOAT(1);
             float a = READ_FLOAT(0);
             *FLOAT_DEST_PTR() = (float)fmod(a, b);
@@ -458,112 +564,112 @@ int __stdcall AnmVm::Tick(AnmVm* vm) {
         }
 
         // RNG selection is per VM; the remaining cases here are unary math.
-        case 40:
+        case ANM_RAND_INT:
             *INT_DEST_PTR() = vm->f30 ? g_replay_rng.NextModulo(READ_INT(1))
                                      : g_effect_rng.NextModulo(READ_INT(1));
             break;
-        case 41: {
+        case ANM_RAND_FLOAT: {
             float value = vm->f30 ? READ_FLOAT(1) * g_replay_rng.NextFloat()
                                   : READ_FLOAT(1) * g_effect_rng.NextFloat();
             *FLOAT_DEST_PTR() = value;
             break;
         }
-        case 42: {
+        case ANM_SIN: {
             float value = READ_FLOAT(1);
             *FLOAT_DEST_PTR() = (float)sin(value);
             break;
         }
-        case 43: {
+        case ANM_COS: {
             float value = READ_FLOAT(1);
             *FLOAT_DEST_PTR() = (float)cos(value);
             break;
         }
-        case 44: {
+        case ANM_TAN: {
             float value = READ_FLOAT(1);
             *FLOAT_DEST_PTR() = (float)tan(value);
             break;
         }
-        case 45: {
+        case ANM_ACOS: {
             float value = READ_FLOAT(1);
             *FLOAT_DEST_PTR() = (float)acos(value);
             break;
         }
-        case 46: {
+        case ANM_ATAN: {
             float value = READ_FLOAT(1);
             *FLOAT_DEST_PTR() = (float)atan(value);
             break;
         }
-        case 47: {
+        case ANM_NORMALIZE_ANGLE: {
             float value = READ_FLOAT(0);
             *FLOAT_DEST_PTR() = Angle_NormalizeSum(value, 0.0f);
             break;
         }
 
         // These settings take the literal low byte, not a resolved integer.
-        case 85: vm->f28 = ins->b[0]; break;
-        case 68: vm->layer = ins->b[0]; break;
-        case 80: vm->f15 = ins->b[0]; break;
-        case 82: vm->f27 = ins->b[0]; break;
-        case 87: vm->f30 = ins->b[0]; break;
+        case ANM_SET_FLAG_28: vm->f28 = ins->b[0]; break;
+        case ANM_SET_LAYER: vm->layer = ins->b[0]; break;
+        case ANM_SET_FLAG_15: vm->f15 = ins->b[0]; break;
+        case ANM_SET_FLAG_27: vm->f27 = ins->b[0]; break;
+        case ANM_SET_REPLAY_RNG: vm->f30 = ins->b[0]; break;
 
         // Compare slots 0 and 1. Every taken branch shares the offset/frame
-        // tail in case 39; a failed comparison consumes just this instruction.
-        case 28: {
+        // tail in ANM_JMP_GE_FLOAT; a failed comparison consumes just this instruction.
+        case ANM_JMP_EQ_INT: {
             int a = READ_INT(0);
             if (a == READ_INT(1)) goto take_comparison_jump;
             break;
         }
-        case 29: {
+        case ANM_JMP_EQ_FLOAT: {
             float a = READ_FLOAT(0);
             if (a == READ_FLOAT(1)) goto take_comparison_jump;
             break;
         }
-        case 30: {
+        case ANM_JMP_NE_INT: {
             int a = READ_INT(0);
             if (a != READ_INT(1)) goto take_comparison_jump;
             break;
         }
-        case 31: {
+        case ANM_JMP_NE_FLOAT: {
             float a = READ_FLOAT(0);
             if (a != READ_FLOAT(1)) goto take_comparison_jump;
             break;
         }
-        case 32: {
+        case ANM_JMP_LT_INT: {
             int a = READ_INT(0);
             if (a < READ_INT(1)) goto take_comparison_jump;
             break;
         }
-        case 33: {
+        case ANM_JMP_LT_FLOAT: {
             float a = READ_FLOAT(0);
             if (a < READ_FLOAT(1)) goto take_comparison_jump;
             break;
         }
-        case 34: {
+        case ANM_JMP_LE_INT: {
             int a = READ_INT(0);
             if (a <= READ_INT(1)) goto take_comparison_jump;
             break;
         }
-        case 35: {
+        case ANM_JMP_LE_FLOAT: {
             float a = READ_FLOAT(0);
             if (a <= READ_FLOAT(1)) goto take_comparison_jump;
             break;
         }
-        case 36: {
+        case ANM_JMP_GT_INT: {
             int a = READ_INT(0);
             if (a > READ_INT(1)) goto take_comparison_jump;
             break;
         }
-        case 37: {
+        case ANM_JMP_GT_FLOAT: {
             float a = READ_FLOAT(0);
             if (a > READ_FLOAT(1)) goto take_comparison_jump;
             break;
         }
-        case 38: {
+        case ANM_JMP_GE_INT: {
             int a = READ_INT(0);
             if (a >= READ_INT(1)) goto take_comparison_jump;
             break;
         }
-        case 39: {
+        case ANM_JMP_GE_FLOAT: {
             float a = READ_FLOAT(0);
             if (a >= READ_FLOAT(1)) {
             take_comparison_jump:
@@ -650,7 +756,7 @@ update_frame:
 
     // Generate two vertices at each angle. The final pair repeats the first
     // positions at the ending V coordinate to close the strip's texture seam.
-    if (vm->type == STRIP_DRAW_TYPE) {
+    if (vm->type == ANM_DRAW_STRIP) {
         int count = vm->int_vars[0];
         AnmVertex* vertex = vm->strip;
         float angle = vm->rotation.z;
@@ -694,7 +800,4 @@ update_frame:
 #undef READ_FLOAT
 #undef INT_DEST_PTR
 #undef FLOAT_DEST_PTR
-#undef SCRIPT_END_OPCODE
-#undef INTERRUPT_LABEL_OPCODE
-#undef STRIP_DRAW_TYPE
 #undef INSTRUCTION_AT

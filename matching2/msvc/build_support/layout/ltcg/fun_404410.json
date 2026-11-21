@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "name": "fun5",
-  "source": "src/unreferenced/FUN.cpp_404410.cpp",
+  "source": "src/unreferenced/fun_404410.cpp",
   "driver": "build_support/layout/ltcg/fun_00404410_context.cpp",
   "headers": [],
   "image_base": "0x00400000",

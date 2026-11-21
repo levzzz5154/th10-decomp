@@ -1,5 +1,5 @@
 // Synthetic compiler context only; it is not recovered game code.
-#include "../../../src/unreferenced/FUN.cpp_427d70.cpp"
+#include "../../../src/unreferenced/fun_427d70.cpp"
 
 #pragma code_seg(".text$03context")
 extern "C" __declspec(noinline) int __stdcall PairCompilerContext_00427d70(

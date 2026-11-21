@@ -27,16 +27,11 @@ void __stdcall Entity_StartScript(AnimationResourceFile* resource,
                                            Entity* entity, int script);
 
 // The command interpreter; the definition closes this translation unit.
+// Whole-program ABI anchors (scheduler_set, activate, angle_from_point, queue)
+// are supplied by build_support/layout/ltcg/projectile_command_runtime_00406d90_context.cpp.
 struct ProjectileCommandRuntime {
     __declspec(noinline) void Tick();
 };
-
-// Whole-program context: the ABI anchors whose bodies the /GL pass needs to
-// derive the retail register states at the command interpreter's call sites.
-#include "../../../build_support/layout/ltcg/projectile_spawn_runtime/scheduler_set.cpp"
-#include "../../../build_support/layout/ltcg/projectile_spawn_runtime/activate.cpp"
-#include "../../../build_support/layout/ltcg/projectile_spawn_runtime/angle_from_point.cpp"
-#include "../../../build_support/layout/ltcg/projectile_spawn_runtime/queue.cpp"
 #include "th10/game/player.hpp"
 
 // Aim angle for the velocity commands: values below -990 keep the slot's
@@ -51,6 +46,32 @@ __forceinline static float SpawnCommand_AimAngle(ProjectileSpawnRecord& record,
     return value;
 }
 
+enum BulletCommandId {
+    BULLET_CMD_END = 0,
+    BULLET_CMD_SPEED_CURVE = 0x00000001u,
+    BULLET_CMD_ACCEL_VECTOR = 0x00000010u,
+    BULLET_CMD_ANGULAR_ACCEL = 0x00000020u,
+    BULLET_CMD_TURN_STEP = 0x00000040u,
+    BULLET_CMD_AIM_STEP = 0x00000080u,
+    BULLET_CMD_EASE_STEP = 0x00000100u,
+    BULLET_CMD_BOUNCE_SIDE = 0x00000400u,
+    BULLET_CMD_BOUNCE_TOP = 0x00000800u,
+    BULLET_CMD_SET_COUNTDOWN = 0x00001000u,
+    BULLET_CMD_SET_BOUNDS_GRACE = 0x00002000u,
+    BULLET_CMD_CHANGE_SPRITE = 0x00004000u,
+    BULLET_CMD_WAIT = 0x00008000u,
+    BULLET_CMD_VANISH = 0x00010000u,
+    BULLET_CMD_PLAY_SFX = 0x00020000u,
+    BULLET_CMD_WRAP_HORIZONTAL = 0x00100000u,
+    BULLET_CMD_WRAP_VERTICAL = 0x00200000u,
+    BULLET_CMD_SHOOT_CHILD = 0x00400000u,
+    BULLET_CMD_SET_TURN_COUNT = 0x01000000u,
+    BULLET_CMD_JUMP = 0x02000000u,
+    BULLET_CMD_HOME_TOWARD_TARGET = 0x04000000u,
+    BULLET_CMD_BOUNCE_ALL = 0x08000000u,
+    BULLET_CMD_NOP = 0x80000000u
+};
+
 #pragma code_seg(".text$00406d90_fn")
 void ProjectileCommandRuntime::Tick() {
     ProjectileSpawnRecord& record = *reinterpret_cast<ProjectileSpawnRecord*>(this);
@@ -58,22 +79,22 @@ void ProjectileCommandRuntime::Tick() {
         const int index = record.command_index;
         SpawnCommandRecord* command = &record.commands[index];
         const unsigned int cmd = (unsigned int)command->command;
-        if (cmd == 0)
+        if (cmd == BULLET_CMD_END)
             return;
         if (command->guard == 0 && record.motion_flags != 0)
             return;
-        if (cmd == 0x80000000u) {
+        if (cmd == BULLET_CMD_NOP) {
             record.command_index = index + 1;
             continue;
         }
         switch ((unsigned int)command->command) {
-        case 1:
-            record.motion_flags |= 1u;
+        case BULLET_CMD_SPEED_CURVE:
+            record.motion_flags |= BULLET_CMD_SPEED_CURVE;
             record.scheduler_614.SetSchedulerValue(0);
             record.field_638 = 0;
             break;
-        case 0x10:
-            record.motion_flags |= 0x10u;
+        case BULLET_CMD_ACCEL_VECTOR:
+            record.motion_flags |= BULLET_CMD_ACCEL_VECTOR;
             record.field_65c = command->value_a;
             record.field_660 = SpawnCommand_AimAngle(record, command->value_b);
             record.scheduler_648.SetSchedulerValue(0);
@@ -82,8 +103,8 @@ void ProjectileCommandRuntime::Tick() {
             if (record.command_index != 0 && record.field_458 >= 0)
                 g_sound_manager.Queue(record.field_458, 0);
             break;
-        case 0x20:
-            record.motion_flags |= 0x20u;
+        case BULLET_CMD_ANGULAR_ACCEL:
+            record.motion_flags |= BULLET_CMD_ANGULAR_ACCEL;
             record.field_690 = command->value_a;
             record.field_694 = command->value_b;
             record.scheduler_67c.SetSchedulerValue(0);
@@ -91,9 +112,9 @@ void ProjectileCommandRuntime::Tick() {
             if (record.command_index != 0 && record.field_458 >= 0)
                 g_sound_manager.Queue(record.field_458, 0);
             break;
-        case 0x40:
-        case 0x80:
-        case 0x100:
+        case BULLET_CMD_TURN_STEP:
+        case BULLET_CMD_AIM_STEP:
+        case BULLET_CMD_EASE_STEP:
             record.motion_flags |= cmd;
             record.field_6c8 = SpawnCommand_AimAngle(record, command->value_a);
             {
@@ -115,52 +136,52 @@ void ProjectileCommandRuntime::Tick() {
             record.field_6dc = command->value_d;
             record.field_6e0 = 0;
             break;
-        case 0x400:
-        case 0x800:
-        case 0x8000000:
+        case BULLET_CMD_BOUNCE_SIDE:
+        case BULLET_CMD_BOUNCE_TOP:
+        case BULLET_CMD_BOUNCE_ALL:
             record.motion_flags |= cmd;
             record.field_6f8 = command->value_a;
             record.field_710 = command->value_c;
             record.field_70c = 0;
             break;
-        case 0x1000:
+        case BULLET_CMD_SET_COUNTDOWN:
             record.countdown = command->value_c;
             break;
-        case 0x2000:
+        case BULLET_CMD_SET_BOUNDS_GRACE:
             record.bounds_grace = command->value_c;
             record.command_index = index + 1;
             continue;
-        case 0x4000:
+        case BULLET_CMD_CHANGE_SPRITE:
             Entity_StartScript(
                 reinterpret_cast<AnimationResourceFile*>(
                     reinterpret_cast<ProjectileSpawnManager*>(g_bullet_manager)->animations),
                 &record.sprite,
                 g_bullet_script_first[command->value_c] + command->value_d);
             break;
-        case 0x8000:
+        case BULLET_CMD_WAIT:
             record.motion_flags |= cmd;
             reinterpret_cast<PlayerSchedulerRecord*>(&record.immunity_timer)
                 ->SetSchedulerValue(command->value_c);
             break;
-        case 0x10000:
+        case BULLET_CMD_VANISH:
             reinterpret_cast<PlayerCollisionRecord*>(this)->Activate();
             break;
-        case 0x20000:
+        case BULLET_CMD_PLAY_SFX:
             g_sound_manager.QueuePan(command->value_c, record.position.x);
             break;
-        case 0x100000:
+        case BULLET_CMD_WRAP_HORIZONTAL:
             record.motion_flags |= cmd;
             reinterpret_cast<PlayerSchedulerRecord*>(&record.scheduler_74c)
                 ->SetSchedulerValue(command->value_c);
             break;
-        case 0x200000:
+        case BULLET_CMD_WRAP_VERTICAL:
             record.motion_flags |= cmd;
             reinterpret_cast<PlayerSchedulerRecord*>(&record.scheduler_780)
                 ->SetSchedulerValue(command->value_c);
             break;
-        case 0x400000: {
+        case BULLET_CMD_SHOOT_CHILD: {
             // A grid spawn: this record and the next one describe the command.
-            // The 0x210-byte scan request below is a word buffer, as retail's
+            // MATCH: the 0x210-byte scan request below is a word buffer, as retail's
             // frame has no /GS cookie. No __declspec(align(8)): explicit
             // over-alignment marks the function for the /GL pass, which then
             // keeps EBX free in every direct callee and the sound queue loses
@@ -182,7 +203,7 @@ void ProjectileCommandRuntime::Tick() {
                 *reinterpret_cast<const unsigned int*>(&command->value_b);
             ++command;
             record.command_index = index + 1;
-            // The value hoists and the row/y_tail/flag/store order below pin
+            // MATCH: the value hoists and the row/y_tail/flag/store order below pin
             // the list scheduler's store interleave to retail's emission order.
             const short rows_v = (short)command->value_c;
             const unsigned int flags_v = (unsigned int)command->value_d;
@@ -202,15 +223,15 @@ void ProjectileCommandRuntime::Tick() {
             reinterpret_cast<PlayerCollisionRecord*>(this)->Activate();
             break;
         }
-        case 0x1000000:
+        case BULLET_CMD_SET_TURN_COUNT:
             record.turn_420 = command->value_c;
             record.command_index = index + 1;
             continue;
-        case 0x2000000:
+        case BULLET_CMD_JUMP:
             record.command_index = command->value_c;
             continue;
-        case 0x4000000:
-            record.motion_flags |= 0x4000000u;
+        case BULLET_CMD_HOME_TOWARD_TARGET:
+            record.motion_flags |= BULLET_CMD_HOME_TOWARD_TARGET;
             record.field_7c8 = command->value_a;
             record.field_7cc = command->value_b;
             if (!(record.timer_7b4.flags & 1u)) {

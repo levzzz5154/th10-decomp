@@ -1,4 +1,3 @@
-#include "../sprtlib/animation_handle_change_script.cpp"
 // Selected equivalent C++ body; see the script-change equivalence note.
 #include "th10/render/animation_script_change.hpp"
 #pragma code_seg(".text$01change")
@@ -52,13 +51,5 @@ void __stdcall ChangeAnimationScript(ScriptChangeResource* resource, Entity* obj
     *flag_word &= ~1u;
     RunChangeScriptVm(object);
     ++g_sprt_ctrl->script_tick_counter;
-}
-#pragma code_seg()
-
-#include "../../../build_support/layout/ltcg/script_change_find_anchor.cpp"
-#pragma code_seg(".text$07context")
-extern "C" int __stdcall ScriptChangeCompilerContext(ScriptChangeHandle* handles, int count, int index) {
-    while (count--) { handles->ChangeScript(index); ++handles; }
-    return index;
 }
 #pragma code_seg()

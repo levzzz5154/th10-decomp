@@ -56,17 +56,45 @@ static __forceinline void SetTreeFrame(RecoveryMusicVm* object, unsigned short f
     }
 }
 
+enum SpellRecordPhase {
+    SPELL_PHASE_ENTER = 0,
+    SPELL_PHASE_WAIT_OPEN = 1,
+    SPELL_PHASE_ACTIVE = 2,
+    SPELL_PHASE_EXIT = 3
+};
+
+enum SpellRecordConstants {
+    SPELL_SHOT_TOTAL = 6,
+    SPELL_DIFFICULTY_COUNT = 5,
+    SPELL_DIFFICULTY_NORMAL = 1,
+    SPELL_DIFFICULTY_EXTRA = 4,
+    SPELL_LINES_PER_PAGE = 10,
+    SPELL_UNLOCK_SEQ_LEN = 22,
+    SPELL_KEY_CANCEL = 0x000A,
+    SPELL_KEY_UP = 0x0010,
+    SPELL_KEY_DOWN = 0x0020,
+    SPELL_KEY_LEFT = 0x0040,
+    SPELL_KEY_RIGHT = 0x0080,
+    SPELL_KEY_CONFIRM = 0x1001,
+    SPELL_KEY_RESET_SEQ = 0x160B,
+    SPELL_SFX_CONFIRM = 10,
+    SPELL_SFX_CANCEL = 11,
+    SPELL_SFX_MOVE = 12,
+    SPELL_SFX_UNLOCK_ALL = 44,
+    SPELL_TARGET_MAIN_MENU = 2
+};
+
 #pragma code_seg(".text$00431ee0_fn")
 __declspec(noinline) int __stdcall TitleMode11(Title* room) {
     TitleSpellRecordView* records = reinterpret_cast<TitleSpellRecordView*>(room);
     void* handle;
     void* line_handle;
     switch (room->phase) {
-    case 0: {
-        room->cursor.item_count = 6;
+    case SPELL_PHASE_ENTER: {
+        room->cursor.item_count = SPELL_SHOT_TOTAL;
         SelectItem10(room->cursor, 0);
-        records->difficulty.item_count = 5;
-        SelectItem10(records->difficulty, 1);
+        records->difficulty.item_count = SPELL_DIFFICULTY_COUNT;
+        SelectItem10(records->difficulty, SPELL_DIFFICULTY_NORMAL);
         records->difficulty.wrap = 1;
         records->page.item_count = PageCount(records->difficulty.selection);
         SelectItem10(records->page, 0);
@@ -74,7 +102,7 @@ __declspec(noinline) int __stdcall TitleMode11(Title* room) {
         page->wrap = 1;
         EnsureTitleMenuBackdrop(room, handle);
         RecoveryMusicInstallSlot(room, 102);
-        room->SetTimerTarget(1);
+        room->SetTimerTarget(SPELL_PHASE_WAIT_OPEN);
         RecoveryMusicInstallSlot(room, room->cursor.selection / 3 + 152);
         RecoveryMusicInstallSlot(room, room->cursor.selection + 154);
         RecoveryMusicInstallSlot(room, records->difficulty.selection + 160);
@@ -87,29 +115,29 @@ __declspec(noinline) int __stdcall TitleMode11(Title* room) {
         RecoveryMusicInstallSlot(room, 167);
         RecoveryMusicInstallSlot(room, 172);
     }
-    case 1:
+    case SPELL_PHASE_WAIT_OPEN:
         if (room->timer.current > 6)
-            room->SetTimerTarget(2);
+            room->SetTimerTarget(SPELL_PHASE_ACTIVE);
         break;
-    case 2: {
+    case SPELL_PHASE_ACTIVE: {
         room->cursor.previous_selection = room->cursor.selection;
         MenuCursor* difficulty = &records->difficulty;
         difficulty->previous_selection = difficulty->selection;
         records->page.previous_selection = records->page.selection;
-        if ((short)g_input_keys_raw.InputMaskActive(0x10)) {
+        if ((short)g_input_keys_raw.InputMaskActive(SPELL_KEY_UP)) {
             difficulty->Advance(-1);
             AnimationManager_SetStopFrameAndRun(
                 2, reinterpret_cast<RecoveryLookupContext*>(g_sprt_ctrl),
                 room->animation_slots[170]);
         }
-        if ((short)g_input_keys_raw.InputMaskActive(0x20)) {
+        if ((short)g_input_keys_raw.InputMaskActive(SPELL_KEY_DOWN)) {
             difficulty->Advance(1);
             AnimationManager_SetStopFrameAndRun(
                 2, reinterpret_cast<RecoveryLookupContext*>(g_sprt_ctrl),
                 room->animation_slots[171]);
         }
         if (difficulty->previous_selection != difficulty->selection) {
-            g_sound_manager.Queue(12, 0);
+            g_sound_manager.Queue(SPELL_SFX_MOVE, 0);
             room->ClearAnimationSlot(records->difficulty.previous_selection + 160);
             RecoveryMusicInstallSlot(room, difficulty->selection + 160);
             if (records->page.selection > 0) {
@@ -118,20 +146,20 @@ __declspec(noinline) int __stdcall TitleMode11(Title* room) {
             }
             records->page.item_count = PageCount(difficulty->selection);
         }
-        if ((short)g_input_keys_raw.InputMaskActive(0x40)) {
+        if ((short)g_input_keys_raw.InputMaskActive(SPELL_KEY_LEFT)) {
             room->cursor.Advance(-1);
             AnimationManager_SetStopFrameAndRun(
                 2, reinterpret_cast<RecoveryLookupContext*>(g_sprt_ctrl),
                 room->animation_slots[168]);
         }
-        if ((short)g_input_keys_raw.InputMaskActive(0x80)) {
+        if ((short)g_input_keys_raw.InputMaskActive(SPELL_KEY_RIGHT)) {
             room->cursor.Advance(1);
             AnimationManager_SetStopFrameAndRun(
                 2, reinterpret_cast<RecoveryLookupContext*>(g_sprt_ctrl),
                 room->animation_slots[169]);
         }
         if (room->cursor.previous_selection != room->cursor.selection) {
-            g_sound_manager.Queue(12, 0);
+            g_sound_manager.Queue(SPELL_SFX_MOVE, 0);
             if (room->cursor.selection / 3 != room->cursor.previous_selection / 3) {
                 room->ClearAnimationSlot(room->cursor.previous_selection / 3 + 152);
                 RecoveryMusicInstallSlot(room, room->cursor.selection / 3 + 152);
@@ -141,7 +169,7 @@ __declspec(noinline) int __stdcall TitleMode11(Title* room) {
             if (records->page.selection > 0)
                 reinterpret_cast<TitleDrawView*>(room)->BuildSpellList();
         }
-        if (g_input_keys_held & 0x1001) {
+        if (g_input_keys_held & SPELL_KEY_CONFIRM) {
             if (records->page.selection == 0) {
                 int line = 0;
                 do {
@@ -149,21 +177,21 @@ __declspec(noinline) int __stdcall TitleMode11(Title* room) {
                     void** result = AnimationManager_CreatePrimaryBack(resource, &line_handle, line + 23, 15);
                     records->lines[line].value = reinterpret_cast<unsigned int>(*result);
                     ++line;
-                } while (line < 10);
+                } while (line < SPELL_LINES_PER_PAGE);
             }
             MenuCursor* page = &records->page;
             page->Advance(1);
             if (page->selection == 0) {
-                for (int line = 0; line < 10; ++line)
+                for (int line = 0; line < SPELL_LINES_PER_PAGE; ++line)
                     RecoveryMusicStopHandle(&records->lines[line]);
             } else {
                 reinterpret_cast<TitleDrawView*>(room)->BuildSpellList();
             }
-            g_sound_manager.Queue(10, 0);
+            g_sound_manager.Queue(SPELL_SFX_CONFIRM, 0);
         }
-        if (records->difficulty.selection == 4 && room->cursor.selection == 2) {
-            // Any game key restarts the sequence.
-            if (g_input_keys_held & 0x160b) {
+        if (records->difficulty.selection == SPELL_DIFFICULTY_EXTRA && room->cursor.selection == 2) {
+            // Any game key restarts the secret unlock-all-stages sequence.
+            if (g_input_keys_held & SPELL_KEY_RESET_SEQ) {
                 g_spell_seq_progress = 0;
                 g_spell_seq_elapsed = 0;
             }
@@ -171,9 +199,9 @@ __declspec(noinline) int __stdcall TitleMode11(Title* room) {
             if (Input_UpdateKeyboardState(g_keys_current)) {
                 for (int key = 0; key < 256; ++key)
                     g_spell_seq_keys[key] = (g_keys_previous[key] ^ g_keys_current[key]) & g_keys_current[key];
-                if (g_spell_seq_progress >= 22) {
+                if (g_spell_seq_progress >= SPELL_UNLOCK_SEQ_LEN) {
                     UnlockAllStages2(reinterpret_cast<GameProgress3*>(g_score));
-                    g_sound_manager.Queue(44, 0);
+                    g_sound_manager.Queue(SPELL_SFX_UNLOCK_ALL, 0);
                     g_spell_seq_progress = 0;
                 } else if (g_spell_seq_keys[g_spell_seq_codes[g_spell_seq_progress]] & 0x80) {
                     ++g_spell_seq_progress;
@@ -192,9 +220,9 @@ __declspec(noinline) int __stdcall TitleMode11(Title* room) {
                 g_spell_seq_elapsed = 0;
             }
         }
-        if (g_input_keys_held & 0xa) {
-            room->SetTimerTarget(3);
-            g_sound_manager.Queue(11, 0);
+        if (g_input_keys_held & SPELL_KEY_CANCEL) {
+            room->SetTimerTarget(SPELL_PHASE_EXIT);
+            g_sound_manager.Queue(SPELL_SFX_CANCEL, 0);
             room->ClearAnimationSlot(records->difficulty.selection + 160);
             room->ClearAnimationSlot(room->cursor.selection + 154);
             room->ClearAnimationSlot(room->cursor.selection / 3 + 152);
@@ -206,21 +234,21 @@ __declspec(noinline) int __stdcall TitleMode11(Title* room) {
             room->ClearAnimationSlot(166);
             room->ClearAnimationSlot(167);
             room->ClearAnimationSlot(172);
-            for (int line = 0; line < 10; ++line)
+            for (int line = 0; line < SPELL_LINES_PER_PAGE; ++line)
                 SetTreeFrame(
                     FindAnimation2(reinterpret_cast<RecoveryLookupContext*>(g_sprt_ctrl),
                                            records->lines[line].value), 1);
         }
         break;
     }
-    case 3:
+    case SPELL_PHASE_EXIT:
         if (room->timer.current >= 6) {
             room->ClearAnimationSlot(102);
             room->SetSlotFrame(90, 8);
             room->SetSlotFrame(91, 8);
             room->ClearAnimationSlot(94);
             RecoveryMusicStopHandle(&room->fallback_handle);
-            room->DisableTimerWithOwner(2);
+            room->DisableTimerWithOwner(SPELL_TARGET_MAIN_MENU);
             room->cursor.PopSelection();
         }
         break;

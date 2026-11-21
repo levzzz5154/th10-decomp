@@ -25,42 +25,65 @@ static __forceinline void SelectItem8(MenuCursor& cursor, int index) {
         cursor.selection = index;
 }
 
+enum PracticeSelectPhase {
+    PRAC_PHASE_ENTER = 0,
+    PRAC_PHASE_WAIT_OPEN = 1,
+    PRAC_PHASE_ACTIVE = 2,
+    PRAC_PHASE_CONFIRM_LAUNCH = 3,
+    PRAC_PHASE_CANCEL_LEAVE = 4
+};
+
+enum PracticeSelectConstants {
+    PRAC_STAGE_COUNT = 6,
+    PRAC_KEY_CANCEL = 0x000A,
+    PRAC_KEY_UP = 0x0010,
+    PRAC_KEY_DOWN = 0x0020,
+    PRAC_KEY_CONFIRM = 0x1001,
+    PRAC_SFX_CONFIRM = 10,
+    PRAC_SFX_CANCEL = 11,
+    PRAC_SFX_MOVE = 12,
+    PRAC_SFX_INVALID = 0x25,
+    PRAC_TARGET_LEAVE = 3,
+    PRAC_TARGET_SHOT_TYPE = 8,
+    PRAC_MAIN_MODE_GAME = 7
+};
+
 #pragma code_seg(".text$00430ff0_fn")
 __declspec(noinline) int __stdcall TitleMode9(Title* room) {
     switch (room->phase) {
-    case 0:
-        room->cursor.item_count = 6;
+    case PRAC_PHASE_ENTER:
+        room->cursor.item_count = PRAC_STAGE_COUNT;
         SelectItem8(room->cursor, g_title_practice_selection);
         RecoveryMusicInstallSlot(room, 106);
         {
-            // A named local: its symbol precedes the cursor's, which the
+            // MATCH: a named local: its symbol precedes the cursor's, which the
             // unlock test's operand order in phase 2 depends on.
             int character_slot = g_globals_character + 107;
             RecoveryMusicInstallSlot(room, character_slot);
         }
-        room->SetTimerTarget(1);
-    case 1:
+        room->SetTimerTarget(PRAC_PHASE_WAIT_OPEN);
+    case PRAC_PHASE_WAIT_OPEN:
         if (room->timer.current > 10)
-            room->SetTimerTarget(2);
+            room->SetTimerTarget(PRAC_PHASE_ACTIVE);
         break;
-    case 2: {
+    case PRAC_PHASE_ACTIVE: {
         MenuCursor* cursor = &room->cursor;
         cursor->previous_selection = cursor->selection;
-        if ((short)g_input_keys_raw.InputMaskActive(0x10)) cursor->Advance(-1);
-        if ((short)g_input_keys_raw.InputMaskActive(0x20)) cursor->Advance(1);
+        if ((short)g_input_keys_raw.InputMaskActive(PRAC_KEY_UP)) cursor->Advance(-1);
+        if ((short)g_input_keys_raw.InputMaskActive(PRAC_KEY_DOWN)) cursor->Advance(1);
         if (cursor->previous_selection != cursor->selection)
-            g_sound_manager.Queue(12, 0);
-        if (g_input_keys_held & 0xa) {
-            room->SetTimerTarget(4);
-            g_sound_manager.Queue(11, 0);
+            g_sound_manager.Queue(PRAC_SFX_MOVE, 0);
+        if (g_input_keys_held & PRAC_KEY_CANCEL) {
+            room->SetTimerTarget(PRAC_PHASE_CANCEL_LEAVE);
+            g_sound_manager.Queue(PRAC_SFX_CANCEL, 0);
             g_title_practice_selection = cursor->selection;
-        } else if (g_input_keys_held & 0x1001) {
+        } else if (g_input_keys_held & PRAC_KEY_CONFIRM) {
             if (g_score->shots[g_globals_character][g_globals_shot_type]
                     .practice[g_globals_difficulty][cursor->selection].unlocked == 0) {
-                g_sound_manager.Queue(0x25, 0);
+                g_sound_manager.Queue(PRAC_SFX_INVALID, 0);
             } else {
-                room->SetTimerTarget(3);
-                g_sound_manager.Queue(10, 0);
+                room->SetTimerTarget(PRAC_PHASE_CONFIRM_LAUNCH);
+                g_sound_manager.Queue(PRAC_SFX_CONFIRM, 0);
             }
             g_title_practice_selection = cursor->selection;
             g_globals_initial_lives = 0;
@@ -88,7 +111,7 @@ __declspec(noinline) int __stdcall TitleMode9(Title* room) {
         }
         break;
     }
-    case 3:
+    case PRAC_PHASE_CONFIRM_LAUNCH:
         if (room->timer.current == 10) {
             g_ascii_manager->EnsureAnimationResource(480.0f, 392.0f);
             RecoveryAscii_Create(0x2b, 5, 0x20, 0, 0, 0);
@@ -96,20 +119,20 @@ __declspec(noinline) int __stdcall TitleMode9(Title* room) {
         if (room->timer.current >= 40) {
             MenuCursor* cursor = &room->cursor;
             cursor->PushSelection();
-            room->DisableTimerWithOwner(3);
+            room->DisableTimerWithOwner(PRAC_TARGET_LEAVE);
             int stage = cursor->selection + 1;
             g_stage_route_current = &g_stage_routes[stage];
             g_globals_stage = stage;
             g_globals_stage_shown = stage;
             Music_FadeOut(6.0f);
-            g_main_state = 7;
+            g_main_state = PRAC_MAIN_MODE_GAME;
         }
         break;
-    case 4:
+    case PRAC_PHASE_CANCEL_LEAVE:
         if (room->timer.current >= 6) {
             room->ClearAnimationSlot(106);
             room->ClearAnimationSlot(g_globals_character + 107);
-            room->DisableTimerWithOwner(8);
+            room->DisableTimerWithOwner(PRAC_TARGET_SHOT_TYPE);
             room->cursor.PopSelection();
         }
         break;

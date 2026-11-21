@@ -157,7 +157,7 @@
     "build_support/layout/ltcg/sound_music_play_cached_dependencies/create_memory.cpp"
   ],
   "included_sources": [
-    "src/core/sound/recovery_select_archive_entry.cpp",
+    "src/core/sound/sound_select_archive_entry.cpp",
     "src/core/zwave/platform_select_stream_record.cpp"
   ]
 }

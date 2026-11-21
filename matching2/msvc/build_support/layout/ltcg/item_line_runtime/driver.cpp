@@ -2,7 +2,7 @@
 // These ordinary polar bodies retain their public member ABI. Their FCOS/FSIN
 // output is unselected; production has separate exact FSINCOS recoveries.
 #include "allocator.cpp"
-#include "../../../../src/game/laser/fun.cpp"
+#include "../../../../src/game/laser/line_laser_create_segments.cpp"
 #include "types/line_sweeps.hpp"
 #include "dependencies.cpp"
 #include "loader.cpp"

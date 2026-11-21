@@ -14,6 +14,19 @@ enum ItemMotionState {
     WaitingForScript = 5
 };
 
+enum ItemKind {
+    ITEM_POWER_SMALL = 1,
+    ITEM_POINT = 2,
+    ITEM_FAITH_LARGE = 3,
+    ITEM_POWER_LARGE = 4,
+    ITEM_POINT_FULL_POWER = 5,
+    ITEM_1UP = 7,
+    ITEM_FAITH_CANCEL = 8,
+    ITEM_FAITH_CONVERTED = 9,
+    ITEM_POWER_SMALL_BOSS = 10,
+    ITEM_POWER_LARGE_BOSS = 11
+};
+
 struct ItemMotionData {
     Vector3 position;
     ItemVelocity velocity;

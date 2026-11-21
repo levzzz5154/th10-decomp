@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "name": "batch_reset_00442f30",
-  "source": "src/unreferenced/FUN.cpp_442f30.cpp",
+  "source": "src/unreferenced/fun_442f30.cpp",
   "driver": "build_support/layout/ltcg/batch_reset_00442f30_context.cpp",
   "headers": [],
   "image_base": "0x00400000",

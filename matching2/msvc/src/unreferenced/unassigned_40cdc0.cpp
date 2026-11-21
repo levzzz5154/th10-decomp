@@ -3,7 +3,7 @@
 // region compiles as a native-LTCG cluster
 // (build_support/layout/ltcg/enemy_slot_conditional_set.json). The object layout
 // matches EnemyState2: enemy pointer at +0x3504, mirror flag at
-// +0x3508 (see src/unreferenced/FUN.cpp_40cde0.cpp).
+// +0x3508 (see src/unreferenced/fun_40cde0.cpp).
 struct EnemySlotWriter {
     unsigned char pad_000[0x3504];
     void* enemy;    // +0x3504

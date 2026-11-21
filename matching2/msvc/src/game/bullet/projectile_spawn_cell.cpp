@@ -39,12 +39,38 @@ __forceinline static float Rng_RangeFloat(RngState* state, float range) {
     return Rng_NextFloat(state) * range;
 }
 
+enum BulletPoolState {
+    BULLET_SLOT_FREE = 0,
+    BULLET_SLOT_ACTIVE = 1,
+    BULLET_SLOT_SPAWNING = 2,
+    BULLET_SLOT_SENTINEL = 5,
+    BULLET_POOL_CAPACITY = 2000
+};
+
+enum BulletAimLayout {
+    AIM_FAN_AIMED = 0,
+    AIM_FAN_STATIC = 1,
+    AIM_RING_AIMED = 2,
+    AIM_RING_STATIC = 3,
+    AIM_RING_OFFSET_AIMED = 4,
+    AIM_RING_OFFSET_STATIC = 5,
+    AIM_RANDOM_ANGLE = 6,
+    AIM_RING_RANDOM_SPEED = 7,
+    AIM_RANDOM_ANGLE_AND_SPEED = 8
+};
+
+enum BulletSpawnShapeFlags {
+    BULLET_SHAPE_DELAY_SMALL = 2u,
+    BULLET_SHAPE_DELAY_MEDIUM = 4u,
+    BULLET_SHAPE_DELAY_LARGE = 8u
+};
+
 // A shaped bullet is lit at once and steps back by one frame of its velocity.
-// The scale is written as a literal on purpose: a compiler float literal has a
+// MATCH: the scale is written as a literal on purpose: a compiler float literal has a
 // different symbol class from the external flt_4, and the operand hash then
 // orders each product as retail does (`fld component; fmul ds:0x470c40`).
 __forceinline static void SpawnRecord_Light(ProjectileSpawnRecord* record, Vec3& position) {
-    record->state = 2;
+    record->state = BULLET_SLOT_SPAWNING;
     const Vec3 shift = record->velocity * 4.0f;
     position.x -= shift.x;
     position.y -= shift.y;
@@ -62,30 +88,30 @@ int __stdcall SpawnPatternCell2(ProjectilePattern* pattern,
     ProjectileSpawnRecord* record = manager->current;
     int attempts = 0;
     do {
-        if (record->state == 0)
+        if (record->state == BULLET_SLOT_FREE)
             break;
         ++record;
-        if (record->state == 5)
+        if (record->state == BULLET_SLOT_SENTINEL)
             record = manager->records;
-        if (record->state == 0) { ++attempts; break; }
+        if (record->state == BULLET_SLOT_FREE) { ++attempts; break; }
         ++record;
-        if (record->state == 5)
+        if (record->state == BULLET_SLOT_SENTINEL)
             record = manager->records;
-        if (record->state == 0) { attempts += 2; break; }
+        if (record->state == BULLET_SLOT_FREE) { attempts += 2; break; }
         ++record;
-        if (record->state == 5)
+        if (record->state == BULLET_SLOT_SENTINEL)
             record = manager->records;
-        if (record->state == 0) { attempts += 3; break; }
+        if (record->state == BULLET_SLOT_FREE) { attempts += 3; break; }
         ++record;
-        if (record->state == 5)
+        if (record->state == BULLET_SLOT_SENTINEL)
             record = manager->records;
-        if (record->state == 0) { attempts += 4; break; }
+        if (record->state == BULLET_SLOT_FREE) { attempts += 4; break; }
         ++record;
-        if (record->state == 5)
+        if (record->state == BULLET_SLOT_SENTINEL)
             record = manager->records;
         attempts += 5;
-    } while (attempts < 2000);
-    if (attempts >= 2000)
+    } while (attempts < BULLET_POOL_CAPACITY);
+    if (attempts >= BULLET_POOL_CAPACITY)
         return 1;
 
     // Grid aim: interpolate the vertical pair between rows, then place the
@@ -101,8 +127,8 @@ int __stdcall SpawnPatternCell2(ProjectilePattern* pattern,
         y = blueprint->y_head;
     }
     switch (blueprint->layout) {
-    case 0:
-    case 1:
+    case AIM_FAN_AIMED:
+    case AIM_FAN_STATIC:
         if (blueprint->columns & 1) {
             x = (float)((column + 1) / 2);
         } else {
@@ -111,22 +137,22 @@ int __stdcall SpawnPatternCell2(ProjectilePattern* pattern,
         x *= blueprint->x_spacing;
         if (column & 1)
             x *= flt_neg1;
-        if (blueprint->layout == 0)
+        if (blueprint->layout == AIM_FAN_AIMED)
             x += aim;
         x += blueprint->x_base;
         break;
-    case 2:
+    case AIM_RING_AIMED:
         x = aim;
         // fallthrough
-    case 3:
+    case AIM_RING_STATIC:
         x += (float)column * flt_2pi / (float)blueprint->columns;
         x += row * blueprint->x_spacing;
         x += blueprint->x_base;
         break;
-    case 4:
+    case AIM_RING_OFFSET_AIMED:
         x = aim;
         // fallthrough
-    case 5: {
+    case AIM_RING_OFFSET_STATIC: {
         const float half_step = flt_pi / (float)blueprint->columns;
         x += half_step;
         x += (float)column * flt_2pi / (float)blueprint->columns;
@@ -134,17 +160,17 @@ int __stdcall SpawnPatternCell2(ProjectilePattern* pattern,
         x += blueprint->x_base;
         break;
     }
-    case 6:
+    case AIM_RANDOM_ANGLE:
         x = Rng_RangeFloat(&g_rng, blueprint->x_base - blueprint->x_spacing) +
             blueprint->x_spacing;
         break;
-    case 7:
+    case AIM_RING_RANDOM_SPEED:
         y = Rng_RangeFloat(&g_rng, blueprint->y_head - blueprint->y_tail) +
             blueprint->y_tail;
         x = (float)column * flt_2pi / (float)blueprint->columns +
             row * blueprint->x_spacing + blueprint->x_base;
         break;
-    case 8:
+    case AIM_RANDOM_ANGLE_AND_SPEED:
         x = Rng_RangeFloat(&g_rng, blueprint->x_base - blueprint->x_spacing) +
             blueprint->x_spacing;
         y = Rng_RangeFloat(&g_rng, blueprint->y_head - blueprint->y_tail) +
@@ -152,12 +178,12 @@ int __stdcall SpawnPatternCell2(ProjectilePattern* pattern,
         break;
     }
 
-    // The record's flag and state words are updated through pointers so the
+    // MATCH: the record's flag and state words are updated through pointers so the
     // scheduler keeps the timer flag loads behind these stores, as retail.
     unsigned int* const fp = &record->flags;
     unsigned short* const sp = &record->state;
     *fp |= 1u;
-    *sp = 1;
+    *sp = BULLET_SLOT_ACTIVE;
     if (!(record->timer_3f8.flags & 1u)) {
         record->timer_3f8.current = 0;
         record->timer_3f8.previous = -999999;
@@ -223,13 +249,13 @@ int __stdcall SpawnPatternCell2(ProjectilePattern* pattern,
     record->width_3f0 = speed;
     // The stop frame follows the shape bits.
     const unsigned int shape = blueprint->flags;
-    if (shape & 2u) {
+    if (shape & BULLET_SHAPE_DELAY_SMALL) {
         record->sprite.stop_frame = 7;
         SpawnRecord_Light(record, position);
-    } else if (shape & 4u) {
+    } else if (shape & BULLET_SHAPE_DELAY_MEDIUM) {
         record->sprite.stop_frame = 8;
         SpawnRecord_Light(record, position);
-    } else if (shape & 8u) {
+    } else if (shape & BULLET_SHAPE_DELAY_LARGE) {
         record->sprite.stop_frame = 9;
         SpawnRecord_Light(record, position);
     } else {
@@ -243,7 +269,7 @@ int __stdcall SpawnPatternCell2(ProjectilePattern* pattern,
     RunAnimationVm(&record->sprite);
     // Advance the cursor past the slot, wrapping when the next one is leaving.
     ++record;
-    if (record->state == 5)
+    if (record->state == BULLET_SLOT_SENTINEL)
         manager->current = manager->records;
     else
         manager->current = record;

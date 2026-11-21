@@ -4,7 +4,6 @@
  "source": "src/game/player/familiar_refresh.cpp",
  "driver": "build_support/layout/ltcg/familiar_refresh_00426f70_context.cpp",
  "included_sources": [
-  "build_support/contexts/legacy/game/familiar_refresh.cpp",
   "build_support/layout/ltcg/familiar_refresh_dependencies/entity_init.cpp"
  ],
  "headers": [

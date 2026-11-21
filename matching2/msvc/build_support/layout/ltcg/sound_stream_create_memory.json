@@ -43,7 +43,7 @@
       "section": ".text$05single",
       "address": "0x0044D6A0",
       "size": 109,
-      "source": "src/core/zwave/recovery_initialize_single_interface.cpp",
+      "source": "src/core/zwave/sound_stream_init_single.cpp",
       "actual_abi": "stream in ESI, four stack arguments; RET 0x10"
     }
   ],
@@ -257,6 +257,6 @@
     "build_support/layout/ltcg/sound_interfaces_dependencies/read.cpp"
   ],
   "additional_sources": [
-    "src/core/zwave/recovery_initialize_single_interface.cpp"
+    "src/core/zwave/sound_stream_init_single.cpp"
   ]
 }

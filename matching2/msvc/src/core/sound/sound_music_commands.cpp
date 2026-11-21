@@ -57,6 +57,25 @@ static inline void FadeOut(SoundStream* stream, float seconds) {
     }
 }
 
+enum MusicCommandKind {
+    MUSIC_CMD_NONE = 0,
+    MUSIC_CMD_LOAD_TRACK = 1,
+    MUSIC_CMD_PLAY_TRACK = 2,
+    MUSIC_CMD_STOP_STREAM = 3,
+    MUSIC_CMD_SHUTDOWN_WORKER = 4,
+    MUSIC_CMD_FADE_OUT = 5,
+    MUSIC_CMD_PAUSE = 6,
+    MUSIC_CMD_RESUME = 7,
+    MUSIC_CMD_SET_VOLUME = 8
+};
+
+enum SoundCommandConstants {
+    SOUND_FLAG_STREAM_FROM_DISK = 0x10,
+    SOUND_MUSIC_MODE_WAV = 1,
+    SOUND_WM_QUIT = 0x12,
+    SOUND_STOP_WAIT_MS = 256
+};
+
 #pragma code_seg(".text$a03commands")
 unsigned int WaveSoundManager::ProcessCommands() {
     if (!device_owner)
@@ -69,14 +88,14 @@ top:
     {
         again = 0;
         switch (command->kind) {
-        case 8:
+        case MUSIC_CMD_SET_VOLUME:
             if (music_stream)
                 reinterpret_cast<PlatformInterfaceState2*>(music_stream)
                     ->SetOperationDeadline(volume_a);
             break;
 
-        case 1:
-            if (g_supervisor.flags & 0x10) {
+        case MUSIC_CMD_LOAD_TRACK:
+            if (g_supervisor.flags & SOUND_FLAG_STREAM_FROM_DISK) {
                 if (command->step != 0)
                     goto advance;
                 StopMusicWorker();
@@ -88,8 +107,8 @@ top:
             }
             break;
 
-        case 2:
-            if (!(g_supervisor.flags & 0x10) || command->argument < 0) {
+        case MUSIC_CMD_PLAY_TRACK:
+            if (!(g_supervisor.flags & SOUND_FLAG_STREAM_FROM_DISK) || command->argument < 0) {
                 if (!music_stream)
                     break;
                 if (command->step == 0) {
@@ -151,7 +170,7 @@ top:
             }
             break;
 
-        case 4:
+        case MUSIC_CMD_SHUTDOWN_WORKER:
             if (!music_stream)
                 break;
             if (command->step == 0) {
@@ -160,11 +179,11 @@ top:
             } else if (command->step == 1) {
                 if (!music_thread)
                     break;
-                PostThreadMessageA(music_thread_id, 0x12, 0, 0);
+                PostThreadMessageA(music_thread_id, SOUND_WM_QUIT, 0, 0);
                 goto advance;
             } else if (command->step == 2) {
-                if (WaitForSingleObject(music_thread, 0x100) != 0) {
-                    PostThreadMessageA(music_thread_id, 0x12, 0, 0);
+                if (WaitForSingleObject(music_thread, SOUND_STOP_WAIT_MS) != 0) {
+                    PostThreadMessageA(music_thread_id, SOUND_WM_QUIT, 0, 0);
                     command->step--;
                 } else {
                     music_thread = 0;
@@ -185,7 +204,7 @@ top:
             }
             break;
 
-        case 3:
+        case MUSIC_CMD_STOP_STREAM:
             if (!music_stream)
                 break;
             if (command->step == 0) {
@@ -196,12 +215,12 @@ top:
             }
             break;
 
-        case 5:
+        case MUSIC_CMD_FADE_OUT:
             FadeOut(g_wave_sound_manager.music_stream, static_cast<float>(command->argument));
             break;
 
-        case 6:
-            if (g_supervisor.music_mode == 1) {
+        case MUSIC_CMD_PAUSE:
+            if (g_supervisor.music_mode == SOUND_MUSIC_MODE_WAV) {
                 if (static_cast<SoundStreamingState*>(music_stream)->servicing)
                     goto done;
                 if (music_stream)
@@ -209,8 +228,8 @@ top:
             }
             break;
 
-        case 7:
-            if (g_supervisor.music_mode == 1) {
+        case MUSIC_CMD_RESUME:
+            if (g_supervisor.music_mode == SOUND_MUSIC_MODE_WAV) {
                 if (static_cast<SoundStreamingState*>(music_stream)->servicing)
                     goto done;
                 if (music_stream)
@@ -225,7 +244,7 @@ top:
 
         // The command is finished: close the queue over it.
         for (int i = 0; i < 31; ++i, ++command) {
-            if (command->kind == 0)
+            if (command->kind == MUSIC_CMD_NONE)
                 break;
             memcpy(command, command + 1, sizeof(MusicCommand));
         }

@@ -1,4 +1,4 @@
-#include "../../../src/unreferenced/FUN.cpp_401cd0.cpp"
+#include "../../../src/unreferenced/fun_401cd0.cpp"
 
 #pragma code_seg(".text$03context")
 int __stdcall GetSpriteMetadataCompilerContext(Entity** entities, int count) {

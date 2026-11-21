@@ -80,37 +80,29 @@ __forceinline AnimationTreeNode* FindTree(unsigned int handle) {
     return 0;
 }
 
+enum FrontHudFlags {
+    FRONT_FLAG_FAITH_DIMMED = 0x01u,
+    FRONT_FLAG_BOSS_DIMMED = 0x08u,
+    FRONT_FLAG_ENDING_DELAY = 0x10u,
+    FRONT_ANM_REMOVE = 0x04000000u,
+    FRONT_SFX_TIMER_10 = 0x1B,
+    FRONT_SFX_TIMER_5 = 0x24
+};
+
+enum FrontBossStageId {
+    FRONT_STAGE_1 = 1,
+    FRONT_STAGE_2 = 2,
+    FRONT_STAGE_3 = 3,
+    FRONT_STAGE_4 = 4,
+    FRONT_STAGE_5 = 5,
+    FRONT_STAGE_6 = 6,
+    FRONT_STAGE_EXTRA = 7
+};
+
 // Flag one animation tree's stop frame.
-__forceinline void FlagStopFrame1(unsigned int handle) {
+__forceinline void FlagStopFrame(unsigned int handle, unsigned short frame) {
     AnimationTreeNode* node = FindTree(handle);
     if (node != 0) {
-        unsigned short frame = 1;
-        node->stop_frame = frame;
-        if (!node->children_flagged) {
-            for (AnimationTreeNode* child = node->children;
-                 child != 0; child = child->next)
-                child->object->stop_frame = frame;
-        }
-    }
-}
-
-__forceinline void FlagStopFrame2(unsigned int handle) {
-    AnimationTreeNode* node = FindTree(handle);
-    if (node != 0) {
-        unsigned short frame = 2;
-        node->stop_frame = frame;
-        if (!node->children_flagged) {
-            for (AnimationTreeNode* child = node->children;
-                 child != 0; child = child->next)
-                child->object->stop_frame = frame;
-        }
-    }
-}
-
-__forceinline void FlagStopFrame3(unsigned int handle) {
-    AnimationTreeNode* node = FindTree(handle);
-    if (node != 0) {
-        unsigned short frame = 3;
         node->stop_frame = frame;
         if (!node->children_flagged) {
             for (AnimationTreeNode* child = node->children;
@@ -124,11 +116,11 @@ __forceinline void FlagStopFrame3(unsigned int handle) {
 __forceinline void FlagTreeFlags(unsigned int handle) {
     AnimationTreeNode* node = FindTree(handle);
     if (node != 0) {
-        *(unsigned int*)((char*)node + 0x35C) |= 0x4000000u;
+        *(unsigned int*)((char*)node + 0x35C) |= FRONT_ANM_REMOVE;
         if (!node->children_flagged) {
             for (AnimationTreeNode* child = node->children;
                  child != 0; child = child->next)
-                *(unsigned int*)((char*)child->object + 0x35C) |= 0x4000000u;
+                *(unsigned int*)((char*)child->object + 0x35C) |= FRONT_ANM_REMOVE;
         }
     }
 }
@@ -171,8 +163,8 @@ inline unsigned int RegisterFreshObject(Entity* object, FrontUpdateView* front) 
 #pragma code_seg(".text$00414900_fn")
 __declspec(noinline) int __stdcall FrontHudUpdate(
     FrontUpdateView* front) {
-    if (front->flags_9eb4 & 0x10) {
-        if (++front->banner_timer_9ecc >= 0x78) {
+    if (front->flags_9eb4 & FRONT_FLAG_ENDING_DELAY) {
+        if (++front->banner_timer_9ecc >= 120) {
             unsigned int gate = *(unsigned int*)&g_app_flags;
             g_main_state = (gate & 0x1000 ? 0xFFFFFFF4u : 0) + 0xE;
         }
@@ -198,7 +190,7 @@ __declspec(noinline) int __stdcall FrontHudUpdate(
             vm += 1;
         }
     }
-    if ((front->flags_9eb4 & 1) == 0) {
+    if ((front->flags_9eb4 & FRONT_FLAG_FAITH_DIMMED) == 0) {
         Player* play = g_player;
         if (play != 0 && play->position.y > flt_416 &&
             play->position.x < dbl_neg128) {
@@ -207,7 +199,7 @@ __declspec(noinline) int __stdcall FrontHudUpdate(
                 obj->stop_frame = 3;
                 obj += 1;
             }
-            front->flags_9eb4 |= 1;
+            front->flags_9eb4 |= FRONT_FLAG_FAITH_DIMMED;
         }
     } else {
         Player* play = g_player;
@@ -218,7 +210,7 @@ __declspec(noinline) int __stdcall FrontHudUpdate(
                 obj->stop_frame = 2;
                 obj += 1;
             }
-            front->flags_9eb4 &= ~1u;
+            front->flags_9eb4 &= ~FRONT_FLAG_FAITH_DIMMED;
         }
     }
     {
@@ -251,58 +243,58 @@ __declspec(noinline) int __stdcall FrontHudUpdate(
             *(int*)&front->gauge_disp_9e84 = *(int*)&front->gauge_ratio_9e88;
         }
         Player* play = g_player;
-        if (front->flags_9eb4 & 8) {
+        if (front->flags_9eb4 & FRONT_FLAG_BOSS_DIMMED) {
             if (play->position.y >= flt_80 || play->position.x > flt_0) {
                 for (int i = 0; i < front->boss_id_count_9e90; ++i) {
                     if (front->boss_ids_9e28[i] != 0) {
-                        FlagStopFrame2(front->boss_ids_9e28[i]);
+                        FlagStopFrame(front->boss_ids_9e28[i], 2);
                     }
                 }
                 if (front->pending_id_9e24 != 0) {
-                    FlagStopFrame2(front->pending_id_9e24);
+                    FlagStopFrame(front->pending_id_9e24, 2);
                 }
-                front->flags_9eb4 &= ~8u;
+                front->flags_9eb4 &= ~FRONT_FLAG_BOSS_DIMMED;
             }
         } else {
             if (play->position.y <= flt_64 && play->position.x < flt_neg64) {
                 for (int i = 0; i < front->boss_id_count_9e90; ++i) {
                     if (front->boss_ids_9e28[i] != 0) {
-                        FlagStopFrame3(front->boss_ids_9e28[i]);
+                        FlagStopFrame(front->boss_ids_9e28[i], 3);
                     }
                 }
                 if (front->pending_id_9e24 != 0) {
-                    FlagStopFrame3(front->pending_id_9e24);
+                    FlagStopFrame(front->pending_id_9e24, 3);
                 }
-                front->flags_9eb4 |= 8;
+                front->flags_9eb4 |= FRONT_FLAG_BOSS_DIMMED;
             }
         }
         if (front->pending_id_9e24 == 0) {
             int script = 0x85;
             switch (g_globals_stage) {
-            case 1:
+            case FRONT_STAGE_1:
                 if ((int)g_stage_progress >= 0x18)
                     script = 0x86;
                 break;
-            case 2:
+            case FRONT_STAGE_2:
                 if ((int)g_stage_progress < 0x18)
                     goto have_script;
                 script = 0x87;
                 break;
-            case 3:
+            case FRONT_STAGE_3:
                 if ((int)g_stage_progress < 0x18)
                     goto have_script;
                 script = 0x88;
                 break;
-            case 4:
+            case FRONT_STAGE_4:
                 script = ((int)g_stage_progress >= 0x18 ? 1 : 0) + 0x89;
                 break;
-            case 5:
+            case FRONT_STAGE_5:
                 script = 0x8B;
                 break;
-            case 6:
+            case FRONT_STAGE_6:
                 script = 0x8C;
                 break;
-            case 7:
+            case FRONT_STAGE_EXTRA:
                 script = ((int)g_stage_progress >= 0x18 ? 1 : 0) + 0x8C;
                 break;
             }
@@ -337,21 +329,21 @@ __declspec(noinline) int __stdcall FrontHudUpdate(
                     resource->InitializeObject(object, 0x5B + i);
                     *slot = (int)RegisterFreshObject(object, front);
                 } else if (*slot != 0) {
-                    FlagStopFrame1(*slot);
+                    FlagStopFrame(*slot, 1);
                     *slot = 0;
                 }
             }
         }
     } else {
         if (front->pending_id_9e24 != 0) {
-            FlagStopFrame1(front->pending_id_9e24);
+            FlagStopFrame(front->pending_id_9e24, 1);
             front->pending_id_9e24 = 0;
         }
         front->gauge_disp_9e84 = 0;
-        *(int*)((char*)&front->gauge_disp_9e84 + 0x10) = 0;
-        *(int*)((char*)&front->gauge_disp_9e84 + 0x18) = 0;
-        *(int*)((char*)&front->gauge_disp_9e84 + 0x20) = 0;
-        *(int*)((char*)&front->gauge_disp_9e84 + 0x28) = 0;
+        front->boss_gauge_aux_9e94 = 0;
+        front->boss_gauge_aux_9e9c = 0;
+        front->boss_gauge_aux_9ea4 = 0;
+        front->boss_gauge_aux_9eac = 0;
     }
 
     SequenceRuntime* runtime = (SequenceRuntime*)front->sequence_9eb8;
@@ -391,11 +383,11 @@ __declspec(noinline) int __stdcall FrontHudUpdate(
                 if (position <= 5) {
                     front->objects[13].stop_frame = 9;
                     front->objects[14].stop_frame = 9;
-                    g_sound_manager.Queue(0x24, 0);
-                } else if (position <= 0xA) {
+                    g_sound_manager.Queue(FRONT_SFX_TIMER_5, 0);
+                } else if (position <= 10) {
                     front->objects[13].stop_frame = 8;
                     front->objects[14].stop_frame = 8;
-                    g_sound_manager.Queue(0x1B, 0);
+                    g_sound_manager.Queue(FRONT_SFX_TIMER_10, 0);
                 }
             } else if (position > front->script_marked_9ec4) {
                 front->objects[13].stop_frame = 7;

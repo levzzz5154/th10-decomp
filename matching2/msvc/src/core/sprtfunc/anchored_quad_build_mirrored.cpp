@@ -15,17 +15,17 @@ extern "C" __declspec(noinline) int EntityDrawMirrored(RenderEntity *entity,
                                                                 SprtCtrlBatchView *manager);
 #pragma code_seg(".text$06b02z02mirror")
 int EntityDrawMirrored(RenderEntity *entity, SprtCtrlBatchView *manager) {
-    if (!(entity->flags & 1))
+    if (!(entity->flags & RENDER_FLAG_VISIBLE))
         return -1;
-    if (!(entity->flags & 2))
+    if (!(entity->flags & RENDER_FLAG_ACTIVE))
         return -1;
     if (!reinterpret_cast<const unsigned char *>(&entity->color)[3])
         return -1;
 
     float half_width = entity->sprite_width * entity->scale_x * 0.5f;
     float half_height = entity->sprite_height * entity->scale_y * 0.5f;
-    switch ((entity->flags >> 18) & 3) {
-    case 0: {
+    switch ((entity->flags >> RENDER_FLAG_ANCHOR_X_SHIFT) & RENDER_FLAG_ANCHOR_MASK) {
+    case ANCHOR_X_CENTER: {
         float left = entity->position.x;
         left = left + entity->render_offset.x;
         left = left + entity->base_position.x;
@@ -36,7 +36,7 @@ int EntityDrawMirrored(RenderEntity *entity, SprtCtrlBatchView *manager) {
         g_quad_vertices[1].x = g_quad_vertices[3].x = right + half_width;
         break;
     }
-    case 1: {
+    case ANCHOR_X_LEFT: {
         float left = entity->position.x;
         left = left + entity->render_offset.x;
         left = left + entity->base_position.x;
@@ -48,7 +48,7 @@ int EntityDrawMirrored(RenderEntity *entity, SprtCtrlBatchView *manager) {
         g_quad_vertices[1].x = g_quad_vertices[3].x = right;
         break;
     }
-    case 2: {
+    case ANCHOR_X_RIGHT: {
         float left = entity->position.x;
         left = left + entity->render_offset.x;
         left = left + entity->base_position.x;
@@ -62,8 +62,8 @@ int EntityDrawMirrored(RenderEntity *entity, SprtCtrlBatchView *manager) {
         break;
     }
     }
-    switch ((entity->flags >> 20) & 3) {
-    case 0: {
+    switch ((entity->flags >> RENDER_FLAG_ANCHOR_Y_SHIFT) & RENDER_FLAG_ANCHOR_MASK) {
+    case ANCHOR_Y_CENTER: {
         float top = entity->position.y;
         top = top + entity->render_offset.y;
         top = top + entity->base_position.y;
@@ -75,7 +75,7 @@ int EntityDrawMirrored(RenderEntity *entity, SprtCtrlBatchView *manager) {
         g_quad_vertices[2].y = g_quad_vertices[3].y = bottom;
         break;
     }
-    case 1: {
+    case ANCHOR_Y_TOP: {
         float top = entity->position.y;
         top = top + entity->render_offset.y;
         top = top + entity->base_position.y;
@@ -87,7 +87,7 @@ int EntityDrawMirrored(RenderEntity *entity, SprtCtrlBatchView *manager) {
         g_quad_vertices[2].y = g_quad_vertices[3].y = bottom;
         break;
     }
-    case 2: {
+    case ANCHOR_Y_BOTTOM: {
         float top = entity->position.y;
         top = top + entity->render_offset.y;
         top = top + entity->base_position.y;

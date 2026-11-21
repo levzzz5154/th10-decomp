@@ -3,7 +3,7 @@
   "name": "ecl_variable_cluster",
   "source": "src/script/sptcmd/ecl_find_variable.cpp",
   "additional_sources": [
-    "src/script/sptlib/fun.cpp_4505b0.cpp"
+    "src/script/sptlib/ecl_scratch_write.cpp"
   ],
   "driver": "build_support/layout/ltcg/ecl_variable_cluster_context.cpp",
   "headers": [],
@@ -26,7 +26,7 @@
       "address": "0x004505B0",
       "size": 96,
       "actual_abi": "scratch VM in EAX; type in DL; size/source on stack; RET 8",
-      "source": "src/script/sptlib/fun.cpp_4505b0.cpp"
+      "source": "src/script/sptlib/ecl_scratch_write.cpp"
     }
   ],
   "context": {

@@ -14,6 +14,153 @@ static __forceinline float SquaredLength(float x, float y) { return x * x + y * 
 static __forceinline float DistanceSquared(const Float3& a, const Float3& b) { return SquaredLength(a.x - b.x, a.y - b.y); }
 __declspec(noinline) int __stdcall ShooterShoot(BulletManager* manager, Shooter* shooter);
 
+// Enemy-specific ECL opcodes (0x100..0x1B4) dispatched from EclVm::Run.
+enum EnemyEclOpcode {
+    // Spawning (boss-guarded variants skip spawn when boss[0] != 0)
+    ECL_ENEMY_CREATE = 0x100,
+    ECL_ENEMY_CREATE_ABS = 0x101,
+    ECL_ENEMY_CREATE_MIRRORED = 0x104,
+    ECL_ENEMY_CREATE_ABS_MIRRORED = 0x105,
+    ECL_ENEMY_CREATE_NO_BOSS = 0x109,
+    ECL_ENEMY_CREATE_ABS_NO_BOSS = 0x10a,
+    ECL_ENEMY_CREATE_MIRRORED_NO_BOSS = 0x10b,
+    ECL_ENEMY_CREATE_ABS_MIRRORED_NO_BOSS = 0x10c,
+    ECL_ENEMY_CREATE_3D = 0x10e,
+    ECL_ENEMY_CREATE_3D_NO_BOSS = 0x10f,
+
+    // Animations & effects
+    ECL_ANM_SELECT = 0x102,
+    ECL_ANM_SET_SLOT = 0x103,
+    ECL_ANM_SET_MAIN = 0x106,
+    ECL_ANM_SPAWN_FRONT_AT = 0x107,
+    ECL_ANM_SPAWN_FRONT = 0x108,
+    ECL_ANM_SET_SLOT_ALT = 0x10d,
+    ECL_ANM_SPAWN_BACK_AT = 0x110,
+    ECL_ANM_SPAWN_FRONT_ROTATED = 0x111,
+
+    // Motion (even = absolute, odd = relative where paired)
+    ECL_MOVE_POS_ABS = 0x118,
+    ECL_MOVE_POS_TIME_ABS = 0x119,
+    ECL_MOVE_POS_REL = 0x11a,
+    ECL_MOVE_POS_TIME_REL = 0x11b,
+    ECL_MOVE_VEL_ABS = 0x11c,
+    ECL_MOVE_VEL_TIME_ABS = 0x11d,
+    ECL_MOVE_VEL_REL = 0x11e,
+    ECL_MOVE_VEL_TIME_REL = 0x11f,
+    ECL_MOVE_ORBIT_ABS = 0x120,
+    ECL_MOVE_ORBIT_TIME_ABS = 0x121,
+    ECL_MOVE_ORBIT_REL = 0x122,
+    ECL_MOVE_ORBIT_TIME_REL = 0x123,
+    ECL_MOVE_RAND_ABS = 0x124,
+    ECL_MOVE_RAND_REL = 0x125,
+    ECL_MOVE_TO_BOSS_ABS = 0x126,
+    ECL_MOVE_TO_BOSS_REL = 0x127,
+    ECL_MOVE_ADD_ABS = 0x128,
+    ECL_MOVE_ADD_REL = 0x129,
+    ECL_MOVE_ORIGIN_ABS = 0x12a,
+    ECL_MOVE_ORIGIN_REL = 0x12b,
+
+    // Hitboxes, flags, bounds, drops, life & boss state
+    ECL_SET_HITBOX = 0x140,
+    ECL_SET_CONTACT_BOX = 0x141,
+    ECL_FLAGS_SET = 0x142,
+    ECL_FLAGS_CLEAR = 0x143,
+    ECL_SET_BOUNDS = 0x144,
+    ECL_CLEAR_BOUNDS = 0x145,
+    ECL_DROP_CLEAR_EXTRA = 0x146,
+    ECL_DROP_ADD_EXTRA = 0x147,
+    ECL_DROP_SET_SPREAD = 0x148,
+    ECL_DROP_FLUSH = 0x149,
+    ECL_DROP_SET_MAIN = 0x14a,
+    ECL_SET_LIFE = 0x14b,
+    ECL_SET_BOSS = 0x14c,
+    ECL_RESET_TIMER = 0x14d,
+    ECL_BIND_INTERRUPT = 0x14e,
+    ECL_SET_INVULN_TIMER = 0x14f,
+    ECL_PLAY_SOUND = 0x150,
+    ECL_SCREEN_EFFECT = 0x151,
+    ECL_STAGE_CLEAR_BONUS = 0x152,
+    ECL_WAIT_DIALOGUE = 0x153,
+    ECL_WAIT_BOSS_CLEAR = 0x154,
+    ECL_SET_INTERRUPT_CURSOR = 0x155,
+    ECL_SPELL_START = 0x156,
+    ECL_SPELL_END = 0x157,
+    ECL_SCORE_SET_MODE = 0x158,
+    ECL_KILL_ALL_ENEMIES = 0x159,
+    ECL_SET_SHOOT_RANGE = 0x15a,
+    ECL_SET_LIFE_MARKER = 0x15b,
+    ECL_SPELL_START_ALT = 0x15c,
+    ECL_RANK_SELECT_F3 = 0x15d,
+    ECL_RANK_SELECT_F5 = 0x15e,
+    ECL_RANK_LERP_F = 0x15f,
+    ECL_RANK_SELECT_I3 = 0x160,
+    ECL_RANK_SELECT_I5 = 0x161,
+    ECL_RANK_LERP_I = 0x162,
+    ECL_DIFF_SELECT_I = 0x163,
+    ECL_DIFF_SELECT_F = 0x164,
+    ECL_SPELL_START_DIFF = 0x165,
+    ECL_SPELL_START_DIFF_M1 = 0x166,
+    ECL_SPELL_START_DIFF_M2 = 0x167,
+    ECL_FRONT_SET_STATE = 0x168,
+    ECL_SET_CONTACT_TIMER = 0x169,
+    ECL_SPELL_MARK_FLAG = 0x16a,
+    ECL_SPELL_STOP_ANIM = 0x16b,
+    ECL_SET_FLAG_19 = 0x16c,
+    ECL_LASER_MARK_ELIGIBLE = 0x16d,
+    ECL_SET_COVERED_SCRIPT = 0x16e,
+    ECL_SET_GAME_SPEED = 0x16f,
+    ECL_WAIT_BY_DIFF = 0x170,
+
+    // Shooters & lasers
+    ECL_SHOOTER_RESET = 0x190,
+    ECL_SHOOTER_FIRE = 0x191,
+    ECL_SHOOTER_TYPE = 0x192,
+    ECL_SHOOTER_OFFSET = 0x193,
+    ECL_SHOOTER_ANGLE = 0x194,
+    ECL_SHOOTER_SPEED = 0x195,
+    ECL_SHOOTER_COUNT = 0x196,
+    ECL_SHOOTER_AIM = 0x197,
+    ECL_SHOOTER_SOUND = 0x198,
+    ECL_SHOOTER_EX = 0x199,
+    ECL_CLEAR_BULLETS_TO_ITEMS = 0x19a,
+    ECL_SHOOTER_COPY = 0x19b,
+    ECL_LASER_LINE = 0x19c,
+    ECL_LASER_BEAM = 0x19d,
+    ECL_LASER_SET_POS = 0x19e,
+    ECL_LASER_SET_VEC = 0x19f,
+    ECL_LASER_SET_F48 = 0x1a0,
+    ECL_LASER_SET_F44 = 0x1a1,
+    ECL_LASER_SET_F3C = 0x1a2,
+    ECL_LASER_SET_F440 = 0x1a3,
+    ECL_CLEAR_RADIUS_ITEMS = 0x1a4,
+    ECL_CLEAR_RADIUS = 0x1a5,
+    ECL_SHOOTER_SPEED_RANK3 = 0x1a6,
+    ECL_SHOOTER_SPEED_RANK5 = 0x1a7,
+    ECL_SHOOTER_SPEED_RANK_LERP = 0x1a8,
+    ECL_SHOOTER_COUNT_RANK3 = 0x1a9,
+    ECL_SHOOTER_COUNT_RANK5 = 0x1aa,
+    ECL_SHOOTER_COUNT_RANK_LERP = 0x1ab,
+    ECL_LASER_LINE_UNFLAGGED = 0x1ac,
+    ECL_LASER_BEAM_UNFLAGGED = 0x1ad,
+    ECL_ANGLE_TO_PLAYER = 0x1ae,
+    ECL_LASER_LINE_EX = 0x1af,
+    ECL_LASER_BEAM_EX = 0x1b0,
+    ECL_LASER_LINE_EX_UNFLAGGED = 0x1b1,
+    ECL_LASER_BEAM_EX_UNFLAGGED = 0x1b2,
+    ECL_SHOOTER_SPEED_DIFF = 0x1b3,
+    ECL_SHOOTER_COUNT_DIFF = 0x1b4
+};
+
+// Subset of EnemyTick::flags (th10/game/enemy_data_start.hpp) used by Execute2.
+enum EnemyExecFlags {
+    ENEMY_FLAG_INTANGIBLE = 0x10,
+    ENEMY_FLAG_LIMITED = 0x200,
+    ENEMY_FLAG_MIRRORED = 0x800,
+    ENEMY_FLAG_FACES = 0x1000,
+    ENEMY_FLAG_BOSS = 0x8000,
+    ENEMY_FLAG_UNSCROLLED = 0x40000
+};
+
 #pragma code_seg(".text$0040e770_fn")
 int Enemy::Execute2() {
     // The three layer-5 creation sites use distinct out-parameters.
@@ -22,13 +169,13 @@ int Enemy::Execute2() {
     switch (instruction->id) {
     // Spawning. Each boss-guarded variant falls through to the corresponding
     // spawn when boss slot zero is empty. Numeric operands follow the packed name.
-    case 0x109:
+    case ECL_ENEMY_CREATE_NO_BOSS:
         if (g_enemy_ctrl->boss[0] != 0) break;
-    case 0x100: {
+    case ECL_ENEMY_CREATE: {
         int first_numeric_word = (instruction->i[0] + 4) / 4;
         EnemySpawn spawn;
         memset(&spawn, 0, sizeof(spawn));
-        if (!(flags & 0x40000)) {
+        if (!(flags & ENEMY_FLAG_UNSCROLLED)) {
             float x = position.x;
             spawn.position.x = x + FloatValue2(1, instruction->f[first_numeric_word]);
             float y = position.y;
@@ -54,9 +201,9 @@ int Enemy::Execute2() {
         EnemyCtrl_Spawn(&spawn, g_enemy_ctrl, &instruction->s[4]);
         return 0;
     }
-    case 0x10a:
+    case ECL_ENEMY_CREATE_ABS_NO_BOSS:
         if (g_enemy_ctrl->boss[0] != 0) break;
-    case 0x101: {
+    case ECL_ENEMY_CREATE_ABS: {
         int first_numeric_word = (instruction->i[0] + 4) / 4;
         EnemySpawn spawn;
         memset(&spawn, 0, sizeof(spawn));
@@ -69,9 +216,9 @@ int Enemy::Execute2() {
         EnemyCtrl_Spawn(&spawn, g_enemy_ctrl, &instruction->s[4]);
         return 0;
     }
-    case 0x10f:
+    case ECL_ENEMY_CREATE_3D_NO_BOSS:
         if (g_enemy_ctrl->boss[0] != 0) break;
-    case 0x10e: {
+    case ECL_ENEMY_CREATE_3D: {
         int first_numeric_word = (instruction->i[0] + 4) / 4;
         EnemySpawn spawn;
         memset(&spawn, 0, sizeof(spawn));
@@ -86,9 +233,9 @@ int Enemy::Execute2() {
         EnemyCtrl_Spawn(&spawn, g_enemy_ctrl, &instruction->s[4]);
         return 0;
     }
-    case 0x10b:
+    case ECL_ENEMY_CREATE_MIRRORED_NO_BOSS:
         if (g_enemy_ctrl->boss[0] != 0) break;
-    case 0x104: {
+    case ECL_ENEMY_CREATE_MIRRORED: {
         int first_numeric_word = (instruction->i[0] + 4) / 4;
         EnemySpawn spawn;
         memset(&spawn, 0, sizeof(spawn));
@@ -104,9 +251,9 @@ int Enemy::Execute2() {
         EnemyCtrl_Spawn(&spawn, g_enemy_ctrl, &instruction->s[4]);
         return 0;
     }
-    case 0x10c:
+    case ECL_ENEMY_CREATE_ABS_MIRRORED_NO_BOSS:
         if (g_enemy_ctrl->boss[0] != 0) break;
-    case 0x105: {
+    case ECL_ENEMY_CREATE_ABS_MIRRORED: {
         int first_numeric_word = (instruction->i[0] + 4) / 4;
         EnemySpawn spawn;
         memset(&spawn, 0, sizeof(spawn));
@@ -122,10 +269,10 @@ int Enemy::Execute2() {
     }
 
     // Animation files, attached slots and independent effects.
-    case 0x102:
+    case ECL_ANM_SELECT:
         anm_file = Int(0);
         return 0;
-    case 0x103: {
+    case ECL_ANM_SET_SLOT: {
         int slot = Int(0);
         int script = Int(1);
         anm[slot].Release2();
@@ -137,60 +284,62 @@ int Enemy::Execute2() {
         }
         AnmVm* vm = Anm_Resolve2(&anm[slot]);
         if (slot == 0) {
-            hitbox_width = vm->sprite_width * vm->scale.y;
-            hitbox_height = vm->sprite_height * vm->scale.x;
+            // Retail swaps the axes here: visible_width (+0x13A4) takes sprite_height * scale.y
+            // and visible_height (+0x13A8) takes sprite_width * scale.x.
+            visible_width = vm->sprite_height * vm->scale.y;
+            visible_height = vm->sprite_width * vm->scale.x;
         }
-        if (flags & 0x10) anm[slot].Show2();
+        if (flags & ENEMY_FLAG_INTANGIBLE) anm[slot].Show2();
         return 0;
     }
-    case 0x107: {
+    case ECL_ANM_SPAWN_FRONT_AT: {
         int file = Int(0);
         AnmHandle handle;
         Anm_CreateFront(g_enemy_ctrl->Anm(file), &handle, Int(1), 6);
         AnmVm* vm = Anm_Resolve2(&handle);
-        if (!(flags & 0x40000)) vm->offset = *OffsetPoint2(&position);
+        if (!(flags & ENEMY_FLAG_UNSCROLLED)) vm->offset = *OffsetPoint2(&position);
         else vm->offset = position;
         goto finish_instruction;
     }
-    case 0x110: {
+    case ECL_ANM_SPAWN_BACK_AT: {
         int file = Int(0);
         AnmHandle handle;
         Anm_CreateBack(g_enemy_ctrl->anm[file], &handle, Int(1), 6);
         AnmVm* vm = Anm_Resolve2(&handle);
-        if (!(flags & 0x40000)) vm->offset = *OffsetPoint2(&position);
+        if (!(flags & ENEMY_FLAG_UNSCROLLED)) vm->offset = *OffsetPoint2(&position);
         else vm->offset = position;
         goto leave_dispatch;
     }
-    case 0x108: {
+    case ECL_ANM_SPAWN_FRONT: {
         int file = Int(0);
         AnmHandle handle;
         Anm_CreateFront(g_enemy_ctrl->Anm(file), &handle, Int(1), 6);
         return 0;
     }
-    case 0x111: {
+    case ECL_ANM_SPAWN_FRONT_ROTATED: {
         int file = Int(0);
         AnmHandle handle;
         Anm_CreateFront(g_enemy_ctrl->Anm(file), &handle, Int(1), 6);
         AnmVm* vm = Anm_Resolve2(&handle);
-        if (!(flags & 0x40000)) vm->offset = *OffsetPoint2(&position);
+        if (!(flags & ENEMY_FLAG_UNSCROLLED)) vm->offset = *OffsetPoint2(&position);
         else vm->offset = position;
         vm->rotation.z = Float(2);
         vm->flags |= 4;
         return 0;
     }
-    case 0x106: {
+    case ECL_ANM_SET_MAIN: {
         int slot = Int(0);
         int script = Int(1);
         anm[slot].Release2();
         anm[slot] = *Anm_CreateFront(g_enemy_ctrl->Anm(anm_file), &slot_handle_outputs[2], script, 5);
         AnmVm* vm = Anm_Resolve2(&anm[slot]);
         if (slot == 0) {
-            hitbox_width = vm->sprite_width * vm->scale.y;
-            hitbox_height = vm->sprite_height * vm->scale.x;
+            visible_width = vm->sprite_height * vm->scale.y;
+            visible_height = vm->sprite_width * vm->scale.x;
         }
-        if (flags & 0x10) anm[slot].Show2();
+        if (flags & ENEMY_FLAG_INTANGIBLE) anm[slot].Show2();
         if (slot == 0) {
-            flags |= 0x1000;
+            flags |= ENEMY_FLAG_FACES;
             anm_base_script = script;
             anm_main_script = script;
             anm_f8 = 0;
@@ -198,26 +347,26 @@ int Enemy::Execute2() {
         }
         return 0;
     }
-    case 0x10d: {
+    case ECL_ANM_SET_SLOT_ALT: {
         int slot = Int(0);
         anm[slot].Release2();
         AnmLoaded* resource = g_enemy_ctrl->anm[anm_file];
         anm[slot] = *Anm_CreateFront(resource, &slot_handle_outputs[1], anm_base_script + 5, 5);
         AnmVm* vm = Anm_Resolve2(&anm[slot]);
         if (slot == 0) {
-            hitbox_width = vm->sprite_width * vm->scale.y;
-            hitbox_height = vm->sprite_height * vm->scale.x;
+            visible_width = vm->sprite_height * vm->scale.y;
+            visible_height = vm->sprite_width * vm->scale.x;
         }
-        if (flags & 0x10) anm[slot].Show2();
+        if (flags & ENEMY_FLAG_INTANGIBLE) anm[slot].Show2();
         return 0;
     }
 
     // Motion. Paired opcodes select absolute or relative state before applying
     // the same operation. An unset component leaves the current value in place
     // or supplies the mode-specific interpolation default.
-    case 0x118:
-    case 0x11a: {
-        EnemyMotion* motion = instruction->id == 0x118 ? &absolute : &relative;
+    case ECL_MOVE_POS_ABS:
+    case ECL_MOVE_POS_REL: {
+        EnemyMotion* motion = instruction->id == ECL_MOVE_POS_ABS ? &absolute : &relative;
         float x = Float(0);
         float y = Float(1);
         if (x > UNSET_MOTION_COMPONENT) motion->position.x = x;
@@ -226,9 +375,9 @@ int Enemy::Execute2() {
         position = relative.position + absolute.position;
         return 0;
     }
-    case 0x128:
-    case 0x129: {
-        EnemyMotion* motion = instruction->id == 0x128 ? &absolute : &relative;
+    case ECL_MOVE_ADD_ABS:
+    case ECL_MOVE_ADD_REL: {
+        EnemyMotion* motion = instruction->id == ECL_MOVE_ADD_ABS ? &absolute : &relative;
         float x = Float(0);
         float y = Float(1);
         float z = Float(2);
@@ -237,10 +386,10 @@ int Enemy::Execute2() {
         motion->position.z += z;
         return 0;
     }
-    case 0x119:
-    case 0x11b: {
-        EnemyMotion* motion = instruction->id == 0x119 ? &absolute : &relative;
-        Float3Interp* interp = instruction->id == 0x119 ? &absolute_position_interp : &relative_position_interp;
+    case ECL_MOVE_POS_TIME_ABS:
+    case ECL_MOVE_POS_TIME_REL: {
+        EnemyMotion* motion = instruction->id == ECL_MOVE_POS_TIME_ABS ? &absolute : &relative;
+        Float3Interp* interp = instruction->id == ECL_MOVE_POS_TIME_ABS ? &absolute_position_interp : &relative_position_interp;
         float x = Float(2);
         float y = Float(3);
         interp->end_time = Int(0);
@@ -254,25 +403,25 @@ int Enemy::Execute2() {
         motion->flags &= ~1u;
         return 0;
     }
-    case 0x11c:
-    case 0x11e: {
-        EnemyMotion* motion = instruction->id == 0x11c ? &absolute : &relative;
+    case ECL_MOVE_VEL_ABS:
+    case ECL_MOVE_VEL_REL: {
+        EnemyMotion* motion = instruction->id == ECL_MOVE_VEL_ABS ? &absolute : &relative;
         float angle;
         float speed;
         angle = Float(0);
         speed = Float(1);
         if (angle > UNSET_MOTION_COMPONENT) {
-            if (flags & 0x800) angle = Angle_Normalize(1.5707964f - Angle_Normalize(angle - 1.5707964f));
+            if (flags & ENEMY_FLAG_MIRRORED) angle = Angle_Normalize(1.5707964f - Angle_Normalize(angle - 1.5707964f));
             Motion_SetAngle(motion, angle);
         }
         if (speed > UNSET_MOTION_COMPONENT) motion->speed = speed;
         motion->flags &= ~1u;
         return 0;
     }
-    case 0x11d:
-    case 0x11f: {
-        EnemyMotion* motion = instruction->id == 0x11d ? &absolute : &relative;
-        Float2Interp* interp = instruction->id == 0x11d ? &absolute_direction_interp : &relative_direction_interp;
+    case ECL_MOVE_VEL_TIME_ABS:
+    case ECL_MOVE_VEL_TIME_REL: {
+        EnemyMotion* motion = instruction->id == ECL_MOVE_VEL_TIME_ABS ? &absolute : &relative;
+        Float2Interp* interp = instruction->id == ECL_MOVE_VEL_TIME_ABS ? &absolute_direction_interp : &relative_direction_interp;
         float angle = Float(2);
         float speed = Float(3);
         interp->mode = Int(1);
@@ -281,7 +430,7 @@ int Enemy::Execute2() {
             {
                 float goal_angle;
                 goal_angle = angle > UNSET_MOTION_COMPONENT
-                    ? ((flags & 0x800) ? Angle_Normalize(1.5707964f - Angle_Normalize(angle - 1.5707964f)) : angle)
+                    ? ((flags & ENEMY_FLAG_MIRRORED) ? Angle_Normalize(1.5707964f - Angle_Normalize(angle - 1.5707964f)) : angle)
                     : motion->angle;
                 goal.x = goal_angle;
             }
@@ -310,9 +459,9 @@ int Enemy::Execute2() {
         motion->flags &= ~1u;
         return 0;
     }
-    case 0x120:
-    case 0x122: {
-        EnemyMotion* motion = instruction->id == 0x120 ? &absolute : &relative;
+    case ECL_MOVE_ORBIT_ABS:
+    case ECL_MOVE_ORBIT_REL: {
+        EnemyMotion* motion = instruction->id == ECL_MOVE_ORBIT_ABS ? &absolute : &relative;
         float angle = Float(0);
         float speed = Float(1);
         float radial = Float(2);
@@ -325,11 +474,11 @@ int Enemy::Execute2() {
         motion->flags |= 1;
         return 0;
     }
-    case 0x121:
-    case 0x123: {
-        EnemyMotion* motion = instruction->id == 0x121 ? &absolute : &relative;
-        Float2Interp* direction = instruction->id == 0x121 ? &absolute_direction_interp : &relative_direction_interp;
-        Float2Interp* orbit = instruction->id == 0x121 ? &absolute_orbit_interp : &relative_orbit_interp;
+    case ECL_MOVE_ORBIT_TIME_ABS:
+    case ECL_MOVE_ORBIT_TIME_REL: {
+        EnemyMotion* motion = instruction->id == ECL_MOVE_ORBIT_TIME_ABS ? &absolute : &relative;
+        Float2Interp* direction = instruction->id == ECL_MOVE_ORBIT_TIME_ABS ? &absolute_direction_interp : &relative_direction_interp;
+        Float2Interp* orbit = instruction->id == ECL_MOVE_ORBIT_TIME_ABS ? &absolute_orbit_interp : &relative_orbit_interp;
         float angle = Float(2);
         float speed = Float(3);
         float radial = Float(4);
@@ -360,9 +509,9 @@ int Enemy::Execute2() {
         motion->flags |= 1;
         return 0;
     }
-    case 0x12a:
-    case 0x12b: {
-        EnemyMotion* motion = instruction->id == 0x12a ? &absolute : &relative;
+    case ECL_MOVE_ORIGIN_ABS:
+    case ECL_MOVE_ORIGIN_REL: {
+        EnemyMotion* motion = instruction->id == ECL_MOVE_ORIGIN_ABS ? &absolute : &relative;
         float x = Float(0);
         float y = Float(1);
         if (x > UNSET_MOTION_COMPONENT) motion->origin.x = x;
@@ -370,33 +519,33 @@ int Enemy::Execute2() {
     }
     // Fall through after changing the orbit origin: the absolute position
     // is then copied from boss slot zero in both cases.
-    case 0x126:
+    case ECL_MOVE_TO_BOSS_ABS:
         absolute.position = g_enemy_ctrl->boss[0]->body.position;
         return 0;
-    case 0x127:
+    case ECL_MOVE_TO_BOSS_REL:
         relative.position = g_enemy_ctrl->boss[0]->body.position;
         return 0;
 
     // Movement bounds, firing range and bounded random direction.
-    case 0x144:
-        flags |= 0x200;
+    case ECL_SET_BOUNDS:
+        flags |= ENEMY_FLAG_LIMITED;
         bounds_x = Float(0);
         bounds_y = Float(1);
         bounds_width = Float(2);
         bounds_height = Float(3);
         return 0;
-    case 0x145:
-        flags &= ~0x200u;
+    case ECL_CLEAR_BOUNDS:
+        flags &= ~(unsigned int)ENEMY_FLAG_LIMITED;
         return 0;
-    case 0x15a: {
+    case ECL_SET_SHOOT_RANGE: {
         float range = Float(0);
         shoot_range_squared = range * range;
         break;
     }
-    case 0x124:
-    case 0x125: {
-        EnemyMotion* motion = instruction->id == 0x124 ? &absolute : &relative;
-        Float2Interp* interp = instruction->id == 0x124 ? &absolute_direction_interp : &relative_direction_interp;
+    case ECL_MOVE_RAND_ABS:
+    case ECL_MOVE_RAND_REL: {
+        EnemyMotion* motion = instruction->id == ECL_MOVE_RAND_ABS ? &absolute : &relative;
+        Float2Interp* interp = instruction->id == ECL_MOVE_RAND_ABS ? &absolute_direction_interp : &relative_direction_interp;
         float angle;
         if (bounds_x - bounds_width * 0.25f > position.x) {
             angle = g_effect_rng2.NextFloatSigned() * (3.1415927f / 3.0f);
@@ -432,52 +581,52 @@ int Enemy::Execute2() {
     }
 
     // Life markers, enemy state and animation visibility.
-    case 0x15b:
+    case ECL_SET_LIFE_MARKER:
         g_front->SetMarker(Int(0), MaxLife(), Float(1), Int(2));
         return 0;
-    case 0x140:
+    case ECL_SET_HITBOX:
         fb0 = Float(0);
         fb4 = Float(1);
         return 0;
-    case 0x141:
+    case ECL_SET_CONTACT_BOX:
         fb8 = Float(0);
         fbc = Float(1);
         return 0;
-    case 0x142:
+    case ECL_FLAGS_SET:
         flags |= Int(0);
-        if (flags & 0x10) {
+        if (flags & ENEMY_FLAG_INTANGIBLE) {
             for (int i = 0; i < 10; ++i) anm[i].Show2();
         }
         return 0;
-    case 0x143:
+    case ECL_FLAGS_CLEAR:
         flags &= ~Int(0);
-        if (!(flags & 0x10)) {
+        if (!(flags & ENEMY_FLAG_INTANGIBLE)) {
             for (int i = 0; i < 10; ++i) anm[i].Hide2();
         }
         return 0;
 
     // Item drops: extra counts, spread, flush and main item.
-    case 0x146:
+    case ECL_DROP_CLEAR_EXTRA:
         memset(&drops.items[1], 0, 12 * sizeof(int));
         return 0;
-    case 0x147: {
+    case ECL_DROP_ADD_EXTRA: {
         int kind = Int(0);
-        if (flags & 0x8000) {
+        if (flags & ENEMY_FLAG_BOSS) {
             if (kind == 1) kind = 10;
             else if (kind == 4) kind = 11;
         }
         drops.items[kind] = Int(1);
         return 0;
     }
-    case 0x148:
+    case ECL_DROP_SET_SPREAD:
         SetSpread(Float(0), Float(1));
         return 0;
-    case 0x149:
+    case ECL_DROP_FLUSH:
         Drops_Flush(&drops, &position);
         return 0;
-    case 0x14a: {
+    case ECL_DROP_SET_MAIN: {
         int kind = Int(0);
-        if (flags & 0x8000) {
+        if (flags & ENEMY_FLAG_BOSS) {
             if (kind == 1) kind = 10;
             else if (kind == 4) kind = 11;
         }
@@ -486,7 +635,7 @@ int Enemy::Execute2() {
     }
 
     // Life, boss registration and timers.
-    case 0x14b: {
+    case ECL_SET_LIFE: {
         life = Int(0);
         max_life = life;
         for (int i = 0; i < 4; ++i) {
@@ -496,30 +645,30 @@ int Enemy::Execute2() {
         f13c8 = life;
         return 0;
     }
-    case 0x14c: {
+    case ECL_SET_BOSS: {
         int index = Int(0);
         if (index < 0) {
-            if (flags & 0x8000) g_enemy_ctrl->boss[boss_index] = 0;
-            flags &= ~0x8000u;
+            if (flags & ENEMY_FLAG_BOSS) g_enemy_ctrl->boss[boss_index] = 0;
+            flags &= ~(unsigned int)ENEMY_FLAG_BOSS;
         } else {
-            flags |= 0x8000;
+            flags |= ENEMY_FLAG_BOSS;
             g_enemy_ctrl->boss[index] = ecl;
             boss_index = index;
         }
         return 0;
     }
-    case 0x14f:
+    case ECL_SET_INVULN_TIMER:
         timer_141c.Set2(Int(0));
         return 0;
-    case 0x169:
+    case ECL_SET_CONTACT_TIMER:
         timer_1430.Set2(Int(0));
         return 0;
-    case 0x159:
+    case ECL_KILL_ALL_ENEMIES:
         EnemyCtrl_SweepDeaths(g_enemy_ctrl);
         return 0;
 
     // Select an integer or float operand by difficulty.
-    case 0x163:
+    case ECL_DIFF_SELECT_I:
         switch (g_difficulty) {
         case 0:
             *IntDest2(0) = Int(1);
@@ -536,7 +685,7 @@ int Enemy::Execute2() {
             goto finish_instruction;
         }
         break;
-    case 0x164:
+    case ECL_DIFF_SELECT_F:
         switch (g_difficulty) {
         case 0:
             *FloatDest(0) = Float(1);
@@ -557,7 +706,7 @@ int Enemy::Execute2() {
         break;
 
     // Shooter slots: reset, copy, fire and configure the shot.
-    case 0x190: {
+    case ECL_SHOOTER_RESET: {
         int index = Int(0);
         memset(&shooters[index], 0, sizeof(Shooter));
         shooters[index].angle_1 = 0.0f;
@@ -571,10 +720,10 @@ int Enemy::Execute2() {
         shoot_offset[index].y = 0.0f;
         return 0;
     }
-    case 0x19b:
+    case ECL_SHOOTER_COPY:
         shooters[Int(0)] = shooters[Int(1)];
         return 0;
-    case 0x191: {
+    case ECL_SHOOTER_FIRE: {
         int index = Int(0);
         shooters[index].position = shoot_offset[index] + position;
         if (shoot_range_squared != 0.0f) {
@@ -583,31 +732,31 @@ int Enemy::Execute2() {
         ShooterShoot(g_bullet_manager, &shooters[index]);
         return 0;
     }
-    case 0x192: {
+    case ECL_SHOOTER_TYPE: {
         int index = Int(0);
         shooters[index].type = Int(1);
         shooters[index].color = Int(2);
         return 0;
     }
-    case 0x193: {
+    case ECL_SHOOTER_OFFSET: {
         int index = Int(0);
         shoot_offset[index].x = Float(1);
         shoot_offset[index].y = Float(2);
         return 0;
     }
-    case 0x194: {
+    case ECL_SHOOTER_ANGLE: {
         int index = Int(0);
         shooters[index].angle_1 = Float(1);
         shooters[index].angle_2 = Float(2);
         return 0;
     }
-    case 0x195: {
+    case ECL_SHOOTER_SPEED: {
         int index = Int(0);
         shooters[index].speed_1 = Float(1);
         shooters[index].speed_2 = Float(2);
         return 0;
     }
-    case 0x196: {
+    case ECL_SHOOTER_COUNT: {
         int index = Int(0);
         shooters[index].count_1 = Int(1);
         shooters[index].count_2 = Int(2);
@@ -615,7 +764,7 @@ int Enemy::Execute2() {
     }
 
     // Shooter speed/count variants select operand pairs by difficulty or rank.
-    case 0x1b3: {
+    case ECL_SHOOTER_SPEED_DIFF: {
         int index = Int(0);
         float value;
         if (g_difficulty == 0) value = Float(1);
@@ -630,7 +779,7 @@ int Enemy::Execute2() {
         shooters[index].speed_2 = value;
         return 0;
     }
-    case 0x1b4: {
+    case ECL_SHOOTER_COUNT_DIFF: {
         int index = Int(0);
         int value;
         if (g_difficulty == 0) value = Int(1);
@@ -645,7 +794,7 @@ int Enemy::Execute2() {
         shooters[index].count_2 = value;
         goto leave_dispatch;
     }
-    case 0x1a6: {
+    case ECL_SHOOTER_SPEED_RANK3: {
         int index = Int(0);
         if (g_rank >= 0x200) {
             shooters[index].speed_1 = Float(5);
@@ -662,7 +811,7 @@ int Enemy::Execute2() {
             goto finish_instruction;
         }
     }
-    case 0x1a7: {
+    case ECL_SHOOTER_SPEED_RANK5: {
         int index = Int(0);
         if (g_rank >= 600) {
             shooters[index].speed_1 = Float(9);
@@ -689,7 +838,7 @@ int Enemy::Execute2() {
             goto finish_instruction;
         }
     }
-    case 0x1a8: {
+    case ECL_SHOOTER_SPEED_RANK_LERP: {
         int index = Int(0);
         float low_1 = Float(1);
         float low_2 = Float(2);
@@ -699,7 +848,7 @@ int Enemy::Execute2() {
         shooters[index].speed_2 = ((float)g_rank + g_enemy_rank_midpoint) * OperandRange(low_2, high_2) / 2048.0f + low_2;
         return 0;
     }
-    case 0x1a9: {
+    case ECL_SHOOTER_COUNT_RANK3: {
         int index = Int(0);
         if (g_rank >= 0x200) {
             shooters[index].count_1 = Int(5);
@@ -715,7 +864,7 @@ int Enemy::Execute2() {
         }
         goto finish_instruction;
     }
-    case 0x1aa: {
+    case ECL_SHOOTER_COUNT_RANK5: {
         int index = Int(0);
         if (g_rank >= 600) {
             shooters[index].count_1 = Int(9);
@@ -741,7 +890,7 @@ int Enemy::Execute2() {
         }
         goto leave_dispatch;
     }
-    case 0x1ab: {
+    case ECL_SHOOTER_COUNT_RANK_LERP: {
         int index = Int(0);
         int low_1 = Int(1);
         int low_2 = Int(2);
@@ -753,18 +902,18 @@ int Enemy::Execute2() {
     }
 
     // Shooter aim, sound and extended parameters.
-    case 0x197: {
+    case ECL_SHOOTER_AIM: {
         int index = Int(0);
         shooters[index].aim_mode = Int(1);
         return 0;
     }
-    case 0x198: {
+    case ECL_SHOOTER_SOUND: {
         int index = Int(0);
         shooters[index].sound = Int(1);
         shooters[index].sound_2 = Int(2);
         return 0;
     }
-    case 0x199: {
+    case ECL_SHOOTER_EX: {
         int index = Int(0);
         int entry = Int(1);
         shooters[index].ex[entry].f = Int(2);
@@ -777,45 +926,45 @@ int Enemy::Execute2() {
     }
 
     // Enemy script slots, manager commands and wait conditions.
-    case 0x14d:
+    case ECL_RESET_TIMER:
         timer_11c.Set2(0);
         return 0;
-    case 0x14e:
+    case ECL_BIND_INTERRUPT:
         Enemy_BindSlot(ecl, Int(0), Int(1), Int(2), &instruction->s[0x10]);
         return 0;
-    case 0x155:
+    case ECL_SET_INTERRUPT_CURSOR:
         ecl->body.slots[Int(0)].cursor = &instruction->s[8];
         return 0;
-    case 0x19a:
+    case ECL_CLEAR_BULLETS_TO_ITEMS:
         g_bullet_manager->Sweep2(1);
         g_laser_manager->Cleanup2(1);
         return 0;
-    case 0x150:
+    case ECL_PLAY_SOUND:
         g_sound_manager.QueuePan2(Int(0), position.x);
         return 0;
-    case 0x151:
+    case ECL_SCREEN_EFFECT:
         Screen_Create(0x31, 1, Int(0), Int(1), Int(2), 0);
         return 0;
-    case 0x152:
+    case ECL_STAGE_CLEAR_BONUS:
         g_front->CreateScoreDisplay2(Int(0));
         g_bullet_manager->Sweep2(0);
         g_laser_manager->Cleanup2(0);
         EnemyCtrl_SweepDeaths(g_enemy_ctrl);
         return 0;
-    case 0x153:
+    case ECL_WAIT_DIALOGUE:
         if (g_front->message != 0 && g_front->message->f78 == 0) return -1;
         break;
-    case 0x154:
+    case ECL_WAIT_BOSS_CLEAR:
         if (g_enemy_ctrl->boss[0] != 0) return -1;
         break;
 
     // Card commands. The start variants decode a packed name and may adjust
     // the card ID for the current difficulty.
-    case 0x156:
-    case 0x15c:
-    case 0x165:
-    case 0x166:
-    case 0x167: {
+    case ECL_SPELL_START:
+    case ECL_SPELL_START_ALT:
+    case ECL_SPELL_START_DIFF:
+    case ECL_SPELL_START_DIFF_M1:
+    case ECL_SPELL_START_DIFF_M2: {
         char name[128];
         const char* text = &instruction->s[0x10];
         unsigned char key = 0x77;
@@ -828,39 +977,39 @@ int Enemy::Execute2() {
         }
         int id = Int(0);
         switch (instruction->id) {
-        case 0x165:
+        case ECL_SPELL_START_DIFF:
             id += g_difficulty;
             break;
-        case 0x166:
+        case ECL_SPELL_START_DIFF_M1:
             id += g_difficulty - 1;
             break;
-        case 0x167:
+        case ECL_SPELL_START_DIFF_M2:
             id += g_difficulty - 2;
             break;
         }
         Card_Start(g_card, id, name, Int(1), Int(2));
         return 0;
     }
-    case 0x157:
+    case ECL_SPELL_END:
         g_card->End2();
         return 0;
-    case 0x16a:
+    case ECL_SPELL_MARK_FLAG:
         g_card->flags |= 8;
         return 0;
-    case 0x16b:
+    case ECL_SPELL_STOP_ANIM:
         g_card->StopAnimation();
         return 0;
-    case 0x16c:
+    case ECL_SET_FLAG_19:
         f19 = Int(0);
         return 0;
 
     // Laser creation. Paired opcodes optionally copy shooter zero's extended
     // parameters; line and beam lasers have different parameter layouts.
-    case 0x19c:
-    case 0x1af: {
+    case ECL_LASER_LINE:
+    case ECL_LASER_LINE_EX: {
         LineLaserParams params;
         memset(&params, 0, sizeof(params));
-        if (instruction->id == 0x1af) memcpy(params.ex, shooters[0].ex, sizeof(params.ex));
+        if (instruction->id == ECL_LASER_LINE_EX) memcpy(params.ex, shooters[0].ex, sizeof(params.ex));
         params.position = shoot_offset[0] + position;
         params.type = Int(0);
         params.color = Int(1);
@@ -874,11 +1023,11 @@ int Enemy::Execute2() {
         g_laser_manager->Spawn2(&params, 0);
         return 0;
     }
-    case 0x19d:
-    case 0x1b0: {
+    case ECL_LASER_BEAM:
+    case ECL_LASER_BEAM_EX: {
         BeamLaserParams params;
         int* result = IntDest2(0);
-        if (instruction->id == 0x1b0) memcpy(params.ex, shooters[0].ex, sizeof(params.ex));
+        if (instruction->id == ECL_LASER_BEAM_EX) memcpy(params.ex, shooters[0].ex, sizeof(params.ex));
         params.position = shoot_offset[0] + position;
         params.type = Int(1);
         params.color = Int(2);
@@ -895,11 +1044,11 @@ int Enemy::Execute2() {
         if (result) *result = id;
         return 0;
     }
-    case 0x1ac:
-    case 0x1b1: {
+    case ECL_LASER_LINE_UNFLAGGED:
+    case ECL_LASER_LINE_EX_UNFLAGGED: {
         LineLaserParams params;
         memset(&params, 0, sizeof(params));
-        if (instruction->id == 0x1b1) memcpy(params.ex, shooters[0].ex, sizeof(params.ex));
+        if (instruction->id == ECL_LASER_LINE_EX_UNFLAGGED) memcpy(params.ex, shooters[0].ex, sizeof(params.ex));
         params.position = shoot_offset[0] + position;
         params.type = IntArg(0);
         params.color = IntArg(1);
@@ -913,12 +1062,12 @@ int Enemy::Execute2() {
         g_laser_manager->Spawn2(&params, 0);
         return 0;
     }
-    case 0x1ad:
-    case 0x1b2: {
+    case ECL_LASER_BEAM_UNFLAGGED:
+    case ECL_LASER_BEAM_EX_UNFLAGGED: {
         BeamLaserParams params((BeamLaserParams::Raw()));
         params.Construct2();
         int* result = IntDest2(0);
-        if (instruction->id == 0x1b2) memcpy(params.ex, shooters[0].ex, sizeof(params.ex));
+        if (instruction->id == ECL_LASER_BEAM_EX_UNFLAGGED) memcpy(params.ex, shooters[0].ex, sizeof(params.ex));
         params.position = shoot_offset[0] + position;
         params.type = IntArg(1);
         params.color = IntArg(2);
@@ -937,60 +1086,60 @@ int Enemy::Execute2() {
     }
 
     // Updates to an existing laser and radius checks against bullets/lasers.
-    case 0x19e: {
+    case ECL_LASER_SET_POS: {
         Laser* laser = g_laser_manager->FindById2(IntArg(0));
         if (laser) laser->f24 = Float3(Float(1), Float(2), 0.0f);
         return 0;
     }
-    case 0x19f: {
+    case ECL_LASER_SET_VEC: {
         Laser* laser = g_laser_manager->FindById2(IntArg(0));
         if (laser) laser->SetVector(Float3(Float(1), Float(2), 0.0f));
         return 0;
     }
-    case 0x1a0: {
+    case ECL_LASER_SET_F48: {
         Laser* laser = g_laser_manager->FindById2(IntArg(0));
         if (laser) laser->f48 = Float(1);
         return 0;
     }
-    case 0x1a1: {
+    case ECL_LASER_SET_F44: {
         Laser* laser = g_laser_manager->FindById2(IntArg(0));
         if (laser) laser->f44 = Float(1);
         return 0;
     }
-    case 0x1a2: {
+    case ECL_LASER_SET_F3C: {
         Laser* laser = g_laser_manager->FindById2(IntArg(0));
         if (laser) laser->f3c = Float(1);
         return 0;
     }
-    case 0x1a3: {
+    case ECL_LASER_SET_F440: {
         Laser* laser = g_laser_manager->FindById2(IntArg(0));
         if (laser) laser->f440 = Float(1);
         return 0;
     }
-    case 0x1a4: {
+    case ECL_CLEAR_RADIUS_ITEMS: {
         float radius = Float(0);
         g_bullet_manager->Check2(&position, radius, 1, 0);
         g_laser_manager->Evaluate2(&position, radius, 1);
         return 0;
     }
-    case 0x1a5: {
+    case ECL_CLEAR_RADIUS: {
         float radius = Float(0);
         g_bullet_manager->Check2(&position, radius, 0, 0);
         g_laser_manager->Evaluate2(&position, radius, 0);
         return 0;
     }
-    case 0x158:
+    case ECL_SCORE_SET_MODE:
         Score_SetMode2(&g_globals, IntArg(0));
         return 0;
 
     // Select or interpolate a value by rank. The integer and float forms
     // deliberately keep their own thresholds and arithmetic.
-    case 0x15d:
+    case ECL_RANK_SELECT_F3:
         if (g_rank >= 0x200) *FloatDest(0) = Float(2);
         else if (g_rank <= -0x200) *FloatDest(0) = Float(0);
         else *FloatDest(0) = Float(0);
         goto finish_instruction;
-    case 0x15e:
+    case ECL_RANK_SELECT_F5:
         if (g_rank >= 600) {
             *FloatDest(0) = Float(4);
             goto leave_dispatch;
@@ -1009,18 +1158,18 @@ int Enemy::Execute2() {
             *FloatDest(0) = Float(0);
         }
         goto finish_instruction;
-    case 0x15f: {
+    case ECL_RANK_LERP_F: {
         float low = Float(1);
         float high = Float(2);
         *FloatDest(0) = ((float)g_rank + g_enemy_rank_midpoint) * OperandRange(low, high) / 2048.0f + low;
         return 0;
     }
-    case 0x160:
+    case ECL_RANK_SELECT_I3:
         if (g_rank >= 0x200) *IntDest2(0) = IntArg(2);
         else if (g_rank > -0x200) *IntDest2(0) = IntArg(0);
         else *IntDest2(0) = IntArg(0);
         goto leave_dispatch;
-    case 0x161:
+    case ECL_RANK_SELECT_I5:
         if (g_rank >= 600) {
             *IntDest2(0) = IntArg(4);
             goto leave_dispatch;
@@ -1039,7 +1188,7 @@ int Enemy::Execute2() {
             *IntDest2(0) = IntArg(0);
         }
         goto leave_dispatch;
-    case 0x162: {
+    case ECL_RANK_LERP_I: {
         int low = IntArg(1);
         int high = IntArg(2);
         *IntDest2(0) = (high - low) * (g_rank + 1024) / 2048 + low;
@@ -1047,22 +1196,22 @@ int Enemy::Execute2() {
     }
 
     // Additional game state, player direction and VM timing.
-    case 0x168:
+    case ECL_FRONT_SET_STATE:
         g_front->f9e90 = IntArg(0);
         return 0;
-    case 0x16d:
+    case ECL_LASER_MARK_ELIGIBLE:
         g_laser_manager->MarkEligible2();
         return 0;
-    case 0x16e:
+    case ECL_SET_COVERED_SCRIPT:
         f20 = IntArg(0);
         f1448 = IntArg(1);
         f21 = 0;
         f144c = anm_base_script;
         return 0;
-    case 0x16f:
+    case ECL_SET_GAME_SPEED:
         g_game_speed = Float(0);
         return 0;
-    case 0x1ae: {
+    case ECL_ANGLE_TO_PLAYER: {
         // Operand evaluation separates the two reads of the global player pointer.
         const Float3* player_for_x = &g_player->position;
         float origin_x = Float(1);
@@ -1070,7 +1219,7 @@ int Enemy::Execute2() {
         *FloatDest(0) = (float)atan2(player_for_y->y - Float(2), player_for_x->x - origin_x);
         goto finish_instruction;
     }
-    case 0x170: {
+    case ECL_WAIT_BY_DIFF: {
         float wait;
         if (g_difficulty == 0) wait = (float)IntArg(0);
         else if (g_difficulty == 1) wait = (float)IntArg(1);

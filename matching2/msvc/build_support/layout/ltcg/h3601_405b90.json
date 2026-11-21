@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "name": "h3601_00405b90",
-  "source": "src/unreferenced/FUN.cpp_405b90.cpp",
+  "source": "src/unreferenced/fun_405b90.cpp",
   "driver": "build_support/layout/ltcg/h3601_00405b90_context.cpp",
   "headers": [],
   "image_base": "0x00400000",

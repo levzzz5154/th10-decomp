@@ -134,6 +134,25 @@ static __forceinline Entity* FindChild(int& handle, int script) {
     return 0;
 }
 
+enum CardStageId {
+    CARD_STAGE_1 = 1,
+    CARD_STAGE_2 = 2,
+    CARD_STAGE_3 = 3,
+    CARD_STAGE_4 = 4,
+    CARD_STAGE_5 = 5,
+    CARD_STAGE_6 = 6,
+    CARD_STAGE_EXTRA = 7
+};
+
+enum CardStartConstants {
+    CARD_REPLAY_PLAYBACK = 1,
+    CARD_SCORE_ALL_SHOTS_SLOT = 6,
+    CARD_SFX_SPELL_DECLARE = 14,
+    CARD_ANM_SPELL_RING = 417,
+    CARD_ANM_SPELL_FLASH = 427,
+    CARD_BONUS_CAP = 99999999
+};
+
 #pragma code_seg(".text$00409280_fn")
 void Card4::StartSpell(int index, const char* name, int duration) {
     timer.Set(0);
@@ -144,11 +163,11 @@ void Card4::StartSpell(int index, const char* name, int duration) {
         ;
     flags = (flags & ~0x18u) | 3;
 
-    if (g_replay->replay != 1) {
+    if (g_replay->replay != CARD_REPLAY_PLAYBACK) {
         CopyRecordName(g_score->records[g_selection.shot_type + g_selection.character * 3].spells[index].name, name);
         CountAttempt(&g_score->records[g_selection.shot_type + g_selection.character * 3].spells[index]);
-        CopyName(g_score->records[6].spells[index].name, name);
-        CountAttempt(&g_score->records[6].spells[index]);
+        CopyName(g_score->records[CARD_SCORE_ALL_SHOTS_SLOT].spells[index].name, name);
+        CountAttempt(&g_score->records[CARD_SCORE_ALL_SHOTS_SLOT].spells[index]);
     }
 
     int i;
@@ -163,9 +182,9 @@ void Card4::StartSpell(int index, const char* name, int duration) {
     reinterpret_cast<HintVm*>(
         GetAnimation(reinterpret_cast<int&>(panel_handles[1].value)))
         ->FormatRightAligned(g_sprt_ctrl, 0x00FFFFFFu, name);
-    g_sound_manager.Queue(14, 0);
+    g_sound_manager.Queue(CARD_SFX_SPELL_DECLARE, 0);
 
-    marker_handle.value = CreateAnimation(g_bullet_manager->effects, 417).value;
+    marker_handle.value = CreateAnimation(g_bullet_manager->effects, CARD_ANM_SPELL_RING).value;
     marker_position = g_enemy_ctrl->target->position;
     SetAnimationTranslatedPosition(
         reinterpret_cast<const PositionVector*>(&marker_position), g_sprt_ctrl,
@@ -177,11 +196,11 @@ void Card4::StartSpell(int index, const char* name, int duration) {
     bonus = (g_selection.stage * 3 + 10) * g_globals_gauge * 10;
     bonus_start = bonus;
     if (bonus >= 100000000)
-        bonus_start = 99999999;
+        bonus_start = CARD_BONUS_CAP;
 
-    CreateAnimation(g_bullet_manager->effects, 427);
+    CreateAnimation(g_bullet_manager->effects, CARD_ANM_SPELL_FLASH);
     switch (g_selection.stage) {
-    case 1:
+    case CARD_STAGE_1:
         StartScript(&frame_sprite, 12);
         StartScript(&label_sprite, 11);
         if (index >= 2)
@@ -189,32 +208,32 @@ void Card4::StartSpell(int index, const char* name, int duration) {
         else
             CreateAnimation(g_enemy_ctrl->resource, 15);
         break;
-    case 2:
+    case CARD_STAGE_2:
         StartScript(&frame_sprite, 14);
         StartScript(&label_sprite, 15);
         CreateAnimation(g_enemy_ctrl->resource, 17);
         break;
-    case 3:
+    case CARD_STAGE_3:
         StartScript(&frame_sprite, 18);
         StartScript(&label_sprite, 19);
         CreateAnimation(g_enemy_ctrl->resource, 21);
         break;
-    case 4:
+    case CARD_STAGE_4:
         StartScript(&frame_sprite, 19);
         StartScript(&label_sprite, 20);
         CreateAnimation(g_enemy_ctrl->resource, 22);
         break;
-    case 5:
+    case CARD_STAGE_5:
         StartScript(&frame_sprite, 12);
         StartScript(&label_sprite, 13);
         CreateAnimation(g_enemy_ctrl->resource, 15);
         break;
-    case 6:
+    case CARD_STAGE_6:
         StartScript(&frame_sprite, 33);
         StartScript(&label_sprite, 34);
         CreateAnimation(g_enemy_ctrl->resource, 36);
         break;
-    case 7:
+    case CARD_STAGE_EXTRA:
         if (g_selection.stage_phase < 24) {
             StartScript(&frame_sprite, 38);
             CreateAnimation(g_enemy_ctrl->resource, 40);

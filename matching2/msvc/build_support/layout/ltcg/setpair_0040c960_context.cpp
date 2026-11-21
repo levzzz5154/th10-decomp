@@ -1,5 +1,5 @@
 // Compiler context only; its bytes are not recovered game code.
-#include "../../../src/unreferenced/FUN.cpp_40c960.cpp"
+#include "../../../src/unreferenced/fun_40c960.cpp"
 
 #pragma code_seg(".text$03context")
 int __stdcall Ctx(Pair2** items, int count, float a, float b) {

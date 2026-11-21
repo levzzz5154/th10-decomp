@@ -5,7 +5,7 @@
 // address is taken elsewhere in the program; the context takes them here.
 #include "../../../src/game/title/menu_flow_updates.cpp"
 #include "../../../src/game/title/ending_screen.cpp"
-#include "../../../src/game/title/recovery_animation_slot_frames.cpp"
+#include "../../../src/game/title/title_animation_slot_frames.cpp"
 #include "th10/game/recovery_script_executor_caller.hpp"
 #include "th10/game/title_menu.hpp"
 // 0x0042CDF0, a separate translation unit of this link.

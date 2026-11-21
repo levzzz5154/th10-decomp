@@ -1,7 +1,7 @@
 // Full ordinary polar helper bodies are compiler-only context. They emit
 // FCOS/FSIN and are not claimed to recover the retail FSINCOS leaf functions.
 #include "item_spawn_caller_allocator_2026_09_28.cpp"
-#include "../../../src/game/laser/fun.cpp"
+#include "../../../src/game/laser/line_laser_create_segments.cpp"
 #include "th10/game/line_effect_sweeps.hpp"
 #include "item_spawn_0041bb00_dependencies.cpp"
 #include "item_spawn_0041bb00_loader.cpp"

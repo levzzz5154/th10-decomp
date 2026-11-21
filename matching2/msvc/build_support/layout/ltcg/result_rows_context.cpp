@@ -1,4 +1,6 @@
 // Compiler context only; the run-selection words belong to an escaping state object.
+#include "result_rows/formatted.cpp"
+#include "result_rows/append.cpp"
 #include "../../../src/game/pause/result_rows.cpp"
 #pragma code_seg(".text$00context")
 extern "C" void __stdcall ResultRowsSelectionEscape(void** addresses) {

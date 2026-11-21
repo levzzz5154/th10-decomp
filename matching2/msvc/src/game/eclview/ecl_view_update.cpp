@@ -5,16 +5,38 @@
 // 0x0040ABE0: the scheduler callback, which forwards its ECX context.
 #include "th10/game/ecl_view_update.hpp"
 
+enum EclViewState {
+    ECLVIEW_STATE_INIT = 0,
+    ECLVIEW_STATE_MENU = 1,
+    ECLVIEW_STATE_LOADING = 2,
+    ECLVIEW_STATE_RUNNING = 4
+};
+
+enum EclViewMenuItem {
+    ECLVIEW_ITEM_FILE = 0,
+    ECLVIEW_ITEM_ENTRY = 1,
+    ECLVIEW_ITEM_QUIT = 2
+};
+
+enum EclViewKeyMask {
+    ECLVIEW_KEY_ESC = 0x0008,
+    ECLVIEW_KEY_UP = 0x0010,
+    ECLVIEW_KEY_DOWN = 0x0020,
+    ECLVIEW_KEY_LEFT = 0x0040,
+    ECLVIEW_KEY_RIGHT = 0x0080,
+    ECLVIEW_KEY_CONFIRM = 0x1001
+};
+
 #pragma code_seg(".text$b1update")
 int EclView::Update() {
     EclViewFindData find;
     switch (state) {
-    case 4:
+    case ECLVIEW_STATE_RUNNING:
         g_input_keys_raw.previous_keys = g_input_keys_raw.held_keys;
         g_input_keys_raw.held_keys = g_input_keys_raw.raw;
         g_input_keys_raw.Update();
         g_input_keys_raw.new_press = g_input_keys_raw.repeated;
-        if (g_input_keys_raw.new_press & 8) {
+        if (g_input_keys_raw.new_press & ECLVIEW_KEY_ESC) {
             g_player->Resume();
             g_player->Reset();
             g_bullet_manager->Resume();
@@ -23,24 +45,24 @@ int EclView::Update() {
             g_enemy_ctrl->Clear();
             g_item_manager->Resume();
             memset(g_item_manager->slots, 0, sizeof(g_item_manager->slots));
-            state = 1;
+            state = ECLVIEW_STATE_MENU;
         }
         break;
-    case 1:
+    case ECLVIEW_STATE_MENU:
         EclView_Remember(&menu);
-        if (g_input_keys_raw.Active(0x20)) menu.Advance(1);
-        if (g_input_keys_raw.Active(0x10)) menu.Advance(-1);
+        if (g_input_keys_raw.Active(ECLVIEW_KEY_DOWN)) menu.Advance(1);
+        if (g_input_keys_raw.Active(ECLVIEW_KEY_UP)) menu.Advance(-1);
         switch (menu.selection) {
-        case 2:
-            if (g_input_keys_raw.repeated & 0x1001)
+        case ECLVIEW_ITEM_QUIT:
+            if (g_input_keys_raw.repeated & ECLVIEW_KEY_CONFIRM)
                 EclView_SetGameMode(&g_application, 3);
             break;
-        case 1:
+        case ECLVIEW_ITEM_ENTRY:
             if (g_enemy_ctrl) {
                 EclView_Remember(&entry_cursor);
-                if (g_input_keys_raw.MaskActive(0x80)) entry_cursor.Advance(1);
-                if (g_input_keys_raw.MaskActive(0x40)) entry_cursor.Advance(-1);
-                if (g_input_keys_raw.pressed & 0x1001) {
+                if (g_input_keys_raw.MaskActive(ECLVIEW_KEY_RIGHT)) entry_cursor.Advance(1);
+                if (g_input_keys_raw.MaskActive(ECLVIEW_KEY_LEFT)) entry_cursor.Advance(-1);
+                if (g_input_keys_raw.pressed & ECLVIEW_KEY_CONFIRM) {
                     g_player->SuspendAndStop();
                     g_player->Reset();
                     g_bullet_manager->Suspend();
@@ -57,15 +79,15 @@ int EclView::Update() {
                     spawn.z = 0.0f;
                     spawn.life = 10000;
                     spawn.Create(g_enemy_ctrl, g_enemy_ctrl->parser->entries[entry_cursor.selection].name);
-                    state = 4;
+                    state = ECLVIEW_STATE_RUNNING;
                 }
             }
             break;
-        case 0:
+        case ECLVIEW_ITEM_FILE:
             EclView_Remember(&file_cursor);
-            if (g_input_keys_raw.Active(0x80)) file_cursor.Advance(1);
-            if (g_input_keys_raw.Active(0x40)) file_cursor.Advance(-1);
-            if (g_input_keys_raw.repeated & 0x1001) {
+            if (g_input_keys_raw.Active(ECLVIEW_KEY_RIGHT)) file_cursor.Advance(1);
+            if (g_input_keys_raw.Active(ECLVIEW_KEY_LEFT)) file_cursor.Advance(-1);
+            if (g_input_keys_raw.repeated & ECLVIEW_KEY_CONFIRM) {
                 EclView_Release(g_front);
                 EclView_Release(g_player);
                 EclView_Release(g_bullet_manager);
@@ -75,12 +97,12 @@ int EclView::Update() {
                 EclView_Release(g_enemy_ctrl);
                 flags &= ~2u;
                 reinterpret_cast<PlatformWorker*>(&worker)->Start(this, EclView_LoadThread2);
-                state = 2;
+                state = ECLVIEW_STATE_LOADING;
             }
             break;
         }
         break;
-    case 0: {
+    case ECLVIEW_STATE_INIT: {
         ClearScriptNames();
         int count = 0;
         void* search = FindFirstFileA("../../data/*.ecl", &find);
@@ -110,7 +132,7 @@ int EclView::Update() {
         entry_cursor.item_count = 1;
         entry_cursor.wrap = 1;
         EclView_Select(entry_cursor, 0);
-        state = 1;
+        state = ECLVIEW_STATE_MENU;
         position_x = 0.0f;
         position_y = 32.0f;
         position_z = 0.0f;

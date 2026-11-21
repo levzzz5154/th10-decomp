@@ -16,9 +16,9 @@ void BulletDeceleration::Bounce() {
             bounced = 1;
             position_x = (position_x < flt_neg192 ? flt_neg384 : flt_384) - position_x;
         }
-        if (!(flags & 0x08000000u) &&
+        if (!(flags & BULLET_EX_NO_Y_BOUNCE) &&
             (position_y < flt_0 ||
-             (position_y >= flt_448 && (flags & 0x400)))) {
+             (position_y >= flt_448 && (flags & BULLET_EX_BOUNCE_BOTTOM)))) {
             bounced = 1;
             angle = -angle;
             position_y = position_y < flt_0
@@ -31,7 +31,7 @@ void BulletDeceleration::Bounce() {
         if (bounced)
             ++bounce_count;
         if (bounce_count >= bounce_limit)
-            flags &= 0xF7FFF3FFu;
+            flags &= ~BULLET_EX_BOUNCE_MASK;
     }
 }
 #pragma code_seg()

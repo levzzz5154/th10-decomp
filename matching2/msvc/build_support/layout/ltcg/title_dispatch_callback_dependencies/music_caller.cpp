@@ -1,7 +1,7 @@
 // Complete existing leaf bodies for a native caller-visibility control.
 // Lookup and timer bodies copied from the maintained executor contexts.
 #include "title_dispatcher.cpp"
-#include "../../../../src/game/title/recovery_animation_slot_frames.cpp"
+#include "../../../../src/game/title/title_animation_slot_frames.cpp"
 #include "../../../../src/core/sound/sound_queue.cpp"
 #include "../../../../src/core/sprtlib/animation_manager_mark_resource_for_removal.cpp"
 extern "C" float g_game_speed;

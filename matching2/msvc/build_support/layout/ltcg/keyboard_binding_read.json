@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "name": "keyboard_binding_read",
-  "source": "src/unreferenced/FUN.cpp_44a9d0.cpp",
+  "source": "src/unreferenced/fun_44a9d0.cpp",
   "driver": "build_support/layout/ltcg/keyboard_binding_read_0044a9d0_context.cpp",
   "headers": [
     "include/th10/platform/windows_types.hpp"

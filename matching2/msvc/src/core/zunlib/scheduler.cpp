@@ -1,18 +1,22 @@
 #include "../../../build_support/include/asm_symbols.hpp"
-
-// 0x00420C00: recovered in build_support/layout/units/music_requests_0b68f8.cpp.
-
-// 0x00421F60: recovered in src/game/mother/game_state_update_frame_maximum.cpp.
-
-// 0x00422C30: recovered in src/game/pause/pause_unpause.cpp.
-
-// 0x0042C730: maintained in src/game/title/title_dispatch_animation_slot.cpp.
-
-// 0x0042C750: maintained in src/game/title/title_dispatch_animation_slot_secondary.cpp.
-
-
 #include "th10/core/func_ctrl.hpp"
 #include "th10/platform/thread_sync.hpp"
+
+enum FuncCtrlTaskFlag {
+    TASK_FLAG_OWNED = 1u,
+    TASK_FLAG_ACTIVE = 2u
+};
+
+enum FuncCtrlTaskResult {
+    TASK_REMOVE = 0,
+    TASK_CONTINUE = 1,
+    TASK_REPEAT = 2,
+    TASK_STOP_OK = 3,
+    TASK_STOP_ZERO = 4,
+    TASK_STOP_ERROR = 5,
+    TASK_RESTART_LIST = 6,
+    TASK_RUN_ON_REMOVE = 7
+};
 
 struct SchedulerTaskRaw {
     int priority;
@@ -40,7 +44,7 @@ restart_primary:
         TaskLink* next = node->next;
         SchedulerTaskRaw* task = raw_task(node);
         if (task->on_tick) {
-            if (task->flags & 2) {
+            if (task->flags & TASK_FLAG_ACTIVE) {
 repeat_primary:
                 LeaveCriticalSection(&g_thread_synchronization.critical_sections[0]);
                 --g_thread_synchronization.scheduler_lock_depth;
@@ -48,26 +52,26 @@ repeat_primary:
                 EnterCriticalSection(&g_thread_synchronization.critical_sections[0]);
                 ++g_thread_synchronization.scheduler_lock_depth;
                 switch (result) {
-                case 0:
+                case TASK_REMOVE:
                     FuncCtrl_RemoveTask((SchedulerTask*)task, scheduler);
                     break;
-                case 1:
+                case TASK_CONTINUE:
                     break;
-                case 2:
-                    if (task->flags & 2) goto repeat_primary;
+                case TASK_REPEAT:
+                    if (task->flags & TASK_FLAG_ACTIVE) goto repeat_primary;
                     break;
-                case 4:
+                case TASK_STOP_ZERO:
                     processed = 0;
                     goto done_primary;
-                case 3:
+                case TASK_STOP_OK:
                     processed = 1;
                     goto done_primary;
-                case 5:
+                case TASK_STOP_ERROR:
                     processed = -1;
                     goto done_primary;
-                case 6:
+                case TASK_RESTART_LIST:
                     goto restart_primary;
-                case 7:
+                case TASK_RUN_ON_REMOVE:
                     if (task->on_remove) task->on_remove(task->context);
                     break;
                 }
@@ -94,28 +98,28 @@ extern "C" __declspec(noinline) int __stdcall FuncCtrl_RunSecondary2(
         SchedulerTaskRaw* task = raw_task(node);
         if (task->on_tick) {
 repeat_secondary:
-            if (task->flags & 2) {
+            if (task->flags & TASK_FLAG_ACTIVE) {
                 LeaveCriticalSection(&g_thread_synchronization.critical_sections[0]);
                 --g_thread_synchronization.scheduler_lock_depth;
                 int result = task->on_tick(task->context);
                 EnterCriticalSection(&g_thread_synchronization.critical_sections[0]);
                 ++g_thread_synchronization.scheduler_lock_depth;
                 switch (result) {
-                case 0:
+                case TASK_REMOVE:
                     FuncCtrl_RemoveTask((SchedulerTask*)task, scheduler);
                     break;
-                case 1:
+                case TASK_CONTINUE:
                     break;
-                case 2:
-                    if (task->flags & 2) goto repeat_secondary;
+                case TASK_REPEAT:
+                    if (task->flags & TASK_FLAG_ACTIVE) goto repeat_secondary;
                     break;
-                case 4:
+                case TASK_STOP_ZERO:
                     processed = 0;
                     goto done_secondary;
-                case 3:
+                case TASK_STOP_OK:
                     processed = 1;
                     goto done_secondary;
-                case 5:
+                case TASK_STOP_ERROR:
                     processed = -1;
                     goto done_secondary;
                 }

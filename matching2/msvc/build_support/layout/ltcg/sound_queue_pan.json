@@ -1,12 +1,12 @@
 {
   "schema_version": 1,
   "name": "sound_queue_pan",
-  "source": "src/game/bullet/fun.cpp_407780.cpp",
+  "source": "src/game/bullet/bullet_turn_step.cpp",
   "additional_sources": [
     "src/game/laser/laser_line_decelerate.cpp",
     "src/core/sound/sound_queue.cpp",
-    "src/game/bullet/fun.cpp_407a30.cpp",
-    "src/game/bullet/fun.cpp_407be0.cpp",
+    "src/game/bullet/bullet_aim_step.cpp",
+    "src/game/bullet/bullet_bounce.cpp",
     "src/core/sound/sound_queue_pan.cpp"
   ],
   "headers": [
@@ -23,7 +23,7 @@
   "functions": [
     {
       "name": "BulletDeceleration_TurnStep",
-      "source": "src/game/bullet/fun.cpp_407780.cpp",
+      "source": "src/game/bullet/bullet_turn_step.cpp",
       "symbol": "?TurnStep@BulletDeceleration@@QAEXXZ",
       "address": "0x00407780",
       "size": 338,
@@ -32,7 +32,7 @@
     },
     {
       "name": "BulletDeceleration_AimStep",
-      "source": "src/game/bullet/fun.cpp_407a30.cpp",
+      "source": "src/game/bullet/bullet_aim_step.cpp",
       "symbol": "?AimStep@BulletDeceleration@@QAEXXZ",
       "address": "0x00407A30",
       "size": 431,
@@ -41,7 +41,7 @@
     },
     {
       "name": "BulletDeceleration_Bounce",
-      "source": "src/game/bullet/fun.cpp_407be0.cpp",
+      "source": "src/game/bullet/bullet_bounce.cpp",
       "symbol": "?Bounce@BulletDeceleration@@QAEXXZ",
       "address": "0x00407BE0",
       "size": 446,

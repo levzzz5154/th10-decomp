@@ -2,6 +2,26 @@
 #define TH10_QUAD_BATCH_HPP
 #include "th10/render/textured_quad.hpp"
 
+enum RenderEntityFlagBits {
+    RENDER_FLAG_VISIBLE = 1u,
+    RENDER_FLAG_ACTIVE = 2u,
+    RENDER_FLAG_ANCHOR_X_SHIFT = 18,
+    RENDER_FLAG_ANCHOR_Y_SHIFT = 20,
+    RENDER_FLAG_ANCHOR_MASK = 3u
+};
+
+enum RenderAnchorX {
+    ANCHOR_X_CENTER = 0,
+    ANCHOR_X_LEFT = 1,
+    ANCHOR_X_RIGHT = 2
+};
+
+enum RenderAnchorY {
+    ANCHOR_Y_CENTER = 0,
+    ANCHOR_Y_TOP = 1,
+    ANCHOR_Y_BOTTOM = 2
+};
+
 struct RenderEntity;
 struct SprtCtrlBatchView {
     unsigned char unknown_00000000[0x54];

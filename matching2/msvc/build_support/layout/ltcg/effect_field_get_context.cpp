@@ -1,5 +1,5 @@
 // Compiler context only; never selected as recovered game code.
-#include "../../../src/core/sprtanim/fun.cpp"
+#include "../../../src/core/sprtanim/anm_vm_float_var.cpp"
 
 #pragma code_seg(".text$03context")
 float __stdcall EffectFieldGetCompilerContext(EffectFieldStore* stores, int count,

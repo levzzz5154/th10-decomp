@@ -11,7 +11,7 @@
     "src/game/laser/laser_manager_create.cpp",
     "src/game/fps/platform_release_owned_handle.cpp",
     "src/game/bomb/bomb_create.cpp",
-    "src/game/item/recovery_install_pair_clear_flags.cpp",
+    "src/game/item/item_install_pair_clear_flags.cpp",
     "src/game/bomb/bomb_register_tasks.cpp",
     "src/game/bomb/bomb_release.cpp",
     "src/core/zunlib/scheduler_create_and_register.cpp",
@@ -34,7 +34,7 @@
     "src/unreferenced/unassigned_44a060.cpp",
     "src/unreferenced/unassigned_44a090.cpp",
     "src/game/eclview/ecl_view_construct.cpp",
-    "src/unreferenced/FUN.cpp_40a3c0.cpp",
+    "src/unreferenced/fun_40a3c0.cpp",
     "src/game/title/title_load_thread.cpp",
     "build_support/layout/ltcg/bullet_manager_load_scripts_0040ae70_release.cpp",
     "build_support/layout/ltcg/bullet_manager_load_scripts_0040ae70_mark.cpp"
@@ -126,7 +126,7 @@
     },
     {
       "name": "Recovery_InstallPairClearFlags_0041ad90",
-      "source": "src/game/item/recovery_install_pair_clear_flags.cpp",
+      "source": "src/game/item/item_install_pair_clear_flags.cpp",
       "symbol": "_asm_Recovery_InstallPairClearFlags_0041ad90@4",
       "section": ".text$00e_installclear",
       "address": "0x0041AD90",
@@ -387,7 +387,7 @@
     },
     {
       "name": "CounterState_Create_0040a3c0",
-      "source": "src/unreferenced/FUN.cpp_40a3c0.cpp",
+      "source": "src/unreferenced/fun_40a3c0.cpp",
       "symbol": "_asm_FUN_0040a3c0_0040a3c0",
       "section": ".text$00_zfactory",
       "address": "0x0040A3C0",

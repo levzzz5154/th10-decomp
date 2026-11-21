@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "name": "accessor_0041ab60",
-  "source": "src/unreferenced/FUN.cpp_41ab60.cpp",
+  "source": "src/unreferenced/fun_41ab60.cpp",
   "additional_sources": [
     "src/game/item/entity_movement_slot.cpp"
   ],
@@ -19,7 +19,7 @@
       "address": "0x0041AB60",
       "size": 4,
       "actual_abi": "object in EAX; plain RET",
-      "source": "src/unreferenced/FUN.cpp_41ab60.cpp"
+      "source": "src/unreferenced/fun_41ab60.cpp"
     },
     {
       "name": "EntityMovementSlot_Initialise",

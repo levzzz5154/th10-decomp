@@ -19,7 +19,7 @@
       "address": "0x00405ED0",
       "size": 45,
       "actual_abi": "pool in ESI; plain RET",
-      "source": "src/game/bullet/bullet_pool_reset_retail.cpp"
+      "source": "src/game/bullet/bullet_pool_reset.cpp"
     },
     {
       "name": "AnimationManager_ClearResourceSlot",
@@ -37,7 +37,7 @@
       "address": "0x00447810",
       "size": 242,
       "actual_abi": "record in EDI; plain RET",
-      "source": "src/core/sprtlib/fun.cpp"
+      "source": "src/core/sprtlib/animation_resource_retire.cpp"
     },
     {
       "name": "AnimationManager_MarkResourceForRemoval",
@@ -54,7 +54,7 @@
       "address": "0x0041F930",
       "size": 91,
       "actual_abi": "no entry register; plain RET with EAX = 0",
-      "source": "src/game/loading/recovery_release_pair.cpp"
+      "source": "src/game/loading/loading_release_pair.cpp"
     },
     {
       "name": "ReleaseSlot1_0042c800_0042c800",
@@ -166,10 +166,10 @@
     }
   ],
   "additional_sources": [
-    "src/game/bullet/bullet_pool_reset_retail.cpp",
-    "src/game/loading/recovery_release_pair.cpp",
+    "src/game/bullet/bullet_pool_reset.cpp",
+    "src/game/loading/loading_release_pair.cpp",
     "src/core/sprtlib/animation_manager_clear_resource_slot.cpp",
-    "src/core/sprtlib/fun.cpp",
+    "src/core/sprtlib/animation_resource_retire.cpp",
     "src/unreferenced/animation_manager_release_slot1.cpp",
     "src/unreferenced/unassigned_447910.cpp",
     "src/core/sprtlib/anm_manager_service_pending.cpp"

@@ -86,15 +86,41 @@ static __forceinline void MarkTitleCallback(Title* room) {
     reinterpret_cast<TitlePrefix*>(room)->callback->flags |= 2;
 }
 
+enum TitleModeId {
+    TITLE_MODE_INIT = 0,
+    TITLE_MODE_OPENING = 1,
+    TITLE_MODE_MAIN_MENU = 2,
+    TITLE_MODE_LEAVE = 3,
+    TITLE_MODE_OPTIONS = 4,
+    TITLE_MODE_KEY_CONFIG = 5,
+    TITLE_MODE_DIFFICULTY = 6,
+    TITLE_MODE_CHARACTER = 7,
+    TITLE_MODE_SHOT_TYPE = 8,
+    TITLE_MODE_PRACTICE_STAGE = 9,
+    TITLE_MODE_LAUNCH_REPLAY = 10,
+    TITLE_MODE_SPELL_RECORD = 11,
+    TITLE_MODE_REPLAY_SELECT = 12,
+    TITLE_MODE_LAUNCH_STAGE = 13,
+    TITLE_MODE_MUSIC_ROOM = 14,
+    TITLE_MODE_NAME_ENTRY = 15,
+    TITLE_MODE_REPLAY_SAVE = 16
+};
+
+enum TitleGlobalFlags {
+    TITLE_FLAG_DEMO_PLAYBACK = 0x20u,
+    TITLE_FLAG_CLEAR_FOR_DEMO = 0x40u,
+    TITLE_IDLE_RESET_KEYS = 0x160B
+};
+
 // Count the idle frames of the title and the main menu; after 900 of them
 // set up the next demo replay.  Returns how the title is to be entered.
 static __forceinline int UpdateIdleDemo(TitlePrefix* title) {
-    if (title->mode == 1 || title->mode == 2) {
+    if (title->mode == TITLE_MODE_OPENING || title->mode == TITLE_MODE_MAIN_MENU) {
         ++g_globals_score.idle_frames;
-        if ((g_input_keys_raw & 0x160b) != 0) {
+        if ((g_input_keys_raw & TITLE_IDLE_RESET_KEYS) != 0) {
             g_globals_score.idle_frames = 0;
         } else if (g_globals_score.idle_frames >= 900) {
-            g_globals_score.flags = (g_globals_score.flags & ~0x40u) | 0x20;
+            g_globals_score.flags = (g_globals_score.flags & ~TITLE_FLAG_CLEAR_FOR_DEMO) | TITLE_FLAG_DEMO_PLAYBACK;
             strcpy(g_replay_path, g_title_demo_paths[g_globals_score.next_demo]);
             DemoFile* file = TitleLoadDemo(g_replay_path);
             g_globals_score.next_demo = (g_globals_score.next_demo + 1) % 4;
@@ -116,7 +142,7 @@ static __forceinline int UpdateIdleDemo(TitlePrefix* title) {
             free(file);
             int mode = title->mode;
             g_globals_score.idle_frames = 0;
-            return g_main_mode_request = mode != 1;
+            return g_main_mode_request = mode != TITLE_MODE_OPENING;
         }
     }
     return g_main_mode_request;
@@ -128,7 +154,7 @@ __declspec(noinline) int __stdcall TitleDispatcher(
     TitlePrefix* title = reinterpret_cast<TitlePrefix*>(room);
     int transition = UpdateIdleDemo(title);
     switch (title->mode) {
-    case 0: {
+    case TITLE_MODE_INIT: {
         unsigned char* manager_bytes = reinterpret_cast<unsigned char*>(g_sprt_ctrl);
         SprtCtrl* manager = reinterpret_cast<SprtCtrl*>(g_sprt_ctrl);
         manager->MarkResourceForRemoval(*reinterpret_cast<void**>(manager_bytes + 0x3ad084));
@@ -145,7 +171,7 @@ __declspec(noinline) int __stdcall TitleDispatcher(
             room->cursor.item_count = 10;
             SetSelection(cursor, 0);
             cursor->PushSelection();
-            room->DisableTimerWithOwner(15);
+            room->DisableTimerWithOwner(TITLE_MODE_NAME_ENTRY);
             RecoveryMusicInstallSlot(room, 91);
             room->SetSlotFrame(91, 9);
             g_main_mode_request = 1;
@@ -153,23 +179,23 @@ __declspec(noinline) int __stdcall TitleDispatcher(
             TitleNameEntry(room);
             break;
         }
-        if ((g_globals_score.flags & 0x20) == 0) {
+        if ((g_globals_score.flags & TITLE_FLAG_DEMO_PLAYBACK) == 0) {
             TitleSetMusicFile(0, "bgm/th10_02.wav");
             TitlePlayMusic(0, 0);
             transition = g_main_mode_request;
         } else {
             g_globals_score.difficulty = g_globals_score.menu_difficulty;
         }
-        g_globals_score.flags &= ~0x20u;
+        g_globals_score.flags &= ~TITLE_FLAG_DEMO_PLAYBACK;
         if (transition == 0) {
-            // transition is 0 here; the sum (one more expression temporary)
+            // MATCH: transition is 0 here; the sum (one more expression temporary)
             // puts the closing timer add's fld/fadd in retail's order.
             room->DisableTimerWithOwner(transition + 1);
             g_main_mode_request = 1;
         } else if (transition == 1) {
             if (g_globals_score.difficulty == 4)
                 SetSelection(&room->cursor, 1);
-            room->DisableTimerWithOwner(2);
+            room->DisableTimerWithOwner(TITLE_MODE_MAIN_MENU);
             RecoveryMusicInstallSlot(room, 91);
             // Entering the main menu shares mode 2's handler call.
             goto main_menu;
@@ -178,7 +204,7 @@ __declspec(noinline) int __stdcall TitleDispatcher(
             room->cursor.item_count = 10;
             SetSelection(cursor, 3);
             cursor->PushSelection();
-            room->DisableTimerWithOwner(12);
+            room->DisableTimerWithOwner(TITLE_MODE_REPLAY_SELECT);
             RecoveryMusicInstallSlot(room, 91);
             room->SetSlotFrame(91, 9);
             g_main_mode_request = 1;
@@ -189,23 +215,23 @@ __declspec(noinline) int __stdcall TitleDispatcher(
         EndingScreen_Update2(room);
         break;
     }
-    case 1: EndingScreen_Update2(room); break;
-    case 2: main_menu: MarkTitleCallback(room); TitleMainMenu(room); break;
-    case 4: TitleOptions(room); break;
-    case 5: TitleMenuFlow(room); break;
-    case 3:
+    case TITLE_MODE_OPENING: EndingScreen_Update2(room); break;
+    case TITLE_MODE_MAIN_MENU: main_menu: MarkTitleCallback(room); TitleMainMenu(room); break;
+    case TITLE_MODE_OPTIONS: TitleOptions(room); break;
+    case TITLE_MODE_KEY_CONFIG: TitleMenuFlow(room); break;
+    case TITLE_MODE_LEAVE:
         g_main_state = (~(g_app_flags >> 12) & 1) | 2;
-        // The same launch path serves modes 3, 10, and 13.
-    case 10: case 13: TitleDispatchGame(); break;
-    case 6: TitleMode6(room); break;
-    case 7: TitleMode7(room); break;
-    case 8: TitleMode8(room); break;
-    case 9: TitleMode9(room); break;
-    case 14: Title_UpdateMusicRoom(room); break;
-    case 11: TitleMode11(room); break;
-    case 12: TitleMode12(room); break;
-    case 15: TitleNameEntry(room); break;
-    case 16: TitleMode16(room); break;
+        // The same launch/leave path serves modes 3, 10, and 13.
+    case TITLE_MODE_LAUNCH_REPLAY: case TITLE_MODE_LAUNCH_STAGE: TitleDispatchGame(); break;
+    case TITLE_MODE_DIFFICULTY: TitleMode6(room); break;
+    case TITLE_MODE_CHARACTER: TitleMode7(room); break;
+    case TITLE_MODE_SHOT_TYPE: TitleMode8(room); break;
+    case TITLE_MODE_PRACTICE_STAGE: TitleMode9(room); break;
+    case TITLE_MODE_MUSIC_ROOM: Title_UpdateMusicRoom(room); break;
+    case TITLE_MODE_SPELL_RECORD: TitleMode11(room); break;
+    case TITLE_MODE_REPLAY_SELECT: TitleMode12(room); break;
+    case TITLE_MODE_NAME_ENTRY: TitleNameEntry(room); break;
+    case TITLE_MODE_REPLAY_SAVE: TitleMode16(room); break;
     }
     room->timer.previous = room->timer.current;
     if (*room->timer.speed > 0.99f && TimerSpeed(room->timer) < 1.01f) {

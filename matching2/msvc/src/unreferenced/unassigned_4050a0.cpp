@@ -22,26 +22,27 @@
 // and the function takes no arguments, so this too is a native LTCG cluster.
 // The region has no reference anywhere in the image: no E8/E9 rel32, no pushed
 // address and no data pointer names 0x004050A0.
+// Same 0x1C-byte layout as StageFog (th10/render/stage_fog.hpp).
 #pragma code_seg(".text$01channels")
 struct WordColor2 {
-    float f_00;
-    float f_04;
-    float f_08;
-    float f_0c;
-    float f_10;
-    float f_14;
-    unsigned char b_18;
-    unsigned char b_19;
-    unsigned char b_1a;
-    unsigned char b_1b;
+    float start;
+    float end;
+    float blue;
+    float green;
+    float red;
+    float alpha;
+    unsigned char packed_blue;
+    unsigned char packed_green;
+    unsigned char packed_red;
+    unsigned char packed_alpha;
 
     __declspec(noinline) void UpdateChannels();
 };
 
 void WordColor2::UpdateChannels() {
-    b_18 = (unsigned char)f_08;
-    b_19 = (unsigned char)f_0c;
-    b_1a = (unsigned char)f_10;
-    b_1b = (unsigned char)f_14;
+    packed_blue = (unsigned char)blue;
+    packed_green = (unsigned char)green;
+    packed_red = (unsigned char)red;
+    packed_alpha = (unsigned char)alpha;
 }
 #pragma code_seg()

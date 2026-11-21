@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "name": "word_color_00405040",
-  "source": "src/game/background/recovery_initialize_word_color.cpp",
+  "source": "src/game/background/stage_fog_initialize.cpp",
   "driver": "build_support/layout/ltcg/word_color_00405040_context.cpp",
   "headers": [],
   "image_base": "0x00400000",

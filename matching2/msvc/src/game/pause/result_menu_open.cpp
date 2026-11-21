@@ -44,10 +44,3 @@ __forceinline void PauseOpenState::Open(bool result) {
 #pragma code_seg(".text$00423370_fn")
 void PauseOpenState::OpenResult() { Open(true); }
 #pragma code_seg()
-#include "../../../build_support/layout/ltcg/result_open/allocate.cpp"
-#include "../../../build_support/layout/ltcg/result_open/descriptor.cpp"
-#include "../../../build_support/layout/ltcg/result_open/entity_init.cpp"
-#include "../../../build_support/layout/ltcg/result_open/find.cpp"
-#include "../../../build_support/layout/ltcg/result_open/music.cpp"
-#include "../../../build_support/layout/ltcg/result_open/registrar.cpp"
-#include "../../../build_support/layout/ltcg/result_open/secondary_back.cpp"

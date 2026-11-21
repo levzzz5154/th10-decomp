@@ -33,7 +33,7 @@
     },
     {
       "name": "ScriptFileLoader_Load",
-      "source": "src/game/enemy/fun.cpp_40cd20.cpp",
+      "source": "src/game/enemy/enemy_script_file_load.cpp",
       "symbol": "?Load@ScriptFileLoader@@QAEHPBD@Z",
       "section": ".text$02script",
       "address": "0x0040CD20",
@@ -42,7 +42,7 @@
     },
     {
       "name": "MapResource_LoadMap",
-      "source": "src/unreferenced/FUN.cpp_43e9d0.cpp",
+      "source": "src/unreferenced/fun_43e9d0.cpp",
       "symbol": "?LoadMap@MapResource@@QAEXPBD@Z",
       "section": ".text$04map",
       "address": "0x0043E9D0",
@@ -430,8 +430,8 @@
     }
   ],
   "additional_sources": [
-    "src/game/enemy/fun.cpp_40cd20.cpp",
-    "src/unreferenced/FUN.cpp_43e9d0.cpp",
+    "src/game/enemy/enemy_script_file_load.cpp",
+    "src/unreferenced/fun_43e9d0.cpp",
     "src/game/player/music_room.cpp",
     "src/core/midilib/midi_load_track.cpp",
     "src/game/background/background_load.cpp",

@@ -57,16 +57,38 @@ static __forceinline void RunCursorSlot3(Title* room) {
         room->animation_slots[2]);
 }
 
+enum KeyConfigPhase {
+    KEYCFG_PHASE_ENTER = 0,
+    KEYCFG_PHASE_WAIT_OPEN = 1,
+    KEYCFG_PHASE_ACTIVE = 2,
+    KEYCFG_PHASE_EXIT = 4
+};
+
+enum KeyConfigConstants {
+    KEYCFG_ITEM_COUNT = 7,
+    KEYCFG_LAST_BINDING_SLOT = 4,
+    KEYCFG_ITEM_DEFAULTS = 5,
+    KEYCFG_ITEM_QUIT = 6,
+    KEYCFG_KEY_CANCEL = 0x000A,
+    KEYCFG_KEY_UP = 0x0010,
+    KEYCFG_KEY_DOWN = 0x0020,
+    KEYCFG_KEY_CONFIRM = 0x1001,
+    KEYCFG_SFX_CONFIRM = 10,
+    KEYCFG_SFX_CANCEL = 11,
+    KEYCFG_SFX_MOVE = 12,
+    KEYCFG_TARGET_OPTIONS = 4
+};
+
 // Phase 2: cursor movement, pad button assignment, cancel and confirm.
 static __forceinline void HandleInput(Title* room) {
     MenuCursor* cursor = &room->cursor;
     cursor->previous_selection = cursor->selection;
-    if (g_input_keys_raw.Active(0x10))
+    if (g_input_keys_raw.Active(KEYCFG_KEY_UP))
         cursor->Advance(-1);
-    if (g_input_keys_raw.Active(0x20))
+    if (g_input_keys_raw.Active(KEYCFG_KEY_DOWN))
         cursor->Advance(1);
     if (cursor->previous_selection != cursor->selection) {
-        g_sound_manager.Queue(12, 0);
+        g_sound_manager.Queue(KEYCFG_SFX_MOVE, 0);
         RunCursorSlot3(room);
         room->SetSlotFrame(2, cursor->selection + 7);
     }
@@ -74,24 +96,24 @@ static __forceinline void HandleInput(Title* room) {
     unsigned char* buttons = Input_PollJoystickButtons2(0);
     for (int button = 0; button < 31; button++) {
         if (buttons[button] & 0x80) {
-            if (cursor->selection <= 4)
+            if (cursor->selection <= KEYCFG_LAST_BINDING_SLOT)
                 KeyConfigReassignSlot2(
                     reinterpret_cast<TitleKeyConfigView*>(room), cursor->selection, button);
             break;
         }
     }
 
-    if ((g_input_keys_raw.pressed & 0xa) && cursor->selection == 6) {
+    if ((g_input_keys_raw.pressed & KEYCFG_KEY_CANCEL) && cursor->selection == KEYCFG_ITEM_QUIT) {
         LoadBindings(room);
     } else {
-        if ((g_input_keys_held & 0x1001) == 0)
+        if ((g_input_keys_held & KEYCFG_KEY_CONFIRM) == 0)
             return;
         switch (cursor->selection) {
-        case 5:
+        case KEYCFG_ITEM_DEFAULTS:
             LoadBindings(room);
-            g_sound_manager.Queue(10, 0);
+            g_sound_manager.Queue(KEYCFG_SFX_CONFIRM, 0);
             return;
-        case 6: {
+        case KEYCFG_ITEM_QUIT: {
             TitleKeyConfigView* labels = reinterpret_cast<TitleKeyConfigView*>(room);
             g_key_bindings_current.keys[0] = labels->bindings_59cc[0];
             g_key_bindings_current.keys[1] = labels->bindings_59cc[1];
@@ -105,34 +127,34 @@ static __forceinline void HandleInput(Title* room) {
             return;
         }
     }
-    g_sound_manager.Queue(11, 0);
+    g_sound_manager.Queue(KEYCFG_SFX_CANCEL, 0);
     room->SetSlotFrame(2, 6);
-    room->SetTimerTarget(4);
+    room->SetTimerTarget(KEYCFG_PHASE_EXIT);
 }
 
 #pragma code_seg(".text$0042f540_fn")
 int __stdcall TitleMenuFlow(Title* room) {
     switch (room->phase) {
-    case 0:
-        room->cursor.item_count = 7;
+    case KEYCFG_PHASE_ENTER:
+        room->cursor.item_count = KEYCFG_ITEM_COUNT;
         SelectItem5(room->cursor, 0);
         RecoveryMusicInstallSlot(room, 2);
-        room->SetTimerTarget(1);
+        room->SetTimerTarget(KEYCFG_PHASE_WAIT_OPEN);
         LoadBindings(room);
         // Retail intentionally processes phase 1 on this same frame.
-    case 1:
+    case KEYCFG_PHASE_WAIT_OPEN:
         if (room->timer.current > 6) {
-            room->SetTimerTarget(2);
+            room->SetTimerTarget(KEYCFG_PHASE_ACTIVE);
             RunCursorSlot3(room);
             room->SetSlotFrame(2, room->cursor.selection + 17);
         }
         break;
-    case 2:
+    case KEYCFG_PHASE_ACTIVE:
         HandleInput(room);
         break;
-    case 4:
+    case KEYCFG_PHASE_EXIT:
         if (room->timer.current >= 10) {
-            room->DisableTimerWithOwner(4);
+            room->DisableTimerWithOwner(KEYCFG_TARGET_OPTIONS);
             room->cursor.PopSelection();
         }
         break;

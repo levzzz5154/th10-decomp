@@ -6,9 +6,9 @@
  "included_sources": [
   "src/core/main/destroy_entity_list.cpp",
   "src/core/main/window_create.cpp",
-  "src/core/midilib/fun.cpp_43a910.cpp",
-  "src/core/midilib/fun.cpp_43ae20.cpp",
-  "src/core/midilib/fun.cpp_43aeb0.cpp",
+  "src/core/midilib/midi_cleanup.cpp",
+  "src/core/midilib/midi_shutdown.cpp",
+  "src/core/midilib/midi_complete_header.cpp",
   "src/core/sound/sound_cleanup.cpp",
   "src/core/sound/sound_music_commands.cpp",
   "src/core/sound/sound_worker.cpp",

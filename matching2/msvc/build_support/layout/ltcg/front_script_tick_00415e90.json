@@ -960,7 +960,6 @@
   ],
   "included_sources": [
     "src/core/sound/sound_queue.cpp",
-    "build_support/contexts/equivalent/game/front_script_tick.cpp",
     "build_support/layout/ltcg/result_open/allocate.cpp",
     "build_support/layout/ltcg/result_open/animation_manager_queue_resource.cpp",
     "build_support/layout/ltcg/result_open/animation_object_configure_from_resource.cpp",

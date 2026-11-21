@@ -9,26 +9,53 @@ __declspec(noinline) void __stdcall Entity_StartScript(
     AnimationResourceFile* resource, Entity* entity, int script);
 extern "C" int g_main_clear_color;
 
+enum StageScriptOpcode {
+    STD_OP_STOP = 0,
+    STD_OP_JUMP = 1,
+    STD_OP_SET_CAMERA_POS = 2,
+    STD_OP_INTERP_CAMERA_POS = 3,
+    STD_OP_SET_CAMERA_DIR = 4,
+    STD_OP_INTERP_CAMERA_DIR = 5,
+    STD_OP_SET_CAMERA_UP = 6,
+    STD_OP_SET_CAMERA_FOV = 7,
+    STD_OP_SET_FOG = 8,
+    STD_OP_INTERP_FOG = 9,
+    STD_OP_BEZIER_CAMERA_POS = 10,
+    STD_OP_BEZIER_CAMERA_DIR = 11,
+    STD_OP_SET_SWAY = 12,
+    STD_OP_SET_CLEAR_COLOR = 13,
+    STD_OP_SET_SPRITE_SCRIPT = 14
+};
+
+enum StageMoveMode {
+    STD_MOVE_BEZIER = 8
+};
+
+enum StageSwayMode {
+    STD_SWAY_NONE = 0,
+    STD_SWAY_HORIZONTAL_SINE = 1
+};
+
 #pragma code_seg(".text$00403c80_fn")
 int __stdcall BackGround_RunScript(BackGround* stage) {
     while (stage->instruction->time <= stage->script_timer.current) {
         StageInstruction* instruction = stage->instruction;
         switch (instruction->opcode) {
-        case 0:
+        case STD_OP_STOP:
             goto moves;
-        case 1:
+        case STD_OP_JUMP:
             stage->script_timer.Set(instruction->args[1].i);
             stage->instruction =
                 reinterpret_cast<StageInstruction*>(stage->script + stage->instruction->args[0].i);
             continue;
-        case 2:
+        case STD_OP_SET_CAMERA_POS:
             stage->Travel() = stage->Position();
             stage->Position().x = instruction->args[0].f;
             stage->Position().y = instruction->args[1].f;
             stage->Position().z = instruction->args[2].f;
             stage->Travel() = stage->Position() - stage->Travel();
             break;
-        case 3: {
+        case STD_OP_INTERP_CAMERA_POS: {
             Vec3 target(instruction->args[2].f, instruction->args[3].f, instruction->args[4].f);
             stage->position_move.duration = instruction->args[0].i;
             stage->position_move.mode = instruction->args[1].i;
@@ -37,12 +64,12 @@ int __stdcall BackGround_RunScript(BackGround* stage) {
             stage->position_move.timer.Reset();
             break;
         }
-        case 4:
+        case STD_OP_SET_CAMERA_DIR:
             stage->Direction().x = instruction->args[0].f;
             stage->Direction().y = instruction->args[1].f;
             stage->Direction().z = instruction->args[2].f;
             break;
-        case 5: {
+        case STD_OP_INTERP_CAMERA_DIR: {
             Vec3 target(instruction->args[2].f, instruction->args[3].f, instruction->args[4].f);
             stage->direction_move.duration = instruction->args[0].i;
             stage->direction_move.mode = instruction->args[1].i;
@@ -51,15 +78,15 @@ int __stdcall BackGround_RunScript(BackGround* stage) {
             stage->direction_move.timer.Reset();
             break;
         }
-        case 6:
+        case STD_OP_SET_CAMERA_UP:
             stage->Up().x = instruction->args[0].f;
             stage->Up().y = instruction->args[1].f;
             stage->Up().z = instruction->args[2].f;
             break;
-        case 7:
+        case STD_OP_SET_CAMERA_FOV:
             stage->view.camera.field_of_view = instruction->args[0].f;
             break;
-        case 8:
+        case STD_OP_SET_FOG:
             stage->Fog().packed = instruction->args[0].u;
             stage->Fog().blue = stage->Fog().packed_blue;
             stage->Fog().green = stage->Fog().packed_green;
@@ -68,7 +95,7 @@ int __stdcall BackGround_RunScript(BackGround* stage) {
             stage->Fog().start = instruction->args[1].f;
             stage->Fog().end = instruction->args[2].f;
             break;
-        case 9: {
+        case STD_OP_INTERP_FOG: {
             StageFog target(instruction->args[3].f, instruction->args[4].f,
                             instruction->args[2].b0, instruction->args[2].b1,
                             instruction->args[2].b2, instruction->args[2].b3);
@@ -79,7 +106,7 @@ int __stdcall BackGround_RunScript(BackGround* stage) {
             stage->fog_move.timer.Reset();
             break;
         }
-        case 10: {
+        case STD_OP_BEZIER_CAMERA_POS: {
             Vec3 control(instruction->args[2].f, instruction->args[3].f, instruction->args[4].f);
             Vec3 target(instruction->args[5].f, instruction->args[6].f, instruction->args[7].f);
             Vec3 velocity(instruction->args[8].f, instruction->args[9].f, instruction->args[10].f);
@@ -87,12 +114,12 @@ int __stdcall BackGround_RunScript(BackGround* stage) {
             stage->position_move.value = stage->Position();
             stage->position_move.control = control;
             stage->position_move.target = target;
-            stage->position_move.mode = 8;
+            stage->position_move.mode = STD_MOVE_BEZIER;
             stage->position_move.velocity = velocity;
             stage->position_move.timer.Reset();
             break;
         }
-        case 11: {
+        case STD_OP_BEZIER_CAMERA_DIR: {
             Vec3 control(instruction->args[2].f, instruction->args[3].f, instruction->args[4].f);
             Vec3 target(instruction->args[5].f, instruction->args[6].f, instruction->args[7].f);
             Vec3 velocity(instruction->args[8].f, instruction->args[9].f, instruction->args[10].f);
@@ -100,19 +127,19 @@ int __stdcall BackGround_RunScript(BackGround* stage) {
             stage->direction_move.value = stage->Direction();
             stage->direction_move.control = control;
             stage->direction_move.target = target;
-            stage->direction_move.mode = 8;
+            stage->direction_move.mode = STD_MOVE_BEZIER;
             stage->direction_move.velocity = velocity;
             stage->direction_move.timer.Reset();
             break;
         }
-        case 12:
+        case STD_OP_SET_SWAY:
             stage->sway_mode = instruction->args[0].b0;
             stage->sway_timer.Reset();
             break;
-        case 13:
+        case STD_OP_SET_CLEAR_COLOR:
             g_main_clear_color = instruction->args[0].i;
             break;
-        case 14:
+        case STD_OP_SET_SPRITE_SCRIPT:
             if (instruction->args[1].i >= 0) {
                 Entity_StartScript(
                     static_cast<AnimationResourceFile*>(stage->animations),
@@ -134,7 +161,7 @@ moves:
     if (stage->fog_move.duration) stage->Fog() = stage->fog_move.Step();
     if (stage->sway_mode) {
         switch (stage->sway_mode) {
-        case 1:
+        case STD_SWAY_HORIZONTAL_SINE:
             stage->view.camera.eye_offset.x =
                 sinf(stage->sway_timer.elapsed * 0.012271846644580364f - 3.1415927410125732f) * -100.0f;
             stage->sway_timer.Tick();

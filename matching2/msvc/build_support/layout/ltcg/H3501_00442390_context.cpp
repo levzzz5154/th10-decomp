@@ -1,5 +1,5 @@
 // Synthetic compiler context only; it is not recovered game code.
-#include "../../../src/unreferenced/FUN.cpp_442390.cpp"
+#include "../../../src/unreferenced/fun_442390.cpp"
 
 #pragma code_seg(".text$03context")
 extern "C" __declspec(noinline) int __stdcall CopySourceCompilerContext_00442390(

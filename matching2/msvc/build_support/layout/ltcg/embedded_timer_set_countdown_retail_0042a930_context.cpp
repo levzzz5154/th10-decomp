@@ -1,5 +1,5 @@
 // Compiler context only; never selected as recovered game code.
-#include "../../../src/game/replay/embedded_timer_set_countdown_retail.cpp"
+#include "../../../src/game/replay/embedded_timer_set_countdown.cpp"
 
 #pragma code_seg(".text$03context")
 int __stdcall EmbeddedTimerSetCountdownRetailCompilerContext(

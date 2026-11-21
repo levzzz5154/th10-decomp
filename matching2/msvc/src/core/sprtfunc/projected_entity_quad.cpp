@@ -82,6 +82,15 @@ extern "C" void __stdcall asm_D3DXVec3Project_0045218e(void* out, const void* ve
                                                        const ProjectionMatrix2* view,
                                                        const ProjectionMatrix2* world);
 
+enum ProjectedQuadAnchor {
+    PROJ_ANCHOR_X_SHIFT = 18,
+    PROJ_ANCHOR_Y_SHIFT = 20,
+    PROJ_ANCHOR_MASK = 3u,
+    PROJ_ANCHOR_CENTER = 0,
+    PROJ_ANCHOR_NEAR = 1,
+    PROJ_ANCHOR_FAR = 2
+};
+
 #pragma code_seg(".text$01quadx")
 int ProjectedEntity::ProjectQuad(ProjectionManager* manager) {
     if ((flags & 0x4000u) == 0 && (flags & 0x0Cu) != 0) {
@@ -109,30 +118,30 @@ int ProjectedEntity::ProjectQuad(ProjectionManager* manager) {
     world.m[12] = base_position.x + layer_position.x + offset_position.x + world.m[12];
     world.m[13] = base_position.y + layer_position.y + offset_position.y + world.m[13];
     world.m[14] = base_position.z + layer_position.z + offset_position.z;
-    switch ((flags >> 18) & 3u) {
-    case 0:
+    switch ((flags >> PROJ_ANCHOR_X_SHIFT) & PROJ_ANCHOR_MASK) {
+    case PROJ_ANCHOR_CENTER:
         input[0].x = input[2].x = -128.0f;
         input[1].x = input[3].x = 128.0f;
         break;
-    case 1:
+    case PROJ_ANCHOR_NEAR:
         input[0].x = input[2].x = 0.0f;
         input[1].x = input[3].x = 256.0f;
         break;
-    case 2:
+    case PROJ_ANCHOR_FAR:
         input[0].x = input[2].x = -256.0f;
         input[1].x = input[3].x = 0.0f;
         break;
     }
-    switch ((flags >> 20) & 3u) {
-    case 0:
+    switch ((flags >> PROJ_ANCHOR_Y_SHIFT) & PROJ_ANCHOR_MASK) {
+    case PROJ_ANCHOR_CENTER:
         input[0].y = input[1].y = -128.0f;
         input[2].y = input[3].y = 128.0f;
         break;
-    case 1:
+    case PROJ_ANCHOR_NEAR:
         input[0].y = input[1].y = 0.0f;
         input[2].y = input[3].y = 256.0f;
         break;
-    case 2:
+    case PROJ_ANCHOR_FAR:
         input[0].y = input[1].y = -256.0f;
         input[2].y = input[3].y = 0.0f;
         break;

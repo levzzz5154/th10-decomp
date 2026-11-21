@@ -30,10 +30,23 @@ static __forceinline void SelectItem2(MenuCursor& cursor, int selected) {
         cursor.selection = selected;
 }
 
+enum TitleOpeningPhase {
+    OPENING_PHASE_ENTER = 0,
+    OPENING_PHASE_WAIT_OPEN = 1,
+    OPENING_PHASE_WAIT_KEY = 2,
+    OPENING_PHASE_FADE_OUT = 4
+};
+
+enum TitleOpeningConstants {
+    OPENING_ANY_KEY_MASK = 0x160B,
+    OPENING_SFX_START = 32,
+    OPENING_TARGET_MAIN_MENU = 2
+};
+
 #pragma code_seg(".text$0042d300_fn")
 int __stdcall EndingScreen_Update2(Title* room) {
     switch (room->phase) {
-    case 0: {
+    case OPENING_PHASE_ENTER: {
         if (reinterpret_cast<RecoveryLookup*>(g_sprt_ctrl)->Find(
                 reinterpret_cast<RecoveryLookupContext*>(g_sprt_ctrl),
                 room->animation_slots[88]) == 0) {
@@ -44,26 +57,26 @@ int __stdcall EndingScreen_Update2(Title* room) {
                 reinterpret_cast<void*>(room->reserved_018), &handle, 0, 15);
             room->reserved_684 = reinterpret_cast<unsigned int>(*result);
         }
-        room->SetTimerTarget(1);
+        room->SetTimerTarget(OPENING_PHASE_WAIT_OPEN);
         SelectItem2(room->cursor, 0);
         // Retail intentionally processes phase 1 on this same frame.
     }
-    case 1:
+    case OPENING_PHASE_WAIT_OPEN:
         if (room->timer.current > 10)
-            room->SetTimerTarget(2);
+            room->SetTimerTarget(OPENING_PHASE_WAIT_KEY);
         break;
-    case 2:
-        if ((g_input_keys_held & 0x160b) != 0) {
+    case OPENING_PHASE_WAIT_KEY:
+        if ((g_input_keys_held & OPENING_ANY_KEY_MASK) != 0) {
             room->SetSlotFrame(90, 6);
-            room->SetTimerTarget(4);
-            g_sound_manager.Queue(32, 0);
+            room->SetTimerTarget(OPENING_PHASE_FADE_OUT);
+            g_sound_manager.Queue(OPENING_SFX_START, 0);
             RecoveryMusicStopHandle(
                 reinterpret_cast<RecoveryHandle*>(&room->reserved_684));
         }
         break;
-    case 4:
+    case OPENING_PHASE_FADE_OUT:
         if (room->timer.current >= 30)
-            room->DisableTimerWithOwner(2);
+            room->DisableTimerWithOwner(OPENING_TARGET_MAIN_MENU);
         break;
     }
     return 1;

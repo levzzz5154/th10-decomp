@@ -11,22 +11,34 @@
 // Native LTCG passes the text position to the formatter in EBX; the complete
 // formatter and queue writer are part of this same translation unit so the
 // compiler derives the retail private call ABI on its own.
-#include "../../../build_support/layout/ltcg/result_rows/formatted.cpp"
-#include "../../../build_support/layout/ltcg/result_rows/append.cpp"
 #include "th10/game/result_rows.hpp"
+
+enum ResultRowsPhase {
+    RESULT_ROWS_REPLAY_LIST = 10,
+    RESULT_ROWS_REPLAY_NAME = 11,
+    RESULT_ROWS_SCORE_RANKING = 12,
+    RESULT_ROWS_REPLAY_LIST_ALT = 17,
+    RESULT_ROWS_REPLAY_NAME_ALT = 18,
+    RESULT_ROWS_SCORE_RANKING_ALT = 19
+};
+
+enum ResultRowsColor {
+    RESULT_COLOR_HIGHLIGHT = 0xFFFFFF00u,
+    RESULT_COLOR_DIM = 0xFF808080u
+};
 
 #pragma code_seg(".text$04rows")
 extern "C" __declspec(noinline) int __stdcall ResultScreen_DrawRows(
         ResultMenu* state) {
     g_ascii_manager->current_64 = 1;
     switch (state->phase) {
-    case 10:
-    case 17: {
+    case RESULT_ROWS_REPLAY_LIST:
+    case RESULT_ROWS_REPLAY_LIST_ALT: {
         // The 25 replay slots, one line each; the chosen row is highlighted
         // and a filled slot shows its record's name, date and run summary.
         Vec32 position = {48.0f, 64.0f, 0.0f};
         for (int row = 0; row < 25; ++row) {
-            g_ascii_manager->current_4c = state->cursor == row ? 0xFFFFFF00 : 0xFF808080;
+            g_ascii_manager->current_4c = state->cursor == row ? RESULT_COLOR_HIGHLIGHT : RESULT_COLOR_DIM;
             ReplayFile2* file = state->records[row];
             if (file) {
                 ReplayHeader5* header = file->header;
@@ -44,8 +56,8 @@ extern "C" __declspec(noinline) int __stdcall ResultScreen_DrawRows(
         g_ascii_manager->current_4c = -1;
         break;
     }
-    case 11:
-    case 18: {
+    case RESULT_ROWS_REPLAY_NAME:
+    case RESULT_ROWS_REPLAY_NAME_ALT: {
         // The replay just played: the name entry overlay slides up from its
         // row to the top over ten frames, then the record's date line shows.
         Vec32 position;
@@ -69,8 +81,8 @@ extern "C" __declspec(noinline) int __stdcall ResultScreen_DrawRows(
             g_difficulty_initials[header->difficulty], g_stage_names_short[g_globals_stage]);
         break;
     }
-    case 12:
-    case 19: {
+    case RESULT_ROWS_SCORE_RANKING:
+    case RESULT_ROWS_SCORE_RANKING_ALT: {
         // The score ranking: a header, the name entry drawn over the row the
         // new record landed in when it reached the table, then the ten rows.
         Vec32 position;
@@ -89,7 +101,7 @@ extern "C" __declspec(noinline) int __stdcall ResultScreen_DrawRows(
         position.x = 48.0f;
         position.y = 96.0f;
         for (int row = 0; row < 10; ++row) {
-            g_ascii_manager->current_4c = row == cursor ? 0xFFFFFF00 : 0xFF808080;
+            g_ascii_manager->current_4c = row == cursor ? RESULT_COLOR_HIGHLIGHT : RESULT_COLOR_DIM;
             if (g_score[data_00474c68_shot * 3 + data_00474c68_char]
                     .table.rows[g_globals_difficulty][row].date != 0) {
                 ScoreTable2* table =

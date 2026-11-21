@@ -121,7 +121,14 @@ struct FrontUpdateView {
     float gauge_ratio_9e88;                  // +0x9E88
     int gauge_value_9e8c;                    // +0x9E8C
     int boss_id_count_9e90;                  // +0x9E90
-    unsigned char pad_9e94[0x9EB4 - 0x9E94];
+    int boss_gauge_aux_9e94;                 // +0x9E94 (cleared when no boss active)
+    unsigned char pad_9e98[4];
+    int boss_gauge_aux_9e9c;                 // +0x9E9C
+    unsigned char pad_9ea0[4];
+    int boss_gauge_aux_9ea4;                 // +0x9EA4
+    unsigned char pad_9ea8[4];
+    int boss_gauge_aux_9eac;                 // +0x9EAC
+    unsigned char pad_9eb0[4];
     unsigned int flags_9eb4;                 // +0x9EB4
     void* sequence_9eb8;                     // +0x9EB8, script runtime record
     unsigned char pad_9ebc[0x9EC0 - 0x9EBC];

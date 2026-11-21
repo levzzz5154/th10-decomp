@@ -4,7 +4,7 @@
   "source": "src/core/main/gdi_font_cache.cpp",
   "additional_sources": [
     "src/static_init/gdi_surface_exit.cpp",
-    "src/core/main/font_cache_delete_gdi_objects_retail.cpp"
+    "src/core/main/font_cache_delete_gdi_objects.cpp"
   ],
   "driver": "build_support/layout/ltcg/gdi_surface_release_00436a30_context.cpp",
   "headers": [],
@@ -31,7 +31,7 @@
     {
       "name": "DeleteFontCacheObjects",
       "symbol": "_DeleteFontCacheObjects2",
-      "source": "src/core/main/font_cache_delete_gdi_objects_retail.cpp",
+      "source": "src/core/main/font_cache_delete_gdi_objects.cpp",
       "section": ".text$04bcleanup",
       "address": "0x00437D10",
       "size": 149,

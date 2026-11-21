@@ -1,5 +1,5 @@
 // Compiler context only; never selected as recovered game code.
-#include "../../../src/unreferenced/FUN.cpp_42a9c0.cpp"
+#include "../../../src/unreferenced/fun_42a9c0.cpp"
 
 #pragma code_seg(".text$03context")
 int __stdcall StoreCompilerContext(dwordmark** objects, int count) {

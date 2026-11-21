@@ -3,7 +3,7 @@
   "name": "key_config_reassign",
   "source": "src/game/title/key_config.cpp",
   "included_sources": [
-    "src/game/title/fun.cpp",
+    "src/game/title/key_config_refresh_digits.cpp",
     "src/core/sound/sound_queue.cpp"
   ],
   "driver": "build_support/layout/ltcg/key_config_reassign_context.cpp",

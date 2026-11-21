@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "name": "texture_clear_00449700",
-  "source": "src/unreferenced/FUN.cpp_449700.cpp",
+  "source": "src/unreferenced/fun_449700.cpp",
   "driver": "build_support/layout/ltcg/texture_clear_00449700_context.cpp",
   "headers": [],
   "image_base": "0x00400000",

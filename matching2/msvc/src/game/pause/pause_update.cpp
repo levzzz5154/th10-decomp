@@ -40,21 +40,48 @@ extern "C" void __stdcall PauseMenu_Initialize(PauseUpdateView* state);
 extern "C" void __stdcall PauseMenu_Update(PauseUpdateView* state);
 extern "C" void __stdcall ReplayMenu_Update(PauseUpdateView* state);
 
+enum PauseDispatchPhase {
+    PAUSE_CLOSED = 0,
+    PAUSE_OPENING = 1,
+    PAUSE_MENU = 2,
+    PAUSE_CLOSING = 3,
+    PAUSE_CONFIRM_OPEN = 4,
+    PAUSE_CONFIRM_RESOLVE = 5,
+    SUBMENU_WAIT_ENTRY = 6,
+    SUBMENU_SETUP_SCORE = 7,
+    SUBMENU_SAVE_CHOICE = 8,
+    SUBMENU_STATE_9 = 9,
+    SUBMENU_REPLAY_BROWSER = 10,
+    SUBMENU_REPLAY_NAME_EDITOR = 11,
+    SUBMENU_SCORE_NAME_EDITOR = 12,
+    SUBMENU_FINAL_EXIT = 13
+};
+
+enum PauseDispatchFlags {
+    PAUSE_GLOBAL_FLAG_DEMO = 0x20,
+    PAUSE_KEY_ESC = 0x08,
+    PAUSE_APP_FLAG_LOST_FOCUS = 0x10,
+    PAUSE_FRAME_ACTIVE_FLAG = 0x02
+};
+
 #pragma code_seg(".text$01update")
 int PauseUpdateView::Update() {
     switch (phase) {
-    case 0:
-        if (!(g_globals_flags & 0x20) &&
-            ((g_input_keys_held & 8) || (g_app_flags & 0x10)) &&
+    case PAUSE_CLOSED:
+        if (!(g_globals_flags & PAUSE_GLOBAL_FLAG_DEMO) &&
+            ((g_input_keys_held & PAUSE_KEY_ESC) || (g_app_flags & PAUSE_APP_FLAG_LOST_FOCUS)) &&
             g_game->active_frame &&
-            (g_game->active_frame->flags & 2) &&
+            (g_game->active_frame->flags & PAUSE_FRAME_ACTIVE_FLAG) &&
             g_game->elapsed >= 30)
             PauseMenu_Initialize(this);
         break;
-    case 1: case 2: case 3: case 4: case 5:
+    case PAUSE_OPENING: case PAUSE_MENU: case PAUSE_CLOSING:
+    case PAUSE_CONFIRM_OPEN: case PAUSE_CONFIRM_RESOLVE:
         PauseMenu_Update(this);
         break;
-    case 6: case 7: case 8: case 9: case 10: case 11: case 12: case 13:
+    case SUBMENU_WAIT_ENTRY: case SUBMENU_SETUP_SCORE: case SUBMENU_SAVE_CHOICE:
+    case SUBMENU_STATE_9: case SUBMENU_REPLAY_BROWSER: case SUBMENU_REPLAY_NAME_EDITOR:
+    case SUBMENU_SCORE_NAME_EDITOR: case SUBMENU_FINAL_EXIT:
         ReplayMenu_Update(this);
         break;
     }
