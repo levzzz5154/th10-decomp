@@ -11,28 +11,36 @@
 int SprtCtrlBatchView::SubmitSpriteQuadMirrored(const RenderEntity* entity, unsigned int mode) {
     ApplySpriteQuadOrigin(*this);
     if (mode & 1) {
-        // Follow the active x87 rounding mode, then subtract half a pixel.
+        // MATCH: snap the four shared quad edges (TexturedVertex stride 0x1C:
+        // [0].x=+0x00, [0].y=+0x04, [1].x=+0x1C, [1].y=+0x20, [2].x=+0x38,
+        // [2].y=+0x3C, [3].x=+0x54, [3].y=+0x58) to integer pixels via x87
+        // FRNDINT and subtract 0.5f (data_00470e8) for D3D9 texel alignment:
+        //   v[0].x = v[2].x = round(v[0].x) - 0.5f;   (left)
+        //   v[1].x = v[3].x = round(v[1].x) - 0.5f;   (right)
+        //   v[0].y = v[1].y = round(v[0].y) - 0.5f;   (top)
+        //   v[2].y = v[3].y = round(v[2].y) - 0.5f;   (bottom)
+        // MSVC 7.1 has no C++ intrinsic that emits bare FRNDINT.
         __asm {
-            fld  dword ptr [g_quad_vertices + 0x00]
+            fld  dword ptr [g_quad_vertices + 0x00] // left = v[0].x
             frndint
             fsub dword ptr [data_00470e8]
-            fld  dword ptr [g_quad_vertices + 0x1C]
+            fld  dword ptr [g_quad_vertices + 0x1C] // right = v[1].x
             frndint
             fsub dword ptr [data_00470e8]
-            fld  dword ptr [g_quad_vertices + 0x04]
+            fld  dword ptr [g_quad_vertices + 0x04] // top = v[0].y
             frndint
             fsub dword ptr [data_00470e8]
-            fld  dword ptr [g_quad_vertices + 0x3C]
+            fld  dword ptr [g_quad_vertices + 0x3C] // bottom = v[2].y
             frndint
             fsub dword ptr [data_00470e8]
-            fst  dword ptr [g_quad_vertices + 0x3C]
-            fstp dword ptr [g_quad_vertices + 0x58]
-            fst  dword ptr [g_quad_vertices + 0x04]
-            fstp dword ptr [g_quad_vertices + 0x20]
-            fst  dword ptr [g_quad_vertices + 0x1C]
-            fstp dword ptr [g_quad_vertices + 0x54]
-            fst  dword ptr [g_quad_vertices + 0x00]
-            fstp dword ptr [g_quad_vertices + 0x38]
+            fst  dword ptr [g_quad_vertices + 0x3C] // v[2].y = bottom
+            fstp dword ptr [g_quad_vertices + 0x58] // v[3].y = bottom
+            fst  dword ptr [g_quad_vertices + 0x04] // v[0].y = top
+            fstp dword ptr [g_quad_vertices + 0x20] // v[1].y = top
+            fst  dword ptr [g_quad_vertices + 0x1C] // v[1].x = right
+            fstp dword ptr [g_quad_vertices + 0x54] // v[3].x = right
+            fst  dword ptr [g_quad_vertices + 0x00] // v[0].x = left
+            fstp dword ptr [g_quad_vertices + 0x38] // v[2].x = left
         }
     }
     g_quad_vertices[0].u = g_quad_vertices[2].u = entity->texture->u1 + entity->uv_scroll_x;
