@@ -1,14 +1,14 @@
 #include "th10/platform/derived_timer_state.hpp"
 
-extern PauseVtable g_base_timer_vtable;
-extern PauseVtable g_derived_timer_vtable;
+extern Win32TimerVtable g_base_timer_vtable;
+extern Win32TimerVtable g_derived_timer_vtable;
 extern "C" __declspec(dllimport) unsigned int __stdcall
     timeGetDevCaps(Win32TimerCaps*, unsigned int);
 
 // 0x0043A750..0x0043A903. The private constructor receives this in ESI,
 // returns the same pointer in EAX, and returns without popping arguments.
 #pragma code_seg(".text$01construct")
-DerivedTimerState::DerivedTimerState() {
+MidiSequencer::MidiSequencer() {
     // Preserve the base timer's dispatch table while querying its capabilities.
     vtable = &g_base_timer_vtable;
     timeGetDevCaps(&caps, sizeof caps);

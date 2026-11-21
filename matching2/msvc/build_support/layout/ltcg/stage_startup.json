@@ -51,7 +51,7 @@
   "anchors": [
     {
       "name": "SetClock",
-      "symbol": "?SetSchedulerValue@PlayerSchedulerRecord@@QAEXH@Z",
+      "symbol": "?Set@FrameTimerView@@QAEXH@Z",
       "section": ".text$00405410_fn",
       "address": "0x405410",
       "size": 57
@@ -65,7 +65,7 @@
     },
     {
       "name": "ResetPath",
-      "symbol": "?Reset@PathState@@QAEHXZ",
+      "symbol": "?ResetTimer@EnemyCtrlTimerView@@QAEHXZ",
       "section": ".text$00417800_fn",
       "address": "0x417800",
       "size": 58
@@ -272,11 +272,6 @@
     },
     {
       "symbol": "_g_game_speed",
-      "address": "0x476f78",
-      "kind": "data"
-    },
-    {
-      "symbol": "?g_score_default_speed@@3MA",
       "address": "0x476f78",
       "kind": "data"
     },

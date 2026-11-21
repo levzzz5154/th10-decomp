@@ -1,9 +1,9 @@
-// 0x004127A0: SpellTimerState::AdvanceSlots
+// 0x004127A0: EnemyInterruptState::CheckInterrupts
 #include <stddef.h>
 extern "C" void _ReadWriteBarrier(void);
 #pragma intrinsic(_ReadWriteBarrier)
 
-extern "C" int g_globals_gauge;
+extern "C" int g_globals_faith;
 extern "C" float g_game_speed;
 
 struct SpellTimerDisplay {
@@ -73,7 +73,7 @@ struct SpellTimerSlot {
 typedef char SpellTimerSlot_004127a0_size_check[
     sizeof(SpellTimerSlot) == 0x10 ? 1 : -1];
 
-struct SpellTimerState {
+struct EnemyInterruptState {
     unsigned char reserved_0000[0x1158];
     SpellTimerClock clock;
     unsigned char reserved_116c[0x1290];
@@ -84,27 +84,27 @@ struct SpellTimerState {
     unsigned int state_flags;         // +0x2480
     unsigned char reserved_2484[0x10];
     SpellTimerSlot slots[8];  // +0x2494
-    void *AdvanceSlots();
+    void *CheckInterrupts();
 };
 
 typedef char SpellTimerState_004127a0_timer_offset_check[
-    offsetof(SpellTimerState, clock) == 0x1158 ? 1 : -1];
+    offsetof(EnemyInterruptState, clock) == 0x1158 ? 1 : -1];
 typedef char SpellTimerState_004127a0_slots_offset_check[
-    offsetof(SpellTimerState, slots) == 0x2494 ? 1 : -1];
+    offsetof(EnemyInterruptState, slots) == 0x2494 ? 1 : -1];
 typedef char SpellTimerState_004127a0_active_id_offset_check[
-    offsetof(SpellTimerState, active_spell_id) == 0x23fc ? 1 : -1];
+    offsetof(EnemyInterruptState, active_spell_id) == 0x23fc ? 1 : -1];
 typedef char SpellTimerState_004127a0_delta_offset_check[
-    offsetof(SpellTimerState, last_spell_delta) == 0x2404 ? 1 : -1];
+    offsetof(EnemyInterruptState, last_spell_delta) == 0x2404 ? 1 : -1];
 typedef char SpellTimerState_004127a0_flags_offset_check[
-    offsetof(SpellTimerState, state_flags) == 0x2480 ? 1 : -1];
+    offsetof(EnemyInterruptState, state_flags) == 0x2480 ? 1 : -1];
 
 // 0x004127A0..0x004129F0: advance the first armed spell timer, or the first
 // positive deadline that has not yet been retired. Ghidra identifies an
 // ECX receiver and an EAX result; callers use that contract
 // directly without stack arguments.
 #pragma code_seg(".text$01accessor")
-__declspec(noinline) void *SpellTimerState::AdvanceSlots() {
-    SpellTimerState *self = this;
+__declspec(noinline) void *EnemyInterruptState::CheckInterrupts() {
+    EnemyInterruptState *self = this;
     unsigned int slot_index;
 
     for (slot_index = 0; slot_index < 8; ++slot_index) {
@@ -147,7 +147,7 @@ __declspec(noinline) void *SpellTimerState::AdvanceSlots() {
         self->clock.Reset();
         self->state_flags |= 0x00010000u;
 
-        int &countdown = g_globals_gauge;
+        int &countdown = g_globals_faith;
         countdown -= 3000;
         if (countdown < 5000)
             countdown = 5000;

@@ -41,7 +41,7 @@
     {
       "name": "PlayerSchedulerRecord_SetSchedulerValue",
       "source": "src/game/background/frame_timer_set.cpp",
-      "symbol": "?SetSchedulerValue@PlayerSchedulerRecord@@QAEXH@Z",
+      "symbol": "?Set@FrameTimerView@@QAEXH@Z",
       "section": ".text$03scheduler",
       "address": "0x00405410",
       "size": 57,
@@ -259,7 +259,7 @@
       "kind": "metadata"
     },
     {
-      "symbol": "?g_score_default_speed@@3MA",
+      "symbol": "_g_game_speed",
       "address": "0x00476F78",
       "kind": "data"
     },

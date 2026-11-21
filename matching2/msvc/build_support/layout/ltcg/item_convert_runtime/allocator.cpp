@@ -9,7 +9,7 @@ struct ItemAnimationResources_0041bb00 {
 };
 extern "C" {
 extern short g_globals_power;
-extern float g_game_speed;
+extern "C" float g_game_speed;
 extern ItemAnimationResources_0041bb00* g_bullet_manager;
 }
 struct ItemBankSnapshot {

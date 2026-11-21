@@ -2,7 +2,7 @@
 #include <stddef.h>
 #include "th10/game/entity.hpp"
 #include "th10/math/timer.hpp"
-#include "th10/game/trigger_region.hpp"
+#include "th10/game/player_check_laser_hit.hpp"
 #include "th10/render/animation_public_callers.hpp"
 #include "th10/platform/sound_queue.hpp"
 struct LaserSprite { unsigned char reserved[0x30]; float width,height; };
@@ -56,7 +56,7 @@ struct LineLaser {
 };
 struct LaserAnimationBank {unsigned char reserved[0x3e0b50];void* resource;};
 extern "C" {
-extern float g_game_speed;
+extern "C" float g_game_speed;
 extern LaserAnimationBank* g_bullet_manager;
 void __stdcall RunLaserAnimation(Entity* object);
 }

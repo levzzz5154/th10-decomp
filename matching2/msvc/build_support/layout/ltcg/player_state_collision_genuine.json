@@ -116,7 +116,7 @@
     },
     {
       "name": "function_0041bb00",
-      "symbol": "?Spawn@PlayerItemManager@@QAEHPBUVector3@@HHMM@Z",
+      "symbol": "?Spawn@ItemManager@@QAEHPBUVector3@@HHMM@Z",
       "section": ".text$f0041bb00F",
       "address": "0x41bb00",
       "size": 819,
@@ -361,7 +361,7 @@
     },
     {
       "name": "function_00405410",
-      "symbol": "?SetSchedulerValue@PlayerSchedulerRecord@@QAEXH@Z",
+      "symbol": "?Set@FrameTimerView@@QAEXH@Z",
       "section": ".text$f00405410F",
       "address": "0x405410",
       "size": 57
@@ -459,7 +459,7 @@
     },
     {
       "name": "anchor_0043e460",
-      "symbol": "?RegisterResource@AnmResourceRegistrar@@QAEPADPBDHH@Z",
+      "symbol": "?QueueMusicCommand@WaveSoundManager@@QAEPADPBDHH@Z",
       "section": ".text$f0043e460F",
       "address": "0x43e460",
       "size": 104
@@ -906,17 +906,12 @@
       "kind": "data"
     },
     {
-      "symbol": "?g_score_default_speed@@3MA",
-      "address": "0x476f78",
-      "kind": "data"
-    },
-    {
       "symbol": "_g_input",
       "address": "0x474e5c",
       "kind": "data"
     },
     {
-      "symbol": "?AddWithMinimum@PlayerScoreGauge@@QAEXH@Z",
+      "symbol": "?AddWithMinimum@Globals@@QAEXH@Z",
       "address": "0x412e70",
       "kind": "relative_code"
     },
@@ -1061,7 +1056,7 @@
       "kind": "data"
     },
     {
-      "symbol": "_g_sound_flags",
+      "symbol": "_g_config_flags",
       "address": "0x491d78",
       "kind": "data"
     },
@@ -1081,7 +1076,7 @@
       "kind": "data"
     },
     {
-      "symbol": "?g_music_requests@@3UAnmResourceRegistrar@@A",
+      "symbol": "?g_music_requests@@3UWaveSoundManager@@A",
       "address": "0x492590",
       "kind": "data"
     },

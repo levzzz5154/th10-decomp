@@ -7,5 +7,5 @@
 // owned-array base destructor release the DirectSound buffers.
 void __fastcall SoundBuffer_DestructBase(SoundBuffer* sound_buffer) {
     sound_buffer->vtable = &sound_buffer_vtable;
-    Platform_ReleaseOwnedArray(sound_buffer);
+    SoundBufferBase_Release(sound_buffer);
 }

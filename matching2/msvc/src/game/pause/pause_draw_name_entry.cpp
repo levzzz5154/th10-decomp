@@ -19,7 +19,7 @@ typedef char NameEntry_position_is_12[sizeof(Vec32) == 12 ? 1 : -1];
 
 extern "C" {
 extern const char* g_name_entry_grid;
-extern GameThreadQueueView* g_ascii_manager;
+extern AsciiManagerQueueView* g_ascii_manager;
 extern const char str_string_format[];
 extern const char str_underscore[];
 extern const char str_char_format[];

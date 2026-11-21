@@ -1,0 +1,34 @@
+// 0x00417800: EnemyCtrlTimerView::Reset
+extern "C" float g_game_speed;
+
+struct EnemyCtrlTimerView {
+    unsigned char unknown_00[0x40];
+    int reset_value_40;
+    int reset_value_44;
+    int reset_value_48;
+    float* default_time_scale_4c;
+    unsigned int flags_50;
+    unsigned char unknown_54[4];
+    int reset_value_58;
+    int reset_value_5c;
+
+    __declspec(noinline) int ResetTimer();
+};
+
+#pragma code_seg(".text$01path")
+int EnemyCtrlTimerView::ResetTimer() {
+    if ((this->flags_50 & 1) == 0) {
+        this->reset_value_44 = 0;
+        this->reset_value_40 = -999999;
+        this->reset_value_48 = 0;
+        this->default_time_scale_4c = &g_game_speed;
+        this->flags_50 |= 1;
+    }
+    this->reset_value_44 = 0;
+    this->reset_value_48 = 0;
+    this->reset_value_40 = -1;
+    this->reset_value_58 = 0;
+    this->reset_value_5c = 0;
+    return 0;
+}
+#pragma code_seg()

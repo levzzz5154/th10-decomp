@@ -14,7 +14,7 @@ extern "C" void __cdecl crt_free_startup(void* memory);   // 0x004524A1
 #define TH10_CLEAR_BUCKETS_CODE_SEG ".text$01accessor"
 #endif
 #pragma code_seg(TH10_CLEAR_BUCKETS_CODE_SEG)
-void Manager3::ClearBuckets() {
+void HintBucketsView::ClearBuckets() {
     for (int index = 0; index < 8; ++index) {
         for (ChainNode* node = primary[index].head; node != 0; ) {
             ChainNode* next = node->next;

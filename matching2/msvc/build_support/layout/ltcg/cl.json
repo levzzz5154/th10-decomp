@@ -37,7 +37,7 @@
   "anchors": [
     {
       "name": "GameThread_Construct",
-      "symbol": "??0GameThread@@QAE@XZ",
+      "symbol": "??0AsciiManager@@QAE@XZ",
       "section": ".text$00_0thread",
       "address": "0x00401000",
       "size": 251
@@ -79,7 +79,7 @@
     }
   ],
   "context": {
-    "symbol": "?GameThreadCreateContext_00401110@@YGHPAUSchedulerTask@@H@Z",
+    "symbol": "?AsciiManagerCreateContext_00401110@@YGHPAUSchedulerTask@@H@Z",
     "section": ".text$90context",
     "address": "0x0044B900",
     "size": 55,
@@ -146,7 +146,7 @@
       "bytes": "636170747572652e616e6d00"
     },
     {
-      "symbol": "??_7GameThread@@6B@",
+      "symbol": "??_7AsciiManager@@6B@",
       "address": "0x0046CB14",
       "bytes": "901c4000",
       "reference_scope": "compiled_graph"
@@ -219,7 +219,7 @@
       "kind": "data"
     },
     {
-      "symbol": "_DestroyGameThread@4",
+      "symbol": "_DestroyAsciiManager@4",
       "address": "0x00401260",
       "kind": "relative_code"
     },
@@ -254,7 +254,7 @@
       "kind": "relative_code"
     },
     {
-      "symbol": "?ObjectSize@GameThread@@UAEHXZ",
+      "symbol": "?ObjectSize@AsciiManager@@UAEHXZ",
       "address": "0x401c90",
       "kind": "data"
     },

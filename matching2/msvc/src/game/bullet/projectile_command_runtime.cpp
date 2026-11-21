@@ -12,7 +12,7 @@
 // per-function context gives every callee its retail section and address.
 #include <string.h>
 #include "th10/game/projectile_spawn_runtime.hpp"
-#include "th10/game/enemy_grid_scan.hpp"
+#include "th10/game/bullet_spawn_pattern.hpp"
 #include "th10/platform/sound_queue.hpp"
 
 // The vanishing activation 0x00408030, whose receiver retail keeps in ESI;
@@ -90,16 +90,16 @@ void ProjectileCommandRuntime::Tick() {
         switch ((unsigned int)command->command) {
         case BULLET_CMD_SPEED_CURVE:
             record.motion_flags |= BULLET_CMD_SPEED_CURVE;
-            record.scheduler_614.SetSchedulerValue(0);
+            record.scheduler_614.Set(0);
             record.field_638 = 0;
             break;
         case BULLET_CMD_ACCEL_VECTOR:
             record.motion_flags |= BULLET_CMD_ACCEL_VECTOR;
             record.field_65c = command->value_a;
             record.field_660 = SpawnCommand_AimAngle(record, command->value_b);
-            record.scheduler_648.SetSchedulerValue(0);
+            record.scheduler_648.Set(0);
             record.field_670 = command->value_c;
-            record.polar_664.SetScorePolar(record.field_660, record.field_65c);
+            record.polar_664.SetPolar(record.field_660, record.field_65c);
             if (record.command_index != 0 && record.field_458 >= 0)
                 g_sound_manager.Queue(record.field_458, 0);
             break;
@@ -107,7 +107,7 @@ void ProjectileCommandRuntime::Tick() {
             record.motion_flags |= BULLET_CMD_ANGULAR_ACCEL;
             record.field_690 = command->value_a;
             record.field_694 = command->value_b;
-            record.scheduler_67c.SetSchedulerValue(0);
+            record.scheduler_67c.Set(0);
             record.field_6a4 = command->value_c;
             if (record.command_index != 0 && record.field_458 >= 0)
                 g_sound_manager.Queue(record.field_458, 0);
@@ -162,8 +162,8 @@ void ProjectileCommandRuntime::Tick() {
             break;
         case BULLET_CMD_WAIT:
             record.motion_flags |= cmd;
-            reinterpret_cast<PlayerSchedulerRecord*>(&record.immunity_timer)
-                ->SetSchedulerValue(command->value_c);
+            reinterpret_cast<FrameTimerView*>(&record.immunity_timer)
+                ->Set(command->value_c);
             break;
         case BULLET_CMD_VANISH:
             reinterpret_cast<BulletCancelEntry*>(this)->Activate();
@@ -173,13 +173,13 @@ void ProjectileCommandRuntime::Tick() {
             break;
         case BULLET_CMD_WRAP_HORIZONTAL:
             record.motion_flags |= cmd;
-            reinterpret_cast<PlayerSchedulerRecord*>(&record.scheduler_74c)
-                ->SetSchedulerValue(command->value_c);
+            reinterpret_cast<FrameTimerView*>(&record.scheduler_74c)
+                ->Set(command->value_c);
             break;
         case BULLET_CMD_WRAP_VERTICAL:
             record.motion_flags |= cmd;
-            reinterpret_cast<PlayerSchedulerRecord*>(&record.scheduler_780)
-                ->SetSchedulerValue(command->value_c);
+            reinterpret_cast<FrameTimerView*>(&record.scheduler_780)
+                ->Set(command->value_c);
             break;
         case BULLET_CMD_SHOOT_CHILD: {
             // A grid spawn: this record and the next one describe the command.

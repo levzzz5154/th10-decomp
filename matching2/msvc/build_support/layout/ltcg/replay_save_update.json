@@ -9,7 +9,7 @@
     "include/th10/game/title_input.hpp",
     "include/th10/game/character_select_update.hpp",
     "include/th10/game/difficulty_select_update.hpp",
-    "include/th10/game/ending_screen.hpp",
+    "include/th10/game/title_opening_screen.hpp",
     "include/th10/game/entity_movement_slot.hpp",
     "include/th10/game/game_thread_queue_native.hpp",
     "include/th10/game/menu_cursor.hpp",
@@ -180,7 +180,7 @@
     },
     {
       "name": "FullHelper_0040c540",
-      "symbol": "?EnsureAnimationResource@GameThreadResourceView@@QAEPAXMM@Z",
+      "symbol": "?EnsureLoadingSpinner@AsciiManagerSpinnerView@@QAEPAXMM@Z",
       "section": ".text$0040c540_fn",
       "address": "0x0040C540",
       "size": 75
@@ -306,14 +306,14 @@
     },
     {
       "name": "RecoveryMusicRoom_DisableTimerWithOwner",
-      "symbol": "?DisableTimerWithOwner@Title@@QAEXH@Z",
+      "symbol": "?SetMode@Title@@QAEXH@Z",
       "section": ".text$0042c5c0_fn",
       "address": "0x0042C5C0",
       "size": 83
     },
     {
       "name": "RecoveryMusicRoom_SetTimerTarget",
-      "symbol": "?SetTimerTarget@Title@@QAEXH@Z",
+      "symbol": "?SetPhase@Title@@QAEXH@Z",
       "section": ".text$0042c620_fn",
       "address": "0x0042C620",
       "size": 80
@@ -341,7 +341,7 @@
     },
     {
       "name": "RecoveryMusicResourceQueue_RegisterResource",
-      "symbol": "?RegisterResource@MusicRequestQueue@@QAEPADPBDHH@Z",
+      "symbol": "?QueueMusicCommand@MusicRequestQueue@@QAEPADPBDHH@Z",
       "section": ".text$0043e460_fn",
       "address": "0x0043E460",
       "size": 76
@@ -418,7 +418,7 @@
     },
     {
       "name": "EndingScreen_Update",
-      "symbol": "?EndingScreen_Update2@@YGHPAUTitle@@@Z",
+      "symbol": "?TitleOpening_Update@@YGHPAUTitle@@@Z",
       "section": ".text$0042d300_fn",
       "address": "0x0042D300",
       "size": 288
@@ -1272,7 +1272,7 @@
       "kind": "relative_code"
     },
     {
-      "symbol": "_g_recovery_script_path",
+      "symbol": "_g_archive_load_path",
       "address": "0x00497C38",
       "kind": "data"
     },
@@ -1792,7 +1792,7 @@
       "kind": "data"
     },
     {
-      "symbol": "?TitleMenuFlow@@YGHPAUTitle@@@Z",
+      "symbol": "?KeyConfig_Update@@YGHPAUTitle@@@Z",
       "address": "0x0042F540",
       "kind": "relative_code"
     },
@@ -1827,7 +1827,7 @@
       "kind": "data"
     },
     {
-      "symbol": "?g_input_mode@@3IA",
+      "symbol": "?g_app_flags@@3IA",
       "address": "0x00491FF4",
       "kind": "data"
     },
@@ -2106,7 +2106,7 @@
     "build_support/layout/ltcg/recovery_script_executor_indicator_anchors.cpp",
     "build_support/layout/ltcg/recovery_script_executor_text_anchors.cpp",
     "build_support/layout/ltcg/recovery_script_executor_text_sibling_anchors.cpp",
-    "src/game/title/ending_screen.cpp",
+    "src/game/title/title_opening_update.cpp",
     "src/game/title/game_progress_unlock_all_stages.cpp",
     "src/game/eclview/input_mask_active.cpp",
     "src/game/title/title_animation_slot_frames.cpp",

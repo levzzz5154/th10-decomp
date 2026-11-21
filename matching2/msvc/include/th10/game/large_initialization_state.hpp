@@ -26,7 +26,7 @@ struct LargeStateTimer {
     unsigned int elapsed;
     unsigned int control;
 };
-struct LargeInitializationState {
+struct SupervisorInitState {
     unsigned char before_config[0x120];
     GameConfig config;
     unsigned char before_flags[0x3cc-0x154];
@@ -35,9 +35,9 @@ struct LargeInitializationState {
     LargeStateTimer timer;
     unsigned char tail[0x784-0x640];
 };
-typedef char InitState_size_check[sizeof(LargeInitializationState)==0x784?1:-1];
-typedef char InitState_config_check[offsetof(LargeInitializationState,config)==0x120?1:-1];
-typedef char InitState_flags_check[offsetof(LargeInitializationState,flags)==0x3cc?1:-1];
-typedef char InitState_timer_check[offsetof(LargeInitializationState,timer)==0x62c?1:-1];
+typedef char InitState_size_check[sizeof(SupervisorInitState)==0x784?1:-1];
+typedef char InitState_config_check[offsetof(SupervisorInitState,config)==0x120?1:-1];
+typedef char InitState_flags_check[offsetof(SupervisorInitState,flags)==0x3cc?1:-1];
+typedef char InitState_timer_check[offsetof(SupervisorInitState,timer)==0x62c?1:-1];
 __declspec(noinline) char __fastcall GameConfig_InitializeDefaults(int, GameConfig*);
-extern "C" __declspec(noinline) LargeInitializationState* __stdcall Init11(LargeInitializationState*);
+extern "C" __declspec(noinline) SupervisorInitState* __stdcall Supervisor_Construct(SupervisorInitState*);

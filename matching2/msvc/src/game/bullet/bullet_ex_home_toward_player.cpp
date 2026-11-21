@@ -1,7 +1,7 @@
 // 0x00407EF0: BulletExHoming::HomeTowardTarget — enemy-bullet Ex-transform
 // homing (flags +0x43C bit 0x04000000): steers the bullet toward g_player
 // with an angular offset and turn rate until the deadline, then clears the bit.
-#include "th10/game/player_homing.hpp"
+#include "th10/game/bullet_ex_homing.hpp"
 #include "th10/math/angle.hpp"
 #include <math.h>
 #include "th10/game/player.hpp"

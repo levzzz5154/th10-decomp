@@ -49,7 +49,7 @@
     "_Bomb_Release@4",
     "_Effect_Release@4",
     "_LaserManager_Destroy@4",
-    "_Manager_Release@4",
+    "_Pause_Release@4",
     "_Title_LoadThread"
   ],
   "headers": [
@@ -360,7 +360,7 @@
     },
     {
       "name": "Manager_Release_00422220_00422220",
-      "symbol": "_Manager_Release@4",
+      "symbol": "_Pause_Release@4",
       "section": ".text$00hbstartupzm",
       "address": "0x00422220",
       "size": 311,
@@ -881,7 +881,7 @@
       "kind": "data"
     },
     {
-      "symbol": "_ManagerOwned_Destroy@4",
+      "symbol": "_ReplayManager_Destroy@4",
       "address": "0x004294A0",
       "kind": "relative_code"
     },

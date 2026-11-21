@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "name": "gdi_surface_release_00436a30",
-  "source": "src/core/main/gdi_font_cache.cpp",
+  "source": "src/core/main/gdi_surface_release.cpp",
   "additional_sources": [
     "src/static_init/gdi_surface_exit.cpp",
     "src/core/main/font_cache_delete_gdi_objects.cpp"

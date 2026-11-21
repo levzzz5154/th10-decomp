@@ -22,9 +22,9 @@ extern WaveGuidImage g_guid_wave_format;
 unsigned int __stdcall SoundStream_Worker(void*);
 }
 // 0x0043D790: point the running stream at the track a path names.
-struct PlatformD790ArchiveOwner;
+struct WaveSoundManager;
 struct PathName {
-    int SelectArchiveEntry(PlatformD790ArchiveOwner* owner);
+    int SelectMusicTrack(WaveSoundManager* owner);
 };
 
 #pragma code_seg(".text$01play")
@@ -37,7 +37,7 @@ int WaveSoundManager::PlayCachedMusic(int slot) {
         return -1;
     if (!(g_supervisor.flags & 0x10))
         return reinterpret_cast<PathName*>(cached_music_names[slot])
-            ->SelectArchiveEntry(reinterpret_cast<PlatformD790ArchiveOwner*>(this));
+            ->SelectMusicTrack(reinterpret_cast<WaveSoundManager*>(this));
     if (!cached_music_data[slot])
         return -1;
 

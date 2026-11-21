@@ -7,7 +7,7 @@ int __stdcall StageTextExtractLineCompilerContext(char** cursors,
                                                    int** remainings, int count) {
     int total = 0;
     while (count--) {
-        *cursors = StageText_ExtractLine(*cursors, *destinations++, *remainings++);
+        *cursors = MusicRoom_ExtractLine(*cursors, *destinations++, *remainings++);
         ++cursors;
         ++total;
     }

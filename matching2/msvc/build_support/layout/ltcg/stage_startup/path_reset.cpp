@@ -1,6 +1,6 @@
 extern "C" float g_game_speed;
 
-struct PathState {
+struct EnemyCtrlTimerView {
     unsigned char unknown_00[0x40];
     int reset_value_40;
     int reset_value_44;
@@ -11,11 +11,11 @@ struct PathState {
     int reset_value_58;
     int reset_value_5c;
 
-    __declspec(noinline) int Reset();
+    __declspec(noinline) int ResetTimer();
 };
 
 #pragma code_seg(".text$00417800_fn")
-int PathState::Reset() {
+int EnemyCtrlTimerView::ResetTimer() {
     if ((this->flags_50 & 1) == 0) {
         this->reset_value_44 = 0;
         this->reset_value_40 = -999999;

@@ -13,9 +13,9 @@
 
 #include "th10/render/resource_registrar.hpp"
 
-extern AnmResourceRegistrar g_music_requests;   // 0x00492590
+extern WaveSoundManager g_music_requests;   // 0x00492590
 extern unsigned char g_config_flags;                 // 0x00491D78
-extern float g_game_speed;                           // 0x00476F78
+extern "C" float g_game_speed;                           // 0x00476F78
 
 struct MusicProgress {
     unsigned char reserved_00000[0x1D892];
@@ -41,8 +41,8 @@ enum {
 #pragma code_seg(".text$00420b10_fn")
 __declspec(noinline) int __stdcall Music_Play(int track, int heard_index) {
     if (g_config_flags & kConfigStreamedMusic)
-        g_music_requests.RegisterResource("dummy", kMusicCommandStreamedReset, 0);
-    g_music_requests.RegisterResource("dummy", kMusicCommandPlay, track);
+        g_music_requests.QueueMusicCommand("dummy", kMusicCommandStreamedReset, 0);
+    g_music_requests.QueueMusicCommand("dummy", kMusicCommandPlay, track);
     g_music_progress->track_heard[heard_index] = 1;
     return 0;
 }

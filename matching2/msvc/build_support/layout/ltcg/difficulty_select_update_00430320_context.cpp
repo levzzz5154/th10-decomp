@@ -5,7 +5,7 @@
 // the character and the key state are objects whose address is taken
 // elsewhere in the program; the context takes them here.
 #include "../../../src/game/title/difficulty_select_update.cpp"
-#include "../../../src/game/title/ending_screen.cpp"
+#include "../../../src/game/title/title_opening_update.cpp"
 #include "../../../src/game/title/title_animation_slot_frames.cpp"
 #include "th10/game/replay_save_update.hpp"
 #include "th10/game/options_update.hpp"

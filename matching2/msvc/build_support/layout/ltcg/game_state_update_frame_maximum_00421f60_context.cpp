@@ -1,13 +1,13 @@
 // Compiler context only; never selected as recovered game code.
-#include "../../../src/game/mother/game_state_update_frame_maximum.cpp"
+#include "../../../src/game/mother/front_sync_high_score.cpp"
 
-extern "C" GameStateFrameState* g_card;
+extern "C" FrontScoreState* g_card;
 
 #pragma code_seg(".text$03context")
 int __stdcall GameStateFrameMaximumCompilerContext(int count) {
     int total = 0;
     while (count--)
-        total += GameState_UpdateFrameMaximum(g_card);
+        total += Front_SyncHighScore(g_card);
     return total;
 }
 #pragma code_seg()

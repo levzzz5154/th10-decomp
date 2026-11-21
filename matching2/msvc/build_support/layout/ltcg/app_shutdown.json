@@ -60,7 +60,7 @@
     },
     {
       "name": "RegisterResource",
-      "symbol": "?RegisterResource@AnmResourceRegistrar@@QAEPADPBDHH@Z",
+      "symbol": "?QueueMusicCommand@WaveSoundManager@@QAEPADPBDHH@Z",
       "section": ".text$13register",
       "address": "0x0043E460",
       "size": 104
@@ -398,7 +398,7 @@
       "kind": "data"
     },
     {
-      "symbol": "_ManagerOwned_Destroy@4",
+      "symbol": "_ReplayManager_Destroy@4",
       "address": "0x004294A0",
       "kind": "relative_code"
     },

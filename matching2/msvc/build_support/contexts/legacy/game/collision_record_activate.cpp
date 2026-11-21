@@ -1,4 +1,4 @@
-#include "th10/game/player_update_collision.hpp"
+#include "th10/game/bullet_collision_engine.hpp"
 #include "th10/game/entity.hpp"
 
 __declspec(noinline) void** __stdcall ItemAnimation_CreateOffset(
@@ -11,7 +11,7 @@ __declspec(noinline) void** __stdcall ItemAnimation_CreateOffset(
 // timer, one already more than 8 units outside is just flagged for removal.
 // The record arrives in ESI.
 #pragma code_seg(".text$050activate")
-int CollisionRecord::Activate() {
+int BulletCollisionRecord::Activate() {
     if (state != 2 && state != 1) return 0;
     if (!reinterpret_cast<const PlayfieldPoint*>(&position)->OutsideBounds(8.0f, 8.0f)) {
         state = 3;

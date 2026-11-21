@@ -63,14 +63,14 @@
     },
     {
       "name": "run",
-      "symbol": "?Run@PlatformD300Entry@@QAEHPAI@Z",
+      "symbol": "?RestoreIfLost@WaveSecondaryBufferRestore@@QAEHPAI@Z",
       "section": ".text$a03g",
       "address": "0x0044D300",
       "size": 98
     },
     {
       "name": "find",
-      "symbol": "?FindAvailable@PlatformInterfaceState@@QAEPAUPlatformD370Entry@@XZ",
+      "symbol": "?GetFreeBuffer@SoundBufferPool@@QAEPAUWaveSecondaryBufferStatus@@XZ",
       "section": ".text$a03h",
       "address": "0x0044D370",
       "size": 103
@@ -84,28 +84,28 @@
     },
     {
       "name": "SetVolume",
-      "symbol": "?SetOperationDeadline@PlatformInterfaceState2@@QAEHH@Z",
+      "symbol": "?SetVolume@SoundBufferVolume@@QAEHH@Z",
       "section": ".text$a03v",
       "address": "0x0044D4E0",
       "size": 106
     },
     {
       "name": "Aggregate",
-      "symbol": "?Aggregate@SoundStream@@QAEHXZ",
+      "symbol": "?StopAndRewind@SoundStream@@QAEHXZ",
       "section": ".text$a04aggregate",
       "address": "0x0044D550",
       "size": 82
     },
     {
       "name": "Resume",
-      "symbol": "?InvokeConfigured@PlatformInterfaceState4@@QAEHXZ",
+      "symbol": "?Resume@SoundBufferResume@@QAEHXZ",
       "section": ".text$a05invoke",
       "address": "0x0044D5D0",
       "size": 41
     },
     {
       "name": "query",
-      "symbol": "?Query@PlatformQueryInterfaces@@QAEHXZ",
+      "symbol": "?RewindBuffers@SoundBufferRewind@@QAEHXZ",
       "section": ".text$a05q",
       "address": "0x0044D600",
       "size": 61
@@ -119,7 +119,7 @@
     },
     {
       "name": "Select",
-      "symbol": "?Select@PlatformStreamState@@QAEHPAUPlatformStreamRecord@@@Z",
+      "symbol": "?SelectTrack@MusicReadCursorSelect@@QAEHPAUMusicTrackRecord@@@Z",
       "section": ".text$a07select",
       "address": "0x0044DCA0",
       "size": 78
@@ -281,7 +281,7 @@
       "kind": "metadata"
     },
     {
-      "symbol": "?Platform_InvokeInterface@@YIHPAUSoundBuffer@@@Z",
+      "symbol": "?SoundBuffer_Pause@@YIHPAUSoundBuffer@@@Z",
       "address": "0x0044D5B0",
       "kind": "relative_code"
     },
@@ -306,7 +306,7 @@
       "kind": "relative_code"
     },
     {
-      "symbol": "?SelectArchiveEntry@PathName@@QAEHPAUPlatformD790ArchiveOwner@@@Z",
+      "symbol": "?SelectMusicTrack@PathName@@QAEHPAUWaveSoundManager@@@Z",
       "address": "0x0043D790",
       "kind": "relative_code"
     },
@@ -427,7 +427,7 @@
   "included_sources": [
     "src/core/sound/sound_music_cache.cpp",
     "src/core/sound/sound_music_play_cached.cpp",
-    "src/core/sound/midi_worker_stop.cpp",
+    "src/core/sound/sound_stop_music_worker.cpp",
     "src/core/zwave/sound_stream_recreate_buffers.cpp",
     "src/core/zwave/sound_stream_fill_model.cpp",
     "src/core/zwave/sound_stream_start.cpp",

@@ -1,0 +1,16 @@
+#ifndef TH10_ENDING_SCREEN_0042D300_HPP
+#define TH10_ENDING_SCREEN_0042D300_HPP
+#include "th10/game/title_menu.hpp"
+#include "th10/platform/sound_queue.hpp"
+
+extern "C" void* g_sprt_ctrl;
+extern "C" unsigned int g_input_keys_held;
+__declspec(noinline) void __stdcall Title_InstallAnimationSlot(
+    Title* room, int index);
+// 0x00409E50: stop the animation tree a handle refers to.
+__declspec(noinline) void __stdcall Title_StopAnimationHandle(AnmScriptHandle* handle);
+
+// 0x0042D300: ending screen phase handler; the room arrives in EBX.
+__declspec(noinline) int __stdcall TitleOpening_Update(
+    Title* room);
+#endif

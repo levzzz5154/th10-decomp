@@ -9,7 +9,7 @@
   "functions": [
     {
       "name": "SpellTimer_AdvanceSlots",
-      "symbol": "?AdvanceSlots@SpellTimerState@@QAEPAXXZ",
+      "symbol": "?CheckInterrupts@EnemyInterruptState@@QAEPAXXZ",
       "section": ".text$01accessor",
       "address": "0x004127A0",
       "size": 593,
@@ -17,7 +17,7 @@
     }
   ],
   "context": {
-    "symbol": "?SpellTimerContext@@YGHPAPAUSpellTimerState@@H@Z",
+    "symbol": "?SpellTimerContext@@YGHPAPAUEnemyInterruptState@@H@Z",
     "section": ".text$03context",
     "address": "0x00412A10",
     "size": 51,
@@ -37,11 +37,11 @@
   ],
   "constants": [],
   "roots": [
-    "?AdvanceSlots@SpellTimerState@@QAEPAXXZ"
+    "?CheckInterrupts@EnemyInterruptState@@QAEPAXXZ"
   ],
   "absolute_symbols": [
     {
-      "symbol": "_g_globals_gauge",
+      "symbol": "_g_globals_faith",
       "address": "0x00474C4C",
       "kind": "data"
     },

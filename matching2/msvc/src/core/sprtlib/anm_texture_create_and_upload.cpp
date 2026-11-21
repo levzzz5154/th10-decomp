@@ -11,7 +11,7 @@
 int __stdcall AnmTexture_CreateAndUpload(AnmTexture* texture, const AnmThtxHeader* thtx, int format, int width, int height) {
     int stored_format = format;
     AnmSurface* surface = 0;
-    if (g_sound_flags & 1) {
+    if (g_config_flags & 1) {
         int d3d_format = g_texture_formats_a[format];
         if (d3d_format == 21 || d3d_format == 0)
             stored_format = 5;

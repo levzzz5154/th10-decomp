@@ -4,7 +4,7 @@
 // throws its main item and scatters the rest, and holds the gauge for ten
 // frames. The enemy arrives on the stack.
 #include "th10/game/enemy_death_release.hpp"
-#include "th10/game/player_update_collision.hpp"
+#include "th10/game/bullet_collision_engine.hpp"
 struct Vector3;
 
 void** __stdcall ItemAnimation_CreateOffset(

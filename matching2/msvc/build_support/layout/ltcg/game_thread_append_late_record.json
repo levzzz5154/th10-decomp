@@ -9,7 +9,7 @@
   "functions": [
     {
       "name": "game_thread_append_late_record_004015c0",
-      "symbol": "?AsciiManager_AddLateString@@YGXPAUGameThread3@@PBDPBUVec33@@@Z",
+      "symbol": "?AsciiManager_AddLateString@@YGXPAUAsciiManagerLateQueue@@PBDPBUVec33@@@Z",
       "section": ".text$01accessor",
       "address": "0x004015C0",
       "size": 109,
@@ -17,7 +17,7 @@
     }
   ],
   "context": {
-    "symbol": "?Ctx@@YGHPAPAUGameThread3@@PAPBDPBUVec33@@H@Z",
+    "symbol": "?Ctx@@YGHPAPAUAsciiManagerLateQueue@@PAPBDPBUVec33@@H@Z",
     "section": ".text$03context",
     "address": "0x00401640",
     "size": 68,

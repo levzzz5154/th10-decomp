@@ -47,7 +47,7 @@
   "anchors": [
     {
       "name": "CleanupLookup",
-      "symbol": "?Find@QueuedCleanupManager@@QAIPAXPAUQueuedCleanupContext@@UQueuedCleanupScriptId@@@Z",
+      "symbol": "?Find@SprtCtrl@@QAIPAXPAUAnimationLookupContext@@UAnimationScriptId@@@Z",
       "section": ".text$50find",
       "address": "0x004491C0",
       "size": 73

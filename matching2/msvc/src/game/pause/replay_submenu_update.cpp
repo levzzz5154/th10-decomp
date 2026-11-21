@@ -69,7 +69,7 @@ extern "C" __declspec(noinline) void __stdcall SubmenuUpdate(SubmenuState* state
         g_sound_manager.Queue(SFX_CONFIRM, 0);
         state->state = SUBMENU_SETUP_SCORE;
         state->background.SetStopFrame(2);
-        state->timer.SetSchedulerValue(0);
+        state->timer.Set(0);
         return;
     case SUBMENU_SETUP_SCORE:
         { bool setup_delay = state->timer.field_04 < 10;
@@ -93,7 +93,7 @@ extern "C" __declspec(noinline) void __stdcall SubmenuUpdate(SubmenuState* state
             return;
         }
         PrepareNameEntry(reinterpret_cast<NameEntryMenu*>(state));
-        state->timer.SetSchedulerValue(0);
+        state->timer.Set(0);
         { bool plain_entry = state->no_entry == 0;
         if (plain_entry) {
             state->state = SUBMENU_SCORE_NAME_EDITOR;
@@ -132,13 +132,13 @@ extern "C" __declspec(noinline) void __stdcall SubmenuUpdate(SubmenuState* state
             state->background.FindChildRef(id + 0x7C).StopAtFrame6();
             g_sound_manager.Queue(SFX_CONFIRM, 0);
             state->state = SUBMENU_FINAL_EXIT;
-            state->timer.SetSchedulerValue(0);
+            state->timer.Set(0);
             SubUpdateFrameMaximum(g_front);
             id = rows->selection;
             switch (id) {
             case 1:
                 state->state = SUBMENU_REPLAY_BROWSER;
-                state->timer.SetSchedulerValue(0);
+                state->timer.Set(0);
                 reinterpret_cast<SubAnimNode&>(state->background).ClearFlag();
                 rows->PushSelection();
                 state->rows.item_count = 25;
@@ -151,7 +151,7 @@ extern "C" __declspec(noinline) void __stdcall SubmenuUpdate(SubmenuState* state
             break;
             case 2:
                 state->state = SUBMENU_FINAL_EXIT;
-                state->timer.SetSchedulerValue(0);
+                state->timer.Set(0);
                 g_sound_manager.Queue(SFX_CONFIRM, 0);
                 break;
             }
@@ -187,7 +187,7 @@ extern "C" __declspec(noinline) void __stdcall SubmenuUpdate(SubmenuState* state
         bool browser_confirm = (g_input_keys_held & KEY_CONFIRM) != 0;
         if (browser_confirm) {
             state->state = SUBMENU_REPLAY_NAME_EDITOR;
-            state->timer.SetSchedulerValue(0);
+            state->timer.Set(0);
             SubmenuCursor* list = &state->list;
             SelectInList(list, 0);
             state->list.item_count = (int)strlen(g_name_entry_grid);
@@ -225,7 +225,7 @@ timed_length:
         if (browser_cancel) {
             // Cancel: release the 25 replay managers and restore the rows.
             state->state = SUBMENU_SAVE_CHOICE;
-            state->timer.SetSchedulerValue(0);
+            state->timer.Set(0);
             reinterpret_cast<SubAnimNode&>(state->background).SetFlag();
             state->rows.PopSelection();
             state->rows.item_count = 3;
@@ -241,7 +241,7 @@ timed_length:
                 state->handles[index] = 0;
             }
             state->state = SUBMENU_SAVE_CHOICE;
-            state->timer.SetSchedulerValue(0);
+            state->timer.Set(0);
             g_sound_manager.Queue(SFX_CANCEL, 0);
         }
         return;
@@ -319,7 +319,7 @@ timed_length:
                 int save_row = state->rows.selection;
                 state->handles[save_row] = ReplayManager_Create3(path);
                 state->state = SUBMENU_REPLAY_BROWSER;
-                state->timer.SetSchedulerValue(0);
+                state->timer.Set(0);
                 strcpy(g_score->last_name, state->name);
                 return;
             }
@@ -333,7 +333,7 @@ timed_length:
             bool has_letters = state->name_length != 0;
             if (!has_letters) {
                 state->state = SUBMENU_REPLAY_BROWSER;
-                state->timer.SetSchedulerValue(0);
+                state->timer.Set(0);
             } else {
                 --state->name_length;
                 state->name[state->name_length] = ' ';
@@ -437,7 +437,7 @@ timed_length:
             state->state = SUBMENU_SAVE_CHOICE;
             state->rows.item_count = 3;
             SelectInList(&state->rows, 0);
-            state->timer.SetSchedulerValue(0);
+            state->timer.Set(0);
             g_sound_manager.Queue(SFX_CONFIRM, 0);
         }
         return;

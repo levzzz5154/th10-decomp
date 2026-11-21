@@ -5,7 +5,7 @@
 #include "th10/render/animation_object.hpp"
 
 #pragma code_seg(".text$00405410_fn")
-void DispatcherWaitTimer::SetSchedulerValue(int value) {
+void DispatcherWaitTimer::Set(int value) {
     if (!(flags & 1u)) {
         current = 0;
         previous = -999999;
@@ -20,7 +20,7 @@ void DispatcherWaitTimer::SetSchedulerValue(int value) {
 #pragma code_seg()
 
 #pragma code_seg(".text$004175e0_fn")
-void DispatcherRankState::AdvanceLevel() {
+void DispatcherRankState::AdvanceStage() {
     if (level < ExtraStageIndex)
         ++level;
     g_stage_route_current = &g_stage_routes[level];

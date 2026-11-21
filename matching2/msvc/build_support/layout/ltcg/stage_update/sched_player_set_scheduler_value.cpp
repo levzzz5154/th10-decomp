@@ -37,18 +37,18 @@
 // setter is compiled as a native LTCG cluster.
 // Carved out of build_support/contexts/legacy/game/player.cpp (Player_SetSchedulerValue).
 
-struct PlayerSchedulerRecord {
+struct FrameTimerView {
     int field_00;    // 0x00 value, stored one below the raw value
     int field_04;    // 0x04 value
     float field_08;  // 0x08 value converted to float
     int field_0C;    // 0x0C default marker
     int flags_10;    // 0x10 initialised flag
 
-    __declspec(noinline) void SetSchedulerValue(int value);
+    __declspec(noinline) void Set(int value);
 };
 
 #pragma code_seg(".text$00405410_fn")
-void PlayerSchedulerRecord::SetSchedulerValue(int value) {
+void FrameTimerView::Set(int value) {
     if (!(this->flags_10 & 1)) {
         this->field_04 = 0;
         this->field_00 = 0xFFF0BDC1;

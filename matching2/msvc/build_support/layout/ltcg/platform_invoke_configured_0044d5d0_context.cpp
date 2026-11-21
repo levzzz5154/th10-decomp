@@ -3,10 +3,10 @@
 
 #pragma code_seg(".text$03context")
 int __stdcall PlatformInvokeConfigured0044D5D0CompilerContext(
-        PlatformInterfaceState4** states, int count) {
+        SoundBufferResume** states, int count) {
     int result = 0;
     while (count-- > 0)
-        result |= (*states++)->InvokeConfigured();
+        result |= (*states++)->Resume();
     return result;
 }
 #pragma code_seg()

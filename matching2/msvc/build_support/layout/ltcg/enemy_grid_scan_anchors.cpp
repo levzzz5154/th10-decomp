@@ -1,6 +1,6 @@
 // Compiler context only: models of the callees, so the pass derives their
 // register arguments. None of these bytes are selected.
-#include "th10/game/enemy_grid_scan.hpp"
+#include "th10/game/bullet_spawn_pattern.hpp"
 extern "C" const float flt_5_2083335;
 #include "enemy_grid_scan_dependencies/sound_pan.cpp"
 

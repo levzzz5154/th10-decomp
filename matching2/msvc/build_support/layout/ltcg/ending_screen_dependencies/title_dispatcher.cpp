@@ -1,5 +1,5 @@
 // Complete readable caller baseline. Unselected; private leaf ABIs require LTCG.
-#include "th10/game/ending_screen.hpp"
+#include "th10/game/title_opening_screen.hpp"
 #include "th10/game/stage_route.hpp"
 #include "th10/render/animation_resource_removal.hpp"
 #include <stdlib.h>
@@ -36,7 +36,7 @@ extern "C" {
     extern unsigned int g_app_flags;
     extern const char* g_title_demo_paths[4];
     extern char g_replay_path[];
-    extern GameThreadResourceView* g_ascii_manager;
+    extern AsciiManagerSpinnerView* g_ascii_manager;
     extern float flt_0_99, flt_1_01, flt_1;
 }
 // These declarations describe logical inputs, not promises about retail ABI.
@@ -48,7 +48,7 @@ __declspec(noinline) void TitleSaveInputHistory_0044be20();
 __declspec(noinline) void TitleDispatchGame();
 __declspec(noinline) int __stdcall TitleMainMenu(Title* room);
 __declspec(noinline) int __stdcall TitleOptions(Title* room);
-__declspec(noinline) int __stdcall TitleMenuFlow(Title* room);
+__declspec(noinline) int __stdcall KeyConfig_Update(Title* room);
 __declspec(noinline) int __stdcall TitleMode6(Title* room);
 __declspec(noinline) int __stdcall TitleMode7(Title* room);
 __declspec(noinline) int __stdcall TitleMode8(Title* room);
@@ -125,7 +125,7 @@ __declspec(noinline) int __stdcall Title_DispatchUpdate(
             room->cursor.item_count = 10;
             SetSelection(&room->cursor, 0);
             TitleSaveInputHistory_0044be20();
-            room->DisableTimerWithOwner(15);
+            room->SetMode(15);
             Title_InstallAnimationSlot(room, 91);
             room->SetSlotFrame(91, 9);
             g_main_mode_request = 1;
@@ -142,12 +142,12 @@ __declspec(noinline) int __stdcall Title_DispatchUpdate(
         }
         g_globals_flags &= ~0x20u;
         if (transition == 0) {
-            room->DisableTimerWithOwner(1);
+            room->SetMode(1);
             g_main_mode_request = 1;
         } else if (transition == 1) {
             if (g_globals_difficulty == 4)
                 SetSelection(&room->cursor, 1);
-            room->DisableTimerWithOwner(2);
+            room->SetMode(2);
             Title_InstallAnimationSlot(room, 91);
             MarkTitleCallback(room);
             TitleMainMenu(room);
@@ -156,7 +156,7 @@ __declspec(noinline) int __stdcall Title_DispatchUpdate(
             room->cursor.item_count = 10;
             SetSelection(&room->cursor, 3);
             TitleSaveInputHistory_0044be20();
-            room->DisableTimerWithOwner(12);
+            room->SetMode(12);
             Title_InstallAnimationSlot(room, 91);
             room->SetSlotFrame(91, 9);
             g_main_mode_request = 1;
@@ -164,17 +164,17 @@ __declspec(noinline) int __stdcall Title_DispatchUpdate(
             TitleMode12(room);
             break;
         }
-        EndingScreen_Update2(room);
+        TitleOpening_Update(room);
         break;
     }
-    case 1: EndingScreen_Update2(room); break;
+    case 1: TitleOpening_Update(room); break;
     case 2: MarkTitleCallback(room); TitleMainMenu(room); break;
     case 3:
         g_main_state = (~(g_app_flags >> 12) & 1) | 2;
         // The same launch path serves modes 3, 10, and 13.
     case 10: case 13: TitleDispatchGame(); break;
     case 4: TitleOptions(room); break;
-    case 5: TitleMenuFlow(room); break;
+    case 5: KeyConfig_Update(room); break;
     case 6: TitleMode6(room); break;
     case 7: TitleMode7(room); break;
     case 8: TitleMode8(room); break;

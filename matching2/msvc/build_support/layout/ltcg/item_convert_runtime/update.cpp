@@ -75,7 +75,7 @@ extern "C" __declspec(noinline) int __stdcall ItemManager_UpdateItems(ItemSpawnM
             }
             if (item->position.y>flt_472) {
                 item->state=0;
-                g_globals.AdjustPower(-4);
+                g_globals.AdjustRank(-4);
                 continue;
             }
             player=g_player;
@@ -124,7 +124,7 @@ extern "C" __declspec(noinline) int __stdcall ItemManager_UpdateItems(ItemSpawnM
                         g_smoll_score->Spawn(-1,&item->position,0xFFFFFF40u);
                         g_sound_manager.QueuePan(29,item->position.x);
                         if (g_globals.power>=100) convert_items=true;
-                        g_globals.AdjustPower(12);
+                        g_globals.AdjustRank(12);
                     } else {
                         g_smoll_score->Spawn(g_globals.power/2,&item->position,0xFFFF4040u);
                     }
@@ -146,7 +146,7 @@ extern "C" __declspec(noinline) int __stdcall ItemManager_UpdateItems(ItemSpawnM
                         g_smoll_score->Spawn(value,&item->position,0xFFFFFFFFu);
                         adjustment=1;
                     }
-                    g_globals.AdjustPower(adjustment);
+                    g_globals.AdjustRank(adjustment);
                     g_globals.AddScore(value);
                     g_globals.AdvanceGaugeTimer(100);
                     break;
@@ -171,7 +171,7 @@ extern "C" __declspec(noinline) int __stdcall ItemManager_UpdateItems(ItemSpawnM
                         ItemCollector_PowerChanged(g_player);
                         g_sound_manager.QueuePan(29,item->position.x);
                         g_smoll_score->Spawn(-1,&item->position,0xFFFFFF40u);
-                        g_globals.AdjustPower(24);
+                        g_globals.AdjustRank(24);
                         if (g_globals.power>=100) convert_items=true;
                     } else {
                         g_smoll_score->Spawn(g_globals.power/2,&item->position,0xFFFF4040u);
@@ -182,14 +182,14 @@ extern "C" __declspec(noinline) int __stdcall ItemManager_UpdateItems(ItemSpawnM
                 case 5: {
                     int value=g_globals.gauge*10;
                     g_smoll_score->Spawn(value,&item->position,0xFFFFFF00u);
-                    g_globals.AdjustPower(8);
+                    g_globals.AdjustRank(8);
                     g_globals.AddScore(value);
                     g_globals.AdvanceGaugeTimer(100);
                     break;
                 }
                 case 7:
                     g_globals.AddLives(1);
-                    g_globals.AdjustPower(256);
+                    g_globals.AdjustRank(256);
                     break;
                 case 8:
                     g_globals.AddGauge(10);

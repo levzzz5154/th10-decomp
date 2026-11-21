@@ -52,7 +52,7 @@
   "anchors": [
     {
       "name": "EnsureAnimationResource",
-      "symbol": "?EnsureAnimationResource@GameThreadResourceView@@QAEPAXMM@Z",
+      "symbol": "?EnsureLoadingSpinner@AsciiManagerSpinnerView@@QAEPAXMM@Z",
       "section": ".text$01lazy",
       "address": "0x0040C540",
       "size": 75
@@ -80,7 +80,7 @@
     },
     {
       "name": "IncrementCappedCount",
-      "symbol": "?IncrementCappedCount@ScoreState@@QAEXXZ",
+      "symbol": "?IncrementContinues@ScoreState@@QAEXXZ",
       "section": ".text$05zzincr",
       "address": "0x00418A90",
       "size": 20
@@ -94,7 +94,7 @@
     },
     {
       "name": "RegisterResource",
-      "symbol": "?RegisterResource@AnmResourceRegistrar@@QAEPADPBDHH@Z",
+      "symbol": "?QueueMusicCommand@WaveSoundManager@@QAEPADPBDHH@Z",
       "section": ".text$07reg",
       "address": "0x0043E460",
       "size": 104
@@ -267,7 +267,7 @@
       "kind": "relative_code"
     },
     {
-      "symbol": "_ManagerOwned_Destroy@4",
+      "symbol": "_ReplayManager_Destroy@4",
       "address": "0x004294A0",
       "kind": "relative_code"
     },
@@ -287,7 +287,7 @@
       "kind": "relative_code"
     },
     {
-      "symbol": "_Manager_Release@4",
+      "symbol": "_Pause_Release@4",
       "address": "0x00422220",
       "kind": "relative_code"
     },
@@ -312,7 +312,7 @@
       "kind": "relative_code"
     },
     {
-      "symbol": "?ReleaseResource@EnemyOwnedResourceView@@QAEXXZ",
+      "symbol": "?DestroyEntries@EclFileDestroyView@@QAEXXZ",
       "address": "0x0040D680",
       "kind": "relative_code"
     },
@@ -397,7 +397,7 @@
       "kind": "data"
     },
     {
-      "symbol": "?g_score_default_speed@@3MA",
+      "symbol": "_g_game_speed",
       "address": "0x00476F78",
       "kind": "data"
     },
@@ -517,7 +517,7 @@
       "kind": "data"
     },
     {
-      "symbol": "_g_sound_flags",
+      "symbol": "_g_config_flags",
       "address": "0x00491D78",
       "kind": "data"
     },

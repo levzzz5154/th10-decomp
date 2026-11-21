@@ -6,7 +6,7 @@ extern "C" void _ReadWriteBarrier();
 #pragma intrinsic(_ReadWriteBarrier)
 
 #pragma code_seg(".text$f0041f400F")
-__declspec(noinline) int LineEffectSweep::CreateSegmentsInBounds(int spawn_items) {
+__declspec(noinline) int LaserCancelSweep::CancelGrowLaser(int spawn_items) {
     float distance;
     int count = 0;
     distance = 6.0f;

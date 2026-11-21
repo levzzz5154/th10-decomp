@@ -76,7 +76,7 @@ struct TimeoutMode {
     int mode;
 };
 extern "C" {
-    extern int g_globals_gauge;
+    extern int g_globals_faith;
     extern int g_globals_lives;
     extern int g_rank;
     extern TimeoutMode* g_replay;
@@ -120,15 +120,15 @@ static __forceinline void SetTimer(FrameTimer& timer, int frame) {
 extern "C" __declspec(noinline) void __stdcall Player_Die(Player* player) {
     // Retain the option-array base across the arithmetic and helper calls.
     PlayerOption* options = player->options;
-    int power = g_globals_gauge;
+    int power = g_globals_faith;
     int remaining = g_globals_lives - 1;
     // Preserve the signed fixed-point intermediate: multiplying and dividing
     // by ten cannot be cancelled for values whose intermediate wraps.
     power += ((power - 5000) / -3 * 10) / 10;
     g_globals_lives = remaining;
-    g_globals_gauge = power;
+    g_globals_faith = power;
     if (power < 5000)
-        g_globals_gauge = 5000;
+        g_globals_faith = 5000;
     if (remaining >= 0)
         reinterpret_cast<LifeStockAnmManager*>(g_front)->SetActiveCount(remaining);
     player->state = PLAYER_DYING;

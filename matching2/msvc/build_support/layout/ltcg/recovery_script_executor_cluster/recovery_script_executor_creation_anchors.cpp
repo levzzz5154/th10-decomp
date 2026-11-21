@@ -116,7 +116,7 @@ struct AnimationObject6 {
 
 // 0x00448D50 is absolute-bound to its retail address; its body is recovered by
 // the registered positioned-primary cluster and is not compiled here. The
-// executor only observes it through EnsureAnimationResource/CreatePrimaryBack.
+// executor only observes it through EnsureLoadingSpinner/CreatePrimaryBack.
 void** __stdcall AnimationManager_CreatePositionedPrimary(
     void* resource, void** out, int index,
     const AnimationPosition* position);

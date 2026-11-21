@@ -47,14 +47,14 @@ struct AnmLookup {
     __declspec(noinline) void* __fastcall SetFlag(AnmLookupContext* context, int id);
     __declspec(noinline) void* __cdecl Validate(AnmScriptHandle* handle);
 };
-struct GameThreadResourceView {
+struct AsciiManagerSpinnerView {
     unsigned char reserved_0000[0x8994];
     void* animation_resource;
     unsigned int reserved_8998;
     void* text_resource;                // +0x899C
     unsigned int reserved_89a0;
     void* animation_handle;
-    __declspec(noinline) void* EnsureAnimationResource(float x, float y);
+    __declspec(noinline) void* EnsureLoadingSpinner(float x, float y);
 };
 struct AnmSlotManager {
     unsigned char pad_000[0x3AD06C];

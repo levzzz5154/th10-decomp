@@ -40,20 +40,20 @@ struct PauseOpenState {
     __declspec(noinline) void OpenPause();  // 0x004231D0
 };
 // The timer seen through the setter at 0x00405410.
-struct PlayerSchedulerRecord {
+struct FrameTimerView {
     int field_00;    // 0x00 value, stored one below the raw value
     int field_04;    // 0x04 value
     float field_08;  // 0x08 value converted to float
     int field_0C;    // 0x0C default marker
     int flags_10;    // 0x10 initialised flag
 
-    __declspec(noinline) void SetSchedulerValue(int value);
+    __declspec(noinline) void Set(int value);
 };
 struct PlayerPracticeState { unsigned char reserved_00[0x10]; int mode; };
 extern "C" {
 extern BulletCancelManager* g_bullet_manager;
 extern LaserManager* g_laser_manager;
-extern PlayerItemManager* g_item_manager;
+extern ItemManager* g_item_manager;
 extern PauseOpenState* g_pause;
 extern PlayerPracticeState* g_replay;
 extern PlayerInputMode g_application;

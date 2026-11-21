@@ -129,7 +129,7 @@
       "kind": "data"
     },
     {
-      "symbol": "_window_cursor_enabled",
+      "symbol": "_g_windowed",
       "address": "0x00491D65",
       "kind": "data"
     },

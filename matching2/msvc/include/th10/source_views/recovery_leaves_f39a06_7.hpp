@@ -14,18 +14,18 @@ struct OwnedInterface {
     virtual unsigned long __stdcall Release() = 0;
 };
 
-struct OwnedPlaybackDevice {
+struct MusicReadCursor {
     unsigned int reserved_00[0x1E];   // +0x00..+0x77
     unsigned int state;               // +0x78, one while the handle is owned
     unsigned int reserved_7C[4];      // +0x7C..+0x8B
     HANDLE handle;                    // +0x8C
 };
 
-struct PlatformOwnedArrayFields {
+struct SoundBufferBaseFields {
     void* vtable;                     // +0x00
     OwnedInterface** elements;        // +0x04, owned interface pointers
     unsigned int reserved_08;         // +0x08
-    OwnedPlaybackDevice* device;      // +0x0C, owned playback device
+    MusicReadCursor* device;      // +0x0C, owned playback device
     unsigned int element_count;       // +0x10
 };
 

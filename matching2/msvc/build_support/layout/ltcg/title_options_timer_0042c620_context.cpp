@@ -7,7 +7,7 @@ int __stdcall TitleOptionsTimer0042c620CompilerContext(
     int total = 0;
     while (count--) {
         int target = *targets++;
-        (*states++)->SetTimerTarget(target);
+        (*states++)->SetPhase(target);
         total += target;
     }
     return total;

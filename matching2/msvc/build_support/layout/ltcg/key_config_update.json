@@ -1,11 +1,11 @@
 {
   "schema_version": 1,
   "name": "key_config_update",
-  "source": "src/game/title/menu_flow_updates.cpp",
+  "source": "src/game/title/key_config_update.cpp",
   "driver": "build_support/layout/ltcg/key_config_update_0042f540_context.cpp",
   "headers": [
     "include/th10/game/title_input.hpp",
-    "include/th10/game/ending_screen.hpp",
+    "include/th10/game/title_opening_screen.hpp",
     "include/th10/game/entity_movement_slot.hpp",
     "include/th10/game/key_config_refresh.hpp",
     "include/th10/render/animation_script_id.hpp",
@@ -33,7 +33,7 @@
   "functions": [
     {
       "name": "KeyConfig_Update",
-      "symbol": "?TitleMenuFlow@@YGHPAUTitle@@@Z",
+      "symbol": "?KeyConfig_Update@@YGHPAUTitle@@@Z",
       "section": ".text$0042f540_fn",
       "address": "0x0042F540",
       "size": 880,
@@ -162,7 +162,7 @@
     },
     {
       "name": "FullHelper_0040c540",
-      "symbol": "?EnsureAnimationResource@GameThreadResourceView@@QAEPAXMM@Z",
+      "symbol": "?EnsureLoadingSpinner@AsciiManagerSpinnerView@@QAEPAXMM@Z",
       "section": ".text$0040c540_fn",
       "address": "0x0040C540",
       "size": 75
@@ -288,14 +288,14 @@
     },
     {
       "name": "RecoveryMusicRoom_DisableTimerWithOwner",
-      "symbol": "?DisableTimerWithOwner@Title@@QAEXH@Z",
+      "symbol": "?SetMode@Title@@QAEXH@Z",
       "section": ".text$0042c5c0_fn",
       "address": "0x0042C5C0",
       "size": 83
     },
     {
       "name": "RecoveryMusicRoom_SetTimerTarget",
-      "symbol": "?SetTimerTarget@Title@@QAEXH@Z",
+      "symbol": "?SetPhase@Title@@QAEXH@Z",
       "section": ".text$0042c620_fn",
       "address": "0x0042C620",
       "size": 80
@@ -323,7 +323,7 @@
     },
     {
       "name": "RecoveryMusicResourceQueue_RegisterResource",
-      "symbol": "?RegisterResource@MusicRequestQueue@@QAEPADPBDHH@Z",
+      "symbol": "?QueueMusicCommand@MusicRequestQueue@@QAEPADPBDHH@Z",
       "section": ".text$0043e460_fn",
       "address": "0x0043E460",
       "size": 76
@@ -400,7 +400,7 @@
     },
     {
       "name": "EndingScreen_Update",
-      "symbol": "?EndingScreen_Update2@@YGHPAUTitle@@@Z",
+      "symbol": "?TitleOpening_Update@@YGHPAUTitle@@@Z",
       "section": ".text$0042d300_fn",
       "address": "0x0042D300",
       "size": 288
@@ -1058,7 +1058,7 @@
       "kind": "relative_code"
     },
     {
-      "symbol": "_g_recovery_script_path",
+      "symbol": "_g_archive_load_path",
       "address": "0x00497C38",
       "kind": "data"
     },
@@ -1696,7 +1696,7 @@
     "build_support/layout/ltcg/recovery_script_executor_indicator_anchors.cpp",
     "build_support/layout/ltcg/recovery_script_executor_text_anchors.cpp",
     "build_support/layout/ltcg/recovery_script_executor_text_sibling_anchors.cpp",
-    "src/game/title/ending_screen.cpp",
+    "src/game/title/title_opening_update.cpp",
     "src/game/title/key_config_refresh_digits.cpp",
     "src/core/zunlib/input_poll_joystick_buttons.cpp",
     "src/game/title/key_config.cpp",

@@ -15,16 +15,16 @@ static __forceinline int* ClearCount() {
 // Preserve the manager and resolved animation across the decode call, as the
 // actual caller does. A failed lookup clears the handle, but SetText is still
 // invoked with its null result; the callee owns that behavior.
-static __forceinline void DecodeAndSetText(ResultDispatcherState* state, DispatcherHandle* handle) {
+static __forceinline void DecodeAndSetText(FrontDialogue* state, DispatcherHandle* handle) {
     AnimationLookupContext* context = reinterpret_cast<AnimationLookupContext*>(g_sprt_ctrl);
     DispatcherObject* animation = DispatcherFindAnimation(context, handle->id);
     if (!animation)
         handle->id.value = 0;
-    char* text = Path_DecodeXor(reinterpret_cast<const char*>(
+    char* text = Msg_DecodeXor(reinterpret_cast<const char*>(
         &state->command->first_operand));
     animation->MarkText(context, state->text_parameters[state->text_side], text);
 }
-static __forceinline void BlankText(ResultDispatcherState* state, DispatcherHandle* handle) {
+static __forceinline void BlankText(FrontDialogue* state, DispatcherHandle* handle) {
     AnimationLookupContext* context = reinterpret_cast<AnimationLookupContext*>(g_sprt_ctrl);
     DispatcherObject* animation = DispatcherFindAnimation(context, handle->id);
     if (!animation)
@@ -34,7 +34,7 @@ static __forceinline void BlankText(ResultDispatcherState* state, DispatcherHand
 
 #pragma code_seg(".text$00415e90_fn")
 extern "C" __declspec(noinline) int __stdcall
-ResultDispatcher2(ResultDispatcherState* state) {
+FrontDialogue_Update(FrontDialogue* state) {
     if (state->countdown > 0)
         --state->countdown;
     if ((state->flags & 1) && (g_input & 0x100)) {
@@ -123,16 +123,16 @@ ResultDispatcher2(ResultDispatcherState* state) {
                 break;
             case 10:
                 if (state->wait.current < 1)
-                    state->wait.SetSchedulerValue(state->command->first_operand);
+                    state->wait.Set(state->command->first_operand);
                 reinterpret_cast<FrameTimer*>(&state->wait)->Advance(-1.0f);
                 if (!(g_input_keys_secondary & 0x1001) && state->wait.current > 0) {
                     if (!(state->flags & 1) || !(g_input & 0x100))
                         return 0;
-                    state->wait.SetSchedulerValue(0);
+                    state->wait.Set(0);
                     state->alternate_text = 0;
                 } else {
                     g_sound_manager.Queue(0, 0);
-                    state->wait.SetSchedulerValue(0);
+                    state->wait.Set(0);
                     state->alternate_text = 0;
                 }
                 break;
@@ -250,7 +250,7 @@ ResultDispatcher2(ResultDispatcherState* state) {
                 }
                 if (g_globals_stage == 6) {
                     StageState()->flags |= 0x20;
-                    g_globals.AddScore(g_globals_gauge * 1000);
+                    g_globals.AddScore(g_globals_faith * 1000);
                     switch (g_globals_difficulty) {
                     case 0:
                         g_globals.AddScore(g_globals_lives * 20000000);
@@ -286,7 +286,7 @@ ResultDispatcher2(ResultDispatcherState* state) {
                         ++*count;
                 } else if (g_globals_stage == 7) {
                     StageState()->flags |= 0x20;
-                    g_globals.AddScore(g_globals_gauge * 1000);
+                    g_globals.AddScore(g_globals_faith * 1000);
                     g_globals.AddScore(g_globals_lives * 40000000);
                     g_globals.AddScore(g_globals_power * 400000);
                     if (g_replay->replay_mode == 1) {
@@ -305,7 +305,7 @@ ResultDispatcher2(ResultDispatcherState* state) {
                     stage->transition_animation.value =
                         DispatcherCreateAnimation(stage->resource, 0x4C, 15).value;
                     SetInputMode(&g_application, 11);
-                    reinterpret_cast<DispatcherRankState*>(&g_globals)->AdvanceLevel();
+                    reinterpret_cast<DispatcherRankState*>(&g_globals)->AdvanceStage();
                 }
                 break;
             }

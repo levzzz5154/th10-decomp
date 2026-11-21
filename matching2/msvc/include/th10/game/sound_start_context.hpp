@@ -91,7 +91,7 @@ typedef char LayoutRestore[offsetof(WaveMethods, restore) == 0x50 ? 1 : -1];
 // 0x0044D300 - Query an interface and restore it until it is ready.
 extern "C" __declspec(dllimport) void __stdcall Sleep(unsigned int);
 
-struct PlatformD300Entry {
+struct WaveSecondaryBufferRestore {
     virtual void __stdcall slot_00() = 0;
     virtual void __stdcall slot_04() = 0;
     virtual void __stdcall slot_08() = 0;
@@ -114,7 +114,7 @@ struct PlatformD300Entry {
     virtual void __stdcall slot_4c() = 0;
     virtual int __stdcall restore() = 0;
 
-    __declspec(noinline) int Run(unsigned int* completed);
+    __declspec(noinline) int RestoreIfLost(unsigned int* completed);
 };
 
 
@@ -125,7 +125,7 @@ struct PlatformD300Entry {
 // reference/recovery_notes/sound_stream_start2.md.
 extern "C" int __cdecl crt_rand();
 
-struct PlatformD370Entry {
+struct WaveSecondaryBufferStatus {
     virtual void __stdcall slot_00() = 0;
     virtual void __stdcall slot_04() = 0;
     virtual void __stdcall slot_08() = 0;
@@ -138,13 +138,13 @@ struct PlatformD370Entry {
     virtual int __stdcall read_state(unsigned int*) = 0;
 };
 
-struct PlatformInterfaceState {
+struct SoundBufferPool {
     unsigned char unknown_000[4];
     void** entries_004;
     unsigned char unknown_008[8];
     unsigned int count_010;
 
-    __declspec(noinline) PlatformD370Entry* FindAvailable();
+    __declspec(noinline) WaveSecondaryBufferStatus* GetFreeBuffer();
 };
 
 
@@ -154,13 +154,13 @@ struct PlatformInterfaceState {
 // arrives in EDI and the result is returned in EAX.
 typedef int (__stdcall *SoundDevice_QueryInterfaces)(void*, unsigned int);
 
-struct PlatformQueryInterfaces {
+struct SoundBufferRewind {
     unsigned char unknown_000[4];
     void** entries_004;
     unsigned char unknown_008[8];
     unsigned int count_010;
 
-    __declspec(noinline) int Query();
+    __declspec(noinline) int RewindBuffers();
 };
 
 

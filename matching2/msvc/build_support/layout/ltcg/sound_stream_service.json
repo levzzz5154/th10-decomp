@@ -40,8 +40,8 @@
       "size": 483
     },
     {
-      "name": "?Run@PlatformD300Entry@@QAEHPAI@Z",
-      "symbol": "?Run@PlatformD300Entry@@QAEHPAI@Z",
+      "name": "?RestoreIfLost@WaveSecondaryBufferRestore@@QAEHPAI@Z",
+      "symbol": "?RestoreIfLost@WaveSecondaryBufferRestore@@QAEHPAI@Z",
       "section": ".text$03run",
       "address": "0x44d300",
       "size": 98

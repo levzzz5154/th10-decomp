@@ -1,5 +1,5 @@
 // Compiler context only; none of these bytes enter the image.
-#include "../../../src/game/player/trigger_region.cpp"
+#include "../../../src/game/player/player_check_laser_hit.cpp"
 
 extern "C" int __cdecl TriggerRegionEscape(void* pointer, int value);
 

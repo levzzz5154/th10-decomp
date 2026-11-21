@@ -4,7 +4,7 @@
 #include "th10/platform/worker.hpp"
 #include "th10/platform/archive_callers.hpp"
 #include "th10/platform/sound_queue.hpp"
-#include "th10/game/ending_text_dispatcher.hpp"
+#include "th10/render/anm_text_dispatcher.hpp"
 #include "th10/game/ending_script/script_executor_ascii_anchors.hpp"
 struct EndingScriptCommand {
     unsigned short frame;
@@ -47,12 +47,12 @@ struct AnmLookup {
     __declspec(noinline) void* __fastcall SetFlag(AnmLookupContext* context, int id);
     __declspec(noinline) void* __cdecl Validate(AnmScriptHandle* handle);
 };
-struct GameThreadResourceView {
+struct AsciiManagerSpinnerView {
     unsigned char reserved_0000[0x8994];
     void* animation_resource;
     unsigned char reserved_8998[0x89A4 - 0x8998];
     void* animation_handle;
-    __declspec(noinline) void* EnsureAnimationResource(float x, float y);
+    __declspec(noinline) void* EnsureLoadingSpinner(float x, float y);
 };
 struct AnmSlotManager {
     unsigned char pad_000[0x3AD06C];

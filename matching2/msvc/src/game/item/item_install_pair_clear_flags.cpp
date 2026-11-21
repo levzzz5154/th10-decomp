@@ -1,6 +1,6 @@
 // 0x0041AD90..0x0041ADE3 (84 bytes): ?ItemManager_InstallPairClearFlags@@
 //
-// The clear-flags counterpart of ?ItemManager_InstallPairSetFlags@@ (0x004055C0):
+// The clear-flags counterpart of Bomb_RegisterTasks (0x004055C0):
 // it builds the two scheduler callbacks that drive a freshly created pair,
 // clears the reserved flag the set-flags installer raises, publishes each
 // callback on the pair and registers the pair with the scheduler's primary and

@@ -4,7 +4,7 @@ typedef int (__stdcall *PlatformD550Query)(void*, unsigned int);
 
 struct PlatformD550Vtable {
     void* before_query[0x34 / 4];
-    PlatformD550Query query;
+    PlatformD550Query SetCurrentPosition;
     void* between_query_and_stop[(0x48 - 0x38) / 4];
     PlatformD550Unary stop;
 };
@@ -13,7 +13,7 @@ struct PlatformD550Entry {
     PlatformD550Vtable* vtable;
 };
 
-struct PlatformInterfaceState3 {
+struct SoundBuffer {
     unsigned char unknown_000[4];
     void** entries_004;
     unsigned char unknown_008[8];
@@ -23,11 +23,11 @@ struct PlatformInterfaceState3 {
     unsigned char unknown_020[0x10];
     unsigned int operation_030;
 
-    __declspec(noinline) int Aggregate();
+    __declspec(noinline) int StopAndRewind();
 };
 
 #pragma code_seg(".text$01aggregate")
-__declspec(noinline) int PlatformInterfaceState3::Aggregate() {
+__declspec(noinline) int SoundBuffer::StopAndRewind() {
     if (entries_004 == 0)
         return (int)0x800401F0u;
 
@@ -38,7 +38,7 @@ __declspec(noinline) int PlatformInterfaceState3::Aggregate() {
             reinterpret_cast<PlatformD550Entry**>(entries_004)[index];
         result |= entry->vtable->stop(entry);
         entry = reinterpret_cast<PlatformD550Entry**>(entries_004)[index];
-        result |= entry->vtable->query(entry, 0);
+        result |= entry->vtable->SetCurrentPosition(entry, 0);
     }
     active_01c = 0;
     return result;

@@ -24,7 +24,7 @@ extern unsigned int g_globals_score;
 extern int g_globals_character;
 extern void* g_next_stage_buffer;
 extern void* g_sprt_ctrl;
-extern char g_recovery_script_path[];
+extern char g_archive_load_path[];
 }
 
 struct FrontClock {
@@ -97,7 +97,7 @@ extern "C" __declspec(noinline) int __stdcall Front_LoadStageResources(
     } else {
         const int path_index = g_globals_character;
         const char* path_suffix = g_stage_route_current->message_files[path_index];
-        char* path = g_recovery_script_path;
+        char* path = g_archive_load_path;
         path[0] = '\0';
         strcat(path, path_suffix);
         state->archive_buffer_9ebc = Archive_LoadFile(path, 0, 0);

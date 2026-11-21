@@ -9,7 +9,7 @@
   "functions": [
     {
       "name": "Title_DisableTimerWithOwner",
-      "symbol": "?DisableTimerWithOwner@Title@@QAEXH@Z",
+      "symbol": "?SetMode@Title@@QAEXH@Z",
       "section": ".text$01accessor",
       "address": "0x0042C5C0",
       "size": 83,

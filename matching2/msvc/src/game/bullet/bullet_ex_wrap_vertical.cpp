@@ -4,7 +4,7 @@
 //
 // The vertical twin of 0x00407DA0, with its own timer and flag. The object
 // arrives in EBX.
-#include "th10/game/player_wrap.hpp"
+#include "th10/game/bullet_ex_wrap.hpp"
 
 #pragma code_seg(".text$01mvertical")
 void BulletExWrapState::WrapVertical() {

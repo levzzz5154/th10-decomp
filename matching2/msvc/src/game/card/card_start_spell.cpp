@@ -59,7 +59,7 @@ extern BulletResourceView* g_bullet_manager;
 extern ScoreManager* g_score;
 extern EnemyCtrlCardView* g_enemy_ctrl;
 extern GameSelection2 g_selection;         // 0x00474C68
-extern int g_globals_gauge;
+extern int g_globals_faith;
 extern int g_globals_stage;                          // stage number
 extern int g_stage_progress;
 void __stdcall LoadScript2(AnimationResourceFile* resource,
@@ -193,7 +193,7 @@ void CardUpdateView::StartSpell(int index, const char* name, int duration) {
     FindChild(marker_handle.value, 416)->ScriptIntegerVariables()[2] = duration;
 
     bonus_duration = duration;
-    bonus = (g_selection.stage * 3 + 10) * g_globals_gauge * 10;
+    bonus = (g_selection.stage * 3 + 10) * g_globals_faith * 10;
     bonus_start = bonus;
     if (bonus >= 100000000)
         bonus_start = CARD_BONUS_CAP;

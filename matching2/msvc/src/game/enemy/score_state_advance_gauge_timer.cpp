@@ -48,7 +48,7 @@
 // guards keep the member spelling and the block goes through the alias.
 #include "th10/game/score.hpp"
 
-extern float g_score_default_speed;  // 0x00476F78, the script-time frame delta
+extern "C" float g_game_speed;  // 0x00476F78, the script-time frame delta
 
 #pragma code_seg(".text$04mreplay")
 void ScoreState::AdvanceGaugeTimer(int frames) {
@@ -60,7 +60,7 @@ void ScoreState::AdvanceGaugeTimer(int frames) {
                 timer.current = 0;
                 timer.previous = -999999;
                 timer.elapsed = 0.0f;
-                timer.speed = &g_score_default_speed;
+                timer.speed = &g_game_speed;
                 timer.flags |= 1;
             }
             timer.current = 130;

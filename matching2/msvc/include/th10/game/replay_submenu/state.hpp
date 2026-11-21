@@ -23,7 +23,7 @@ struct SubSchedulerRecord {
     float field_08;
     int field_0C;
     int flags_10;
-    __declspec(noinline) void SetSchedulerValue(int value);
+    __declspec(noinline) void Set(int value);
 };
 
 // 0x0040ACE0 key-repeat state (this in ECX, mask in EAX).
@@ -44,11 +44,11 @@ struct InputState {
 __declspec(noinline) void SubSetInputMode(InputState* state, int mode);
 
 // 0x00421F60 frame-maximum snapshot record.
-struct GameStateFrameState {
+struct FrontScoreState {
     unsigned char unknown_0000[0x9E78];
-    int frame_value;               // +0x9E78
+    int displayed_score;               // +0x9E78
 };
-__declspec(noinline) int __stdcall SubUpdateFrameMaximum(GameStateFrameState* state);
+__declspec(noinline) int __stdcall SubUpdateFrameMaximum(FrontScoreState* state);
 
 // The menu cursor co-compiled bodies (0x0044BE20/0x0044BE70/0x0044BEA0);
 // identical layout to the shared MenuCursor, scoped so the maintained
@@ -165,7 +165,7 @@ extern "C" int g_globals_character;
 extern "C" int g_globals_shot_type;
 extern "C" int g_globals_difficulty;
 extern "C" int g_globals_stage;
-extern "C" GameStateFrameState* g_front;  // 0x0047770C
+extern "C" FrontScoreState* g_front;  // 0x0047770C
 extern "C" InputState g_application;            // 0x00491C28
 extern "C" int g_main_state;                   // 0x00491FB8 launch mode latch
 extern "C" SubSoundQueue g_sound_manager; // 0x00492590 sound queue

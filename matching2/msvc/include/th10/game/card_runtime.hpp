@@ -4,9 +4,9 @@
 // its scheduler callback 0x00409270.
 struct CardRuntime {
     unsigned char reserved_0000[0x378C];
-    unsigned char release_flag_378C;                 // +0x378C: release when bit 0 is set
+    unsigned char flags_378C;                 // +0x378C: release when bit 0 is set
     unsigned char reserved_378D[0x400];
 
-    __declspec(noinline) int ReleaseFlaggedEntityArrays();
-    int RunArrayReleaseCallback();
+    __declspec(noinline) int DrawDigitArrays();
+    int OnDrawDigitArrays();
 };

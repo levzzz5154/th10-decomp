@@ -1,7 +1,7 @@
 // Full ordinary polar helper bodies are compiler-only context. They emit
 // FCOS/FSIN and are not claimed to recover the retail FSINCOS leaf functions.
 #include "item_spawn_caller_allocator_2026_09_28.cpp"
-#include "../../../src/game/laser/line_laser_create_segments.cpp"
+#include "../../../src/game/laser/laser_grow_cancel.cpp"
 #include "th10/game/line_effect_sweeps.hpp"
 #include "item_spawn_0041bb00_dependencies.cpp"
 #include "item_spawn_0041bb00_loader.cpp"
@@ -29,7 +29,7 @@ __declspec(noinline) LinePolarVelocity2* LinePolarVelocity2::SetPolar(float angl
 // whose indirect calls use the declared thiscall ABI. The runtime request
 // also exposes the allocator general argument contract. It is not game code.
 typedef LinePolarVelocity2* (LinePolarVelocity2::*LinePolarSetter_0041f800)(float,float);
-typedef int (LineEffectSweep::*AllSegmentsCompilerMethod_2026_09_28)(int);
+typedef int (LaserCancelSweep::*AllSegmentsCompilerMethod_2026_09_28)(int);
 #pragma code_seg(".text$99context")
 extern "C" int __stdcall PublishPolarCompilerContext_2026_09_28(
         LinePolarSetter_0041f800* line,AllSegmentsCompilerMethod_2026_09_28* all,
@@ -37,7 +37,7 @@ extern "C" int __stdcall PublishPolarCompilerContext_2026_09_28(
         int kind,int identifier,float angle,float speed) {
     *line=&LinePolarVelocity2::SetPolar;
     line[1]=reinterpret_cast<LinePolarSetter_0041f800>(&ItemPolarVelocity2::SetPolar);
-    *all=&LineEffectSweep::CreateAllSegments;
+    *all=&LaserCancelSweep::CancelLineLaser;
     return manager->Spawn(position,kind,identifier,angle,speed);
 }
 #pragma code_seg()

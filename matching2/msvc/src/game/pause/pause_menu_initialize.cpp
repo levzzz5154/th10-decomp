@@ -39,7 +39,7 @@ extern "C" __declspec(noinline) void __stdcall PauseMenu_Initialize(PauseUpdateV
     state->background = handle;
     state->background.StopAtFrame3();
     g_sound_manager.Queue(32, 0);
-    reinterpret_cast<AnmResourceRegistrar*>(&g_sound_manager)->RegisterResource(str_pause, 6, 0);
+    reinterpret_cast<WaveSoundManager*>(&g_sound_manager)->QueueMusicCommand(str_pause, 6, 0);
     if (g_game->replay_mode) {
         state->background.FindChildRef(117).MarkAndClear();
     }

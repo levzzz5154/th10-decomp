@@ -73,7 +73,7 @@ void EnemyCtrl::Destroy() {
 
     void **blocks = blocks_054;
     if (blocks) {
-        ((EnemyOwnedResourceView *)blocks)->ReleaseResource();
+        ((EclFileDestroyView *)blocks)->DestroyEntries();
         crt_free_startup(blocks);
     }
     blocks_054 = 0;

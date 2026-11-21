@@ -13,7 +13,7 @@ struct LinePolarVelocity2 {
     __declspec(noinline) LinePolarVelocity2* SetPolar(float angle,float speed);
 };
 struct LineSweepStep { LinePolarVelocity2 velocity; volatile float z; };
-struct LineEffectSweep {
+struct LaserCancelSweep {
     unsigned char reserved_000[0xc];
     int retired;
     unsigned char reserved_010[0x24-0x10];
@@ -25,8 +25,8 @@ struct LineEffectSweep {
     short script_all;
     unsigned char reserved_44c[0x466-0x44c];
     short script_in_bounds;
-    __declspec(noinline) int CreateAllSegments(int spawn_items);
-    __declspec(noinline) int CreateSegmentsInBounds(int spawn_items);
+    __declspec(noinline) int CancelLineLaser(int spawn_items);
+    __declspec(noinline) int CancelGrowLaser(int spawn_items);
 };
 struct LineAnimationResourceBank {
     unsigned char reserved_000[0x458];
@@ -44,9 +44,9 @@ struct LineAnimationRegistry {
     unsigned char reserved_72dadc[0x732454-0x72dadc];
     int next_handle;
 };
-typedef char LinePositionCheck[offsetof(LineEffectSweep,position)==0x24?1:-1];
-typedef char LineScriptCheck[offsetof(LineEffectSweep,script_all)==0x44a?1:-1];
-typedef char LineScriptCheck2[offsetof(LineEffectSweep,script_in_bounds)==0x466?1:-1];
+typedef char LinePositionCheck[offsetof(LaserCancelSweep,position)==0x24?1:-1];
+typedef char LineScriptCheck[offsetof(LaserCancelSweep,script_all)==0x44a?1:-1];
+typedef char LineScriptCheck2[offsetof(LaserCancelSweep,script_in_bounds)==0x466?1:-1];
 extern "C" {
 extern ItemSpawnManager* g_item_manager;
 extern LineAnimationResourceBank* g_laser_manager;

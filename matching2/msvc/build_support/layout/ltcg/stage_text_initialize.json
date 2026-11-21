@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "name": "stage_text_initialize_00434a80",
-  "source": "src/game/title/stage_text.cpp",
+  "source": "src/game/title/anm_vm_pos_interp.cpp",
   "driver": "build_support/layout/ltcg/stage_text_initialize_00434a80_context.cpp",
   "headers": [],
   "image_base": "0x00400000",
@@ -9,7 +9,7 @@
   "functions": [
     {
       "name": "StageText_00434a80_Initialize",
-      "symbol": "?Initialize@StageText@@QAEXPBUStageTextVector@@0HE@Z",
+      "symbol": "?StartPositionInterp@AnmVmPosInterp@@QAEXPBUAnmVmPosInterpVec@@0HE@Z",
       "section": ".text$01stagetext",
       "address": "0x00434A80",
       "size": 206,
@@ -17,7 +17,7 @@
     }
   ],
   "context": {
-    "symbol": "?StageTextCompilerContext@@YGHPAPAUStageText@@HPBUStageTextVector@@@Z",
+    "symbol": "?StageTextCompilerContext@@YGHPAPAUAnmVmPosInterp@@HPBUAnmVmPosInterpVec@@@Z",
     "section": ".text$03context",
     "address": "0x00434B50",
     "size": 52,

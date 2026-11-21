@@ -10,7 +10,7 @@ void StageRunState::SetGauge(int amount) {
         gauge_timer.current = 0;
         gauge_timer.previous = -999999;
         gauge_timer.elapsed = 0;
-        gauge_timer.speed = &g_score_default_speed;
+        gauge_timer.speed = &g_game_speed;
         gauge_timer.flags |= 1;
     }
     gauge_timer.current = 0;

@@ -4,7 +4,7 @@
   "source": "src/game/bullet/projectile_command_runtime.cpp",
   "driver": "build_support/layout/ltcg/projectile_command_runtime_00406d90_context.cpp",
   "headers": [
-    "include/th10/game/enemy_grid_scan.hpp",
+    "include/th10/game/bullet_spawn_pattern.hpp",
     "include/th10/game/entity.hpp",
     "include/th10/game/entity_script_start.hpp",
     "include/th10/game/player.hpp",
@@ -46,7 +46,7 @@
     },
     {
       "name": "PlayerSchedulerRecord_SetSchedulerValue",
-      "symbol": "?SetSchedulerValue@PlayerSchedulerRecord@@QAEXH@Z",
+      "symbol": "?Set@FrameTimerView@@QAEXH@Z",
       "section": ".text$00405410_s",
       "address": "0x00405410",
       "size": 57
@@ -171,7 +171,7 @@
       "kind": "relative_code"
     },
     {
-      "symbol": "?SetScorePolar@ScoreGameplayPolarVector@@QAEPAU1@MM@Z",
+      "symbol": "?SetPolar@PolarVector2@@QAEPAU1@MM@Z",
       "address": "0x00408750",
       "kind": "relative_code"
     },

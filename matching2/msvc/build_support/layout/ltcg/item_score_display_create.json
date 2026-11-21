@@ -4,7 +4,7 @@
   "source": "src/game/front/front_dialogue_start.cpp",
   "driver": "build_support/layout/ltcg/item_score_display_create/context.cpp",
   "headers": [
-    "include/th10/game/item_score_display_create.hpp",
+    "include/th10/game/front_dialogue_start.hpp",
     "include/th10/platform/thread_sync.hpp"
   ],
   "image_base": "0x00400000",

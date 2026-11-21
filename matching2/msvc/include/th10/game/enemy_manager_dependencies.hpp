@@ -30,10 +30,10 @@ struct AnimationResource6 {
 };
 
 
-struct EnemyOwnedResourceView {
+struct EclFileDestroyView {
     unsigned int vtable;
     unsigned char reserved_004[0x88];
     void* owned_resource;
 
-    __declspec(noinline) void ReleaseResource();
+    __declspec(noinline) void DestroyEntries();
 };

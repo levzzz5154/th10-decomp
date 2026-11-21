@@ -21,7 +21,7 @@ extern PolarVec3 g_enemy_scroll;
 }
 extern float g_frame_timer_normal_lower;
 extern float g_frame_timer_normal_upper;
-extern float g_score_default_speed;
+extern "C" float g_game_speed;
 
 extern "C" short g_sound_priority[];
 extern "C" void __stdcall ext_call(void* a, int b);

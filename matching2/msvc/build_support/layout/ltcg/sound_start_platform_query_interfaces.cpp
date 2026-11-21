@@ -1,5 +1,5 @@
 #pragma code_seg(".text$13query")
-__declspec(noinline) int PlatformQueryInterfaces::Query() {
+__declspec(noinline) int SoundBufferRewind::RewindBuffers() {
     if (entries_004 == 0) return (int)0x800401F0u;
     int result = 0;
     for (unsigned int index = 0; index < count_010; ++index) {

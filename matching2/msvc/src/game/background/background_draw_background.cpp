@@ -16,8 +16,8 @@ struct RenderStageState4 {
     __declspec(noinline) int DisableFog();
 };
 // 0x00405410: the out-of-line copy of FrameTimer::Set.
-struct PlayerSchedulerRecord {
-    __declspec(noinline) void SetSchedulerValue(int value);
+struct FrameTimerView {
+    __declspec(noinline) void Set(int value);
 };
 struct Screen;
 __declspec(noinline) Screen* __stdcall Screen_Create(
@@ -52,7 +52,7 @@ int __stdcall BackGround_DrawBackground(BackGround* stage) {
         if (stage->fade_timer.current < 30) {
             Screen_Create(15, 3, 30, 0, 0, 0);
             stage->flags |= 1;
-            reinterpret_cast<PlayerSchedulerRecord*>(&stage->fade_timer)->SetSchedulerValue(1);
+            reinterpret_cast<FrameTimerView*>(&stage->fade_timer)->Set(1);
         } else {
             reinterpret_cast<unsigned char*>(&stage->fade_color)[3] = 0;
             stage->flags &= ~1u;

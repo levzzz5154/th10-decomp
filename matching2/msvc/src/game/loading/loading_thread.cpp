@@ -20,7 +20,7 @@ extern LoadingView* g_loading;
 extern void* g_sprt_ctrl;              // animation manager
 extern void* g_text_anm_resource;              // text.anm
 extern char* g_bgm_format_data;              // BGM format table
-extern unsigned char g_sound_flags;      // sound option flags
+extern unsigned char g_config_flags;      // sound option flags
 extern char str_text_init_failed[];             // "error : 文字の初期化に失敗しました"
 extern char str_bgm_init_failed[];             // "error : BGM の初期化に失敗しました"
 extern TextLog g_log;
@@ -64,7 +64,7 @@ __declspec(noinline) int __fastcall Loading_LoadAssets(LoadingView* owner) {
         g_log.Append(str_bgm_init_failed);
     g_wave_sound_manager.InitializeEffects();
     if (File_ProbeExistsPath("thbgm.dat")) {
-        if (!(g_sound_flags & 0x10))
+        if (!(g_config_flags & 0x10))
             g_wave_sound_manager.LaunchMusic("thbgm.dat");
         else
             strcpy(g_wave_sound_manager.music_file_name, "thbgm.dat");

@@ -21,7 +21,7 @@ struct KeyboardDevice {
 };
 
 extern int g_input_enabled;
-extern unsigned int g_input_mode;
+extern unsigned int g_app_flags;
 extern KeyboardDevice* g_keyboard_device;
 
 #pragma code_seg(".text$0044b010_fn")
@@ -31,7 +31,7 @@ int __stdcall Input_UpdateKeyboardState(BYTE* destination) {
 
     if (!g_input_enabled)
         return 0;
-    if (!(g_input_mode & 0x200)) {
+    if (!(g_app_flags & 0x200)) {
         GetKeyboardState(destination);
         return 0;
     }

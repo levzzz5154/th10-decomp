@@ -104,7 +104,7 @@ struct BackGround {
     FrameTimer fade_timer;                 // +0x2A1C
     FrameTimer clear_timer;                // +0x2A30
     unsigned char reserved_2a44[0x2A4C - 0x2A44];
-    GameThreadRenderStage view;            // +0x2A4C, the stage camera and fog
+    AppRenderStage view;            // +0x2A4C, the stage camera and fog
 
     // The camera vectors and the fog as the script's interpolators type them.
     Vec3& Position() { return *reinterpret_cast<Vec3*>(&view.camera.position); }

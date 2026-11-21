@@ -5,7 +5,7 @@
 // Each wrap spends one count of the wrap timer and plays the object's sound;
 // once the timer has run out the horizontal wrap flag is toggled. The object
 // arrives in EBX.
-#include "th10/game/player_wrap.hpp"
+#include "th10/game/bullet_ex_wrap.hpp"
 
 #pragma code_seg(".text$01lwrap")
 void BulletExWrapState::WrapHorizontal() {

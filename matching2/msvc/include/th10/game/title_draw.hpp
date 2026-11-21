@@ -116,7 +116,7 @@ struct TitleDrawView {
 };
 
 extern "C" {
-extern GameThreadQueueView* g_ascii_manager;
+extern AsciiManagerQueueView* g_ascii_manager;
 extern GameSelection3 g_globals_character;
 extern ScoreCharacter* g_score;
 extern ReplayFile2* g_replay;  // the replay just played

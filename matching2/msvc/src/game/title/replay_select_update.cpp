@@ -38,7 +38,7 @@ static __forceinline void PopSelection2(MenuCursor& cursor) {
     cursor.disabled_count = 0;
 }
 
-// The timer reset and SetTimerTarget (0x0042C620) as they are inlined in
+// The timer reset and SetPhase (0x0042C620) as they are inlined in
 // phase 1.
 static __forceinline void ResetTimer2(GameFrameTimer* timer) {
     if (!(timer->flags & 1u)) {
@@ -94,7 +94,7 @@ __declspec(noinline) int __stdcall TitleMode12(Title* room) {
         g_title_replay_selection = 0;
         EnsureTitleMenuBackdrop(room, handle);
         Title_InstallAnimationSlot(room, 101);
-        room->SetTimerTarget(RSEL_PHASE_WAIT_OPEN);
+        room->SetPhase(RSEL_PHASE_WAIT_OPEN);
         memset(room->replay_list.files, 0, sizeof(room->replay_list.files));
         for (int number = 1; number <= RSEL_NUMBERED_SLOTS; ++number) {
             sprintf(path, "th10_%.2d.rpy", number);
@@ -128,11 +128,11 @@ __declspec(noinline) int __stdcall TitleMode12(Title* room) {
         if (cursor->previous_selection != cursor->selection)
             g_sound_manager.Queue(RSEL_SFX_MOVE, 0);
         if (g_input_keys_held & RSEL_KEY_CANCEL) {
-            room->SetTimerTarget(RSEL_PHASE_CANCEL_LEAVE);
+            room->SetPhase(RSEL_PHASE_CANCEL_LEAVE);
             g_sound_manager.Queue(RSEL_SFX_CANCEL, 0);
         } else if (g_input_keys_held & RSEL_KEY_CONFIRM) {
             if (room->replay_list.files[cursor->selection] != 0) {
-                room->SetTimerTarget(RSEL_PHASE_PICK_STAGE);
+                room->SetPhase(RSEL_PHASE_PICK_STAGE);
                 room->replay_list.selected_replay = cursor->selection;
                 cursor->PushSelection();
                 g_sound_manager.Queue(RSEL_SFX_CONFIRM, 0);
@@ -162,21 +162,21 @@ __declspec(noinline) int __stdcall TitleMode12(Title* room) {
                 cursor->PopSelection();
                 room->cursor.item_count = RSEL_NUMBERED_SLOTS;
                 room->cursor.disabled_count = 0;
-                room->SetTimerTarget(RSEL_PHASE_PICK_REPLAY);
+                room->SetPhase(RSEL_PHASE_PICK_REPLAY);
                 g_sound_manager.Queue(RSEL_SFX_CANCEL, 0);
             } else if (g_input_keys_held & RSEL_KEY_CONFIRM) {
                 room->replay_list.selected_stage = cursor->selection;
-                room->SetTimerTarget(RSEL_PHASE_LAUNCH_REPLAY);
+                room->SetPhase(RSEL_PHASE_LAUNCH_REPLAY);
             }
         }
         break;
     case RSEL_PHASE_LAUNCH_REPLAY:
         if (room->timer.current == 2) {
             AsciiText_Create(0x2b, 5, 0x20, 0, 0, 0);
-            g_ascii_manager->EnsureAnimationResource(480.0f, 392.0f);
+            g_ascii_manager->EnsureLoadingSpinner(480.0f, 392.0f);
         }
         if (room->timer.current >= 32) {
-            room->DisableTimerWithOwner(RSEL_TARGET_LEAVE);
+            room->SetMode(RSEL_TARGET_LEAVE);
             int stage = room->replay_list.selected_stage + 1;
             g_stage_route_current = &g_stage_routes[stage];
             g_globals_stage = stage;
@@ -207,7 +207,7 @@ __declspec(noinline) int __stdcall TitleMode12(Title* room) {
             room->SetSlotFrame(0x5b, 8);
             room->ClearAnimationSlot(94);
             Title_StopAnimationHandle(&room->fallback_handle);
-            room->DisableTimerWithOwner(RSEL_TARGET_MAIN_MENU);
+            room->SetMode(RSEL_TARGET_MAIN_MENU);
             PopSelection2(room->cursor);
         }
         break;

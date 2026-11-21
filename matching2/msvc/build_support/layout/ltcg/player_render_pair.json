@@ -113,7 +113,7 @@
       "kind": "data"
     },
     {
-      "symbol": "_g_player_power_display",
+      "symbol": "_g_faith_timer_current",
       "address": "0x474c58",
       "kind": "data"
     },

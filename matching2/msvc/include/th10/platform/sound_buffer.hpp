@@ -19,14 +19,14 @@ struct DirectSoundBuffer {
     DirectSoundBufferVtable* vtable;
 };
 
-struct PlatformOwnedArray {
+struct SoundBufferBase {
     void* vtable;
 };
 
 // Fields used by the platform sound-buffer leaves. The full object continues
 // past is_playing; these names preserve the established offsets without
 // guessing at fields that these functions do not touch.
-struct SoundBuffer : PlatformOwnedArray {
+struct SoundBuffer : SoundBufferBase {
     DirectSoundBuffer** buffers;       // +0x04
     unsigned int reserved_08[2];       // +0x08..+0x0F
     unsigned int buffer_count;         // +0x10
@@ -37,8 +37,8 @@ struct SoundBuffer : PlatformOwnedArray {
     unsigned int is_playing;           // +0x30
 };
 
-int __fastcall Platform_InvokeInterface(SoundBuffer* sound_buffer);
-void __fastcall Platform_ReleaseOwnedArray(PlatformOwnedArray* owner);
+int __fastcall SoundBuffer_Pause(SoundBuffer* sound_buffer);
+void __fastcall SoundBufferBase_Release(SoundBufferBase* owner);
 void __fastcall SoundBuffer_DestructBase(SoundBuffer* sound_buffer);
 
 extern char sound_buffer_vtable;

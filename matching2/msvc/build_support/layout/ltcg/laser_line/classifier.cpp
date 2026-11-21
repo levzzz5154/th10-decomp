@@ -16,7 +16,7 @@
 // corner; the rotation is written back into `rotated`. That sharing is what
 // orders the two vectors in the frame (the compiler sorts stack slots by
 // reference count).
-#include "th10/game/trigger_region.hpp"
+#include "th10/game/player_check_laser_hit.hpp"
 
 #pragma code_seg(".text$30classifier")
 int Player::CheckLaserHit(const Point3_OrientedRect* origin, float angle, float width, float length) {

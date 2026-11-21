@@ -7,7 +7,7 @@
     "include/th10/game/entity.hpp",
     "include/th10/game/entity_script_start.hpp",
     "include/th10/game/pause_result_open/open_animation.hpp",
-    "include/th10/game/stage_score_display.hpp",
+    "include/th10/game/bullet_cancel_view.hpp",
     "include/th10/types.hpp"
   ],
   "included_sources": [
@@ -36,7 +36,7 @@
   "anchors": [
     {
       "name": "Activate",
-      "symbol": "?Activate@StageCollisionRecord@@QAEHXZ",
+      "symbol": "?Activate@BulletCancelRecord@@QAEHXZ",
       "address": "0x408030",
       "section": ".text$00408030_fn",
       "size": 201

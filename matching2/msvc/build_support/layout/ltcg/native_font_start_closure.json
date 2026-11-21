@@ -5,7 +5,7 @@
   "headers": [
     "include/th10/platform/native_font_start.hpp",
     "include/th10/platform/worker.hpp",
-    "include/th10/render/clip_worker_native.hpp",
+    "include/th10/render/quad_buffer_native.hpp",
     "include/th10/platform/native_game_input.hpp",
     "include/th10/platform/text_log.hpp",
     "include/th10/platform/thread_sync.hpp",
@@ -63,7 +63,7 @@
     },
     {
       "name": "QuadBufferCreate",
-      "symbol": "?InitializeClip@ClipHost@@QAEXXZ",
+      "symbol": "?CreateQuadVertexBuffer@SprtCtrl@@QAEXXZ",
       "section": ".text$a14clip",
       "address": "0x4462f0",
       "size": 472,
@@ -311,7 +311,7 @@
       "kind": "data"
     },
     {
-      "symbol": "_g_clip_mirror_vertices",
+      "symbol": "_g_sprite_quad_vertices",
       "address": "0x497930",
       "kind": "data"
     },

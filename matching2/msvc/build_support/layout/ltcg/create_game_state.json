@@ -222,7 +222,7 @@
       "kind": "relative_code"
     },
     {
-      "symbol": "_g_recovery_script_path",
+      "symbol": "_g_archive_load_path",
       "address": "0x497c38",
       "kind": "data"
     },

@@ -1,7 +1,7 @@
 // 0x0043BB30: submits a six-word description through the interface pointer at
 // 0x00491C3C (slot 0x18 of its vtable). Returns 0 only when that call fails;
-// a description whose first word is already aligned reports success at once.
-struct BlitRequest {
+// an object whose dwType lacks DIDFT_AXIS (& 3) reports success at once.
+struct DiPropRange {
     int field_00;
     int field_04;
     int field_08;
@@ -19,7 +19,7 @@ extern "C" unsigned char g_pad_devices;
 int __stdcall Input_SetProperty(int a1, int a2) {
     int result = 1;
     if ((*(int*)(a1 + 24) & 3) != 0) {
-        BlitRequest request;
+        DiPropRange request;
         request.field_00 = 24;
         request.field_04 = 16;
         request.field_08 = *(int*)(a1 + 24);
@@ -27,7 +27,7 @@ int __stdcall Input_SetProperty(int a1, int a2) {
         request.field_10 = -1000;
         request.field_14 = 1000;
         Device* device = *(Device**)&g_pad_devices;
-        if (((int (__stdcall*)(Device*, int, BlitRequest*))device->vtable[6])(
+        if (((int (__stdcall*)(Device*, int, DiPropRange*))device->vtable[6])(
                 device, 4, &request) < 0)
             return 0;
     }

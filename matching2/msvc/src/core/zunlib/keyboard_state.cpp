@@ -21,7 +21,7 @@ struct KeyboardDevice {
 };
 
 extern int g_input_enabled;
-extern unsigned int g_input_mode;
+extern unsigned int g_app_flags;
 extern KeyboardDevice* g_keyboard_device;
 
 // 0x0044B010: clear and refresh the requested keyboard snapshot. Call sites
@@ -35,7 +35,7 @@ int __fastcall Input_UpdateKeyboardState(void*, BYTE* destination) {
 
     if (!g_input_enabled)
         return 0;
-    if (!(g_input_mode & 0x200)) {
+    if (!(g_app_flags & 0x200)) {
         GetKeyboardState(destination);
         return 0;
     }

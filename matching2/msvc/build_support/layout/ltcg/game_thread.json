@@ -12,7 +12,7 @@
   "functions": [
     {
       "name": "GameThread_Construct",
-      "symbol": "??0GameThread@@QAE@XZ",
+      "symbol": "??0AsciiManager@@QAE@XZ",
       "section": ".text$01thread",
       "address": "0x00401000",
       "size": 251,
@@ -20,7 +20,7 @@
     }
   ],
   "context": {
-    "symbol": "?GameThreadCompilerContext@@YGHPAUGameThread@@H@Z",
+    "symbol": "?AsciiManagerCompilerContext@@YGHPAUAsciiManager@@H@Z",
     "section": ".text$03context",
     "address": "0x00401100",
     "size": 41,
@@ -46,7 +46,7 @@
       "kind": "metadata"
     },
     {
-      "symbol": "?ObjectSize@GameThread@@UAEHXZ",
+      "symbol": "?ObjectSize@AsciiManager@@UAEHXZ",
       "address": "0x401c90",
       "kind": "data"
     },
@@ -58,7 +58,7 @@
   ],
   "data_aliases": [
     {
-      "symbol": "??_7GameThread@@6B@",
+      "symbol": "??_7AsciiManager@@6B@",
       "address": "0x0046CB14",
       "bytes": "901c4000"
     }

@@ -36,14 +36,14 @@
   "anchors": [
     {
       "name": "AppendRecord",
-      "symbol": "?AsciiManager_AddString@@YGXPAUGameThreadQueueView@@PBDPBUVec32@@@Z",
+      "symbol": "?AsciiManager_AddString@@YGXPAUAsciiManagerQueueView@@PBDPBUVec32@@@Z",
       "section": ".text$01append",
       "address": "0x401530",
       "size": 132
     },
     {
       "name": "AppendFormatted",
-      "symbol": "?AsciiManager_AddFormatted@@YAXPBUVec32@@PAUGameThreadQueueView@@PBDZZ",
+      "symbol": "?AsciiManager_AddFormatted@@YAXPBUVec32@@PAUAsciiManagerQueueView@@PBDZZ",
       "section": ".text$02bformatted",
       "address": "0x401630",
       "size": 85

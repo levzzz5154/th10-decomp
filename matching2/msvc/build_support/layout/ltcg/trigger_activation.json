@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "name": "trigger_activation",
-  "source": "src/game/player/trigger_activation.cpp",
+  "source": "src/game/player/player_hit.cpp",
   "driver": "build_support/layout/ltcg/trigger_activation/context.cpp",
   "included_sources": [
     "src/core/sound/sound_queue.cpp",
@@ -19,7 +19,7 @@
     "include/th10/game/pause_result_open/music.hpp",
     "include/th10/game/pause_result_open/open_animation.hpp",
     "include/th10/game/pause_result_open/open_state.hpp",
-    "include/th10/game/ending_text_dispatcher.hpp",
+    "include/th10/render/anm_text_dispatcher.hpp",
     "include/th10/core/screen.hpp",
     "include/th10/core/func_ctrl.hpp",
     "include/th10/game/score.hpp",

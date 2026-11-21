@@ -44,7 +44,7 @@
       "kind": "metadata"
     },
     {
-      "symbol": "_g_sound_flags",
+      "symbol": "_g_config_flags",
       "address": "0x00491D78",
       "kind": "data"
     },

@@ -176,7 +176,7 @@
       "kind": "relative_code"
     },
     {
-      "symbol": "?g_score_default_speed@@3MA",
+      "symbol": "_g_game_speed",
       "address": "0x00476F78",
       "kind": "data"
     },
@@ -196,7 +196,7 @@
       "kind": "data"
     },
     {
-      "symbol": "_g_globals_gauge",
+      "symbol": "_g_globals_faith",
       "address": "0x00474C4C",
       "kind": "data"
     },
@@ -208,11 +208,6 @@
     {
       "symbol": "_g_stage_progress",
       "address": "0x00474C84",
-      "kind": "data"
-    },
-    {
-      "symbol": "_g_game_speed",
-      "address": 4681592,
       "kind": "data"
     },
     {

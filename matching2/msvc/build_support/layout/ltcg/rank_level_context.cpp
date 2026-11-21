@@ -1,13 +1,13 @@
 // Compiler context only; never selected as recovered game code.
-#include "../../../src/game/front/rank_level.cpp"
+#include "../../../src/game/front/globals_advance_stage.cpp"
 
 #pragma code_seg(".text$03context")
-int __stdcall RankLevelCompilerContext(RankState** states, int count) {
-    RankState** cursor = states;
+int __stdcall RankLevelCompilerContext(GlobalsStageView** states, int count) {
+    GlobalsStageView** cursor = states;
     while (count--) {
-        RankState* state = *cursor++;
-        state->AdvanceLevel();
-        state->AdvanceLevel();
+        GlobalsStageView* state = *cursor++;
+        state->AdvanceStage();
+        state->AdvanceStage();
     }
     return 0;
 }

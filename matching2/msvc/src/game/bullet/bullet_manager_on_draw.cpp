@@ -20,10 +20,10 @@ extern "C" __declspec(noinline) int __cdecl AnmVm_DrawDispatch(
 
 struct Enemy2;
 
-struct SlotOwner {
+struct BulletManagerDrawView {
     unsigned char pad_000[0x0014];
     Enemy2* slots[6];                 // +0x0014, indexed by the slot number
-    __declspec(noinline) int AdvanceSlot(int index);
+    __declspec(noinline) int DrawLayer(int index);
     __declspec(noinline) int OnDraw();
 };
 
@@ -57,10 +57,10 @@ struct SlotState {
 extern "C" SlotState* g_game;
 
 #pragma code_seg(".text$03run")
-__declspec(noinline) int SlotOwner::OnDraw() {
+__declspec(noinline) int BulletManagerDrawView::OnDraw() {
     SlotState* state = g_game;
     if (!state || !(state->flags & 4)) {
-        for (int index = 0; index < 6; ++index) AdvanceSlot(index);
+        for (int index = 0; index < 6; ++index) DrawLayer(index);
     }
     return 1;
 }
@@ -74,7 +74,7 @@ __declspec(noinline) int SlotOwner::OnDraw() {
 // The position is copied through pointers, which keeps the three stores in
 // source order ahead of the flag test as retail has them.
 #pragma code_seg(".text$01anchor")
-__declspec(noinline) int SlotOwner::AdvanceSlot(int index) {
+__declspec(noinline) int BulletManagerDrawView::DrawLayer(int index) {
     Enemy2* entity = slots[index];
     while (entity) {
         Vec310* drawn = &entity->sprite_position;

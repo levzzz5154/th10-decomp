@@ -7,7 +7,7 @@
 #include "th10/game/stage_route.hpp"
 #include "th10/platform/sound_queue.hpp"
 #include "th10/core/screen.hpp"
-#include "th10/game/ending_text_dispatcher.hpp"
+#include "th10/render/anm_text_dispatcher.hpp"
 
 // Genuine source inputs recovered from the retail body. All private register
 // choices require these helpers' complete ordinary bodies in the native graph.
@@ -53,7 +53,7 @@ __declspec(noinline) void* __fastcall DispatcherRemoveAnimation(
     AnimationLookupContext* context, AnimationScriptId id);
 __declspec(noinline) void DispatcherSetPosition(const DispatcherVec3*,
     AnimationLookupContext*, AnimationScriptId);
-__declspec(noinline) char* Path_DecodeXor(const char* encoded);
+__declspec(noinline) char* Msg_DecodeXor(const char* encoded);
 
 struct DispatcherInputState {
     unsigned char reserved_000[0x390];
@@ -65,7 +65,7 @@ __declspec(noinline) void SetInputMode(DispatcherInputState*, int);
 struct DispatcherRankState {
     unsigned char reserved_000[0x3C];
     int level;
-    __declspec(noinline) void AdvanceLevel();
+    __declspec(noinline) void AdvanceStage();
 };
 struct DispatcherWaitTimer {
     int previous;
@@ -73,7 +73,7 @@ struct DispatcherWaitTimer {
     float elapsed;
     const float* speed;
     unsigned flags;
-    __declspec(noinline) void SetSchedulerValue(int value);
+    __declspec(noinline) void Set(int value);
 };
 
 #pragma pack(push, 1)
@@ -85,7 +85,7 @@ struct DispatcherCommand {
 };
 #pragma pack(pop)
 
-struct ResultDispatcherState {
+struct FrontDialogue {
     int variant;                         // +00
     DispatcherVec3 position;             // +04
     const float* position_step;          // +10
@@ -107,13 +107,13 @@ struct ResultDispatcherState {
     int text_side;                       // +84
     int text_parameters[2];              // +88
 };
-typedef char DispatcherTimerOffset[offsetof(ResultDispatcherState,timer)==0x18?1:-1];
-typedef char DispatcherWaitOffset[offsetof(ResultDispatcherState,wait)==0x2C?1:-1];
-typedef char DispatcherPortraitOffset[offsetof(ResultDispatcherState,left_portrait)==0x40?1:-1];
-typedef char DispatcherCommandOffset[offsetof(ResultDispatcherState,command)==0x5C?1:-1];
-typedef char DispatcherPositionsOffset[offsetof(ResultDispatcherState,text_positions)==0x60?1:-1];
-typedef char DispatcherParametersOffset[offsetof(ResultDispatcherState,text_parameters)==0x88?1:-1];
-typedef char DispatcherStateExtent[sizeof(ResultDispatcherState)==0x90?1:-1];
+typedef char DispatcherTimerOffset[offsetof(FrontDialogue,timer)==0x18?1:-1];
+typedef char DispatcherWaitOffset[offsetof(FrontDialogue,wait)==0x2C?1:-1];
+typedef char DispatcherPortraitOffset[offsetof(FrontDialogue,left_portrait)==0x40?1:-1];
+typedef char DispatcherCommandOffset[offsetof(FrontDialogue,command)==0x5C?1:-1];
+typedef char DispatcherPositionsOffset[offsetof(FrontDialogue,text_positions)==0x60?1:-1];
+typedef char DispatcherParametersOffset[offsetof(FrontDialogue,text_parameters)==0x88?1:-1];
+typedef char DispatcherStateExtent[sizeof(FrontDialogue)==0x90?1:-1];
 
 struct DispatcherStageResourceOwner {
     unsigned char reserved_00[0x38];
@@ -148,7 +148,7 @@ extern "C" void* g_sprt_ctrl;
 extern "C" DispatcherInputState g_application;
 extern "C" ScoreState g_globals;
 extern "C" short g_globals_power;
-extern "C" int g_globals_gauge;
+extern "C" int g_globals_faith;
 extern "C" int g_globals_character;
 extern "C" int g_globals_shot_type;
 extern "C" int g_globals_lives;

@@ -6,6 +6,6 @@ static void Entity_ClearRegistrationBit(uint32_t* flags) {
 }
 #include "th10/source_views/entity_cacea2_2.hpp"
 #include "../../../src/game/ascii/entity_constructor.cpp"
-#include "../../../src/game/bullet/entity_secondary_resource_release.cpp"
+#include "../../../src/game/bullet/bullet_slot_destruct.cpp"
 #include "../../../src/game/item/entity_animation_release.cpp"
 

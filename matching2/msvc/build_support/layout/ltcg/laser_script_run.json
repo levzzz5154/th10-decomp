@@ -57,7 +57,7 @@
     },
     {
       "name": "set",
-      "symbol": "?SetSchedulerValue@PlayerSchedulerRecord@@QAEXH@Z",
+      "symbol": "?Set@FrameTimerView@@QAEXH@Z",
       "section": ".text$00405410_fn",
       "address": "0x00405410",
       "size": 57

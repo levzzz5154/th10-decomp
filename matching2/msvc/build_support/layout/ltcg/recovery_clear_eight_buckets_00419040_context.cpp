@@ -3,7 +3,7 @@
 
 #pragma code_seg(".text$03context")
 int __stdcall RecoveryClearEightBucketsCompilerContext(
-        Manager3** managers, int count) {
+        HintBucketsView** managers, int count) {
     while (count--)
         (*managers++)->ClearBuckets();
     return 0;

@@ -4,7 +4,7 @@
 #pragma code_seg(".text$160context")
 int __stdcall PlayerUpdateContext(BombState** players,int count) {
     for(int i=0;i<count;++i) players[i]->Update();
-    g_bullet_manager->ActivateAll(count);
+    g_bullet_manager->CancelAll(count);
     ((DropSource*)players[0])->FlushDrops((ItemDrops2*)players[1]);
     Enemy_ReleaseOnDeath((EnemyDeathView*)players[2]);
     EnemyCtrl_SweepDeaths((EnemyCtrlDeathView*)players[3]);

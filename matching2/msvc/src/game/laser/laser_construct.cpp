@@ -9,7 +9,7 @@
 #include "th10/math/timer.hpp"
 
 extern "C" unsigned char g_laser_vtable;
-extern "C" unsigned char g_game_speed;
+extern "C" float g_game_speed;
 extern "C" void *__cdecl memset(void *destination, int value, unsigned int size);
 
 struct ScoreRecord {

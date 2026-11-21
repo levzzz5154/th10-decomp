@@ -12,7 +12,7 @@ struct Bucket2 {
     ChainNode* head;
     unsigned int reserved_004[2];
 };
-struct Manager3 {
+struct HintBucketsView {
     SchedulerTaskPair tasks;
     unsigned char reserved_010[0x0C];
     Bucket2 primary[8];
@@ -23,8 +23,8 @@ struct Manager3 {
 
 typedef char CleanupTaskPairExtent[sizeof(SchedulerTaskPair)==0x10 ? 1 : -1];
 typedef char CleanupBucketExtent[sizeof(Bucket2)==12 ? 1 : -1];
-typedef char CleanupPrimaryOffset[offsetof(Manager3,primary)==0x1C ? 1 : -1];
-typedef char CleanupSecondaryOffset[offsetof(Manager3,secondary)==0x7C ? 1 : -1];
-typedef char CleanupKeysOffset[offsetof(Manager3,keys)==0xDC ? 1 : -1];
+typedef char CleanupPrimaryOffset[offsetof(HintBucketsView,primary)==0x1C ? 1 : -1];
+typedef char CleanupSecondaryOffset[offsetof(HintBucketsView,secondary)==0x7C ? 1 : -1];
+typedef char CleanupKeysOffset[offsetof(HintBucketsView,keys)==0xDC ? 1 : -1];
 
 #endif

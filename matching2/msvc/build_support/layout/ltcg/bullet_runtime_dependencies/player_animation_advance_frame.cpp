@@ -1,5 +1,5 @@
 extern "C" const float flt_0_3125;
-#include "th10/game/player_motion_helpers.hpp"
+#include "th10/game/bullet_ex_motion.hpp"
 extern "C" float flt_1;
 extern "C" float flt_1_01;
 extern "C" float flt_0_99;

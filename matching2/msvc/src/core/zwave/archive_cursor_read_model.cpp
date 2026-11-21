@@ -1,10 +1,10 @@
-// 0x0044DE10: ArchiveCursorRead
+// 0x0044DE10: MusicReadCursor_Read
 #include "th10/game/archive_cursor_read_model.hpp"
 #include <string.h>
 #pragma intrinsic(memcpy)
 #pragma code_seg(".text$01read")
-extern "C" __declspec(noinline) int __stdcall ArchiveCursorRead(
-        ArchiveReadCursor* cursor, unsigned int requested,
+extern "C" __declspec(noinline) int __stdcall MusicReadCursor_Read(
+        MusicReadCursor* cursor, unsigned int requested,
         unsigned int destination, unsigned int* received) {
     if (cursor->buffered) {
         if (!cursor->position) return (int)0x800401F0u;

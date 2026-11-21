@@ -21,7 +21,7 @@
   "functions": [
     {
       "name": "TitleEffectsAdvance",
-      "symbol": "_TitleEffectsAdvance@4",
+      "symbol": "_Loading_Update@4",
       "section": ".text$05title",
       "address": 4324816,
       "size": 220,
@@ -42,7 +42,7 @@
   "calls": [
     {
       "caller": "?Loading_OnDraw@@YIXPAX@Z",
-      "callee": "_TitleEffectsAdvance@4",
+      "callee": "_Loading_Update@4",
       "address": "0x0041FEF1",
       "instruction": "call"
     }
@@ -165,6 +165,6 @@
     }
   ],
   "roots": [
-    "_TitleEffectsAdvance@4"
+    "_Loading_Update@4"
   ]
 }

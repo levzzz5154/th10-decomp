@@ -86,7 +86,7 @@
     },
     {
       "name": "Registrar",
-      "symbol": "?RegisterResource@AnmResourceRegistrar@@QAEPADPBDHH@Z",
+      "symbol": "?QueueMusicCommand@WaveSoundManager@@QAEPADPBDHH@Z",
       "section": ".text$09registrar",
       "address": "0x43e460",
       "size": 104

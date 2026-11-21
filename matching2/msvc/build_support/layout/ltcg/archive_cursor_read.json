@@ -11,7 +11,7 @@
   "functions": [
     {
       "name": "ArchiveCursorRead",
-      "symbol": "_ArchiveCursorRead@16",
+      "symbol": "_MusicReadCursor_Read@16",
       "section": ".text$01read",
       "address": "0x0044DE10",
       "size": 202,

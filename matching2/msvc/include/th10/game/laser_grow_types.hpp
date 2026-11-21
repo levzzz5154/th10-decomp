@@ -1,7 +1,7 @@
 #pragma once
 #include <stddef.h>
 #include "th10/game/entity.hpp"
-#include "th10/game/trigger_region.hpp"
+#include "th10/game/player_check_laser_hit.hpp"
 #include "th10/render/animation_public_callers.hpp"
 #include "th10/platform/sound_queue.hpp"
 struct LaserScheduler {
@@ -66,7 +66,7 @@ struct LaserPolarPoint : Point3_OrientedRect {
     __declspec(noinline) LaserPolarPoint* SetPolar(float angle,float speed);
 };
 extern "C" {
-extern float g_game_speed;
+extern "C" float g_game_speed;
 extern LaserFollowBank* g_enemy_ctrl;
 extern LaserAnimationBank* g_bullet_manager;
 float __stdcall NormalizeAngle2(float angle,float increment);

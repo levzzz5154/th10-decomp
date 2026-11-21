@@ -6,7 +6,7 @@ int __stdcall StageTextSkipLineCompilerContext(char** cursors, int** remainings,
                                                 int count) {
     int total = 0;
     while (count--) {
-        total += StageText_SkipLine(*cursors++, *remainings++) != 0;
+        total += MusicRoom_SkipLine(*cursors++, *remainings++) != 0;
     }
     return total;
 }

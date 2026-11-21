@@ -352,7 +352,7 @@
       "kind": "data"
     },
     {
-      "symbol": "_g_sound_flags",
+      "symbol": "_g_config_flags",
       "address": "0x00491d78",
       "kind": "data"
     },

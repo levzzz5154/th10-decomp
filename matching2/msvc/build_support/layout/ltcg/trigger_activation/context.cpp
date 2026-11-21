@@ -1,5 +1,5 @@
 // Compiler context only; the selected stdcall activation keeps its public ABI.
-#include "../../../../src/game/player/trigger_activation.cpp"
+#include "../../../../src/game/player/player_hit.cpp"
 #include "../result_open/find.cpp"
 #include "../result_open/allocate.cpp"
 #include "../result_open/dispatcher_animation_helpers.cpp"

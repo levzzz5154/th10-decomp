@@ -10,7 +10,7 @@ __declspec(noinline) int __stdcall Music_Load(int slot, const char* file_name) {
     extension[1] = 'w';
     extension[2] = 'a';
     extension[3] = 'v';
-    g_music_requests.RegisterResource(path, 1, slot);
+    g_music_requests.QueueMusicCommand(path, 1, slot);
     return 1;
 }
 #pragma code_seg()

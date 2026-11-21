@@ -1,11 +1,11 @@
 {
   "schema_version": 1,
   "name": "ending_screen2",
-  "source": "src/game/title/ending_screen.cpp",
+  "source": "src/game/title/title_opening_update.cpp",
   "driver": "build_support/layout/ltcg/ending_screen_0042d300_context.cpp",
   "headers": [
     "include/th10/game/title_input.hpp",
-    "include/th10/game/ending_screen.hpp",
+    "include/th10/game/title_opening_screen.hpp",
     "include/th10/game/entity_movement_slot.hpp",
     "include/th10/game/menu_cursor.hpp",
     "include/th10/render/animation_script_id.hpp",
@@ -30,7 +30,7 @@
   "functions": [
     {
       "name": "EndingScreen_Update",
-      "symbol": "?EndingScreen_Update2@@YGHPAUTitle@@@Z",
+      "symbol": "?TitleOpening_Update@@YGHPAUTitle@@@Z",
       "section": ".text$0042d300_fn",
       "address": "0x0042D300",
       "size": 288,
@@ -159,7 +159,7 @@
     },
     {
       "name": "FullHelper_0040c540",
-      "symbol": "?EnsureAnimationResource@GameThreadResourceView@@QAEPAXMM@Z",
+      "symbol": "?EnsureLoadingSpinner@AsciiManagerSpinnerView@@QAEPAXMM@Z",
       "section": ".text$0040c540_fn",
       "address": "0x0040C540",
       "size": 75
@@ -285,14 +285,14 @@
     },
     {
       "name": "RecoveryMusicRoom_DisableTimerWithOwner",
-      "symbol": "?DisableTimerWithOwner@Title@@QAEXH@Z",
+      "symbol": "?SetMode@Title@@QAEXH@Z",
       "section": ".text$0042c5c0_fn",
       "address": "0x0042C5C0",
       "size": 83
     },
     {
       "name": "RecoveryMusicRoom_SetTimerTarget",
-      "symbol": "?SetTimerTarget@Title@@QAEXH@Z",
+      "symbol": "?SetPhase@Title@@QAEXH@Z",
       "section": ".text$0042c620_fn",
       "address": "0x0042C620",
       "size": 80
@@ -320,7 +320,7 @@
     },
     {
       "name": "RecoveryMusicResourceQueue_RegisterResource",
-      "symbol": "?RegisterResource@MusicRequestQueue@@QAEPADPBDHH@Z",
+      "symbol": "?QueueMusicCommand@MusicRequestQueue@@QAEPADPBDHH@Z",
       "section": ".text$0043e460_fn",
       "address": "0x0043E460",
       "size": 76
@@ -964,7 +964,7 @@
       "kind": "relative_code"
     },
     {
-      "symbol": "_g_recovery_script_path",
+      "symbol": "_g_archive_load_path",
       "address": "0x00497C38",
       "kind": "data"
     },
@@ -1404,7 +1404,7 @@
       "address": 4391712
     },
     {
-      "symbol": "?TitleMenuFlow@@YGHPAUTitle@@@Z",
+      "symbol": "?KeyConfig_Update@@YGHPAUTitle@@@Z",
       "kind": "relative_code",
       "address": 4388160
     },

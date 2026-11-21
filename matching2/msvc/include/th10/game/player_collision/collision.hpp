@@ -33,10 +33,10 @@ struct BulletCancelManager {
     void* item_animation;
     __declspec(noinline) int Check(const Vec3* point, float radius, int spawn_item, int filter_countdown);
 };
-struct PlayerItemManager;
+struct ItemManager;
 extern "C" {
 extern BulletCancelManager* g_bullet_manager;
-extern PlayerItemManager* g_item_manager;
+extern ItemManager* g_item_manager;
 extern float flt_0_5;
 }
 struct AnimationResourceFile {

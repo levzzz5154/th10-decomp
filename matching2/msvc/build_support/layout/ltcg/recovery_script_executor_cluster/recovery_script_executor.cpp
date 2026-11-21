@@ -9,7 +9,7 @@ extern "C" void* g_sprt_ctrl;
 #define MANAGER (*(void* const volatile*)&g_sprt_ctrl)
 extern "C" EndingOwner* g_ending;
 #define OWNER (*(EndingOwner* const volatile*)&g_ending)
-extern "C" GameThreadResourceView* g_ascii_manager;
+extern "C" AsciiManagerSpinnerView* g_ascii_manager;
 
 
 // The key-state mask is written asynchronously by the window procedure and by
@@ -143,7 +143,7 @@ extern "C" __declspec(noinline) int __stdcall EndingScript_Execute(EndingScriptS
             RING_FLAG = 0;
             break;
         case 7:
-            g_ascii_manager->EnsureAnimationResource(480.0f, 392.0f);
+            g_ascii_manager->EnsureLoadingSpinner(480.0f, 392.0f);
             reinterpret_cast<AnmSlotManager*>(MANAGER)->ClearResourceSlot(state->command->arguments[0] + 29);
             state->background_data = reinterpret_cast<const unsigned char*>(state->command) + 8;
             state->flags |= 4u;

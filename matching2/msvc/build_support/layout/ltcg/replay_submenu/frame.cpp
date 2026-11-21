@@ -3,10 +3,10 @@
 // largest frame value seen by the game state.
 extern "C" int g_globals;
 #pragma code_seg(".text$02d")
-int __stdcall SubUpdateFrameMaximum(GameStateFrameState* state) {
-    state->frame_value = g_globals_score.score;
-    if (g_globals < state->frame_value)
-        g_globals = state->frame_value;
-    return state->frame_value;
+int __stdcall SubUpdateFrameMaximum(FrontScoreState* state) {
+    state->displayed_score = g_globals_score.score;
+    if (g_globals < state->displayed_score)
+        g_globals = state->displayed_score;
+    return state->displayed_score;
 }
 #pragma code_seg()

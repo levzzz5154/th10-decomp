@@ -3,7 +3,7 @@
 
 #pragma code_seg(".text$03context")
 int __stdcall RecoverySelectArchiveEntry0043D790CompilerContext(
-        PathName* path, PlatformD790ArchiveOwner* owner) {
-    return path->SelectArchiveEntry(owner);
+        PathName* path, WaveSoundManager* owner) {
+    return path->SelectMusicTrack(owner);
 }
 #pragma code_seg()

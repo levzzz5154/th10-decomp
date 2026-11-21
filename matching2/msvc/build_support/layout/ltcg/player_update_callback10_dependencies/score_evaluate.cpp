@@ -1,6 +1,6 @@
-#include "th10/game/player_update_score.hpp"
+#include "th10/game/laser_manager_evaluate.hpp"
 #pragma code_seg(".text$090score")
-int LaserScoreManagerView::CopyVectorAndEvaluate(const float* vector, float value,
+int LaserManagerEvaluateView::CopyVectorAndEvaluate(const float* vector, float value,
                                                  int flag) {
     LaserListNode3* record = linked_head;
     vector_440 = *(const Vector38*)vector;

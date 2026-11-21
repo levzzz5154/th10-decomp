@@ -33,9 +33,9 @@ __forceinline void PauseOpenState::Open(bool result) {
         background = assigned;
     }
     Music_Load(0, str_bgm_th10_17_wav);
-    if (g_sound_flags & 0x10)
-        g_music_requests.RegisterResource(str_dummy, 4, 0);
-    g_music_requests.RegisterResource(str_dummy, 2, 0);
+    if (g_config_flags & 0x10)
+        g_music_requests.QueueMusicCommand(str_dummy, 4, 0);
+    g_music_requests.QueueMusicCommand(str_dummy, 2, 0);
     g_score->result_track_heard = 1;
     result_flag = result ? 1 : 0;
     saved_speed = g_game_speed;

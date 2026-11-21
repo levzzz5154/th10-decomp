@@ -34,7 +34,7 @@ __forceinline AnimationBucketEntry* FindAnimationEntry(AnimationBuckets* buckets
     return 0;
 }
 
-__forceinline void MarkAnimationForRemoval(AnimationBuckets* buckets, int id) {
+__forceinline void StopAnimation(AnimationBuckets* buckets, int id) {
     if (id) {
         AnimationBucketEntry* animation = FindAnimationEntry(buckets, id);
         if (animation) {

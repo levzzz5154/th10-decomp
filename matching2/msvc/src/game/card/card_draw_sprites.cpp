@@ -1,8 +1,8 @@
-// 0x00409190 (46 bytes): draw the player's two own sprites - the animation
+// 0x00409190 (46 bytes): draw the card's two own sprites - the animation
 // objects at +0x10 and +0x3BC - when the player's visible flag is set.
 //
 // Retail keeps this out-of-line copy without a remaining caller; it enters
-// with the player in ESI and hands each sprite to the draw dispatcher at
+// with the card in ESI and hands each sprite to the draw dispatcher at
 // 0x004451C0 (sprite in EAX, animation manager in ECX).
 struct AnimationManager2;
 

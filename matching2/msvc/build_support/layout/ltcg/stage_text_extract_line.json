@@ -9,7 +9,7 @@
   "functions": [
     {
       "name": "StageText_ExtractLine",
-      "symbol": "?StageText_ExtractLine@@YGPADPAD0PAH@Z",
+      "symbol": "?MusicRoom_ExtractLine@@YGPADPAD0PAH@Z",
       "section": ".text$01extractline",
       "address": "0x00434A20",
       "size": 92,

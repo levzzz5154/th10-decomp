@@ -9,10 +9,10 @@ struct ItemAnimationResources_0041bb00 {
 };
 extern "C" {
 extern short g_globals_power;
-extern float g_game_speed;
+extern "C" float g_game_speed;
 extern ItemAnimationResources_0041bb00* g_bullet_manager;
 }
-#include "th10/game/player_update_animation_context.hpp"
+#include "th10/render/sprt_ctrl_lookup.hpp"
 struct ConfigureResource_00404f30 { void* value; };
 #define TH10_CONFIGURE_00404F30_ARGUMENT_DEFINED
 struct ItemConfiguredEntity_00404f30 : Entity {

@@ -31,14 +31,14 @@ typedef char OverlaySecondaryOffset[(offsetof(FrontDrawView, secondary) == 0x24C
 typedef char OverlayTertiaryOffset[(offsetof(FrontDrawView, tertiary) == 0x4980) ? 1 : -1];
 typedef char OverlayGaugeOffset[(offsetof(FrontDrawView, gauge_value) == 0x9E84) ? 1 : -1];
 typedef char OverlaySegmentsOffset[(offsetof(FrontDrawView, gauge_segments) == 0x9E94) ? 1 : -1];
-struct OverlayInputDevice { unsigned char reserved[0x2480]; unsigned int flags; };
-struct OverlayInputOwner { unsigned char reserved[0x10]; OverlayInputDevice* device; };
+struct BossEnemyOverlayView { unsigned char reserved[0x2480]; unsigned int flags; };
+struct EnemyCtrlOverlayView { unsigned char reserved[0x10]; BossEnemyOverlayView* device; };
 extern "C" {
-    extern int g_player_power_display;
-    extern OverlayInputOwner* g_enemy_ctrl;
+    extern int g_faith_timer_current;
+    extern EnemyCtrlOverlayView* g_enemy_ctrl;
 }
 #pragma code_seg(".text$001soverlay")
-extern "C" __declspec(noinline) int __stdcall GameStateOverlay_Draw(FrontDrawView* state) {
+extern "C" __declspec(noinline) int __stdcall Front_Draw(FrontDrawView* state) {
     ScreenRect rect;
     OverlayVm* cursor = state->secondary;
     int count = 10;
@@ -65,10 +65,10 @@ extern "C" __declspec(noinline) int __stdcall GameStateOverlay_Draw(FrontDrawVie
         AnmVm_DrawDispatch(g_sprt_ctrl, &cursor->entity);
         ++cursor;
     } while (--count);
-    if (g_player_power_display) {
+    if (g_faith_timer_current) {
         rect.left = 51.0f;
         rect.top = 461.0f;
-        rect.right = static_cast<float>(g_player_power_display);
+        rect.right = static_cast<float>(g_faith_timer_current);
         rect.right *= 0.2923077f;
         rect.bottom = 463.0f;
         rect.right += 51.0f;
@@ -105,7 +105,7 @@ extern "C" __declspec(noinline) int __stdcall GameStateOverlay_Draw(FrontDrawVie
         } while (--count);
     }
     if (g_enemy_ctrl) {
-        OverlayInputDevice* device = g_enemy_ctrl->device;
+        BossEnemyOverlayView* device = g_enemy_ctrl->device;
         if (device && (~(device->flags >> 4) & 1) && (~device->flags & 1))
             AnmVm_DrawDispatch(g_sprt_ctrl, &state->input_prompt.entity);
         if (g_enemy_ctrl && state->stage_index >= 0 && g_enemy_ctrl->device && !state->prompt_hidden) {

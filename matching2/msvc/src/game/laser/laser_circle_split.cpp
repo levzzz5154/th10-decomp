@@ -33,7 +33,7 @@ int CutLaser::CutCircle(const CutVector* center,float radius,int spawn_items) {
     if (spawn_items && !sample->IsPartiallyOutside(32.0f,32.0f)) {
      g_item_manager->Spawn(sample,8,-1,-1.5707963705062866f,0.6f);
     }
-    int index=script*2+17;
+    int index=color*2+17;
     void* resource=static_cast<CutAnimationBank*>(g_laser_manager)->line_animation;
     Entity* object=static_cast<AnimationPool*>(g_sprt_ctrl)->Allocate();
     unsigned int flags=object->flags_35C;
@@ -77,7 +77,7 @@ int CutLaser::CutCircle(const CutVector* center,float radius,int spawn_items) {
     params.angle=angle;
     params.width=width;
     params.type=type;
-    params.script=script;
+    params.color=color;
     params.total_length=total_length-start*12.0f;
     params.SpawnIn(g_laser_manager,0);
    }

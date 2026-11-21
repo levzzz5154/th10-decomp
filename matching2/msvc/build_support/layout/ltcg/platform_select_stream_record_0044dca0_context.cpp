@@ -3,11 +3,11 @@
 
 #pragma code_seg(".text$03context")
 int __stdcall PlatformSelectStreamRecord0044DCA0CompilerContext(
-        PlatformStreamState** states,
-        PlatformStreamRecord** records, int count) {
+        MusicReadCursorSelect** states,
+        MusicTrackRecord** records, int count) {
     int result = 0;
     while (count-- > 0)
-        result |= (*states++)->Select(*records++);
+        result |= (*states++)->SelectTrack(*records++);
     return result;
 }
 #pragma code_seg()

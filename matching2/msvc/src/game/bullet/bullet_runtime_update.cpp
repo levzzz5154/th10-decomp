@@ -88,7 +88,7 @@ extern "C" int __stdcall BulletRuntimeTick(BulletRuntimeState* state) {
         }
         state->position += state->velocity * g_game_speed;
         if (state->flags & BULLET_FLAG_CAN_HIT_PLAYER) {
-            int contact = FieldContact004266B0(
+            int contact = Player_CheckHit(
                 reinterpret_cast<const ContactVector2*>(&state->position),
                 reinterpret_cast<TriggerFieldContact*>(g_player),
                 reinterpret_cast<const ContactVector2*>(&state->collision_width));

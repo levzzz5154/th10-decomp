@@ -2,7 +2,7 @@
 // runner, create its two ASCII dialogue text sprites, cancel all enemy bullets
 // and non-curvy lasers, and sweep active enemies.
 #include <string.h>
-#include "th10/game/stage_score_display.hpp"
+#include "th10/game/bullet_cancel_view.hpp"
 #include "th10/game/entity_script_start.hpp"
 
 static __forceinline SlotRef CreateSlotAnimation(AnimationBank* resource, int index) {
@@ -38,7 +38,7 @@ FrontDialogue::FrontDialogue(const void* description) {
     color_b = 0x8088FF;
     field84 = 0;
     region = SlotVector(24.0f,0.0f,0.0f);
-    StageCollisionRecord* record = g_bullet_manager->records;
+    BulletCancelRecord* record = g_bullet_manager->records;
     for (int remaining=2000; remaining; --remaining,++record)
         if (record->state != 0 && record->state != 3) record->Activate();
     for (SlotEffect* node = g_laser_manager->first; node;) {

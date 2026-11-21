@@ -11,12 +11,12 @@
 
 extern "C" void __cdecl crt_free_startup(void* block);
 
-struct EnemyOwnedResourceView {
+struct EclFileDestroyView {
     unsigned int vtable;
     unsigned char reserved_004[0x88];
     void* owned_resource;
 
-    __declspec(noinline) void ReleaseResource();
+    __declspec(noinline) void DestroyEntries();
 };
 
 struct Releaseable {
@@ -27,7 +27,7 @@ struct Releaseable {
 
 #pragma code_seg(".text$01del")
 void* Releaseable::Delete(int flags) {
-    ((EnemyOwnedResourceView*)this)->ReleaseResource();
+    ((EclFileDestroyView*)this)->DestroyEntries();
     if ((flags & 1) != 0) {
         crt_free_startup(this);
     }

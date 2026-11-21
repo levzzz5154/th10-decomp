@@ -1,7 +1,7 @@
 // 0x004076A0: BulletExCurve::StepCurve — enemy-bullet Ex-transform curve &
 // acceleration (flags +0x43C bit 0x20): turns angle_3E4 and scales speed until
 // the deadline, then clears bit 0x20 and ticks the embedded timer.
-#include "th10/game/player_motion_helpers.hpp"
+#include "th10/game/bullet_ex_motion.hpp"
 extern "C" float flt_1;
 extern "C" float flt_1_01;
 extern "C" float flt_0_99;

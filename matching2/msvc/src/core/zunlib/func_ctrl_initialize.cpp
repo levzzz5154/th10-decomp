@@ -1,12 +1,12 @@
-// Initializes the primary and secondary D3D resource lists.
+// Initializes the primary and secondary scheduler task chains.
 // Native LTCG retains the private manager-in-EAX entry convention.
 extern "C" void _ReadWriteBarrier(void);
 #pragma intrinsic(_ReadWriteBarrier)
 struct FuncCtrlInitializeList {
     unsigned int reserved, flags;
-    void* pendingFirst;
-    void* pendingLast;
-    void* pendingCursor;
+    void* on_tick;
+    void* on_register;
+    void* on_remove;
     FuncCtrlInitializeList* owner;
     void* first;
     void* last;
@@ -19,9 +19,9 @@ struct FuncCtrlInitializeView {
 #pragma code_seg(".text$01init")
 void FuncCtrlInitializeView::Initialize() {
     unsigned int flags = primary.flags;
-    primary.pendingFirst = 0;
-    primary.pendingLast = 0;
-    primary.pendingCursor = 0;
+    primary.on_tick = 0;
+    primary.on_register = 0;
+    primary.on_remove = 0;
     primary.reserved = 0;
     // Finish clearing pending state before publishing the reset flags.
     _ReadWriteBarrier();
@@ -33,9 +33,9 @@ void FuncCtrlInitializeView::Initialize() {
     // Keep each embedded list initialization as a separate compiler phase.
     _ReadWriteBarrier();
     list->flags &= ~1u;
-    list->pendingFirst = 0;
-    list->pendingLast = 0;
-    list->pendingCursor = 0;
+    list->on_tick = 0;
+    list->on_register = 0;
+    list->on_remove = 0;
     list->reserved = 0;
     list->owner = list;
     list->first = 0;

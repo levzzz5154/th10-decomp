@@ -19,13 +19,13 @@ struct PlatformD4E0Entry {
     virtual void __stdcall slot_30() = 0;
     virtual void __stdcall slot_34() = 0;
     virtual void __stdcall slot_38() = 0;
-    virtual int __stdcall set_deadline(int) = 0;   // +0x3C: SetVolume
+    virtual int __stdcall SetVolume(int) = 0;   // +0x3C: SetVolume
     virtual void __stdcall slot_40() = 0;
     virtual void __stdcall slot_44() = 0;
     virtual int __stdcall stop() = 0;              // +0x48: Stop
 };
 
-struct PlatformInterfaceState2 {
+struct SoundBufferVolume {
     unsigned char unknown_000[4];
     PlatformD4E0Entry** entries_004;
     unsigned char unknown_008[0xC];
@@ -33,7 +33,7 @@ struct PlatformInterfaceState2 {
     int fade_length_018;                // total frames of the running fade
     int fade_mode_01c;                  // 0 idle, 1..4 the fade kind
 
-    __declspec(noinline) int SetOperationDeadline(int deadline);
+    __declspec(noinline) int SetVolume(int deadline);
     // 0x0044D740..0x0044D810: one frame of each fade kind; each returns 1 on
     // the frame the fade finishes.
     int FadeOutAndStop();

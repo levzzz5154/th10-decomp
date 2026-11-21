@@ -81,8 +81,8 @@
       "section": ".text$10b"
     },
     {
-      "name": "?ReleaseResource@EnemyOwnedResourceView@@QAEXXZ",
-      "symbol": "?ReleaseResource@EnemyOwnedResourceView@@QAEXXZ",
+      "name": "?DestroyEntries@EclFileDestroyView@@QAEXXZ",
+      "symbol": "?DestroyEntries@EclFileDestroyView@@QAEXXZ",
       "address": "0x40d680",
       "size": 36,
       "section": ".text$03b"
@@ -399,7 +399,7 @@
       "kind": "data"
     },
     {
-      "symbol": "_ManagerOwned_Destroy@4",
+      "symbol": "_ReplayManager_Destroy@4",
       "address": "0x004294A0",
       "kind": "relative_code"
     },

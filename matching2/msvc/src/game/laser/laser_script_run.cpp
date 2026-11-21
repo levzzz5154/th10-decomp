@@ -16,8 +16,8 @@
 
 // 0x00405410: scheduler store; the record arrives in EAX, the value stays on
 // the stack. Anchored as a co-compiled copy so the call keeps the retail shape.
-struct PlayerSchedulerRecord {
-    void SetSchedulerValue(int value);
+struct FrameTimerView {
+    void Set(int value);
 };
 
 // 0x00404F30: reinitialise an animation object and start script `script` of
@@ -42,7 +42,7 @@ void LaserScriptRun2::Run() {
         switch (cmd.opcode) {
         case 1u:
             flags_404 |= 1u;
-            reinterpret_cast<PlayerSchedulerRecord*>(&timer_58)->SetSchedulerValue(0);
+            reinterpret_cast<FrameTimerView*>(&timer_58)->Set(0);
             duration_7C = 0;
             break;
         case 0x10u:
@@ -56,7 +56,7 @@ void LaserScriptRun2::Run() {
             else
                 angle = cmd.param1.f;
             angle_A4 = angle;
-            reinterpret_cast<PlayerSchedulerRecord*>(&timer_8C)->SetSchedulerValue(0);
+            reinterpret_cast<FrameTimerView*>(&timer_8C)->Set(0);
             sound_B4 = cmd.param2.i;
             polar_A8.SetPolar(angle_A4, speed_A0);
             if (pc_400 != 0 && sound_id_40C >= 0)
@@ -66,7 +66,7 @@ void LaserScriptRun2::Run() {
             flags_404 |= 0x20u;
             offset_D4 = cmd.param0.f;
             offset_D8 = cmd.param1.f;
-            reinterpret_cast<PlayerSchedulerRecord*>(&timer_C0)->SetSchedulerValue(0);
+            reinterpret_cast<FrameTimerView*>(&timer_C0)->Set(0);
             sound_E8 = cmd.param2.i;
             if (pc_400 != 0 && sound_id_40C >= 0)
                 g_sound_manager.Queue(sound_id_40C, 0);
@@ -77,7 +77,7 @@ void LaserScriptRun2::Run() {
             flags_404 |= cmd.opcode;
             mode_10C = cmd.param0.i;
             width_108 = cmd.param1.f > flt_neg999 ? cmd.param1.f : width_48;
-            timer_F4.SetSchedulerValue(0);
+            timer_F4.Set(0);
             width_duration_11C = cmd.param2.i;
             width_duration_120 = cmd.param3.i;
             zero_124 = 0;
@@ -91,7 +91,7 @@ void LaserScriptRun2::Run() {
         }
         case 0x8000u:
             flags_404 |= cmd.opcode;
-            timer_15C.SetSchedulerValue(cmd.param2.i);
+            timer_15C.Set(cmd.param2.i);
             break;
         case 0x20000u:
             g_sound_manager.QueuePan(cmd.param2.i, position_x_24);
@@ -101,11 +101,11 @@ void LaserScriptRun2::Run() {
             break;
         case 0x100000u:
             flags_404 |= cmd.opcode;
-            reinterpret_cast<PlayerSchedulerRecord*>(&timer_190)->SetSchedulerValue(cmd.param2.i);
+            reinterpret_cast<FrameTimerView*>(&timer_190)->Set(cmd.param2.i);
             break;
         case 0x200000u:
             flags_404 |= cmd.opcode;
-            reinterpret_cast<PlayerSchedulerRecord*>(&timer_190)->SetSchedulerValue(cmd.param2.i);
+            reinterpret_cast<FrameTimerView*>(&timer_190)->Set(cmd.param2.i);
             break;
         case 0x1000000u:
             id_54 = cmd.param2.i;
@@ -132,7 +132,7 @@ void LaserScriptRun2::Run() {
             flags_404 |= 0x4000000u;
             move_x_20C = cmd.param0.f;
             move_y_210 = cmd.param1.f;
-            timer_1F8.SetSchedulerValue(0);
+            timer_1F8.Set(0);
             move_duration_220 = cmd.param2.i;
             break;
         default:

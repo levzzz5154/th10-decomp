@@ -9,7 +9,7 @@ struct ItemAnimationResources_0041bb00 {
 };
 extern "C" {
 extern short g_globals_power;
-extern float g_game_speed;
+extern "C" float g_game_speed;
 extern ItemAnimationResources_0041bb00* g_bullet_manager;
 }
 #include "th10/render/animation_public_callers.hpp"

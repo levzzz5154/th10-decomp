@@ -62,7 +62,7 @@ typedef char AsciiFontSpriteSize[(sizeof(AsciiFontSprite) == 0x44) ? 1 : -1];
 
 // The game-wide render state at 0x00491C28: the device, the two render stage
 // records (a camera padded to 0x118 bytes), and which of them is active.
-struct GameThreadRenderStage {
+struct AppRenderStage {
     RenderCamera camera;
     unsigned char reserved_0F0[0xFC - sizeof(RenderCamera)];
     unsigned int fog_start;                 // +0FC, float bits for the device
@@ -70,13 +70,13 @@ struct GameThreadRenderStage {
     unsigned char reserved_104[0x114 - 0x104];
     unsigned int fog_color;                 // +114
 };
-typedef char AsciiRenderStageSize[(sizeof(GameThreadRenderStage) == 0x118) ? 1 : -1];
-struct GameThreadRenderState {
+typedef char AsciiRenderStageSize[(sizeof(AppRenderStage) == 0x118) ? 1 : -1];
+struct AppRenderState {
     unsigned char reserved_000[0x08];
     RenderDevice* device;                   // +008
     unsigned char reserved_00C[0x154 - 0x0C];
-    GameThreadRenderStage stages[2];        // +154
-    GameThreadRenderStage* active_stage;    // +384
+    AppRenderStage stages[2];        // +154
+    AppRenderStage* active_stage;    // +384
     int stage_index;                        // +388
     unsigned char reserved_38C[0x750 - 0x38C];
     int fog_enabled;                        // +750, the device's cached fog switch
@@ -88,7 +88,7 @@ struct GameThreadRenderState {
         stage_index = index;
     }
 };
-extern "C" GameThreadRenderState g_application;
+extern "C" AppRenderState g_application;
 
 extern "C" __declspec(noinline) int EntityDraw(RenderEntity* entity,
                                                        SprtCtrlBatchView* manager);

@@ -3,8 +3,8 @@
 // bodies of the animation-slot and timer leaves it calls. The configuration,
 // its copy in the application state and the key state are objects whose
 // address is taken elsewhere in the program; the context takes them here.
-#include "../../../src/game/title/menu_flow_updates.cpp"
-#include "../../../src/game/title/ending_screen.cpp"
+#include "../../../src/game/title/key_config_update.cpp"
+#include "../../../src/game/title/title_opening_update.cpp"
 #include "../../../src/game/title/title_animation_slot_frames.cpp"
 #include "th10/game/ending_script_caller.hpp"
 #include "th10/game/title_menu.hpp"

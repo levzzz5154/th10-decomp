@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "name": "listener_owner_broadcast_0041c760",
-  "source": "src/game/laser/listener_owner_broadcast.cpp",
+  "source": "src/game/laser/laser_manager_cut_rectangle.cpp",
   "driver": "build_support/layout/ltcg/listener_owner_broadcast_0041c760_context.cpp",
   "headers": [],
   "image_base": "0x00400000",
@@ -9,7 +9,7 @@
   "functions": [
     {
       "name": "ListenerOwner_Broadcast_0041c760",
-      "symbol": "?Broadcast@ListenerOwner@@QAEHPBUVector37@@0H@Z",
+      "symbol": "?CutRectangle@LaserManagerCutView@@QAEHPBUVector37@@0H@Z",
       "section": ".text$01broadcast",
       "address": "0x0041C760",
       "size": 102,

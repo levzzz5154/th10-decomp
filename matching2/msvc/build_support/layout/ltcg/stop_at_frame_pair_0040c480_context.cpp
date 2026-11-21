@@ -62,7 +62,7 @@ int __stdcall StopAtFrameCompilerContext(AnimationHandle* handles, int count,
             *reinterpret_cast<unsigned short*>(states));
         Title_FindAnimationSlotChild(count, reinterpret_cast<Title*>(states), count);
         handles++;
-        reinterpret_cast<PlaybackState*>(states)->SwitchPlaybackState();
+        reinterpret_cast<PlayerOptionFocusState*>(states)->UpdateFixedOnFocus();
         states->InitializeTimedState();
         states++;
     }

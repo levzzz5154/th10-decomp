@@ -1,5 +1,5 @@
-// 0x0041FB50..0x0046568B: TitleState::~TitleState, LoadingUnwind_00465680, TitleAnimationUnwind_0046568b
-#include "th10/game/title_teardown/title_teardown_dependencies.hpp"
+// 0x0041FB50..0x0046568B: Loading::~Loading, LoadingUnwind_00465680, LoadingAnimationUnwind_0046568b
+#include "th10/game/loading_teardown/loading_teardown_dependencies.hpp"
 
 inline void ReleaseLoadingBank(int index) {
     AnimationResource6*& bank = reinterpret_cast<AnimationResource6*&>(g_sprt_ctrl->banks[index]);
@@ -11,7 +11,7 @@ inline void ReleaseLoadingBank(int index) {
 }
 
 #pragma code_seg(".text$03title")
-TitleState::~TitleState() {
+Loading::~Loading() {
     worker.Stop();
     SchedulerTask* task = update_task;
     FuncCtrl* scheduler = static_cast<FuncCtrl*>(g_func_ctrl);
@@ -33,10 +33,10 @@ TitleState::~TitleState() {
     }
     ReleasePair2();
     ReleaseLoadingBank(1);
-    GameThread* thread = static_cast<GameThread*>(g_ascii_manager);
+    AsciiManager* thread = static_cast<AsciiManager*>(g_ascii_manager);
     g_loading = 0;
     if (thread) {
-        DestroyGameThread(thread);
+        DestroyAsciiManager(thread);
         crt_free_startup(thread);
     }
     ReleaseLoadingBank(0);

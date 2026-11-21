@@ -15,7 +15,7 @@
     "include/th10/game/pause_result_open/open_animation.hpp",
     "include/th10/game/pause_result_open/open_state.hpp",
     "include/th10/game/player.hpp",
-    "include/th10/game/ending_text_dispatcher.hpp",
+    "include/th10/render/anm_text_dispatcher.hpp",
     "include/th10/game/score.hpp",
     "include/th10/game/stage_route.hpp",
     "include/th10/math/timer.hpp",
@@ -274,7 +274,7 @@
       "kind": "data"
     },
     {
-      "symbol": "?g_music_requests@@3UAnmResourceRegistrar@@A",
+      "symbol": "?g_music_requests@@3UWaveSoundManager@@A",
       "address": "0x492590",
       "kind": "data"
     },
@@ -544,7 +544,7 @@
       "kind": "data"
     },
     {
-      "symbol": "_g_globals_gauge",
+      "symbol": "_g_globals_faith",
       "address": "0x00474C4C",
       "kind": "data"
     },
@@ -604,7 +604,7 @@
       "kind": "data"
     },
     {
-      "symbol": "_g_sound_flags",
+      "symbol": "_g_config_flags",
       "address": "0x00491D78",
       "kind": "data"
     },
@@ -690,8 +690,8 @@
       "size": 72
     },
     {
-      "name": "?SetSchedulerValue@DispatcherWaitTimer@@QAEXH@Z",
-      "symbol": "?SetSchedulerValue@DispatcherWaitTimer@@QAEXH@Z",
+      "name": "?Set@DispatcherWaitTimer@@QAEXH@Z",
+      "symbol": "?Set@DispatcherWaitTimer@@QAEXH@Z",
       "section": ".text$00405410_fn",
       "address": "0x00405410",
       "size": 57
@@ -732,22 +732,22 @@
       "size": 65
     },
     {
-      "name": "_ResultDispatcher2@4",
-      "symbol": "_ResultDispatcher2@4",
+      "name": "_FrontDialogue_Update@4",
+      "symbol": "_FrontDialogue_Update@4",
       "section": ".text$00415e90_fn",
       "address": "0x00415E90",
       "size": 4428
     },
     {
-      "name": "?Path_DecodeXor@@YGPADPBD@Z",
-      "symbol": "?Path_DecodeXor@@YGPADPBD@Z",
+      "name": "?Msg_DecodeXor@@YGPADPBD@Z",
+      "symbol": "?Msg_DecodeXor@@YGPADPBD@Z",
       "section": ".text$00417010_fn",
       "address": "0x00417010",
       "size": 41
     },
     {
-      "name": "?AdvanceLevel@DispatcherRankState@@QAEXXZ",
-      "symbol": "?AdvanceLevel@DispatcherRankState@@QAEXXZ",
+      "name": "?AdvanceStage@DispatcherRankState@@QAEXXZ",
+      "symbol": "?AdvanceStage@DispatcherRankState@@QAEXXZ",
       "section": ".text$004175e0_fn",
       "address": "0x004175E0",
       "size": 32
@@ -795,8 +795,8 @@
       "size": 123
     },
     {
-      "name": "?RegisterResource@AnmResourceRegistrar@@QAEPADPBDHH@Z",
-      "symbol": "?RegisterResource@AnmResourceRegistrar@@QAEPADPBDHH@Z",
+      "name": "?QueueMusicCommand@WaveSoundManager@@QAEPADPBDHH@Z",
+      "symbol": "?QueueMusicCommand@WaveSoundManager@@QAEPADPBDHH@Z",
       "section": ".text$0043e460_fn",
       "address": "0x0043E460",
       "size": 104

@@ -5,7 +5,7 @@
 
 struct MidiSequencer;
 struct GameFrame;
-struct Holder2;
+struct SprtCtrl;
 struct SprtCtrlStateCacheView;
 
 // A Win32 MSG.

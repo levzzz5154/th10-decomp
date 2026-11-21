@@ -17,7 +17,7 @@
 #include <math.h>
 
 extern "C" void* g_sprt_ctrl;
-extern "C" GameThreadResourceView* g_ascii_manager;
+extern "C" AsciiManagerSpinnerView* g_ascii_manager;
 extern "C" SoundQueue g_sound_manager;
 extern "C" unsigned int g_input_keys_held;
 extern "C" unsigned short recovery_music_repeat;
@@ -84,7 +84,7 @@ static __forceinline void MusicSelect(MenuCursor& cursor, int index) {
 
 // 0x0042C670, 0x004349E0, 0x00434A20: defined in their own sources.
 void __stdcall Title_InstallAnimationSlot(Title* room, int index);
-char* __stdcall StageText_SkipLine(char* cursor, int* remaining);
+char* __stdcall MusicRoom_SkipLine(char* cursor, int* remaining);
 extern "C" char* __stdcall UiFinalExtractLine(char* destination, char* cursor, int* remaining);
 void __stdcall Title_StopAnimationHandle(AnmScriptHandle* handle);
 extern "C" void __stdcall UiFinalTransition(TitleAnmVm* self, int mode, const TitleVec3* target, const TitleVec3* base, unsigned char flag);
@@ -191,7 +191,7 @@ __declspec(noinline) int __stdcall TitleMusicRoom(Title* room) {
     void* handle;
     int remaining;
     int index;
-    AnmResourceRegistrar* requests;
+    WaveSoundManager* requests;
 
     switch (room->phase) {
     case MUSIC_ROOM_LOAD:
@@ -214,7 +214,7 @@ __declspec(noinline) int __stdcall TitleMusicRoom(Title* room) {
                 goto leave_room;
             while (remaining > 0) {
                 if (*text == '#' || *text != '@') {
-                    text = StageText_SkipLine(text, &remaining);
+                    text = MusicRoom_SkipLine(text, &remaining);
                 } else {
                     text = UiFinalExtractLine(room->titles[tracks], text + 1, &remaining);
                     text = UiFinalExtractLine(room->comments[tracks], text, &remaining);
@@ -277,7 +277,7 @@ __declspec(noinline) int __stdcall TitleMusicRoom(Title* room) {
     case MUSIC_ROOM_REVEAL_DELAY:
         MusicRevealLine(room);
         if (room->timer.current > 4)
-            room->SetTimerTarget(MUSIC_ROOM_BROWSE);
+            room->SetPhase(MUSIC_ROOM_BROWSE);
         break;
     case MUSIC_ROOM_BROWSE: {
         MusicRevealLine(room);
@@ -327,20 +327,20 @@ __declspec(noinline) int __stdcall TitleMusicRoom(Title* room) {
             room->displayed_track = room->cursor.selection;
             room->preview_cursor = 0;
             MusicResetTimer(&room->timer);
-            requests = reinterpret_cast<AnmResourceRegistrar*>(&g_sound_manager);
+            requests = reinterpret_cast<WaveSoundManager*>(&g_sound_manager);
             if (!recovery_music_player[0x1D892 + room->displayed_track]
                     && !room->preview_armed) {
                 if (recovery_music_mode & 0x10u)
-                    requests->RegisterResource(recovery_music_dummy, 4, 0);
+                    requests->QueueMusicCommand(recovery_music_dummy, 4, 0);
                 else
-                    requests->RegisterResource(recovery_music_dummy, 3, 0);
+                    requests->QueueMusicCommand(recovery_music_dummy, 3, 0);
                 room->preview_armed = 1;
                 break;
             }
             recovery_replace_extension(0, room->titles[room->cursor.selection]);
             if (recovery_music_mode & 0x10u)
-                requests->RegisterResource(recovery_music_dummy, 4, 0);
-            requests->RegisterResource(recovery_music_dummy, 2, 0);
+                requests->QueueMusicCommand(recovery_music_dummy, 4, 0);
+            requests->QueueMusicCommand(recovery_music_dummy, 2, 0);
             recovery_music_player[0x1D892] = 1;
             room->preview_armed = 0;
             break;
@@ -374,7 +374,7 @@ leave_room:
             room->SetSlotFrame(91, 8);
             room->ClearAnimationSlot(95);
             Title_StopAnimationHandle(&room->fallback_handle);
-            room->DisableTimerWithOwner(2);
+            room->SetMode(2);
             recovery_replace_extension(0, recovery_music_restore_bgm);
             recovery_play_dummy(0, 0);
             room->cursor.PopSelection();

@@ -219,7 +219,7 @@ __declspec(noinline) int __stdcall FrontHudUpdate(
         }
     }
     {
-        int value = g_globals_gauge;
+        int value = g_globals_faith;
         int divisor = 10000;
         AnmVm_Run(&front->objects[15]);
         FrontUpdateView::BankObject* obj = &front->objects[16];
@@ -353,7 +353,7 @@ __declspec(noinline) int __stdcall FrontHudUpdate(
 
     SequenceRuntime* runtime = (SequenceRuntime*)front->sequence_9eb8;
     if (runtime != 0) {
-        int finished = ResultDispatcher2((ResultDispatcherState*)runtime);
+        int finished = FrontDialogue_Update((FrontDialogue*)runtime);
         if (finished == 0) {
             // The inlined frame-ramp tick on the sub-record.
             runtime->ramp_previous = runtime->ramp_current;

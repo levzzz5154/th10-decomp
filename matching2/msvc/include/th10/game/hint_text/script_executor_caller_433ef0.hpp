@@ -70,15 +70,15 @@ struct Title {
     TitleReplayList replay_list;
     char* file_buffer;
 
-    __declspec(noinline) void SetTimerTarget(int target);
+    __declspec(noinline) void SetPhase(int target);
     __declspec(noinline) int OnUpdate();
-    __declspec(noinline) void DisableTimerWithOwner(int owner);
+    __declspec(noinline) void SetMode(int owner);
     __declspec(noinline) void ClearAnimationSlot(int index);
     __declspec(noinline) void SetSlotFrame(int index, unsigned short frame);
 };
 
 struct MusicRequestQueue {
-    __declspec(noinline) char* RegisterResource(const char* name, int kind, int parameter);
+    __declspec(noinline) char* QueueMusicCommand(const char* name, int kind, int parameter);
 };
 
 typedef char RecoveryMusicRoomSizeCheck[sizeof(Title)==0x5AB0?1:-1];

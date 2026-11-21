@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "name": "native_sound_shutdown",
-  "source": "src/core/sound/midi_worker_stop.cpp",
+  "source": "src/core/sound/sound_stop_music_worker.cpp",
   "driver": "build_support/layout/ltcg/native_sound_shutdown/cleanup_recovery_context.cpp",
   "headers": [
     "include/th10/platform/native_sound_shutdown.hpp"
@@ -33,7 +33,7 @@
   "anchors": [
     {
       "name": "Aggregate",
-      "symbol": "?Aggregate@SoundStream@@QAEHXZ",
+      "symbol": "?StopAndRewind@SoundStream@@QAEHXZ",
       "section": ".text$a04aggregate",
       "address": "0x0044D550",
       "size": 82

@@ -22,7 +22,7 @@ extern "C" __declspec(noinline) int __cdecl AnmVm_DrawDispatch(
 
 #pragma code_seg(".text$07context")
 extern "C" __declspec(noinline) int __stdcall EnemySlotAdvanceContext(
-        SlotOwner** owners, int count) {
+        BulletManagerDrawView** owners, int count) {
     int result = 0;
     while (count--) {
         result = (*owners++)->OnDraw();

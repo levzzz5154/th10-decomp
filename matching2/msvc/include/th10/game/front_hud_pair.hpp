@@ -26,7 +26,7 @@ extern "C" unsigned char g_input;              // raw input edges
 extern "C" unsigned char g_input_keys_secondary;              // secondary input edges
 extern "C" unsigned short g_globals_power;
 extern "C" unsigned int g_globals;               // score state object
-extern "C" unsigned int g_globals_gauge;
+extern "C" unsigned int g_globals_faith;
 extern "C" unsigned int g_globals_character;
 extern "C" unsigned int g_globals_shot_type;
 extern "C" unsigned int g_globals_lives;
@@ -144,6 +144,6 @@ typedef char FrontFlagsOffset[offsetof(FrontUpdateView, flags_9eb4) == 0x9EB4 ? 
 // The recovered pair: the update and the script walker it drives.
 __declspec(noinline) int __stdcall FrontHudUpdate(
     FrontUpdateView* front);
-struct ResultDispatcherState;
-extern "C" __declspec(noinline) int __stdcall ResultDispatcher2(
-    ResultDispatcherState* front);
+struct FrontDialogue;
+extern "C" __declspec(noinline) int __stdcall FrontDialogue_Update(
+    FrontDialogue* front);

@@ -3,10 +3,10 @@
 
 #pragma code_seg(".text$03context")
 int __stdcall PlatformQueryInterfaces0044D600CompilerContext(
-        PlatformQueryInterfaces** states, int count) {
+        SoundBufferRewind** states, int count) {
     int result = 0;
     while (count-- > 0)
-        result |= (*states++)->Query();
+        result |= (*states++)->RewindBuffers();
     return result;
 }
 #pragma code_seg()

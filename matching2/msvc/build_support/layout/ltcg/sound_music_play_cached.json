@@ -23,14 +23,14 @@
   "anchors": [
     {
       "name": "SelectArchiveEntry",
-      "symbol": "?SelectArchiveEntry@PathName@@QAEHPAUPlatformD790ArchiveOwner@@@Z",
+      "symbol": "?SelectMusicTrack@PathName@@QAEHPAUWaveSoundManager@@@Z",
       "section": ".text$01archive",
       "address": "0x0043D790",
       "size": 55
     },
     {
       "name": "StreamSelect",
-      "symbol": "?Select@PlatformStreamState@@QAEHPAUPlatformStreamRecord@@@Z",
+      "symbol": "?SelectTrack@MusicReadCursorSelect@@QAEHPAUMusicTrackRecord@@@Z",
       "section": ".text$01select",
       "address": "0x0044DCA0",
       "size": 78

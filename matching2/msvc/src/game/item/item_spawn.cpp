@@ -35,7 +35,7 @@ static __forceinline AnimationResourceFile* ItemAnimation() {
 }
 
 #pragma code_seg(".text$f0041bb00F")
-__declspec(noinline) int PlayerItemManager::Spawn(
+__declspec(noinline) int ItemManager::Spawn(
         const Vector3* position, int kind, int identifier, float angle, float speed) {
     // Ordinary drops scan the first 150 entries. A full pool silently drops
     // the request, and every exit returns zero.

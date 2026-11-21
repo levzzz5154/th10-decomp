@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "name": "release_interfaces_00438a30",
-  "source": "src/core/main/destroy_entity_list.cpp",
+  "source": "src/core/main/sprt_ctrl_release_surfaces.cpp",
   "driver": "build_support/layout/ltcg/release_interfaces_00438a30_context.cpp",
   "headers": [],
   "image_base": "0x00400000",
@@ -9,7 +9,7 @@
   "functions": [
     {
       "name": "release_interfaces_00438a30",
-      "symbol": "?ReleaseAll@@YGXPAUHolder2@@@Z",
+      "symbol": "?ReleaseAll@@YGXPAUSprtCtrl@@@Z",
       "section": ".text$01accessor",
       "address": "0x00438A30",
       "size": 43,
@@ -17,7 +17,7 @@
     }
   ],
   "context": {
-    "symbol": "?Ctx@@YGHPAPAUHolder2@@H@Z",
+    "symbol": "?Ctx@@YGHPAPAUSprtCtrl@@H@Z",
     "section": ".text$03context",
     "address": "0x00438A70",
     "size": 38,

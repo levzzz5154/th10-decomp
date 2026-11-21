@@ -12,14 +12,14 @@ void EntityMovementSlot::Initialise(
     source = *source_value;
     destination = *destination_value;
     if (!(flags & 1)) {
-        previous = 0;
-        timer = -999999;
+        current = 0;
+        previous = -999999;
         elapsed = 0;
         speed = (const float*)0x00476F78;
         flags |= 1;
     }
-    previous = 0;
+    current = 0;
     elapsed = 0;
-    timer = -1;
+    previous = -1;
 }
 #pragma code_seg()

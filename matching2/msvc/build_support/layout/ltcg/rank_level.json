@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "name": "rank_level",
-  "source": "src/game/front/rank_level.cpp",
+  "source": "src/game/front/globals_advance_stage.cpp",
   "driver": "build_support/layout/ltcg/rank_level_context.cpp",
   "headers": [
     "include/th10/game/stage_route.hpp"
@@ -11,7 +11,7 @@
   "functions": [
     {
       "name": "RankState_AdvanceLevel",
-      "symbol": "?AdvanceLevel@RankState@@QAEXXZ",
+      "symbol": "?AdvanceStage@GlobalsStageView@@QAEXXZ",
       "section": ".text$01rank",
       "address": "0x004175E0",
       "size": 32,
@@ -19,7 +19,7 @@
     }
   ],
   "context": {
-    "symbol": "?RankLevelCompilerContext@@YGHPAPAURankState@@H@Z",
+    "symbol": "?RankLevelCompilerContext@@YGHPAPAUGlobalsStageView@@H@Z",
     "section": ".text$03context",
     "address": "0x00417610",
     "size": 45,

@@ -2,7 +2,7 @@
 // unselected dependency. It has no additional recovery credit.
 #include "th10/game/laser_spawn.hpp"
 extern "C" unsigned char g_laser_vtable;
-extern "C" unsigned char g_game_speed;
+extern "C" float g_game_speed;
 #pragma code_seg(".text$a01base")
 __declspec(noinline) LaserBase *__fastcall
 LaserBase_Construct2(LaserBase *self) {

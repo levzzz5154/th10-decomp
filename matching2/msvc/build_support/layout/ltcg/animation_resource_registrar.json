@@ -55,7 +55,7 @@
     },
     {
       "name": "AnimationManager_RegisterResource",
-      "symbol": "?RegisterResource@AnmResourceRegistrar@@QAEPADPBDHH@Z",
+      "symbol": "?QueueMusicCommand@WaveSoundManager@@QAEPADPBDHH@Z",
       "section": ".text$01accessor",
       "address": "0x0043E460",
       "size": 104,
@@ -73,7 +73,7 @@
     },
     {
       "name": "MusicRequests_Unpause",
-      "symbol": "?MusicRequests_Unpause@@YGXPAUAnmResourceRegistrar@@@Z",
+      "symbol": "?MusicRequests_Unpause@@YGXPAUWaveSoundManager@@@Z",
       "section": ".text$00h_unpause",
       "address": "0x00424460",
       "size": 15,
@@ -82,7 +82,7 @@
     },
     {
       "name": "MusicRequests_Pause",
-      "symbol": "?MusicRequests_Pause@@YGXPAUAnmResourceRegistrar@@@Z",
+      "symbol": "?MusicRequests_Pause@@YGXPAUWaveSoundManager@@@Z",
       "section": ".text$00j_pause",
       "address": "0x00424470",
       "size": 15,
@@ -91,7 +91,7 @@
     },
     {
       "name": "MusicRequests_SetVolume",
-      "symbol": "?MusicRequests_SetVolume@@YGXPAUAnmResourceRegistrar@@@Z",
+      "symbol": "?MusicRequests_SetVolume@@YGXPAUWaveSoundManager@@@Z",
       "section": ".text$00l_setvolume",
       "address": "0x00434B80",
       "size": 15,
@@ -162,7 +162,7 @@
   "roots": [],
   "absolute_symbols": [
     {
-      "symbol": "?g_music_requests@@3UAnmResourceRegistrar@@A",
+      "symbol": "?g_music_requests@@3UWaveSoundManager@@A",
       "address": "0x00492590",
       "kind": "data"
     },
@@ -172,7 +172,7 @@
       "kind": "data"
     },
     {
-      "symbol": "?g_game_speed@@3MA",
+      "symbol": "_g_game_speed",
       "address": "0x00476F78",
       "kind": "data"
     },

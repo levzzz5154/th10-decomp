@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "name": "path_state_reset_00417800",
-  "source": "src/game/front/path_state_reset.cpp",
+  "source": "src/game/front/enemy_ctrl_reset_timer.cpp",
   "driver": "build_support/layout/ltcg/path_state_reset_00417800_context.cpp",
   "headers": [],
   "image_base": "0x00400000",
@@ -9,7 +9,7 @@
   "functions": [
     {
       "name": "PathState_00417800_Reset",
-      "symbol": "?Reset@PathState@@QAEHXZ",
+      "symbol": "?ResetTimer@EnemyCtrlTimerView@@QAEHXZ",
       "section": ".text$01path",
       "address": "0x00417800",
       "size": 58,
@@ -17,7 +17,7 @@
     }
   ],
   "context": {
-    "symbol": "?PathStateReset00417800CompilerContext@@YGHPAPAUPathState@@H@Z",
+    "symbol": "?PathStateReset00417800CompilerContext@@YGHPAPAUEnemyCtrlTimerView@@H@Z",
     "section": ".text$03context",
     "address": "0x00417840",
     "size": 36,

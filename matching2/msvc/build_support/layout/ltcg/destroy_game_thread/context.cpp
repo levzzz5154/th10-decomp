@@ -8,5 +8,5 @@
 #pragma code_seg()
 #include "../../../../src/game/ascii/destructor.cpp"
 #pragma code_seg(".text$02context")
-extern "C" void __stdcall DestroyGameThreadContext_00401260(GameThread* thread) { thread->~GameThread(); }
+extern "C" void __stdcall DestroyAsciiManagerContext_00401260(AsciiManager* thread) { thread->~AsciiManager(); }
 #pragma code_seg()

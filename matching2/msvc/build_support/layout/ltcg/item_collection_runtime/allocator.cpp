@@ -5,7 +5,7 @@ extern "C" void _ReadWriteBarrier();
 #pragma intrinsic(_ReadWriteBarrier)
 extern "C" {
 extern short g_globals_power;
-extern float g_game_speed;
+extern "C" float g_game_speed;
 }
 struct ItemBankSnapshot {
     ItemAnimationResources_0041bb00* value;

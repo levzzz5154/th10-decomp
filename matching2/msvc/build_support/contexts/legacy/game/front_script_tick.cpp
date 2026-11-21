@@ -1,5 +1,5 @@
 // 0x00415E90 - the stage-front script walker, recovered as
-// ResultDispatcher2 (see the dispatcher contract header). This
+// FrontDialogue_Update (see the dispatcher contract header). This
 // translation unit compiles the walker as the selected region and carries the
 // complete helper graph the native /LTCG link needs for its private register
 // edges: the dispatcher handle/animation helpers, the frame timers, the sound

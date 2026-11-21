@@ -9,7 +9,7 @@
   "functions": [
     {
       "name": "PlatformInterfaceState_0044D550_Aggregate",
-      "symbol": "?Aggregate@PlatformInterfaceState3@@QAEHXZ",
+      "symbol": "?StopAndRewind@SoundBuffer@@QAEHXZ",
       "section": ".text$01aggregate",
       "address": "0x0044D550",
       "size": 82,
@@ -17,7 +17,7 @@
     }
   ],
   "context": {
-    "symbol": "?PlatformAggregateInterfaces0044D550CompilerContext@@YGHPAPAUPlatformInterfaceState3@@H@Z",
+    "symbol": "?PlatformAggregateInterfaces0044D550CompilerContext@@YGHPAPAUSoundBuffer@@H@Z",
     "section": ".text$03context",
     "address": "0x0044E000",
     "size": 42,

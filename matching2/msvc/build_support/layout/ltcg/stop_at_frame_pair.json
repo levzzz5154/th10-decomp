@@ -154,7 +154,7 @@
     },
     {
       "name": "PlaybackState_SwitchPlaybackState",
-      "symbol": "?SwitchPlaybackState@PlaybackState@@QAEXXZ",
+      "symbol": "?UpdateFixedOnFocus@PlayerOptionFocusState@@QAEXXZ",
       "source": "src/game/player/player_option_switch_playback.cpp",
       "address": "0x00427AE0",
       "size": 99,
@@ -163,7 +163,7 @@
     },
     {
       "name": "PlaybackState_OnSwitch",
-      "symbol": "?PlaybackState_OnSwitch@@YIHPAUPlaybackState@@@Z",
+      "symbol": "?PlayerOption_UpdateFixedOnFocus@@YIHPAUPlayerOptionFocusState@@@Z",
       "source": "src/game/player/playback_state_on_switch.cpp",
       "address": "0x00427AD0",
       "size": 12,
@@ -308,7 +308,7 @@
     }
   ],
   "roots": [
-    "?PlaybackState_OnSwitch@@YIHPAUPlaybackState@@@Z"
+    "?PlayerOption_UpdateFixedOnFocus@@YIHPAUPlayerOptionFocusState@@@Z"
   ],
   "anchors": [
     {

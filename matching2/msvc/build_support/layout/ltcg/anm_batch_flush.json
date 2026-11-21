@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "name": "anm_batch_flush2",
-  "source": "src/core/screen/texture_stage_reset.cpp",
+  "source": "src/core/screen/draw_gradient_quad.cpp",
   "headers": [
     "include/th10/render/sprite_quad.hpp",
     "include/th10/render/textured_quad.hpp",
@@ -49,8 +49,8 @@
     },
     {
       "name": "CardRuntime_ReleaseFlaggedEntityArrays",
-      "source": "src/game/card/card_release_flagged_entity_arrays.cpp",
-      "symbol": "?ReleaseFlaggedEntityArrays@CardRuntime@@QAEHXZ",
+      "source": "src/game/card/card_draw_digit_arrays.cpp",
+      "symbol": "?DrawDigitArrays@CardRuntime@@QAEHXZ",
       "section": ".text$001arrays",
       "address": "0x004091C0",
       "size": 95,
@@ -58,8 +58,8 @@
     },
     {
       "name": "CardRuntime_ReleaseFlaggedEntities",
-      "source": "src/game/card/card_release_flagged_entities.cpp",
-      "symbol": "?ReleaseFlaggedEntities@CardRuntime2@@QAEHXZ",
+      "source": "src/game/card/card_draw_sprites_if_active.cpp",
+      "symbol": "?DrawSpritesIfActive@CardRuntime2@@QAEHXZ",
       "section": ".text$001release",
       "address": "0x00409230",
       "size": 50,
@@ -67,12 +67,12 @@
     },
     {
       "name": "CardRuntime_RunArrayReleaseCallback",
-      "symbol": "?RunArrayReleaseCallback@CardRuntime@@QAEHXZ",
+      "symbol": "?OnDrawDigitArrays@CardRuntime@@QAEHXZ",
       "section": ".text$001releasezc",
       "address": "0x00409270",
       "size": 10,
       "actual_abi": "state in ECX; saves EBX and passes the state in EBX to 0x004091C0; plain RET",
-      "source": "src/game/card/card_run_array_release_callback.cpp"
+      "source": "src/game/card/card_on_draw_digit_arrays.cpp"
     },
     {
       "name": "RenderCamera_ApplyDefault",
@@ -130,7 +130,7 @@
     },
     {
       "name": "DrawGradientQuad",
-      "source": "src/core/screen/texture_stage_reset.cpp",
+      "source": "src/core/screen/draw_gradient_quad.cpp",
       "symbol": "?DrawGradientQuad@@YGHPBUScreenRect@@IIII@Z",
       "section": ".text$02gradient",
       "address": "0x0043BFA0",
@@ -410,7 +410,7 @@
     {
       "name": "GameStateOverlay_Draw",
       "source": "src/game/front/game_state_overlay_draw.cpp",
-      "symbol": "_GameStateOverlay_Draw@4",
+      "symbol": "_Front_Draw@4",
       "section": ".text$001soverlay",
       "address": "0x00415800",
       "size": 724,
@@ -1132,7 +1132,7 @@
       "kind": "relative_code"
     },
     {
-      "symbol": "_g_player_power_display",
+      "symbol": "_g_faith_timer_current",
       "address": "0x00474C58",
       "kind": "data"
     },
@@ -1273,9 +1273,9 @@
     "src/game/background/render_stage_select_default.cpp",
     "src/game/front/game_state_overlay_draw.cpp",
     "src/core/screen/clear_and_present_twice.cpp",
-    "src/game/card/card_release_flagged_entities.cpp",
-    "src/game/card/card_release_flagged_entity_arrays.cpp",
-    "src/game/card/card_run_array_release_callback.cpp",
+    "src/game/card/card_draw_sprites_if_active.cpp",
+    "src/game/card/card_draw_digit_arrays.cpp",
+    "src/game/card/card_on_draw_digit_arrays.cpp",
     "src/game/mother/render_stage_state.cpp",
     "src/core/sprtfunc/anchored_quad_build.cpp",
     "src/core/sprtfunc/animation_color_multiply_channel.cpp",
@@ -1327,14 +1327,14 @@
     "?RenderStage1Bucket10@SprtCtrlBatchView@@QAEHXZ",
     "?RenderStage1Bucket13@SprtCtrlBatchView@@QAEHXZ",
     "?RenderStage0Bucket3@SprtCtrlBatchView@@QAEHXZ",
-    "?ReleaseFlaggedEntities@CardRuntime2@@QAEHXZ",
+    "?DrawSpritesIfActive@CardRuntime2@@QAEHXZ",
     "?Draw@ScreenFadeOutQuad@@QAEHXZ",
     "?Draw@ScreenDimFullQuad@@QAEHXZ",
     "?Draw@ScreenDimPlayfieldQuad@@QAEHXZ",
     "?Draw@LineLaser@@QAEHXZ",
     "?Draw@GrowLaser@@QAEHXZ",
-    "_GameStateOverlay_Draw@4",
-    "?RunArrayReleaseCallback@CardRuntime@@QAEHXZ",
+    "_Front_Draw@4",
+    "?OnDrawDigitArrays@CardRuntime@@QAEHXZ",
     "?DrawFan33@RenderEntity@@QAEHXZ",
     "?Run@AppDrawFlush@@QAEHXZ",
     "?RenderStageState_SetRenderState@@YGHPAURenderStageState4@@II@Z",
@@ -1519,7 +1519,7 @@
     },
     {
       "name": "FrameTimer_Set_00405410_abi_anchor",
-      "symbol": "?SetSchedulerValue@PlayerSchedulerRecord@@QAEXH@Z",
+      "symbol": "?Set@FrameTimerView@@QAEXH@Z",
       "section": ".text$000zt_timerset",
       "address": "0x00405410",
       "size": 57

@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "name": "d3d_list_release",
-  "source": "src/core/zunlib/d3_d_resource_list_release_resources.cpp",
+  "source": "src/core/zunlib/func_ctrl_release_list.cpp",
   "driver": "build_support/layout/ltcg/d3d_list_release_context.cpp",
   "headers": [
     "include/th10/core/func_ctrl.hpp",
@@ -13,7 +13,7 @@
   "functions": [
     {
       "name": "ResourceListRelease",
-      "symbol": "?Release@ResourceList@@QAEXUResourceListOwner@@@Z",
+      "symbol": "?ReleaseTaskList@FuncCtrlTaskList@@QAEXUFuncCtrlTaskListOwner@@@Z",
       "section": ".text$01release",
       "address": "0x00449E50",
       "size": 82,
@@ -21,7 +21,7 @@
     }
   ],
   "context": {
-    "symbol": "?ResourceListReleaseContext@@YGXPAPAUResourceList@@HUResourceListOwner@@@Z",
+    "symbol": "?ResourceListReleaseContext@@YGXPAPAUFuncCtrlTaskList@@HUFuncCtrlTaskListOwner@@@Z",
     "section": ".text$03context",
     "address": "0x00449EB0",
     "size": 39,

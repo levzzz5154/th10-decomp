@@ -1,6 +1,6 @@
 // 0x004356F0: ArchiveName::Find
 #include "th10/runtime/asm_symbols.hpp"
-// Resource loading is owned by resource_load2.cpp.
+// Resource loading is owned by resource_load.cpp.
 
 #include <string.h>
 

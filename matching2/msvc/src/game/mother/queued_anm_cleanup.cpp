@@ -5,8 +5,8 @@
 #pragma code_seg(".text$10cleanup")
 extern "C" __declspec(noinline) void __stdcall QueuedAnimationCleanup(QueuedAnmState* state) {
     if (state->pending_cleanup_6FC == 1) {
-        QueuedCleanupManager receiver;
-        QueuedCleanupContext* context = *reinterpret_cast<QueuedCleanupContext**>(&g_sprt_ctrl);
+        SprtCtrl receiver;
+        AnimationLookupContext* context = *reinterpret_cast<AnimationLookupContext**>(&g_sprt_ctrl);
         QueuedAnmObject* animation;
         animation = static_cast<QueuedAnmObject*>(receiver.Find(context, g_queued_cleanup_a));
         if (animation) {

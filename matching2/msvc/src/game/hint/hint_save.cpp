@@ -49,7 +49,7 @@ __forceinline const char* HintAlignName(int id) {
 }
 
 #pragma code_seg(".text$00zhint")
-extern "C" __declspec(noinline) int __stdcall SaveHints(Manager3* manager,
+extern "C" __declspec(noinline) int __stdcall SaveHints(HintBucketsView* manager,
                                                         const char* path) {
     int stage;
     int rows;

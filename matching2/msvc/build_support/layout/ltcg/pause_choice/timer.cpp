@@ -28,7 +28,7 @@
 
 
 #pragma code_seg(".text$05timer")
-void PlayerSchedulerRecord::SetSchedulerValue(int value) {
+void FrameTimerView::Set(int value) {
     if (!(this->flags_10 & 1)) {
         this->field_04 = 0;
         this->field_00 = 0xFFF0BDC1;

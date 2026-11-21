@@ -1,7 +1,7 @@
 // Complete semantic candidate for retail 0x00448DB0..0x00448E25 (118 bytes).
 // This file is an unselected ABI anchor candidate, not a byte-match claim.
 // Native LTCG must earn position in EDI with resource/out/index on the stack.
-#include "th10/game/player_update_animation_context.hpp"
+#include "th10/render/sprt_ctrl_lookup.hpp"
 
 extern "C" __declspec(noinline) void __stdcall LoadScript2(
     AnimationResourceFile* resource, AnimationObjectFile* object, int index);

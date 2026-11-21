@@ -72,13 +72,13 @@ extern "C" __declspec(noinline) void __stdcall PauseMenu_Update(PauseChoiceState
                 state->phase = PAUSE_CLOSING;
                 break;
             }
-            state->timer.SetSchedulerValue(0);
+            state->timer.Set(0);
         }
         if (g_input_keys_held & PAUSE_KEY_QUICK_QUIT) {
             g_sound_manager.Queue(PAUSE_SFX_CONFIRM, 0);
             state->background.FindChildRef(117).StopAtFrame6();
             state->phase = PAUSE_CLOSING;
-            state->timer.SetSchedulerValue(0);
+            state->timer.Set(0);
             state->cursor.Select(2);
             state->cursor_animation.StopAtFrame1();
         }
@@ -86,7 +86,7 @@ extern "C" __declspec(noinline) void __stdcall PauseMenu_Update(PauseChoiceState
             g_sound_manager.Queue(PAUSE_SFX_CONFIRM, 0);
             state->background.FindChildRef(116).StopAtFrame6();
             state->phase = PAUSE_CLOSING;
-            state->timer.SetSchedulerValue(0);
+            state->timer.Set(0);
             state->cursor.Select(1);
         }
         goto escape;
@@ -123,7 +123,7 @@ extern "C" __declspec(noinline) void __stdcall PauseMenu_Update(PauseChoiceState
                 state->phase = PAUSE_CONFIRM_RESOLVE;
                 break;
             }
-            state->timer.SetSchedulerValue(0);
+            state->timer.Set(0);
         }
         goto escape;
     }
@@ -136,7 +136,7 @@ extern "C" __declspec(noinline) void __stdcall PauseMenu_Update(PauseChoiceState
             frame += 7;
             state->background.SetStopFrame(frame);
             state->phase = PAUSE_MENU;
-            state->timer.SetSchedulerValue(0);
+            state->timer.Set(0);
             return;
         }
         case 0:
@@ -146,7 +146,7 @@ extern "C" __declspec(noinline) void __stdcall PauseMenu_Update(PauseChoiceState
             state->cursor.PopSelection();
             break;
         }
-        state->timer.SetSchedulerValue(0);
+        state->timer.Set(0);
         return;
     case PAUSE_CLOSING:
         if (state->timer.field_04 < 12) break;
@@ -174,7 +174,7 @@ extern "C" __declspec(noinline) void __stdcall PauseMenu_Update(PauseChoiceState
             state->background.StopAtFrame1();
             state->pause_animation.StopAtFrame1();
             state->phase = PAUSE_CLOSING;
-            state->timer.SetSchedulerValue(0);
+            state->timer.Set(0);
             return;
         }
 }

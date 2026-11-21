@@ -74,7 +74,7 @@ extern PickupGameState* g_card;
 extern PickupConfig* g_enemy_ctrl;
 extern int g_globals_character, g_globals_score;
 extern void* g_sprt_ctrl;
-extern float g_game_speed;
+extern "C" float g_game_speed;
 }
 __declspec(noinline) AnimationRef __stdcall Pickup_CreatePrimaryBack(
     void* resource, int script, int layer);

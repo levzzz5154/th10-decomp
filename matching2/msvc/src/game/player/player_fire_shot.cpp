@@ -31,7 +31,7 @@ extern "C" __declspec(noinline) int __stdcall Player_FireShot(
                 bullet->timer.current = 0;
                 bullet->timer.previous = -999999;
                 bullet->timer.elapsed = 0.0f;
-                bullet->timer.speed = &g_score_default_speed;
+                bullet->timer.speed = &g_game_speed;
                 bullet->timer.flags |= 1;
             }
             bullet->timer.current = 0;

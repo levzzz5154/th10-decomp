@@ -9,7 +9,7 @@
     "include/th10/core/func_ctrl.hpp",
     "include/th10/platform/worker.hpp",
     "include/th10/platform/sound_wave_types.hpp",
-    "include/th10/game/title_asset_workers.hpp",
+    "include/th10/platform/sound_worker_pair.hpp",
     "include/th10/archive/read/archive.hpp",
     "include/th10/archive/dat_archive_types.hpp",
     "include/th10/platform/file.hpp",
@@ -334,7 +334,7 @@
       "kind": "data"
     },
     {
-      "symbol": "_g_sound_flags",
+      "symbol": "_g_config_flags",
       "address": "0x491d78",
       "kind": "data"
     },

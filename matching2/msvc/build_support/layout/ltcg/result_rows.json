@@ -26,15 +26,15 @@
   ],
   "anchors": [
     {
-      "name": "?AsciiManager_AddString@@YGXPAUGameThreadQueueView@@PBDPBUVec32@@@Z",
-      "symbol": "?AsciiManager_AddString@@YGXPAUGameThreadQueueView@@PBDPBUVec32@@@Z",
+      "name": "?AsciiManager_AddString@@YGXPAUAsciiManagerQueueView@@PBDPBUVec32@@@Z",
+      "symbol": "?AsciiManager_AddString@@YGXPAUAsciiManagerQueueView@@PBDPBUVec32@@@Z",
       "section": ".text$01append",
       "address": "0x401530",
       "size": 132
     },
     {
-      "name": "?AsciiManager_AddFormatted@@YAXPAUGameThreadQueueView@@PBUVec32@@PBDZZ",
-      "symbol": "?AsciiManager_AddFormatted@@YAXPAUGameThreadQueueView@@PBUVec32@@PBDZZ",
+      "name": "?AsciiManager_AddFormatted@@YAXPAUAsciiManagerQueueView@@PBUVec32@@PBDZZ",
+      "symbol": "?AsciiManager_AddFormatted@@YAXPAUAsciiManagerQueueView@@PBUVec32@@PBDZZ",
       "section": ".text$02bformatted",
       "address": "0x401630",
       "size": 85

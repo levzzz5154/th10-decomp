@@ -35,7 +35,7 @@
     },
     {
       "name": "ScoreState_IncrementCappedCount",
-      "symbol": "?IncrementCappedCount@ScoreState@@QAEXXZ",
+      "symbol": "?IncrementContinues@ScoreState@@QAEXXZ",
       "section": ".text$50increment",
       "address": "0x00418A90",
       "size": 20,
@@ -103,7 +103,7 @@
   "constants": [],
   "absolute_symbols": [
     {
-      "symbol": "?g_score_default_speed@@3MA",
+      "symbol": "_g_game_speed",
       "address": "0x00476F78",
       "kind": "data"
     },

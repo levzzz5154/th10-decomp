@@ -24,7 +24,7 @@ __declspec(noinline) int __fastcall ReplayManager_Draw(void* callback_context_ec
         color=0xffa0a0ffu;
     else
         color=0xffffffffu;
-    GameThreadQueueView* thread=g_ascii_manager;
+    AsciiManagerQueueView* thread=g_ascii_manager;
     thread->current_4c=color;
     AsciiManager_AddFormatted(thread,&position,str_int3_format,(int)panel->value);
     g_ascii_manager->current_4c=-1;

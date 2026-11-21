@@ -23,7 +23,7 @@
     "src/game/bullet/wrapped_angle_difference.cpp"
   ],
   "headers": [
-    "include/th10/game/enemy_grid_scan.hpp",
+    "include/th10/game/bullet_spawn_pattern.hpp",
     "include/th10/game/entity.hpp",
     "include/th10/game/entity_script_start.hpp",
     "include/th10/game/player.hpp",
@@ -274,7 +274,7 @@
       "kind": "relative_code"
     },
     {
-      "symbol": "?SetScorePolar@ScoreGameplayPolarVector@@QAEPAU1@MM@Z",
+      "symbol": "?SetPolar@PolarVector2@@QAEPAU1@MM@Z",
       "address": "0x00408750",
       "kind": "relative_code"
     },
@@ -309,7 +309,7 @@
       "kind": "data"
     },
     {
-      "symbol": "_g_bullet_field_per_type",
+      "symbol": "_g_bullet_render_layer_per_type",
       "address": "0x00474250",
       "kind": "data"
     },

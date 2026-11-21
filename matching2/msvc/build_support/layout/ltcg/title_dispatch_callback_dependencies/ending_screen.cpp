@@ -11,7 +11,7 @@ struct StageReloadAnmHandle { unsigned int id; };
 __declspec(noinline) void StopHandle2(StageReloadAnmHandle* handle);
 
 #pragma code_seg(".text$0042d300_fn")
-__declspec(noinline) int __stdcall EndingScreen_Update2(
+__declspec(noinline) int __stdcall TitleOpening_Update(
         Title* room) {
     switch (room->phase) {
     case 0: {
@@ -25,7 +25,7 @@ __declspec(noinline) int __stdcall EndingScreen_Update2(
                 reinterpret_cast<void*>(room->reserved_018), &handle, 0, 15);
             room->reserved_684 = reinterpret_cast<unsigned int>(*result);
         }
-        room->SetTimerTarget(1);
+        room->SetPhase(1);
         int count = room->cursor.item_count;
         if (count == 0)
             room->cursor.selection = 0;
@@ -37,12 +37,12 @@ __declspec(noinline) int __stdcall EndingScreen_Update2(
     }
     case 1:
         if (room->timer.current > 10)
-            room->SetTimerTarget(2);
+            room->SetPhase(2);
         break;
     case 2:
         if ((g_input_keys_held & 0x160b) != 0) {
             room->SetSlotFrame(90, 6);
-            room->SetTimerTarget(4);
+            room->SetPhase(4);
             g_sound_manager.Queue(32, 0);
             StopHandle2(reinterpret_cast<StageReloadAnmHandle*>(
                 &room->reserved_684));
@@ -50,7 +50,7 @@ __declspec(noinline) int __stdcall EndingScreen_Update2(
         break;
     case 4:
         if (room->timer.current >= 30)
-            room->DisableTimerWithOwner(2);
+            room->SetMode(2);
         break;
     }
     return 1;

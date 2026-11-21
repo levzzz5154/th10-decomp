@@ -1,5 +1,5 @@
 // Compiler context only; no context bytes count as recovered code.
-#include "../../../src/core/screen/texture_stage_reset.cpp"
+#include "../../../src/core/screen/draw_gradient_quad.cpp"
 #include "th10/render/camera_batch.hpp"
 
 // The state object the ECL thread hands to SelectStage in ESI. Declared rather
@@ -28,9 +28,9 @@ struct RenderStageState2 {
 // with the state in EBX, the private receiver its caller 0x00409270 supplies.
 struct CardRuntime {
     unsigned char reserved_0000[0x378C];
-    unsigned char release_flag_378C;
+    unsigned char flags_378C;
     unsigned char reserved_378D[0x400];
-    __declspec(noinline) int ReleaseFlaggedEntityArrays();
+    __declspec(noinline) int DrawDigitArrays();
 };
 
 
@@ -64,7 +64,7 @@ int __stdcall RenderBatchContext(const ScreenRect** rects, const unsigned int* c
     g_application.SelectStage(0);
     ((RenderStageState2*)&g_application)->SelectDefaultStage(0);
     // keeps the 0x004091C0 model in the link without pinning its receiver
-    ((CardRuntime*)&g_application)->ReleaseFlaggedEntityArrays();
+    ((CardRuntime*)&g_application)->DrawDigitArrays();
     count += ((RenderStageState4*)&g_application)->EnableFog();
     count += ((RenderStageState4*)&g_application)->EnableDepthWrite();
     count += ((RenderStageState4*)&g_application)->DisableDepthWrite();

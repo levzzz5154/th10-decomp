@@ -19,7 +19,7 @@ void __stdcall Sound_InitThread() {
     // The handle is bit-cast to float only so that it selects the stack-passing
     // form of the call above; no conversion happens.
     ((SoundDeviceInitFn)WaveSoundManager_InitializeDevice)(&g_sound_manager,
-                                                   *(float*)&g_sound_init_volume);
+                                                   *(float*)&g_sound_init_window);
     while (*(int*)&g_sound_init_status == 0)
         Sleep(1);
     *(int*)&g_sound_init_done = 1;

@@ -12,18 +12,18 @@ struct SoundEffectSetting {
 struct PathName {
     int FindBasenameSlot(void* owner);
 };
-struct PlatformInterfaceState4 {
-    int InvokeConfigured();
+struct SoundBufferResume {
+    int Resume();
 };
-struct PlatformStreamRecord;
-struct PlatformStreamState {
-    int Select(PlatformStreamRecord* record);
+struct MusicTrackRecord;
+struct MusicReadCursorSelect {
+    int SelectTrack(MusicTrackRecord* record);
 };
 struct SoundBuffer;
 struct SoundStreamObject {
     virtual ~SoundStreamObject();
 };
-int __fastcall Platform_InvokeInterface(SoundBuffer* stream);
+int __fastcall SoundBuffer_Pause(SoundBuffer* stream);
 
 extern "C" {
 __declspec(dllimport) int __stdcall PostThreadMessageA(unsigned int thread_id,
@@ -90,8 +90,8 @@ top:
         switch (command->kind) {
         case MUSIC_CMD_SET_VOLUME:
             if (music_stream)
-                reinterpret_cast<PlatformInterfaceState2*>(music_stream)
-                    ->SetOperationDeadline(volume_a);
+                reinterpret_cast<SoundBufferVolume*>(music_stream)
+                    ->SetVolume(volume_a);
             break;
 
         case MUSIC_CMD_LOAD_TRACK:
@@ -112,7 +112,7 @@ top:
                 if (!music_stream)
                     break;
                 if (command->step == 0) {
-                    music_stream->Aggregate();
+                    music_stream->StopAndRewind();
                     goto advance;
                 } else if (command->step == 1) {
                     if (static_cast<SoundStreamingState*>(music_stream)->servicing)
@@ -128,8 +128,8 @@ top:
                         name = command->name;
                     int index = reinterpret_cast<PathName*>(const_cast<char*>(name))
                         ->FindBasenameSlot(this);
-                    reinterpret_cast<PlatformStreamState*>(music_stream->reader)->Select(
-                        reinterpret_cast<PlatformStreamRecord*>(
+                    reinterpret_cast<MusicReadCursorSelect*>(music_stream->reader)->SelectTrack(
+                        reinterpret_cast<MusicTrackRecord*>(
                             &reinterpret_cast<MusicTrackRecord*>(loaded_music_data)[index]));
                     goto advance;
                 } else if (command->step == 3) {
@@ -174,7 +174,7 @@ top:
             if (!music_stream)
                 break;
             if (command->step == 0) {
-                music_stream->Aggregate();
+                music_stream->StopAndRewind();
                 goto advance;
             } else if (command->step == 1) {
                 if (!music_thread)
@@ -208,7 +208,7 @@ top:
             if (!music_stream)
                 break;
             if (command->step == 0) {
-                music_stream->Aggregate();
+                music_stream->StopAndRewind();
                 goto advance;
             } else if (command->step != 1) {
                 goto advance;
@@ -224,7 +224,7 @@ top:
                 if (static_cast<SoundStreamingState*>(music_stream)->servicing)
                     goto done;
                 if (music_stream)
-                    Platform_InvokeInterface(reinterpret_cast<SoundBuffer*>(music_stream));
+                    SoundBuffer_Pause(reinterpret_cast<SoundBuffer*>(music_stream));
             }
             break;
 
@@ -233,8 +233,8 @@ top:
                 if (static_cast<SoundStreamingState*>(music_stream)->servicing)
                     goto done;
                 if (music_stream)
-                    reinterpret_cast<PlatformInterfaceState4*>(music_stream)
-                        ->InvokeConfigured();
+                    reinterpret_cast<SoundBufferResume*>(music_stream)
+                        ->Resume();
             }
             break;
 

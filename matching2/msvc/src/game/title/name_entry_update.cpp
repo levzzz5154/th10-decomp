@@ -87,7 +87,7 @@ static __forceinline int UpdateNameEntryScreen(const NameEntryScreen& screen) {
         Music_Play2(0, 17);
         EnsureTitleMenuBackdrop(room, handle);
         Title_InstallAnimationSlot(room, 104);
-        room->SetTimerTarget(WaitForInput);
+        room->SetPhase(WaitForInput);
         Title_InstallAnimationSlot(room, g_globals_character + 152);
         Title_InstallAnimationSlot(room, g_globals_character * 3 + g_globals_shot_type + 154);
         Title_InstallAnimationSlot(room, g_globals_difficulty + 160);
@@ -118,7 +118,7 @@ static __forceinline int UpdateNameEntryScreen(const NameEntryScreen& screen) {
     // Setup also runs the input-delay check on its first frame.
     case WaitForInput:
         if (room->timer.current > 6)
-            room->SetTimerTarget(EditName);
+            room->SetPhase(EditName);
         break;
     case EditName:
         if (room->keyboard.name_confirmed == 0) {
@@ -160,13 +160,13 @@ static __forceinline int UpdateNameEntryScreen(const NameEntryScreen& screen) {
                     g_sound_manager.Queue(SFX_CONFIRM, 0);
                 } else if (cell == count - 1) {
                     SaveSelectedName(room, room->keyboard.name);
-                    room->SetTimerTarget(CloseEntry);
+                    room->SetPhase(CloseEntry);
                     g_sound_manager.Queue(SFX_CONFIRM, 0);
                 } else {
                     g_sound_manager.Queue(SFX_CONFIRM, 0);
                 }
             } else {
-                room->SetTimerTarget(CloseEntry);
+                room->SetPhase(CloseEntry);
                 g_sound_manager.Queue(SFX_CONFIRM, 0);
             }
         }
@@ -177,7 +177,7 @@ static __forceinline int UpdateNameEntryScreen(const NameEntryScreen& screen) {
                 g_sound_manager.Queue(SFX_CANCEL, 0);
                 EraseLastNameCharacter(*room);
             } else {
-                room->SetTimerTarget(CloseEntry);
+                room->SetPhase(CloseEntry);
                 g_sound_manager.Queue(SFX_CONFIRM, 0);
             }
         }
@@ -188,7 +188,7 @@ static __forceinline int UpdateNameEntryScreen(const NameEntryScreen& screen) {
             room->ClearAnimationSlot(g_globals_character + 152);
             room->ClearAnimationSlot(g_globals_character * 3 + g_globals_shot_type + 154);
             room->ClearAnimationSlot(g_globals_difficulty + 160);
-            room->DisableTimerWithOwner(16);
+            room->SetMode(16);
         }
         break;
     }

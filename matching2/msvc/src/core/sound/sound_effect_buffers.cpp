@@ -7,7 +7,7 @@
 // 0x0041F990 is its only caller.
 #include "th10/app/supervisor.hpp"
 #include "th10/platform/sound_wave_types.hpp"
-#include "th10/game/title_asset_workers.hpp"
+#include "th10/platform/sound_worker_pair.hpp"
 
 struct SoundEffectSetting {
     int source;          // index of the wave the effect is duplicated from

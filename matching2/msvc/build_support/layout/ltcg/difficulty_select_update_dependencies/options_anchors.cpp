@@ -35,7 +35,7 @@ void SpriteHandle::SelectSprite(int sprite) {
 void __stdcall RefreshOptions2(Title* room) {
     g_options_music_volume = g_key_bindings.music_volume;
     for (int kind = 8; kind < 12; ++kind) {
-        reinterpret_cast<MusicRequestQueue*>(&g_sound_manager)->RegisterResource(
+        reinterpret_cast<MusicRequestQueue*>(&g_sound_manager)->QueueMusicCommand(
             str_set_vol, kind, kind);
         room->animation_slots[2].value = 0;
     }

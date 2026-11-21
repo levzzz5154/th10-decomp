@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "name": "resource_cleanup",
-  "source": "src/game/hint/resource_manager_cleanup.cpp",
+  "source": "src/game/hint/hint_destroy.cpp",
   "driver": "build_support/layout/ltcg/resource_cleanup_context.cpp",
   "headers": [
     "include/th10/game/scheduler_remove_locked.hpp",
@@ -19,7 +19,7 @@
   "functions": [
     {
       "name": "ResourceCleanup",
-      "symbol": "_ResourceCleanup@4",
+      "symbol": "_Hint_Destroy@4",
       "section": ".text$01cleanup",
       "address": "0x00418EE0",
       "size": 346,
@@ -27,12 +27,12 @@
     }
   ],
   "roots": [
-    "_ResourceCleanup@4"
+    "_Hint_Destroy@4"
   ],
   "anchors": [
     {
       "name": "ClearBuckets",
-      "symbol": "?ClearBuckets@Manager3@@QAEXXZ",
+      "symbol": "?ClearBuckets@HintBucketsView@@QAEXXZ",
       "section": ".text$03buckets",
       "address": "0x00419040",
       "size": 79

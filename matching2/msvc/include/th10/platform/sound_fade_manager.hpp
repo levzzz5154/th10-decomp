@@ -3,7 +3,7 @@
 #include "th10/platform/sound_fade.hpp"
 struct SoundFadeManager {
     unsigned char reserved_0000[0x5208];
-    PlatformInterfaceState2* stream;
+    SoundBufferVolume* stream;
     __declspec(noinline) void TickFades();
 };
 struct MainTaskState {

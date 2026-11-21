@@ -1,11 +1,11 @@
-// 0x00403850: cache and copy an ECL file, load its animation, relocate tables.
+// 0x00403850: cache and copy a .std stage background file, load its animation, relocate tables.
 #include <string.h>
 #include <stdlib.h>
 #include "th10/platform/archive_file.hpp"
 #include "th10/game/background.hpp"
 #include "th10/platform/text_log.hpp"
 extern "C" {
-extern char g_recovery_script_path[];
+extern char g_archive_load_path[];
 
 void* __cdecl malloc(unsigned int);
 void* __fastcall LoadCachedResource(int slot, void* manager, const char* name);
@@ -13,9 +13,9 @@ void* __fastcall LoadCachedResource(int slot, void* manager, const char* name);
 #pragma code_seg(".text$00stage")
 int BackGround::Load(const char* name) {
     if (!original) {
-        g_recovery_script_path[0] = 0;
-        strcat(g_recovery_script_path, name);
-        original = Archive_LoadFile(g_recovery_script_path, &file_size, 0);
+        g_archive_load_path[0] = 0;
+        strcat(g_archive_load_path, name);
+        original = Archive_LoadFile(g_archive_load_path, &file_size, 0);
         if (!original) return -1;
     }
     // Reuse the size temporary for both allocations (retail LTCG register shape).

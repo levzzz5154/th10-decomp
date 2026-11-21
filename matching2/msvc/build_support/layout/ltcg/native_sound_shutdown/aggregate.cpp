@@ -1,6 +1,6 @@
 #include "th10/platform/native_sound_shutdown.hpp"
 #pragma code_seg(".text$a04aggregate")
-int SoundStream::Aggregate() {
+int SoundStream::StopAndRewind() {
     if (!buffers) return (int)0x800401f0U;
     int result=0;
     operation=0;

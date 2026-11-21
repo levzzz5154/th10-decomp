@@ -82,4 +82,4 @@ void __stdcall FontAtlas_DrawPlainText(const FontAtlasRect* destination, int x, 
 }
 #pragma code_seg()
 
-#include "resource_file.cpp"
+#include "gdi_surface_fill_rgb444.cpp"

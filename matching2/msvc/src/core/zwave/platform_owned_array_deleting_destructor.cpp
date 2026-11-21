@@ -1,4 +1,4 @@
-// 0x0044CF00..0x0044D710: PlatformOwnedArray_DeletingDestructor, Platform_ReleaseOwnedArray, SoundBuffer_DeletingDestructor
+// 0x0044CF00..0x0044D710: SoundBufferBase_DeletingDestructor, SoundBufferBase_Release, SoundBuffer_DeletingDestructor
 #include "th10/source_views/recovery_leaves_f39a06_0.hpp"
 #include "th10/source_views/recovery_leaves_f39a06_1.hpp"
 #include "th10/source_views/recovery_leaves_f39a06_2.hpp"
@@ -6,9 +6,9 @@
 #include "th10/source_views/recovery_leaves_f39a06_4.hpp"
 #include "th10/source_views/recovery_leaves_f39a06_5.hpp"
 #include "th10/source_views/recovery_leaves_f39a06_6.hpp"
-void* __fastcall PlatformOwnedArray_DeletingDestructor(PlatformOwnedArray* owner,
+void* __fastcall SoundBufferBase_DeletingDestructor(SoundBufferBase* owner,
                                                        unsigned int unused, unsigned int flags) {
-    Platform_ReleaseOwnedArray(owner);
+    SoundBufferBase_Release(owner);
     if (flags & 1)
         operator delete(owner);
     return owner;
@@ -24,8 +24,8 @@ void* __fastcall PlatformOwnedArray_DeletingDestructor(PlatformOwnedArray* owner
 #include "th10/source_views/recovery_leaves_f39a06_5.hpp"
 #include "th10/source_views/recovery_leaves_f39a06_6.hpp"
 #include "th10/source_views/recovery_leaves_f39a06_7.hpp"
-void __fastcall Platform_ReleaseOwnedArray(PlatformOwnedArray* owner) {
-    PlatformOwnedArrayFields* fields = (PlatformOwnedArrayFields*)owner;
+void __fastcall SoundBufferBase_Release(SoundBufferBase* owner) {
+    SoundBufferBaseFields* fields = (SoundBufferBaseFields*)owner;
     fields->vtable = (void*)0x004705D8;
     for (unsigned int index = 0; index < fields->element_count; ++index) {
         if (fields->elements[index]) {
@@ -37,7 +37,7 @@ void __fastcall Platform_ReleaseOwnedArray(PlatformOwnedArray* owner) {
         operator delete(fields->elements);
         fields->elements = 0;
     }
-    OwnedPlaybackDevice* device = fields->device;
+    MusicReadCursor* device = fields->device;
     if (device) {
         if (device->state == 1) {
             CloseHandle(device->handle);

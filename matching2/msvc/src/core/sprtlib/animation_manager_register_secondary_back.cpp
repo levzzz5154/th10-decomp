@@ -1,4 +1,4 @@
-// 0x00448AC0: append an animation to the primary list and assign its nonzero ID.
+// 0x00448AC0: append an animation to the secondary list and assign its nonzero ID.
 #include "th10/game/card_animations.hpp"
 
 #pragma code_seg(".text$00448ac0_fn")

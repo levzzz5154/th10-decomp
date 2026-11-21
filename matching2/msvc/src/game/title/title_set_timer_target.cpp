@@ -7,7 +7,7 @@ extern "C" float g_game_speed;
 
 struct Title {
     unsigned char unknown_00[0x20];
-    int timer_target;
+    int phase;
     unsigned char unknown_24[0x28C];
     int timer_previous;
     int timer_current;
@@ -15,15 +15,15 @@ struct Title {
     float* timer_speed;
     unsigned int timer_flags;
 
-    __declspec(noinline) void SetTimerTarget(int target);
+    __declspec(noinline) void SetPhase(int target);
 };
 
 typedef char Title_size_must_fit[
     sizeof(Title) == 0x2C4 ? 1 : -1];
 
 #pragma code_seg(".text$01settarget")
-void Title::SetTimerTarget(int target) {
-    timer_target = target;
+void Title::SetPhase(int target) {
+    phase = target;
     if ((timer_flags & 1) == 0) {
         timer_current = 0;
         timer_previous = 0xFFF0BDC1;

@@ -20,9 +20,9 @@
 //
 // Retail hands several callees their receiver in a register no MSVC
 // declaration names: the score archive reaches Save in EBX, the game thread
-// reaches EnsureAnimationResource in ESI, the positioned-primary creation
+// reaches EnsureLoadingSpinner in ESI, the positioned-primary creation
 // gets the position record in EDI, the enemy manager reaches Destroy in EAX,
-// the score record reaches IncrementCappedCount in EAX, the resource
+// the score record reaches IncrementContinues in EAX, the resource
 // registrar takes the manager in EAX and the name in EDX, the side panel
 // reaches ReleaseStageParts in EBX, and the scheduler remove takes the task
 // in ECX and the scheduler in EDX, loading ECX first at the call. Only a
@@ -43,7 +43,7 @@ extern "C" void __cdecl crt_free_startup(void* memory);
 // The stack-argument destroy callees, each spelled with its fixed retail
 // prototype (receiver at [ESP+4], RET 4).
 extern "C" void __stdcall BackGround_Destroy(void* state);
-extern "C" void __stdcall Manager_Release(void* manager);
+extern "C" void __stdcall Pause_Release(void* manager);
 extern "C" void __stdcall Front_Destroy(void* manager);
 extern "C" void __stdcall StageManager_Destroy(void* manager);
 extern "C" void __stdcall BulletManager_Destroy(void* manager);
@@ -51,7 +51,7 @@ extern "C" void __stdcall ItemManager_Destroy(void* manager);
 extern "C" void __stdcall ScoreExtendedObject_Destroy(void* object);
 extern "C" void __stdcall ResourceCleanup2(void* state);
 extern "C" void __stdcall EffectManager_Destroy(void* manager);
-extern "C" void __stdcall ManagerOwned_Destroy(void* manager);
+extern "C" void __stdcall ReplayManager_Destroy(void* manager);
 extern "C" void __stdcall EnemyCtrl_Clear2(void* manager);
 extern "C" void __stdcall BulletManager_Release(void* manager);
 extern "C" void __stdcall Bomb_Release(void* state);
@@ -93,7 +93,7 @@ void __stdcall Game_Destroy(Game* state) {
     g_score->Save();
 
     g_globals_flags &= ~3u;
-    g_score_default_speed = 1.0f;
+    g_game_speed = 1.0f;
 
     // The replay-session flag; the branch below reads it back.
     unsigned char replay_bit = 2;
@@ -120,20 +120,20 @@ void __stdcall Game_Destroy(Game* state) {
         if (g_globals_stage_shown == g_globals_stage)
             g_globals_flags |= 1u;
     } else if (g_supervisor.next_state == 0xB) {
-        GameThreadResourceView* thread = g_ascii_manager;
-        thread->EnsureAnimationResource(224.0f, 416.0f);
+        AsciiManagerSpinnerView* thread = g_ascii_manager;
+        thread->EnsureLoadingSpinner(224.0f, 416.0f);
         g_globals_flags |= replay_bit;
     } else if (g_supervisor.next_state == 4) {
-        GameThreadResourceView* thread = g_ascii_manager;
-        thread->EnsureAnimationResource(480.0f, 392.0f);
+        AsciiManagerSpinnerView* thread = g_ascii_manager;
+        thread->EnsureLoadingSpinner(480.0f, 392.0f);
     } else if (g_supervisor.next_state == 0xF) {
-        GameThreadResourceView* thread = g_ascii_manager;
-        thread->EnsureAnimationResource(480.0f, 392.0f);
+        AsciiManagerSpinnerView* thread = g_ascii_manager;
+        thread->EnsureLoadingSpinner(480.0f, 392.0f);
     } else if (g_supervisor.next_state == 0xD) {
-        GameThreadResourceView* thread = g_ascii_manager;
-        thread->EnsureAnimationResource(480.0f, 392.0f);
+        AsciiManagerSpinnerView* thread = g_ascii_manager;
+        thread->EnsureLoadingSpinner(480.0f, 392.0f);
         if (g_globals_stage_shown != g_globals_stage) {
-            g_globals.IncrementCappedCount();
+            g_globals.IncrementContinues();
             g_globals_flags |= 8u;
         }
         g_globals_flags |= 1u;
@@ -144,7 +144,7 @@ void __stdcall Game_Destroy(Game* state) {
         if (g_supervisor.next_state != 0xE && g_supervisor.next_state != 0xF) {
             void* replay_manager = g_replay;
             if (replay_manager) {
-                ManagerOwned_Destroy(replay_manager);
+                ReplayManager_Destroy(replay_manager);
                 crt_free_startup(replay_manager);
             }
         }
@@ -160,7 +160,7 @@ void __stdcall Game_Destroy(Game* state) {
         }
         void* pause_menu = g_pause;
         if (pause_menu) {
-            Manager_Release(pause_menu);
+            Pause_Release(pause_menu);
             crt_free_startup(pause_menu);
         }
         void* items = g_front;
@@ -284,10 +284,10 @@ void __stdcall Game_Destroy(Game* state) {
         // resource index is 4 when the extra-content flag is set. Retail
         // hands the registrar its manager in EAX and the name in EDX, and
         // one call per arm is what tail-merges into its test/je/push shape.
-        if (g_sound_flags & 0x10u)
-            g_sound_manager.RegisterResource(str_dummy, 4, 0);
+        if (g_config_flags & 0x10u)
+            g_sound_manager.QueueMusicCommand(str_dummy, 4, 0);
         else
-            g_sound_manager.RegisterResource(str_dummy, 3, 0);
+            g_sound_manager.QueueMusicCommand(str_dummy, 3, 0);
     }
 
     // The frame gate opens for the next scene and the mode bias records

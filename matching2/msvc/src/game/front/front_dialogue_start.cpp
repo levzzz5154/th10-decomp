@@ -3,13 +3,13 @@
 // g_stage_progress. Native LTCG keeps the Front pointer in EDI and the stage
 // index in ESI; the compiler-generated cleanup at 0x00465820 frees the block
 // if the constructor throws.
-#include "th10/game/item_score_display_create.hpp"
+#include "th10/game/front_dialogue_start.hpp"
 
 #pragma code_seg(".text$01b_create")
 void FrontDialogueOwner::StartDialogue(int stage) {
-    score_display = new FrontDialogueState(
-        reinterpret_cast<char*>(score_table) + score_table[stage].offset);
-    score_display->stage = stage;
+    dialogue = new FrontDialogueState(
+        reinterpret_cast<char*>(msg_table) + msg_table[stage].offset);
+    dialogue->stage = stage;
     int next = stage + 1;
     int previous = g_stage_progress;
     g_stage_progress = next;

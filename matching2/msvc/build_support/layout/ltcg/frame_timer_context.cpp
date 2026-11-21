@@ -13,8 +13,8 @@
 #include "th10/math/rng.hpp"
 #pragma code_seg()
 
-struct PlayerSchedulerRecord {
-    void SetSchedulerValue(int value);
+struct FrameTimerView {
+    void Set(int value);
 };
 struct ScreenFadeIn { int Tick(); };
 struct ScreenFadeOut { int Tick(); };
@@ -26,7 +26,7 @@ extern "C" void __stdcall AnimationTimerSchedulerCompilerContext(
         ScreenFadeIn* cursor_bd40,
         ScreenFadeOut* cursor_c230,
         ScreenFlash* cursor_c460,
-        PlayerSchedulerRecord* scheduler,
+        FrameTimerView* scheduler,
         ScoreState* scores, StageSequence* sequence,
         EntityScriptRng* rng) {
     for (int index = 0; index < count; ++index) {
@@ -41,7 +41,7 @@ extern "C" void __stdcall AnimationTimerSchedulerCompilerContext(
     if (cursor_c460 != 0)
         cursor_c460->Tick();
     if (scheduler != 0)
-        scheduler->SetSchedulerValue(delta);
+        scheduler->Set(delta);
     if (scores != 0) {
         for (int index = 0; index < count; ++index)
             scores[index].DecayGauge();

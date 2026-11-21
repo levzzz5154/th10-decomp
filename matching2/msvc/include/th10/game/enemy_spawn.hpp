@@ -40,14 +40,14 @@ struct EnemyData {
     unsigned char reserved_011c[0x130 - 0x11C];
     EnemySpawnListNode node;            // +0x0130
     unsigned char reserved_013c[0x13BC - 0x13C];
-    int life;                           // +0x13BC
-    int score;                          // +0x13C0
+    int score;                           // +0x13BC
+    int life;                          // +0x13C0
     unsigned char reserved_13c4[8];
     int drop_item;                      // +0x13CC
     unsigned char reserved_13d0[0x1408 - 0x13D0];
     int death_sound;                    // +0x1408
     int death_effect;                   // +0x140C
-    int death_callback;                 // +0x1410
+    int death_file;                 // +0x1410
     unsigned char reserved_1414[8];
     FrameTimer invulnerable_timer;      // +0x141C
     unsigned char reserved_1430[0x1444 - 0x1430];
@@ -56,7 +56,7 @@ struct EnemyData {
 };
 typedef char EnemyDataSize[sizeof(EnemyData) == 0x14DC ? 1 : -1];
 typedef char EnemyDataNode[offsetof(EnemyData, node) == 0x130 ? 1 : -1];
-typedef char EnemyDataLife[offsetof(EnemyData, life) == 0x13BC ? 1 : -1];
+typedef char EnemyDataLife[offsetof(EnemyData, score) == 0x13BC ? 1 : -1];
 typedef char EnemyDataTimer[offsetof(EnemyData, invulnerable_timer) == 0x141C ? 1 : -1];
 typedef char EnemyDataFlags[offsetof(EnemyData, flags) == 0x1444 ? 1 : -1];
 
@@ -87,9 +87,9 @@ struct EnemyCtrlSpawnView {
 // What an enemy is created with.
 struct EnemySpawn2 {
     EnemyVector position;      // +0x00
-    int life;                           // +0x0C
+    int score;                           // +0x0C
     int drop_item;                      // +0x10
-    int score;                          // +0x14
+    int life;                          // +0x14
     int mirrored;                       // +0x18
     int quiet;                          // +0x1C
     int variables[8];                   // +0x20

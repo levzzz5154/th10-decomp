@@ -1,5 +1,5 @@
 // Compiler context only; never selected as recovered game code.
-#include "th10/game/enemy_grid_scan.hpp"
+#include "th10/game/bullet_spawn_pattern.hpp"
 #include "../../../src/game/bullet/bullet_spawn_pattern.cpp"
 
 #pragma inline_depth(0)

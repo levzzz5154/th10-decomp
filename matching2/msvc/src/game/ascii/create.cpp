@@ -102,17 +102,17 @@ int AsciiManager2::LoadResources() {
 // object and returns null.
 
 extern "C" {
-void __stdcall DestroyGameThread(GameThread *thread);
+void __stdcall DestroyAsciiManager(AsciiManager *thread);
 void __cdecl crt_free_startup(void *memory);
 }
 void *__cdecl operator new(unsigned int size);
 
 #pragma code_seg(".text$00_c_create")
-extern "C" __declspec(noinline) GameThread *__stdcall AsciiManager_Create() {
-    GameThread *thread = new GameThread;
+extern "C" __declspec(noinline) AsciiManager *__stdcall AsciiManager_Create() {
+    AsciiManager *thread = new AsciiManager;
     if (reinterpret_cast<AsciiManager2 *>(thread)->LoadResources()) {
         if (thread) {
-            DestroyGameThread(thread);
+            DestroyAsciiManager(thread);
             crt_free_startup(thread);
         }
         return 0;

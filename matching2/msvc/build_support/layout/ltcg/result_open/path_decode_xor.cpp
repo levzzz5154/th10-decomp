@@ -13,7 +13,7 @@
 extern char g_decoded_text[];
 
 #pragma code_seg(".text$00417010_fn")
-__declspec(noinline) char* Path_DecodeXor(const char* encoded) {
+__declspec(noinline) char* Msg_DecodeXor(const char* encoded) {
     unsigned char key = 0x77;
     unsigned char step = 7;
     char* out = g_decoded_text;

@@ -10,7 +10,7 @@ SchedulerTask* __stdcall SchedulerTask_Create(TaskRoutine callback);
 int __fastcall Pause_UpdateTask(void* state);
 int __fastcall Pause_DrawTask(void* state);
 extern FuncCtrl* g_func_ctrl;
-extern const float g_game_speed;
+extern "C" float g_game_speed;
 }
 
 __declspec(noinline) int __cdecl Pause_RegisterTasks(Pause* state) {

@@ -99,7 +99,7 @@ __declspec(noinline) int __stdcall TitleMode8(Title* room) {
             3, reinterpret_cast<AnmLookupContext*>(g_sprt_ctrl),
             room->animation_slots[g_globals_character + 150]);
         room->SetSlotFrame(g_globals_character + 150, room->cursor.selection + 0x11);
-        room->SetTimerTarget(SHOT_PHASE_WAIT_OPEN);
+        room->SetPhase(SHOT_PHASE_WAIT_OPEN);
         if (g_score->shots[g_globals_character][0].clears[g_globals_difficulty] == 0) {
             AnimationRef2 child = reinterpret_cast<ChildLookupAnmHandle*>(
                 &room->animation_slots[g_globals_character + 150])->FindChildRef(g_globals_character * 3 + 0x8a);
@@ -117,7 +117,7 @@ __declspec(noinline) int __stdcall TitleMode8(Title* room) {
         }
     case SHOT_PHASE_WAIT_OPEN:
         if (room->timer.current > 6)
-            room->SetTimerTarget(SHOT_PHASE_ACTIVE);
+            room->SetPhase(SHOT_PHASE_ACTIVE);
         break;
     case SHOT_PHASE_ACTIVE: {
         MenuCursor* cursor = &room->cursor;
@@ -130,10 +130,10 @@ __declspec(noinline) int __stdcall TitleMode8(Title* room) {
             room->SetSlotFrame(g_globals_character + 150, cursor->selection + 7);
         }
         if (g_input_keys_held & SHOT_KEY_CANCEL) {
-            room->SetTimerTarget(SHOT_PHASE_CANCEL_LEAVE);
+            room->SetPhase(SHOT_PHASE_CANCEL_LEAVE);
             g_sound_manager.Queue(SHOT_SFX_CANCEL, 0);
         } else if (g_input_keys_held & SHOT_KEY_CONFIRM) {
-            room->SetTimerTarget(SHOT_PHASE_CONFIRM_LEAVE);
+            room->SetPhase(SHOT_PHASE_CONFIRM_LEAVE);
             g_sound_manager.Queue(SHOT_SFX_CONFIRM, 0);
             AnimationRef2 child = reinterpret_cast<ChildLookupAnmHandle*>(
                 &room->animation_slots[g_globals_character + 150])->FindChildRef(
@@ -145,20 +145,20 @@ __declspec(noinline) int __stdcall TitleMode8(Title* room) {
     case SHOT_PHASE_CONFIRM_LEAVE:
         if (room->timer.current == 10) {
             if ((g_globals_flags & SHOT_GLOBAL_FLAG_PRACTICE) == 0) {
-                g_ascii_manager->EnsureAnimationResource(480.0f, 392.0f);
+                g_ascii_manager->EnsureLoadingSpinner(480.0f, 392.0f);
                 AsciiText_Create(0x2b, 5, 0x20, 0, 0, 0);
             } else {
                 g_globals_shot_type = room->cursor.selection;
                 room->cursor.PushSelection();
                 room->ClearAnimationSlot(100);
-                room->DisableTimerWithOwner(SHOT_TARGET_PRACTICE_STAGE);
+                room->SetMode(SHOT_TARGET_PRACTICE_STAGE);
             }
         }
         if (room->timer.current >= 40) {
             g_globals_shot_type = room->cursor.selection;
             room->cursor.PushSelection();
             if ((g_globals_flags & SHOT_GLOBAL_FLAG_PRACTICE) == 0) {
-                room->DisableTimerWithOwner(SHOT_TARGET_LEAVE);
+                room->SetMode(SHOT_TARGET_LEAVE);
                 if (g_globals_difficulty < SHOT_DIFFICULTY_EXTRA) {
                     g_stage_route_current = &g_stage_routes[1];
                     g_globals_stage = 1;
@@ -172,7 +172,7 @@ __declspec(noinline) int __stdcall TitleMode8(Title* room) {
                 Music_FadeOut(6.0f);
             } else {
                 room->ClearAnimationSlot(100);
-                room->DisableTimerWithOwner(SHOT_TARGET_PRACTICE_STAGE);
+                room->SetMode(SHOT_TARGET_PRACTICE_STAGE);
             }
         }
         break;
@@ -180,7 +180,7 @@ __declspec(noinline) int __stdcall TitleMode8(Title* room) {
         if (room->timer.current >= 6) {
             room->ClearAnimationSlot(g_globals_character + 150);
             room->ClearAnimationSlot(100);
-            room->DisableTimerWithOwner(SHOT_TARGET_CHARACTER);
+            room->SetMode(SHOT_TARGET_CHARACTER);
             room->cursor.PopSelection();
         }
         break;

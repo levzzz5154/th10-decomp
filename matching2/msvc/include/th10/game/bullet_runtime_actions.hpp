@@ -1,8 +1,8 @@
 #ifndef TH10_BULLET_RUNTIME_ACTIONS_HPP
 #define TH10_BULLET_RUNTIME_ACTIONS_HPP
 
-#include "th10/game/player_motion_helpers.hpp"
-#include "th10/game/player_homing.hpp"
+#include "th10/game/bullet_ex_motion.hpp"
+#include "th10/game/bullet_ex_homing.hpp"
 
 struct EffectVector3 {
     float x;

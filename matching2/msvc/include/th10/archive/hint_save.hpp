@@ -9,7 +9,7 @@
 // 0x0041A200 (_SaveHints@8): regenerate hint/hint_auto.txt from the eight
 // per-stage tip lists of the resource manager. Called by the resource cleanup
 // when a run recorded new tips. Always returns 0.
-extern "C" __declspec(noinline) int __stdcall SaveHints(Manager3* manager,
+extern "C" __declspec(noinline) int __stdcall SaveHints(HintBucketsView* manager,
                                                         const char* path);
 
 // 0x0044B740: write one block to the shared file; a short write closes the

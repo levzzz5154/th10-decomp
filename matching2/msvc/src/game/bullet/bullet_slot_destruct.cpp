@@ -1,0 +1,10 @@
+// 0x00405DE0: BulletSlot_Destruct
+#include "th10/source_views/entity_cacea2_0.hpp"
+#include "th10/source_views/entity_cacea2_1.hpp"
+#include "th10/source_views/entity_cacea2_2.hpp"
+void __fastcall BulletSlot_Destruct(Entity* entity) {
+    void* resource = entity->secondary_resource;
+    if (resource != 0)
+        crt_free(resource);
+    entity->secondary_resource = 0;
+}

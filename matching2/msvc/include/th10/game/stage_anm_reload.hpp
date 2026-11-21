@@ -50,7 +50,7 @@ struct GameThreadReloadView {
 };
 
 extern "C" {
-extern char g_recovery_script_path[];             // scratch path
+extern char g_archive_load_path[];             // scratch path
 extern void* g_sprt_ctrl;              // animation manager
 extern GameThreadReloadView* g_ascii_manager;
 extern StageOwner* g_ending;

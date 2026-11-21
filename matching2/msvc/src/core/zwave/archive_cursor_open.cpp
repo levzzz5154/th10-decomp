@@ -4,13 +4,13 @@ extern "C" void* (__stdcall* imp_CreateFileA)(const char* path, unsigned long ac
 extern "C" unsigned long (__stdcall* imp_SetFilePointer)(void* file, long distance, long* distance_high, unsigned long method);
 extern "C" int g_bgm_data_offset;
 
-struct ArchiveEntry3 {
+struct MusicTrackRecord {
     unsigned char unknown_00[0x10];
     int offset;
     unsigned char unknown_14[8];
     int size;
 };
-struct ArchiveCursor2 {
+struct MusicReadCursor {
     unsigned char unknown_00[8];
     int size;
     unsigned char unknown_0c[0x20];
@@ -22,11 +22,11 @@ struct ArchiveCursor2 {
     unsigned char* memory_cursor;
     int memory_size;
     void* file;
-    ArchiveEntry3* entry;
+    MusicTrackRecord* entry;
 };
 
 #pragma code_seg(".text$01accessor")
-__declspec(noinline) long __stdcall OpenCursor(ArchiveCursor2* cursor, int mode, const char* path, ArchiveEntry3* entry) {
+__declspec(noinline) long __stdcall OpenCursor(MusicReadCursor* cursor, int mode, const char* path, MusicTrackRecord* entry) {
     cursor->mode = mode;
     cursor->memory = 0;
     if (mode == 1) {

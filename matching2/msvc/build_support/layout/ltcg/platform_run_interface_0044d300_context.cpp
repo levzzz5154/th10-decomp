@@ -3,10 +3,10 @@
 
 #pragma code_seg(".text$03context")
 int __stdcall PlatformRunInterface0044D300CompilerContext(
-        PlatformD300Entry** entries, unsigned int** completed, int count) {
+        WaveSecondaryBufferRestore** entries, unsigned int** completed, int count) {
     int result = 0;
     while (count-- > 0)
-        result |= (*entries++)->Run(*completed++);
+        result |= (*entries++)->RestoreIfLost(*completed++);
     return result;
 }
 #pragma code_seg()

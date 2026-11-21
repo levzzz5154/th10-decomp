@@ -1,4 +1,4 @@
-#include "th10/game/title_teardown/title_teardown_dependencies.hpp"
+#include "th10/game/loading_teardown/loading_teardown_dependencies.hpp"
 #include "title_teardown/message_teardown_helpers.cpp"
 
 #pragma code_seg(".text$01entity")
@@ -47,8 +47,8 @@ void Supervisor_ReleaseGlobalStates() {
     if (manager_state) { Game_Destroy(manager_state);crt_free_startup(manager_state); }
     void* script_state = g_title;
     if (script_state) { ReleaseGlobalScript_0042cb60(script_state);crt_free_startup(script_state); }
-    TitleState* resource_state = static_cast<TitleState*>(g_loading);
-    if (resource_state) { resource_state->~TitleState();crt_free_startup(resource_state); }
+    Loading* resource_state = static_cast<Loading*>(g_loading);
+    if (resource_state) { resource_state->~Loading();crt_free_startup(resource_state); }
     void* small_state = g_ending;
     if (small_state) { ReleaseGlobalMessage_0040b7b0(small_state);crt_free_startup(small_state); }
     void* pending_block = g_replay;

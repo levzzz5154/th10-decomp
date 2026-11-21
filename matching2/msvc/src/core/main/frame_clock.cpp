@@ -95,7 +95,7 @@ struct D3D9Device {
     D3D9DeviceVtbl* lpVtbl;
 };
 
-extern "C" unsigned char g_sprt_ctrl;             // 0x00491C10  game state object
+extern "C" unsigned char g_sprt_ctrl;             // 0x00491C10  sprite/animation manager (SprtCtrl)
 extern "C" unsigned char g_d3d_device;             // 0x00491C30  IDirect3DDevice9*
 
 // Every call site reads the global again: the device is published around a
@@ -147,7 +147,7 @@ enum {
     D3DSAMP_MIPFILTER = 7
 };
 
-// Tail of the game state object (g_pGameStateManager, 0x00491C10) that caches
+// Tail of the sprite/animation manager (SprtCtrl, 0x00491C10) that caches
 // the state the sprite batches push; the reset below restores its defaults.
 // Only the widths and offsets of these fields are certain, so the dirty
 // markers after the texture factor keep their retail addresses as names.
@@ -166,7 +166,7 @@ struct SprtCtrlStateCacheView {
 // Re-applies every render state the 2D sprite renderer assumes (opaque-safe
 // blending, alpha test, fog and a single modulated texture stage with clamped
 // filtering), then invalidates the cached sprite state.  Runs right after a
-// successful device Reset.  Returns the game state object it touched; the
+// successful device Reset.  Returns the sprite/animation manager it touched; the
 // caller ignores it.
 extern "C" SprtCtrlStateCacheView* __cdecl Renderer_ApplyDeviceDefaults(void) {
     D3D9_DEVICE->lpVtbl->SetRenderState(D3D9_DEVICE, D3DRS_ZENABLE, 1);

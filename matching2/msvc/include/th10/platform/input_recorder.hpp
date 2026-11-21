@@ -35,7 +35,7 @@ struct InputRecorder {
     __declspec(noinline) int Update();
 };
 
-struct InputAnalogSource {
+struct FpsCounter {
     unsigned char reserved_00[0x34];
     float value;
 };
@@ -50,8 +50,8 @@ typedef char InputRecorderStageOffset[offsetof(InputRecorder,active_stage)==0x1D
 
 extern "C" {
 extern void* g_game;
-extern InputAnalogSource* g_fps;
-extern unsigned int g_sound_flags;
+extern FpsCounter* g_fps;
+extern unsigned int g_config_flags;
 }
 
 int __fastcall ReplayManager_OnUpdate(InputRecorder*);

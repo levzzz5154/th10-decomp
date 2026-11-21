@@ -12,7 +12,7 @@ extern "C" unsigned int (__stdcall *imp_GetCurrentThreadId)();
 extern "C" ThreadData* (__stdcall *g_crt_ptd_get)(unsigned int);
 extern "C" int (__stdcall *g_crt_ptd_set)(unsigned int, ThreadData*);
 extern "C" unsigned int g_crt_tls_index;
-extern "C" char g_crt_ptd_init_marker;
+extern "C" char _XcptActTab;
 extern "C" ThreadData* __cdecl crt_calloc(unsigned int, unsigned int);
 extern "C" void __cdecl crt_amsg_exit(int);
 
@@ -22,7 +22,7 @@ extern "C" ThreadData* __cdecl crt_getptd() {
     if (!data) {
         data = crt_calloc(1, 0x8c);
         if (data && g_crt_ptd_set(g_crt_tls_index, data)) {
-            data->initaddr = &g_crt_ptd_init_marker;
+            data->initaddr = &_XcptActTab;
             data->holdrand = 1;
             unsigned int id = imp_GetCurrentThreadId();
             data->thread_handle = 0xffffffff;

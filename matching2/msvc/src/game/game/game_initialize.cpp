@@ -13,7 +13,7 @@
 
 struct Game {
     CallbackPair callbacks;
-    PlayerSchedulerRecord clock;
+    FrameTimerView clock;
     unsigned int configuration[13];
     unsigned int flags;
     int replay_mode;
@@ -34,7 +34,7 @@ typedef char StageTimingSecond[offsetof(StageTiming, second) == 0x2C ? 1 : -1];
 extern "C" {
 extern AnimationWaitState* g_sprt_ctrl;
 extern FuncCtrl* g_func_ctrl;
-extern PathState* g_enemy_ctrl;
+extern EnemyCtrlTimerView* g_enemy_ctrl;
 extern StageTiming* g_fps;
 extern void* g_front;
 extern const char g_replay_path[];
@@ -154,7 +154,7 @@ extern "C" __declspec(noinline) int __stdcall Game_Initialize(Game* context) {
     if (!(g_globals.flags & 9)) {
         if (!CreateEnemies(g_stage_route_current->enemy_script_file)) goto failed;
     } else {
-        g_enemy_ctrl->Reset();
+        g_enemy_ctrl->ResetTimer();
     }
     if (!CreateBulletState()) goto failed;
     if (!CreateFixedState()) goto failed;
@@ -166,7 +166,7 @@ extern "C" __declspec(noinline) int __stdcall Game_Initialize(Game* context) {
     }
     g_fps->second = dbl_0;
     g_fps->first = dbl_0;
-    context->clock.SetSchedulerValue(0);
+    context->clock.Set(0);
     while (g_stage_wait)
         Sleep(16);
     if (g_globals.reserved_44[0])

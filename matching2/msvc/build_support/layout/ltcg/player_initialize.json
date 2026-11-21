@@ -180,11 +180,6 @@
       "kind": "data"
     },
     {
-      "symbol": "?g_score_default_speed@@3MA",
-      "address": "0x476f78",
-      "kind": "data"
-    },
-    {
       "symbol": "_g_sound_priority",
       "address": "0x4749ce",
       "kind": "data"

@@ -2,7 +2,7 @@
 // CR/LF terminator.  The native-LTCG context supplies the original internal
 // register convention for this otherwise ordinary stdcall function.
 #pragma code_seg(".text$01extractline")
-__declspec(noinline) char* StageText_ExtractLine(char* cursor, char* destination,
+__declspec(noinline) char* MusicRoom_ExtractLine(char* cursor, char* destination,
                                                  int* remaining) {
     char* end = cursor;
     while (*end != '\n') {

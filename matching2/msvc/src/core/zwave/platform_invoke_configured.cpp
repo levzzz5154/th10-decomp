@@ -11,7 +11,7 @@ struct PlatformD5D0Entry {
     PlatformD5D0Vtable* vtable;
 };
 
-struct PlatformInterfaceState4 {
+struct SoundBufferResume {
     unsigned char unknown_000[4];
     PlatformD5D0Entry** entries_004;
     unsigned char unknown_008[0x18];
@@ -20,11 +20,11 @@ struct PlatformInterfaceState4 {
     unsigned char unknown_028[8];
     unsigned int operation_030;
 
-    __declspec(noinline) int InvokeConfigured();
+    __declspec(noinline) int Resume();
 };
 
 #pragma code_seg(".text$01invoke")
-__declspec(noinline) int PlatformInterfaceState4::InvokeConfigured() {
+__declspec(noinline) int SoundBufferResume::Resume() {
     PlatformD5D0Entry** entries = entries_004;
     if (entries == 0)
         return (int)0x800401F0u;

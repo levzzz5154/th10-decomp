@@ -11,9 +11,9 @@ inline void* __cdecl operator new(unsigned int, void* memory) {
 inline void __cdecl operator delete(void*, void*) {
 }
 
-int __stdcall GameThreadCompilerContext(GameThread* threads, int count) {
+int __stdcall AsciiManagerCompilerContext(AsciiManager* threads, int count) {
     for (int index = 0; index < count; ++index)
-        new (&threads[index]) GameThread;
+        new (&threads[index]) AsciiManager;
     return 0;
 }
 #pragma code_seg()

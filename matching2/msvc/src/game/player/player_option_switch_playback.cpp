@@ -5,7 +5,7 @@
 #include "th10/game/player.hpp"
 
 #pragma code_seg(".text$45timedzbd")
-void PlaybackState::SwitchPlaybackState() {
+void PlayerOptionFocusState::UpdateFixedOnFocus() {
     int selected = g_player->focused;
     if (selected == 0) {
         if (playback != 0) animation.SetStopFrame(6);

@@ -18,7 +18,7 @@ struct CutVector : Vector3 {
 struct CutSpawnParameters : LaserSpawnParameters {
  CutVector position;
  float angle,length,length_limit,total_length,width,speed;
- short type,script;
+ short type,color;
  unsigned char reserved_028[0x1dc-0x28];
 };
 typedef char CutParametersSize[sizeof(CutSpawnParameters)==0x1dc?1:-1];
@@ -59,13 +59,13 @@ struct CutLaser {
  unsigned char reserved_048[0x444-0x48];
  float total_length;
  unsigned char reserved_448[0x464-0x448];
- short type,script;
- short GetScript() const {return script;}
+ short type,color;
+ short GetColor() const {return color;}
  __declspec(noinline) virtual int CutRectangle(const CutVector* center,const CutVector* size,int spawn_items);
  __declspec(noinline) virtual int CutCircle(const CutVector* center,float radius,int spawn_items);
 };
 typedef char CutLengthOffset[offsetof(CutLaser,length)==0x40?1:-1];
-typedef char CutScriptOffset[offsetof(CutLaser,script)==0x466?1:-1];
+typedef char CutScriptOffset[offsetof(CutLaser,color)==0x466?1:-1];
 struct CutAnimationBank : LaserSpawnManager {
  unsigned char reserved_440[0x458-0x440];
  void* line_animation;

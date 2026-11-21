@@ -126,7 +126,7 @@ __declspec(noinline) int __stdcall AnmTexture_UploadAt(
     AnmUploadTag tag, AnmTexture* texture, int format, const void* data, int top,
     int size, int has_thtx);
 
-extern "C" unsigned char g_sound_flags;                // renderer capability flags
+extern "C" unsigned char g_config_flags;                // renderer capability flags
 extern "C" int g_texture_formats_a[];                        // D3DFORMAT per ANM format index
 extern "C" int g_texture_formats_b[];                        // bytes per pixel per ANM format index
 

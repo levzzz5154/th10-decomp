@@ -5,7 +5,7 @@
 #include "th10/game/projectile_spawn_runtime.hpp"
 
 #pragma code_seg(".text$00408750_s")
-ScoreGameplayPolarVector* ScoreGameplayPolarVector::SetScorePolar(float angle,
+PolarVector2* PolarVector2::SetPolar(float angle,
                                                                   float radius) {
     x = angle * radius;
     y = angle - radius;

@@ -195,7 +195,7 @@
       "kind": "data"
     },
     {
-      "symbol": "_g_clip_mirror_vertices",
+      "symbol": "_g_sprite_quad_vertices",
       "address": "0x497930",
       "kind": "data"
     },

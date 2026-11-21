@@ -1,6 +1,6 @@
 #ifndef TH10_DIFFICULTY_SELECT_UPDATE_00430320_HPP
 #define TH10_DIFFICULTY_SELECT_UPDATE_00430320_HPP
-#include "th10/game/ending_screen.hpp"
+#include "th10/game/title_opening_screen.hpp"
 
 // The key state at 0x00474E30.
 struct KeyRepeatState {
@@ -50,7 +50,7 @@ extern "C" {
 extern KeyRepeatState g_input_keys_raw;
 extern int g_globals_difficulty;               // difficulty (4 and above: fixed entry)
 extern int g_globals_character;               // character
-extern GameThreadResourceView* g_ascii_manager;
+extern AsciiManagerSpinnerView* g_ascii_manager;
 }
 
 // 0x00449250: set the stop frame of an animation and run it once.

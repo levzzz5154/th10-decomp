@@ -126,14 +126,14 @@ extern "C" int g_screen_effects_frozen;  // 0x004918A4
 // the FrameTimer at +0x30; native LTCG supplies the retail EAX receiver for
 // the scheduler store and the ESI receiver for the embedded timer, exactly as
 // for the 0x0043C230 cursor.
-struct PlayerSchedulerRecord {
+struct FrameTimerView {
     int field_00;    // +0x00, stored one below the raw value
     int field_04;    // +0x04
     float field_08;  // +0x08, value converted to float
     int field_0C;    // +0x0C, default marker
     int flags_10;    // +0x10, initialised flag
 
-    __declspec(noinline) void SetSchedulerValue(int value);
+    __declspec(noinline) void Set(int value);
 };
 
 struct ScreenFlash {
@@ -150,8 +150,8 @@ struct ScreenFlash {
     const float* delta;        // +0x3C, embedded FrameTimer::speed
 
     FrameTimer* Timer() { return reinterpret_cast<FrameTimer*>(&previous); }
-    PlayerSchedulerRecord* SchedulerRecord() {
-        return reinterpret_cast<PlayerSchedulerRecord*>(&previous);
+    FrameTimerView* SchedulerRecord() {
+        return reinterpret_cast<FrameTimerView*>(&previous);
     }
     __declspec(noinline) int Tick();
 };
@@ -176,7 +176,7 @@ int ScreenFlash::Tick() {
         value = 0;
         if (--countdown <= 0)
             return SCREEN_TASK_STOP;
-        SchedulerRecord()->SetSchedulerValue(0);
+        SchedulerRecord()->Set(0);
     }
 
     Timer()->Tick();

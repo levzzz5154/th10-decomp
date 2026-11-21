@@ -1,6 +1,6 @@
 #include "th10/game/laser_spawn.hpp"
 extern "C" unsigned char g_laser_vtable;
-extern "C" unsigned char g_game_speed;
+extern "C" float g_game_speed;
 #pragma code_seg(".text$f0041c030F")
 __declspec(noinline) LaserBase *__fastcall
 LaserBase_Construct2(void *, LaserBase *self) {

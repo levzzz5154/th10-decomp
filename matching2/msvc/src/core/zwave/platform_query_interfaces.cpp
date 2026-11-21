@@ -2,25 +2,25 @@
 // combining their HRESULTs with OR. The historical Query name is retained.
 // Native LTCG gives this member's internal receiver convention: the state
 // arrives in EDI and the result is returned in EAX.
-typedef int (__stdcall *SoundDevice_QueryInterfaces)(void*, unsigned int);
+typedef int (__stdcall *SoundBufferRewind_SetCurrentPosition)(void*, unsigned int);
 
-struct PlatformQueryInterfaces {
+struct SoundBufferRewind {
     unsigned char unknown_000[4];
     void** entries_004;
     unsigned char unknown_008[8];
     unsigned int count_010;
 
-    __declspec(noinline) int Query();
+    __declspec(noinline) int RewindBuffers();
 };
 
 #pragma code_seg(".text$01query")
-__declspec(noinline) int PlatformQueryInterfaces::Query() {
+__declspec(noinline) int SoundBufferRewind::RewindBuffers() {
     if (entries_004 == 0) return (int)0x800401F0u;
     int result = 0;
     for (unsigned int index = 0; index < count_010; ++index) {
         void* entry = entries_004[index];
         void** vtable = *reinterpret_cast<void***>(entry);
-        result |= reinterpret_cast<SoundDevice_QueryInterfaces>(
+        result |= reinterpret_cast<SoundBufferRewind_SetCurrentPosition>(
             vtable[0x34 / 4])(entry, 0);
     }
     return result;

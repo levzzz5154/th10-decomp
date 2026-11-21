@@ -2,7 +2,7 @@
 #include "th10/game/ending_script/script_executor.hpp"
 extern "C" void* g_sprt_ctrl;
 extern "C" EndingOwner* g_ending;
-extern "C" GameThreadResourceView* g_ascii_manager;
+extern "C" AsciiManagerSpinnerView* g_ascii_manager;
 extern "C" unsigned int g_input_keys_raw;
 extern "C" unsigned int g_input_keys_held;
 extern "C" int g_globals_difficulty;
@@ -109,7 +109,7 @@ extern "C" __declspec(noinline) int __stdcall EndingScript_Execute(EndingScriptS
             g_screen_effects_frozen = 0;
             break;
         case 7:
-            g_ascii_manager->EnsureAnimationResource(480.0f, 392.0f);
+            g_ascii_manager->EnsureLoadingSpinner(480.0f, 392.0f);
             reinterpret_cast<AnmSlotManager*>(g_sprt_ctrl)->ClearResourceSlot(state->command->arguments[0] + 29);
             state->background_data = reinterpret_cast<const unsigned char*>(state->command) + 8;
             state->flags |= 4u;

@@ -1,9 +1,9 @@
-// 0x0043E460: AnmResourceRegistrar::RegisterResource
+// 0x0043E460: WaveSoundManager::QueueMusicCommand
 #include "th10/render/resource_registrar.hpp"
 
 #pragma code_seg(".text$01accessor")
 
-char* AnmResourceRegistrar::RegisterResource(const char* name, int resource, int parameter) {
+char* WaveSoundManager::QueueMusicCommand(const char* name, int resource, int parameter) {
     int index = 0;
     for (; index < 31; ++index) {
         if (records[index].resource == 0) {

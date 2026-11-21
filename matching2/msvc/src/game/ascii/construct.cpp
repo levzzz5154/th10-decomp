@@ -1,4 +1,4 @@
-// 0x00401000: the ASCII manager's constructor (GameThread is this file's view
+// 0x00401000: the ASCII manager's constructor (AsciiManager is this file's view
 // of the object; the full layout is AsciiManager in th10/game/ascii_manager.hpp).
 //
 // The retail body stores the type marker, retires the flag bits of the two
@@ -17,32 +17,32 @@ extern "C" void* g_ascii_manager;
 // Clears the "slot is live" bit of one slot flag word. Holding the flag's
 // address in a pointer keeps the store in the read-modify-write form the
 // image uses.
-#define GameThread_ClearSlotFlag(address) \
+#define AsciiManager_ClearSlotFlag(address) \
     do { unsigned* flag_ = (address); *flag_ &= ~1u; } while (0)
 
-GameThread::GameThread() {
-    GameThreadSlot* slot = &this->slots_0014;
-    GameThread_ClearSlotFlag(&slot->field_06C);
-    GameThread_ClearSlotFlag(&slot->field_0B0);
-    GameThread_ClearSlotFlag(&slot->field_0FC);
-    GameThread_ClearSlotFlag(&slot->field_128);
-    GameThread_ClearSlotFlag(&slot->field_174);
-    GameThread_ClearSlotFlag(&slot->field_1B0);
-    GameThread_ClearSlotFlag(&slot->field_1FC);
-    GameThread_ClearSlotFlag(&slot->field_228);
-    GameThread_ClearSlotFlag(&slot->field_378);
+AsciiManager::AsciiManager() {
+    AsciiGlyphVm* slot = &this->slots_0014;
+    AsciiManager_ClearSlotFlag(&slot->field_06C);
+    AsciiManager_ClearSlotFlag(&slot->field_0B0);
+    AsciiManager_ClearSlotFlag(&slot->field_0FC);
+    AsciiManager_ClearSlotFlag(&slot->field_128);
+    AsciiManager_ClearSlotFlag(&slot->field_174);
+    AsciiManager_ClearSlotFlag(&slot->field_1B0);
+    AsciiManager_ClearSlotFlag(&slot->field_1FC);
+    AsciiManager_ClearSlotFlag(&slot->field_228);
+    AsciiManager_ClearSlotFlag(&slot->field_378);
     memset(slot, 0, sizeof(*slot));
     slot->field_384 = 0xFFFF;
     slot = &this->slots_03c0;
-    GameThread_ClearSlotFlag(&slot->field_06C);
-    GameThread_ClearSlotFlag(&slot->field_0B0);
-    GameThread_ClearSlotFlag(&slot->field_0FC);
-    GameThread_ClearSlotFlag(&slot->field_128);
-    GameThread_ClearSlotFlag(&slot->field_174);
-    GameThread_ClearSlotFlag(&slot->field_1B0);
-    GameThread_ClearSlotFlag(&slot->field_1FC);
-    GameThread_ClearSlotFlag(&slot->field_228);
-    GameThread_ClearSlotFlag(&slot->field_378);
+    AsciiManager_ClearSlotFlag(&slot->field_06C);
+    AsciiManager_ClearSlotFlag(&slot->field_0B0);
+    AsciiManager_ClearSlotFlag(&slot->field_0FC);
+    AsciiManager_ClearSlotFlag(&slot->field_128);
+    AsciiManager_ClearSlotFlag(&slot->field_174);
+    AsciiManager_ClearSlotFlag(&slot->field_1B0);
+    AsciiManager_ClearSlotFlag(&slot->field_1FC);
+    AsciiManager_ClearSlotFlag(&slot->field_228);
+    AsciiManager_ClearSlotFlag(&slot->field_378);
     memset(slot, 0, sizeof(*slot));
     slot->field_384 = 0xFFFF;
     memset(this, 0, sizeof(*this));

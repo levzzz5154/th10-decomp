@@ -9,7 +9,7 @@
   "functions": [
     {
       "name": "Title_SetTimerTarget",
-      "symbol": "?SetTimerTarget@Title@@QAEXH@Z",
+      "symbol": "?SetPhase@Title@@QAEXH@Z",
       "section": ".text$01settarget",
       "address": "0x0042C620",
       "size": 80,

@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "name": "native_primary_format",
-  "source": "src/core/zunlib/joystick_property.cpp",
+  "source": "src/core/zunlib/sound_set_primary_format.cpp",
   "driver": "build_support/layout/ltcg/native_primary_format/configure_context.cpp",
   "headers": [
     "include/th10/platform/native_primary_format.hpp"

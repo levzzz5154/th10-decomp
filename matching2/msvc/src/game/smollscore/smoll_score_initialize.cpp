@@ -6,7 +6,7 @@
 #include "th10/core/func_ctrl.hpp"
 #include "th10/render/animation_object.hpp"
 
-struct StageResources2 {
+struct AsciiManager {
     unsigned char reserved_0000[0x8994];
     Resource2* animation_resource;   // +0x8994
 };
@@ -16,7 +16,7 @@ SchedulerTask* __stdcall SchedulerTask_Create(TaskRoutine callback);
 int __fastcall SmollScoreUpdateTask(void* pool);
 int __fastcall SmollScoreDrawTask(void* pool);
 extern FuncCtrl* g_func_ctrl;
-extern StageResources2* g_ascii_manager;
+extern AsciiManager* g_ascii_manager;
 }
 
 #pragma code_seg(".text$00yfn")

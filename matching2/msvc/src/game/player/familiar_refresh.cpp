@@ -22,9 +22,9 @@ static __forceinline FamiliarAnimManager* AnimManager() {
 // Trail sprite scheduler callback (0x00427950) and playback switch callback
 // (0x00427AD0) installed on the refreshed orbit records.
 struct PlayerOption;
-struct PlaybackState;
+struct PlayerOptionFocusState;
 int __fastcall PlayerOption_FollowTrail(PlayerOption* option);
-int __fastcall PlaybackState_OnSwitch(PlaybackState* state);
+int __fastcall PlayerOption_UpdateFixedOnFocus(PlayerOptionFocusState* state);
 
 // The animation-manager create wrapper (0x00448E30): builds one sprite of the
 // requested script on layer 0x0F and hands the registered handle back through
@@ -282,7 +282,7 @@ extern "C" __declspec(noinline) void __stdcall Player_RefreshOptions(
                 break; }
             case FAMILIAR_SHOT_C: {
                 // Marisa C (Cold Inferno / Fixed): unfocused offset only; in focus
-                // mode the options freeze in place via PlaybackState_OnSwitch.
+                // mode the options freeze in place via PlayerOption_UpdateFixedOnFocus.
                 ScaleOffset(&player->familiars[i].carried,
                             &Rows(player)->carried[data_00476f7c[desired] + i]);
                 if (!player->alternate || player->familiars[i].state == FAMILIAR_STATE_INACTIVE) {
@@ -295,7 +295,7 @@ extern "C" __declspec(noinline) void __stdcall Player_RefreshOptions(
                     ((StopFrameAnmHandle*)&player->familiars[i].handle)
                         ->SetStopFrame(3);
                 player->familiars[i].callback = (FamiliarCallback)
-                    &PlaybackState_OnSwitch;
+                    &PlayerOption_UpdateFixedOnFocus;
                 break; }
             }
             break;

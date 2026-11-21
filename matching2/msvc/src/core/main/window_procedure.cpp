@@ -19,7 +19,7 @@ extern "C" __declspec(noinline) LRESULT __stdcall WindowProcedure(HWND window, U
     case WIN_WM_CLOSE: window_flags |= WIN_FLAG_CLOSING; // fall through to the shared success return
     case WIN_WM_ERASEBKGND: return 1;
     case WIN_WM_SETCURSOR:
-        if (window_cursor_enabled == 0 && window_inactive == 0) {
+        if (g_windowed == 0 && window_inactive == 0) {
             IatShowCursor(0); IatSetCursor(0); return 1;
         }
         IatSetCursor(IatWindowLoadCursorA(0, reinterpret_cast<LPCSTR>(WIN_IDC_ARROW)));

@@ -4,7 +4,7 @@
   "source": "src/core/main/game_main.cpp",
   "driver": "build_support/layout/ltcg/game_main_00438ad0_context.cpp",
   "included_sources": [
-    "src/core/main/destroy_entity_list.cpp",
+    "src/core/main/sprt_ctrl_release_surfaces.cpp",
     "src/core/main/window_create.cpp",
     "src/core/midilib/midi_cleanup.cpp",
     "src/core/midilib/midi_shutdown.cpp",
@@ -40,7 +40,7 @@
     "include/th10/platform/window_midi_native.hpp",
     "include/th10/platform/windows_types.hpp",
     "include/th10/platform/worker.hpp",
-    "include/th10/render/d3d_destroy.hpp",
+    "include/th10/core/func_ctrl_destroy.hpp",
     "include/th10/render/direct3d9_interfaces.hpp",
     "include/th10/render/resource_registrar.hpp"
   ],
@@ -80,8 +80,8 @@
       "size": 12
     },
     {
-      "name": "?ReleaseAll@@YGXPAUHolder2@@@Z",
-      "symbol": "?ReleaseAll@@YGXPAUHolder2@@@Z",
+      "name": "?ReleaseAll@@YGXPAUSprtCtrl@@@Z",
+      "symbol": "?ReleaseAll@@YGXPAUSprtCtrl@@@Z",
       "section": ".text$00g07",
       "address": "0x00438A30",
       "size": 43
@@ -360,7 +360,7 @@
       "kind": "relative_code"
     },
     {
-      "symbol": "?Aggregate@SoundStream@@QAEHXZ",
+      "symbol": "?StopAndRewind@SoundStream@@QAEHXZ",
       "address": "0x00401000",
       "kind": "relative_code"
     },
@@ -420,7 +420,7 @@
       "kind": "relative_code"
     },
     {
-      "symbol": "?InvokeConfigured@PlatformInterfaceState4@@QAEHXZ",
+      "symbol": "?Resume@SoundBufferResume@@QAEHXZ",
       "address": "0x0044D5D0",
       "kind": "relative_code"
     },
@@ -430,7 +430,7 @@
       "kind": "relative_code"
     },
     {
-      "symbol": "?Platform_InvokeInterface@@YIHPAUSoundBuffer@@@Z",
+      "symbol": "?SoundBuffer_Pause@@YIHPAUSoundBuffer@@@Z",
       "address": "0x0044D5B0",
       "kind": "relative_code"
     },
@@ -445,7 +445,7 @@
       "kind": "relative_code"
     },
     {
-      "symbol": "?RegisterResource@AnmResourceRegistrar@@QAEPADPBDHH@Z",
+      "symbol": "?QueueMusicCommand@WaveSoundManager@@QAEPADPBDHH@Z",
       "address": "0x0043E460",
       "kind": "relative_code"
     },
@@ -475,12 +475,12 @@
       "kind": "relative_code"
     },
     {
-      "symbol": "?Select@PlatformStreamState@@QAEHPAUPlatformStreamRecord@@@Z",
+      "symbol": "?SelectTrack@MusicReadCursorSelect@@QAEHPAUMusicTrackRecord@@@Z",
       "address": "0x0044DCA0",
       "kind": "relative_code"
     },
     {
-      "symbol": "?SetOperationDeadline@PlatformInterfaceState2@@QAEHH@Z",
+      "symbol": "?SetVolume@SoundBufferVolume@@QAEHH@Z",
       "address": "0x0044D4E0",
       "kind": "relative_code"
     },

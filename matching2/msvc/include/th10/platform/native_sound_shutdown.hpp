@@ -27,7 +27,7 @@ struct SoundStream {
     unsigned int active;
     unsigned char reserved_020[0x10];
     unsigned int operation;
-    __declspec(noinline) int Aggregate();
+    __declspec(noinline) int StopAndRewind();
 };
 struct WaveSoundManager {
     SoundDevice* device;

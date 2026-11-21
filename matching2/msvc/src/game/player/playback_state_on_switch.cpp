@@ -3,8 +3,8 @@
 #include "th10/game/playback_state.hpp"
 
 #pragma code_seg(".text$45timedzbc5")
-int __fastcall PlaybackState_OnSwitch(PlaybackState* state) {
-    state->SwitchPlaybackState();
+int __fastcall PlayerOption_UpdateFixedOnFocus(PlayerOptionFocusState* state) {
+    state->UpdateFixedOnFocus();
     return 0;
 }
 #pragma code_seg()

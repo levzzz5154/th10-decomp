@@ -106,7 +106,7 @@ static __forceinline void CollectPowerItem(ItemMotionCursor motion, const Vector
         if (gain == LargePowerGain) {
             g_sound_manager.QueuePan(SFX_POWER_UP, motion->position.x);
             g_smoll_score->Spawn(-1, point, POPUP_COLOR_PALE_YELLOW);
-            g_globals.AdjustPower(24);
+            g_globals.AdjustRank(24);
             if (g_globals.power >= 100)
                 convert_items = 1;
         } else {
@@ -114,7 +114,7 @@ static __forceinline void CollectPowerItem(ItemMotionCursor motion, const Vector
             g_sound_manager.QueuePan(SFX_POWER_UP, motion->position.x);
             if (g_globals.power >= 100)
                 convert_items = 1;
-            g_globals.AdjustPower(12);
+            g_globals.AdjustRank(12);
         }
     } else {
         g_smoll_score->Spawn(g_globals.power / 2, point, POPUP_COLOR_RED);
@@ -138,7 +138,7 @@ static __forceinline void CollectPointItem(const Player* player, const Vector3* 
         g_smoll_score->Spawn(value, point, POPUP_COLOR_WHITE);
         adjustment = 1;
     }
-    g_globals.AdjustPower(adjustment);
+    g_globals.AdjustRank(adjustment);
     run.AddScore(value);
     g_globals.AdvanceGaugeTimer(100);
 }
@@ -175,7 +175,7 @@ static __forceinline void CollectItem(ItemMotionCursor motion, const Player* pla
     case ITEM_POINT_FULL_POWER: {
         int value = g_globals.gauge * 10;
         g_smoll_score->Spawn(value, point, POPUP_COLOR_YELLOW);
-        g_globals.AdjustPower(8);
+        g_globals.AdjustRank(8);
         run.AddScore(value);
         g_globals.AdvanceGaugeTimer(100);
         break;
@@ -203,7 +203,7 @@ static __forceinline void CollectItem(ItemMotionCursor motion, const Player* pla
         break;
     case ITEM_1UP:
         g_globals.AddLives(1);
-        g_globals.AdjustPower(256);
+        g_globals.AdjustRank(256);
         break;
     }
     motion->state = Inactive;
@@ -294,7 +294,7 @@ extern "C" __declspec(noinline) int __stdcall ItemManager_UpdateItems(ItemSpawnM
             const volatile float& stored_y = motion->position.y;
             if (stored_y > flt_472) {
                 motion->state = Inactive;
-                g_globals.AdjustPower(-4);
+                g_globals.AdjustRank(-4);
                 goto step;
             }
             player = CurrentItemPlayer();

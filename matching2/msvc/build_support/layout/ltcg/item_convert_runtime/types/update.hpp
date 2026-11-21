@@ -33,8 +33,8 @@ struct ItemRunState {
     unsigned char reserved_28[8];
     int lives, point_tier;
     unsigned char reserved_38[0x18];
-    int capped_count, reserved_54, power_accumulator;
-    __declspec(noinline) void AdjustPower(int amount);
+    int continues, reserved_54, rank;
+    __declspec(noinline) void AdjustRank(int amount);
     __declspec(noinline) int AddPower(int amount);
     __declspec(noinline) void AddLives(int amount);
     __declspec(noinline) void AddScore(int amount);
@@ -82,7 +82,7 @@ extern ItemCollector* g_player;
 extern ItemSmollScoreView* g_smoll_score;
 extern ItemCollectionBlocker* g_bomb;
 extern unsigned int g_input;
-extern float g_game_speed;
+extern "C" float g_game_speed;
 extern float flt_0, flt_pi_2, flt_128, flt_0_03;
 extern float flt_2, flt_472, flt_12, flt_0_2;
 extern float flt_0_33333334, flt_144, flt_0_003289474, flt_5000;
@@ -99,6 +99,6 @@ typedef char ItemCollectorUnfocusedBoxOffset[offsetof(ItemCollector,unfocused_ma
 typedef char ItemRunPowerOffset[offsetof(ItemRunState,power)==8?1:-1];
 typedef char ItemRunGaugeOffset[offsetof(ItemRunState,gauge)==12?1:-1];
 typedef char ItemRunLivesOffset[offsetof(ItemRunState,lives)==0x30?1:-1];
-typedef char ItemRunPowerAccumulatorOffset[offsetof(ItemRunState,power_accumulator)==0x58?1:-1];
+typedef char ItemRunPowerAccumulatorOffset[offsetof(ItemRunState,rank)==0x58?1:-1];
 typedef char ItemFloatingTextSize[sizeof(ItemFloatingText)==0x40?1:-1];
 typedef char ItemSmollScoreViewOffset[offsetof(ItemSmollScoreView,texts)==0x3C4?1:-1];

@@ -4,12 +4,12 @@
 #include <stddef.h>
 #include "th10/render/animation_stop_frame_handle.hpp"
 
-struct PlaybackModeSource {
+struct PlayerFocusSource {
     unsigned char reserved_000[0x4474];
     int playback;
 };
 
-struct PlaybackState {
+struct PlayerOptionFocusState {
     unsigned char reserved_000[0x34];
     volatile int current_x;
     volatile int current_y;
@@ -22,14 +22,14 @@ struct PlaybackState {
     StopFrameAnmHandle animation;
     unsigned char reserved_06c[0x18];
     volatile int playback;
-    __declspec(noinline) void SwitchPlaybackState();
+    __declspec(noinline) void UpdateFixedOnFocus();
 };
 
-typedef char PlaybackCurrentOffset[(offsetof(PlaybackState, current_x)==0x34)?1:-1];
-typedef char PlaybackLiveOffset[(offsetof(PlaybackState, live_x)==0x3C)?1:-1];
-typedef char PlaybackSavedOffset[(offsetof(PlaybackState, saved_x)==0x4C)?1:-1];
-typedef char PlaybackAnimationOffset[(offsetof(PlaybackState, animation)==0x68)?1:-1];
-typedef char PlaybackFlagOffset[(offsetof(PlaybackState, playback)==0x84)?1:-1];
-typedef char PlaybackModeOffset[(offsetof(PlaybackModeSource, playback)==0x4474)?1:-1];
+typedef char PlaybackCurrentOffset[(offsetof(PlayerOptionFocusState, current_x)==0x34)?1:-1];
+typedef char PlaybackLiveOffset[(offsetof(PlayerOptionFocusState, live_x)==0x3C)?1:-1];
+typedef char PlaybackSavedOffset[(offsetof(PlayerOptionFocusState, saved_x)==0x4C)?1:-1];
+typedef char PlaybackAnimationOffset[(offsetof(PlayerOptionFocusState, animation)==0x68)?1:-1];
+typedef char PlaybackFlagOffset[(offsetof(PlayerOptionFocusState, playback)==0x84)?1:-1];
+typedef char PlaybackModeOffset[(offsetof(PlayerFocusSource, playback)==0x4474)?1:-1];
 
 #endif

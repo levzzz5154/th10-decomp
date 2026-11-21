@@ -4,8 +4,8 @@
   "source": "src/game/bullet/bullet_ex_home_toward_player.cpp",
   "additional_sources": [],
   "headers": [
-    "include/th10/game/player_homing.hpp",
-    "include/th10/game/player_motion_helpers.hpp",
+    "include/th10/game/bullet_ex_homing.hpp",
+    "include/th10/game/bullet_ex_motion.hpp",
     "include/th10/math/angle.hpp",
     "include/th10/math/timer.hpp",
     "include/th10/game/player.hpp",

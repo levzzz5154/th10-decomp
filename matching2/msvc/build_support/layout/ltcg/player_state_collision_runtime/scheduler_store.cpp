@@ -28,7 +28,7 @@
 #include "th10/game/player_collision/player_state.hpp"
 
 #pragma code_seg(".text$f00405410F")
-void PlayerSchedulerRecord::SetSchedulerValue(int value) {
+void FrameTimerView::Set(int value) {
     if (!(this->flags_10 & 1)) {
         this->field_04 = 0;
         this->field_00 = 0xFFF0BDC1;

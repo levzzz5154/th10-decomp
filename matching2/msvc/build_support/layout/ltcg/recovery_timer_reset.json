@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "name": "recovery_timer_reset_00412db0",
-  "source": "src/game/enemy/enemy_timer_reset.cpp",
+  "source": "src/game/enemy/trajectory_interp_restart.cpp",
   "driver": "build_support/layout/ltcg/recovery_timer_reset_00412db0_context.cpp",
   "headers": [],
   "image_base": "0x00400000",
@@ -9,7 +9,7 @@
   "functions": [
     {
       "name": "RecoveryTimer_00412db0_Reset",
-      "symbol": "?Reset@EnemyTimerView@@QAEXXZ",
+      "symbol": "?Restart@TrajectoryInterpView@@QAEXXZ",
       "section": ".text$01timerreset00412db0",
       "address": "0x00412DB0",
       "size": 50,
@@ -17,7 +17,7 @@
     }
   ],
   "context": {
-    "symbol": "?RecoveryTimerResetCompilerContext@@YGHPAPAUEnemyTimerView@@H@Z",
+    "symbol": "?RecoveryTimerResetCompilerContext@@YGHPAPAUTrajectoryInterpView@@H@Z",
     "section": ".text$03context",
     "address": "0x00412DF0",
     "size": 41,

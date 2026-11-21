@@ -56,5 +56,5 @@ extern "C" __declspec(noinline) AnimationScriptId* __stdcall AnimationCreateWith
     AnimationScriptId* out, AnimationBank* resource, AnimationScriptId script,
     void* context, AnimationInitializer initialize,
     AnimationCallback update, AnimationCallback draw);
-struct TitleEffectState;
-extern "C" __declspec(noinline) int __stdcall TitleEffectsAdvance(TitleEffectState* state);
+struct Loading;
+extern "C" __declspec(noinline) int __stdcall Loading_Update(Loading* state);

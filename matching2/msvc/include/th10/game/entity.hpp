@@ -234,10 +234,10 @@ struct BulletEntity {
 
 // Parameters copied into a BulletEntity by the spawn path. The constructor at
 // 0x0040CF40 clears all 0x1F8 bytes and gives the radius at +0x2C its default.
-struct BulletSpawnParameters {
+struct BeamLaserParams {
     uint32_t fields[0x7E];
 };
-// sizeof(BulletSpawnParameters) == 0x1F8
+// sizeof(BeamLaserParams) == 0x1F8
 
 struct BulletEntityManager {
     uint8_t pad_000[0x58];
@@ -254,8 +254,8 @@ struct EntityResourceSnapshot {
 };
 
 
-BulletSpawnParameters* __fastcall BulletSpawnParameters_Initialize(
-    void* unused, BulletSpawnParameters* parameters);
+BeamLaserParams* __fastcall BeamLaserParams_Construct(
+    void* unused, BeamLaserParams* parameters);
 void BulletEntity_SetAnimationVector(BulletEntity* entity, const float* value);
 BulletEntity* BulletEntity_FindById(BulletEntityManager* manager, int id);
 void BulletEntity_ReleaseResource(BulletEntity* entity, void* vtable);
@@ -264,7 +264,7 @@ BulletEntity* BulletEntity_Initialize(
     BulletEntity* entity, const uint8_t* templateData);
 BulletEntity* BulletEntity_Spawn(
     BulletEntityManager* manager, const uint8_t* templateData,
-    const BulletSpawnParameters* parameters);
+    const BeamLaserParams* parameters);
 void BulletEntity_MarkAnimationForRemoval(BulletEntity* entity);
 int __fastcall Entity_AttachResourceSnapshot(
     Entity* entity, const EntityResourceSnapshot* snapshot);

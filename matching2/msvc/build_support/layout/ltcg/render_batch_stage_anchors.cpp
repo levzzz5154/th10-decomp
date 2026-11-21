@@ -1,16 +1,16 @@
 // Body compiled here only so this link derives its entry convention for
 // the stage background task; the recovered function lives in
 // src/game/background/player_set_scheduler_value_00405410.cpp.
-struct PlayerSchedulerRecord {
+struct FrameTimerView {
     int field_00;
     int field_04;
     float field_08;
     int field_0C;
     int flags_10;
-    __declspec(noinline) void SetSchedulerValue(int value);
+    __declspec(noinline) void Set(int value);
 };
 #pragma code_seg(".text$000zt_timerset")
-void PlayerSchedulerRecord::SetSchedulerValue(int value) {
+void FrameTimerView::Set(int value) {
     if (!(this->flags_10 & 1)) {
         this->field_04 = 0;
         this->field_00 = 0xFFF0BDC1;

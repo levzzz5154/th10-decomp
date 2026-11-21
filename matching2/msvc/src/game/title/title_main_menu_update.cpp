@@ -19,8 +19,8 @@
 //    second copy of the two calls the sound request is hoisted above the
 //    selection test.
 //  * The room is loaded again for the slot restart that follows
-//    SetTimerTarget in the "replay" case although that function leaves EAX
-//    alone: SetTimerTarget is defined in the room's class, and the compiler
+//    SetPhase in the "replay" case although that function leaves EAX
+//    alone: SetPhase is defined in the room's class, and the compiler
 //    keeps no register summary for the out-of-line copy of an in-class member.
 #include "th10/game/title_main_menu_update.hpp"
 
@@ -108,10 +108,10 @@ __declspec(noinline) int __stdcall TitleMainMenu(Title* room) {
                 room->animation_slots[88]) == 0)
             Title_InstallAnimationSlot(room, 88);
         Title_InstallAnimationSlot(room, 0);
-        room->SetTimerTarget(MAIN_MENU_WAIT_OPEN);
+        room->SetPhase(MAIN_MENU_WAIT_OPEN);
     case MAIN_MENU_WAIT_OPEN:
         if (room->timer.current > 10) {
-            room->SetTimerTarget(MAIN_MENU_ACTIVE);
+            room->SetPhase(MAIN_MENU_ACTIVE);
             RunCursorSlot(room);
             room->SetSlotFrame(0, room->cursor.selection + 0x11);
         }
@@ -145,25 +145,25 @@ __declspec(noinline) int __stdcall TitleMainMenu(Title* room) {
                 g_sound_manager.Queue(MAIN_SFX_CONFIRM, 0);
                 room->SetSlotFrame(0x5a, 7);
                 room->SetSlotFrame(0x5b, 7);
-                room->SetTimerTarget(MAIN_MENU_TRANSITION);
+                room->SetPhase(MAIN_MENU_TRANSITION);
                 break;
             case MENU_ITEM_MUSIC_ROOM:
                 g_sound_manager.Queue(MAIN_SFX_CONFIRM, 0);
                 room->SetSlotFrame(0x5a, 7);
                 room->SetSlotFrame(0x5b, 7);
-                room->SetTimerTarget(MAIN_MENU_TRANSITION);
+                room->SetPhase(MAIN_MENU_TRANSITION);
                 g_sound_manager.Queue(MAIN_SFX_CONFIRM, 0);
                 break;
             case MENU_ITEM_OPTIONS:
                 g_sound_manager.Queue(MAIN_SFX_CONFIRM, 0);
-                room->SetTimerTarget(MAIN_MENU_TRANSITION);
+                room->SetPhase(MAIN_MENU_TRANSITION);
                 reinterpret_cast<TitleAnimationSlotView*>(room)->RestartSlot(0x5a);
                 reinterpret_cast<TitleAnimationSlotView*>(room)->RestartSlot(0x5b);
                 break;
             case MENU_ITEM_QUIT:
             quit:
                 g_sound_manager.Queue(MAIN_SFX_CANCEL, 0);
-                room->SetTimerTarget(MAIN_MENU_TRANSITION);
+                room->SetPhase(MAIN_MENU_TRANSITION);
                 break;
             }
         }
@@ -176,7 +176,7 @@ __declspec(noinline) int __stdcall TitleMainMenu(Title* room) {
             case MENU_ITEM_START:
                 g_globals_flags &= ~(unsigned int)MAIN_GLOBAL_FLAG_PRACTICE;
                 room->ClearAnimationSlot(88);
-                room->DisableTimerWithOwner(MAIN_TARGET_DIFFICULTY);
+                room->SetMode(MAIN_TARGET_DIFFICULTY);
                 cursor->PushSelection();
                 if (g_globals_difficulty >= MAIN_DIFFICULTY_EXTRA)
                     g_globals_difficulty = MAIN_DIFFICULTY_NORMAL;
@@ -185,7 +185,7 @@ __declspec(noinline) int __stdcall TitleMainMenu(Title* room) {
             case MENU_ITEM_EXTRA_START:
                 g_globals_flags &= ~(unsigned int)MAIN_GLOBAL_FLAG_PRACTICE;
                 room->ClearAnimationSlot(88);
-                room->DisableTimerWithOwner(MAIN_TARGET_DIFFICULTY);
+                room->SetMode(MAIN_TARGET_DIFFICULTY);
                 cursor->PushSelection();
                 reinterpret_cast<TitleDifficultyView*>(room)->saved_difficulty = g_globals_difficulty;
                 g_globals_difficulty = MAIN_DIFFICULTY_EXTRA;
@@ -194,7 +194,7 @@ __declspec(noinline) int __stdcall TitleMainMenu(Title* room) {
             case MENU_ITEM_PRACTICE_START:
                 g_globals_flags |= MAIN_GLOBAL_FLAG_PRACTICE;
                 room->ClearAnimationSlot(88);
-                room->DisableTimerWithOwner(MAIN_TARGET_DIFFICULTY);
+                room->SetMode(MAIN_TARGET_DIFFICULTY);
                 cursor->PushSelection();
                 if (g_globals_difficulty >= MAIN_DIFFICULTY_EXTRA)
                     g_globals_difficulty = MAIN_DIFFICULTY_NORMAL;
@@ -202,25 +202,25 @@ __declspec(noinline) int __stdcall TitleMainMenu(Title* room) {
                 break;
             case MENU_ITEM_REPLAY:
                 room->ClearAnimationSlot(88);
-                room->DisableTimerWithOwner(MAIN_TARGET_REPLAY_SELECT);
+                room->SetMode(MAIN_TARGET_REPLAY_SELECT);
                 cursor->PushSelection();
                 break;
             case MENU_ITEM_PLAYER_DATA:
                 room->ClearAnimationSlot(88);
-                room->DisableTimerWithOwner(MAIN_TARGET_SPELL_RECORD);
+                room->SetMode(MAIN_TARGET_SPELL_RECORD);
                 cursor->PushSelection();
                 break;
             case MENU_ITEM_MUSIC_ROOM:
                 room->ClearAnimationSlot(88);
-                room->DisableTimerWithOwner(MAIN_TARGET_MUSIC_ROOM);
+                room->SetMode(MAIN_TARGET_MUSIC_ROOM);
                 cursor->PushSelection();
                 break;
             case MENU_ITEM_OPTIONS:
-                room->DisableTimerWithOwner(MAIN_TARGET_OPTIONS);
+                room->SetMode(MAIN_TARGET_OPTIONS);
                 cursor->PushSelection();
                 break;
             case MENU_ITEM_QUIT:
-                room->DisableTimerWithOwner(MAIN_TARGET_LEAVE);
+                room->SetMode(MAIN_TARGET_LEAVE);
                 break;
             }
         }

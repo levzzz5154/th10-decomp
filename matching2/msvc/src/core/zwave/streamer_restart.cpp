@@ -20,7 +20,7 @@ extern "C" __declspec(noinline) int __stdcall SoundStream_Restart(SoundStreaming
     stream->end_of_stream = 0;
 
     unsigned int restored;
-    int result = reinterpret_cast<PlatformD300Entry*>(stream->buffers[0])->Run(&restored);
+    int result = reinterpret_cast<WaveSecondaryBufferRestore*>(stream->buffers[0])->RestoreIfLost(&restored);
     if (result < 0)
         return result;
     if (restored) {

@@ -5,7 +5,7 @@
 
 extern float g_frame_timer_normal_lower;  // 0x00470B68
 extern float g_frame_timer_normal_upper;  // 0x00470B64
-extern float g_score_default_speed;       // 0x00476F78, the script-time frame delta
+extern "C" float g_game_speed;       // 0x00476F78, the script-time frame delta
 
 // Five-word frame timer. The source declarations are ordinary __thiscall;
 // the documented native LTCG cluster selects ESI for this and EAX for the
@@ -48,7 +48,7 @@ struct FrameTimer {
             current = 0;
             previous = -999999;
             elapsed = 0.0f;
-            speed = &g_score_default_speed;
+            speed = &g_game_speed;
             flags |= 1;
         }
         current = 0;
@@ -69,7 +69,7 @@ inline void FrameTimer::Set(int frame) {
         current = 0;
         previous = -999999;
         elapsed = 0.0f;
-        speed = &g_score_default_speed;
+        speed = &g_game_speed;
         flags |= 1;
     }
     current = frame;

@@ -7,7 +7,7 @@
 // with the parameter order this caller's evaluation order requires. It keeps
 // the list in EAX and the owner on the stack.
 #pragma code_seg(".text$07release")
-__declspec(noinline) void __stdcall ReleaseResourceList(
+__declspec(noinline) void __stdcall ReleaseTaskList(
         FuncCtrl* owner, ResourceList_DestroyABI* list) {
     TaskLink* node = list->first;
     if (node) {
@@ -33,6 +33,6 @@ __declspec(noinline) void __stdcall ReleaseResourceList(
 extern "C" void __stdcall D3DResourceManagerReleaseContext_00449eb0(
         FuncCtrlReleaseView** managers, int count) {
     while (count--)
-        (*managers++)->ReleaseResources();
+        (*managers++)->ReleaseTasks();
 }
 #pragma code_seg()

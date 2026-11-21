@@ -15,16 +15,6 @@ extern "C" __declspec(noinline) int __stdcall EnemyDataStart(EnemyTick* enemy) {
     enemy->previous = enemy->final;
 
     // 0x0040DCA9: the heading and orbit interpolators feed the two motions.
-    if (enemy->relative_heading.duration) {
-        TrajectoryVec2 heading = enemy->relative_heading.Step();
-        enemy->relative.angle = Angle_Normalize2(heading.x);
-        enemy->relative.speed = heading.y;
-    }
-    if (enemy->relative_orbit.duration) {
-        TrajectoryVec2 orbit = enemy->relative_orbit.Step();
-        enemy->relative.radius = orbit.x;
-        enemy->relative.radius_step = orbit.y;
-    }
     if (enemy->absolute_heading.duration) {
         TrajectoryVec2 heading = enemy->absolute_heading.Step();
         enemy->absolute.angle = Angle_Normalize2(heading.x);
@@ -35,24 +25,34 @@ extern "C" __declspec(noinline) int __stdcall EnemyDataStart(EnemyTick* enemy) {
         enemy->absolute.radius = orbit.x;
         enemy->absolute.radius_step = orbit.y;
     }
+    if (enemy->relative_heading.duration) {
+        TrajectoryVec2 heading = enemy->relative_heading.Step();
+        enemy->relative.angle = Angle_Normalize2(heading.x);
+        enemy->relative.speed = heading.y;
+    }
+    if (enemy->relative_orbit.duration) {
+        TrajectoryVec2 orbit = enemy->relative_orbit.Step();
+        enemy->relative.radius = orbit.x;
+        enemy->relative.radius_step = orbit.y;
+    }
 
     // 0x0040DD69: each motion follows its path when one runs, else its heading.
-    if (enemy->relative_path.duration)
-        enemy->relative.velocity = enemy->relative_path.Step() - enemy->relative.position;
-    else
-        enemy->relative.Update();
     if (enemy->absolute_path.duration)
         enemy->absolute.velocity = enemy->absolute_path.Step() - enemy->absolute.position;
     else
         enemy->absolute.Update();
+    if (enemy->relative_path.duration)
+        enemy->relative.velocity = enemy->relative_path.Step() - enemy->relative.position;
+    else
+        enemy->relative.Update();
 
     // 0x0040DE87: move both, and the drawn position by what they add up to.
-    enemy->relative.Advance();
-    if (enemy->flags & ENEMY_UNSCROLLED)
-        enemy->absolute.position += g_enemy_scroll;
     enemy->absolute.Advance();
+    if (enemy->flags & ENEMY_UNSCROLLED)
+        enemy->relative.position += g_enemy_scroll;
+    enemy->relative.Advance();
     *reinterpret_cast<Vec3*>(&enemy->final.velocity) =
-        *reinterpret_cast<Vec3*>(&enemy->relative.position) + *reinterpret_cast<Vec3*>(&enemy->absolute.position)
+        *reinterpret_cast<Vec3*>(&enemy->absolute.position) + *reinterpret_cast<Vec3*>(&enemy->relative.position)
         - *reinterpret_cast<Vec3*>(&enemy->final.position);
     enemy->final.Advance();
 
@@ -76,7 +76,7 @@ extern "C" __declspec(noinline) int __stdcall EnemyDataStart(EnemyTick* enemy) {
             if (edge < enemy->final.position.y)
                 enemy->final.position.y = edge;
         }
-        enemy->relative.position = enemy->final.position - enemy->absolute.position;
+        enemy->absolute.position = enemy->final.position - enemy->relative.position;
     }
 
     // 0x0040DFDA: an enemy that was seen and has left the field is removed.
@@ -131,7 +131,7 @@ extern "C" __declspec(noinline) int __stdcall EnemyDataStart(EnemyTick* enemy) {
             if (!(enemy->flags & ENEMY_NO_DAMAGE) && enemy->invulnerable_timer.current <= 0)
                 enemy->health -= damage;
             // A spell slot that came due restarts the script at once.
-            const char* entry = enemy->record->AdvanceSlots();
+            const char* entry = enemy->record->CheckInterrupts();
             if (entry) {
                 enemy->record->ClearResourceList();
                 enemy->record->ResetScript();
@@ -152,7 +152,7 @@ extern "C" __declspec(noinline) int __stdcall EnemyDataStart(EnemyTick* enemy) {
 
     // 0x0040E275: a spell slot that came due without a hit.
     {
-        const char* entry = enemy->record->AdvanceSlots();
+        const char* entry = enemy->record->CheckInterrupts();
         if (entry) {
             enemy->record->ClearResourceList();
             enemy->record->ResetScript();

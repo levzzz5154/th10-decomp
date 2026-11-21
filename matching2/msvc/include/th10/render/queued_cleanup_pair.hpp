@@ -3,38 +3,38 @@
 extern "C" unsigned char g_queued_anm_release;
 extern "C" unsigned char g_sprt_ctrl;
 
-// QueuedCleanupManager::Find's C++ definition is shared with the recovered
+// SprtCtrl::Find's C++ definition is shared with the recovered
 // 0x004491C0 entry. Keep these ABI types identical to that translation unit:
 // the manager receiver is ignored, the context arrives in EDX, and the
-// four-byte QueuedCleanupScriptId aggregate remains on the stack.
-struct QueuedCleanupLookupEntry {
-    QueuedCleanupLookupEntry* object;
-    QueuedCleanupLookupEntry* next;
+// four-byte AnimationScriptId aggregate remains on the stack.
+struct AnimationEntry {
+    AnimationEntry* object;
+    AnimationEntry* next;
     unsigned char reserved_008[0x0C];
-    QueuedCleanupLookupEntry* children;
+    AnimationEntry* children;
     int children_flagged;
     unsigned char reserved_01C[0x340];
     unsigned int flags;
 };
 
-struct QueuedCleanupContext {
+struct AnimationLookupContext {
     unsigned char reserved[0x72DAD4];
-    QueuedCleanupLookupEntry* primary_bucket;
+    AnimationEntry* primary_bucket;
     int reserved_2;
-    QueuedCleanupLookupEntry* secondary_bucket;
+    AnimationEntry* secondary_bucket;
 };
 
-struct QueuedCleanupScriptId {
+struct AnimationScriptId {
     int value;
 };
 
-extern "C" QueuedCleanupScriptId g_queued_cleanup_a;
-extern "C" QueuedCleanupScriptId g_queued_cleanup_b;
-extern "C" QueuedCleanupScriptId g_queued_cleanup_c;
+extern "C" AnimationScriptId g_queued_cleanup_a;
+extern "C" AnimationScriptId g_queued_cleanup_b;
+extern "C" AnimationScriptId g_queued_cleanup_c;
 
-class QueuedCleanupManager {
+class SprtCtrl {
 public:
-    __declspec(noinline) void* __fastcall Find(QueuedCleanupContext* context, QueuedCleanupScriptId id);
+    __declspec(noinline) void* __fastcall Find(AnimationLookupContext* context, AnimationScriptId id);
 };
 
 struct QueuedAnmObject;

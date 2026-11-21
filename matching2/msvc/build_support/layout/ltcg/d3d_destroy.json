@@ -4,7 +4,7 @@
   "source": "src/core/main/func_ctrl_destroy.cpp",
   "driver": "build_support/layout/ltcg/d3d_destroy_00438880_context.cpp",
   "headers": [
-    "include/th10/render/d3d_destroy.hpp",
+    "include/th10/core/func_ctrl_destroy.hpp",
     "include/th10/game/resource_list_destroy_abi.hpp",
     "include/th10/core/func_ctrl.hpp",
     "include/th10/platform/thread_sync.hpp",
@@ -34,7 +34,7 @@
     },
     {
       "name": "semantic_D3DResourceManager_UnwindPrimary_00465350",
-      "symbol": "_D3DManagerUnwindPrimary_00465350",
+      "symbol": "_FuncCtrlUnwindPrimary_00465350",
       "section": ".text$x",
       "address": "0x00465350",
       "size": 8,
@@ -45,7 +45,7 @@
     },
     {
       "name": "semantic_D3DResourceManager_UnwindSecondary_00465358",
-      "symbol": "_D3DManagerUnwindSecondary_00465358",
+      "symbol": "_FuncCtrlUnwindSecondary_00465358",
       "section": ".text$x",
       "address": "0x00465358",
       "size": 11,

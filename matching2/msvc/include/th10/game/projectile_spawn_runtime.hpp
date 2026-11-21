@@ -11,23 +11,23 @@
 
 // One scheduler slot of a projectile record; the setter at 0x00405410 is a
 // native-LTCG member whose receiver retail keeps in EAX.
-struct PlayerSchedulerRecord {
+struct FrameTimerView {
     int field_00;       // 0x00 previous value
     int field_04;       // 0x04 value
     float field_08;     // 0x08 value as float
     int field_0C;       // 0x0C default marker
     unsigned int flags_10;  // 0x10 initialised flag
 
-    __declspec(noinline) void SetSchedulerValue(int value);
+    __declspec(noinline) void Set(int value);
 };
-typedef char SchedulerRecord_size[sizeof(PlayerSchedulerRecord) == 20 ? 1 : -1];
+typedef char SchedulerRecord_size[sizeof(FrameTimerView) == 20 ? 1 : -1];
 
 // The score polar vector whose setter at 0x00408750 retail compiled with GCC.
-struct ScoreGameplayPolarVector {
+struct PolarVector2 {
     float x;
     float y;
 
-    __declspec(noinline) ScoreGameplayPolarVector* SetScorePolar(float angle, float radius);
+    __declspec(noinline) PolarVector2* SetPolar(float angle, float radius);
 };
 
 // One 24-byte command of a spawn script: two floats, two ints, the command
@@ -74,18 +74,18 @@ struct ProjectileSpawnRecord {
     int command_index;                      // 0x45C
     unsigned int field_460;                 // 0x460
     SpawnCommandRecord commands[18];        // 0x464
-    PlayerSchedulerRecord scheduler_614;    // 0x614
+    FrameTimerView scheduler_614;    // 0x614
     unsigned char reserved_628[0x638 - 0x628];
     unsigned int field_638;                 // 0x638
     unsigned char reserved_63c[0x648 - 0x63C];
-    PlayerSchedulerRecord scheduler_648;    // 0x648
+    FrameTimerView scheduler_648;    // 0x648
     float field_65c;                        // 0x65C
     float field_660;                        // 0x660
-    ScoreGameplayPolarVector polar_664;     // 0x664
+    PolarVector2 polar_664;     // 0x664
     unsigned char reserved_66c[0x670 - 0x66C];
     int field_670;                          // 0x670
     unsigned char reserved_674[0x67C - 0x674];
-    PlayerSchedulerRecord scheduler_67c;    // 0x67C
+    FrameTimerView scheduler_67c;    // 0x67C
     float field_690;                        // 0x690
     float field_694;                        // 0x694
     unsigned char reserved_698[0x6A4 - 0x698];
@@ -106,9 +106,9 @@ struct ProjectileSpawnRecord {
     unsigned char reserved_714[0x718 - 0x714];
     FrameTimer immunity_timer;              // 0x718
     unsigned char reserved_72c[0x74C - 0x72C];
-    PlayerSchedulerRecord scheduler_74c;    // 0x74C
+    FrameTimerView scheduler_74c;    // 0x74C
     unsigned char reserved_760[0x780 - 0x760];
-    PlayerSchedulerRecord scheduler_780;    // 0x780
+    FrameTimerView scheduler_780;    // 0x780
     unsigned char reserved_794[0x7B4 - 0x794];
     FrameTimer timer_7b4;                   // 0x7B4
     float field_7c8;                        // 0x7C8
@@ -167,7 +167,7 @@ typedef char ProjectileBlueprint_flags[offsetof(ProjectileBlueprint, flags) == 0
 // Per-bullet-type constant tables (indexed by bullet_type 0..24).
 extern "C" int g_bullet_script_first[];                 // 0x00474170 first ANM script per bullet type
 extern "C" float g_bullet_hitbox_per_type[];            // 0x004741E0 hitbox diameter per bullet type
-extern "C" int g_bullet_field_per_type[];               // 0x00474250 per bullet type
+extern "C" int g_bullet_render_layer_per_type[];               // 0x00474250 per bullet type
 extern "C" int g_bullet_death_selector[];               // 0x004742C0 death table selector per bullet type
 extern "C" int g_bullet_death_animation[];              // 0x0047432C death animation per color
 extern "C" float flt_0_5;                 // 0.5

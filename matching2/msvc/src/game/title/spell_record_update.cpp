@@ -102,7 +102,7 @@ __declspec(noinline) int __stdcall TitleMode11(Title* room) {
         page->wrap = 1;
         EnsureTitleMenuBackdrop(room, handle);
         Title_InstallAnimationSlot(room, 102);
-        room->SetTimerTarget(SPELL_PHASE_WAIT_OPEN);
+        room->SetPhase(SPELL_PHASE_WAIT_OPEN);
         Title_InstallAnimationSlot(room, room->cursor.selection / 3 + 152);
         Title_InstallAnimationSlot(room, room->cursor.selection + 154);
         Title_InstallAnimationSlot(room, records->difficulty.selection + 160);
@@ -117,7 +117,7 @@ __declspec(noinline) int __stdcall TitleMode11(Title* room) {
     }
     case SPELL_PHASE_WAIT_OPEN:
         if (room->timer.current > 6)
-            room->SetTimerTarget(SPELL_PHASE_ACTIVE);
+            room->SetPhase(SPELL_PHASE_ACTIVE);
         break;
     case SPELL_PHASE_ACTIVE: {
         room->cursor.previous_selection = room->cursor.selection;
@@ -221,7 +221,7 @@ __declspec(noinline) int __stdcall TitleMode11(Title* room) {
             }
         }
         if (g_input_keys_held & SPELL_KEY_CANCEL) {
-            room->SetTimerTarget(SPELL_PHASE_EXIT);
+            room->SetPhase(SPELL_PHASE_EXIT);
             g_sound_manager.Queue(SPELL_SFX_CANCEL, 0);
             room->ClearAnimationSlot(records->difficulty.selection + 160);
             room->ClearAnimationSlot(room->cursor.selection + 154);
@@ -248,7 +248,7 @@ __declspec(noinline) int __stdcall TitleMode11(Title* room) {
             room->SetSlotFrame(91, 8);
             room->ClearAnimationSlot(94);
             Title_StopAnimationHandle(&room->fallback_handle);
-            room->DisableTimerWithOwner(SPELL_TARGET_MAIN_MENU);
+            room->SetMode(SPELL_TARGET_MAIN_MENU);
             room->cursor.PopSelection();
         }
         break;

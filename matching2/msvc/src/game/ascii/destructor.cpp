@@ -1,4 +1,4 @@
-// 0x00401260: GameThread destructor. Unregisters its three scheduler tasks
+// 0x00401260: AsciiManager destructor. Unregisters its three scheduler tasks
 // and unloads the text and capture script banks; the two slots then free
 // their own blocks.
 #include "th10/game/game_thread.hpp"
@@ -6,11 +6,11 @@
 
 extern "C" {
 extern AnimationBanks* g_sprt_ctrl;
-extern GameThread* g_ascii_manager;
+extern AsciiManager* g_ascii_manager;
 }
 
 #pragma code_seg(".text$01dtor")
-GameThread::~GameThread() {
+AsciiManager::~AsciiManager() {
     RemoveSchedulerTask(update_task);
     RemoveSchedulerTask(draw_task);
     RemoveSchedulerTask(late_draw_task);

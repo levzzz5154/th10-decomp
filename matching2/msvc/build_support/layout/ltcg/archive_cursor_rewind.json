@@ -9,7 +9,7 @@
   "functions": [
     {
       "name": "archive_cursor_rewind_0044dd40",
-      "symbol": "?Rewind2@@YGJPAUArchiveCursor3@@_N@Z",
+      "symbol": "?Rewind2@@YGJPAUMusicReadCursor@@_N@Z",
       "section": ".text$01accessor",
       "address": "0x0044DD40",
       "size": 194,
@@ -17,7 +17,7 @@
     }
   ],
   "context": {
-    "symbol": "?Ctx@@YGHPAPAUArchiveCursor3@@PA_NH@Z",
+    "symbol": "?Ctx@@YGHPAPAUMusicReadCursor@@PA_NH@Z",
     "section": ".text$03context",
     "address": "0x0044DE20",
     "size": 51,

@@ -5,14 +5,14 @@ extern "C" unsigned int g_bgm_data_offset;
 extern "C" __declspec(dllimport) unsigned int __stdcall SetFilePointer(
         void*, int, int*, unsigned int);
 
-struct PlatformStreamRecord {
+struct MusicTrackRecord {
     unsigned char unknown_000[0x10];
     unsigned int offset_010;
     unsigned char unknown_014[0x08];
     unsigned int length_01c;
 };
 
-struct PlatformStreamState {
+struct MusicReadCursorSelect {
     unsigned char unknown_000[8];
     volatile unsigned int position_008;
     unsigned char unknown_00c[0x20];
@@ -21,14 +21,14 @@ struct PlatformStreamState {
     unsigned int memory_mode_07c;
     unsigned char unknown_080[0x0c];
     void* handle_08c;
-    PlatformStreamRecord* record_090;
+    MusicTrackRecord* record_090;
 
-    __declspec(noinline) int Select(PlatformStreamRecord* record);
+    __declspec(noinline) int SelectTrack(MusicTrackRecord* record);
 };
 
 #pragma code_seg(".text$01select")
-__declspec(noinline) int PlatformStreamState::Select(
-        PlatformStreamRecord* record) {
+__declspec(noinline) int MusicReadCursorSelect::SelectTrack(
+        MusicTrackRecord* record) {
     if (memory_mode_07c != 0) return (int)0x80004005u;
     void* handle = handle_08c;
     if (handle == (void*)-1) return (int)0x80004005u;

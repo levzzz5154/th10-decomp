@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "name": "start_004658f0",
-  "source": "src/static_init/render_state_init.cpp",
+  "source": "src/static_init/application_init.cpp",
   "driver": "build_support/layout/ltcg/start_004658f0_context.cpp",
   "headers": [
     "include/th10/game/large_initialization_state.hpp"
@@ -11,16 +11,16 @@
   "functions": [
     {
       "name": "StaticInit_RenderState",
-      "symbol": "?StaticInit_RenderState@@YGXXZ",
+      "symbol": "?StaticInit_Application@@YGXXZ",
       "section": ".text$03start",
       "address": "0x4658f0",
       "size": 26,
-      "source": "src/static_init/render_state_init.cpp",
+      "source": "src/static_init/application_init.cpp",
       "actual_abi": "retail entry"
     },
     {
       "name": "InitObj",
-      "symbol": "_Init11@4",
+      "symbol": "_Supervisor_Construct@4",
       "section": ".text$01anchor",
       "address": "0x00421F00",
       "size": 71,

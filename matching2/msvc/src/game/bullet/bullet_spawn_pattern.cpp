@@ -8,7 +8,7 @@
 // The pattern arrives in EAX and the manager on the stack (RET 4); the cell
 // spawner takes the pattern in EBX. Both conventions come from the native
 // LTCG cluster build_support/layout/ltcg/enemy_grid_scan.json.
-#include "th10/game/enemy_grid_scan.hpp"
+#include "th10/game/bullet_spawn_pattern.hpp"
 #include "th10/platform/sound_queue.hpp"
 #include "th10/game/player.hpp"
 

@@ -1,6 +1,6 @@
 // Complete registrar and allocator bodies. Entity initialization is the
 // actual representable ECX-dummy/EDX-object fastcall boundary from entity.hpp.
-#include "th10/game/player_update_animation_context.hpp"
+#include "th10/render/sprt_ctrl_lookup.hpp"
 #include <string.h>
 struct AnmListNode_00448d50 {
     void* owner;

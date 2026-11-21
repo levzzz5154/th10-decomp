@@ -1,4 +1,4 @@
-// Allocate and publish the UI before launching its worker.
+// Allocate and publish Game before launching its worker.
 #include <string.h>
 #include <stddef.h>
 #include "th10/game/ui_thread_host.hpp"
@@ -25,7 +25,7 @@ struct Game {
     }
 };
 typedef char GameUiLayout[(sizeof(Game)==0x60 && offsetof(Game, config)==0x24 && offsetof(Game, argument_5c)==0x5c)?1:-1];
-struct UiEvictionDevice {
+struct D3D9EvictionDevice {
     virtual void __stdcall Slot00() = 0;
     virtual void __stdcall Slot01() = 0;
     virtual void __stdcall Slot02() = 0;
@@ -33,20 +33,20 @@ struct UiEvictionDevice {
     virtual void __stdcall Slot04() = 0;
     virtual long __stdcall EvictManagedResources() = 0;
 };
-extern "C" UiEvictionDevice* g_d3d_device;
+extern "C" D3D9EvictionDevice* g_d3d_device;
 extern "C" Game* g_game;
 extern "C" GameUiThreadHost g_application;
 extern "C" void __cdecl Game_LoadThread(void);
 
 #pragma code_seg(".text$00uicreate")
 extern "C" __declspec(noinline) Game* __stdcall Game_Create(unsigned int argument) {
-    Game* ui = new Game;
+    Game* game = new Game;
     g_d3d_device->EvictManagedResources();
-    ui->argument_5c = argument;
-    g_game = ui;
-    ui->flags_58 |= 4;
+    game->argument_5c = argument;
+    g_game = game;
+    game->flags_58 |= 4;
     // Retail passes the no-argument thunk as the worker entry.
     g_application.Spawn(reinterpret_cast<PlatformWorkerEntry>(Game_LoadThread), 0);
-    return ui;
+    return game;
 }
 #pragma code_seg()

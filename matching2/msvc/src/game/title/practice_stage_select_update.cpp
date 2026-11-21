@@ -61,10 +61,10 @@ __declspec(noinline) int __stdcall TitleMode9(Title* room) {
             int character_slot = g_globals_character + 107;
             Title_InstallAnimationSlot(room, character_slot);
         }
-        room->SetTimerTarget(PRAC_PHASE_WAIT_OPEN);
+        room->SetPhase(PRAC_PHASE_WAIT_OPEN);
     case PRAC_PHASE_WAIT_OPEN:
         if (room->timer.current > 10)
-            room->SetTimerTarget(PRAC_PHASE_ACTIVE);
+            room->SetPhase(PRAC_PHASE_ACTIVE);
         break;
     case PRAC_PHASE_ACTIVE: {
         MenuCursor* cursor = &room->cursor;
@@ -74,7 +74,7 @@ __declspec(noinline) int __stdcall TitleMode9(Title* room) {
         if (cursor->previous_selection != cursor->selection)
             g_sound_manager.Queue(PRAC_SFX_MOVE, 0);
         if (g_input_keys_held & PRAC_KEY_CANCEL) {
-            room->SetTimerTarget(PRAC_PHASE_CANCEL_LEAVE);
+            room->SetPhase(PRAC_PHASE_CANCEL_LEAVE);
             g_sound_manager.Queue(PRAC_SFX_CANCEL, 0);
             g_title_practice_selection = cursor->selection;
         } else if (g_input_keys_held & PRAC_KEY_CONFIRM) {
@@ -82,7 +82,7 @@ __declspec(noinline) int __stdcall TitleMode9(Title* room) {
                     .practice[g_globals_difficulty][cursor->selection].unlocked == 0) {
                 g_sound_manager.Queue(PRAC_SFX_INVALID, 0);
             } else {
-                room->SetTimerTarget(PRAC_PHASE_CONFIRM_LAUNCH);
+                room->SetPhase(PRAC_PHASE_CONFIRM_LAUNCH);
                 g_sound_manager.Queue(PRAC_SFX_CONFIRM, 0);
             }
             g_title_practice_selection = cursor->selection;
@@ -113,13 +113,13 @@ __declspec(noinline) int __stdcall TitleMode9(Title* room) {
     }
     case PRAC_PHASE_CONFIRM_LAUNCH:
         if (room->timer.current == 10) {
-            g_ascii_manager->EnsureAnimationResource(480.0f, 392.0f);
+            g_ascii_manager->EnsureLoadingSpinner(480.0f, 392.0f);
             AsciiText_Create(0x2b, 5, 0x20, 0, 0, 0);
         }
         if (room->timer.current >= 40) {
             MenuCursor* cursor = &room->cursor;
             cursor->PushSelection();
-            room->DisableTimerWithOwner(PRAC_TARGET_LEAVE);
+            room->SetMode(PRAC_TARGET_LEAVE);
             int stage = cursor->selection + 1;
             g_stage_route_current = &g_stage_routes[stage];
             g_globals_stage = stage;
@@ -132,7 +132,7 @@ __declspec(noinline) int __stdcall TitleMode9(Title* room) {
         if (room->timer.current >= 6) {
             room->ClearAnimationSlot(106);
             room->ClearAnimationSlot(g_globals_character + 107);
-            room->DisableTimerWithOwner(PRAC_TARGET_SHOT_TYPE);
+            room->SetMode(PRAC_TARGET_SHOT_TYPE);
             room->cursor.PopSelection();
         }
         break;

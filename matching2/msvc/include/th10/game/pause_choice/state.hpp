@@ -4,13 +4,13 @@
 #include "th10/platform/sound_queue.hpp"
 #include "th10/game/pause_choice/animation.hpp"
 
-struct PlayerSchedulerRecord {
+struct FrameTimerView {
     int field_00;
     int field_04;
     float field_08;
     int field_0C;
     int flags_10;
-    __declspec(noinline) void SetSchedulerValue(int value);
+    __declspec(noinline) void Set(int value);
 };
 struct KeyRepeatState {
     unsigned char unknown_00[4];
@@ -35,7 +35,7 @@ struct PauseChoiceState {
     int reserved_00;
     int phase;
     unsigned char reserved_08[8];
-    PlayerSchedulerRecord timer;
+    FrameTimerView timer;
     PauseChoiceCursor cursor;
     unsigned char reserved_fc[0x1D4-0xFC];
     Handle4 background;

@@ -26,15 +26,15 @@ struct LinkedNode {
     int state;
 };
 
-struct ScoreChain {
+struct LaserManagerListView {
     unsigned char reserved_000[0x18];
     LinkedNode* head;
 
-    __declspec(noinline) void ReleaseChain();
+    __declspec(noinline) void ReleaseAll();
 };
 
 #pragma code_seg(".text$00417770_fn")
-void ScoreChain::ReleaseChain() {
+void LaserManagerListView::ReleaseAll() {
     LinkedNode* node = head;
     while (node != 0) {
         LinkedNode* next = node->next;

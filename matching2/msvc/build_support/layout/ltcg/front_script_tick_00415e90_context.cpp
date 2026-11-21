@@ -74,7 +74,7 @@ extern "C" void* __stdcall FrontScriptTickEscape(int which) {
     case 2: return &g_globals_difficulty;
     case 3: return &g_globals_stage;
     case 4: return &g_globals_lives;
-    case 5: return &g_globals_gauge;
+    case 5: return &g_globals_faith;
     case 6: return &g_globals_power;
     default: return &g_stage_progress;
     }

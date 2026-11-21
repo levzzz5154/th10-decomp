@@ -1,8 +1,8 @@
 extern "C" const float flt_24;
-#include "th10/game/field_contact.hpp"
+#include "th10/game/player_check_hit.hpp"
 
 #pragma code_seg(".text$03fcontact")
-extern "C" __declspec(noinline) int __fastcall FieldContact004266B0(const ContactVector2* position,
+extern "C" __declspec(noinline) int __fastcall Player_CheckHit(const ContactVector2* position,
                                                                     TriggerFieldContact* target,
                                                                     const ContactVector2* size) {
     ContactVector2 minimum = {position->x - size->x * 0.5f, position->y - size->y * 0.5f};

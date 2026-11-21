@@ -30,7 +30,7 @@ int TrimLaser::TrimRectangle(const CutVector* center,const CutVector* size,int s
     if (spawn_items && !sample_position->IsPartiallyOutside(32.0f,32.0f)) {
      g_item_manager->Spawn(sample_position,8,-1,-1.5707963705062866f,0.6f);
     }
-    int index=parameters.script*2+17;
+    int index=parameters.color*2+17;
     void* resource=static_cast<CutAnimationBank*>(g_laser_manager)->line_animation;
     reinterpret_cast<CutAnimationResource*>(resource)->CreateOffset(index,&point);
    }

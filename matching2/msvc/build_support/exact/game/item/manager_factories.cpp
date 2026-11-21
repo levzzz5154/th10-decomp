@@ -677,7 +677,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_0041afd0_0041afd0() {
     L_0041b4bb:
         jp short L_0041b4d5
     L_0041b4bd:
-        mov eax,dword ptr [g_globals_gauge]
+        mov eax,dword ptr [g_globals_faith]
     L_0041b4c2:
         lea ebx,[eax+eax*4]
     L_0041b4c5:
@@ -701,7 +701,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_0041afd0_0041afd0() {
     L_0041b4e1:
         fmul dword ptr [flt_0_003289474]
     L_0041b4e7:
-        fild dword ptr [g_globals_gauge]
+        fild dword ptr [g_globals_faith]
     L_0041b4ed:
         fmul dword ptr [flt_0_5]
     L_0041b4f3:
@@ -713,7 +713,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_0041afd0_0041afd0() {
     L_0041b500:
         mov ecx,eax
     L_0041b502:
-        mov eax,dword ptr [g_globals_gauge]
+        mov eax,dword ptr [g_globals_faith]
     L_0041b507:
         lea eax,[eax+eax*4]
     L_0041b50a:
@@ -751,7 +751,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_0041afd0_0041afd0() {
     L_0041b535:
         jmp short L_0041b559
     L_0041b537:
-        mov ebx,dword ptr [g_globals_gauge]
+        mov ebx,dword ptr [g_globals_faith]
     L_0041b53d:
         lea ebx,[ebx+ebx*4]
     L_0041b540:

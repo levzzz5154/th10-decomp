@@ -7,7 +7,7 @@ __declspec(noinline) int __stdcall Music_Load(int slot, const char* file_name) {
     extension[1] = 'w';
     extension[2] = 'a';
     extension[3] = 'v';
-    g_music_requests.RegisterResource(path, kMusicCommandLoad, slot);
+    g_music_requests.QueueMusicCommand(path, kMusicCommandLoad, slot);
     return 1;
 }
 
@@ -17,8 +17,8 @@ __declspec(noinline) int __stdcall Music_Load(int slot, const char* file_name) {
 #include "th10/source_views/music_requests_0b68f8_1.hpp"
 __declspec(noinline) int __stdcall Music_Play(int track, int heard_index) {
     if (g_config_flags & kConfigStreamedMusic)
-        g_music_requests.RegisterResource("dummy", kMusicCommandStreamedReset, 0);
-    g_music_requests.RegisterResource("dummy", kMusicCommandPlay, track);
+        g_music_requests.QueueMusicCommand("dummy", kMusicCommandStreamedReset, 0);
+    g_music_requests.QueueMusicCommand("dummy", kMusicCommandPlay, track);
     g_music_progress->track_heard[heard_index] = 1;
     return 0;
 }
@@ -36,7 +36,7 @@ __declspec(noinline) int __stdcall Music_PlayFile(int heard_index, const char* f
     extension[2] = 'a';
     extension[3] = 'v';
     g_music_progress->track_heard[heard_index] = 1;
-    g_music_requests.RegisterResource(path, kMusicCommandPlay, -1);
+    g_music_requests.QueueMusicCommand(path, kMusicCommandPlay, -1);
     return 0;
 }
 
@@ -48,9 +48,9 @@ __declspec(noinline) int __stdcall Music_PlayFile(int heard_index, const char* f
 #include "th10/source_views/music_requests_0b68f8_3.hpp"
 __declspec(noinline) int __stdcall Music_Stop() {
     if (g_config_flags & kConfigStreamedMusic)
-        g_music_requests.RegisterResource("dummy", kMusicCommandStreamedReset, 0);
+        g_music_requests.QueueMusicCommand("dummy", kMusicCommandStreamedReset, 0);
     else
-        g_music_requests.RegisterResource("dummy", kMusicCommandStop, 0);
+        g_music_requests.QueueMusicCommand("dummy", kMusicCommandStop, 0);
     return 0;
 }
 
@@ -67,7 +67,7 @@ __declspec(noinline) int __stdcall Music_FadeOut(float frames) {
     int duration;
     if (g_game_speed == 0.0f) duration = (int)frames;
     else duration = (int)(g_game_speed > 1.0f ? frames : frames / g_game_speed);
-    g_music_requests.RegisterResource("", kMusicCommandFadeOut, duration);
+    g_music_requests.QueueMusicCommand("", kMusicCommandFadeOut, duration);
     return 0;
 }
 

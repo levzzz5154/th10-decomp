@@ -19,12 +19,12 @@
     "include/th10/game/item_spawn.hpp",
     "include/th10/game/item_velocity.hpp",
     "include/th10/game/bomb_state.hpp",
-    "include/th10/game/player_update_collision.hpp",
-    "include/th10/game/player_update_score.hpp",
+    "include/th10/game/bullet_collision_engine.hpp",
+    "include/th10/game/laser_manager_evaluate.hpp",
     "include/th10/math/timer.hpp",
-    "include/th10/game/player_update_animation_context.hpp",
     "include/th10/render/position_setter_pair.hpp",
-    "include/th10/types.hpp"
+    "include/th10/types.hpp",
+    "include/th10/render/sprt_ctrl_lookup.hpp"
   ],
   "image_base": "0x00400000",
   "description": "Primary scheduler callback 0x00405840 and the player state update 0x00405750 it calls, compiled together so the update keeps its private EDI receiver. Draw, collision and the animation helpers are compiler-visible anchors; the secondary callback 0x00405850 is the link entry.",
@@ -58,7 +58,7 @@
     },
     {
       "name": "ScoreEvaluate",
-      "symbol": "?CopyVectorAndEvaluate@LaserScoreManagerView@@QAEHPBMMH@Z",
+      "symbol": "?CopyVectorAndEvaluate@LaserManagerEvaluateView@@QAEHPBMMH@Z",
       "address": "0x41c800",
       "size": 76,
       "section": ".text$090score"
@@ -86,7 +86,7 @@
     },
     {
       "name": "CollisionActivate",
-      "symbol": "?Activate@CollisionRecord@@QAEHXZ",
+      "symbol": "?Activate@BulletCollisionRecord@@QAEHXZ",
       "address": "0x408030",
       "size": 200,
       "section": ".text$050activate"
@@ -142,7 +142,7 @@
     },
     {
       "name": "CollisionCheck",
-      "symbol": "?Check@CollisionEngine@@QAEHPBUPositionVector@@MHH@Z",
+      "symbol": "?Check@BulletManagerCollisionView@@QAEHPBUPositionVector@@MHH@Z",
       "address": "0x408100",
       "size": 260,
       "section": ".text$060collision"

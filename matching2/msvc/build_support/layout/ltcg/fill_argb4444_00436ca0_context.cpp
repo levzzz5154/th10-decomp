@@ -1,5 +1,5 @@
 // Compiler context only; its bytes are not recovered game code.
-#include "../../../src/core/main/resource_file.cpp"
+#include "../../../src/core/main/gdi_surface_fill_rgb444.cpp"
 
 #pragma code_seg(".text$03context")
 int __stdcall Ctx(Surface** s, unsigned int* c, int n) {

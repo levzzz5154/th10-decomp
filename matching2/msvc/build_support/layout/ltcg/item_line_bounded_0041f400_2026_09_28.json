@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "name": "item_line_bounded_0041f400_2026_09_28",
-  "source": "src/game/laser/line_laser_create_segments.cpp",
+  "source": "src/game/laser/laser_grow_cancel.cpp",
   "driver": "build_support/layout/ltcg/item_line_runtime/driver.cpp",
   "headers": [
     "include/th10/game/entity.hpp",
@@ -26,7 +26,7 @@
   "functions": [
     {
       "name": "LineEffect_CreateSegmentsInBounds",
-      "symbol": "?CreateSegmentsInBounds@LineEffectSweep@@QAEHH@Z",
+      "symbol": "?CancelGrowLaser@LaserCancelSweep@@QAEHH@Z",
       "section": ".text$50boundedsegments",
       "address": "0x0041F400",
       "size": 623,
@@ -34,11 +34,11 @@
     },
     {
       "name": "LineEffect_CreateAllSegments",
-      "symbol": "?CreateAllSegments@LineEffectSweep@@QAEHH@Z",
+      "symbol": "?CancelLineLaser@LaserCancelSweep@@QAEHH@Z",
       "section": ".text$45allsegments",
       "address": "0x0041E260",
       "size": 609,
-      "source": "src/game/laser/line_effect_create_all_segments.cpp",
+      "source": "src/game/laser/laser_line_cancel.cpp",
       "actual_abi": "public this ECX; spawn-items flag stack; RET4, integer count EAX"
     }
   ],
@@ -298,11 +298,11 @@
     }
   ],
   "additional_sources": [
-    "src/game/laser/line_effect_create_all_segments.cpp"
+    "src/game/laser/laser_line_cancel.cpp"
   ],
   "roots": [
-    "?CreateSegmentsInBounds@LineEffectSweep@@QAEHH@Z",
-    "?CreateAllSegments@LineEffectSweep@@QAEHH@Z"
+    "?CancelGrowLaser@LaserCancelSweep@@QAEHH@Z",
+    "?CancelLineLaser@LaserCancelSweep@@QAEHH@Z"
   ],
   "anchor_roots": [
     "?SetPolar@LinePolarVelocity2@@QAEPAU1@MM@Z"

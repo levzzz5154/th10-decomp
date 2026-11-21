@@ -21,7 +21,7 @@
   "functions": [
     {
       "name": "GameThread_Destructor",
-      "symbol": "??1GameThread@@QAE@XZ",
+      "symbol": "??1AsciiManager@@QAE@XZ",
       "section": ".text$01dtor",
       "address": "0x00401260",
       "size": 467,
@@ -49,7 +49,7 @@
     },
     {
       "name": "GameThreadDestructorHandler",
-      "symbol": "__ehhandler$??1GameThread@@QAE@XZ",
+      "symbol": "__ehhandler$??1AsciiManager@@QAE@XZ",
       "section": ".text$x",
       "address": "0x004652F9",
       "size": 10,
@@ -60,7 +60,7 @@
   "anchors": [
     {
       "name": "SlotDestructor",
-      "symbol": "??1GameThreadSlot@@QAE@XZ",
+      "symbol": "??1AsciiGlyphVm@@QAE@XZ",
       "section": ".text$04slot",
       "address": "0x00401FF0",
       "size": 34
@@ -81,7 +81,7 @@
     }
   ],
   "context": {
-    "symbol": "_DestroyGameThreadContext_00401260@4",
+    "symbol": "_DestroyAsciiManagerContext_00401260@4",
     "section": ".text$02context",
     "address": "0x00401440",
     "size": 5,
@@ -129,14 +129,14 @@
   ],
   "data_aliases": [
     {
-      "symbol": "??_7GameThread@@6B@",
+      "symbol": "??_7AsciiManager@@6B@",
       "address": "0x0046CB14",
       "bytes": "901c4000"
     }
   ],
   "absolute_symbols": [
     {
-      "symbol": "?ObjectSize@GameThread@@UAEHXZ",
+      "symbol": "?ObjectSize@AsciiManager@@UAEHXZ",
       "address": "0x401c90",
       "kind": "data"
     },

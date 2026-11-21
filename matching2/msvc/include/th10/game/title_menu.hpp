@@ -76,7 +76,7 @@ struct Title {
     // 0x0042C620.  Defined in the class, as in the image: the compiler keeps
     // no register summary for the out-of-line copy of an in-class member, so
     // callers reload the room after it (0x0042D6DF).
-    __declspec(noinline) void SetTimerTarget(int target) {
+    __declspec(noinline) void SetPhase(int target) {
         phase = target;
         if (!(timer.flags & 1u)) {
             timer.current = 0;
@@ -90,7 +90,7 @@ struct Title {
         timer.previous = -1;
     }
     __declspec(noinline) int OnUpdate();
-    __declspec(noinline) void DisableTimerWithOwner(int owner);
+    __declspec(noinline) void SetMode(int owner);
     __declspec(noinline) void ClearAnimationSlot(int index);
     __declspec(noinline) void SetSlotFrame(int index, short frame);
 };
@@ -98,7 +98,7 @@ struct Title {
 #pragma code_seg(pop)
 
 struct MusicRequestQueue {
-    __declspec(noinline) char* RegisterResource(const char* name, int kind, int parameter);
+    __declspec(noinline) char* QueueMusicCommand(const char* name, int kind, int parameter);
 };
 
 typedef char RecoveryMusicRoomSizeCheck[sizeof(Title)==0x5AB0?1:-1];

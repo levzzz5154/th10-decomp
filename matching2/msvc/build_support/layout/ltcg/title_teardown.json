@@ -10,7 +10,7 @@
     "build_support/layout/ltcg/title_teardown/manager_entity_init.cpp"
   ],
   "headers": [
-    "include/th10/game/title_teardown/title_teardown_dependencies.hpp",
+    "include/th10/game/loading_teardown/loading_teardown_dependencies.hpp",
     "include/th10/game/title_teardown/title_score_archive.hpp",
     "include/th10/game/title_teardown/message_teardown_dependencies.hpp",
     "include/th10/game/entity.hpp",
@@ -31,7 +31,7 @@
   "functions": [
     {
       "name": "TitleStateDestructor",
-      "symbol": "??1TitleState@@QAE@XZ",
+      "symbol": "??1Loading@@QAE@XZ",
       "section": ".text$03title",
       "address": "0x0041FB50",
       "size": 417,
@@ -49,7 +49,7 @@
     },
     {
       "name": "TitleAnimationUnwind",
-      "symbol": "_TitleAnimationUnwind_0046568b",
+      "symbol": "_LoadingAnimationUnwind_0046568b",
       "section": ".text$x",
       "address": "0x0046568B",
       "size": 11,
@@ -59,7 +59,7 @@
     },
     {
       "name": "TitleDestructorHandler",
-      "symbol": "__ehhandler$??1TitleState@@QAE@XZ",
+      "symbol": "__ehhandler$??1Loading@@QAE@XZ",
       "section": ".text$x",
       "address": "0x00465696",
       "size": 10,
@@ -412,7 +412,7 @@
       "kind": "data"
     },
     {
-      "symbol": "_DestroyGameThread@4",
+      "symbol": "_DestroyAsciiManager@4",
       "address": "0x401260",
       "kind": "relative_code"
     },

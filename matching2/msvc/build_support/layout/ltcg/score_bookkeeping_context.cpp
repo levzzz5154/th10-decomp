@@ -7,7 +7,7 @@ void __stdcall ScoreCompilerContext(ScoreState** states, const int* amounts, int
     for (int index = 0; index < count; ++index) {
         states[index]->AddScore(amounts[index]);
         states[index]->ReduceGauge(amounts[index]);
-        states[index]->IncrementCappedCount();
+        states[index]->IncrementContinues();
         states[index]->SetGauge(amounts[index]);
         states[index]->AddGauge(amounts[index]);
     }

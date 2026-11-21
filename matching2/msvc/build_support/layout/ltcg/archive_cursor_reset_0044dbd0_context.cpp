@@ -3,7 +3,7 @@
 
 #pragma code_seg(".text$03context")
 int __stdcall ArchiveCursorResetCompilerContext(
-        ArchiveCursor** cursors, int count) {
+        MusicReadCursor** cursors, int count) {
     while (count--)
         (*cursors++)->Reset();
     return 0;

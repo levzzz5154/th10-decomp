@@ -9,7 +9,7 @@ extern "C" void __cdecl crt_free(void* memory);
 // address, so the destructor's call bakes retail's own displacement.  None of
 // these bytes are selected as recovered code.
 #pragma code_seg(".text$03anchor")
-void EnemyOwnedResourceView::ReleaseResource() {
+void EclFileDestroyView::DestroyEntries() {
     void* const resource = owned_resource;
     vtable = 0x0046D0F0;
     if (resource != 0) {

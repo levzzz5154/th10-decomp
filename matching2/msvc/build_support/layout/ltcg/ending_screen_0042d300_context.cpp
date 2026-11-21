@@ -1,7 +1,7 @@
 // Compiler context for the ending screen handler 0x0042D300: its real caller
 // (the title dispatcher, which keeps the room in EBX) and the real bodies of
 // the animation-slot and timer leaves it calls.
-#include "../../../src/game/title/ending_screen.cpp"
+#include "../../../src/game/title/title_opening_update.cpp"
 #include "ending_screen_dependencies/title_dispatcher.cpp"
 #include "../../../src/game/title/title_animation_slot_frames.cpp"
 #include "th10/game/ending_script_caller.hpp"

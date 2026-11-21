@@ -200,7 +200,7 @@
     },
     {
       "name": "PlatformInterfaceState_0044D4E0_SetOperationDeadline",
-      "symbol": "?SetOperationDeadline@PlatformInterfaceState2@@QAEHH@Z",
+      "symbol": "?SetVolume@SoundBufferVolume@@QAEHH@Z",
       "section": ".text$01deadline",
       "address": "0x0044D4E0",
       "size": 106,
@@ -209,7 +209,7 @@
     },
     {
       "name": "FadeOutAndStop_0044d740",
-      "symbol": "?FadeOutAndStop@PlatformInterfaceState2@@QAEHXZ",
+      "symbol": "?FadeOutAndStop@SoundBufferVolume@@QAEHXZ",
       "section": ".text$02layoutb",
       "address": "0x0044D740",
       "size": 67,
@@ -218,7 +218,7 @@
     },
     {
       "name": "FadeDownHalf_0044d790",
-      "symbol": "?FadeDownHalf@PlatformInterfaceState2@@QAEHXZ",
+      "symbol": "?FadeDownHalf@SoundBufferVolume@@QAEHXZ",
       "section": ".text$02layoutc",
       "address": "0x0044D790",
       "size": 51,
@@ -227,7 +227,7 @@
     },
     {
       "name": "FadeDownSlight_0044d7d0",
-      "symbol": "?FadeDownSlight@PlatformInterfaceState2@@QAEHXZ",
+      "symbol": "?FadeDownSlight@SoundBufferVolume@@QAEHXZ",
       "section": ".text$02layoutd",
       "address": "0x0044D7D0",
       "size": 51,
@@ -236,7 +236,7 @@
     },
     {
       "name": "FadeUpSlight_0044d810",
-      "symbol": "?FadeUpSlight@PlatformInterfaceState2@@QAEHXZ",
+      "symbol": "?FadeUpSlight@SoundBufferVolume@@QAEHXZ",
       "section": ".text$02layoute",
       "address": "0x0044D810",
       "size": 56,
@@ -245,10 +245,10 @@
     }
   ],
   "roots": [
-    "?FadeOutAndStop@PlatformInterfaceState2@@QAEHXZ",
-    "?FadeDownHalf@PlatformInterfaceState2@@QAEHXZ",
-    "?FadeDownSlight@PlatformInterfaceState2@@QAEHXZ",
-    "?FadeUpSlight@PlatformInterfaceState2@@QAEHXZ"
+    "?FadeOutAndStop@SoundBufferVolume@@QAEHXZ",
+    "?FadeDownHalf@SoundBufferVolume@@QAEHXZ",
+    "?FadeDownSlight@SoundBufferVolume@@QAEHXZ",
+    "?FadeUpSlight@SoundBufferVolume@@QAEHXZ"
   ],
   "gaps": [
     {
@@ -331,25 +331,25 @@
     },
     {
       "caller": "?TickFades@SoundFadeManager@@QAEXXZ",
-      "callee": "?SetOperationDeadline@PlatformInterfaceState2@@QAEHH@Z",
+      "callee": "?SetVolume@SoundBufferVolume@@QAEHH@Z",
       "address": "0x00421E47",
       "instruction": "call"
     },
     {
       "caller": "?TickFades@SoundFadeManager@@QAEXXZ",
-      "callee": "?SetOperationDeadline@PlatformInterfaceState2@@QAEHH@Z",
+      "callee": "?SetVolume@SoundBufferVolume@@QAEHH@Z",
       "address": "0x00421E75",
       "instruction": "call"
     },
     {
       "caller": "?TickFades@SoundFadeManager@@QAEXXZ",
-      "callee": "?SetOperationDeadline@PlatformInterfaceState2@@QAEHH@Z",
+      "callee": "?SetVolume@SoundBufferVolume@@QAEHH@Z",
       "address": "0x00421EA8",
       "instruction": "call"
     },
     {
       "caller": "?TickFades@SoundFadeManager@@QAEXXZ",
-      "callee": "?SetOperationDeadline@PlatformInterfaceState2@@QAEHH@Z",
+      "callee": "?SetVolume@SoundBufferVolume@@QAEHH@Z",
       "address": "0x00421ED9",
       "instruction": "call"
     }

@@ -10,7 +10,7 @@ int __fastcall CardPrimary(void* owner);
 int __fastcall CardRender(void* owner);
 int __fastcall CardTrailing(void* owner);
 extern FuncCtrl* g_func_ctrl;
-extern float g_game_speed;
+extern "C" float g_game_speed;
 }
 
 // 0x004089C0 (211 bytes): register the manager's update and two render tasks.

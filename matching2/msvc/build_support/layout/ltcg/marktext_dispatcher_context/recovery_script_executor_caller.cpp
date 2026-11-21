@@ -1,7 +1,7 @@
 #include "th10/game/ending_script/script_executor_caller_433ef0.hpp"
 
 extern "C" void* g_sprt_ctrl;
-extern "C" GameThreadResourceView* g_ascii_manager;
+extern "C" AsciiManagerSpinnerView* g_ascii_manager;
 extern "C" SoundQueue g_sound_manager;
 extern "C" unsigned int g_input_keys_held;
 extern "C" unsigned short recovery_music_repeat;
@@ -71,14 +71,14 @@ static __forceinline int MusicFirstSelection(int count) {
 // Full genuine ancillary callees are retained here because their private
 // argument allocations cannot be represented by opaque external declarations.
 #pragma code_seg(".text$0042c5c0_fn")
-void Title::DisableTimerWithOwner(int owner) {
+void Title::SetMode(int owner) {
     int* request = &timer_owner;
     request[0] = owner;
     request[1] = 0;
     MusicResetTimer(&timer);
 }
 #pragma code_seg(".text$0042c620_fn")
-void Title::SetTimerTarget(int target) {
+void Title::SetPhase(int target) {
     phase = target;
     MusicResetTimer(&timer);
 }
@@ -153,7 +153,7 @@ void TitleAnmVm::InitializeTransition(
     MusicResetTimer(&transition_timer);
 }
 #pragma code_seg(".text$0043e460_fn")
-char* MusicRequestQueue::RegisterResource(
+char* MusicRequestQueue::QueueMusicCommand(
         const char* name, int kind, int parameter) {
     unsigned char* bytes = reinterpret_cast<unsigned char*>(this);
     int slot;
@@ -328,7 +328,7 @@ extern "C" __declspec(noinline) int __stdcall Title_UpdateMusicRoom(
             ++room->preview_cursor;
         }
         if (room->timer.current > 4) {
-            room->SetTimerTarget(2);
+            room->SetPhase(2);
             return 0;
         }
         break;
@@ -391,14 +391,14 @@ extern "C" __declspec(noinline) int __stdcall Title_UpdateMusicRoom(
             MusicResetTimer(&room->timer);
             MusicRequestQueue* queue = reinterpret_cast<MusicRequestQueue*>(&g_sound_manager);
             if (!recovery_music_player[0x1D892 + room->displayed_track] && !room->preview_armed) {
-                queue->RegisterResource(recovery_music_dummy, (recovery_music_mode & 0x10u) ? 4 : 3, 0);
+                queue->QueueMusicCommand(recovery_music_dummy, (recovery_music_mode & 0x10u) ? 4 : 3, 0);
                 room->preview_armed = 1;
                 return 0;
             }
             recovery_replace_extension(0, room->titles[room->cursor.selection]);
             if (recovery_music_mode & 0x10u)
-                queue->RegisterResource(recovery_music_dummy, 4, 0);
-            queue->RegisterResource(recovery_music_dummy, 2, 0);
+                queue->QueueMusicCommand(recovery_music_dummy, 4, 0);
+            queue->QueueMusicCommand(recovery_music_dummy, 2, 0);
             recovery_music_player[0x1D892] = 1;
             room->preview_armed = 0;
             return 0;
@@ -413,7 +413,7 @@ extern "C" __declspec(noinline) int __stdcall Title_UpdateMusicRoom(
             room->SetSlotFrame(91, 8);
             room->ClearAnimationSlot(95);
             Title_StopAnimationHandle(&room->fallback_handle);
-            room->DisableTimerWithOwner(2);
+            room->SetMode(2);
             recovery_replace_extension(0, recovery_music_restore_bgm);
             recovery_play_dummy(0, 0);
             room->cursor.PopSelection();

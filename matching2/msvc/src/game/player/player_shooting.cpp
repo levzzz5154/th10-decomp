@@ -39,7 +39,7 @@ int Player::UpdateShooting() {
         if (shot_timer.current < 0) {
             if (!g_input.repeat)
                 return 0;
-            reinterpret_cast<PlayerSchedulerRecord*>(&shot_timer)->SetSchedulerValue(0);
+            reinterpret_cast<FrameTimerView*>(&shot_timer)->Set(0);
         }
         if (TimerChanged(shot_timer))
             FireShots(shot_timer.current);
@@ -47,7 +47,7 @@ int Player::UpdateShooting() {
             if (g_input.repeat)
                 shot_timer.Advance(-15.0f);
             else
-                reinterpret_cast<PlayerSchedulerRecord*>(&shot_timer)->SetSchedulerValue(-1);
+                reinterpret_cast<FrameTimerView*>(&shot_timer)->Set(-1);
             return 0;
         }
         shot_timer.Tick();

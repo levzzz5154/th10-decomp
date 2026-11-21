@@ -1,4 +1,4 @@
-#include "th10/game/player_update_collision.hpp"
+#include "th10/game/bullet_collision_engine.hpp"
 extern "C" void _ReadWriteBarrier();
 #pragma intrinsic(_ReadWriteBarrier)
 
@@ -11,9 +11,9 @@ struct CollisionDisplacement : PositionVector {
 };
 
 #pragma code_seg(".text$060collision")
-int CollisionEngine::Check(const PositionVector* point,
+int BulletManagerCollisionView::Check(const PositionVector* point,
         float radius, int spawn_item, int filter_countdown) {
-    CollisionRecord* record = records;
+    BulletCollisionRecord* record = records;
     int remaining = 2000;
     do {
         if (record->state != 0 && record->state != 3 &&

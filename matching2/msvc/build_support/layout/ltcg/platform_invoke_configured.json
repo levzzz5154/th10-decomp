@@ -9,7 +9,7 @@
   "functions": [
     {
       "name": "PlatformInterfaceState_0044D5D0_InvokeConfigured",
-      "symbol": "?InvokeConfigured@PlatformInterfaceState4@@QAEHXZ",
+      "symbol": "?Resume@SoundBufferResume@@QAEHXZ",
       "section": ".text$01invoke",
       "address": "0x0044D5D0",
       "size": 41,
@@ -17,7 +17,7 @@
     }
   ],
   "context": {
-    "symbol": "?PlatformInvokeConfigured0044D5D0CompilerContext@@YGHPAPAUPlatformInterfaceState4@@H@Z",
+    "symbol": "?PlatformInvokeConfigured0044D5D0CompilerContext@@YGHPAPAUSoundBufferResume@@H@Z",
     "section": ".text$03context",
     "address": "0x0044E000",
     "size": 40,

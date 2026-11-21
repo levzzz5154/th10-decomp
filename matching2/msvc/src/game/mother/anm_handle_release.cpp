@@ -6,8 +6,8 @@
 #pragma code_seg(".text$30release")
 extern "C" __declspec(noinline) void __stdcall ReleaseAnimationHandles(QueuedAnmState* state) {
     if (state->pending_cleanup_6FC == 1) {
-        QueuedCleanupManager receiver;
-        QueuedCleanupContext* context = *reinterpret_cast<QueuedCleanupContext**>(&g_sprt_ctrl);
+        SprtCtrl receiver;
+        AnimationLookupContext* context = *reinterpret_cast<AnimationLookupContext**>(&g_sprt_ctrl);
         QueuedAnmObject* animation;
         animation = static_cast<QueuedAnmObject*>(receiver.Find(context, g_queued_cleanup_a));
         if (animation) {
@@ -34,9 +34,9 @@ extern "C" __declspec(noinline) void __stdcall ReleaseAnimationHandles(QueuedAnm
                     child->object->cleanup_flag_304 = 2;
         }
 
-        static_cast<volatile QueuedCleanupScriptId*>(&g_queued_cleanup_a)->value = 0;
-        static_cast<volatile QueuedCleanupScriptId*>(&g_queued_cleanup_b)->value = 0;
-        static_cast<volatile QueuedCleanupScriptId*>(&g_queued_cleanup_c)->value = 0;
+        static_cast<volatile AnimationScriptId*>(&g_queued_cleanup_a)->value = 0;
+        static_cast<volatile AnimationScriptId*>(&g_queued_cleanup_b)->value = 0;
+        static_cast<volatile AnimationScriptId*>(&g_queued_cleanup_c)->value = 0;
         static_cast<volatile QueuedAnmState*>(state)->pending_cleanup_6FC = 2;
     }
     if (*reinterpret_cast<int*>(&g_queued_anm_release))

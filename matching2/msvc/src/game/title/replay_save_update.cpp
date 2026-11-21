@@ -70,11 +70,11 @@ __declspec(noinline) int __stdcall TitleMode16(Title* room) {
             screen.replay_list.files[number - 1] = ReplayFile_Open(path);
         }
         Title_InstallAnimationSlot(room, 105);
-        screen.SetTimerTarget(RSAVE_PHASE_WAIT_OPEN);
+        screen.SetPhase(RSAVE_PHASE_WAIT_OPEN);
     case RSAVE_PHASE_WAIT_OPEN: {
         const bool opening_delay_done = (screen.timer.current > 6);
         if (opening_delay_done)
-            screen.SetTimerTarget(RSAVE_PHASE_PICK_SLOT);
+            screen.SetPhase(RSAVE_PHASE_PICK_SLOT);
         break;
     }
     case RSAVE_PHASE_PICK_SLOT: {
@@ -89,7 +89,7 @@ __declspec(noinline) int __stdcall TitleMode16(Title* room) {
             g_sound_manager.Queue(RSAVE_SFX_MOVE, 0);
         const bool cancel_slot = (g_input_keys_held & RSAVE_KEY_CANCEL);
         if (cancel_slot) {
-            screen.SetTimerTarget(RSAVE_PHASE_EXIT);
+            screen.SetPhase(RSAVE_PHASE_EXIT);
             g_sound_manager.Queue(RSAVE_SFX_CANCEL, 0);
         } else if (g_input_keys_held & RSAVE_KEY_CONFIRM) {
             MenuCursor* grid = &screen.keyboard.grid;
@@ -113,7 +113,7 @@ __declspec(noinline) int __stdcall TitleMode16(Title* room) {
             }
             screen.keyboard.name_length = length;
             g_sound_manager.Queue(RSAVE_SFX_CONFIRM, 0);
-            screen.SetTimerTarget(RSAVE_PHASE_NAME_ENTRY);
+            screen.SetPhase(RSAVE_PHASE_NAME_ENTRY);
         }
         break;
     }
@@ -180,13 +180,13 @@ __declspec(noinline) int __stdcall TitleMode16(Title* room) {
                 int slot = screen.cursor.selection;
                 screen.replay_list.files[slot] = ReplayFile_Open(path);
                 strcpy(g_score->last_name, screen.keyboard.name);
-                screen.SetTimerTarget(RSAVE_PHASE_PICK_SLOT);
+                screen.SetPhase(RSAVE_PHASE_PICK_SLOT);
             }
             g_sound_manager.Queue(RSAVE_SFX_CONFIRM, 0);
         }
         if (g_input_keys_held & RSAVE_KEY_CANCEL) {
             if (screen.keyboard.name_length == 0) {
-                screen.SetTimerTarget(RSAVE_PHASE_PICK_SLOT);
+                screen.SetPhase(RSAVE_PHASE_PICK_SLOT);
             } else {
                 g_sound_manager.Queue(RSAVE_SFX_CANCEL, 0);
                 --screen.keyboard.name_length;
@@ -202,7 +202,7 @@ __declspec(noinline) int __stdcall TitleMode16(Title* room) {
             screen.SetSlotFrame(0x5b, 8);
             screen.ClearAnimationSlot(94);
             Title_StopAnimationHandle(&screen.fallback_handle);
-            screen.DisableTimerWithOwner(RSAVE_TARGET_MAIN_MENU);
+            screen.SetMode(RSAVE_TARGET_MAIN_MENU);
             screen.cursor.PopSelection();
             ReplayFile* recorded = g_replay;
             if (recorded != 0) {

@@ -1,7 +1,7 @@
 // 0x0044D300 - Query an interface and restore it until it is ready.
 extern "C" __declspec(dllimport) void __stdcall Sleep(unsigned int);
 
-struct PlatformD300Entry {
+struct WaveSecondaryBufferRestore {
     virtual void __stdcall slot_00() = 0;
     virtual void __stdcall slot_04() = 0;
     virtual void __stdcall slot_08() = 0;
@@ -24,11 +24,11 @@ struct PlatformD300Entry {
     virtual void __stdcall slot_4c() = 0;
     virtual int __stdcall restore() = 0;
 
-    __declspec(noinline) int Run(unsigned int* completed);
+    __declspec(noinline) int RestoreIfLost(unsigned int* completed);
 };
 
 #pragma code_seg(".text$01run")
-__declspec(noinline) int PlatformD300Entry::Run(unsigned int* completed) {
+__declspec(noinline) int WaveSecondaryBufferRestore::RestoreIfLost(unsigned int* completed) {
     unsigned int state;
     if (this == 0)
         return (int)0x800401F0u;

@@ -103,13 +103,13 @@ void FrontStagePartsView::ReleaseStageParts() {
     stage_buffer = 0;
 }
 #pragma code_seg(".text$05zzincr")
-void ScoreState::IncrementCappedCount() {
-    ++capped_count;
-    if (capped_count >= 10)
-        capped_count = 9;
+void ScoreState::IncrementContinues() {
+    ++continues;
+    if (continues >= 10)
+        continues = 9;
 }
 #pragma code_seg(".text$07reg")
-char* AnmResourceRegistrar::RegisterResource(const char* name, int resource, int parameter) {
+char* WaveSoundManager::QueueMusicCommand(const char* name, int resource, int parameter) {
     int index = 0;
     for (; index < 31; ++index) {
         if (records[index].resource == 0) {

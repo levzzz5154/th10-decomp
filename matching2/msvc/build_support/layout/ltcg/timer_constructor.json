@@ -12,7 +12,7 @@
   "functions": [
     {
       "name": "DerivedTimerState_Construct",
-      "symbol": "??0DerivedTimerState@@QAE@XZ",
+      "symbol": "??0MidiSequencer@@QAE@XZ",
       "section": ".text$01construct",
       "address": "0x0043A750",
       "size": 436,
@@ -20,7 +20,7 @@
     }
   ],
   "context": {
-    "symbol": "?DerivedTimerCompilerContext@@YGHPAUDerivedTimerState@@H@Z",
+    "symbol": "?DerivedTimerCompilerContext@@YGHPAUMidiSequencer@@H@Z",
     "section": ".text$03context",
     "address": "0x0043A910",
     "size": 41,
@@ -41,12 +41,12 @@
   "constants": [],
   "absolute_symbols": [
     {
-      "symbol": "?g_base_timer_vtable@@3UPauseVtable@@A",
+      "symbol": "?g_base_timer_vtable@@3UWin32TimerVtable@@A",
       "address": "0x0046F810",
       "kind": "data"
     },
     {
-      "symbol": "?g_derived_timer_vtable@@3UPauseVtable@@A",
+      "symbol": "?g_derived_timer_vtable@@3UWin32TimerVtable@@A",
       "address": "0x0046F80C",
       "kind": "data"
     },

@@ -8,7 +8,7 @@
 // model linked.
 #include <string.h>
 #include "th10/game/projectile_spawn_runtime.hpp"
-#include "th10/game/enemy_grid_scan.hpp"
+#include "th10/game/bullet_spawn_pattern.hpp"
 #include "th10/platform/sound_queue.hpp"
 #include "projectile_spawn_runtime/scheduler_set.cpp"
 #include "projectile_spawn_runtime/activate.cpp"

@@ -14,9 +14,9 @@ static __forceinline ResultAnimationId CreateDigit(void* resource, int index) {
 enum ResultOverlayKind {
     OVERLAY_SPELL_BONUS = 0,
     OVERLAY_BONUS_FAILED = 1,
-    OVERLAY_EXTEND = 2,
+    OVERLAY_FULL_POWER = 2,
     OVERLAY_HIGH_SCORE = 3,
-    OVERLAY_FULL_POWER = 4,
+    OVERLAY_EXTEND = 4,
     OVERLAY_HISTORY_BONUS = 6
 };
 
@@ -54,7 +54,7 @@ void __stdcall ResultOverlay_SetMode(int kind, ResultOverlayState* front, int nu
         front->caption.Release();
         front->caption.id = ResultAnimation_CreatePrimary(front->captions, 72, 15);
         break;
-    case OVERLAY_EXTEND:
+    case OVERLAY_FULL_POWER:
         front->secondary.Release();
         front->secondary.id = ResultAnimation_CreatePrimary(front->captions, 73, 15);
         break;
@@ -62,7 +62,7 @@ void __stdcall ResultOverlay_SetMode(int kind, ResultOverlayState* front, int nu
         front->secondary.Release();
         front->secondary.id = ResultAnimation_CreatePrimary(front->captions, 74, 15);
         break;
-    case OVERLAY_FULL_POWER:
+    case OVERLAY_EXTEND:
         front->secondary.Release();
         front->secondary.id = ResultAnimation_CreatePrimary(front->captions, 75, 15);
         break;

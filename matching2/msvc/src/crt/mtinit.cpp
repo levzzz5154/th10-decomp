@@ -22,7 +22,7 @@ extern "C" void* g_crt_ptd_get;
 extern "C" void* g_crt_ptd_set;
 extern "C" void* g_crt_ptd_init;
 extern "C" unsigned int g_crt_tls_index;
-extern "C" char g_crt_ptd_init_marker;
+extern "C" char _XcptActTab;
 
 extern "C" int __cdecl crt_mtinit() {
     if (!crt_mtinitlocks()) {
@@ -47,7 +47,7 @@ extern "C" int __cdecl crt_mtinit() {
     if (g_crt_tls_index != 0xffffffff) {
         ThreadData* data = crt_calloc(1, 0x8c);
         if (data && reinterpret_cast<int (__stdcall*)(unsigned int, ThreadData*)>(g_crt_ptd_set)(g_crt_tls_index, data)) {
-            data->initaddr = &g_crt_ptd_init_marker;
+            data->initaddr = &_XcptActTab;
             data->holdrand = 1;
             unsigned int id = imp_GetCurrentThreadId();
             data->thread_handle = 0xffffffff;

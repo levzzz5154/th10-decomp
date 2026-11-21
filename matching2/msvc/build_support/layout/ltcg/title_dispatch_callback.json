@@ -56,15 +56,15 @@
       "size": 65
     },
     {
-      "name": "?DisableTimerWithOwner@Title@@QAEXH@Z",
-      "symbol": "?DisableTimerWithOwner@Title@@QAEXH@Z",
+      "name": "?SetMode@Title@@QAEXH@Z",
+      "symbol": "?SetMode@Title@@QAEXH@Z",
       "section": ".text$0042c5c0_fn",
       "address": 4198560,
       "size": 83
     },
     {
-      "name": "?SetTimerTarget@Title@@QAEXH@Z",
-      "symbol": "?SetTimerTarget@Title@@QAEXH@Z",
+      "name": "?SetPhase@Title@@QAEXH@Z",
+      "symbol": "?SetPhase@Title@@QAEXH@Z",
       "section": ".text$0042c620_fn",
       "address": 4198656,
       "size": 80
@@ -98,8 +98,8 @@
       "size": 1092
     },
     {
-      "name": "?EndingScreen_Update2@@YGHPAUTitle@@@Z",
-      "symbol": "?EndingScreen_Update2@@YGHPAUTitle@@@Z",
+      "name": "?TitleOpening_Update@@YGHPAUTitle@@@Z",
+      "symbol": "?TitleOpening_Update@@YGHPAUTitle@@@Z",
       "section": ".text$0042d300_fn",
       "address": 4379392,
       "size": 288
@@ -126,8 +126,8 @@
       "size": 206
     },
     {
-      "name": "?RegisterResource@MusicRequestQueue@@QAEPADPBDHH@Z",
-      "symbol": "?RegisterResource@MusicRequestQueue@@QAEPADPBDHH@Z",
+      "name": "?QueueMusicCommand@MusicRequestQueue@@QAEPADPBDHH@Z",
+      "symbol": "?QueueMusicCommand@MusicRequestQueue@@QAEPADPBDHH@Z",
       "section": ".text$0043e460_fn",
       "address": 4410176,
       "size": 76
@@ -458,7 +458,7 @@
       "address": 4391712
     },
     {
-      "symbol": "?TitleMenuFlow@@YGHPAUTitle@@@Z",
+      "symbol": "?KeyConfig_Update@@YGHPAUTitle@@@Z",
       "kind": "relative_code",
       "address": 4388160
     },

@@ -9,7 +9,7 @@
   "functions": [
     {
       "name": "PlatformInterfaceState_0044D370_FindAvailable",
-      "symbol": "?FindAvailable@PlatformInterfaceState@@QAEPAUPlatformD370Entry@@XZ",
+      "symbol": "?GetFreeBuffer@SoundBufferPool@@QAEPAUWaveSecondaryBufferStatus@@XZ",
       "section": ".text$01find",
       "address": "0x0044D370",
       "size": 103,
@@ -17,7 +17,7 @@
     }
   ],
   "context": {
-    "symbol": "?PlatformFindAvailable0044D370CompilerContext@@YGPAUPlatformD370Entry@@PAPAUPlatformInterfaceState@@H@Z",
+    "symbol": "?PlatformFindAvailable0044D370CompilerContext@@YGPAUWaveSecondaryBufferStatus@@PAPAUSoundBufferPool@@H@Z",
     "section": ".text$03context",
     "address": "0x0044E000",
     "size": 36,

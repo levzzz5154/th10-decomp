@@ -9,7 +9,7 @@
   "functions": [
     {
       "name": "ArchiveCursor_Reset",
-      "symbol": "?Reset@ArchiveCursor@@QAEXXZ",
+      "symbol": "?Reset@MusicReadCursor@@QAEXXZ",
       "section": ".text$01reset",
       "address": "0x0044DBD0",
       "size": 30,
@@ -17,7 +17,7 @@
     }
   ],
   "context": {
-    "symbol": "?ArchiveCursorResetCompilerContext@@YGHPAPAUArchiveCursor@@H@Z",
+    "symbol": "?ArchiveCursorResetCompilerContext@@YGHPAPAUMusicReadCursor@@H@Z",
     "section": ".text$03context",
     "address": "0x0044DBF0",
     "size": 37,

@@ -109,7 +109,7 @@ typedef char LayoutRestore[offsetof(WaveMethods, restore) == 0x50 ? 1 : -1];
 // Native 0x0044D300 helper view: query status and restore a lost buffer.
 extern "C" __declspec(dllimport) void __stdcall Sleep(unsigned int);
 
-struct PlatformD300Entry {
+struct WaveSecondaryBufferRestore {
     virtual void __stdcall slot_00() = 0;
     virtual void __stdcall slot_04() = 0;
     virtual void __stdcall slot_08() = 0;
@@ -132,7 +132,7 @@ struct PlatformD300Entry {
     virtual void __stdcall slot_4c() = 0;
     virtual int __stdcall restore() = 0;
 
-    __declspec(noinline) int Run(unsigned int* completed);
+    __declspec(noinline) int RestoreIfLost(unsigned int* completed);
 };
 
 typedef char LayoutTotalPcm[offsetof(MusicCursor, total_pcm_bytes) == 0x2c ? 1 : -1];

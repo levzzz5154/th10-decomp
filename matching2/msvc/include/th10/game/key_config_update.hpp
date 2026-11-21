@@ -1,7 +1,7 @@
 #ifndef TH10_KEY_CONFIG_UPDATE_0042F540_HPP
 #define TH10_KEY_CONFIG_UPDATE_0042F540_HPP
 #include "th10/render/animation_script_id.hpp"
-#include "th10/game/ending_screen.hpp"
+#include "th10/game/title_opening_screen.hpp"
 
 // The title screen object seen by the key configuration helpers: the five
 // bindings being edited (shot, bomb, focus, pause, skip).
@@ -44,5 +44,5 @@ unsigned char* __fastcall Input_PollJoystickButtons2(int padIndex);
 __declspec(noinline) void __fastcall AnimationManager_SetStopFrameAndRun(
     unsigned short frame, AnimationLookupContext* context, AnimationScriptId id);
 
-__declspec(noinline) int __stdcall TitleMenuFlow(Title* room);
+__declspec(noinline) int __stdcall KeyConfig_Update(Title* room);
 #endif

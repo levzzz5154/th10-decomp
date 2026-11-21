@@ -11,7 +11,7 @@ int InputRecorder::Update() {
     if (!playback_mode) {
         g_input_keys_raw.previous_keys = g_input_keys_raw.held_keys;
         g_input_keys_raw.held_keys = static_cast<unsigned short>(g_input_keys_raw.raw_keys & 0x1F7);
-        if (g_sound_flags & 0x200) {
+        if (g_config_flags & 0x200) {
             if (static_cast<unsigned char>(g_input_keys_raw.held_keys) & 1) {
                 unsigned short frames = g_input_keys_raw.held_frames + 1;
                 g_input_keys_raw.held_frames = frames;

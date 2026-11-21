@@ -42,7 +42,7 @@ struct LineLists {
         return next_id;
     }
 };
-__declspec(noinline) int LineEffectSweep::CreateAllSegments(int spawn_items) {
+__declspec(noinline) int LaserCancelSweep::CancelLineLaser(int spawn_items) {
     float progress;
     int count=0;
     progress=6.0f;

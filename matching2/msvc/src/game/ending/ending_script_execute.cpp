@@ -21,7 +21,7 @@ __declspec(noinline) char* __stdcall LoadAsset(AssetBuffer* buffer, const char* 
 // intact while matching the retail reloads.
 extern "C" EndingOwner* g_ending;
 #define OWNER (*(EndingOwner* const volatile*)&g_ending)
-extern "C" GameThreadResourceView* g_ascii_manager;
+extern "C" AsciiManagerSpinnerView* g_ascii_manager;
 
 
 // The key-state mask is written asynchronously by the window procedure and by
@@ -191,7 +191,7 @@ extern "C" __declspec(noinline) int __stdcall EndingScript_Execute(EndingScriptS
             RING_FLAG = 0;
             break;
         case END_OP_LOAD_RESOURCE_ASYNC:
-            g_ascii_manager->EnsureAnimationResource(480.0f, 392.0f);
+            g_ascii_manager->EnsureLoadingSpinner(480.0f, 392.0f);
             reinterpret_cast<AnmSlotManager*>(g_sprt_ctrl)->ClearResourceSlot(state->command->arguments[0] + 29);
             state->flags |= END_FLAG_ASYNC_BUSY;
             state->background_data = reinterpret_cast<const unsigned char*>(state->command) + 8;

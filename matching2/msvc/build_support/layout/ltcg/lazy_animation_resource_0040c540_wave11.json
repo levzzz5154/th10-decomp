@@ -9,7 +9,7 @@
   "functions": [
     {
       "name": "GameThread_EnsureAnimationResource_0040c540",
-      "symbol": "?EnsureAnimationResource@GameThreadResourceView@@QAEPAXMM@Z",
+      "symbol": "?EnsureLoadingSpinner@AsciiManagerSpinnerView@@QAEPAXMM@Z",
       "section": ".text$01lazy",
       "address": "0x0040C540",
       "size": 75,
@@ -47,7 +47,7 @@
     }
   ],
   "context": {
-    "symbol": "?LazyResourceCompilerContext@@YGHPAPAUGameThreadResourceView@@H@Z",
+    "symbol": "?LazyResourceCompilerContext@@YGHPAPAUAsciiManagerSpinnerView@@H@Z",
     "section": ".text$0bcontext",
     "address": "0x449a00",
     "size": 47,

@@ -30,7 +30,7 @@
       "section": ".text$05ad_screen",
       "address": "0x00448DB0",
       "size": 118,
-      "source": "src/core/sprtlib/player_animation_create.cpp",
+      "source": "src/core/sprtlib/animation_manager_create_playfield_primary.cpp",
       "actual_abi": "position in EDI, three stack args; RET 12"
     }
   ],
@@ -147,7 +147,7 @@
   ],
   "additional_sources": [
     "src/core/sprtlib/animation_manager_create_primary_back.cpp",
-    "src/core/sprtlib/player_animation_create.cpp"
+    "src/core/sprtlib/animation_manager_create_playfield_primary.cpp"
   ],
   "constant_aliases": [
     {

@@ -17,7 +17,7 @@ struct SpawnItem {
     int reserved_3e8;
     int variant;
 };
-struct PlayerItemManager {
+struct ItemManager {
     unsigned char reserved_000[0x14];
     SpawnItem normal[150];
     SpawnItem special[2048];
@@ -31,8 +31,8 @@ struct PlayerItemManager {
 };
 typedef char ItemSizeCheck[sizeof(SpawnItem)==0x3f0?1:-1];
 typedef char ItemStateOffsetCheck[offsetof(SpawnItem,state)==0x3dc?1:-1];
-typedef char ItemSpecialOffsetCheck[offsetof(PlayerItemManager,special)==0x24eb4?1:-1];
-typedef char ItemCursorOffsetCheck[offsetof(PlayerItemManager,special_cursor)==0x21ceb8?1:-1];
+typedef char ItemSpecialOffsetCheck[offsetof(ItemManager,special)==0x24eb4?1:-1];
+typedef char ItemCursorOffsetCheck[offsetof(ItemManager,special_cursor)==0x21ceb8?1:-1];
 
 typedef char SpawnItemAnimationOffset[offsetof(SpawnItem,animation)==0?1:-1];
 typedef char SpawnItemPositionOffset[offsetof(SpawnItem,position)==0x3AC?1:-1];
@@ -40,7 +40,7 @@ typedef char SpawnItemTimerOffset[offsetof(SpawnItem,timer)==0x3C8?1:-1];
 
 // The game counters at 0x00474C40. The player update passes the object to
 // its gauge routine, so its fields are re-read after unrelated stores.
-struct PlayerScoreGauge {
+struct Globals {
     int high_score;
     int score;
     short power;
@@ -52,4 +52,4 @@ struct PlayerScoreGauge {
     int rank;                         // 0x00474C98 (g_rank)
     __declspec(noinline) void AddWithMinimum(int amount);
 };
-extern "C" PlayerScoreGauge g_globals;
+extern "C" Globals g_globals;

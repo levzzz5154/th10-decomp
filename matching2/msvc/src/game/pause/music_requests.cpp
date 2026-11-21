@@ -5,8 +5,8 @@
 #include "th10/source_views/music_requests_0b68f8_3.hpp"
 #include "th10/source_views/music_requests_0b68f8_4.hpp"
 #include "th10/source_views/music_requests_0b68f8_5.hpp"
-__declspec(noinline) void __stdcall MusicRequests_Unpause(AnmResourceRegistrar* requests) {
-    requests->RegisterResource("UnPause", kMusicCommandUnpause, 0);
+__declspec(noinline) void __stdcall MusicRequests_Unpause(WaveSoundManager* requests) {
+    requests->QueueMusicCommand("UnPause", kMusicCommandUnpause, 0);
 }
 
 
@@ -18,7 +18,7 @@ __declspec(noinline) void __stdcall MusicRequests_Unpause(AnmResourceRegistrar* 
 #include "th10/source_views/music_requests_0b68f8_4.hpp"
 #include "th10/source_views/music_requests_0b68f8_5.hpp"
 #include "th10/source_views/music_requests_0b68f8_6.hpp"
-__declspec(noinline) void __stdcall MusicRequests_Pause(AnmResourceRegistrar* requests) {
-    requests->RegisterResource("Pause", kMusicCommandPause, 0);
+__declspec(noinline) void __stdcall MusicRequests_Pause(WaveSoundManager* requests) {
+    requests->QueueMusicCommand("Pause", kMusicCommandPause, 0);
 }
 

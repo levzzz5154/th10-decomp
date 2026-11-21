@@ -3,7 +3,7 @@
 // Inputs retain retail contracts: a readable NUL-terminated scan buffer,
 // positive capacity, disjoint output, and enough output room for the final tail.
 // Split/trim/append/clear below are complete C++ ABI anchors, not new ownership.
-#include "th10/game/stage_parser_model.hpp"
+#include "th10/game/hint_parser_model.hpp"
 #include <string.h>
 
 #pragma code_seg(".text$p03reader")

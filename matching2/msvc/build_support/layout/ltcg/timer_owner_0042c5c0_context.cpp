@@ -7,7 +7,7 @@ int __stdcall TimerOwner0042c5c0CompilerContext(
     int total = 0;
     while (count--) {
         int owner = *owners++;
-        (*states++)->DisableTimerWithOwner(owner);
+        (*states++)->SetMode(owner);
         total += owner;
     }
     return total;

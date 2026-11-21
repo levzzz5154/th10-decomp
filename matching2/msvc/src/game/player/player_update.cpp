@@ -10,7 +10,7 @@ static inline void ResetPlayerTimer(FrameTimer& timer, int frame) {
         timer.current = 0;
         timer.previous = -999999;
         timer.elapsed = 0.0f;
-        timer.speed = &g_score_default_speed;
+        timer.speed = &g_game_speed;
         timer.flags |= 1;
     }
     timer.current = frame;
@@ -89,7 +89,7 @@ extern "C" __declspec(noinline) int __stdcall Player_Update(Player* player) {
         if (g_front && !g_front->script && g_bomb &&
                 !g_bomb->active && static_cast<short>(g_globals.power / 20) != 0 &&
                 g_input.revive) {
-            reinterpret_cast<PlayerSchedulerRecord*>(&player->invulnerability_timer)->SetSchedulerValue(270);
+            reinterpret_cast<FrameTimerView*>(&player->invulnerability_timer)->Set(270);
             Bomb_Start(g_bomb);
             g_globals.power -= 20;
             Player_RefreshOptions(player);
@@ -116,8 +116,8 @@ extern "C" __declspec(noinline) int __stdcall Player_Update(Player* player) {
         } else {
             if (g_bomb && !g_bomb->active &&
                     static_cast<short>(g_globals.power / 20) != 0 && g_input.revive) {
-                reinterpret_cast<PlayerSchedulerRecord*>(&player->state_timer)->SetSchedulerValue(60);
-                reinterpret_cast<PlayerSchedulerRecord*>(&player->invulnerability_timer)->SetSchedulerValue(200);
+                reinterpret_cast<FrameTimerView*>(&player->state_timer)->Set(60);
+                reinterpret_cast<FrameTimerView*>(&player->invulnerability_timer)->Set(200);
                 Bomb_Start(g_bomb);
                 g_globals.power -= 20;
                 Player_RefreshOptions(player);
@@ -152,15 +152,15 @@ extern "C" __declspec(noinline) int __stdcall Player_Update(Player* player) {
                 else g_application.Set(4);
             } else {
                 player->state = PLAYER_RESPAWNING;
-                g_score_default_speed = 1.0f;
+                g_game_speed = 1.0f;
                 Player_AddDamageSource(0, player, &player->position, 0x42000000, 0x41800000, 30, 150);
                 player->death_position = player->position;
                 player->fixed_position.x = 0;
                 player->fixed_position.y = 48000;
                 player->position.x = 0.0f;
                 player->position.y = 480.0f;
-                reinterpret_cast<PlayerSchedulerRecord*>(&player->invulnerability_timer)->SetSchedulerValue(280);
-                reinterpret_cast<PlayerSchedulerRecord*>(&player->state_timer)->SetSchedulerValue(0);
+                reinterpret_cast<FrameTimerView*>(&player->invulnerability_timer)->Set(280);
+                reinterpret_cast<FrameTimerView*>(&player->state_timer)->Set(0);
             }
         }
         break;

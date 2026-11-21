@@ -22,7 +22,7 @@ struct GameCounters {
 };
 extern "C" GameCounters g_globals_score;
 extern "C" const char* g_ending_files[12];
-extern "C" char g_recovery_script_path[260];
+extern "C" char g_archive_load_path[260];
 extern "C" char str_data_corrupted[];
 extern "C" TextLog g_log;
 struct EndingUnlocks {
@@ -89,9 +89,9 @@ int Ending::Initialize() {
     g_score->endings[ending_index] = 1;
     if (ending_index >= 6) g_score->alternate = 1;
     const char* filename = g_ending_files[ending_index];
-    g_recovery_script_path[0] = 0;
-    strcat(g_recovery_script_path, filename);
-    file = Archive_LoadFile(g_recovery_script_path, 0, 0);
+    g_archive_load_path[0] = 0;
+    strcat(g_archive_load_path, filename);
+    file = Archive_LoadFile(g_archive_load_path, 0, 0);
     if (!file) { g_log.Append(str_data_corrupted); return -1; }
     text = new EndingText(file + *(int*)(file + 4));
     return 0;

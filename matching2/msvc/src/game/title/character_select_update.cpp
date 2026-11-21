@@ -90,10 +90,10 @@ __declspec(noinline) int __stdcall TitleMode7(Title* room) {
             3, reinterpret_cast<AnmLookupContext*>(g_sprt_ctrl),
             room->animation_slots[125]);
         room->SetSlotFrame(125, room->cursor.selection + 0x11);
-        room->SetTimerTarget(CHAR_PHASE_WAIT_OPEN);
+        room->SetPhase(CHAR_PHASE_WAIT_OPEN);
     case CHAR_PHASE_WAIT_OPEN:
         if (room->timer.current > 6)
-            room->SetTimerTarget(CHAR_PHASE_ACTIVE);
+            room->SetPhase(CHAR_PHASE_ACTIVE);
         break;
     case CHAR_PHASE_ACTIVE: {
         MenuCursor* cursor = &room->cursor;
@@ -106,7 +106,7 @@ __declspec(noinline) int __stdcall TitleMode7(Title* room) {
             room->SetSlotFrame(125, cursor->selection + 7);
         }
         if (g_input_keys_held & CHAR_KEY_CANCEL) {
-            room->SetTimerTarget(CHAR_PHASE_CANCEL_LEAVE);
+            room->SetPhase(CHAR_PHASE_CANCEL_LEAVE);
             g_sound_manager.Queue(CHAR_SFX_CANCEL, 0);
         } else if (g_input_keys_held & CHAR_KEY_CONFIRM) {
             ChildLookupAnmHandle* handle =
@@ -128,14 +128,14 @@ __declspec(noinline) int __stdcall TitleMode7(Title* room) {
                 reinterpret_cast<StopFrameAnmHandle*>(&child)->SetStopFrame(1);
             }
             g_sound_manager.Queue(CHAR_SFX_CONFIRM, 0);
-            room->SetTimerTarget(CHAR_PHASE_CONFIRM_LEAVE);
+            room->SetPhase(CHAR_PHASE_CONFIRM_LEAVE);
         }
         break;
     }
     case CHAR_PHASE_CONFIRM_LEAVE:
         if (room->timer.current >= 14) {
             room->ClearAnimationSlot(99);
-            room->DisableTimerWithOwner(CHAR_TARGET_SHOT_TYPE);
+            room->SetMode(CHAR_TARGET_SHOT_TYPE);
             int character = room->cursor.selection;
             int previous = g_globals_character;
             g_globals_character = character;
@@ -151,7 +151,7 @@ __declspec(noinline) int __stdcall TitleMode7(Title* room) {
         if (room->timer.current >= 6) {
             room->ClearAnimationSlot(125);
             room->ClearAnimationSlot(99);
-            room->DisableTimerWithOwner(CHAR_TARGET_DIFFICULTY);
+            room->SetMode(CHAR_TARGET_DIFFICULTY);
             g_globals_character = room->cursor.selection;
             room->cursor.PopSelection();
         }

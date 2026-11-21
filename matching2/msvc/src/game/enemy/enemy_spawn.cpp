@@ -1,7 +1,7 @@
 // 0x0040CFB0..0x0040D1F1: create an enemy.
 //
 // The record is allocated and bound to the named script entry, takes its
-// position, life, score, drop item, two flags and eight script variables from
+// position, score, life, drop item, two flags and eight script variables from
 // the spawn description, and runs its script up to the first wait. Enemies
 // flagged for boss-style drops swap the two power item kinds for their large
 // forms. The death sound alternates with the creation count, the death effect
@@ -35,8 +35,8 @@ EnemySpawnView* EnemySpawn2::Create(EnemyCtrlSpawnView* manager, const char* ent
     EnemySpawnView* enemy = new EnemySpawnView(entry);
 
     enemy->data.position = position;
-    enemy->data.life = life;
     enemy->data.score = score;
+    enemy->data.life = life;
     enemy->data.drop_item = drop_item;
     enemy->data.flags.mirrored = mirrored;
     enemy->difficulty_mask = (unsigned char)(1 << g_globals.difficulty);
@@ -80,7 +80,7 @@ EnemySpawnView* EnemySpawn2::Create(EnemyCtrlSpawnView* manager, const char* ent
             break;
         }
     }
-    enemy->data.death_callback = 0;
+    enemy->data.death_file = 0;
 
     EnemySpawnListNode* node = &enemy->data.node;
     if (manager->head == 0) {

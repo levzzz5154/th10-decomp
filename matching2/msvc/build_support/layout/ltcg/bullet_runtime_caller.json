@@ -22,14 +22,14 @@
     "include/th10/platform/sound_queue.hpp",
     "include/th10/math/angle.hpp",
     "include/th10/math/timer.hpp",
-    "include/th10/game/player_wrap.hpp",
+    "include/th10/game/bullet_ex_wrap.hpp",
     "include/th10/game/bullet_runtime_state.hpp",
     "include/th10/game/bullet_runtime_actions.hpp",
     "include/th10/game/bullet_reset_anchor.hpp",
-    "include/th10/game/field_contact.hpp",
-    "include/th10/game/player_motion_helpers.hpp",
+    "include/th10/game/player_check_hit.hpp",
+    "include/th10/game/bullet_ex_motion.hpp",
     "include/th10/game/bullet_runtime_deceleration.hpp",
-    "include/th10/game/player_homing.hpp",
+    "include/th10/game/bullet_ex_homing.hpp",
     "include/th10/game/player.hpp",
     "include/th10/game/entity.hpp",
     "include/th10/types.hpp"
@@ -496,7 +496,7 @@
     },
     {
       "name": "ActualFieldContact",
-      "symbol": "@FieldContact004266B0@12",
+      "symbol": "@Player_CheckHit@12",
       "section": ".text$03fcontact",
       "address": "0x004266B0",
       "size": 316

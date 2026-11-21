@@ -17,7 +17,7 @@
     "include/th10/game/entity.hpp",
     "include/th10/types.hpp",
     "include/th10/math/timer.hpp",
-    "include/th10/game/trigger_region.hpp",
+    "include/th10/game/player_check_laser_hit.hpp",
     "include/th10/math/oriented_rect_contact.hpp",
     "include/th10/render/animation_public_callers.hpp",
     "include/th10/platform/sound_queue.hpp",

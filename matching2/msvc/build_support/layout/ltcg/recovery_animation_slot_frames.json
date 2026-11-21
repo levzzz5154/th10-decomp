@@ -173,7 +173,7 @@
     },
     {
       "name": "FullHelper_0040c540",
-      "symbol": "?EnsureAnimationResource@GameThreadResourceView@@QAEPAXMM@Z",
+      "symbol": "?EnsureLoadingSpinner@AsciiManagerSpinnerView@@QAEPAXMM@Z",
       "section": ".text$0040c540_fn",
       "address": "0x0040C540",
       "size": 75
@@ -299,14 +299,14 @@
     },
     {
       "name": "RecoveryMusicRoom_DisableTimerWithOwner",
-      "symbol": "?DisableTimerWithOwner@Title@@QAEXH@Z",
+      "symbol": "?SetMode@Title@@QAEXH@Z",
       "section": ".text$0042c5c0_fn",
       "address": "0x0042C5C0",
       "size": 83
     },
     {
       "name": "RecoveryMusicRoom_SetTimerTarget",
-      "symbol": "?SetTimerTarget@Title@@QAEXH@Z",
+      "symbol": "?SetPhase@Title@@QAEXH@Z",
       "section": ".text$0042c620_fn",
       "address": "0x0042C620",
       "size": 80
@@ -334,7 +334,7 @@
     },
     {
       "name": "RecoveryMusicResourceQueue_RegisterResource",
-      "symbol": "?RegisterResource@MusicRequestQueue@@QAEPADPBDHH@Z",
+      "symbol": "?QueueMusicCommand@MusicRequestQueue@@QAEPADPBDHH@Z",
       "section": ".text$0043e460_fn",
       "address": "0x0043E460",
       "size": 76
@@ -940,7 +940,7 @@
       "kind": "relative_code"
     },
     {
-      "symbol": "_g_recovery_script_path",
+      "symbol": "_g_archive_load_path",
       "address": "0x00497C38",
       "kind": "data"
     },

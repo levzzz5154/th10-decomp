@@ -4,7 +4,7 @@
 #include "th10/game/projectile_spawn_runtime.hpp"
 
 #pragma code_seg(".text$00405410_s")
-void PlayerSchedulerRecord::SetSchedulerValue(int value) {
+void FrameTimerView::Set(int value) {
     if (!(this->flags_10 & 1)) {
         this->field_04 = 0;
         this->field_00 = 0xFFF0BDC1;

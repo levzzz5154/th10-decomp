@@ -9,7 +9,7 @@
   "functions": [
     {
       "name": "archive_cursor_open_0044dbf0",
-      "symbol": "?OpenCursor@@YGJPAUArchiveCursor2@@HPBDPAUArchiveEntry3@@@Z",
+      "symbol": "?OpenCursor@@YGJPAUMusicReadCursor@@HPBDPAUMusicTrackRecord@@@Z",
       "section": ".text$01accessor",
       "address": "0x0044DBF0",
       "size": 173,
@@ -17,7 +17,7 @@
     }
   ],
   "context": {
-    "symbol": "?Ctx@@YGHPAPAUArchiveCursor2@@PAPBDPAPAUArchiveEntry3@@H@Z",
+    "symbol": "?Ctx@@YGHPAPAUMusicReadCursor@@PAPBDPAPAUMusicTrackRecord@@H@Z",
     "section": ".text$03context",
     "address": "0x0044DCB0",
     "size": 95,

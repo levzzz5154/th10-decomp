@@ -1,7 +1,7 @@
 // 0x0042CDF0..0x0042D257: the title screen's per-frame dispatcher: the idle
 // counter that starts a demo replay, then the handler of the current mode.
 // Built in the title_dispatcher LTCG cluster, whose driver adds its caller.
-#include "th10/game/ending_screen.hpp"
+#include "th10/game/title_opening_screen.hpp"
 #include "th10/game/stage_route.hpp"
 #include "th10/render/animation_resource_removal.hpp"
 #include <stdlib.h>
@@ -53,7 +53,7 @@ extern "C" {
     extern unsigned int g_app_flags;
     extern const char* g_title_demo_paths[4];
     extern char g_replay_path[];
-    extern GameThreadResourceView* g_ascii_manager;
+    extern AsciiManagerSpinnerView* g_ascii_manager;
     extern float flt_0_99, flt_1_01, flt_1;
 }
 // These declarations describe logical inputs, not promises about retail ABI.
@@ -64,7 +64,7 @@ __declspec(noinline) void __stdcall TitlePlayMusic(int first, int second);
 __declspec(noinline) void TitleDispatchGame();
 __declspec(noinline) int __stdcall TitleMainMenu(Title* room);
 __declspec(noinline) int __stdcall TitleOptions(Title* room);
-__declspec(noinline) int __stdcall TitleMenuFlow(Title* room);
+__declspec(noinline) int __stdcall KeyConfig_Update(Title* room);
 __declspec(noinline) int __stdcall TitleMode6(Title* room);
 __declspec(noinline) int __stdcall TitleMode7(Title* room);
 __declspec(noinline) int __stdcall TitleMode8(Title* room);
@@ -171,7 +171,7 @@ __declspec(noinline) int __stdcall TitleDispatcher(
             room->cursor.item_count = 10;
             SetSelection(cursor, 0);
             cursor->PushSelection();
-            room->DisableTimerWithOwner(TITLE_MODE_NAME_ENTRY);
+            room->SetMode(TITLE_MODE_NAME_ENTRY);
             Title_InstallAnimationSlot(room, 91);
             room->SetSlotFrame(91, 9);
             g_main_mode_request = 1;
@@ -190,12 +190,12 @@ __declspec(noinline) int __stdcall TitleDispatcher(
         if (transition == 0) {
             // MATCH: transition is 0 here; the sum (one more expression temporary)
             // puts the closing timer add's fld/fadd in retail's order.
-            room->DisableTimerWithOwner(transition + 1);
+            room->SetMode(transition + 1);
             g_main_mode_request = 1;
         } else if (transition == 1) {
             if (g_globals_score.difficulty == 4)
                 SetSelection(&room->cursor, 1);
-            room->DisableTimerWithOwner(TITLE_MODE_MAIN_MENU);
+            room->SetMode(TITLE_MODE_MAIN_MENU);
             Title_InstallAnimationSlot(room, 91);
             // Entering the main menu shares mode 2's handler call.
             goto main_menu;
@@ -204,7 +204,7 @@ __declspec(noinline) int __stdcall TitleDispatcher(
             room->cursor.item_count = 10;
             SetSelection(cursor, 3);
             cursor->PushSelection();
-            room->DisableTimerWithOwner(TITLE_MODE_REPLAY_SELECT);
+            room->SetMode(TITLE_MODE_REPLAY_SELECT);
             Title_InstallAnimationSlot(room, 91);
             room->SetSlotFrame(91, 9);
             g_main_mode_request = 1;
@@ -212,13 +212,13 @@ __declspec(noinline) int __stdcall TitleDispatcher(
             TitleMode12(room);
             break;
         }
-        EndingScreen_Update2(room);
+        TitleOpening_Update(room);
         break;
     }
-    case TITLE_MODE_OPENING: EndingScreen_Update2(room); break;
+    case TITLE_MODE_OPENING: TitleOpening_Update(room); break;
     case TITLE_MODE_MAIN_MENU: main_menu: MarkTitleCallback(room); TitleMainMenu(room); break;
     case TITLE_MODE_OPTIONS: TitleOptions(room); break;
-    case TITLE_MODE_KEY_CONFIG: TitleMenuFlow(room); break;
+    case TITLE_MODE_KEY_CONFIG: KeyConfig_Update(room); break;
     case TITLE_MODE_LEAVE:
         g_main_state = (~(g_app_flags >> 12) & 1) | 2;
         // The same launch/leave path serves modes 3, 10, and 13.

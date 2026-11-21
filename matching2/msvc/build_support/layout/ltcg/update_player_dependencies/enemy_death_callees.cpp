@@ -7,7 +7,7 @@ extern "C" const float flt_5_2083335;
 extern "C" short g_sound_priority[];
 extern float g_frame_timer_normal_lower;
 extern float g_frame_timer_normal_upper;
-extern float g_score_default_speed;
+extern "C" float g_game_speed;
 
 #pragma code_seg(".text$099p_pan")
 void SoundQueue::QueuePan(int sound_id, float pan) {
@@ -55,7 +55,7 @@ void ScoreState::AdvanceGaugeTimer(int frames) {
                 timer.current = 0;
                 timer.previous = -999999;
                 timer.elapsed = 0.0f;
-                timer.speed = &g_score_default_speed;
+                timer.speed = &g_game_speed;
                 timer.flags |= 1;
             }
             timer.current = 130;

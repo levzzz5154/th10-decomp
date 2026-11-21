@@ -34,7 +34,7 @@
     },
     {
       "name": "StageManagerDestructorUnwindSprite",
-      "symbol": "_StageManagerDestructorUnwindSprite_00465280",
+      "symbol": "_PlayerDestructorUnwindSprite_00465280",
       "section": ".text$x",
       "address": "0x00465280",
       "size": 11,

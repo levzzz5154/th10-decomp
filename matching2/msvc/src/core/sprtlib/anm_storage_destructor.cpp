@@ -5,7 +5,7 @@
 // 0x00446220: drain both animation lists, then destroy the layer sprites,
 // middle sprite and pooled sprites. Native LTCG preserves the stack receiver
 // and the EDI-manager/ESI-VM RemoveVm call convention.
-typedef GameThreadSlot AnmOwnedSprite;
+typedef AsciiGlyphVm AnmOwnedSprite;
 struct AnimationManagerStorage {
     unsigned char reserved_000[0x68];
     AnmOwnedSprite pool[4096];

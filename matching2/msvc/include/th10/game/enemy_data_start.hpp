@@ -36,8 +36,8 @@ struct EnemyRecord;
 struct EnemyTick {
     PolarMotion previous;                         // +0x0000: last frame's `final`
     PolarMotion final;                            // +0x002C: where the enemy is drawn and hit
-    PolarMotion relative;                         // +0x0058: offset motion, added to `absolute`
-    PolarMotion absolute;                         // +0x0084
+    PolarMotion absolute;                         // +0x0058: offset motion, added to `relative`
+    PolarMotion relative;                         // +0x0084
     Vec2 hit_size;                                // +0x00B0: against the player's shots
     Vec2 contact_size;                            // +0x00B8: against the player
     ScriptChangeHandle animations[8];             // +0x00C0
@@ -47,12 +47,12 @@ struct EnemyTick {
     unsigned char reserved_00fc[0x11C - 0xFC];
     FrameTimer clock;                             // +0x011C
     unsigned char reserved_0130[0x13C - 0x130];
-    Interpolator<Vec3> relative_path;             // +0x013C
-    Interpolator<Vec3> absolute_path;             // +0x0188
-    Interpolator<TrajectoryVec2> relative_heading;   // +0x01D4: angle, speed
-    Interpolator<TrajectoryVec2> absolute_heading;   // +0x0210
-    Interpolator<TrajectoryVec2> relative_orbit;     // +0x024C: radius, radius step
-    Interpolator<TrajectoryVec2> absolute_orbit;     // +0x0288
+    Interpolator<Vec3> absolute_path;             // +0x013C
+    Interpolator<Vec3> relative_path;             // +0x0188
+    Interpolator<TrajectoryVec2> absolute_heading;   // +0x01D4: angle, speed
+    Interpolator<TrajectoryVec2> relative_heading;   // +0x0210
+    Interpolator<TrajectoryVec2> absolute_orbit;     // +0x024C: radius, radius step
+    Interpolator<TrajectoryVec2> relative_orbit;     // +0x0288
     unsigned char reserved_02c4[0x13A4 - 0x2C4];
     Vec2 visible_size;                            // +0x13A4: kept while this overlaps the field
     Vec2 limit_center;                            // +0x13AC
@@ -74,8 +74,8 @@ struct EnemyTick {
 };
 typedef char EnemyTickFacing[offsetof(EnemyTick, facing) == 0xF8 ? 1 : -1];
 typedef char EnemyTickClock[offsetof(EnemyTick, clock) == 0x11C ? 1 : -1];
-typedef char EnemyTickPath[offsetof(EnemyTick, absolute_path) == 0x188 ? 1 : -1];
-typedef char EnemyTickOrbit[offsetof(EnemyTick, absolute_orbit) == 0x288 ? 1 : -1];
+typedef char EnemyTickPath[offsetof(EnemyTick, relative_path) == 0x188 ? 1 : -1];
+typedef char EnemyTickOrbit[offsetof(EnemyTick, relative_orbit) == 0x288 ? 1 : -1];
 typedef char EnemyTickVisible[offsetof(EnemyTick, visible_size) == 0x13A4 ? 1 : -1];
 typedef char EnemyTickFlash[offsetof(EnemyTick, flash_frames) == 0x1414 ? 1 : -1];
 typedef char EnemyTickFlags[offsetof(EnemyTick, flags) == 0x1444 ? 1 : -1];
@@ -119,7 +119,7 @@ struct EnemyRecord {
     EnemyTick data;                      // +0x103C
 
     // 0x004127A0: the script entry of a spell slot that has come due, or 0.
-    __declspec(noinline) const char* AdvanceSlots();
+    __declspec(noinline) const char* CheckInterrupts();
     // 0x0040C6E0, 0x0040C730: drop what the running script owns.
     __declspec(noinline) void ClearResourceList();
     __declspec(noinline) void ResetScript();

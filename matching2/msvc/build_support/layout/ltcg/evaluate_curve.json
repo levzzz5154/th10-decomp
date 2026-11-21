@@ -281,7 +281,7 @@
       "kind": "data"
     },
     {
-      "symbol": "?g_score_default_speed@@3MA",
+      "symbol": "_g_game_speed",
       "address": "0x00476F78",
       "kind": "data"
     },
@@ -308,11 +308,6 @@
     {
       "symbol": "_g_sprt_ctrl",
       "address": "0x00491C10",
-      "kind": "data"
-    },
-    {
-      "symbol": "_g_game_speed",
-      "address": "0x00476F78",
       "kind": "data"
     },
     {

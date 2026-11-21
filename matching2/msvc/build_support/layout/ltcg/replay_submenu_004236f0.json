@@ -292,7 +292,7 @@
   "anchors": [
     {
       "name": "SubSchedulerRecord_SetSchedulerValue",
-      "symbol": "?SetSchedulerValue@SubSchedulerRecord@@QAEXH@Z",
+      "symbol": "?Set@SubSchedulerRecord@@QAEXH@Z",
       "section": ".text$00b",
       "address": "0x00405410",
       "size": 57
@@ -327,7 +327,7 @@
     },
     {
       "name": "SubUpdateFrameMaximum",
-      "symbol": "?SubUpdateFrameMaximum@@YGHPAUGameStateFrameState@@@Z",
+      "symbol": "?SubUpdateFrameMaximum@@YGHPAUFrontScoreState@@@Z",
       "section": ".text$02d",
       "address": "0x00421F60",
       "size": 28

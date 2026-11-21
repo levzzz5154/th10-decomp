@@ -8,10 +8,10 @@
 #include "th10/render/animation_byte_interpolator.hpp"
 
 #pragma code_seg(".text$f00405b60F")
-void ItemRunState::AdjustPower(int amount) {
-    power_accumulator+=amount;
-    if (power_accumulator>1024) power_accumulator=1024;
-    else if (power_accumulator<-1024) power_accumulator=-1024;
+void ItemRunState::AdjustRank(int amount) {
+    rank+=amount;
+    if (rank>1024) rank=1024;
+    else if (rank<-1024) rank=-1024;
 }
 #pragma code_seg(".text$f00409d90F")
 void ItemRunState::AddScore(int amount) {
@@ -33,7 +33,7 @@ void ItemRunState::AdvanceGaugeTimer(int frames) {
                 timer.current=0;
                 timer.previous=-999999;
                 timer.elapsed=0.0f;
-                timer.speed=&g_score_default_speed;
+                timer.speed=&g_game_speed;
                 timer.flags|=1;
             }
             timer.current=130;

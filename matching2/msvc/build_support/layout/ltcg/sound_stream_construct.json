@@ -85,7 +85,7 @@
       "kind": "relative_code"
     },
     {
-      "symbol": "_g_sound_stream_unknown",
+      "symbol": "_g_sound_stream_vtable",
       "address": "0x004705D8",
       "kind": "data"
     }

@@ -9,7 +9,7 @@
   "functions": [
     {
       "name": "ScoreChain_00417770_ReleaseChain",
-      "symbol": "?ReleaseChain@ScoreChain@@QAEXXZ",
+      "symbol": "?ReleaseAll@LaserManagerListView@@QAEXXZ",
       "section": ".text$01release",
       "address": "0x00417770",
       "size": 66,

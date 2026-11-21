@@ -359,11 +359,11 @@ struct LinkedNode {
     int state;
 };
 
-struct ScoreChain {
+struct LaserManagerListView {
     unsigned char reserved_000[0x18];
     LinkedNode* head;
 
-    __declspec(noinline) void ReleaseChain();
+    __declspec(noinline) void ReleaseAll();
 };
 
 #undef g_sprt_ctrl
@@ -517,14 +517,14 @@ struct ScoreChain {
 // setter is compiled as a native LTCG cluster.
 // Carved out of build_support/contexts/legacy/game/player.cpp (Player_SetSchedulerValue).
 
-struct PlayerSchedulerRecord {
+struct FrameTimerView {
     int field_00;    // 0x00 value, stored one below the raw value
     int field_04;    // 0x04 value
     float field_08;  // 0x08 value converted to float
     int field_0C;    // 0x0C default marker
     int flags_10;    // 0x10 initialised flag
 
-    __declspec(noinline) void SetSchedulerValue(int value);
+    __declspec(noinline) void Set(int value);
 };
 
 #undef g_sprt_ctrl

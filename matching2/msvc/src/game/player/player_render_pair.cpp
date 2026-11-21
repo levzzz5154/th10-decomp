@@ -1,4 +1,4 @@
-// 0x00426360: draw the player and option callbacks, then the optional power bar.
+// 0x00426360: draw the player and option callbacks, then the optional faith meter bar.
 // 0x00426510: scheduler callback forwarding its ECX state to that draw worker.
 #include "th10/render/quad_batch.hpp"
 
@@ -25,7 +25,7 @@ extern "C" GameFlags* g_game;
 extern "C" PauseState* g_enemy_ctrl;
 extern "C" EnemyState* g_front;
 extern "C" DialogState* g_pause;
-extern "C" int g_player_power_display;
+extern "C" int g_faith_timer_current;
 extern "C" __declspec(noinline) double __stdcall FloorPixelCoordinate(float);
 extern "C" __declspec(noinline) int __cdecl AnmVm_DrawDispatch(
     SprtCtrlBatchView*, RenderEntity*);
@@ -47,8 +47,8 @@ int PlayerRenderState::Draw() {
         if (g_game && (g_game->flags & 0x80) && g_enemy_ctrl &&
             g_front && g_enemy_ctrl->paused == 0 &&
             g_front->active == 0 && g_pause->active == 0 &&
-            g_player_power_display != 0) {
-            int power = g_player_power_display;
+            g_faith_timer_current != 0) {
+            int power = g_faith_timer_current;
             ScreenRect rect;
             rect.left = (float)FloorPixelCoordinate((position.x + 225.0f) - 16.0f);
             rect.right = power * 0.29230770468711853f + rect.left;

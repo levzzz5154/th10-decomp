@@ -2,7 +2,7 @@
 // The genuine full caller graph lets native LTCG choose their private ABI.
 
 #include <stdarg.h>
-#include "th10/game/ending_text_dispatcher.hpp"
+#include "th10/render/anm_text_dispatcher.hpp"
 
 extern "C" {
 int __cdecl recovery_vsprintf(

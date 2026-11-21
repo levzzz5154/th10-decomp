@@ -176,6 +176,6 @@
     }
   ],
   "included_sources": [
-    "src/core/main/resource_file.cpp"
+    "src/core/main/gdi_surface_fill_rgb444.cpp"
   ]
 }

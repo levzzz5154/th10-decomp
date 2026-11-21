@@ -1,13 +1,13 @@
-// 0x0041F800: PathPolarVector::SetPathPolar
+// 0x0041F800: LaserPolarVector::SetPolar
 #include "th10/math/scaled_polar.hpp"
 
 // 0x41f800: x87 polar-vector setter.
-struct PathPolarVector {
+struct LaserPolarVector {
     float x, y;
     __attribute__((thiscall, noinline))
-    PathPolarVector* SetPathPolar(float angle, float radius);
+    LaserPolarVector* SetPolar(float angle, float radius);
 };
 
-PathPolarVector* PathPolarVector::SetPathPolar(float angle, float radius) {
+LaserPolarVector* LaserPolarVector::SetPolar(float angle, float radius) {
     return SetScaledPolar(this, angle, radius, radius);
 }

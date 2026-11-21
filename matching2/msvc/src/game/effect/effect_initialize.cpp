@@ -17,15 +17,15 @@ struct Effect {
     unsigned reserved_014;          // +0x14
 };
 
-struct BulletResourceCache;
+struct SprtCtrl;
 
 // Declared here exactly as the co-compiled TextLog translation unit defines it,
 // so the whole-program pass can pick the register agreement retail used.
 #include "th10/platform/text_log.hpp"
 extern "C" void * __fastcall SprtCtrl_LoadCachedResource(
-        int id, BulletResourceCache *cache, const char *name);
+        int id, SprtCtrl *cache, const char *name);
 extern "C" SchedulerTask * __stdcall SchedulerTask_Create(void *callback);
-extern "C" BulletResourceCache *g_sprt_ctrl;
+extern "C" SprtCtrl *g_sprt_ctrl;
 extern "C" FuncCtrl *g_func_ctrl;
 
 #pragma code_seg(".text$00a_loadscripts")

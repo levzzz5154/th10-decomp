@@ -10,7 +10,7 @@
     "include/th10/game/pause_result_open/open_animation.hpp",
     "include/th10/game/pause_result_open/open_state.hpp",
     "include/th10/game/entity.hpp",
-    "include/th10/game/ending_text_dispatcher.hpp",
+    "include/th10/render/anm_text_dispatcher.hpp",
     "include/th10/core/screen.hpp",
     "include/th10/core/func_ctrl.hpp",
     "include/th10/game/score.hpp",
@@ -60,7 +60,7 @@
     }
   ],
   "context": {
-    "symbol": "_ResultDispatcher2@4",
+    "symbol": "_FrontDialogue_Update@4",
     "section": ".text$00415e90_fn",
     "address": "0x00415E90",
     "size": 2820,
@@ -91,7 +91,7 @@
     },
     {
       "name": "Registrar",
-      "symbol": "?RegisterResource@AnmResourceRegistrar@@QAEPADPBDHH@Z",
+      "symbol": "?QueueMusicCommand@WaveSoundManager@@QAEPADPBDHH@Z",
       "section": ".text$0043e460_fn",
       "address": "0x43e460",
       "size": 104
@@ -119,14 +119,14 @@
     },
     {
       "name": "wait_set",
-      "symbol": "?SetSchedulerValue@DispatcherWaitTimer@@QAEXH@Z",
+      "symbol": "?Set@DispatcherWaitTimer@@QAEXH@Z",
       "section": ".text$00405410_fn",
       "address": "0x00405410",
       "size": 57
     },
     {
       "name": "rank_advance",
-      "symbol": "?AdvanceLevel@DispatcherRankState@@QAEXXZ",
+      "symbol": "?AdvanceStage@DispatcherRankState@@QAEXXZ",
       "section": ".text$004175e0_fn",
       "address": "0x004175E0",
       "size": 32
@@ -231,7 +231,7 @@
     },
     {
       "name": "Path_DecodeXor",
-      "symbol": "?Path_DecodeXor@@YGPADPBD@Z",
+      "symbol": "?Msg_DecodeXor@@YGPADPBD@Z",
       "section": ".text$00417010_fn",
       "address": "0x00417010",
       "size": 41
@@ -539,7 +539,7 @@
       "kind": "data"
     },
     {
-      "symbol": "_g_sound_flags",
+      "symbol": "_g_config_flags",
       "address": "0x491d78",
       "kind": "data"
     },
@@ -564,7 +564,7 @@
       "kind": "data"
     },
     {
-      "symbol": "?g_music_requests@@3UAnmResourceRegistrar@@A",
+      "symbol": "?g_music_requests@@3UWaveSoundManager@@A",
       "address": "0x492590",
       "kind": "data"
     },
@@ -649,7 +649,7 @@
       "kind": "data"
     },
     {
-      "symbol": "_g_globals_gauge",
+      "symbol": "_g_globals_faith",
       "address": "0x00474C4C",
       "kind": "data"
     },
@@ -746,11 +746,6 @@
     {
       "symbol": "?g_decoded_text@@3PADA",
       "address": "0x00497D40",
-      "kind": "data"
-    },
-    {
-      "symbol": "?g_score_default_speed@@3MA",
-      "address": "0x00476F78",
       "kind": "data"
     },
     {

@@ -7,30 +7,30 @@
 #include "th10/game/scheduler_remove_locked.hpp"
 #include "th10/render/animation_mark_for_removal.hpp"
 
-struct ManagerOwned;
+struct ReplayManager;
 
-struct Manager4 {
+struct Pause {
     SchedulerTaskPair tasks;                    // +0x000 (tasks at +0x08, +0x0C)
     unsigned char unknown_010[0x1DC - 0x10];
     int animation_id;                           // +0x1DC
     unsigned char unknown_1e0[0x1EC - 0x1E0];
-    ManagerOwned* owned[25];           // +0x1EC
+    ReplayManager* owned[25];           // +0x1EC
 };
 
-extern "C" void __stdcall ManagerOwned_Destroy(ManagerOwned* owned);
+extern "C" void __stdcall ReplayManager_Destroy(ReplayManager* owned);
 extern "C" void* g_pause;
 
 #pragma code_seg(".text$00hbstartupzm")
-extern "C" __declspec(noinline) int __stdcall Manager_Release(Manager4* manager) {
+extern "C" __declspec(noinline) int __stdcall Pause_Release(Pause* manager) {
     RemoveScheduledTaskPair(&manager->tasks);
     for (int i = 0; i < 25; ++i) {
-        ManagerOwned* owned = manager->owned[i];
+        ReplayManager* owned = manager->owned[i];
         if (owned) {
-            ManagerOwned_Destroy(owned);
+            ReplayManager_Destroy(owned);
             operator delete(owned);
         }
     }
-    MarkAnimationForRemoval(g_sprt_ctrl, manager->animation_id);
+    StopAnimation(g_sprt_ctrl, manager->animation_id);
     manager->animation_id = 0;
     g_pause = 0;
     return 0;

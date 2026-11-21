@@ -4,11 +4,11 @@
 // 0x0042A430: the replay manager's draw task (registered by 0x00428F60).
 // The scene arrives in ECX. The routine reports whether the active global scene
 // owns a live object with bit 2 of its flag byte set; otherwise it hands the
-// scene straight to the frame-tick routine at 0x00429A70, whose receiver reads
+// scene straight to the draw routine at 0x00429A70 (ReplayManager_Draw), whose receiver reads
 // it from EDX next to its unused first argument.
 extern "C" unsigned char g_game;                       // 0x00477810  active scene
 
-typedef int (__fastcall* SceneTick)(int self, void* scene);
+typedef int (__fastcall* ReplayDrawFn)(int self, void* scene);
 
 struct ReplayGameScene {
     unsigned char pad_00[0x58];
@@ -19,5 +19,5 @@ int __fastcall ReplayManager_OnDraw(void* self) {
     ReplayGameScene* scene = *reinterpret_cast<ReplayGameScene**>(&g_game);
     if (scene != 0 && (scene->flags & 4) != 0)
         return 1;
-    return ((SceneTick)ReplayManager_DrawPanel)((int)self, self);
+    return ((ReplayDrawFn)ReplayManager_DrawPanel)((int)self, self);
 }

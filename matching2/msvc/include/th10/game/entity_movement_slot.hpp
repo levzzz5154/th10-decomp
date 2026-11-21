@@ -10,8 +10,8 @@ struct EntityMovementSlot {
     MovementPair source;
     MovementPair destination;
     unsigned char reserved_190[0x10];
-    int timer;
     int previous;
+    int current;
     int elapsed;
     const float* speed;
     unsigned int flags;

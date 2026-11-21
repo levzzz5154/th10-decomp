@@ -119,10 +119,10 @@ __declspec(noinline) int __stdcall TitleOptions(Title* room) {
         SelectItem4(room->cursor, OPT_ITEM_SCREEN_MODE);
         Title_InstallAnimationSlot(room, 1);
         RefreshOptions2(room);
-        room->SetTimerTarget(OPT_PHASE_WAIT_OPEN);
+        room->SetPhase(OPT_PHASE_WAIT_OPEN);
     case OPT_PHASE_WAIT_OPEN:
         if (room->timer.current > 6) {
-            room->SetTimerTarget(OPT_PHASE_ACTIVE);
+            room->SetPhase(OPT_PHASE_ACTIVE);
             RunCursorSlot2(room);
             ShowScreenMode(room);
             room->SetSlotFrame(1, room->cursor.selection + 0x11);
@@ -145,7 +145,7 @@ __declspec(noinline) int __stdcall TitleOptions(Title* room) {
             if (room->cursor.selection == OPT_ITEM_QUIT) {
                 room->SetSlotFrame(1, 6);
                 application_state.sound.Queue(OPT_SFX_CANCEL, 0);
-                room->SetTimerTarget(OPT_PHASE_TRANSITION);
+                room->SetPhase(OPT_PHASE_TRANSITION);
             } else {
                 application_state.sound.Queue(OPT_SFX_CANCEL, 0);
                 SelectItem4(room->cursor, OPT_ITEM_QUIT);
@@ -224,7 +224,7 @@ __declspec(noinline) int __stdcall TitleOptions(Title* room) {
                 case OPT_ITEM_QUIT:
                     room->SetSlotFrame(1, 6);
                     application_state.sound.Queue(OPT_SFX_CANCEL, 0);
-                    room->SetTimerTarget(OPT_PHASE_TRANSITION);
+                    room->SetPhase(OPT_PHASE_TRANSITION);
                     break;
                 case OPT_ITEM_DEFAULTS:
                     g_key_bindings.music_volume = 100;
@@ -237,7 +237,7 @@ __declspec(noinline) int __stdcall TitleOptions(Title* room) {
                 case OPT_ITEM_KEY_CONFIG:
                     room->SetSlotFrame(1, 6);
                     application_state.sound.Queue(OPT_SFX_CONFIRM, 0);
-                    room->SetTimerTarget(OPT_PHASE_TRANSITION);
+                    room->SetPhase(OPT_PHASE_TRANSITION);
                     break;
                 }
             }
@@ -249,13 +249,13 @@ __declspec(noinline) int __stdcall TitleOptions(Title* room) {
             MenuCursor* cursor = &room->cursor;
             switch (cursor->selection) {
             case OPT_ITEM_KEY_CONFIG:
-                room->DisableTimerWithOwner(OPT_TARGET_KEY_CONFIG);
+                room->SetMode(OPT_TARGET_KEY_CONFIG);
                 cursor->PushSelection();
                 break;
             case OPT_ITEM_QUIT:
                 reinterpret_cast<TitleAnimationSlotView*>(room)->StopSlot(0x5a);
                 reinterpret_cast<TitleAnimationSlotView*>(room)->StopSlot(0x5b);
-                room->DisableTimerWithOwner(OPT_TARGET_MAIN_MENU);
+                room->SetMode(OPT_TARGET_MAIN_MENU);
                 cursor->PopSelection();
                 break;
             }

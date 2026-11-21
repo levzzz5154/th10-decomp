@@ -6,8 +6,8 @@ void* __fastcall AnimationManager_SetFlag2(AnimationLookupContext*, AnimationScr
 extern "C" AnimationLookupContext* g_sprt_ctrl;
 struct PauseFlags { unsigned char reserved[0x58]; unsigned flags; };
 extern PauseFlags* g_pause_flags;
-extern AnmResourceRegistrar g_music_requests;
-extern float g_game_speed;
+extern WaveSoundManager g_music_requests;
+extern "C" float g_game_speed;
 struct PauseOwner {
  unsigned char reserved[0x1DC];
  AnimationScriptId animation;
@@ -18,7 +18,7 @@ struct PauseOwner {
 #pragma code_seg(".text$00fn")
 void PauseOwner::Unpause() {
  g_pause_flags->flags &= ~0x10u;
- g_music_requests.RegisterResource("", 7, 0);
+ g_music_requests.QueueMusicCommand("", 7, 0);
  AnimationManager_SetFlag2(g_sprt_ctrl, animation);
  // Publish the cleared pause animation before restoring game timing.
  *(volatile int*)&animation.value = 0;

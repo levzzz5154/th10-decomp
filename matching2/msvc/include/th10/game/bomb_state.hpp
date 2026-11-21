@@ -2,8 +2,8 @@
 #define TH10_BOMB_STATE_HPP
 #include "th10/math/timer.hpp"
 #include "th10/render/position_setter_pair.hpp"
-#include "th10/game/player_update_score.hpp"
-#include "th10/game/player_update_collision.hpp"
+#include "th10/game/laser_manager_evaluate.hpp"
+#include "th10/game/bullet_collision_engine.hpp"
 // The bomb (g_bomb, 0x004776EC) as its update and bullet-cancel pass
 // see it: the animation and position use the position-setter types the
 // update cluster needs. The full layout is Bomb in th10/game/bomb.hpp.
@@ -28,8 +28,8 @@ struct BombAnimationValue {
     float collision_radius;
 };
 extern "C" BombPlayerInput* g_card;
-extern "C" CollisionEngine* g_bullet_manager;
-extern "C" LaserScoreManagerView* g_laser_manager;
+extern "C" BulletManagerCollisionView* g_bullet_manager;
+extern "C" LaserManagerEvaluateView* g_laser_manager;
 extern "C" int g_globals_character;
 extern "C" float flt_0_5, flt_1, flt_1_3, flt_224, flt_16;
 typedef char BombStateTimerOffset[offsetof(BombState,timer)==0x14 ? 1:-1];

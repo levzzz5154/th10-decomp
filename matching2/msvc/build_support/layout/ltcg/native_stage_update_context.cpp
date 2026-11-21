@@ -29,7 +29,7 @@ extern unsigned char* g_player;
 extern unsigned char* g_replay;
 extern unsigned char* g_score;
 extern unsigned char* g_smoll_score;
-extern unsigned int g_globals_flags,g_input_keys_raw,g_app_flags,g_sound_flags;
+extern unsigned int g_globals_flags,g_input_keys_raw,g_app_flags,g_config_flags;
 extern int g_main_state,data_00474c88,g_stage_progress_echo,g_globals_character,g_globals_shot_type;
 extern unsigned char g_frame_worker[],g_sound_manager[],g_application[],g_globals[];
 extern const char str_main[],str_dummy[];
@@ -97,7 +97,7 @@ static __forceinline void StageReset(StageContextFade_00418190* context,int* loc
     StageWord(reinterpret_cast<unsigned char*>(StageWord(g_card,0x37AC)),4)|=2u;
     StageKillPair(g_hint);
     if (delayed) {
-        StageRegisterMusic_0043e460(g_sound_manager,str_dummy,(g_sound_flags&0x10u)?4:3,0);
+        StageRegisterMusic_0043e460(g_sound_manager,str_dummy,(g_config_flags&0x10u)?4:3,0);
         StagePlayMusic_00420b10(0, g_stage_route_current->music_tracks[0]);
         unsigned char* thread=g_ascii_manager;
         StageStopAnimation_00409e50(thread+0x89A4);

@@ -2,7 +2,7 @@
 // Contract: the loaded file is readable as a NUL-terminated text sequence, the
 // scratch and record allocations succeed, and all lines fit 4096 bytes. These
 // are the same preconditions as the retail helpers' unchecked scans.
-#include "th10/game/stage_parser_model.hpp"
+#include "th10/game/hint_parser_model.hpp"
 #include "th10/platform/archive_file.hpp"
 #include <new>
 #include <string.h>

@@ -1,5 +1,5 @@
 #pragma code_seg(".text$05run")
-__declspec(noinline) int PlatformD300Entry::Run(unsigned int* completed) {
+__declspec(noinline) int WaveSecondaryBufferRestore::RestoreIfLost(unsigned int* completed) {
     unsigned int state;
     if (this == 0)
         return (int)0x800401F0u;

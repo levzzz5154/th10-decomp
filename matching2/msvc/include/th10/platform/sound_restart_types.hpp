@@ -127,7 +127,7 @@ struct CommandSoundStream {
     unsigned int unknown_2c;
     unsigned int playing;                           // +0x30
 
-    WaveSecondaryBuffer* FindAvailable();            // maintained 0x0044D370
+    WaveSecondaryBuffer* GetFreeBuffer();            // maintained 0x0044D370
     int RewindBuffers();                            // maintained 0x0044D600
     int SetVolume(int volume);                      // maintained 0x0044D4E0
     int StopAndRewind();                            // maintained 0x0044D550

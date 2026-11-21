@@ -9,7 +9,7 @@
   "functions": [
     {
       "name": "StageText_SkipLine",
-      "symbol": "?StageText_SkipLine@@YGPADPADPAH@Z",
+      "symbol": "?MusicRoom_SkipLine@@YGPADPADPAH@Z",
       "section": ".text$01skipline",
       "address": "0x004349E0",
       "size": 59,

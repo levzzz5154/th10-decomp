@@ -6,7 +6,7 @@
 __declspec(noinline) void EndingTextView::Destroy() {
     worker.Stop();
     for (int i = 0; i < 5; ++i) {
-        MarkAnimationForRemoval(reinterpret_cast<AnimationBuckets*>(g_sprt_ctrl), animation_ids[i]);
+        StopAnimation(reinterpret_cast<AnimationBuckets*>(g_sprt_ctrl), animation_ids[i]);
         animation_ids[i] = 0;
     }
     worker.vtable = &platform_worker_vtable;

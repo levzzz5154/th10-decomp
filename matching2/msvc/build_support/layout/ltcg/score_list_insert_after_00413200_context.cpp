@@ -1,12 +1,12 @@
 // Compiler context only; never selected as recovered game code.
-#include "../../../src/game/enemy/score_list_insert_after.cpp"
+#include "../../../src/game/enemy/list_insert_after.cpp"
 
 #pragma code_seg(".text$03context")
 int __stdcall ScoreListInsertAfterCompilerContext(
-        ScoreListNode** nodes, int count,
-        ScoreListNode* position) {
+        IntrusiveListNode** nodes, int count,
+        IntrusiveListNode* position) {
     while (count--)
-        ScoreList_InsertAfter(position, *nodes++);
+        ListNode_InsertAfter(position, *nodes++);
     return 0;
 }
 #pragma code_seg()

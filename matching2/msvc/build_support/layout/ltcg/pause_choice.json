@@ -25,7 +25,7 @@
   "anchors": [
     {
       "name": "timer",
-      "symbol": "?SetSchedulerValue@PlayerSchedulerRecord@@QAEXH@Z",
+      "symbol": "?Set@FrameTimerView@@QAEXH@Z",
       "section": ".text$05timer",
       "address": "0x405410",
       "size": 57
@@ -74,7 +74,7 @@
     },
     {
       "name": "registrar",
-      "symbol": "?RegisterResource@AnmResourceRegistrar@@QAEPADPBDHH@Z",
+      "symbol": "?QueueMusicCommand@WaveSoundManager@@QAEPADPBDHH@Z",
       "section": ".text$46registrar",
       "address": "0x43e460",
       "size": 104
@@ -269,12 +269,12 @@
       "kind": "data"
     },
     {
-      "symbol": "?g_music_requests@@3UAnmResourceRegistrar@@A",
+      "symbol": "?g_music_requests@@3UWaveSoundManager@@A",
       "address": "0x492590",
       "kind": "data"
     },
     {
-      "symbol": "?g_game_speed@@3MA",
+      "symbol": "_g_game_speed",
       "address": "0x476f78",
       "kind": "data"
     },

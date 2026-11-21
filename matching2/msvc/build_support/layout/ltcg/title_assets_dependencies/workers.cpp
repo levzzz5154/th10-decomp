@@ -1,4 +1,4 @@
-#include "th10/game/title_asset_workers.hpp"
+#include "th10/platform/sound_worker_pair.hpp"
 #pragma code_seg(".text$01stop")
 int SoundWorkerPair::Stop() {
     if (first_thread == 0) {

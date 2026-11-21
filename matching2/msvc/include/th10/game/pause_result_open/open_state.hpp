@@ -45,7 +45,7 @@ extern "C" unsigned int g_app_flags;
 extern "C" int g_main_state;
 extern "C" OpenGameThread* g_ascii_manager;
 extern "C" OpenResources* g_front;
-extern "C" unsigned char g_sound_flags;
+extern "C" unsigned char g_config_flags;
 extern "C" OpenMusicProgress* g_score;
 extern "C" char str_bgm_th10_17_wav[];
 extern "C" char str_dummy[];

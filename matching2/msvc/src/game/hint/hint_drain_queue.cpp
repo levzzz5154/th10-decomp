@@ -13,11 +13,11 @@ struct HintScalePair {
     float y;
 };
 
-struct HintThread {
+struct AsciiManager {
     unsigned char reserved_000[0x899C];
     void* text_animations;    // the loaded text animation file
 };
-extern "C" HintThread* g_ascii_manager;
+extern "C" AsciiManager* g_ascii_manager;
 
 static __forceinline HintHandle* AsHandle(void** result) {
     return reinterpret_cast<HintHandle*>(result);

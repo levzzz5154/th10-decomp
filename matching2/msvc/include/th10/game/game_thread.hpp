@@ -8,7 +8,7 @@ extern "C" void __cdecl crt_free(void* memory);
 // global pointer at 0x004776E0 refers to it.
 
 // +0x14 and +0x3C0: the two per-player state blocks.
-struct GameThreadSlot {
+struct AsciiGlyphVm {
     char pad_000[0x6C];
     unsigned field_06C;
     char pad_070[0x40];
@@ -39,21 +39,21 @@ struct GameThreadSlot {
 #ifdef TH10_GAME_THREAD_SLOT_EXPORTED_ABI
     __declspec(dllexport)
 #endif
-    ~GameThreadSlot() {
+    ~AsciiGlyphVm() {
         if (resource)
             crt_free(resource);
         resource = 0;
     }
 };
 
-struct GameThread {
+struct AsciiManager {
     virtual int ObjectSize();     // 0x00401C90
     unsigned flags;
     char pad_008[4];
     SchedulerTask* update_task;   // +0x0C
     SchedulerTask* draw_task;     // +0x10
-    GameThreadSlot slots_0014;
-    GameThreadSlot slots_03c0;
+    AsciiGlyphVm slots_0014;
+    AsciiGlyphVm slots_03c0;
     char pad_76C[0x8974 - 0x76C];
     int field_8974;
     float field_8978;
@@ -65,8 +65,8 @@ struct GameThread {
     char pad_8990[0x89A8 - 0x8990];
     SchedulerTask* late_draw_task; // +0x89A8
 
-    __declspec(noinline) GameThread();
-    __declspec(noinline) ~GameThread();
+    __declspec(noinline) AsciiManager();
+    __declspec(noinline) ~AsciiManager();
 };
 
-typedef char GameThread_size_must_be_0x89ac[sizeof(GameThread) == 0x89AC ? 1 : -1];
+typedef char AsciiManager_size_must_be_0x89ac[sizeof(AsciiManager) == 0x89AC ? 1 : -1];

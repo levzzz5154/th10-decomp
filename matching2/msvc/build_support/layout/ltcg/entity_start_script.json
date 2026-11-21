@@ -150,11 +150,6 @@
       "symbol": "?SetPolar@LineVelocity@@QAEPAU1@MM@Z",
       "address": "0x0041F800",
       "kind": "relative_code"
-    },
-    {
-      "symbol": "?g_score_default_speed@@3MA",
-      "address": "0x00476F78",
-      "kind": "data"
     }
   ],
   "included_sources": [

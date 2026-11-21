@@ -6,7 +6,7 @@
 #include "th10/game/player.hpp"
 
 // One scheduler slot of a line laser. The layout is the shared
-// PlayerSchedulerRecord shape: `previous` holds the raw value minus one (or
+// FrameTimerView shape: `previous` holds the raw value minus one (or
 // 0xFFF0BDC1 before the first store), `current` the raw value, `elapsed` the
 // value as float and `marker` the 0x476F78 default marker; bit 0 of `flags`
 // says the slot has been initialised. The laser keeps one slot every 0x34
@@ -29,7 +29,7 @@ struct LaserScriptTimer {
 
     // The scheduler store 0x00405410 inlined: prime the slot on first use and
     // then record the value in all three shapes.
-    __forceinline void SetSchedulerValue(int value) {
+    __forceinline void Set(int value) {
         if (!(flags & 1u))
             InitDefaults();
         current = value;

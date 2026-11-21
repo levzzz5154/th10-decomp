@@ -12,7 +12,7 @@
     "build_support/contexts/legacy/game/fun.cpp",
     "build_support/layout/ltcg/update_player_dependencies/playfield_bounds.cpp",
     "build_support/layout/ltcg/update_player_dependencies/item_spawn_closure.cpp",
-    "src/game/bullet/collision_engine_activate_all.cpp",
+    "src/game/bullet/bullet_cancel_all.cpp",
     "src/game/enemy/item_drops_flush.cpp",
     "build_support/layout/ltcg/update_player_dependencies/enemy_death_callees.cpp",
     "src/game/enemy/enemy_death_release.cpp",
@@ -24,17 +24,17 @@
     "include/th10/game/item_spawn.hpp",
     "include/th10/game/item_velocity.hpp",
     "include/th10/game/bomb_state.hpp",
-    "include/th10/game/player_update_collision.hpp",
-    "include/th10/game/player_update_score.hpp",
+    "include/th10/game/bullet_collision_engine.hpp",
+    "include/th10/game/laser_manager_evaluate.hpp",
     "include/th10/math/timer.hpp",
-    "include/th10/game/player_update_animation_context.hpp",
     "include/th10/render/position_setter_pair.hpp",
     "include/th10/types.hpp",
     "include/th10/game/item_scatter_flush.hpp",
     "include/th10/math/rng.hpp",
     "include/th10/game/enemy_death_release.hpp",
     "include/th10/game/score.hpp",
-    "include/th10/platform/sound_queue.hpp"
+    "include/th10/platform/sound_queue.hpp",
+    "include/th10/render/sprt_ctrl_lookup.hpp"
   ],
   "image_base": "0x00400000",
   "description": "Existing player Draw, activation-all, drop flush/scatter and enemy death release/sweep remain selected in this legacy compiler context. Collision check/record activation are unselected complete ABI anchors here; their selected production bodies use the genuine full player-state/item-spawn graph.",
@@ -50,12 +50,12 @@
     },
     {
       "name": "CollisionActivateAll",
-      "symbol": "?ActivateAll@CollisionEngine@@QAEXH@Z",
+      "symbol": "?CancelAll@BulletManagerCollisionView@@QAEXH@Z",
       "address": "0x408460",
       "size": 62,
       "section": ".text$069h_all",
       "actual_abi": "engine in EAX, flag in EBX; plain RET",
-      "source": "src/game/bullet/collision_engine_activate_all.cpp"
+      "source": "src/game/bullet/bullet_cancel_all.cpp"
     },
     {
       "name": "ItemDropsFlush",
@@ -104,7 +104,7 @@
     },
     {
       "name": "ScoreEvaluate",
-      "symbol": "?CopyVectorAndEvaluate@LaserScoreManagerView@@QAEHPBMMH@Z",
+      "symbol": "?CopyVectorAndEvaluate@LaserManagerEvaluateView@@QAEHPBMMH@Z",
       "address": "0x41c800",
       "size": 76,
       "section": ".text$090score"
@@ -209,14 +209,14 @@
     },
     {
       "name": "CollisionCheck",
-      "symbol": "?Check@CollisionEngine@@QAEHPBUPositionVector@@MHH@Z",
+      "symbol": "?Check@BulletManagerCollisionView@@QAEHPBUPositionVector@@MHH@Z",
       "section": ".text$060collision",
       "address": "0x408100",
       "size": 260
     },
     {
       "name": "CollisionActivate",
-      "symbol": "?Activate@CollisionRecord@@QAEHXZ",
+      "symbol": "?Activate@BulletCollisionRecord@@QAEHXZ",
       "section": ".text$050activate",
       "address": "0x408030",
       "size": 199
@@ -447,11 +447,6 @@
     {
       "symbol": "_g_sound_priority",
       "address": "0x004749CE",
-      "kind": "data"
-    },
-    {
-      "symbol": "?g_score_default_speed@@3MA",
-      "address": "0x00476F78",
       "kind": "data"
     }
   ],

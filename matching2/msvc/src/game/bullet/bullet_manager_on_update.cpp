@@ -1,16 +1,16 @@
-// 0x00406770: BulletSlotTable::OnUpdate
+// 0x00406770: BulletManagerTable::OnUpdate
 #include "th10/runtime/asm_symbols.hpp"
 
 // 0x00406770..0x00406797: the bullet manager's update task (registered by
 // 0x00405E20 at priority 0x14); runs the bullet update 0x004065C0.
 // The flag gate is the first half of the same thiscall function whose tail
-// enters BulletSlotTable::Rearm with the object in ESI.
+// enters BulletManagerTable::Rearm with the object in ESI.
 struct BulletSlotOwner {
     unsigned char pad_00[0x58];
     unsigned int field_58;
 };
 
-struct BulletSlotTable {
+struct BulletManagerTable {
     unsigned char pad_0000[0x14];
     void* heads[6];
     void* tails[6];
@@ -18,16 +18,16 @@ struct BulletSlotTable {
     int active;
     unsigned char slots[2000 * 0x7F0];
 
-    __declspec(noinline) int Rearm();
+    __declspec(noinline) int UpdateBullets();
     __declspec(noinline) int OnUpdate();
 };
 
 #pragma code_seg(".text$05canrearm")
-__declspec(noinline) int BulletSlotTable::OnUpdate() {
+__declspec(noinline) int BulletManagerTable::OnUpdate() {
     BulletSlotOwner* owner =
         *reinterpret_cast<BulletSlotOwner**>(&g_game);
     if (owner != 0 && ((owner->field_58 >> 2 | owner->field_58) & 1) != 0)
         return 1;
-    return Rearm();
+    return UpdateBullets();
 }
 #pragma code_seg()

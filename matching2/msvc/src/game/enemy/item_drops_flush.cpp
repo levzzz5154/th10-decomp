@@ -4,7 +4,7 @@
 // item is cleared. The position arrives in EAX and the drops in EDI; the scatter step
 // keeps reading the position from ESI.
 #include "th10/game/item_scatter_flush.hpp"
-#include "th10/game/player_update_collision.hpp"
+#include "th10/game/bullet_collision_engine.hpp"
 #include <string.h>
 
 #pragma code_seg(".text$079h_flush")

@@ -5,7 +5,7 @@
 
 // Complete marked-text writer100: thread ESI, position EBX, format/varargs stack.
 #pragma code_seg(".text$03marked")
-__declspec(noinline) void __cdecl AsciiManager_AddFormattedMarked(GameThreadQueueView *thread,
+__declspec(noinline) void __cdecl AsciiManager_AddFormattedMarked(AsciiManagerQueueView *thread,
                 const Vec32 *position, const char *format, ...) {
     char text[0x200];
     va_list args;

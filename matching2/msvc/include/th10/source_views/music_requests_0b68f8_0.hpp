@@ -14,9 +14,9 @@
 
 #include "th10/render/resource_registrar.hpp"
 
-extern AnmResourceRegistrar g_music_requests;   // 0x00492590
+extern WaveSoundManager g_music_requests;   // 0x00492590
 extern unsigned char g_config_flags;                 // 0x00491D78
-extern float g_game_speed;                           // 0x00476F78
+extern "C" float g_game_speed;                           // 0x00476F78
 
 struct MusicProgress {
     unsigned char reserved_00000[0x1D892];

@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "name": "path_decode_xor",
-  "source": "src/game/front/path_decode_xor.cpp",
+  "source": "src/game/front/msg_decode_xor.cpp",
   "driver": "build_support/layout/ltcg/path_decode_xor_00417010_context.cpp",
   "headers": [],
   "image_base": "0x00400000",
@@ -9,12 +9,12 @@
   "functions": [
     {
       "name": "Path_DecodeXor",
-      "symbol": "?Path_DecodeXor@@YGPADPBD@Z",
+      "symbol": "?Msg_DecodeXor@@YGPADPBD@Z",
       "section": ".text$01decode",
       "address": "0x00417010",
       "size": 41,
       "actual_abi": "encoded text in EAX; plain RET",
-      "source": "src/game/front/path_decode_xor.cpp"
+      "source": "src/game/front/msg_decode_xor.cpp"
     }
   ],
   "anchors": [],

@@ -22,7 +22,7 @@
   "anchors": [
     {
       "name": "RegisterResource_anchor",
-      "symbol": "?RegisterResource@AnmResourceRegistrar@@QAEPADPBDHH@Z",
+      "symbol": "?QueueMusicCommand@WaveSoundManager@@QAEPADPBDHH@Z",
       "section": ".text$01accessor",
       "address": "0x0043E460",
       "size": 104
@@ -90,12 +90,12 @@
       "kind": "data"
     },
     {
-      "symbol": "?g_music_requests@@3UAnmResourceRegistrar@@A",
+      "symbol": "?g_music_requests@@3UWaveSoundManager@@A",
       "address": "0x00492590",
       "kind": "data"
     },
     {
-      "symbol": "?g_game_speed@@3MA",
+      "symbol": "_g_game_speed",
       "address": "0x00476F78",
       "kind": "data"
     },

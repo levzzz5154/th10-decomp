@@ -1,4 +1,4 @@
-// 0x004065C0: re-arm the effect-slot table.
+// 0x004065C0: update all 2000 bullet slots.
 //
 // The manager arrives in ESI and the body declares no parameters, so this is a
 // native-LTCG cluster: only the internal convention of the /GL link keeps the
@@ -60,7 +60,7 @@ struct BulletSlot {
 };
 typedef char BulletSlotSizeCheck[sizeof(BulletSlot) == 0x7F0 ? 1 : -1];
 
-struct BulletSlotTable {
+struct BulletManagerTable {
     unsigned char pad_0000[0x14];
     BulletSlot* heads[6];               // +0x14
     BulletSlot* tails[6];               // +0x2C
@@ -68,11 +68,11 @@ struct BulletSlotTable {
     int active;                         // +0x5C
     BulletSlot slots[2000];             // +0x60
 
-    __declspec(noinline) int Rearm();
+    __declspec(noinline) int UpdateBullets();
 };
 
 #pragma code_seg(".text$01rearm")
-int BulletSlotTable::Rearm() {
+int BulletManagerTable::UpdateBullets() {
     active = 0;
     heads[5] = 0;
     heads[4] = 0;

@@ -16,7 +16,7 @@
 // manager's cursor advances past the slot, wrapping to the first record when
 // the next one is already leaving. Returns nonzero only when the pool is full.
 #include <string.h>
-#include "th10/game/enemy_grid_scan.hpp"
+#include "th10/game/bullet_spawn_pattern.hpp"
 #include "th10/game/projectile_spawn_runtime.hpp"
 #include "th10/game/entity_script_start.hpp"
 #include "th10/math/angle.hpp"
@@ -213,7 +213,7 @@ int __stdcall SpawnPatternCell2(ProjectilePattern* pattern,
     Vec3& position = record->position;
     position = *reinterpret_cast<const Vec3*>(&blueprint->field_04);
     record->position.z = 0.1f;
-    reinterpret_cast<ScoreGameplayPolarVector*>(&record->velocity)->SetScorePolar(x, y);
+    reinterpret_cast<PolarVector2*>(&record->velocity)->SetPolar(x, y);
     record->motion_flags = blueprint->flags;
     record->field_7ec = blueprint->color;
     record->field_7ea = blueprint->bullet_type;
@@ -241,7 +241,7 @@ int __stdcall SpawnPatternCell2(ProjectilePattern* pattern,
         record->death_animation = 0x13;
         break;
     }
-    record->field_460 = g_bullet_field_per_type[blueprint->bullet_type];
+    record->field_460 = g_bullet_render_layer_per_type[blueprint->bullet_type];
     record->field_458 = blueprint->field_204;
     record->bounds_grace = 10;
     const float hitbox = g_bullet_hitbox_per_type[blueprint->bullet_type];

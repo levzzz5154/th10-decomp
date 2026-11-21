@@ -1,14 +1,14 @@
 // Compiler context only; never selected as recovered game code.
-#include "../../../src/game/enemy/enemy_timer_reset.cpp"
+#include "../../../src/game/enemy/trajectory_interp_restart.cpp"
 
 #pragma code_seg(".text$03context")
 int __stdcall RecoveryTimerResetCompilerContext(
-    EnemyTimerView** timers, int count) {
-    EnemyTimerView** cursor = timers;
+    TrajectoryInterpView** timers, int count) {
+    TrajectoryInterpView** cursor = timers;
     while (count--) {
-        EnemyTimerView* timer = *cursor++;
-        timer->Reset();
-        timer->Reset();
+        TrajectoryInterpView* timer = *cursor++;
+        timer->Restart();
+        timer->Restart();
     }
     return 0;
 }

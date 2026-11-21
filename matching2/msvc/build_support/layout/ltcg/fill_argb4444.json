@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "name": "fill_argb4444_00436ca0",
-  "source": "src/core/main/resource_file.cpp",
+  "source": "src/core/main/gdi_surface_fill_rgb444.cpp",
   "driver": "build_support/layout/ltcg/fill_argb4444_00436ca0_context.cpp",
   "headers": [],
   "image_base": "0x00400000",

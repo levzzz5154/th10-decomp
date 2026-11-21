@@ -58,7 +58,7 @@ extern "C" App2 g_application;
 extern "C" PlatformWorker g_input_worker;
 extern "C" int g_sound_init_status;
 extern "C" AnimationManagerSurface* g_sprt_ctrl;
-extern "C" AnmResourceRegistrar g_sound_manager;
+extern "C" WaveSoundManager g_sound_manager;
 extern "C" DatArchive g_archive;
 extern "C" const char str_dummy[];
 
@@ -85,7 +85,7 @@ int App2::Shutdown() {
         (*back_buffer)->vtable->Release(*back_buffer);
         *back_buffer = 0;
     }
-    g_sound_manager.RegisterResource(str_dummy, 4, 0);
+    g_sound_manager.QueueMusicCommand(str_dummy, 4, 0);
     DeleteFontCacheObjects2();
     if (keyboard) {
         keyboard->vtable->Unacquire(keyboard);

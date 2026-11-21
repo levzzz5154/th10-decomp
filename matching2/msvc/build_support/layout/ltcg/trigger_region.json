@@ -1,10 +1,10 @@
 {
   "schema_version": 1,
   "name": "trigger_region2",
-  "source": "src/game/player/trigger_region.cpp",
+  "source": "src/game/player/player_check_laser_hit.cpp",
   "driver": "build_support/layout/ltcg/trigger_region_004267f0_context.cpp",
   "headers": [
-    "include/th10/game/trigger_region.hpp",
+    "include/th10/game/player_check_laser_hit.hpp",
     "include/th10/math/oriented_rect_contact.hpp",
     "include/th10/game/player.hpp",
     "include/th10/game/entity.hpp",

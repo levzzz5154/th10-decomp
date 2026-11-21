@@ -17,7 +17,7 @@
 #include "th10/platform/archive_callers.hpp"
 
 extern "C" void* g_sprt_ctrl;
-extern "C" char g_recovery_script_path[];
+extern "C" char g_archive_load_path[];
 extern "C" void __cdecl crt_free(void*);
 
 #pragma code_seg(".text$004492a0_fn")
@@ -36,9 +36,9 @@ __declspec(noinline) void* __fastcall AnmHandle_SetFlag(AnmLookupContext* contex
 }
 #pragma code_seg(".text$0040b480_fn")
 __declspec(noinline) char* __stdcall LoadAsset(AssetBuffer* buffer, const char* name) {
-    g_recovery_script_path[0] = 0;
-    strcat(g_recovery_script_path, name);
-    char* data = Archive_LoadFile(g_recovery_script_path, 0, 0);
+    g_archive_load_path[0] = 0;
+    strcat(g_archive_load_path, name);
+    char* data = Archive_LoadFile(g_archive_load_path, 0, 0);
     if (buffer->data) {
         crt_free(buffer->data);
         buffer->data = 0;

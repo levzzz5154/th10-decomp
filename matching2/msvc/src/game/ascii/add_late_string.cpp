@@ -14,7 +14,7 @@ struct QueueRecord2 {
     int value_60;
     int value_64;
 };
-struct GameThread3 {
+struct AsciiManagerLateQueue {
     unsigned char reserved_0000[0x76C];
     QueueRecord2 records[0x100];
     QueueRecord2 late_records[0x40];
@@ -29,7 +29,7 @@ struct GameThread3 {
 };
 
 #pragma code_seg(".text$01accessor")
-__declspec(noinline) void __stdcall AsciiManager_AddLateString(GameThread3* thread, const char* name, const Vec33* position) {
+__declspec(noinline) void __stdcall AsciiManager_AddLateString(AsciiManagerLateQueue* thread, const char* name, const Vec33* position) {
     if (thread->late_record_count < 0x40) {
         QueueRecord2* record = &thread->late_records[thread->late_record_count++];
         strcpy(record->name, name);

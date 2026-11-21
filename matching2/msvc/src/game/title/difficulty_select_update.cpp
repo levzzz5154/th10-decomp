@@ -83,10 +83,10 @@ __declspec(noinline) int __stdcall TitleMode6(Title* room) {
             room->animation_slots[slot]);
         room->SetSlotFrame(slot, room->cursor.selection + 0x11);
         Title_InstallAnimationSlot(room, 98);
-        room->SetTimerTarget(DIFF_PHASE_WAIT_OPEN);
+        room->SetPhase(DIFF_PHASE_WAIT_OPEN);
     case DIFF_PHASE_WAIT_OPEN:
         if (room->timer.current > 6)
-            room->SetTimerTarget(DIFF_PHASE_ACTIVE);
+            room->SetPhase(DIFF_PHASE_ACTIVE);
         break;
     case DIFF_PHASE_ACTIVE:
         if (g_globals_difficulty < DIFF_LEVEL_EXTRA) {
@@ -101,20 +101,20 @@ __declspec(noinline) int __stdcall TitleMode6(Title* room) {
             }
         }
         if (g_input_keys_held & DIFF_KEY_CANCEL) {
-            room->SetTimerTarget(DIFF_PHASE_CANCEL_LEAVE);
+            room->SetPhase(DIFF_PHASE_CANCEL_LEAVE);
             g_sound_manager.Queue(DIFF_SFX_CANCEL, 0);
             room->ClearAnimationSlot(slot);
         } else if (g_input_keys_held & DIFF_KEY_CONFIRM) {
             room->SetSlotFrame(slot, 6);
             StopConfirmedChild(room, slot);
-            room->SetTimerTarget(DIFF_PHASE_CONFIRM_LEAVE);
+            room->SetPhase(DIFF_PHASE_CONFIRM_LEAVE);
             g_sound_manager.Queue(DIFF_SFX_CONFIRM, 0);
         }
         break;
     case DIFF_PHASE_CONFIRM_LEAVE:
         if (room->timer.current >= 14) {
             room->ClearAnimationSlot(98);
-            room->DisableTimerWithOwner(DIFF_TARGET_CHARACTER);
+            room->SetMode(DIFF_TARGET_CHARACTER);
             if (g_globals_difficulty < DIFF_LEVEL_EXTRA)
                 g_globals_difficulty = room->cursor.selection;
             room->cursor.PushSelection();
@@ -129,7 +129,7 @@ __declspec(noinline) int __stdcall TitleMode6(Title* room) {
             room->SetSlotFrame(0x5b, 8);
             room->ClearAnimationSlot(94);
             Title_StopAnimationHandle(&room->fallback_handle);
-            room->DisableTimerWithOwner(DIFF_TARGET_MAIN_MENU);
+            room->SetMode(DIFF_TARGET_MAIN_MENU);
             if (g_globals_difficulty < DIFF_LEVEL_EXTRA)
                 g_globals_difficulty = room->cursor.selection;
             else

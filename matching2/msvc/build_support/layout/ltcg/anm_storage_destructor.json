@@ -70,7 +70,7 @@
   "anchors": [
     {
       "name": "SlotDestructor",
-      "symbol": "??1GameThreadSlot@@QAE@XZ",
+      "symbol": "??1AsciiGlyphVm@@QAE@XZ",
       "section": ".text$00dslot",
       "address": "0x00401FF0",
       "size": 34

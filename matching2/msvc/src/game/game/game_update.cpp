@@ -69,7 +69,7 @@ extern BulletPool *stage_bullets;
 extern PlayerResetView *stage_player;
 extern EnemyCtrlClearView *stage_enemies;
 extern EnemyCtrlSpawnView *stage_spawn_manager;
-extern ScoreChain *stage_chain;
+extern LaserManagerListView *stage_chain;
 extern ReplayManager2 *stage_replay;
 extern unsigned char *stage_effects;
 extern StageTaskPair *stage_tasks;
@@ -91,7 +91,7 @@ void __stdcall StageDestroyGameState(void *state);
 }
 void __cdecl operator delete(void *object);
 int __stdcall Music_Play(int track, int heard_index);
-extern "C" AnmResourceRegistrar stage_requests;
+extern "C" WaveSoundManager stage_requests;
 
 typedef char StageContextTimerOffset[offsetof(Game, timer) == 0x10 ? 1 : -1];
 typedef char StageContextFlagsOffset[offsetof(Game, flags) == 0x58 ? 1 : -1];
@@ -122,7 +122,7 @@ extern "C" __declspec(noinline) int __stdcall Game_Update(Game *context) {
             Player_ResetForStage(stage_player);
             memset(stage_effects + 0x14, 0, 0x873a8 * 4);
             stage_enemies->Clear();
-            stage_chain->ReleaseChain();
+            stage_chain->ReleaseAll();
             stage_frames = 0;
             stage_other_frames = 0;
             stage_replay->FinishStage();
@@ -157,7 +157,7 @@ extern "C" __declspec(noinline) int __stdcall Game_Update(Game *context) {
         Player_ResetForStage(stage_player);
         memset(stage_effects + 0x14, 0, 0x873a8 * 4);
         stage_enemies->Clear();
-        stage_chain->ReleaseChain();
+        stage_chain->ReleaseAll();
         stage_frames = 0;
         stage_other_frames = 0;
         stage_replay->FinishStage();
@@ -180,13 +180,13 @@ extern "C" __declspec(noinline) int __stdcall Game_Update(Game *context) {
         reinterpret_cast<LargeTaskView *>(large)->card_task->flags |= 2;
         stage_timer_tasks->PauseOptional();
         if (stage_config & 0x10)
-            stage_requests.RegisterResource(str_dummy, 4, 0);
+            stage_requests.QueueMusicCommand(str_dummy, 4, 0);
         else
-            stage_requests.RegisterResource(str_dummy, 3, 0);
+            stage_requests.QueueMusicCommand(str_dummy, 3, 0);
         Music_Play(0, stage_assets->music_index);
         stage_thread->second.StopAtFrame1();
         stage_thread->second.value = 0;
-        reinterpret_cast<PlayerSchedulerRecord *>(&context->timer)->SetSchedulerValue(0);
+        reinterpret_cast<FrameTimerView *>(&context->timer)->Set(0);
     }
     // Read the shared pointer again for disposal. The original callback also
     // checks it before both destruction and deallocation.

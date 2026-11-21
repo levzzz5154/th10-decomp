@@ -1,7 +1,7 @@
 // 0x004135D0..0x00413690: FPS::Draw, FPS_OnDraw
 #include "th10/game/fps_runtime.hpp"
 #include "th10/game/game_thread_queue_native.hpp"
-extern "C" GameThreadQueueView *g_ascii_manager;
+extern "C" AsciiManagerQueueView *g_ascii_manager;
 extern "C" int g_main_state;
 extern "C" unsigned char g_frame_limit;
 extern "C" const float flt_30;
@@ -13,7 +13,7 @@ extern "C" const char str_fps_format[];
 int FPS::Draw() {
     Update();
     if (g_main_state != 0xE) {
-        GameThreadQueueView *thread = g_ascii_manager;
+        AsciiManagerQueueView *thread = g_ascii_manager;
         const float updated_fps = fps;
         if (thread) {
         unsigned int color;

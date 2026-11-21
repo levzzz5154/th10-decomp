@@ -15,7 +15,7 @@
 #include "th10/game/game_main.hpp"
 #include "th10/platform/text_log.hpp"
 #include "th10/platform/thread_sync.hpp"
-#include "th10/render/d3d_destroy.hpp"
+#include "th10/core/func_ctrl_destroy.hpp"
 #include <string.h>
 
 extern "C" {
@@ -68,7 +68,7 @@ void __stdcall Sound_InitThread();                       // the sound thread
 short __stdcall Joystick_Probe2();
 void __stdcall Input_NormalizeKeyboardState();
 int __stdcall GameFrameAdvance(GameFrame* frame);
-void __stdcall ReleaseAll(Holder2* holder);
+void __stdcall ReleaseAll(SprtCtrl* holder);
 extern "C" SprtCtrlStateCacheView* __cdecl Renderer_ApplyDeviceDefaults(void);
 
 int __fastcall CreateGameWindow2(void* instance);
@@ -257,7 +257,7 @@ __declspec(noinline) int __stdcall GameMain2(
                     g_application.flags &= ~0x10u;
                 } else if (state == 0x88760869) {
                     // D3DERR_DEVICENOTRESET
-                    ReleaseAll(reinterpret_cast<Holder2*>(g_sprt_ctrl));
+                    ReleaseAll(reinterpret_cast<SprtCtrl*>(g_sprt_ctrl));
                     if (g_application.device->Reset(&g_application.present_parameters) != 0)
                         break;
                     Renderer_ApplyDeviceDefaults();

@@ -2,8 +2,8 @@
 #define TH10_BULLET_RUNTIME_STATE_HPP
 #include "th10/game/player.hpp"
 #include <stddef.h>
-#include "th10/game/field_contact.hpp"
-#include "th10/game/player_wrap.hpp"
+#include "th10/game/player_check_hit.hpp"
+#include "th10/game/bullet_ex_wrap.hpp"
 #include "th10/game/bullet_runtime_deceleration.hpp"
 struct MotionVector3 {
     float x, y, z;
@@ -26,7 +26,7 @@ struct BulletRuntimeState {
     unsigned char reserved_30e[6];
     int animation_progress; // 314
     unsigned char reserved_318[0x84];
-    PlayerWrapBounds* bounds;
+    BulletWrapBounds* bounds;
     unsigned char reserved_3a0[0x14];
     MotionVector3 position;
     MotionVector3 velocity;

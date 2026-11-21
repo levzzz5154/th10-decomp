@@ -178,7 +178,7 @@
       "kind": "data"
     },
     {
-      "symbol": "?PlaybackState_OnSwitch@@YIHPAUPlaybackState@@@Z",
+      "symbol": "?PlayerOption_UpdateFixedOnFocus@@YIHPAUPlayerOptionFocusState@@@Z",
       "address": "0x00427AD0",
       "kind": "data"
     },

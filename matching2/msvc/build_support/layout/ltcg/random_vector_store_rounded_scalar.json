@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "name": "random_vector_store_rounded_scalar",
-  "source": "src/core/sprtanim/random_vector.cpp",
+  "source": "src/core/sprtanim/int3_scale.cpp",
   "driver": "build_support/layout/ltcg/random_vector_store_rounded_scalar_context.cpp",
   "headers": [],
   "image_base": "0x00400000",
@@ -9,7 +9,7 @@
   "functions": [
     {
       "name": "RandomVector_StoreRoundedScalar",
-      "symbol": "?RandomVector_StoreRoundedScalar@@YGPAURandomVectorResult@@PAURandomVectorSource@@PAU1@M@Z",
+      "symbol": "?Int3_ScaleTruncate@@YGPAUInt3@@PAU1@0M@Z",
       "section": ".text$01store",
       "address": "0x00441E50",
       "size": 56,
@@ -17,7 +17,7 @@
     }
   ],
   "context": {
-    "symbol": "?RandomVectorCompilerContext@@YGHPAURandomVectorSource@@PAURandomVectorResult@@HM@Z",
+    "symbol": "?RandomVectorCompilerContext@@YGHPAUInt3@@0HM@Z",
     "section": ".text$03context",
     "address": "0x00441EA0",
     "size": 50,

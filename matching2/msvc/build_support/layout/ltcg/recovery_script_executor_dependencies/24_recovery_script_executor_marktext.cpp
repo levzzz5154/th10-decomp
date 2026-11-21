@@ -5,7 +5,7 @@
 // so the object never has its address taken and LTCG passes it in ESI like
 // the member's receiver. Same body as AnmTextVm::MarkText.
 #include <stdarg.h>
-#include "th10/game/ending_text_dispatcher.hpp"
+#include "th10/render/anm_text_dispatcher.hpp"
 extern "C" int __cdecl recovery_vsprintf(char* buffer, const char* format, char* args);
 #pragma code_seg(".text$00447a50_standin")
 __declspec(noinline) void __cdecl EndingScript_MarkText(void* manager, AnmTextVm* vm, ...) {

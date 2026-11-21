@@ -255,8 +255,8 @@
       "size": 92
     },
     {
-      "name": "?ReleaseChain@ScoreChain@@QAEXXZ",
-      "symbol": "?ReleaseChain@ScoreChain@@QAEXXZ",
+      "name": "?ReleaseAll@LaserManagerListView@@QAEXXZ",
+      "symbol": "?ReleaseAll@LaserManagerListView@@QAEXXZ",
       "section": ".text$00417770_fn",
       "address": "0x417770",
       "size": 66
@@ -318,8 +318,8 @@
       "size": 65
     },
     {
-      "name": "?RegisterResource@AnmResourceRegistrar@@QAEPADPBDHH@Z",
-      "symbol": "?RegisterResource@AnmResourceRegistrar@@QAEPADPBDHH@Z",
+      "name": "?QueueMusicCommand@WaveSoundManager@@QAEPADPBDHH@Z",
+      "symbol": "?QueueMusicCommand@WaveSoundManager@@QAEPADPBDHH@Z",
       "section": ".text$0043e460_fn",
       "address": "0x43e460",
       "size": 104
@@ -360,8 +360,8 @@
       "size": 43
     },
     {
-      "name": "?SetSchedulerValue@PlayerSchedulerRecord@@QAEXH@Z",
-      "symbol": "?SetSchedulerValue@PlayerSchedulerRecord@@QAEXH@Z",
+      "name": "?Set@FrameTimerView@@QAEXH@Z",
+      "symbol": "?Set@FrameTimerView@@QAEXH@Z",
       "section": ".text$00405410_fn",
       "address": "0x405410",
       "size": 57
@@ -671,7 +671,7 @@
       "kind": "relative_code"
     },
     {
-      "symbol": "?g_score_default_speed@@3MA",
+      "symbol": "_g_game_speed",
       "address": "0x476f78",
       "kind": "data"
     },
@@ -694,11 +694,6 @@
       "symbol": "??3@YAXPAX@Z",
       "address": "0x4524a1",
       "kind": "relative_code"
-    },
-    {
-      "symbol": "_g_game_speed",
-      "address": "0x476f78",
-      "kind": "data"
     },
     {
       "symbol": "_g_game",
@@ -771,18 +766,13 @@
       "kind": "relative_code"
     },
     {
-      "symbol": "?g_music_requests@@3UAnmResourceRegistrar@@A",
+      "symbol": "?g_music_requests@@3UWaveSoundManager@@A",
       "address": "0x492590",
       "kind": "data"
     },
     {
       "symbol": "?g_config_flags@@3EA",
       "address": "0x491d78",
-      "kind": "data"
-    },
-    {
-      "symbol": "?g_game_speed@@3MA",
-      "address": "0x476f78",
       "kind": "data"
     },
     {
@@ -2503,6 +2493,21 @@
     {
       "symbol": "__imp__EnterCriticalSection@4",
       "address": "0x4660b0",
+      "kind": "data"
+    },
+    {
+      "symbol": "?stage_front_data_00476f78@@3MA",
+      "address": "0x476f78",
+      "kind": "data"
+    },
+    {
+      "symbol": "?stage_fade_data_00476f78@@3MA",
+      "address": "0x476f78",
+      "kind": "data"
+    },
+    {
+      "symbol": "?stage_spawn_data_00476f78@@3MA",
+      "address": "0x476f78",
       "kind": "data"
     }
   ],

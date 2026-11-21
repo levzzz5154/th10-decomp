@@ -4,7 +4,7 @@
   "source": "src/game/bullet/bullet_spawn_pattern.cpp",
   "driver": "build_support/layout/ltcg/enemy_grid_scan_context.cpp",
   "headers": [
-    "include/th10/game/enemy_grid_scan.hpp",
+    "include/th10/game/bullet_spawn_pattern.hpp",
     "include/th10/platform/sound_queue.hpp",
     "include/th10/game/player.hpp",
     "include/th10/game/entity.hpp",

@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "name": "score_list_insert_after_00413200",
-  "source": "src/game/enemy/score_list_insert_after.cpp",
+  "source": "src/game/enemy/list_insert_after.cpp",
   "driver": "build_support/layout/ltcg/score_list_insert_after_00413200_context.cpp",
   "headers": [],
   "image_base": "0x00400000",
@@ -9,7 +9,7 @@
   "functions": [
     {
       "name": "ScoreList_InsertAfter",
-      "symbol": "?ScoreList_InsertAfter@@YGXPAUScoreListNode@@0@Z",
+      "symbol": "?ListNode_InsertAfter@@YGXPAUIntrusiveListNode@@0@Z",
       "section": ".text$01insert",
       "address": "0x00413200",
       "size": 23,
@@ -17,7 +17,7 @@
     }
   ],
   "context": {
-    "symbol": "?ScoreListInsertAfterCompilerContext@@YGHPAPAUScoreListNode@@HPAU1@@Z",
+    "symbol": "?ScoreListInsertAfterCompilerContext@@YGHPAPAUIntrusiveListNode@@HPAU1@@Z",
     "section": ".text$03context",
     "address": "0x00413220",
     "size": 38,

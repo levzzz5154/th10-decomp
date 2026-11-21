@@ -122,7 +122,7 @@ __declspec(noinline) void __stdcall RefreshOptions2(
 
     // The request queue records "bgm/th10_02.wav" for resource 8; the retail
     // form passes the queue in a register (EAX) and the name in EDX.
-    reinterpret_cast<AnmResourceRegistrar*>(&g_sound_manager)->RegisterResource(str_set_vol, 8, 0);
+    reinterpret_cast<WaveSoundManager*>(&g_sound_manager)->QueueMusicCommand(str_set_vol, 8, 0);
 
     int sound = g_key_bindings.sound_volume;
     g_options_sound_volume = sound;

@@ -34,12 +34,12 @@ struct AnimationPosition {
     float z;
 };
 
-struct GameThreadResourceView {
+struct AsciiManagerSpinnerView {
     unsigned char reserved_0000[0x8994];
     void* animation_resource;                       // +0x8994
     unsigned char reserved_8998[0x89A4 - 0x8998];
     void* animation_handle;                         // +0x89A4
-    __declspec(noinline) void* EnsureAnimationResource(float x, float y);
+    __declspec(noinline) void* EnsureLoadingSpinner(float x, float y);
 };
 
 // The animation manager's positioned-primary creation, recovered at
@@ -49,7 +49,7 @@ void** __stdcall AnimationManager_CreatePositionedPrimary(
     const AnimationPosition* position);
 
 __declspec(noinline)
-void* GameThreadResourceView::EnsureAnimationResource(float x, float y) {
+void* AsciiManagerSpinnerView::EnsureLoadingSpinner(float x, float y) {
     AnimationPosition position;
     position.x = x;
     position.y = y;

@@ -2,7 +2,7 @@
 // game code. It supplies the 0x004067D0 model's caller, the grid scanner
 // 0x004073E0, the panned sound queue 0x0043DD10 it calls, and the link entry
 // that reaches the selected body.
-#include "th10/game/enemy_grid_scan.hpp"
+#include "th10/game/bullet_spawn_pattern.hpp"
 
 extern "C" const float flt_5_2083335;
 

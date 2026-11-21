@@ -1,14 +1,14 @@
 // 0x00413980..0x00413A12: load the front animation and register its tasks.
 #include "th10/game/front_tasks.hpp"
 
-struct BulletResourceCache;
+struct SprtCtrl;
 #include "th10/platform/text_log.hpp"
 extern "C" {
 void* __fastcall SprtCtrl_LoadCachedResource(
-    int index, BulletResourceCache* cache, const char* name);
+    int index, SprtCtrl* cache, const char* name);
 SchedulerTask* __stdcall SchedulerTask_Create(TaskRoutine routine);
 int __stdcall Front_LoadStageResources(void* state);
-extern BulletResourceCache* g_sprt_ctrl;
+extern SprtCtrl* g_sprt_ctrl;
 extern FuncCtrl* g_func_ctrl;
 extern TextLog g_log;
 extern char str_data_corrupted[];
