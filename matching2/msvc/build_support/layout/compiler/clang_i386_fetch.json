@@ -11,11 +11,11 @@
   "tools": {
     "clangxx": {
       "path": "/usr/bin/clang++",
-      "sha256": "0451d773d5454ae843bc95c9615ede4871c340e238f66d2bedaebc665f02773e"
+      "sha256": "b53890006355553d68159ddeafd47586f74d9bf8febee4132763fa0ec84e3b44"
     },
     "llvm_mc": {
       "path": "/usr/bin/llvm-mc",
-      "sha256": "011de083cac77e1e8ba389cb2327dbbb0c0e4ac20f1bde6b5dd18f8f03b429c6"
+      "sha256": "435b6344ad45a7dfa743a806ed3c116c31e5a41468b993025fe7f09646b9eba5"
     }
   }
 }

@@ -35,15 +35,15 @@
     },
     "llvm_mc": {
       "path": "/usr/bin/llvm-mc",
-      "sha256": "011de083cac77e1e8ba389cb2327dbbb0c0e4ac20f1bde6b5dd18f8f03b429c6"
+      "sha256": "435b6344ad45a7dfa743a806ed3c116c31e5a41468b993025fe7f09646b9eba5"
     },
     "host_cxx": {
       "path": "/usr/bin/g++",
-      "sha256": "ec99e5202f3f819997a480cb3cbc95505e07213be0ffe6a51f8900b91a5b716a"
+      "sha256": "5156405e2923375537c94c59a92df79234487dcca4d97e3517b98c6adf41eaf8"
     },
     "host_cc1plus": {
       "path": "/usr/lib/gcc/x86_64-pc-linux-gnu/16/cc1plus",
-      "sha256": "8576390823ffa374373b0918bef305c1da0638148587689a5b4f0bd1aa11162d"
+      "sha256": "0756a3e3e30ef61c3158aafb98fa3a3cce9e5d0fcd8c0f2f941b66b3be7a26ca"
     },
     "host_as": {
       "path": "/usr/bin/as",
@@ -55,7 +55,7 @@
     },
     "host_collect2": {
       "path": "/usr/lib/gcc/x86_64-pc-linux-gnu/16/collect2",
-      "sha256": "d32bc494c707259e3ef7bf671ded789d6a25a211fa49e5476ade9e8ddd08f1e8"
+      "sha256": "86f3abf3d3785810773a6b9e80f01ec97ac782e59fa8ddf73796703cd89653e2"
     }
   },
   "plugin": {
