@@ -212,7 +212,8 @@ test modules when their data, helpers or unwind tables must move with the code.
 - `matching2/reference/data/`: preserved non-code executable bytes.
 - `matching2/reference/legacy_semantic/`: archived runtime-oriented C++ models
   for reverse-engineering reference; not build inputs.
-- `matching2/tools/`: compiler, linker, byte verification and progress tools.
+- `matching2/tools/`: compiler, linker, byte verification and progress tools; see
+  [the tools guide](matching2/tools/README.md).
 - `ida/`: original IDA disassembly and decompiler output.
 - `decompiled/ghidra_augmented/`: supplementary disassembly, pseudocode and
   address index (`index.tsv`); `ghidra_alternates/` preserves four alternate

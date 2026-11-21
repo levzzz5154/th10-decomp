@@ -30,5 +30,5 @@
 __pycache__/
 *.py[cod]
 
-# Per-region probe loops and draft clusters (disposable; see HANDOFF.md)
+# Per-region probe loops and draft clusters (disposable; see matching2/reference/HANDOFF_2026_10_25.md)
 /scratch/

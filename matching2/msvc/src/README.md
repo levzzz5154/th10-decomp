@@ -1,5 +1,38 @@
 # Source layout
 
+## Runtime architecture overview
+
+Touhou 10 runs a single-threaded Win32 / Direct3D 9 / DirectInput 8 loop driven by
+a priority-ordered task scheduler (`FuncCtrl`):
+
+- **Startup & frame loop** ([`core/main/game_main.cpp`](core/main/game_main.cpp)):
+  initializes Direct3D, DirectInput, audio (`core/sound/`, `core/midilib/`,
+  `core/zwave/`) and archive loading (`pack/`), then steps `FuncCtrl` primary
+  (update) and secondary (render) callback lists each frame.
+- **Global state & managers**:
+  - `g_globals` / `g_globals_score` — run state (score, power, faith gauge, lives,
+    stage, difficulty, character, shot type, hidden `g_rank`).
+  - `g_sprt_ctrl` (`core/sprtanim/`, `core/sprtfunc/`, `core/sprtlib/`) — central
+    sprite/animation manager that owns pools of `0x3AC`-byte `AnmVm`/`Entity`
+    instances, advances ANM bytecode ([`AnmVm::Tick`](core/sprtanim/anm_vm_tick.cpp)),
+    and batches D3D quads.
+  - `g_player` (`game/player/`), `g_enemy_ctrl` (`game/enemy/`),
+    `g_bullet_manager` (`game/bullet/`), `g_laser_manager` (`game/laser/`),
+    `g_item_manager` (`game/item/`), `g_front` (`game/front/`), `g_card` (`game/card/`),
+    `g_pause` (`game/pause/`), `g_replay` (`game/replay/`), `g_score` (`game/score/`),
+    and `g_title` (`game/title/`) — active gameplay and menu tasks installed on
+    `FuncCtrl`.
+- **Bytecode VMs**:
+  - **ECL** (`script/sptcmd/`, `script/sptlib/` + `game/enemy/`): stage and enemy
+    scripts run in [`EclVm::Run`](script/sptcmd/ecl_core_interpreter.cpp), delegating
+    enemy-specific opcodes (`0x100+`) to [`Enemy::Execute2`](game/enemy/enemy_execute.cpp).
+  - **ANM** (`core/sprtanim/`): sprite animation scripts run in
+    [`AnmVm::Tick`](core/sprtanim/anm_vm_tick.cpp).
+  - **MSG / front dialogue** (`game/front/`): boss dialogue and stage-clear commands
+    run in [`ResultDispatcher2`](game/front/front_script_tick_unit.cpp).
+
+## Retail file mapping
+
 The folders under `game/`, `pack/`, `core/` and `script/` mirror ZUN's own
 source files: one folder per retail `.cpp`. The retail `.rdata` keeps the
 debug strings of compiled-out allocation logs (for example

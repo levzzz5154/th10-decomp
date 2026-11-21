@@ -30,32 +30,6 @@ struct MidiTrack;
 extern "C" void __stdcall ProcessMidiEvent2(
     MidiSequencer* sequencer, MidiTrack* track);
 #define VA_ProcessMidiEvent_0043B110 0x0043b110
-extern "C" unsigned char* __stdcall Lzss_Compress_004359B0(
-    const unsigned char* input, int input_size, int* output_size);
-#define VA_Lzss_Compress_004359B0 0x004359b0
-extern "C" int __fastcall Lzss_InsertString_00436000(
-    int old_position, int position, int* best_position);
-#define VA_Lzss_InsertString_00436000 0x00436000
-extern "C" void __fastcall Lzss_RemoveNode_00436210(int node);
-#define VA_Lzss_RemoveNode_00436210 0x00436210
-struct MidiSequencer;
-struct MidiTrack;
-extern "C" void __stdcall ProcessMidiEvent2(
-    MidiSequencer* sequencer, MidiTrack* track);
-#define VA_ProcessMidiEvent_0043B110 0x0043b110
-extern "C" unsigned char* __stdcall Lzss_Compress_004359B0(
-    const unsigned char* input, int input_size, int* output_size);
-#define VA_Lzss_Compress_004359B0 0x004359b0
-extern "C" int __fastcall Lzss_InsertString_00436000(
-    int old_position, int position, int* best_position);
-#define VA_Lzss_InsertString_00436000 0x00436000
-extern "C" void __fastcall Lzss_RemoveNode_00436210(int node);
-#define VA_Lzss_RemoveNode_00436210 0x00436210
-struct MidiSequencer;
-struct MidiTrack;
-extern "C" void __stdcall ProcessMidiEvent2(
-    MidiSequencer* sequencer, MidiTrack* track);
-#define VA_ProcessMidiEvent_0043B110 0x0043b110
 // Fixed retail anchors; the linker verifies every placed function.
 extern "C" void __cdecl asm_1FileHandle_00435340();
 #define VA_asm_1FileHandle_00435340 0x00435340
