@@ -43,7 +43,7 @@ int ScoreArchive::Save() {
 
     if (!file)
         return -1;
-    work = (unsigned char*)asm_malloc_00452706(0x200000);
+    work = (unsigned char*)crt_malloc(0x200000);
     *(ScoreFileHeader*)work = *file;
     length = sizeof(ScoreFileHeader);
     for (i = 0; i < SCORE_RECORD_COUNT; i++) {
@@ -77,8 +77,8 @@ int ScoreArchive::Save() {
     if (g_file_write_handle != (void*)-1)
         File_CloseShared();
     if (packed)
-        asm_free_00452422(packed);
-    asm_free_00452422(work);
+        crt_free(packed);
+    crt_free(work);
     return 0;
 }
 #pragma code_seg()

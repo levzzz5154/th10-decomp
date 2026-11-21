@@ -1,4 +1,4 @@
-#include "../../../include/contexts/game/right_aligned_text_context/worker.hpp"
+#include "th10/game/hint_text/worker.hpp"
 
 // ESI is selected by native LTCG from the real caller/callee relationship.
 #pragma code_seg(".text$0044c150_fn")

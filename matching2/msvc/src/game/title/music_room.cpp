@@ -25,15 +25,15 @@ extern "C" unsigned char* recovery_music_player;
 extern "C" unsigned char recovery_music_mode;
 extern "C" void* recovery_music_preview_resource;
 extern "C" float g_game_speed;
-extern "C" RecoveryMusicVector recovery_music_defaults;
+extern "C" TitleVec3 recovery_music_defaults;
 extern "C" const char recovery_music_locked_format[];
 extern "C" const char recovery_music_comment_file[];
 extern "C" const char recovery_music_dummy[];
 extern "C" const char recovery_music_restore_bgm[];
 extern "C" const char* recovery_music_preview_table[8];
 extern "C" void __cdecl crt_free(void* memory);
-extern "C" void* __cdecl asm_FUN_00449950_00449950(void* manager);
-extern "C" void** __cdecl asm_AnimationManager_RegisterPrimaryBack_004489d0(
+extern "C" void* __cdecl AnimationPool_AllocateEntry(void* manager);
+extern "C" void** __cdecl AnimationManager_RegisterPrimaryBack(
     void* manager, void** out, void* object);
 struct AnimationBank {
     __declspec(noinline) void* InitializeObject(void* object, int index);
@@ -42,26 +42,26 @@ extern "C" int __stdcall recovery_replace_extension(int selector, const char* pa
 extern "C" int __stdcall recovery_play_dummy(int selector, int slot);
 
 extern "C" void* __fastcall UiFinalFind(void* lookup,
-    RecoveryLookupContext* context, AnimationScriptId id);
-static __forceinline RecoveryMusicVm* MusicFind(unsigned int handle) {
+    AnmLookupContext* context, AnimationScriptId id);
+static __forceinline TitleAnmVm* MusicFind(unsigned int handle) {
     AnimationScriptId id = { static_cast<int>(handle) };
-    return static_cast<RecoveryMusicVm*>(
+    return static_cast<TitleAnmVm*>(
         UiFinalFind(g_sprt_ctrl,
-            reinterpret_cast<RecoveryLookupContext*>(g_sprt_ctrl), id));
+            reinterpret_cast<AnmLookupContext*>(g_sprt_ctrl), id));
 }
 
-static __forceinline void MusicSetTreeFrame(RecoveryMusicVm* object, unsigned short frame) {
+static __forceinline void MusicSetTreeFrame(TitleAnmVm* object, unsigned short frame) {
     if (object != 0) {
         object->stop_frame = frame;
         if (object->children_flagged == 0) {
-            for (RecoveryMusicChild* child = object->children;
+            for (TitleAnmChild* child = object->children;
                  child != 0; child = child->next)
                 child->object->stop_frame = frame;
         }
     }
 }
 
-static __forceinline void MusicResetTimer(RecoveryTimer2* timer) {
+static __forceinline void MusicResetTimer(GameFrameTimer* timer) {
     if (!(timer->flags & 1u)) {
         timer->current = 0;
         timer->previous = -999999;
@@ -86,25 +86,25 @@ static __forceinline void MusicSelect(MenuCursor& cursor, int index) {
 void __stdcall RecoveryMusicInstallSlot(Title* room, int index);
 char* __stdcall StageText_SkipLine(char* cursor, int* remaining);
 extern "C" char* __stdcall UiFinalExtractLine(char* destination, char* cursor, int* remaining);
-void __stdcall RecoveryMusicStopHandle(RecoveryHandle* handle);
-extern "C" void __stdcall UiFinalTransition(RecoveryMusicVm* self, int mode, const RecoveryMusicVector* target, const RecoveryMusicVector* base, unsigned char flag);
+void __stdcall RecoveryMusicStopHandle(AnmScriptHandle* handle);
+extern "C" void __stdcall UiFinalTransition(TitleAnmVm* self, int mode, const TitleVec3* target, const TitleVec3* base, unsigned char flag);
 
 // The body of 0x00448D00, where the whole-program link expanded it in place.
 static __forceinline void** MusicCreateInPlace(void* resource, void** out, int script, int bucket) {
-    RecoveryMusicVm* object = static_cast<RecoveryMusicVm*>(
-        asm_FUN_00449950_00449950(g_sprt_ctrl));
+    TitleAnmVm* object = static_cast<TitleAnmVm*>(
+        AnimationPool_AllocateEntry(g_sprt_ctrl));
     unsigned int flags = object->flags;
     object->render_bucket = bucket;
     object->flags = flags | 0x40000000u;
     static_cast<AnimationBank*>(resource)->InitializeObject(object, script);
-    asm_AnimationManager_RegisterPrimaryBack_004489d0(g_sprt_ctrl, out, object);
+    AnimationManager_RegisterPrimaryBack(g_sprt_ctrl, out, object);
     return out;
 }
 // The body of 0x00449450, likewise.
-static __forceinline RecoveryMusicVm* MusicValidateInPlace(RecoveryHandle* handle) {
-    RecoveryMusicVm* object = static_cast<RecoveryMusicVm*>(
+static __forceinline TitleAnmVm* MusicValidateInPlace(AnmScriptHandle* handle) {
+    TitleAnmVm* object = static_cast<TitleAnmVm*>(
         UiFinalFind(g_sprt_ctrl,
-            reinterpret_cast<RecoveryLookupContext*>(g_sprt_ctrl),
+            reinterpret_cast<AnmLookupContext*>(g_sprt_ctrl),
             *reinterpret_cast<AnimationScriptId*>(&handle->value)));
     if (object == 0)
         handle->value = 0;
@@ -112,35 +112,35 @@ static __forceinline RecoveryMusicVm* MusicValidateInPlace(RecoveryHandle* handl
 }
 
 static __forceinline unsigned int MusicRegisterObject(void* resource, int script) {
-    RecoveryMusicVm* object = static_cast<RecoveryMusicVm*>(
-        asm_FUN_00449950_00449950(g_sprt_ctrl));
+    TitleAnmVm* object = static_cast<TitleAnmVm*>(
+        AnimationPool_AllocateEntry(g_sprt_ctrl));
     object->flags |= 0x40000000u;
     object->render_bucket = 15;
     static_cast<AnimationBank*>(resource)->InitializeObject(object, script);
     void* handle;
-    asm_AnimationManager_RegisterPrimaryBack_004489d0(g_sprt_ctrl, &handle, object);
+    AnimationManager_RegisterPrimaryBack(g_sprt_ctrl, &handle, object);
     return reinterpret_cast<unsigned int>(handle);
 }
 
 // The body of 0x004491C0: the object registered under an id, in the primary
 // list and then the secondary one.
-static __forceinline RecoveryMusicVm* MusicFindInPlace(
-        RecoveryLookupContext* context, unsigned int id) {
-    RecoveryLookupNode* node;
+static __forceinline TitleAnmVm* MusicFindInPlace(
+        AnmLookupContext* context, unsigned int id) {
+    AnmLookupNode* node;
     if (!id)
         return 0;
     for (node = context->primary; node != 0; node = node->next)
-        if (reinterpret_cast<RecoveryMusicVm*>(node->object)->id == id)
-            return reinterpret_cast<RecoveryMusicVm*>(node->object);
+        if (reinterpret_cast<TitleAnmVm*>(node->object)->id == id)
+            return reinterpret_cast<TitleAnmVm*>(node->object);
     for (node = context->secondary; node != 0; node = node->next)
-        if (reinterpret_cast<RecoveryMusicVm*>(node->object)->id == id)
-            return reinterpret_cast<RecoveryMusicVm*>(node->object);
+        if (reinterpret_cast<TitleAnmVm*>(node->object)->id == id)
+            return reinterpret_cast<TitleAnmVm*>(node->object);
     return 0;
 }
 
 // 0x00449450: the object a handle names; a stale handle is cleared.
-__declspec(noinline) RecoveryMusicVm* __stdcall MusicValidate(
-    RecoveryHandle* handle);
+__declspec(noinline) TitleAnmVm* __stdcall MusicValidate(
+    AnmScriptHandle* handle);
 
 enum MusicRoomPhase {
     MUSIC_ROOM_LOAD = 0,
@@ -171,9 +171,9 @@ enum MusicRoomTextColor {
 // player confirms a second time.
 static __forceinline void MusicRevealLine(Title* room) {
     if (room->timer.current % 2 == 0 && room->preview_cursor < 8) {
-        RecoveryMusicVm* object =
+        TitleAnmVm* object =
             MusicValidate(&room->preview_handles[room->preview_cursor]);
-        RecoveryTextVm* text = reinterpret_cast<RecoveryTextVm*>(object);
+        AnmTextVm* text = reinterpret_cast<AnmTextVm*>(object);
         if (!recovery_music_player[0x1D892 + room->displayed_track] && room->preview_armed)
             text->MarkText(g_sprt_ctrl, MUSIC_COLOR_SPOILER,
                            recovery_music_preview_table[room->preview_cursor]);
@@ -187,7 +187,7 @@ static __forceinline void MusicRevealLine(Title* room) {
 
 #pragma code_seg(".text$00433ef0_fn")
 __declspec(noinline) int __stdcall TitleMusicRoom(Title* room) {
-    RecoveryMusicVector position;
+    TitleVec3 position;
     void* handle;
     int remaining;
     int index;
@@ -199,7 +199,7 @@ __declspec(noinline) int __stdcall TitleMusicRoom(Title* room) {
             room->cursor.item_count = 6;
             MusicSelect(room->cursor, 0);
             if (UiFinalFind(g_sprt_ctrl,
-                            reinterpret_cast<RecoveryLookupContext*>(g_sprt_ctrl),
+                            reinterpret_cast<AnmLookupContext*>(g_sprt_ctrl),
                             room->animation_slots[95]) == 0) {
                 RecoveryMusicInstallSlot(room, 95);
                 void* resource = g_ascii_manager->animation_resource;
@@ -248,8 +248,8 @@ __declspec(noinline) int __stdcall TitleMusicRoom(Title* room) {
                 unsigned int created_value = reinterpret_cast<unsigned int>(
                     *MusicCreateInPlace(room->animation_resource, &created, index + 173, 15));
                 room->row_handles[index].value = created_value;
-                RecoveryMusicVm* object = MusicValidateInPlace(&room->row_handles[index]);
-                RecoveryTextVm* text = reinterpret_cast<RecoveryTextVm*>(object);
+                TitleAnmVm* object = MusicValidateInPlace(&room->row_handles[index]);
+                AnmTextVm* text = reinterpret_cast<AnmTextVm*>(object);
                 if (recovery_music_player[0x1D892 + index])
                     text->MarkText(g_sprt_ctrl, MUSIC_COLOR_NORMAL,
                                    static_cast<const char*>(room->comments[index]));
@@ -301,7 +301,7 @@ __declspec(noinline) int __stdcall TitleMusicRoom(Title* room) {
             position.y = 96.0f
                 - static_cast<float>(room->scroll_origin) * 20.0f;
             for (index = 0; index < room->parsed_track_count; ++index) {
-                RecoveryMusicVm* object = MusicValidateInPlace(&room->row_handles[index]);
+                TitleAnmVm* object = MusicValidateInPlace(&room->row_handles[index]);
                 if (index < room->scroll_origin || index >= room->scroll_origin + 10)
                     object->flags &= ~2u;
                 else
@@ -360,7 +360,7 @@ leave_room:
         // 0x00409E50 on each comment line, the search of 0x004491C0 expanded in place.
         for (int row = 0; row < 8; ++row)
             MusicSetTreeFrame(MusicFindInPlace(
-                reinterpret_cast<RecoveryLookupContext*>(g_sprt_ctrl),
+                reinterpret_cast<AnmLookupContext*>(g_sprt_ctrl),
                 room->preview_handles[row].value), 1);
         g_sound_manager.Queue(MUSIC_SFX_CANCEL, 0);
         room->phase = MUSIC_ROOM_EXIT;
@@ -387,9 +387,9 @@ leave_room:
 // Cluster context: stand-in for 0x00449450, which the whole-program link
 // passes its handle in ESI.
 #pragma code_seg(".text$00449450_model")
-__declspec(noinline) RecoveryMusicVm* __stdcall MusicValidate(
-        RecoveryHandle* handle) {
-    RecoveryMusicVm* object = MusicFind(handle->value);
+__declspec(noinline) TitleAnmVm* __stdcall MusicValidate(
+        AnmScriptHandle* handle) {
+    TitleAnmVm* object = MusicFind(handle->value);
     if (object == 0)
         handle->value = 0;
     return object;

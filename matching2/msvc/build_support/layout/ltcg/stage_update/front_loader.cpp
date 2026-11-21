@@ -27,7 +27,7 @@ struct AnimationManager11 {
 struct FrontAnimationLookup;
 extern "C" FrontAnimationLookup *g_sprt_ctrl;
 extern "C" float g_game_speed;
-extern "C" void __stdcall asm_FUN_0043ee30_0043ee30(Entity *object);
+extern "C" void __stdcall AnmVm_TickScript(Entity *object);
 #pragma code_seg(".text$0043e7e0_fn")
 __declspec(noinline) void *__stdcall
 InitializePreservingLoader_0043e7e0(AnimationResource4 *resource,
@@ -57,7 +57,7 @@ InitializePreservingLoader_0043e7e0(AnimationResource4 *resource,
     object->previous_frame = -1;
     unsigned int *flag_word = &object->AnimationFlags();
     *flag_word &= ~1u;
-    asm_FUN_0043ee30_0043ee30(object);
+    AnmVm_TickScript(object);
     AnimationManager11 *manager = (AnimationManager11 *)g_sprt_ctrl;
     ++manager->script_tick_counter;
     return manager;

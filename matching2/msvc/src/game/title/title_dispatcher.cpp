@@ -81,7 +81,7 @@ static __forceinline void SetSelection(MenuCursor* cursor, int requested) {
         cursor->selection = requested;
 }
 // Frames added per tick, read as the timer's own accessor does.
-static __forceinline float TimerSpeed(const RecoveryTimer2& timer) { return *timer.speed; }
+static __forceinline float TimerSpeed(const GameFrameTimer& timer) { return *timer.speed; }
 static __forceinline void MarkTitleCallback(Title* room) {
     reinterpret_cast<TitlePrefix*>(room)->callback->flags |= 2;
 }
@@ -162,7 +162,7 @@ __declspec(noinline) int __stdcall TitleDispatcher(
         manager->MarkResourceForRemoval(*reinterpret_cast<void**>(manager_bytes + 0x3ad074));
         manager->MarkResourceForRemoval(*reinterpret_cast<void**>(manager_bytes + 0x3ad078));
         manager->MarkResourceForRemoval(*reinterpret_cast<void**>(manager_bytes + 0x3ad06c));
-        RecoveryHandle* handle = reinterpret_cast<RecoveryHandle*>(
+        AnmScriptHandle* handle = reinterpret_cast<AnmScriptHandle*>(
             reinterpret_cast<unsigned char*>(g_ascii_manager) + 0x89a4);
         RecoveryMusicStopHandle(handle);
         handle->value = 0;

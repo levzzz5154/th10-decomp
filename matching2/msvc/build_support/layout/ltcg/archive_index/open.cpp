@@ -14,7 +14,7 @@
 #include "th10/archive/dat_archive_types.hpp"
 #include "th10/platform/memory_file.hpp"
 
-extern "C" void* __cdecl asm_operator_new_00452493(unsigned int size);
+extern "C" void* __cdecl crt_operator_new(unsigned int size);
 char* LegacyString_Duplicate(const char* text);
 extern "C" const char* g_dat_archive_read_mode;
 
@@ -23,7 +23,7 @@ inline void* __cdecl operator new(size_t, void* storage) { return storage; }
 #pragma code_seg(".text$a02open")
 __declspec(noinline) bool DatArchive::Open(const char* path) {
     Close();
-    void* storage = asm_operator_new_00452493(sizeof(FileHandle));
+    void* storage = crt_operator_new(sizeof(FileHandle));
     file = storage ? new (storage) FileHandle : 0;
     if (!file)
         return false;

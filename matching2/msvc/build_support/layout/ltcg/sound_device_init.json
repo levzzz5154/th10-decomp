@@ -53,7 +53,7 @@
     },
     {
       "name": "TextLog",
-      "symbol": "?Append@TextLog4@@QAAPADPADZZ",
+      "symbol": "?Append@TextLog@@QAAPADPADZZ",
       "section": ".text$0044b810_fn",
       "address": "0x0044B810",
       "size": 201
@@ -166,7 +166,7 @@
       "kind": "data"
     },
     {
-      "symbol": "_asm_vsprintf_004524a6",
+      "symbol": "_crt_vsprintf",
       "address": "0x004524A6",
       "kind": "relative_code"
     },
@@ -191,7 +191,7 @@
       "kind": "data"
     },
     {
-      "symbol": "_asm_free_004524a1",
+      "symbol": "_crt_free_startup",
       "address": "0x4524a1",
       "kind": "relative_code"
     },

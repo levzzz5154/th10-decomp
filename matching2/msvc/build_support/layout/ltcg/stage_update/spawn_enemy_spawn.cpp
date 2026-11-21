@@ -21,7 +21,7 @@
 // manager's list. The switch tables follow the body.
 //
 // The spawn description arrives in EAX.
-#include "enemy_spawn.hpp"
+#include "th10/game/stage_update/enemy_spawn.hpp"
 #include <string.h>
 
 #pragma code_seg(".text$0040cfb0_fn")

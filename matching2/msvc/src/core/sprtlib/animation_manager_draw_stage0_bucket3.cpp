@@ -55,7 +55,7 @@ extern "C" RenderStageState5 g_application;
 // 0x00448980 reads its manager from EDI and its bucket index from EAX; the
 // declaration only fixes the argument shape, the cluster anchor supplies the
 // registers.
-extern "C" int __cdecl asm_AnimationManager_RenderBucket_00448980(void* manager, int index);
+extern "C" int __cdecl AnimationManager_RenderBucket(void* manager, int index);
 
 #pragma code_seg(".text$08layer3")
 int SprtCtrlBatchView::RenderStage0Bucket3() {
@@ -69,6 +69,6 @@ int SprtCtrlBatchView::RenderStage0Bucket3() {
         g_application.fog_dirty = 0;
         g_d3d_device->State(0x1C, 0);
     }
-    return asm_AnimationManager_RenderBucket_00448980(this, 3);
+    return AnimationManager_RenderBucket(this, 3);
 }
 #pragma code_seg()

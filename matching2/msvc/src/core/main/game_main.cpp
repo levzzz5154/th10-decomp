@@ -44,10 +44,10 @@ __declspec(dllimport) int __stdcall SystemParametersInfoA(unsigned int action,
     unsigned int parameter, void* data, unsigned int update);
 
 void __cdecl free(void* block);
-int __stdcall asm_WINNLSEnableIME_0045232c(void* window, int enable);
+int __stdcall Win32_EnableIME(void* window, int enable);
 void* __stdcall Direct3DCreate92(unsigned int sdk_version);
 int __cdecl Startup_InstanceCheck();
-int __stdcall asm_FUN_00439890_00439890();          // create the Direct3D device
+int __stdcall D3D_InitializeDevice();          // create the Direct3D device
 double __cdecl FrameTimer_GetDelta(void);
 int __stdcall App_RegisterTasks();
 int __stdcall ShutdownMidi(MidiSequencer* sequencer);
@@ -77,14 +77,7 @@ int __stdcall File_WriteWholeFile(const char* path, const void* buffer, unsigned
 struct GameApp2 {
     __declspec(noinline) int LoadConfig(const char* path);
 };
-// The two diagnostic-log writers keep their own view of the log object.
-struct TextLog5 {
-    char text[0x2000];
-    char* cursor;
-    unsigned char dirty;
-    char* AppendLine(char* format, ...);
-};
-// The routines that build and tear down the two managers, likewise.
+// The routines that build and tear down the two managers.
 struct FuncCtrlInitializeView {
     unsigned char lists[0x48];
     __declspec(noinline) void Initialize();
@@ -179,7 +172,7 @@ extern AnimationManager8* g_sprt_ctrl;
 extern Application g_application;
 extern MainWindow g_main_window;
 extern SoundManager g_sound_manager;
-extern TextLog4 g_log;
+extern TextLog g_log;
 extern ThreadSynchronization g_thread_sync;
 }
 
@@ -221,20 +214,20 @@ __declspec(noinline) int __stdcall GameMain2(
         g_func_ctrl = resources;
         g_application.direct3d = static_cast<Direct3D*>(Direct3DCreate92(0x20));
         if (g_application.direct3d == 0) {
-            reinterpret_cast<TextLog5*>(&g_log)->AppendLine(str_d3d_create_failed);
+            g_log.AppendLine(str_d3d_create_failed);
             goto close_pass;
         }
         if (CreateGameWindow2(instance) != 0)
             goto close_pass;
         g_sound_manager.Start(g_main_window.window);
-        if (asm_FUN_00439890_00439890() != 0)
+        if (D3D_InitializeDevice() != 0)
             goto close_pass;
         Joystick_Probe2();
         Input_NormalizeKeyboardState();
         AnimationManager8* animations = new AnimationManager8;
         g_sprt_ctrl = animations;
         if (!g_application.config.field_1d) {
-            asm_WINNLSEnableIME_0045232c(0, 0);
+            Win32_EnableIME(0, 0);
             ShowCursor(0);
             SetCursor(0);
         }
@@ -305,12 +298,12 @@ close_pass:
             break;
 
         // Start the log over for the next run.
-        TextLog4* log = &g_log;
+        TextLog* log = &g_log;
         log->cursor = log->text;
         log->text[0] = 0;
         log->Append(str_restart_required);
         if (!g_application.config.field_1d)
-            asm_WINNLSEnableIME_0045232c(0, 1);
+            Win32_EnableIME(0, 1);
         for (index = 0; index < 60; ++index) {
             if (PeekMessageA(&message, 0, 0, 0, 1))
                 PumpMessage(&message);
@@ -334,7 +327,7 @@ close_pass:
     SystemParametersInfoA(0x11, g_main_window.saved_parameters[0], 0, 2);
     SystemParametersInfoA(0x55, g_main_window.saved_parameters[1], 0, 2);
     SystemParametersInfoA(0x56, g_main_window.saved_parameters[2], 0, 2);
-    asm_WINNLSEnableIME_0045232c(0, 1);
+    Win32_EnableIME(0, 1);
     delete g_replay_table;
     return 0;
 }

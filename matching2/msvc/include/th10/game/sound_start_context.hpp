@@ -123,7 +123,7 @@ struct PlatformD300Entry {
 // before rand. Explicitly sequenced candidate and differential evidence:
 // reference/semantic_candidates/sound_stream_select.cpp and
 // reference/recovery_notes/sound_stream_start2.md.
-extern "C" int __cdecl asm_rand_0045371b();
+extern "C" int __cdecl crt_rand();
 
 struct PlatformD370Entry {
     virtual void __stdcall slot_00() = 0;

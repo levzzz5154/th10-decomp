@@ -38,7 +38,7 @@ struct HintVm {
     unsigned int flags;                     // +35C
     unsigned int mode_flags;                // +360
     unsigned char reserved_364[0x30];
-    RecoveryTextResource* resource; // +394
+    AnmTextResource* resource; // +394
     unsigned char reserved_398[8];
     unsigned char font_height;              // +3A0
     unsigned char font_width;               // +3A1

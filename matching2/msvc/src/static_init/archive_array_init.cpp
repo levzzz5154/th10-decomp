@@ -5,19 +5,19 @@
 // array, the element size, the count and the constructor and destructor
 // addresses, and cleans the five arguments itself.
 
-extern "C" void __stdcall asm_eh_vector_constructor_iterator_0045252d(
+extern "C" void __stdcall crt_eh_vector_ctor(
         void* array, unsigned int size, int count,
         void (__cdecl*)(void), void (__cdecl*)(void));
-extern "C" void __cdecl asm_DatArchive_Reset_00434c20(void);
+extern "C" void __cdecl DatArchive_Reset(void);
 extern "C" void __cdecl StaticExit_ArchiveArray(void);
-extern "C" int __cdecl asm_atexit_00452e0a(void (__cdecl*)(void));
+extern "C" int __cdecl crt_atexit(void (__cdecl*)(void));
 extern "C" char g_archive_entries[];
 int* __fastcall ArchiveRecord_Construct(int* element);
 
 extern "C" void __cdecl StaticInit_ArchiveArray(void) {
-    asm_eh_vector_constructor_iterator_0045252d(
+    crt_eh_vector_ctor(
         g_archive_entries, 16, 20,
         (void (__cdecl*)(void))ArchiveRecord_Construct,
-        asm_DatArchive_Reset_00434c20);
-    asm_atexit_00452e0a(StaticExit_ArchiveArray);
+        DatArchive_Reset);
+    crt_atexit(StaticExit_ArchiveArray);
 }

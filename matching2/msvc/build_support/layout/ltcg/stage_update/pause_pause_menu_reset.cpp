@@ -1,4 +1,4 @@
-#include "hud_view.hpp"
+#include "th10/game/stage_update/hud_view.hpp"
 #define g_sprt_ctrl stage_pause_g_sprt_ctrl
 #define g_front stage_pause_g_front
 #define g_globals stage_pause_data_00474c40

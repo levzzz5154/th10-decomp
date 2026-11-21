@@ -40,7 +40,7 @@ extern "C" int __cdecl asm_FUN_00444760_00444760(DrawEntity_004451c0* entity, vo
 // order decides the order in which the caller materialises them.  Retail's caller
 // sets the entity up first, so the manager has to be the first parameter.
 #pragma code_seg(".text$01anchor")
-extern "C" __declspec(noinline) int __cdecl asm_FUN_004451c0_004451c0(
+extern "C" __declspec(noinline) int __cdecl AnmVm_DrawDispatch(
         void* manager, RenderSlotNode* entity) {
     DrawEntity_004451c0* record = (DrawEntity_004451c0*)entity;
     unsigned int flags = record->flags;

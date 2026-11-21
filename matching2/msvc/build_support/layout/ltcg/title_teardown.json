@@ -10,9 +10,9 @@
     "build_support/layout/ltcg/title_teardown/manager_entity_init.cpp"
   ],
   "headers": [
-    "build_support/layout/ltcg/title_teardown/title_teardown_dependencies.hpp",
-    "build_support/layout/ltcg/title_teardown/title_score_archive.hpp",
-    "build_support/layout/ltcg/title_teardown/message_teardown_dependencies.hpp",
+    "include/th10/game/title_teardown/title_teardown_dependencies.hpp",
+    "include/th10/game/title_teardown/title_score_archive.hpp",
+    "include/th10/game/title_teardown/message_teardown_dependencies.hpp",
     "include/th10/game/entity.hpp",
     "include/th10/types.hpp",
     "include/th10/platform/worker.hpp",
@@ -442,13 +442,8 @@
       "kind": "relative_code"
     },
     {
-      "symbol": "_asm_malloc_00452706",
+      "symbol": "_crt_malloc",
       "address": "0x452706",
-      "kind": "relative_code"
-    },
-    {
-      "symbol": "_asm_free_00452422",
-      "address": "0x452422",
       "kind": "relative_code"
     },
     {

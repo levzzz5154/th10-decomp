@@ -1,6 +1,6 @@
 #include <string.h>
 #include "th10/render/font_atlas.hpp"
-#include "../../../build_support/include/asm_symbols.hpp"
+#include "th10/runtime/asm_symbols.hpp"
 
 typedef unsigned int DWORD;
 typedef void* HGDIOBJ;
@@ -87,7 +87,7 @@ int __stdcall sub_437DB0(DWORD* destination_rect, int x, int size, COLORREF colo
     int line_height = 2 * selected_size + 6;
     StackWord height;
     height.value = line_height;
-    ((AtlasSetHeightFn)asm_FUN_00437160_00437160)(&g_font_atlas_surface, height);
+    ((AtlasSetHeightFn)ImageSurface_InvertAlpha)(&g_font_atlas_surface, height);
     SetBkMode(dc, 1);
     int length = strlen(text);
     SetTextColor(dc, 0);
@@ -96,7 +96,7 @@ int __stdcall sub_437DB0(DWORD* destination_rect, int x, int size, COLORREF colo
     TextOutA(dc, 2 * x, 0, text, length);
     SelectObject(dc, previous);
     height.value = line_height;
-    ((AtlasSetHeightFn)asm_FUN_00437160_00437160)(&g_font_atlas_surface, height);
+    ((AtlasSetHeightFn)ImageSurface_InvertAlpha)(&g_font_atlas_surface, height);
     FontAtlas_FillTransparentPixels(&g_font_atlas_surface, line_height);
     SelectObject(dc, previous);
 
@@ -112,7 +112,7 @@ int __stdcall sub_437DB0(DWORD* destination_rect, int x, int size, COLORREF colo
     // parameter occupies; the retail build reuses that same slot.
     (*(SurfaceGetterFn*)(*(void***)surface_owner + 18))(surface_owner, 0, (void**)&size);
     void*& surface = *(void**)&size;
-    (*(LoadSurfaceFromMemoryFn)asm_D3DXLoadSurfaceFromMemory_004521a6)(surface, 0,
+    (*(LoadSurfaceFromMemoryFn)Th10_D3DXLoadSurfaceFromMemory)(surface, 0,
             destination_rect, *(void**)&g_font_texture_pixels, *(unsigned int*)&g_font_texture_id,
             *(unsigned int*)&g_font_texture_format, 0, &source_rect, 4, 0);
     int result = (int)surface;

@@ -83,7 +83,7 @@ static unsigned int NextPoolIndex_00449950(unsigned int index) {
 }
 
 #pragma code_seg(".text$09zallocate")
-extern "C" __declspec(noinline) void* __cdecl asm_FUN_00449950_00449950(void* manager) {
+extern "C" __declspec(noinline) void* __cdecl AnimationPool_AllocateEntry(void* manager) {
     unsigned char* bytes = (unsigned char*)manager;
     unsigned int index = *(unsigned int*)(bytes + 0x3AD068);
     if (bytes[0x3AC068 + index] != 0) {
@@ -109,7 +109,7 @@ extern "C" __declspec(noinline) void* __cdecl asm_FUN_00449950_00449950(void* ma
 
 #pragma code_seg(".text$06load")
 extern "C" __declspec(noinline) void __cdecl
-asm_AnimationObject_LoadScript_0043e710(void* resource, void* object, int index) {
+AnmVm_LoadScript(void* resource, void* object, int index) {
     unsigned char* res = (unsigned char*)resource;
     unsigned char* obj = (unsigned char*)object;
     unsigned char* entries = *(unsigned char**)(res + 0x11C);
@@ -154,7 +154,7 @@ struct AnmListNode_00448d50 {
 
 #pragma code_seg(".text$08register")
 extern "C" __declspec(noinline) void** __cdecl
-asm_AnimationManager_RegisterPrimaryBack_004489d0(void* manager, void** out, void* entity) {
+AnimationManager_RegisterPrimaryBack(void* manager, void** out, void* entity) {
     unsigned char* m = (unsigned char*)manager;
     unsigned char* e = (unsigned char*)entity;
     void** node = (void**)(e + 0x04);

@@ -38,7 +38,7 @@
   "constants": [],
   "absolute_symbols": [
     {
-      "symbol": "_asm_BulletManager_Release_0040af00@4",
+      "symbol": "_Effect_ReleaseState@4",
       "address": "0x0040AF00",
       "kind": "relative_code"
     },

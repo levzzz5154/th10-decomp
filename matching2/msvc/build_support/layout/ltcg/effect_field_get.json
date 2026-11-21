@@ -38,12 +38,12 @@
   "constants": [],
   "absolute_symbols": [
     {
-      "symbol": "@asm_Rng_NextFloat_0044bb20@4",
+      "symbol": "@Rng_NextFloatUnit@4",
       "address": "0x0044BB20",
       "kind": "relative_code"
     },
     {
-      "symbol": "@asm_Rng_NextFloatSigned_0044bb90@4",
+      "symbol": "@Rng_NextFloatSignedUnit@4",
       "address": "0x0044BB90",
       "kind": "relative_code"
     },

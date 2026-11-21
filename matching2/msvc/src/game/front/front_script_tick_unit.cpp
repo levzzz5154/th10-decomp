@@ -355,7 +355,7 @@ ResultDispatcher2(ResultDispatcherState* state) {
                 state->countdown = 1;
                 break;
             case MSG_PLAY_BOSS_BGM:
-                asm_Sound_PlayDummyRetail_00420b10(1, g_stage_route_current->music_tracks[1]);
+                Music_PlayTrack(1, g_stage_route_current->music_tracks[1]);
                 { int created; DispatcherCreateAt(StageState()->effect_resource, &created, 2, 15); }
                 break;
             case MSG_SHOW_STAGE_TITLE:
@@ -469,9 +469,9 @@ ResultDispatcher2(ResultDispatcherState* state) {
             }
             case MSG_PLAY_RANDOM_VOICE:
                 if (g_globals_stage != 6)
-                    asm_Sound_PlayRandomVoiceRetail_00420c30(2.0f);
+                    Music_FadeOutEntry(2.0f);
                 else
-                    asm_Sound_PlayRandomVoiceRetail_00420c30(8.0f);
+                    Music_FadeOutEntry(8.0f);
                 break;
             case MSG_END:
                 if (g_stage_progress)

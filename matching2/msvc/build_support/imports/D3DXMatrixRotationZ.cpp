@@ -9,7 +9,7 @@ typedef void* (__cdecl* D3DXMatrixRotationZTailFn_004521be)(
     void* out, float angle);
 // 0x004521BE..0x004521C3: imported D3DXMatrixRotationZ tail thunk.
 // The typed stdcall import slot produces the retail six-byte indirect jump.
-extern "C" void* __cdecl asm_D3DXMatrixRotationZ_004521be(
+extern "C" void* __cdecl Th10_D3DXMatrixRotationZ(
     void* out, float angle) {
     return ((D3DXMatrixRotationZTailFn_004521be)imp_D3DXMatrixRotationZ)(out, angle);
 }

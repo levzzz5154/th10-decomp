@@ -145,7 +145,7 @@ extern "C" __declspec(noinline) void __stdcall SubmenuUpdate(SubmenuState* state
                 state->rows.wrap = 1;
                 SelectInList(rows, 0);
                 for (int slot = 1; slot <= 25; ++slot) {
-                    asm_sprintf_00452ae8(path, "th10_%.2d.rpy", slot);
+                    crt_sprintf(path, "th10_%.2d.rpy", slot);
                     state->handles[slot - 1] = ReplayManager_Create3(path);
                 }
             break;
@@ -196,12 +196,12 @@ extern "C" __declspec(noinline) void __stdcall SubmenuUpdate(SubmenuState* state
             if (clear_ranking) {
                 ReplayHeaderView*& summary =
                     reinterpret_cast<ReplayHeaderView*&>(g_replay->summary);
-                asm_FID_conflict___time32_00452b71(&summary->saved_time);
+                crt_time32(&summary->saved_time);
                 summary->difficulty_slot = 8;
             } else {
                 ReplayHeaderView*& summary =
                     reinterpret_cast<ReplayHeaderView*&>(g_replay->summary);
-                asm_FID_conflict___time32_00452b71(&summary->saved_time);
+                crt_time32(&summary->saved_time);
                 summary->difficulty_slot = g_globals_stage;
             }
             strcpy(state->name, g_score->last_name);
@@ -236,7 +236,7 @@ timed_length:
                 bool live_handle = handle != 0;
                 if (live_handle) {
                     ReplayManager_Destroy2(handle);
-                    asm_free_004524a1(handle);
+                    crt_free_startup(handle);
                 }
                 state->handles[index] = 0;
             }
@@ -312,10 +312,10 @@ timed_length:
             } else if (selection == length - 1) {
                 // The save column: serialize the replay under the typed name.
                 g_sound_manager.Queue(SFX_REPLAY_SAVED, 0);
-                asm_sprintf_00452ae8(path, "th10_%.2d.rpy", state->rows.selection + 1);
+                crt_sprintf(path, "th10_%.2d.rpy", state->rows.selection + 1);
                 SubPlatformResource_Destroy(
                     reinterpret_cast<PlatformResource*>(state->handles[state->rows.selection]));
-                asm_FUN_00429b60_00429b60(g_replay, path, state->name);
+                ReplaySaveManager_SaveFile(g_replay, path, state->name);
                 int save_row = state->rows.selection;
                 state->handles[save_row] = ReplayManager_Create3(path);
                 state->state = SUBMENU_REPLAY_BROWSER;

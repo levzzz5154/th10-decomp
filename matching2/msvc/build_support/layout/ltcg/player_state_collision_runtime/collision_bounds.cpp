@@ -1,4 +1,4 @@
-#include "collision.hpp"
+#include "th10/game/player_collision/collision.hpp"
 extern "C" {
 extern const float flt_neg192, flt_192, flt_0, flt_448;
 }

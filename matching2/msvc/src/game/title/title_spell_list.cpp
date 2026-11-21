@@ -9,7 +9,7 @@
 // centred formatter in ESI.
 #include <string.h>
 
-#include "../../../build_support/include/contexts/game/right_aligned_text_context/recovery_script_executor_caller.hpp"
+#include "th10/game/hint_text/recovery_script_executor_caller.hpp"
 #include "th10/game/score_file.hpp"
 #include "th10/game/title_draw.hpp"
 
@@ -27,11 +27,11 @@ static inline ScoreManager* Scores() { return reinterpret_cast<ScoreManager*>(g_
 static inline HintVm* FindAnimation(void* manager, unsigned int id) {
     if (id == 0)
         return 0;
-    RecoveryLookupContext* context = static_cast<RecoveryLookupContext*>(manager);
-    for (RecoveryLookupNode* node = context->primary; node != 0; node = node->next)
+    AnmLookupContext* context = static_cast<AnmLookupContext*>(manager);
+    for (AnmLookupNode* node = context->primary; node != 0; node = node->next)
         if (*reinterpret_cast<unsigned int*>(node->object) == id)
             return reinterpret_cast<HintVm*>(node->object);
-    for (RecoveryLookupNode* node = context->secondary; node != 0; node = node->next)
+    for (AnmLookupNode* node = context->secondary; node != 0; node = node->next)
         if (*reinterpret_cast<unsigned int*>(node->object) == id)
             return reinterpret_cast<HintVm*>(node->object);
     return 0;

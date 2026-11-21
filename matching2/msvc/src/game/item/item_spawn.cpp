@@ -1,6 +1,6 @@
 // 0x0041BB00: place a new item in the pool.
-#include "../../../build_support/layout/ltcg/player_state_collision_runtime/runtime.hpp"
-#include "../../../build_support/layout/ltcg/player_state_collision_runtime/item_spawn.hpp"
+#include "th10/game/player_collision/runtime.hpp"
+#include "th10/game/player_collision/item_spawn.hpp"
 
 static __forceinline void ResetTimer(FrameTimer* timer) {
     unsigned int flags = timer->flags;

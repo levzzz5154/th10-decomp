@@ -55,7 +55,7 @@ extern GameThread6* g_ascii_manager;
 
 // 0x00449250: set the stop frame of an animation and run it once.
 void __fastcall AnimationManager_SetStopFrameAndRun(
-    unsigned short frame, RecoveryLookupContext* context, AnimationScriptId id);
+    unsigned short frame, AnmLookupContext* context, AnimationScriptId id);
 // 0x0040AD20: store the requested value in a counter, clamped to its bound.
 // Never expanded in the image, not even where the inliner's own score would
 // accept it (0x00431602); the one inline clamp, in 0x00430FF0, has another
@@ -69,8 +69,8 @@ __declspec(noinline) void** __stdcall AnimationManager_CreatePrimaryBack(
 // slot in the caller: a helper-local slot changes the difficulty screen's frame.
 static __forceinline void EnsureTitleMenuBackdrop(Title* room, void*& handle) {
     enum { BackdropSlot = 94, BackdropScript = 8, MenuLayer = 15 };
-    if (reinterpret_cast<RecoveryLookup*>(g_sprt_ctrl)->Find(
-            reinterpret_cast<RecoveryLookupContext*>(g_sprt_ctrl),
+    if (reinterpret_cast<AnmLookup*>(g_sprt_ctrl)->Find(
+            reinterpret_cast<AnmLookupContext*>(g_sprt_ctrl),
             room->animation_slots[BackdropSlot]) != 0)
         return;
 

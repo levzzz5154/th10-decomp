@@ -3,7 +3,7 @@
 // output is unselected; production has separate exact FSINCOS recoveries.
 #include "allocator.cpp"
 #include "../../../../src/game/laser/line_laser_create_segments.cpp"
-#include "types/line_sweeps.hpp"
+#include "th10/game/item_line/line_sweeps.hpp"
 #include "dependencies.cpp"
 #include "loader.cpp"
 #include "configure.cpp"

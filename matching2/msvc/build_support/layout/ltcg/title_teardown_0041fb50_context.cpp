@@ -1,4 +1,4 @@
-#include "title_teardown/title_teardown_dependencies.hpp"
+#include "th10/game/title_teardown/title_teardown_dependencies.hpp"
 #include "title_teardown/message_teardown_helpers.cpp"
 
 #pragma code_seg(".text$01entity")

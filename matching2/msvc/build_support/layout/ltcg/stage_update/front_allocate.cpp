@@ -11,7 +11,7 @@
 #define g_main_state stage_front_data_00491fb8
 #define g_sound_manager stage_front_data_00492590
 // Complete 4096-entry pool allocator at 0x00449950, manager ESI and Entity* result EAX.
-#include "front_view.hpp"
+#include "th10/game/stage_update/front_view.hpp"
 
 #pragma code_seg(".text$00449950_fn")
 Entity *FrontAnimationPool::Allocate() {

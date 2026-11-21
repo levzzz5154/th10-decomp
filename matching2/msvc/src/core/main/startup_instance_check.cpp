@@ -17,7 +17,7 @@ extern "C" __declspec(noinline) int __cdecl Startup_InstanceCheck() {
     GetStartupInfoA(&info);
     if (info.title) {
         char* extension = strrchr(info.title, '.');
-        if (asm_File_ProbeExists_0044b4d0(info.title) && extension) {
+        if (File_ProbeExistsPath(info.title) && extension) {
             if (_stricmp(extension, startupLinkExtension) == 0) {
                 do {
                     // Retail retries the original startup title for each .lnk result.

@@ -3,7 +3,7 @@
 #include "th10/game/title_menu.hpp"
 #pragma code_seg(".text$0040a000_context")
 extern "C" int __stdcall RecoveryAnimationSlotFramesCompilerContext(
-    RecoveryScriptState* script,
+    EndingScriptState* script,
     HintLink* head,
     HintUpdateView* indicator, int release,
     Title* music_room) {

@@ -1,5 +1,5 @@
 // 0x004059F0: test a point against the bomb's area.
-#include "../../../build_support/layout/ltcg/player_state_collision_runtime/runtime.hpp"
+#include "th10/game/player_collision/runtime.hpp"
 
 #pragma code_seg(".text$f004059f0F")
 int Bomb::HitTest(const PickupPoint* point) {

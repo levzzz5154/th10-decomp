@@ -6,13 +6,13 @@
 #include "th10/platform/sound_queue.hpp"
 #include "th10/game/recovery_script_executor_cluster/recovery_script_executor_text_anchors.hpp"
 #include "th10/game/recovery_script_executor_ascii_anchors.hpp"
-struct RecoveryCommand {
+struct EndingScriptCommand {
     unsigned short frame;
     unsigned char opcode;
     unsigned char argument_bytes;
     int arguments[3];
 };
-struct RecoveryTimer2 {
+struct GameFrameTimer {
     int previous;
     int current;
     float elapsed;
@@ -21,31 +21,31 @@ struct RecoveryTimer2 {
     __declspec(noinline) void Set(int value);
     __declspec(noinline) void Advance(float delta);
 };
-struct RecoveryHandle {
+struct AnmScriptHandle {
     unsigned int value;
     __declspec(noinline) void StopAtFrame2();
     __declspec(noinline) void StopAtFrame3();
     __declspec(noinline) void MarkForRemoval();
 };
-struct RecoveryLookupNode {
-    RecoveryLookupNode* object;
-    RecoveryLookupNode* next;
+struct AnmLookupNode {
+    AnmLookupNode* object;
+    AnmLookupNode* next;
     unsigned char reserved_008[0x0C];
-    RecoveryLookupNode* children;
+    AnmLookupNode* children;
     int children_flagged;
     unsigned char reserved_01c[0x340];
     unsigned int flags;
 };
-struct RecoveryLookupContext {
+struct AnmLookupContext {
     unsigned char reserved_000[0x72DAD4];
-    RecoveryLookupNode* primary;
+    AnmLookupNode* primary;
     int reserved_72dad8;
-    RecoveryLookupNode* secondary;
+    AnmLookupNode* secondary;
 };
-struct RecoveryLookup {
-    __declspec(noinline) void* __fastcall Find(RecoveryLookupContext* context, AnimationScriptId id);
-    __declspec(noinline) void* __fastcall SetFlag(RecoveryLookupContext* context, int id);
-    __declspec(noinline) void* __cdecl Validate(RecoveryHandle* handle);
+struct AnmLookup {
+    __declspec(noinline) void* __fastcall Find(AnmLookupContext* context, AnimationScriptId id);
+    __declspec(noinline) void* __fastcall SetFlag(AnmLookupContext* context, int id);
+    __declspec(noinline) void* __cdecl Validate(AnmScriptHandle* handle);
 };
 struct GameThread6 {
     unsigned char reserved_0000[0x8994];
@@ -61,17 +61,17 @@ struct AnimationManager13 {
     struct AnimationResource6* slots_3ad06c[0x21];
     __declspec(noinline) void ClearResourceSlot(int index);
 };
-struct RecoveryScriptOwner {
+struct EndingOwner {
     unsigned char reserved_000[0x20];
     unsigned char flags_020;
 };
-struct RecoveryScriptState {
+struct EndingScriptState {
     unsigned int reserved_000;
-    RecoveryTimer2 outer_timer;
-    RecoveryTimer2 command_timer;
-    RecoveryTimer2 wait_timer;
-    RecoveryHandle text_handles[5];
-    RecoveryCommand* command;
+    GameFrameTimer outer_timer;
+    GameFrameTimer command_timer;
+    GameFrameTimer wait_timer;
+    AnmScriptHandle text_handles[5];
+    EndingScriptCommand* command;
     unsigned char reserved_058[0x18];
     const unsigned char* background_data;
     unsigned int flags;
@@ -81,12 +81,12 @@ struct RecoveryScriptState {
     unsigned int animation_handles[16];
     PlatformWorker worker;
 };
-typedef char RecoveryScriptSizeCheck[(sizeof(RecoveryScriptState)==0xEC)?1:-1];
-typedef char RecoveryScriptCommandOffsetCheck[(offsetof(RecoveryScriptState,command)==0x54)?1:-1];
-typedef char RecoveryScriptFlagsOffsetCheck[(offsetof(RecoveryScriptState,flags)==0x74)?1:-1];
-typedef char RecoveryScriptHandlesOffsetCheck[(offsetof(RecoveryScriptState,animation_handles)==0x90)?1:-1];
-typedef char RecoveryScriptWorkerOffsetCheck[(offsetof(RecoveryScriptState,worker)==0xD0)?1:-1];
+typedef char RecoveryScriptSizeCheck[(sizeof(EndingScriptState)==0xEC)?1:-1];
+typedef char RecoveryScriptCommandOffsetCheck[(offsetof(EndingScriptState,command)==0x54)?1:-1];
+typedef char RecoveryScriptFlagsOffsetCheck[(offsetof(EndingScriptState,flags)==0x74)?1:-1];
+typedef char RecoveryScriptHandlesOffsetCheck[(offsetof(EndingScriptState,animation_handles)==0x90)?1:-1];
+typedef char RecoveryScriptWorkerOffsetCheck[(offsetof(EndingScriptState,worker)==0xD0)?1:-1];
 __declspec(noinline) void** __stdcall AnimationManager_CreatePrimaryBack(void* resource, void** out, int index, int render_bucket);
-extern "C" __declspec(noinline) int __stdcall RecoveryScript_Execute2(RecoveryScriptState* state);
+extern "C" __declspec(noinline) int __stdcall RecoveryScript_Execute2(EndingScriptState* state);
 
-typedef char RecoveryScriptArgumentOffsetCheck[(offsetof(RecoveryCommand,arguments)==4)?1:-1];
+typedef char RecoveryScriptArgumentOffsetCheck[(offsetof(EndingScriptCommand,arguments)==4)?1:-1];

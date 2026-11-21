@@ -1,5 +1,5 @@
 // 0041D880: trim selected line-laser samples and preserve surviving runs.
-#include "../../../build_support/layout/ltcg/laser_cut/types.hpp"
+#include "th10/game/laser_cut/types.hpp"
 #include <string.h>
 #pragma code_seg(".text$f0041d880F")
 int TrimLaser::TrimRectangle(const CutVector* center,const CutVector* size,int spawn_items) {

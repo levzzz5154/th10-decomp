@@ -12,14 +12,14 @@ extern "C" void __cdecl crt_free(void* memory);
 
 // One entry's animation interface.  Retail calls its third virtual slot (+0x8)
 // with the interface itself pushed, i.e. a __stdcall member.
-struct AnimationHandle9 {
+struct ComReleasable {
     virtual void slot0();
     virtual void slot1();
     virtual void __stdcall slot2();
 };
 
 struct AnimationResourceEntry {
-    AnimationHandle9* handle;   // +0x00
+    ComReleasable* handle;   // +0x00
     void* allocation;                   // +0x04
     unsigned char pad_008[8];
 };

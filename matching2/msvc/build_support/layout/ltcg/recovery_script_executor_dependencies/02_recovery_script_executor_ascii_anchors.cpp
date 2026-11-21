@@ -1,8 +1,8 @@
 // Compiler-only full semantic anchors for the executor's ASCII factory call.
 // Every helper retains its complete retail behavior; none is a selected region.
 #include <string.h>
-#include "../../../include/contexts/game/marktext_dispatcher_context/recovery_script_executor_ascii_anchors.hpp"
-#include "../../../include/contexts/game/marktext_dispatcher_context/thread_sync.hpp"
+#include "th10/game/ending_script/recovery_script_executor_ascii_anchors.hpp"
+#include "th10/game/ending_script/thread_sync.hpp"
 
 extern "C" {
 extern FuncCtrl* g_func_ctrl;
@@ -86,8 +86,8 @@ RecoveryAsciiRegisterSecondary_0044a030(TaskRoutine callback, int priority,
     return task;
 }
 
-struct RecoveryAsciiController_0043c8b0 : RecoveryAsciiManager {
-    RecoveryAsciiController_0043c8b0() {
+struct AsciiTextController : AsciiTextManager {
+    AsciiTextController() {
         memset(this, 0, sizeof(*this));
         flags |= 2u;
     }
@@ -97,7 +97,7 @@ struct RecoveryAsciiController_0043c8b0 : RecoveryAsciiManager {
 };
 
 #pragma code_seg(".text$0043c970_fn")
-void RecoveryAsciiController_0043c8b0::Configure(unsigned int draw_priority,
+void AsciiTextController::Configure(unsigned int draw_priority,
     unsigned int mode, unsigned int payload, unsigned int argument_20,
     unsigned int argument_24, unsigned int argument_28) {
     switch (mode) {
@@ -174,11 +174,11 @@ void RecoveryAsciiController_0043c8b0::Configure(unsigned int draw_priority,
 }
 
 #pragma code_seg(".text$0043c8b0_fn")
-extern "C" RecoveryAsciiManager* __stdcall
+extern "C" AsciiTextManager* __stdcall
 RecoveryAscii_Create(unsigned int draw_priority, unsigned int mode,
     unsigned int payload, unsigned int argument_20,
     unsigned int argument_24, unsigned int argument_28) {
-    RecoveryAsciiController_0043c8b0* manager = new RecoveryAsciiController_0043c8b0;
+    AsciiTextController* manager = new AsciiTextController;
     if (manager) {
         manager->Configure(draw_priority, mode, payload, argument_20,
             argument_24, argument_28);

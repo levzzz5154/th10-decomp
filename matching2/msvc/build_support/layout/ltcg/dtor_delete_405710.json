@@ -38,7 +38,7 @@
   "constants": [],
   "absolute_symbols": [
     {
-      "symbol": "_asm_Recovery_ReleaseRawPairAndReset_00405620@4",
+      "symbol": "_Bomb_ReleaseState@4",
       "address": "0x00405620",
       "kind": "relative_code"
     },

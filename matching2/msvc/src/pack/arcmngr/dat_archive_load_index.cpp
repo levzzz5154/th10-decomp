@@ -1,7 +1,7 @@
 // 0x00434F70: open, decode and publish a DAT archive index.
 // The complete Version -> Open caller graph derives the private ESI receiver.
-#include "../../../build_support/layout/ltcg/archive_index/archive.hpp"
-#include "../../../build_support/layout/ltcg/archive_index/parser.hpp"
+#include "th10/archive/index/archive.hpp"
+#include "th10/archive/index/parser.hpp"
 extern "C" const char* g_dat_archive_read_mode;
 #pragma code_seg(".text$a10index")
 struct EncodedDatHeader {
@@ -37,7 +37,7 @@ __declspec(noinline) bool DatArchive::LoadIndex(const char* path) {
         // seek result. It proceeds with allocation and the following read.
         file->Seek(static_cast<LONG>(table_offset), 0);
         unsigned int stored_size = header.stored_size;
-        compressed = static_cast<unsigned char*>(asm_malloc_00452706(stored_size));
+        compressed = static_cast<unsigned char*>(crt_malloc(stored_size));
         if (!compressed)
             goto failure;
         if (!file->Read(compressed, stored_size))
@@ -54,15 +54,15 @@ __declspec(noinline) bool DatArchive::LoadIndex(const char* path) {
             goto failure;
     }
 
-    asm_free_00452422(compressed);
-    asm_free_00452422(unpacked);
+    crt_free(compressed);
+    crt_free(unpacked);
     return true;
 
 failure:
     if (compressed)
-        asm_free_00452422(compressed);
+        crt_free(compressed);
     if (unpacked)
-        asm_free_00452422(unpacked);
+        crt_free(unpacked);
     delete file;
     file = 0;
     // The decoded count and any previous entries survive failures before

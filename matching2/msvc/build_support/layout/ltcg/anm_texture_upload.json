@@ -8,13 +8,14 @@
     "include/th10/render/anm_surface_fill.hpp",
     "include/th10/render/texture_pixels.hpp",
     "include/th10/platform/archive_file.hpp",
-    "build_support/layout/ltcg/native_archive_read/archive.hpp",
+    "include/th10/archive/native_read/archive.hpp",
     "include/th10/archive/dat_archive_types.hpp",
     "include/th10/platform/file.hpp",
     "include/th10/platform/windows_types.hpp",
     "include/th10/render/anm_file.hpp",
-    "build_support/layout/ltcg/resource_surface_loading_log.hpp",
-    "include/th10/render/animation_position_record.hpp"
+    "include/th10/render/surface_loading_log.hpp",
+    "include/th10/render/animation_position_record.hpp",
+    "include/th10/platform/text_log.hpp"
   ],
   "image_base": "0x00400000",
   "description": "ANM texture file loading, uploading and transparent-pixel filling with their archive callees; a synthetic entry supplies the native private calling conventions.",
@@ -150,7 +151,7 @@
     },
     {
       "name": "TextLog",
-      "symbol": "?AppendLine@TextLog5@@QAAPADPADZZ",
+      "symbol": "?AppendLine@TextLog@@QAAPADPADZZ",
       "section": ".text$09log",
       "address": "0x0044B8E0",
       "size": 201
@@ -292,12 +293,12 @@
       "kind": "data"
     },
     {
-      "symbol": "_asm_D3DXLoadSurfaceFromFileInMemory_004521d0@36",
+      "symbol": "_Th10_D3DXLoadSurfaceFromFileInMemory@36",
       "address": "0x004521D0",
       "kind": "relative_code"
     },
     {
-      "symbol": "_asm_D3DXLoadSurfaceFromMemory_004521a6@40",
+      "symbol": "_Th10_D3DXLoadSurfaceFromMemory@40",
       "address": "0x004521A6",
       "kind": "relative_code"
     },
@@ -322,7 +323,7 @@
       "kind": "relative_code"
     },
     {
-      "symbol": "_asm_D3DXCreateTextureFromFileInMemoryEx_004521ca@60",
+      "symbol": "_Th10_D3DXCreateTextureFromFileInMemoryEx@60",
       "address": "0x004521CA",
       "kind": "relative_code"
     },
@@ -382,17 +383,17 @@
       "kind": "data"
     },
     {
-      "symbol": "_asm_strrchr_00452930",
+      "symbol": "_crt_strrchr",
       "address": "0x00452930",
       "kind": "relative_code"
     },
     {
-      "symbol": "_asm_stricmp_0046054e",
+      "symbol": "_crt_stricmp",
       "address": "0x0046054e",
       "kind": "relative_code"
     },
     {
-      "symbol": "_asm_malloc_00452706",
+      "symbol": "_crt_malloc",
       "address": "0x00452706",
       "kind": "relative_code"
     },
@@ -452,7 +453,7 @@
       "kind": "data"
     },
     {
-      "symbol": "_asm_vsprintf_004524a6",
+      "symbol": "_crt_vsprintf",
       "address": "0x004524A6",
       "kind": "relative_code"
     },
@@ -532,11 +533,6 @@
       "kind": "data"
     },
     {
-      "symbol": "_asm_free_00452422",
-      "address": "0x452422",
-      "kind": "relative_code"
-    },
-    {
       "symbol": "_DecompressDatLzss2@16",
       "address": "0x435dc0",
       "kind": "relative_code"
@@ -547,7 +543,7 @@
       "kind": "data"
     },
     {
-      "symbol": "_asm_D3DXCreateTexture_004521a0@32",
+      "symbol": "_Th10_D3DXCreateTexture@32",
       "address": "0x004521A0",
       "kind": "relative_code"
     },

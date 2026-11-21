@@ -42,7 +42,7 @@
   "constants": [],
   "absolute_symbols": [
     {
-      "symbol": "_asm_stricmp_0046054e",
+      "symbol": "_crt_stricmp",
       "address": "0x0046054E",
       "kind": "relative_code"
     }

@@ -1,4 +1,4 @@
-#include "title_score_archive.hpp"
+#include "th10/game/title_teardown/title_score_archive.hpp"
 #include <string.h>
 #pragma code_seg(".text$13zencrypt")
 extern "C" __declspec(noinline) unsigned char* __stdcall EncryptDatBuffer(unsigned char* data, int size, unsigned char key,
@@ -7,7 +7,7 @@ extern "C" __declspec(noinline) unsigned char* __stdcall EncryptDatBuffer(unsign
     int tail = remainder < block_size / 4 ? remainder : 0;
     int count = limit > size ? size : limit;
     unsigned char* out = data;
-    unsigned char* snapshot = (unsigned char*)asm_malloc_00452706(count);
+    unsigned char* snapshot = (unsigned char*)crt_malloc(count);
     unsigned char* in = snapshot;
     if (!snapshot) return data;
     size -= (size & 1) + tail;
@@ -36,7 +36,7 @@ extern "C" __declspec(noinline) unsigned char* __stdcall EncryptDatBuffer(unsign
         size -= block_size;
         limit -= block_size;
     }
-    asm_free_00452422(snapshot);
+    crt_free(snapshot);
     return data;
 }
 #pragma code_seg()

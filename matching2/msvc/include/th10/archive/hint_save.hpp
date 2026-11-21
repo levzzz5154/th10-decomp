@@ -20,11 +20,11 @@ int __stdcall WriteShared2(const void* buffer, unsigned int size);
 
 extern "C" {
 // The shared-file helpers this writer sits on.
-int __stdcall asm_File_OpenSharedWrite_0044b620(const char* path);
-int __cdecl asm_FUN_00452abc_00452abc(const char* path);
-int __cdecl asm_sprintf_00452ae8(char* destination, const char* format, ...);
-void* __cdecl asm_malloc_00452706(unsigned int size);
-void __cdecl asm_free_00452422(void* memory);
+int __stdcall File_OpenSharedWritePath(const char* path);
+int __cdecl crt_mkdir(const char* path);
+int __cdecl crt_sprintf(char* destination, const char* format, ...);
+void* __cdecl crt_malloc(unsigned int size);
+void __cdecl crt_free(void* memory);
 int __cdecl time2(int* output);
 
 // KERNEL32 slots the retail layout binds under their thunks.

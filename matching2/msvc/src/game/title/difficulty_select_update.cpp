@@ -79,7 +79,7 @@ __declspec(noinline) int __stdcall TitleMode6(Title* room) {
         room->ClearAnimationSlot(slot);
         RecoveryMusicInstallSlot(room, slot);
         AnimationManager_SetStopFrameAndRun(
-            3, reinterpret_cast<RecoveryLookupContext*>(g_sprt_ctrl),
+            3, reinterpret_cast<AnmLookupContext*>(g_sprt_ctrl),
             room->animation_slots[slot]);
         room->SetSlotFrame(slot, room->cursor.selection + 0x11);
         RecoveryMusicInstallSlot(room, 98);

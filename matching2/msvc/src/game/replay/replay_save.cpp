@@ -58,10 +58,10 @@ struct BrokenDownTime_00429b60 {
     int year;                        // +0x14
 };
 
-extern "C" int __cdecl asm_FUN_00452abc_00452abc(const char* path);  // CreateDirectoryA wrapper
-extern "C" int __cdecl asm_sprintf_00452ae8(char* destination, const char* format, ...);
-extern "C" BrokenDownTime_00429b60* __cdecl asm_localtime_00452baa(const int* timer);
-int __stdcall asm_File_OpenSharedWrite_0044b620(const char* path);
+extern "C" int __cdecl crt_mkdir(const char* path);  // CreateDirectoryA wrapper
+extern "C" int __cdecl crt_sprintf(char* destination, const char* format, ...);
+extern "C" BrokenDownTime_00429b60* __cdecl crt_localtime(const int* timer);
+int __stdcall File_OpenSharedWritePath(const char* path);
 
 // The kernel calls of the shared-file writer (imported, so a pair of calls in
 // one path shares one loaded import pointer, as retail does).
@@ -132,8 +132,8 @@ int __fastcall ReplaySaveManager::Save(const char* file_name, const char* name) 
         manager->summary->name[length] = ' ';
     }
 
-    asm_FUN_00452abc_00452abc(str_replay_dir);
-    asm_sprintf_00452ae8(path, str_replay_path_format, file_name);
+    crt_mkdir(str_replay_dir);
+    crt_sprintf(path, str_replay_path_format, file_name);
 
     // Measure every stage: the fixed record plus each pool's input and state
     // bytes. The per-stage data size gathers the same figure so the loader
@@ -162,7 +162,7 @@ int __fastcall ReplaySaveManager::Save(const char* file_name, const char* name) 
     manager->summary->slow_rate = Fps_SlowRate(g_fps);
 
     // Pack the summary, the stage records and the pools into one buffer.
-    unsigned char* buffer = (unsigned char*)asm_malloc_00452706(total);
+    unsigned char* buffer = (unsigned char*)crt_malloc(total);
     memcpy(buffer, manager->summary, 0x64);
     total = 0x64;
     for (stage = 0; stage < 8; stage++) {
@@ -190,7 +190,7 @@ int __fastcall ReplaySaveManager::Save(const char* file_name, const char* name) 
     {
         int written;
         packed = Lzss_Compress(buffer, total, &written);
-        asm_free_00452422(buffer);
+        crt_free(buffer);
         sent = written;
     }
     Dat_Encrypt(packed, sent, 0x3D, 0x7A, 0x80, sent);
@@ -200,45 +200,45 @@ int __fastcall ReplaySaveManager::Save(const char* file_name, const char* name) 
     manager->header->packed_size = sent;
     manager->header->packed_end = manager->header->packed_size + 0x24;
 
-    asm_File_OpenSharedWrite_0044b620(path);
+    File_OpenSharedWritePath(path);
     WriteShared(manager->header, 0x24);
     WriteShared(packed, sent);
     if (packed) {
-        asm_free_00452422(packed);
+        crt_free(packed);
     }
 
     // Append the "USER" header-information chunk, padded to whole words.
-    ReplayUserChunk* chunk = (ReplayUserChunk*)asm_malloc_00452706(0xFFFF);
+    ReplayUserChunk* chunk = (ReplayUserChunk*)crt_malloc(0xFFFF);
     memset(chunk, 0, 0xFFFF);
     chunk->magic = 0x52455355;
     chunk->flag = 0;
     char* out = chunk->text;
-    out += asm_sprintf_00452ae8(out, str_replay_info_title);
-    out += asm_sprintf_00452ae8(out, str_replay_version_format, str_game_version);
-    out += asm_sprintf_00452ae8(out, str_replay_name_format, manager->summary);
-    BrokenDownTime_00429b60* time = asm_localtime_00452baa(&manager->summary->date);
-    out += asm_sprintf_00452ae8(out, str_replay_date_format, time->year % 100, time->month + 1,
+    out += crt_sprintf(out, str_replay_info_title);
+    out += crt_sprintf(out, str_replay_version_format, str_game_version);
+    out += crt_sprintf(out, str_replay_name_format, manager->summary);
+    BrokenDownTime_00429b60* time = crt_localtime(&manager->summary->date);
+    out += crt_sprintf(out, str_replay_date_format, time->year % 100, time->month + 1,
                        time->day, time->hour, time->minute);
-    out += asm_sprintf_00452ae8(out, str_replay_chara_format,
+    out += crt_sprintf(out, str_replay_chara_format,
                        g_shot_names[manager->summary->character * 3 + manager->summary->shot_type]);
-    out += asm_sprintf_00452ae8(out, str_replay_rank_format, g_difficulty_names[manager->summary->difficulty]);
+    out += crt_sprintf(out, str_replay_rank_format, g_difficulty_names[manager->summary->difficulty]);
     if (manager->summary->stage_reached > 7) {
         if (first == 7) {
-            out += asm_sprintf_00452ae8(out, str_replay_extra_clear);
+            out += crt_sprintf(out, str_replay_extra_clear);
         } else {
-            out += asm_sprintf_00452ae8(out, str_replay_all_clear);
+            out += crt_sprintf(out, str_replay_all_clear);
         }
     } else if (first == last) {
         if (first == 7) {
-            out += asm_sprintf_00452ae8(out, str_replay_extra_stage);
+            out += crt_sprintf(out, str_replay_extra_stage);
         } else {
-            out += asm_sprintf_00452ae8(out, str_replay_stage_format, first);
+            out += crt_sprintf(out, str_replay_stage_format, first);
         }
     } else {
-        out += asm_sprintf_00452ae8(out, str_replay_stage_range_format, first, last);
+        out += crt_sprintf(out, str_replay_stage_range_format, first, last);
     }
-    out += asm_sprintf_00452ae8(out, str_replay_score_format, manager->summary->score);
-    out += asm_sprintf_00452ae8(out, str_replay_slow_rate_format, (double)manager->summary->slow_rate) + 1;
+    out += crt_sprintf(out, str_replay_score_format, manager->summary->score);
+    out += crt_sprintf(out, str_replay_slow_rate_format, (double)manager->summary->slow_rate) + 1;
     if ((int)(out - (char*)chunk) % 4 != 0) {
         out += 4 - (int)(out - (char*)chunk) % 4;
     }
@@ -250,13 +250,13 @@ int __fastcall ReplaySaveManager::Save(const char* file_name, const char* name) 
     chunk->magic = 0x52455355;
     chunk->flag = 1;
     out = chunk->text;
-    out += asm_sprintf_00452ae8(out, str_replay_comment_placeholder) + 1;
+    out += crt_sprintf(out, str_replay_comment_placeholder) + 1;
     if ((int)(out - (char*)chunk) % 4 != 0) {
         out += 4 - (int)(out - (char*)chunk) % 4;
     }
     chunk->size = (unsigned int)(out - (char*)chunk);
     WriteShared(chunk, (unsigned int)(out - (char*)chunk));
-    asm_free_00452422(chunk);
+    crt_free(chunk);
     if (g_file_write_handle != (void*)-1) {
         File_CloseShared();
     }

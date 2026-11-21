@@ -8,7 +8,7 @@ struct PrintStream {
 extern "C" int __cdecl asm_FUN_00454ed7_00454ed7(PrintStream*, const char*, void*);
 extern "C" int __cdecl asm_flsbuf_00454d11(int, PrintStream*);
 
-extern "C" int __cdecl asm_sprintf_00452ae8(char* destination, const char* format, ...) {
+extern "C" int __cdecl crt_sprintf(char* destination, const char* format, ...) {
     PrintStream stream;
     stream.count = 0x7fffffff;
     stream.flags = 0x42;

@@ -101,11 +101,11 @@ extern "C" void (__stdcall* imp_Sleep)(int);
 // 0x00439540 (its own maintained region): the performance timer, result in st(0).
 extern "C" double __cdecl FrameTimer_GetDelta(void);
 // 0x00449C00 / 0x00449D40: decode the frame's tasks out of the manager.
-extern "C" int __stdcall asm_FUN_00449c00_00449c00(int manager);
-extern "C" int __stdcall asm_FUN_00449d40_00449d40(int manager);
+extern "C" int __stdcall FuncCtrl_RunPrimaryList(int manager);
+extern "C" int __stdcall FuncCtrl_RunSecondaryList(int manager);
 // 0x004391F0: the per-tick input/state update this routine drives.
-extern "C" void __cdecl asm_FUN_004391f0_004391f0(void);
+extern "C" void __cdecl Device_ResetDisplay(void);
 // 0x0043DDF0: the task dispatcher, parameters pointer on the stack, RET 4.
-extern "C" void __stdcall asm_FUN_0043ddf0_0043ddf0(void* parameters);
+extern "C" void __stdcall WaveSoundManager_ProcessCommands(void* parameters);
 
 #pragma code_seg(".text$00clayoutfa")

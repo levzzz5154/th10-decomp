@@ -1,20 +1,20 @@
-#include "../../../include/contexts/game/marktext_dispatcher_context/recovery_script_executor_caller_433ef0.hpp"
+#include "th10/game/ending_script/recovery_script_executor_caller_433ef0.hpp"
 
 extern "C" void* g_sprt_ctrl;
 
-static __forceinline RecoveryMusicVm* FindAnimationSlot(int slot_value) {
+static __forceinline TitleAnmVm* FindAnimationSlot(int slot_value) {
     AnimationScriptId id = { slot_value };
-    return static_cast<RecoveryMusicVm*>(
-        reinterpret_cast<RecoveryLookup*>(g_sprt_ctrl)->Find(
-            reinterpret_cast<RecoveryLookupContext*>(g_sprt_ctrl), id));
+    return static_cast<TitleAnmVm*>(
+        reinterpret_cast<AnmLookup*>(g_sprt_ctrl)->Find(
+            reinterpret_cast<AnmLookupContext*>(g_sprt_ctrl), id));
 }
 
 static __forceinline void SetAnimationTreeFrame(
-        RecoveryMusicVm* object, unsigned short frame) {
+        TitleAnmVm* object, unsigned short frame) {
     if (object != 0) {
         object->stop_frame = frame;
         if (object->children_flagged == 0) {
-            for (RecoveryMusicChild* child = object->children;
+            for (TitleAnmChild* child = object->children;
                  child != 0; child = child->next)
                 child->object->stop_frame = frame;
         }

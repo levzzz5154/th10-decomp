@@ -36,14 +36,14 @@ typedef char TipListsOffset[offsetof(TipManager, lists) == 0x18 ? 1 : -1];
 char* __stdcall TrimWhitespace(char* text);
 extern "C" void __stdcall SplitResourcePath(char* key, char* value, char* line);
 extern "C" char* __stdcall ReadLine(char*, char*, int*, unsigned int);
-extern "C" char* __cdecl asm_FUN_00452730_00452730(const char*, int);
+extern "C" char* __cdecl crt_strchr(const char*, int);
 extern "C" long __cdecl parser_atol(const char*);
 extern "C" double __cdecl parser_atof(const char*);
 extern "C" char* __cdecl parser_strrchr(const char*, int);
 extern "C" char* __cdecl parser_strncpy(char*, const char*, unsigned int);
 extern "C" void __cdecl parser_free(void*);
 extern "C" void __cdecl crt_free_startup(void*);
-extern "C" void* __cdecl asm_malloc_00452706(unsigned int);
+extern "C" void* __cdecl crt_malloc(unsigned int);
 struct NamedValue {
     const char* key;
     unsigned int value;

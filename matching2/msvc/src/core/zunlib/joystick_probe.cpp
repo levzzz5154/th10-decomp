@@ -16,13 +16,7 @@ typedef unsigned int (__stdcall *JoyGetDevCapsFn)(
 extern "C" JoyGetPosExFn imp_joyGetPosEx;
 extern "C" JoyGetDevCapsFn imp_joyGetDevCapsA;
 
-struct TextLog4 {
-    char text[0x2000];
-    char* cursor;
-    unsigned char dirty;
-    char* Append(char* format, ...);
-};
-
+#include "th10/platform/text_log.hpp"
 #pragma code_seg(".text$80joystick")
 short __stdcall Joystick_Probe2() {
     JoystickInfoEx info;
@@ -31,7 +25,7 @@ short __stdcall Joystick_Probe2() {
 
     JoyGetPosExFn get_position = imp_joyGetPosEx;
     if (get_position(0, &info) && get_position(1, &info)) {
-        ((TextLog4*)0x00474F70)->Append(
+        ((TextLog*)0x00474F70)->Append(
                 (char*)0x00470580);
         return 1;
     }

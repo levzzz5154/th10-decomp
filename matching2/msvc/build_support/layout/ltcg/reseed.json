@@ -38,7 +38,7 @@
   "constants": [],
   "absolute_symbols": [
     {
-      "symbol": "_asm_FID_conflict___time32_00452b71",
+      "symbol": "_crt_time32",
       "address": "0x00452B71",
       "kind": "relative_code"
     },

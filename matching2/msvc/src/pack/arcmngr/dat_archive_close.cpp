@@ -6,7 +6,7 @@
 #pragma code_seg(".text$02close")
 __declspec(noinline) void DatArchive::Close() {
     if (filename) {
-        asm_free_00452422(filename);
+        crt_free(filename);
         filename = 0;
     }
 
@@ -17,10 +17,10 @@ __declspec(noinline) void DatArchive::Close() {
             reinterpret_cast<unsigned int*>(current_entries) - 1;
         const ArchiveEntryCallback release =
             reinterpret_cast<ArchiveEntryCallback>(HeapBuffer_Release);
-        asm_eh_vector_destructor_iterator_004525ff(
+        crt_eh_vector_dtor(
             current_entries, sizeof(DatArchiveEntry),
             static_cast<int>(*allocation), release);
-        asm_free_004524a1(allocation);
+        crt_free_startup(allocation);
     }
 
     FileInterface* current_file = file;

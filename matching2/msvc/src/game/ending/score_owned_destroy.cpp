@@ -17,7 +17,7 @@
 
 struct ScoreOwnedObject;
 
-extern "C" void asm_FUN_0040b7b0_0040b7b0(void* object);      // 0x0040B7B0, __stdcall
+extern "C" void Ending_ReleaseState(void* object);      // 0x0040B7B0, __stdcall
 extern "C" void __cdecl crt_free_startup(void* memory);    // 0x004524A1, __cdecl
 
 __declspec(noinline) void ScoreOwnedObject_Destroy(ScoreOwnedObject* object);
@@ -25,7 +25,7 @@ __declspec(noinline) void ScoreOwnedObject_Destroy(ScoreOwnedObject* object);
 #pragma code_seg(".text$01destroy")
 void ScoreOwnedObject_Destroy(ScoreOwnedObject* object) {
     if (object) {
-        asm_FUN_0040b7b0_0040b7b0(object);
+        Ending_ReleaseState(object);
         crt_free_startup(object);
     }
 }

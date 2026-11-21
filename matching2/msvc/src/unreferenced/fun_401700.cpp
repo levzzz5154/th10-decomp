@@ -5,7 +5,7 @@
 // are callee-saved registers the body only passes through to the append helper,
 // so they stay undeclared here and survive untouched.
 
-extern "C" int __cdecl asm_vsprintf_004524a6(char* buffer, const char* format, char* args);
+extern "C" int __cdecl crt_vsprintf(char* buffer, const char* format, char* args);
 
 // 0x004015C0 reads the text from ECX and the record context from EBX/ESI; it
 // never reads EAX, so a __fastcall prototype reproduces the retail call site
@@ -17,7 +17,7 @@ extern "C" void __fastcall asm_FUN_004015c0_004015c0(char* text);
 #pragma code_seg(".text$01format_text")
 unsigned int GameThread_FormatRecordText(char* format, ...) {
     char buffer[512];
-    asm_vsprintf_004524a6(buffer, format, (char*)&format + sizeof(format));
+    crt_vsprintf(buffer, format, (char*)&format + sizeof(format));
     asm_FUN_004015c0_004015c0(buffer);
     return (unsigned int)strlen(buffer);
 }

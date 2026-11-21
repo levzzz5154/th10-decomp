@@ -36,7 +36,7 @@ struct RenderSlotNode {
 // the anchor's declaration decides the order in which the caller materialises the
 // arguments, and retail sets the entity up first (`mov eax,esi`) and the manager
 // second (`mov ecx,edi`), so the manager is declared first.
-extern "C" int __cdecl asm_FUN_004451c0_004451c0(void* manager, RenderSlotNode* entity);
+extern "C" int __cdecl AnmVm_DrawDispatch(void* manager, RenderSlotNode* entity);
 
 #pragma code_seg(".text$03bucket")
 int SprtCtrlBatchView::RenderBucket(int index) {
@@ -47,7 +47,7 @@ int SprtCtrlBatchView::RenderBucket(int index) {
             if (node->on_render != 0) {
                 node->on_render(node);
             }
-            asm_FUN_004451c0_004451c0(this, node);
+            AnmVm_DrawDispatch(this, node);
         }
         node = node->next;
     }

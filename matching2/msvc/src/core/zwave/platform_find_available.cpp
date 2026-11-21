@@ -3,7 +3,7 @@
 // before rand. Explicitly sequenced candidate and differential evidence:
 // reference/semantic_candidates/sound_stream_select.cpp and
 // reference/recovery_notes/sound_stream_start2.md.
-extern "C" int __cdecl asm_rand_0045371b();
+extern "C" int __cdecl crt_rand();
 
 struct PlatformD370Entry {
     virtual void __stdcall slot_00() = 0;
@@ -46,6 +46,6 @@ PlatformInterfaceState::FindAvailable() {
     if (index != count_010)
         return reinterpret_cast<PlatformD370Entry*>(entries_004[index]);
     return reinterpret_cast<PlatformD370Entry*>(
-        entries_004[(unsigned int)asm_rand_0045371b() % count_010]);
+        entries_004[(unsigned int)crt_rand() % count_010]);
 }
 #pragma code_seg()

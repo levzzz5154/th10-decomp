@@ -115,21 +115,21 @@
     },
     {
       "name": "AnimationObject_LoadScript",
-      "symbol": "_asm_AnimationObject_LoadScript_0043e710",
+      "symbol": "_AnmVm_LoadScript",
       "section": ".text$07zzload",
       "address": "0x0043E710",
       "size": 207
     },
     {
       "name": "RegisterPrimaryBack",
-      "symbol": "_asm_AnimationManager_RegisterPrimaryBack_004489d0",
+      "symbol": "_AnimationManager_RegisterPrimaryBack",
       "section": ".text$08zregback",
       "address": "0x004489D0",
       "size": 103
     },
     {
       "name": "PoolAllocator",
-      "symbol": "_asm_FUN_00449950_00449950",
+      "symbol": "_AnimationPool_AllocateEntry",
       "section": ".text$08zspool",
       "address": "0x00449950",
       "size": 171
@@ -332,13 +332,8 @@
       "kind": "relative_code"
     },
     {
-      "symbol": "_asm_malloc_00452706",
+      "symbol": "_crt_malloc",
       "address": "0x00452706",
-      "kind": "relative_code"
-    },
-    {
-      "symbol": "_asm_free_00452422",
-      "address": "0x00452422",
       "kind": "relative_code"
     },
     {

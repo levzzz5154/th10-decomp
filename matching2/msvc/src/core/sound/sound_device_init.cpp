@@ -7,7 +7,7 @@ typedef unsigned int (__stdcall* SoundSetTimer)(void* window, unsigned int id,
     unsigned int milliseconds, void* callback);
 
 extern "C" {
-    void __cdecl asm_free_004524a1(void* memory);
+    void __cdecl crt_free_startup(void* memory);
     int __stdcall Ordinal_112(const void* device_id,
         WaveDirectSoundDevice** output, void* outer);
     __declspec(noinline) int __stdcall Sound_SetPrimaryFormat(unsigned short channels,
@@ -83,7 +83,7 @@ __declspec(noinline) int WaveSoundManager::Initialize(void* target_window) {
                 owned_device->methods->release(owned_device);
                 *owner = 0;
             }
-            asm_free_004524a1(owner);
+            crt_free_startup(owner);
             device_owner = 0;
         }
         return -1;

@@ -1,4 +1,4 @@
-#include "../../../build_support/include/asm_symbols.hpp"
+#include "th10/runtime/asm_symbols.hpp"
 
 
 // 0x0043E3A0..0x0043E45C: MidiWorker_MessageLoopRetail
@@ -27,7 +27,7 @@ struct TagMsg {
 
 extern "C" unsigned char g_midi_worker_state;
 extern "C" unsigned char g_midi_worker_event;
-extern "C" void __cdecl asm_FUN_0044d850_0044d850();
+extern "C" void __cdecl SoundStream_ServiceChunk();
 
 extern "C" __declspec(dllimport) unsigned int __stdcall MsgWaitForMultipleObjects(
     unsigned int count, void* handles, unsigned int wake_mask, unsigned int timeout,
@@ -37,7 +37,7 @@ extern "C" __declspec(dllimport) int __stdcall PeekMessageA(
 
 typedef void (__stdcall* StreamStopFn)(void* state, int mode);
 
-extern "C" unsigned int __stdcall asm_MidiWorker_MessageLoopRetail_0043e3a0(void* thread_parameter) {
+extern "C" unsigned int __stdcall MidiWorker_MessageLoop(void* thread_parameter) {
     int finished = 0;
     TagMsg message;
     do {
@@ -49,7 +49,7 @@ extern "C" unsigned int __stdcall asm_MidiWorker_MessageLoopRetail_0043e3a0(void
         case 0:
             if (state != 0 && state->stream != 0) {
                 state->stopping = 1;
-                ((StreamStopFn)asm_FUN_0044d850_0044d850)(*(void**)&g_midi_worker_state, 1);
+                ((StreamStopFn)SoundStream_ServiceChunk)(*(void**)&g_midi_worker_state, 1);
                 ((MidiWorkerState*)*(void**)&g_midi_worker_state)->stopping = 0;
             }
             break;

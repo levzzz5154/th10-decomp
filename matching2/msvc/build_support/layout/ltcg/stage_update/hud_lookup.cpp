@@ -10,7 +10,7 @@
 #define g_stage_flags stage_hud_data_00491fc4
 #define g_main_state stage_hud_data_00491fb8
 #define g_sound_manager stage_hud_data_00492590
-#include "hud_view.hpp"
+#include "th10/game/stage_update/hud_view.hpp"
 // Compiler-only ABI anchors for the animation lookup (0x004491C0) and the
 // flag setter (0x004492A0), placed by clusters whose recovered code precedes
 // 0x004491C0. The setter forwards no receiver, so the pass drops ECX from

@@ -37,21 +37,21 @@
   "anchors": [
     {
       "name": "AnimationObject_LoadScript_0043e710_abi_anchor",
-      "symbol": "_asm_AnimationObject_LoadScript_0043e710",
+      "symbol": "_AnmVm_LoadScript",
       "section": ".text$01loadscript",
       "address": "0x0043E710",
       "size": 207
     },
     {
       "name": "AnimationManager_RegisterSecondaryBack_00448ac0_abi_anchor",
-      "symbol": "_asm_AnimationManager_RegisterSecondaryBack_00448ac0",
+      "symbol": "_AnimationManager_RegisterSecondaryBack",
       "section": ".text$03regsecondary",
       "address": "0x00448AC0",
       "size": 103
     },
     {
       "name": "FUN_00449950_00449950_abi_anchor",
-      "symbol": "_asm_FUN_00449950_00449950",
+      "symbol": "_AnimationPool_AllocateEntry",
       "section": ".text$07alloc",
       "address": "0x00449950",
       "size": 171

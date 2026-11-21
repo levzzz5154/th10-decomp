@@ -4,15 +4,16 @@
   "source": "src/pack/arcmngr/dat_archive_load_index.cpp",
   "driver": "build_support/layout/ltcg/archive_index_00434f70_context.cpp",
   "headers": [
-    "build_support/layout/ltcg/archive_index/archive.hpp",
-    "build_support/layout/ltcg/archive_index/parser.hpp",
+    "include/th10/archive/index/archive.hpp",
+    "include/th10/archive/index/parser.hpp",
     "build_support/layout/ltcg/archive_index/log.hpp",
     "include/th10/archive/dat_archive_types.hpp",
     "include/th10/platform/file.hpp",
     "include/th10/platform/memory_file.hpp",
     "include/th10/platform/windows_types.hpp",
     "include/th10/util/heap.hpp",
-    "include/th10/types.hpp"
+    "include/th10/types.hpp",
+    "include/th10/platform/text_log.hpp"
   ],
   "included_sources": [
     "build_support/layout/ltcg/archive_index/version.cpp",
@@ -96,7 +97,7 @@
     },
     {
       "name": "TextLogAppendLine",
-      "symbol": "?AppendLine@TextLog5@@QAAPADPADZZ",
+      "symbol": "?AppendLine@TextLog@@QAAPADPADZZ",
       "section": ".text$a24log",
       "address": "0x44b8e0",
       "size": 201
@@ -157,12 +158,12 @@
   "constants": [],
   "absolute_symbols": [
     {
-      "symbol": "_asm_operator_new_00452493",
+      "symbol": "_crt_operator_new",
       "address": 4531347,
       "kind": "relative_code"
     },
     {
-      "symbol": "_asm_malloc_00452706",
+      "symbol": "_crt_malloc",
       "address": 4531974,
       "kind": "relative_code"
     },
@@ -172,17 +173,17 @@
       "kind": "data"
     },
     {
-      "symbol": "_asm_free_00452422",
+      "symbol": "_crt_free",
       "address": 4531234,
       "kind": "relative_code"
     },
     {
-      "symbol": "_asm_free_004524a1",
+      "symbol": "_crt_free_startup",
       "address": 4531361,
       "kind": "relative_code"
     },
     {
-      "symbol": "_asm_eh_vector_destructor_iterator_004525ff@16",
+      "symbol": "_crt_eh_vector_dtor@16",
       "address": 4531711,
       "kind": "relative_code"
     },
@@ -307,12 +308,12 @@
       "kind": "data"
     },
     {
-      "symbol": "_asm_stricmp_0046054e",
+      "symbol": "_crt_stricmp",
       "address": 4588878,
       "kind": "relative_code"
     },
     {
-      "symbol": "_asm_strrchr_00452930",
+      "symbol": "_crt_strrchr",
       "address": 4532528,
       "kind": "relative_code"
     },
@@ -377,11 +378,6 @@
       "kind": "data"
     },
     {
-      "symbol": "_crt_free",
-      "address": 4531234,
-      "kind": "relative_code"
-    },
-    {
       "symbol": "_g_executable_checksum",
       "address": 4793216,
       "kind": "data"
@@ -422,7 +418,7 @@
       "kind": "data"
     },
     {
-      "symbol": "_asm_vsprintf_004524a6",
+      "symbol": "_crt_vsprintf",
       "address": 4531366,
       "kind": "relative_code"
     },

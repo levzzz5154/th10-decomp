@@ -10,7 +10,7 @@
 // re-read from the slot after every store that could alias it, so it stays a
 // memory operand here rather than a local.
 
-extern "C" int __stdcall asm_FUN_00406240_00406240(const void* entry);  // 0x00406240
+extern "C" int __stdcall BulletRuntime_Tick(const void* entry);  // 0x00406240
 extern "C" float flt_1_01;    // normal upper bound
 extern "C" float flt_0_99;    // normal lower bound
 
@@ -60,7 +60,7 @@ struct BulletSlot {
 };
 typedef char BulletSlotSizeCheck[sizeof(BulletSlot) == 0x7F0 ? 1 : -1];
 
-struct RecoverySlotTable {
+struct BulletSlotTable {
     unsigned char pad_0000[0x14];
     BulletSlot* heads[6];               // +0x14
     BulletSlot* tails[6];               // +0x2C
@@ -72,7 +72,7 @@ struct RecoverySlotTable {
 };
 
 #pragma code_seg(".text$01rearm")
-int RecoverySlotTable::Rearm() {
+int BulletSlotTable::Rearm() {
     active = 0;
     heads[5] = 0;
     heads[4] = 0;
@@ -93,7 +93,7 @@ int RecoverySlotTable::Rearm() {
         if (pose->active_state != 0) {
             if (!(g_game != 0 && (g_game->flags & GAME_FLAG_PAUSED_OR_FROZEN) != 0
                   && (g_game->flags & GAME_FLAG_BULLETS_FROZEN) != 0)) {
-                if (asm_FUN_00406240_00406240(entry) != 0)
+                if (BulletRuntime_Tick(entry) != 0)
                     goto next;
             }
             if (heads[pose->render_layer] != 0)

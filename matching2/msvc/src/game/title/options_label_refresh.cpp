@@ -43,11 +43,11 @@ static int MusicAttenuation(const int& stored_music) {
 // walk fails) and the leaf looks that id up in the manager exactly like the
 // retail block does.
 static __forceinline LabelAnimation* FindLabel(
-        RecoveryLookupContext* manager, Title* room,
+        AnmLookupContext* manager, Title* room,
         int script) {
     AnimationScriptId* slot = &room->animation_slots[1];
     LabelParent* parent = static_cast<LabelParent*>(
-        reinterpret_cast<RecoveryLookup*>(manager)->Find(manager, *slot));
+        reinterpret_cast<AnmLookup*>(manager)->Find(manager, *slot));
     if (parent == 0)
         slot->value = 0;
     LabelLink* match = 0;
@@ -64,14 +64,14 @@ static __forceinline LabelAnimation* FindLabel(
         id = 0;
     AnimationScriptId key = { id };
     return static_cast<LabelAnimation*>(
-        reinterpret_cast<RecoveryLookup*>(manager)->Find(manager, key));
+        reinterpret_cast<AnmLookup*>(manager)->Find(manager, key));
 }
 
 // Point one digit label at the sprite for its digit of the readout.  The
 // volume is re-read here, after the walk, the way the retail blocks do: the
 // sprite is only computed for a label that was found.
 static __forceinline void ConfigureHundreds(
-        RecoveryLookupContext* manager, Title* room,
+        AnmLookupContext* manager, Title* room,
         int script, int font, const signed char& volume) {
     LabelAnimation* label = FindLabel(manager, room, script);
     if (label == 0)
@@ -81,7 +81,7 @@ static __forceinline void ConfigureHundreds(
 }
 
 static __forceinline void ConfigureTens(
-        RecoveryLookupContext* manager, Title* room,
+        AnmLookupContext* manager, Title* room,
         int script, int font, const signed char& volume) {
     LabelAnimation* label = FindLabel(manager, room, script);
     if (label == 0)
@@ -91,7 +91,7 @@ static __forceinline void ConfigureTens(
 }
 
 static __forceinline void ConfigureOnes(
-        RecoveryLookupContext* manager, Title* room,
+        AnmLookupContext* manager, Title* room,
         int script, int font, const signed char& volume) {
     LabelAnimation* label = FindLabel(manager, room, script);
     if (label == 0)
@@ -105,7 +105,7 @@ static __forceinline void ConfigureOnes(
 // load, a mask and a separate store, the shape the retail blocks share tails
 // around.
 static __forceinline void ShowDigit(
-        RecoveryLookupContext* manager, Title* room,
+        AnmLookupContext* manager, Title* room,
         int script, bool visible) {
     LabelAnimation* label = FindLabel(manager, room, script);
     unsigned int* flags = &label->flags_35c;
@@ -131,8 +131,8 @@ __declspec(noinline) void __stdcall RefreshOptions2(
     else
         g_options_music_attenuation = -10000;
 
-    RecoveryLookupContext* manager =
-        reinterpret_cast<RecoveryLookupContext*>(g_sprt_ctrl);
+    AnmLookupContext* manager =
+        reinterpret_cast<AnmLookupContext*>(g_sprt_ctrl);
 
     // The twelve digit labels are drawn unconditionally with the current
     // volume's sprites: hundreds, tens, ones of the large font, then the small.

@@ -1,7 +1,7 @@
 // Compiler context only: a stand-in for the file stream factory 0x0044C8F0
 // without its exception frame, so the pass sees a callee body and derives the
 // launcher's argument order from the factory's parameter list. Never selected.
-#include "../sound_interfaces_dependencies/sound_wave_types.hpp"
+#include "th10/platform/sound_wave_types.hpp"
 
 extern "C" {
     extern const unsigned char g_wave_notification_iid[16];

@@ -1,5 +1,5 @@
 #include "th10/source_views/recovery_leaves_f39a06_0.hpp"
-RecoverySmallState::RecoverySmallState() {
+EndingSmallState::EndingSmallState() {
     memset(this, 0, sizeof(*this));
     flags |= 2;
     *(void**)&g_ending = this;

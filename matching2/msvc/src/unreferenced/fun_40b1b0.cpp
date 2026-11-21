@@ -13,7 +13,7 @@ extern "C" AnimationScriptId* __stdcall AnimationCreateWithCallbacks2(
     object->AnimationFlags() = flags | 0x40000000u;
     resource->InitializeObject(object, (short)script.value);
     void* manager = g_sprt_ctrl;
-    asm_AnimationManager_RegisterPrimaryBack_004489d0(manager, (void**)&script.value, object);
+    AnimationManager_RegisterPrimaryBack(manager, (void**)&script.value, object);
     AnimationScriptId handle;
     // Registration replaces the script argument slot with the assigned handle.
     // Capture that fresh value before looking up the registered object.

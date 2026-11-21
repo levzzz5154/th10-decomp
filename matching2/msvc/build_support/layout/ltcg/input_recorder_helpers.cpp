@@ -1,4 +1,4 @@
-#include "input_recorder_dependencies.hpp"
+#include "th10/platform/input_recorder_dependencies.hpp"
 
 #pragma code_seg(".text$01key")
 unsigned short RecorderKeyRepeatState::Update() {
@@ -27,7 +27,7 @@ unsigned short RecorderKeyRepeatState::Update() {
 }
 #pragma code_seg()
 
-#include "input_recorder_dependencies.hpp"
+#include "th10/platform/input_recorder_dependencies.hpp"
 
 #pragma code_seg(".text$09page")
 RecorderPoolLink* RecorderPoolLists::AppendPage(int stage) {

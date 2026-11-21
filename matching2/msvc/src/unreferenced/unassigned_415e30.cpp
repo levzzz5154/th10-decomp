@@ -11,7 +11,7 @@ extern float g_frame_timer_normal_upper;  // 0x00470B64
 
 extern "C" int __stdcall asm_FUN_00415e90_00415e90(void* state);
 
-struct RecoveryTickState {
+struct GameHudTickState {
     int pad_00;             // +0x00
     int previous;           // +0x04
     int current;            // +0x08
@@ -20,7 +20,7 @@ struct RecoveryTickState {
 };
 
 #pragma code_seg(".text$01tick")
-__declspec(noinline) int __stdcall TickRecoveryState(RecoveryTickState* state) {
+__declspec(noinline) int __stdcall TickRecoveryState(GameHudTickState* state) {
     if (asm_FUN_00415e90_00415e90(state))
         return 1;
 

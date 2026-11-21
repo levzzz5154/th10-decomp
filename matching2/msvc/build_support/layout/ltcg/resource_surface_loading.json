@@ -13,8 +13,9 @@
   "driver": "build_support/layout/ltcg/resource_surface_loading_context.cpp",
   "headers": [
     "include/th10/render/resource_surface_loading.hpp",
-    "build_support/layout/ltcg/resource_surface_loading_log.hpp",
-    "include/th10/platform/archive_file.hpp"
+    "include/th10/render/surface_loading_log.hpp",
+    "include/th10/platform/archive_file.hpp",
+    "include/th10/platform/text_log.hpp"
   ],
   "image_base": "0x00400000",
   "description": "Native surface and memory resource loaders with real dependency bodies.",
@@ -55,7 +56,7 @@
     },
     {
       "name": "TextLog",
-      "symbol": "?AppendLine@TextLog5@@QAAPADPADZZ",
+      "symbol": "?AppendLine@TextLog@@QAAPADPADZZ",
       "section": ".text$09log",
       "address": "0x0044B8E0",
       "size": 201
@@ -149,17 +150,17 @@
       "kind": "data"
     },
     {
-      "symbol": "_asm_strrchr_00452930",
+      "symbol": "_crt_strrchr",
       "address": "0x00452930",
       "kind": "relative_code"
     },
     {
-      "symbol": "_asm_stricmp_0046054e",
+      "symbol": "_crt_stricmp",
       "address": "0x0046054e",
       "kind": "relative_code"
     },
     {
-      "symbol": "_asm_malloc_00452706",
+      "symbol": "_crt_malloc",
       "address": "0x00452706",
       "kind": "relative_code"
     },
@@ -254,7 +255,7 @@
       "kind": "metadata"
     },
     {
-      "symbol": "_asm_vsprintf_004524a6",
+      "symbol": "_crt_vsprintf",
       "address": "0x004524A6",
       "kind": "relative_code"
     },

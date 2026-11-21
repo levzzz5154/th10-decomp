@@ -1,4 +1,4 @@
-#include "timer.hpp"
+#include "th10/game/player_collision/timer.hpp"
 
 extern float g_frame_timer_normal_lower;  // 0x00470B68
 extern float g_frame_timer_normal_upper;  // 0x00470B64

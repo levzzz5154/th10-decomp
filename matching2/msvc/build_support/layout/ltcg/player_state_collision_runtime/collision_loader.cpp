@@ -1,5 +1,5 @@
 #include <string.h>
-#include "collision.hpp"
+#include "th10/game/player_collision/collision.hpp"
 
 struct AnimationManager10 {
     unsigned char reserved_00[0x4C];
@@ -8,7 +8,7 @@ struct AnimationManager10 {
 
 extern "C" void* g_sprt_ctrl;
 extern "C" float g_game_speed;
-extern "C" void __stdcall asm_FUN_0043ee30_0043ee30(Entity* object);
+extern "C" void __stdcall AnmVm_TickScript(Entity* object);
 #pragma code_seg(".text$f0043e710F")
 void* AnimationResourceFile::LoadScript(Entity* object, int index) {
     void* script = this->scripts[index];
@@ -37,7 +37,7 @@ void* AnimationResourceFile::LoadScript(Entity* object, int index) {
     object->previous_frame = -1;
     uint32_t* flag_word = &object->AnimationFlags();
     *flag_word &= ~1u;
-    asm_FUN_0043ee30_0043ee30(object);
+    AnmVm_TickScript(object);
     ++static_cast<AnimationManager10*>(g_sprt_ctrl)->script_tick_counter;
     return g_sprt_ctrl;
 }

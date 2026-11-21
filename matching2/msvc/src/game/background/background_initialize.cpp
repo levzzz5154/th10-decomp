@@ -6,10 +6,7 @@ extern "C" void _ReadWriteBarrier();
 #include "th10/core/func_ctrl.hpp"
 #include "th10/render/camera_batch.hpp"
 #include "th10/game/background.hpp"
-struct TextLog5 {
-    char text[0x2000]; char* cursor; unsigned char dirty;
-    __declspec(noinline) char* AppendLine(char* format, ...);
-};
+#include "th10/platform/text_log.hpp"
 extern "C" {
 extern unsigned int g_globals_stage; extern BackGroundCameraSnapshot g_back_camera;
 extern FuncCtrl* g_func_ctrl; extern float g_game_speed;
@@ -20,7 +17,7 @@ extern "C" __declspec(noinline) int __stdcall BackGround_Initialize(BackGround* 
     if (state_id==0) g_background=state; else g_background_prev=state;
     state->stage_flags=g_globals_stage;
     if (state->Load(name)!=0) {
-        ((TextLog5*)0x474f70)->AppendLine((char*)0x46cc70);
+        ((TextLog*)0x474f70)->AppendLine((char*)0x46cc70);
         return -1;
     }
     state->camera=g_back_camera;

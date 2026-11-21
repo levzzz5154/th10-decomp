@@ -1,8 +1,8 @@
 // Complete registrar and allocator bodies with the genuine one-pointer
 // entity initializer visible in this graph.
-#include "animation_public_callers.hpp"
+#include "th10/game/player_collision/animation_public_callers.hpp"
 #include <string.h>
-#include "registration.hpp"
+#include "th10/game/player_collision/registration.hpp"
 #pragma code_seg(".text$f004489d0F")
 AnimationRef AnimationLists::RegisterPrimaryBack(Entity* object) {
     AnimationListNode* node = reinterpret_cast<AnimationListNode*>(

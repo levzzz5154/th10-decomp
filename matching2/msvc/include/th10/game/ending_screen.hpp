@@ -8,7 +8,7 @@ extern "C" unsigned int g_input_keys_held;
 __declspec(noinline) void __stdcall RecoveryMusicInstallSlot(
     Title* room, int index);
 // 0x00409E50: stop the animation tree a handle refers to.
-__declspec(noinline) void __stdcall RecoveryMusicStopHandle(RecoveryHandle* handle);
+__declspec(noinline) void __stdcall RecoveryMusicStopHandle(AnmScriptHandle* handle);
 
 // 0x0042D300: ending screen phase handler; the room arrives in EBX.
 __declspec(noinline) int __stdcall EndingScreen_Update2(

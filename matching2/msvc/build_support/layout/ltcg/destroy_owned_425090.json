@@ -38,7 +38,7 @@
   "constants": [],
   "absolute_symbols": [
     {
-      "symbol": "_asm_FUN_00424ed0_00424ed0@4",
+      "symbol": "_Player_DestroyState@4",
       "address": "0x00424ED0",
       "kind": "relative_code"
     },

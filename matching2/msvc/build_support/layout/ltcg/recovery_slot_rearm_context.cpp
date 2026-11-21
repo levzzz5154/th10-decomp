@@ -2,10 +2,10 @@
 #include "../../../src/game/bullet/bullet_manager_on_update.cpp"
 
 #pragma code_seg(".text$03context")
-int __stdcall RecoverySlotRearmCompilerContext(RecoverySlotTable* tables, int count) {
-    RecoverySlotTable* table = tables;
-    typedef int (RecoverySlotTable::*CanRearmMethod)();
-    CanRearmMethod can_rearm = &RecoverySlotTable::OnUpdate;
+int __stdcall RecoverySlotRearmCompilerContext(BulletSlotTable* tables, int count) {
+    BulletSlotTable* table = tables;
+    typedef int (BulletSlotTable::*CanRearmMethod)();
+    CanRearmMethod can_rearm = &BulletSlotTable::OnUpdate;
     int total = 0;
     do {
         total += (table->*can_rearm)();

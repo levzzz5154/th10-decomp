@@ -130,11 +130,11 @@ extern "C" unsigned char g_sound_flags;                // renderer capability fl
 extern "C" int g_texture_formats_a[];                        // D3DFORMAT per ANM format index
 extern "C" int g_texture_formats_b[];                        // bytes per pixel per ANM format index
 
-extern "C" unsigned int __stdcall asm_D3DXLoadSurfaceFromFileInMemory_004521d0(
+extern "C" unsigned int __stdcall Th10_D3DXLoadSurfaceFromFileInMemory(
     void* destination, const void* destination_palette, const void* destination_rect,
     const void* source, unsigned int source_size, const void* source_rect,
     unsigned int filter, unsigned int color_key, void* source_info);
-extern "C" unsigned int __stdcall asm_D3DXLoadSurfaceFromMemory_004521a6(
+extern "C" unsigned int __stdcall Th10_D3DXLoadSurfaceFromMemory(
     void* destination, const void* destination_palette, const void* destination_rect,
     const void* source, unsigned int format, unsigned int pitch,
     const void* source_palette, const void* source_rect, unsigned int filter,
@@ -144,11 +144,11 @@ extern "C" void* g_d3d_device;                        // Direct3D device
 extern "C" char str_string_format[];                       // "%s"
 extern "C" int __cdecl sprintf(char* buffer, const char* format, ...);
 extern "C" void __cdecl crt_free(void*);
-extern "C" unsigned int __stdcall asm_D3DXCreateTextureFromFileInMemoryEx_004521ca(
+extern "C" unsigned int __stdcall Th10_D3DXCreateTextureFromFileInMemoryEx(
     void* device, const void* source, unsigned int source_size, unsigned int width,
     unsigned int height, unsigned int mip_levels, unsigned int usage, unsigned int format,
     unsigned int pool, unsigned int filter, unsigned int mip_filter, unsigned int color_key,
     void* source_info, void* palette, AnmD3DTexture** texture);
-extern "C" int __stdcall asm_D3DXCreateTexture_004521a0(
+extern "C" int __stdcall Th10_D3DXCreateTexture(
     void* device, unsigned int width, unsigned int height, unsigned int mip_levels,
     unsigned int usage, unsigned int format, unsigned int pool, void** texture);

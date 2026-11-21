@@ -3,10 +3,10 @@
 
 #pragma code_seg(".text$03context")
 int __stdcall RecoveryTimerResetCompilerContext(
-    RecoveryTimer3** timers, int count) {
-    RecoveryTimer3** cursor = timers;
+    EnemyTimerView** timers, int count) {
+    EnemyTimerView** cursor = timers;
     while (count--) {
-        RecoveryTimer3* timer = *cursor++;
+        EnemyTimerView* timer = *cursor++;
         timer->Reset();
         timer->Reset();
     }

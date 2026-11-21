@@ -35,9 +35,9 @@
     "build_support/layout/ltcg/item_collection_runtime/types/animation_public.hpp",
     "include/th10/game/item_record.hpp",
     "include/th10/game/item_velocity.hpp",
-    "build_support/layout/ltcg/item_collection_runtime/types/item_spawn.hpp",
+    "include/th10/game/item_collection/item_spawn.hpp",
     "build_support/layout/ltcg/item_collection_runtime/types/line_sweeps.hpp",
-    "build_support/layout/ltcg/item_collection_runtime/types/update.hpp",
+    "include/th10/game/item_collection/update.hpp",
     "include/th10/game/player.hpp",
     "include/th10/game/bomb.hpp"
   ],
@@ -96,7 +96,7 @@
     },
     {
       "name": "function_004489d0",
-      "symbol": "_asm_AnimationManager_RegisterPrimaryBack_004489d0",
+      "symbol": "_AnimationManager_RegisterPrimaryBack",
       "section": ".text$f004489d0F",
       "address": "0x4489d0",
       "size": 114

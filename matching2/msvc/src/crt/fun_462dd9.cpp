@@ -2,10 +2,10 @@ struct RuntimeException27 {
     RuntimeException27* Destroy(unsigned char flags);
 };
 extern "C" void __fastcall asm_FUN_00462d3c_00462d3c(RuntimeException27*);
-extern "C" void __cdecl asm_free_004524a1(void*);
+extern "C" void __cdecl crt_free_startup(void*);
 RuntimeException27* RuntimeException27::Destroy(unsigned char flags) {
     asm_FUN_00462d3c_00462d3c(this);
     if (flags & 1)
-        asm_free_004524a1(this);
+        crt_free_startup(this);
     return this;
 }

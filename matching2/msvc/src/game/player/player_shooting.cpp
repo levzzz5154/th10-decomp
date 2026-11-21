@@ -5,9 +5,9 @@
 // Two source shapes are load-bearing for the retail bytes: the fire button is
 // a bitfield (that keeps the constant 1 in EBX), and the frame-changed test is
 // an inline helper (so the fired frame is read again from the timer).
-#include "../../../build_support/layout/ltcg/player_state_collision_runtime/runtime.hpp"
-#include "../../../build_support/layout/ltcg/player_state_collision_runtime/player_state.hpp"
-#include "../../../build_support/layout/ltcg/player_state_collision_runtime/movement_input.hpp"
+#include "th10/game/player_collision/runtime.hpp"
+#include "th10/game/player_collision/player_state.hpp"
+#include "th10/game/player_collision/movement_input.hpp"
 extern "C" {
 extern unsigned short g_globals_power;
 __declspec(noinline) int __stdcall Player_FireShot(

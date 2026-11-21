@@ -11,9 +11,9 @@ extern "C" __declspec(noinline) char* __stdcall
 ReadLine(char* cursor, char* out, int* remaining, unsigned int capacity) {
     memset(out, 0, capacity);
     while (!*out) {
-        char* end = asm_FUN_00452730_00452730(cursor, '\n');
+        char* end = crt_strchr(cursor, '\n');
         if (!end)
-            end = asm_FUN_00452730_00452730(cursor, '\r');
+            end = crt_strchr(cursor, '\r');
         if (!end) {
             memcpy(out, cursor, *remaining);
             *remaining = 0;
@@ -29,7 +29,7 @@ ReadLine(char* cursor, char* out, int* remaining, unsigned int capacity) {
             ++cursor;
             --*remaining;
         }
-        char* hash = asm_FUN_00452730_00452730(out, '#');
+        char* hash = crt_strchr(out, '#');
         if (hash) {
             memset(hash, 0, capacity - (unsigned int)(hash - out));
             *hash = 0;
@@ -42,7 +42,7 @@ ReadLine(char* cursor, char* out, int* remaining, unsigned int capacity) {
 extern "C" void __stdcall
 SplitResourcePath(char* key, char* value, char* line) {
     strcpy(key, line);
-    char* colon = asm_FUN_00452730_00452730(key, ':');
+    char* colon = crt_strchr(key, ':');
     if (!colon) {
         TrimWhitespace(key);
         return;

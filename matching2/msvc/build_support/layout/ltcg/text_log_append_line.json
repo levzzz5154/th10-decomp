@@ -3,13 +3,15 @@
   "name": "text_log_append_line_0044b8e0",
   "source": "src/core/zunlib/text_log_append_line.cpp",
   "driver": "build_support/layout/ltcg/text_log_append_line_0044b8e0_context.cpp",
-  "headers": [],
+  "headers": [
+    "include/th10/platform/text_log.hpp"
+  ],
   "image_base": "0x00400000",
   "description": "Variadic TextLog line append compiled with native LTCG so the internal register convention (log object in EDI, format and varargs on the stack, format returned in EAX) matches retail.",
   "functions": [
     {
       "name": "TextLog_AppendLine",
-      "symbol": "?AppendLine@TextLog5@@QAAPADPADZZ",
+      "symbol": "?AppendLine@TextLog@@QAAPADPADZZ",
       "section": ".text$01textlogline",
       "address": "0x0044B8E0",
       "size": 201,
@@ -17,7 +19,7 @@
     }
   ],
   "context": {
-    "symbol": "?TextLogLineCompilerContext@@YGHPAPAUTextLog5@@HHPBD@Z",
+    "symbol": "?TextLogLineCompilerContext@@YGHPAPAUTextLog@@HHPBD@Z",
     "section": ".text$03context",
     "address": "0x0044B9B0",
     "size": 58,
@@ -58,7 +60,7 @@
       "kind": "data"
     },
     {
-      "symbol": "_asm_vsprintf_004524a6",
+      "symbol": "_crt_vsprintf",
       "address": "0x004524A6",
       "kind": "relative_code"
     },

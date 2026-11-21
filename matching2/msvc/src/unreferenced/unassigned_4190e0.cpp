@@ -3,12 +3,12 @@
 // synthetic caller walks an array of the objects.
 
 struct OwnedObject3;
-extern "C" void __stdcall asm_FUN_00418ee0_00418ee0(void* object);
+extern "C" void __stdcall ResourceManager_CleanupState(void* object);
 extern "C" void __cdecl crt_free_startup(void* memory);
 __declspec(noinline) void* DestroyOwned_DeletingDestructor2(OwnedObject3* object, unsigned int flags);
 #pragma code_seg(".text$01delete004190e0")
 void* DestroyOwned_DeletingDestructor2(OwnedObject3* object, unsigned int flags) {
-    asm_FUN_00418ee0_00418ee0(object);
+    ResourceManager_CleanupState(object);
     if (flags & 1) crt_free_startup(object);
     return object;
 }

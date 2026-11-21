@@ -13,7 +13,7 @@
     "build_support/layout/ltcg/laser_line/loader.cpp"
   ],
   "headers": [
-    "build_support/layout/ltcg/laser_line/types.hpp",
+    "include/th10/game/laser_line_types.hpp",
     "include/th10/game/entity.hpp",
     "include/th10/types.hpp",
     "include/th10/math/timer.hpp",
@@ -75,8 +75,8 @@
       "size": 111
     },
     {
-      "name": "_asm_AnimationManager_RegisterPrimaryBack_004489d0",
-      "symbol": "_asm_AnimationManager_RegisterPrimaryBack_004489d0",
+      "name": "_AnimationManager_RegisterPrimaryBack",
+      "symbol": "_AnimationManager_RegisterPrimaryBack",
       "section": ".text$60register",
       "address": "0x4489d0",
       "size": 114
@@ -255,7 +255,7 @@
       "kind": "relative_code"
     },
     {
-      "symbol": "_asm_FUN_0043ee30_0043ee30@4",
+      "symbol": "_AnmVm_TickScript@4",
       "address": "0x43ee30",
       "kind": "relative_code"
     },

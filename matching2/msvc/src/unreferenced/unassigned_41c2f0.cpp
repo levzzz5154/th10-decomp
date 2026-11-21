@@ -3,13 +3,13 @@
 // synthetic caller walks an array of the objects.
 
 struct OwnedObject6;
-extern "C" void __stdcall asm_LaserManager_Destroy_0041c1c0(
+extern "C" void __stdcall LaserManager_DestroyState(
     void* object);
 extern "C" void __cdecl crt_free_startup(void* memory);
 __declspec(noinline) void* ScoreExtendedObject_Destroy_DeletingDestructor(OwnedObject6* object, unsigned int flags);
 #pragma code_seg(".text$01delete0041c2f0")
 void* ScoreExtendedObject_Destroy_DeletingDestructor(OwnedObject6* object, unsigned int flags) {
-    asm_LaserManager_Destroy_0041c1c0(object);
+    LaserManager_DestroyState(object);
     if (flags & 1) crt_free_startup(object);
     return object;
 }

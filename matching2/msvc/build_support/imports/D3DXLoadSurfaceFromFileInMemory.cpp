@@ -7,7 +7,7 @@ typedef long (__stdcall *D3DXLoadSurfaceFromFileInMemoryImport_004521d0)(
 extern "C" D3DXLoadSurfaceFromFileInMemoryImport_004521d0 imp_D3DXLoadSurfaceFromFileInMemory;
 
 // 0x004521D0..0x004521D5: imported D3DXLoadSurfaceFromFileInMemory tail thunk.
-extern "C" long __stdcall asm_D3DXLoadSurfaceFromFileInMemory_004521d0(
+extern "C" long __stdcall Th10_D3DXLoadSurfaceFromFileInMemory(
     void* destination_surface, const void* destination_palette,
     const void* destination_rect, const void* source_file,
     unsigned long source_file_size, const void* source_rect,

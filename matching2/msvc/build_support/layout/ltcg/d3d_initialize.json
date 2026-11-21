@@ -25,14 +25,14 @@
   "anchors": [
     {
       "name": "TextLog::Append",
-      "symbol": "?Append@TextLog4@@QAAPADPADZZ",
+      "symbol": "?Append@TextLog@@QAAPADPADZZ",
       "section": ".text$0044b810_fn",
       "address": "0x0044B810",
       "size": 201
     },
     {
       "name": "TextLog::AppendLine",
-      "symbol": "?AppendLine@TextLog5@@QAAPADPADZZ",
+      "symbol": "?AppendLine@TextLog@@QAAPADPADZZ",
       "section": ".text$0044b8e0_fn",
       "address": "0x0044B8E0",
       "size": 201
@@ -129,17 +129,17 @@
       "kind": "data"
     },
     {
-      "symbol": "_asm_D3DXMatrixLookAtLH_00452194@16",
+      "symbol": "_Th10_D3DXMatrixLookAtLH@16",
       "address": "0x00452194",
       "kind": "relative_code"
     },
     {
-      "symbol": "_asm_D3DXMatrixPerspectiveFovLH_0045219a@20",
+      "symbol": "_Th10_D3DXMatrixPerspectiveFovLH@20",
       "address": "0x0045219A",
       "kind": "relative_code"
     },
     {
-      "symbol": "_asm_vsprintf_004524a6",
+      "symbol": "_crt_vsprintf",
       "address": "0x004524A6",
       "kind": "relative_code"
     },

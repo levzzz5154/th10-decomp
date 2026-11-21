@@ -28,10 +28,10 @@ struct AnimationObject16 {
 };
 
 extern "C" void* g_sprt_ctrl;
-extern "C" void* __cdecl asm_FUN_00449950_00449950(void* manager);
-extern "C" void __cdecl asm_AnimationObject_LoadScript_0043e710(
+extern "C" void* __cdecl AnimationPool_AllocateEntry(void* manager);
+extern "C" void __cdecl AnmVm_LoadScript(
     void* resource, void* object, int index);
-extern "C" void** __cdecl asm_AnimationManager_RegisterSecondaryFront_00448b40(
+extern "C" void** __cdecl AnimationManager_RegisterSecondaryFront(
     void* manager, void** out, void* entity);
 
 enum { kAnimationPositioned = 0x40000000 };
@@ -40,15 +40,15 @@ __declspec(noinline)
 void** __stdcall AnimationManager_CreateScreenPositionedSecondaryFront(
     void* resource, void** out, int index, const AnimationPosition8* position) {
     AnimationObject16* object =
-        (AnimationObject16*)asm_FUN_00449950_00449950(g_sprt_ctrl);
+        (AnimationObject16*)AnimationPool_AllocateEntry(g_sprt_ctrl);
     unsigned int flags = *(volatile unsigned int*)&object->flags_035c;
     *(volatile int*)&object->render_bucket_020 = 0;
     *(volatile unsigned int*)&object->flags_035c = flags | kAnimationPositioned;
     object->position_340.x = position->x + 224.0f;
     object->position_340.y = position->y + 16.0f;
     object->position_340.z = position->z;
-    asm_AnimationObject_LoadScript_0043e710(resource, object, index);
-    asm_AnimationManager_RegisterSecondaryFront_00448b40(g_sprt_ctrl, out, object);
+    AnmVm_LoadScript(resource, object, index);
+    AnimationManager_RegisterSecondaryFront(g_sprt_ctrl, out, object);
     return out;
 }
 #pragma code_seg()

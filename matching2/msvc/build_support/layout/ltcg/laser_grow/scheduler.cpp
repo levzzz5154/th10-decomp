@@ -1,4 +1,4 @@
-#include "types.hpp"
+#include "th10/game/laser_grow_types.hpp"
 #pragma code_seg(".text$00scheduler")
 void LaserScheduler::Set(int frame) {
     if (!(flags&1u)) {

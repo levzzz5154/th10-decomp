@@ -1,6 +1,6 @@
 #ifndef TH10_APP_MAIN_TASK_MODE_HPP
 #define TH10_APP_MAIN_TASK_MODE_HPP
-#include "th10/platform/sound_fade_manager_wave18.hpp"
+#include "th10/platform/sound_fade_manager.hpp"
 #include "th10/game/stage_route.hpp"
 
 // Objects owned by one mode of the main task; each is created when its mode
@@ -15,7 +15,7 @@ extern "C" ScoreOwnedObject* g_ending;
 extern "C" int g_main_mode_request;
 
 // Gameplay keeps the mode argument (0 = normal play, 1 = replay playback) at +0x5C.
-struct GameUiArgumentWave18 {
+struct GameModeArgument {
     unsigned char reserved[0x5C];
     unsigned int argument;
 };
@@ -43,11 +43,11 @@ enum MainTaskUpdateResult {
 extern "C" void (__stdcall *imp_EnterCriticalSection)(void*);   // EnterCriticalSection
 extern "C" void (__stdcall *imp_LeaveCriticalSection)(void*);   // LeaveCriticalSection
 
-extern "C" void* __cdecl ModeCreateStateWave18();
-extern "C" void __stdcall ModeReleaseGlobalsWave18();
-extern "C" void* __cdecl ModeCreateProgressWave18();
-extern "C" void* __stdcall ModeCreateUiWave18(unsigned int);
-extern "C" void* __stdcall ModeCreateSmallWave18();
+extern "C" void* __cdecl Loading_CreateMode();
+extern "C" void __stdcall Supervisor_ReleaseGlobals();
+extern "C" void* __cdecl Title_CreateMode();
+extern "C" void* __stdcall Game_CreateMode(unsigned int);
+extern "C" void* __stdcall Ending_CreateMode();
 __declspec(noinline) void Game_Delete(Game*);
 __declspec(noinline) void Title_Delete(Title*);
 __declspec(noinline) void ScoreOwnedObject_Destroy(ScoreOwnedObject*);

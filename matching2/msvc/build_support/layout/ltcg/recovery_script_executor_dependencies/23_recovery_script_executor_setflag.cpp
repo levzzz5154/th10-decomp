@@ -13,17 +13,17 @@
 //    declared parameter order sets the order callers load the arguments, and
 //    retail's caller loads the name first.
 #include <string.h>
-#include "../../../include/contexts/game/marktext_dispatcher_context/recovery_script_executor.hpp"
-#include "../../../include/contexts/game/marktext_dispatcher_context/archive_callers.hpp"
+#include "th10/game/ending_script/recovery_script_executor.hpp"
+#include "th10/game/ending_script/archive_callers.hpp"
 
 extern "C" void* g_sprt_ctrl;
 extern "C" char g_recovery_script_path[];
 extern "C" void __cdecl crt_free(void*);
 
 #pragma code_seg(".text$004492a0_fn")
-__declspec(noinline) void* __fastcall RecoverySetFlag(RecoveryLookupContext* context, int id) {
-    RecoveryLookupNode* node = static_cast<RecoveryLookupNode*>(
-        reinterpret_cast<RecoveryLookup*>(g_sprt_ctrl)->Find(
+__declspec(noinline) void* __fastcall RecoverySetFlag(AnmLookupContext* context, int id) {
+    AnmLookupNode* node = static_cast<AnmLookupNode*>(
+        reinterpret_cast<AnmLookup*>(g_sprt_ctrl)->Find(
             context,
             *reinterpret_cast<const AnimationScriptId*>(&id)));
     if (node) {

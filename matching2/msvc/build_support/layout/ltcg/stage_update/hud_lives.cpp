@@ -10,7 +10,7 @@
 #define g_stage_flags stage_hud_data_00491fc4
 #define g_main_state stage_hud_data_00491fb8
 #define g_sound_manager stage_hud_data_00492590
-#include "hud_view.hpp"
+#include "th10/game/stage_update/hud_view.hpp"
 #pragma code_seg(".text$004188a0_fn")
 void HudGameState::AddLives(int amount) {
     lives += amount;

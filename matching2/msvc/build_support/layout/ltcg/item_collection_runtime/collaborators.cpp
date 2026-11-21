@@ -1,5 +1,5 @@
 // Complete real animation lookup/removal, life-icon and sound-queue callees.
-#include "types/update.hpp"
+#include "th10/game/item_collection/update.hpp"
 #pragma code_seg(".text$f004491c0F")
 ItemAnimationNode* ItemAnimationLists::Find(ItemAnimationHandle handle) {
     if (!handle.value)

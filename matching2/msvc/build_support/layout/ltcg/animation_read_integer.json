@@ -4,7 +4,7 @@
   "source": "src/core/sprtanim/animation_object_variables_read_integer_variable.cpp",
   "driver": "build_support/layout/ltcg/animation_read_integer_0043ec70_context.cpp",
   "headers": [
-    "build_support/include/asm_symbols.hpp",
+    "include/th10/runtime/asm_symbols.hpp",
     "include/th10/source_views/animation_manager_12b25f_0.hpp",
     "include/th10/source_views/animation_manager_12b25f_1.hpp"
   ],
@@ -63,7 +63,7 @@
       "kind": "relative_code"
     },
     {
-      "symbol": "_asm_AnimationManager_Find_004491c0",
+      "symbol": "_AnimationManager_FindByScript",
       "address": "0x004491C0",
       "kind": "relative_code"
     },

@@ -15,7 +15,7 @@ extern struct AnimationManager* g_sprt_ctrl;
 
 struct Sprite2;
 // 0x004451C0: the draw dispatcher (sprite in EAX, animation manager in ECX).
-extern "C" __declspec(noinline) int __cdecl asm_FUN_004451c0_004451c0(
+extern "C" __declspec(noinline) int __cdecl AnmVm_DrawDispatch(
         Sprite2* sprite, AnimationManager* manager);
 
 struct Enemy2;
@@ -86,7 +86,7 @@ __declspec(noinline) int SlotOwner::AdvanceSlot(int index) {
             entity->sprite_angle = Angle_NormalizeSum2(entity->heading, 1.5707964f);
             entity->sprite_flags |= 4;
         }
-        asm_FUN_004451c0_004451c0((Sprite2*)((char*)entity + 8), g_sprt_ctrl);
+        AnmVm_DrawDispatch((Sprite2*)((char*)entity + 8), g_sprt_ctrl);
         entity = entity->next;
     }
     return 1;

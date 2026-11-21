@@ -72,7 +72,7 @@ EndingText::EndingText(void* script_data) {
         bank->InitializeObject(glyph, i + 0x42);
         manager = (AnimationLookupContext*)g_sprt_ctrl;
         int id;
-        asm_AnimationManager_RegisterPrimaryBack_004489d0(manager, (void**)&id, glyph);
+        AnimationManager_RegisterPrimaryBack(manager, (void**)&id, glyph);
         handles[i] = id;
         ResolveEndingGlyph(manager, handles[i])->width = 16;
         ResolveEndingGlyph(manager, handles[i])->height = 16;

@@ -8,9 +8,9 @@
     "include/th10/game/loading_view.hpp",
     "include/th10/core/func_ctrl.hpp",
     "include/th10/platform/worker.hpp",
-    "build_support/layout/ltcg/sound_interfaces_dependencies/sound_wave_types.hpp",
-    "build_support/layout/ltcg/title_assets_dependencies/workers.hpp",
-    "build_support/layout/ltcg/native_archive_read/archive.hpp",
+    "include/th10/platform/sound_wave_types.hpp",
+    "include/th10/game/title_asset_workers.hpp",
+    "include/th10/archive/native_read/archive.hpp",
     "include/th10/archive/dat_archive_types.hpp",
     "include/th10/platform/file.hpp",
     "include/th10/platform/windows_types.hpp",
@@ -85,7 +85,7 @@
     },
     {
       "name": "TextLog",
-      "symbol": "?Append@TextLog4@@QAAPADPADZZ",
+      "symbol": "?Append@TextLog@@QAAPADPADZZ",
       "section": ".text$85textlog",
       "address": "0x44b810",
       "size": 201
@@ -214,22 +214,22 @@
       "kind": "metadata"
     },
     {
-      "symbol": "_asm_malloc_00452706",
+      "symbol": "_crt_malloc",
       "address": "0x452706",
       "kind": "relative_code"
     },
     {
-      "symbol": "_asm_free_00452422",
+      "symbol": "_crt_free",
       "address": "0x452422",
       "kind": "relative_code"
     },
     {
-      "symbol": "_asm_stricmp_0046054e",
+      "symbol": "_crt_stricmp",
       "address": "0x46054e",
       "kind": "relative_code"
     },
     {
-      "symbol": "_asm_strrchr_00452930",
+      "symbol": "_crt_strrchr",
       "address": "0x452930",
       "kind": "relative_code"
     },
@@ -292,11 +292,6 @@
       "symbol": "_imp_GetModuleFileNameA",
       "address": "0x4660dc",
       "kind": "data"
-    },
-    {
-      "symbol": "_crt_free",
-      "address": "0x452422",
-      "kind": "relative_code"
     },
     {
       "symbol": "_g_executable_checksum",
@@ -369,7 +364,7 @@
       "kind": "relative_code"
     },
     {
-      "symbol": "?asm_File_ProbeExists_0044b4d0@@YGHPBD@Z",
+      "symbol": "?File_ProbeExistsPath@@YGHPBD@Z",
       "address": "0x44b4d0",
       "kind": "relative_code"
     },
@@ -414,7 +409,7 @@
       "kind": "relative_code"
     },
     {
-      "symbol": "_asm_vsprintf_004524a6",
+      "symbol": "_crt_vsprintf",
       "address": "0x4524a6",
       "kind": "relative_code"
     },

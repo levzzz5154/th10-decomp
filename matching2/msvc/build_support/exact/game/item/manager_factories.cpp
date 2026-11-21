@@ -1,4 +1,4 @@
-#include "../../../include/asm_symbols.hpp"
+#include "th10/runtime/asm_symbols.hpp"
 
 // Exact-link fallback for ItemManager_UpdateItems (0x0041AFD0, 2,320 bytes).
 // The normal build uses src/game/item/item_update.cpp. Its remaining mismatch
@@ -709,7 +709,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_0041afd0_0041afd0() {
     L_0041b4f9:
         fmulp st(1),st
     L_0041b4fb:
-        call asm_FUN_00463b2c_00463b2c
+        call crt_ftol2
     L_0041b500:
         mov ecx,eax
     L_0041b502:
@@ -1119,7 +1119,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_0041afd0_0041afd0() {
     L_0041b801:
         push edx
     L_0041b802:
-        call asm_FUN_0043ee30_0043ee30
+        call AnmVm_TickScript
     L_0041b807:
         mov edx,dword ptr [ebp+1Ch]
     L_0041b80a:
@@ -1165,7 +1165,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_0041afd0_0041afd0() {
     L_0041b845:
         fst dword ptr [ebp+20h]
     L_0041b848:
-        call asm_FUN_00463b2c_00463b2c
+        call crt_ftol2
     L_0041b84d:
         mov dword ptr [ebp+1Ch],eax
     L_0041b850:

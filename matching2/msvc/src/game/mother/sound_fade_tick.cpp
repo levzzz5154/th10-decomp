@@ -1,6 +1,6 @@
-#include "th10/platform/sound_fade_manager_wave18.hpp"
+#include "th10/platform/sound_fade_manager.hpp"
 #pragma code_seg(".text$00e_fade")
-void SoundFadeManagerWave18::TickFades() {
+void SoundFadeManager::TickFades() {
     if (stream) {
         stream->FadeOutAndStop();
         stream->FadeDownHalf();

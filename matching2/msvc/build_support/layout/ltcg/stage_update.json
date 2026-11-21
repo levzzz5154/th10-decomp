@@ -67,11 +67,11 @@
     "include/th10/render/animation_resource_removal.hpp",
     "include/th10/render/resource_registrar.hpp",
     "include/th10/types.hpp",
-    "build_support/layout/ltcg/stage_update/enemy_spawn.hpp",
-    "build_support/layout/ltcg/stage_update/front_types.hpp",
-    "build_support/layout/ltcg/stage_update/front_view.hpp",
-    "build_support/layout/ltcg/stage_update/hud_view.hpp",
-    "build_support/layout/ltcg/stage_update/types.hpp",
+    "include/th10/game/stage_update/enemy_spawn.hpp",
+    "include/th10/game/stage_update/front_types.hpp",
+    "include/th10/game/stage_update/front_view.hpp",
+    "include/th10/game/stage_update/hud_view.hpp",
+    "include/th10/game/stage_update/types.hpp",
     "include/th10/game/player.hpp"
   ],
   "description": "Complete stage update and complete native dependency graph, with shared animation bodies, original task null checks, both reset paths, replay frame count, fade disposal, and public stack-call imports of the existing player-refresh and stage destructor. Only Game_Update is selected.",
@@ -731,7 +731,7 @@
       "kind": "relative_code"
     },
     {
-      "symbol": "_asm_FUN_0043ee30_0043ee30@4",
+      "symbol": "_AnmVm_TickScript@4",
       "address": "0x43ee30",
       "kind": "relative_code"
     },
@@ -1011,7 +1011,7 @@
       "kind": "relative_code"
     },
     {
-      "symbol": "?Validate@RecoveryLookup@@QAAPAXPAURecoveryHandle@@@Z",
+      "symbol": "?Validate@AnmLookup@@QAAPAXPAUAnmScriptHandle@@@Z",
       "address": "0x449450",
       "kind": "relative_code"
     },

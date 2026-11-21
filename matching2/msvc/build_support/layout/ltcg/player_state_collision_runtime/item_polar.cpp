@@ -1,4 +1,4 @@
-#include "item_spawn.hpp"
+#include "th10/game/player_collision/item_spawn.hpp"
 #include <math.h>
 #pragma intrinsic(cos,sin)
 #pragma code_seg(".text$f0041beb0F")

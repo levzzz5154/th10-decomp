@@ -4,7 +4,7 @@
   "source": "src/unreferenced/fun_41c880.cpp",
   "driver": "build_support/layout/ltcg/h3001_0041c880_context.cpp",
   "headers": [
-    "build_support/include/asm_symbols.hpp"
+    "include/th10/runtime/asm_symbols.hpp"
   ],
   "image_base": "0x00400000",
   "description": "Native-LTCG ABI experiment for the private EAX receiver and stack arguments at 0x0041C880.",

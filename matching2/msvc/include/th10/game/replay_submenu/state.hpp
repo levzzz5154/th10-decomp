@@ -141,7 +141,7 @@ __declspec(noinline) unsigned int __fastcall UpdateBoundedCounter(
 
 // The private-ABI replay serializer at 0x00429B60 (asm region): the manager
 // arrives in ECX, the target path in EDX and the name on the stack.
-extern "C" void __fastcall asm_FUN_00429b60_00429b60(
+extern "C" void __fastcall ReplaySaveManager_SaveFile(
     void* manager, void* path, const char* name);
 
 // The deleting-destructor call at 0x004294A0 pops its one stack argument
@@ -150,9 +150,9 @@ extern "C" void __fastcall asm_FUN_00429b60_00429b60(
 extern "C" void __stdcall ReplayManager_Destroy2(void* manager);
 
 // CRT shims (maintained regions).
-extern "C" int __cdecl asm_sprintf_00452ae8(char* destination, const char* format, ...);
-extern "C" unsigned int __cdecl asm_FID_conflict___time32_00452b71(unsigned int* output);
-extern "C" void __cdecl asm_free_004524a1(void* memory);
+extern "C" int __cdecl crt_sprintf(char* destination, const char* format, ...);
+extern "C" unsigned int __cdecl crt_time32(unsigned int* output);
+extern "C" void __cdecl crt_free_startup(void* memory);
 
 // ---------------------------------------------------------------------------
 // Globals (all bound by the maintained symbol table).

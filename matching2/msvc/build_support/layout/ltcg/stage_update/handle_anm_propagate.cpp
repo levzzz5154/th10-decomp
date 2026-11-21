@@ -1,4 +1,4 @@
-#include "hud_view.hpp"
+#include "th10/game/stage_update/hud_view.hpp"
 __declspec(noinline) void* __fastcall ResultAnimation_Find(ResultAnimationLookup*,ResultAnimationId);
 #define g_sprt_ctrl stage_handle_g_sprt_ctrl
 #define g_front stage_handle_g_front

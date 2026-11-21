@@ -2,7 +2,7 @@
 #include "th10/source_views/recovery_leaves_f39a06_1.hpp"
 #include "th10/source_views/recovery_leaves_f39a06_2.hpp"
 void* __fastcall Enemy_DeletingDestructor(void* enemy, unsigned int unused, unsigned int flags) {
-    ((EnemyDestroyFn)asm_FUN_0040dae0_0040dae0)(enemy);
+    ((EnemyDestroyFn)Enemy_ReleaseState)(enemy);
     if (flags & 1)
         operator delete(enemy);
     return enemy;

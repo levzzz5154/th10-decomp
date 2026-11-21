@@ -124,7 +124,7 @@ typedef char StageInstanceSize[(sizeof(StageInstance) == 0x10) ? 1 : -1];
 typedef char BackGroundCounters[(offsetof(BackGround, drawn_quads) == 0x2A14) ? 1 : -1];
 typedef char StageEntitySize[(sizeof(StageEntity) == 0x3AC) ? 1 : -1];
 
-extern "C" __declspec(noinline) int __cdecl asm_FUN_004451c0_004451c0(
+extern "C" __declspec(noinline) int __cdecl AnmVm_DrawDispatch(
     SprtCtrlBatchView*, RenderEntity*);
 extern "C" CameraMatrix* __stdcall D3DXMatrixTranslation(CameraMatrix*, float, float, float);
 extern "C" RenderVec3* __stdcall D3DXVec3ProjectArray(
@@ -132,7 +132,7 @@ extern "C" RenderVec3* __stdcall D3DXVec3ProjectArray(
     const unsigned int* viewport, const CameraMatrix* projection, const CameraMatrix* view,
     const CameraMatrix* world, unsigned int count);
 
-extern "C" __declspec(noinline) int __cdecl asm_AnimationManager_RenderBucket_00448980(
+extern "C" __declspec(noinline) int __cdecl AnimationManager_RenderBucket(
     void* manager, int index);
 
 // Flush the sprite batch, then change one device render state.

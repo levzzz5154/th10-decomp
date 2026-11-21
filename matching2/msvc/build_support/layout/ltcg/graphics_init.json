@@ -7,7 +7,8 @@
   ],
   "driver": "build_support/layout/ltcg/graphics_init_00439700_context.cpp",
   "headers": [
-    "build_support/layout/ltcg/resource_surface_loading_log.hpp"
+    "include/th10/render/surface_loading_log.hpp",
+    "include/th10/platform/text_log.hpp"
   ],
   "image_base": "0x00400000",
   "description": "Native graphics initialization and real TextLog body recover the private EDI call convention.",
@@ -24,14 +25,14 @@
   "anchors": [
     {
       "name": "TextLog",
-      "symbol": "?AppendLine@TextLog5@@QAAPADPADZZ",
+      "symbol": "?AppendLine@TextLog@@QAAPADPADZZ",
       "section": ".text$09log",
       "address": "0x0044B8E0",
       "size": 201
     }
   ],
   "context": {
-    "symbol": "?TextLogLineCompilerContext@@YGHPAPAUTextLog5@@HHPBD@Z",
+    "symbol": "?TextLogLineCompilerContext@@YGHPAPAUTextLog@@HHPBD@Z",
     "section": ".text$11context",
     "address": "0x0044B9B0",
     "size": 58,
@@ -100,7 +101,7 @@
       "kind": "data"
     },
     {
-      "symbol": "_asm_vsprintf_004524a6",
+      "symbol": "_crt_vsprintf",
       "address": "0x004524A6",
       "kind": "relative_code"
     },

@@ -40,7 +40,7 @@ char* __stdcall RecoveryDecodePath(const unsigned char* encoded) {
 
 #pragma code_seg(".text$004479d0_fn")
 void __stdcall RecoveryDispatchText2(
-    RecoveryTextResource* resource, int font_height,
+    AnmTextResource* resource, int font_height,
     const char* text, void* texture, int horizontal_offset,
     unsigned int color, int unshadowed) {
     if (font_height <= 0)
@@ -65,7 +65,7 @@ void __stdcall RecoveryDispatchText2(
 #pragma code_seg()
 
 #pragma code_seg(".text$00447a50_fn")
-void __cdecl RecoveryTextVm::MarkText(
+void __cdecl AnmTextVm::MarkText(
     void* manager, ...) {
     char buffer[128];
     const unsigned int height = font_height;
@@ -78,7 +78,7 @@ void __cdecl RecoveryTextVm::MarkText(
     va_end(args);
     const unsigned int color = va_arg(color_home, unsigned int);
     va_end(color_home);
-    RecoveryTextResource* text_resource = resource;
+    AnmTextResource* text_resource = resource;
     RecoveryDispatchText2(
         text_resource, height, buffer, text_resource->texture, 0, color,
         (flags_360 >> 1) & 1);

@@ -217,7 +217,7 @@ ResultDispatcher2(ResultDispatcherState* state) {
                 state->second_text.StopAtFrame3();
                 break;
             case 18:
-                asm_Sound_PlayDummyRetail_00420b10(1, g_stage_route_current->music_tracks[1]);
+                Music_PlayTrack(1, g_stage_route_current->music_tracks[1]);
                 DispatcherCreateAnimation(StageState()->effect_resource, 2, 15);
                 break;
             case 19: {
@@ -310,7 +310,7 @@ ResultDispatcher2(ResultDispatcherState* state) {
                 break;
             }
             case 21:
-                asm_Sound_PlayRandomVoiceRetail_00420c30(g_globals_stage == 6 ? 8.0f : 2.0f);
+                Music_FadeOutEntry(g_globals_stage == 6 ? 8.0f : 2.0f);
                 break;
             case 22:
                 state->left_portrait.SetStopFrame(7);

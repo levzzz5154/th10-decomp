@@ -153,17 +153,17 @@
       "kind": "data"
     },
     {
-      "symbol": "_asm_free_00452422",
+      "symbol": "_crt_free",
       "address": "0x00452422",
       "kind": "relative_code"
     },
     {
-      "symbol": "_asm_free_004524a1",
+      "symbol": "_crt_free_startup",
       "address": "0x004524A1",
       "kind": "relative_code"
     },
     {
-      "symbol": "_asm_eh_vector_destructor_iterator_004525ff@16",
+      "symbol": "_crt_eh_vector_dtor@16",
       "address": "0x004525FF",
       "kind": "relative_code"
     },
@@ -178,22 +178,22 @@
       "kind": "metadata"
     },
     {
-      "symbol": "_asm_Recovery_ReleaseRawPairAndReset_00405620@4",
+      "symbol": "_Bomb_ReleaseState@4",
       "address": "0x00405620",
       "kind": "relative_code"
     },
     {
-      "symbol": "_asm_BulletManager_Release_0040af00@4",
+      "symbol": "_Effect_ReleaseState@4",
       "address": "0x0040AF00",
       "kind": "relative_code"
     },
     {
-      "symbol": "_asm_FUN_00419960_00419960@12",
+      "symbol": "_Hint_ParseDataEntry@12",
       "address": "0x00419960",
       "kind": "relative_code"
     },
     {
-      "symbol": "_asm_LaserManager_Destroy_0041c1c0@4",
+      "symbol": "_LaserManager_DestroyState@4",
       "address": "0x0041C1C0",
       "kind": "relative_code"
     },
@@ -218,12 +218,7 @@
       "kind": "relative_code"
     },
     {
-      "symbol": "_crt_free_startup",
-      "address": "0x004524A1",
-      "kind": "relative_code"
-    },
-    {
-      "symbol": "_asm_vsprintf_004524a6",
+      "symbol": "_crt_vsprintf",
       "address": "0x004524A6",
       "kind": "relative_code"
     },
@@ -338,7 +333,7 @@
       "kind": "data"
     },
     {
-      "symbol": "_asm_FUN_00418ee0_00418ee0@4",
+      "symbol": "_ResourceManager_CleanupState@4",
       "address": "0x00418EE0",
       "kind": "relative_code"
     },
@@ -358,7 +353,7 @@
       "kind": "relative_code"
     },
     {
-      "symbol": "_asm_operator_new_00452493",
+      "symbol": "_crt_operator_new",
       "address": "0x00452493",
       "kind": "relative_code"
     },
@@ -433,11 +428,6 @@
       "kind": "relative_code"
     },
     {
-      "symbol": "_crt_free",
-      "address": "0x00452422",
-      "kind": "relative_code"
-    },
-    {
       "symbol": "_g_title",
       "address": "0x0047784C",
       "kind": "data"
@@ -468,7 +458,7 @@
       "kind": "data"
     },
     {
-      "symbol": "_asm_beginthreadex_00453683",
+      "symbol": "_crt_beginthreadex",
       "address": "0x00453683",
       "kind": "relative_code"
     },

@@ -74,7 +74,7 @@ int __stdcall BackGround_DrawBackground(BackGround* stage) {
             StageSetRenderState(0x0E, 0);
             for (int i = 0; i < 8; ++i) {
                 if (stage->sprites[i].texture) {
-                    asm_FUN_004451c0_004451c0(g_sprt_ctrl, &stage->sprites[i]);
+                    AnmVm_DrawDispatch(g_sprt_ctrl, &stage->sprites[i]);
                 }
             }
             StageSetRenderState(0x0E, 1);

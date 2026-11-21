@@ -6,7 +6,8 @@
   "headers": [
     "include/th10/platform/temporary_track.hpp",
     "include/th10/platform/midi_sequencer.hpp",
-    "include/th10/platform/archive_file.hpp"
+    "include/th10/platform/archive_file.hpp",
+    "include/th10/platform/text_log.hpp"
   ],
   "included_sources": [
     "build_support/layout/ltcg/temporary_track_canonical_anchors.cpp"
@@ -61,7 +62,7 @@
     },
     {
       "name": "Append",
-      "symbol": "?Append@TextLog4@@QAAPADPADZZ",
+      "symbol": "?Append@TextLog@@QAAPADPADZZ",
       "section": ".text$70append",
       "address": "0x44b810",
       "size": 201
@@ -157,17 +158,17 @@
       "kind": "data"
     },
     {
-      "symbol": "_asm_strrchr_00452930",
+      "symbol": "_crt_strrchr",
       "address": "0x00452930",
       "kind": "relative_code"
     },
     {
-      "symbol": "_asm_stricmp_0046054e",
+      "symbol": "_crt_stricmp",
       "address": "0x0046054e",
       "kind": "relative_code"
     },
     {
-      "symbol": "_asm_malloc_00452706",
+      "symbol": "_crt_malloc",
       "address": "0x00452706",
       "kind": "relative_code"
     },
@@ -262,7 +263,7 @@
       "kind": "metadata"
     },
     {
-      "symbol": "_asm_vsprintf_004524a6",
+      "symbol": "_crt_vsprintf",
       "address": "0x004524A6",
       "kind": "relative_code"
     },

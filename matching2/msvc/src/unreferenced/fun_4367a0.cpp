@@ -1,4 +1,4 @@
-#include "../../build_support/include/asm_symbols.hpp"
+#include "th10/runtime/asm_symbols.hpp"
 #include <string.h>
 
 // 0x004367A0..0x004367C2: FUN17

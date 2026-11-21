@@ -8,7 +8,7 @@ CachedResource* __fastcall Recovery_LoadCachedResource(int index, void* owner, c
     CachedResource* entry = *(CachedResource**)((char*)owner + 0x3AD06C + index * 4);
     if (entry != 0)
         return entry;
-    entry = ((ResourceLoadFn)asm_FUN_004470c0_004470c0)(owner, index, name);
+    entry = ((ResourceLoadFn)AnmManager_LoadFileEntry)(owner, index, name);
     if (entry == 0)
         return 0;
     SleepFn sleep = *(SleepFn*)&imp_Sleep;

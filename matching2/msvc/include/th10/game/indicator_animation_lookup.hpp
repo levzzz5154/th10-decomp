@@ -3,15 +3,15 @@
 // them. Retail has out-of-line copies of each (0x004491C0, 0x004492A0,
 // 0x00449450, 0x00449630); the whole-program pass expanded some call sites in
 // place, and those call sites use the *Inline spellings here.
-#include "../../../build_support/include/contexts/game/marktext_dispatcher_context/recovery_script_executor_caller.hpp"
+#include "th10/game/ending_script/recovery_script_executor_caller.hpp"
 
 extern "C" void* g_sprt_ctrl;
 
-struct IndicatorAnimationManager : RecoveryLookupContext {
+struct IndicatorAnimationManager : AnmLookupContext {
     __forceinline HintVm* FindInline(unsigned int id) {
         if (id == 0)
             return 0;
-        RecoveryLookupNode* node;
+        AnmLookupNode* node;
         for (node = primary; node != 0; node = node->next)
             if (*reinterpret_cast<unsigned int*>(node->object) == id)
                 return reinterpret_cast<HintVm*>(node->object);
@@ -58,8 +58,8 @@ static __forceinline HintVm* IndicatorHandle_GetInline(
 static inline HintVm* IndicatorHandle_Get(
         HintHandle& handle) {
     HintVm* vm = static_cast<HintVm*>(
-        static_cast<RecoveryLookup*>(g_sprt_ctrl)->Find(
-            static_cast<RecoveryLookupContext*>(g_sprt_ctrl),
+        static_cast<AnmLookup*>(g_sprt_ctrl)->Find(
+            static_cast<AnmLookupContext*>(g_sprt_ctrl),
             *reinterpret_cast<AnimationScriptId*>(&handle)));
     if (vm == 0)
         handle.value = 0;

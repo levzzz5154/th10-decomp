@@ -11,7 +11,7 @@
 #define g_main_state stage_front_data_00491fb8
 #define g_sound_manager stage_front_data_00492590
 #include <string.h>
-#include "front_view.hpp"
+#include "th10/game/stage_update/front_view.hpp"
 #include "../front_initialize/load_script_body.cpp"
 #undef g_sprt_ctrl
 #undef g_front

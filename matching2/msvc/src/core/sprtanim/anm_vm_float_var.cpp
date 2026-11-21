@@ -5,8 +5,8 @@
 // /GL link keeps `this` in a callee-saved register. The switch's jump table is
 // inside the region extent and MSVC emits it from the normal `switch` source.
 
-extern "C" float __fastcall asm_Rng_NextFloat_0044bb20(const void* self);       // 0x0044BB20
-extern "C" float __fastcall asm_Rng_NextFloatSigned_0044bb90(const void* self); // 0x0044BB90
+extern "C" float __fastcall Rng_NextFloatUnit(const void* self);       // 0x0044BB20
+extern "C" float __fastcall Rng_NextFloatSignedUnit(const void* self); // 0x0044BB90
 extern "C" float flt_pi;   // 3.1415927f
 extern "C" float g_back_camera;
 extern "C" float g_back_camera_2;
@@ -90,16 +90,16 @@ float EffectFieldStore::Get(float index) {
         return (float)int_var_5;
     case ANM_VAR_RAND_FLOAT:
         if (flags & ANM_FLAG_USE_REPLAY_RNG)
-            return asm_Rng_NextFloat_0044bb20((const void*)0x004918A8);
-        return asm_Rng_NextFloat_0044bb20((const void*)0x004918B0);
+            return Rng_NextFloatUnit((const void*)0x004918A8);
+        return Rng_NextFloatUnit((const void*)0x004918B0);
     case ANM_VAR_RAND_SIGNED:
         if (flags & ANM_FLAG_USE_REPLAY_RNG)
-            return asm_Rng_NextFloatSigned_0044bb90((const void*)0x004918A8);
-        return asm_Rng_NextFloatSigned_0044bb90((const void*)0x004918B0);
+            return Rng_NextFloatSignedUnit((const void*)0x004918A8);
+        return Rng_NextFloatSignedUnit((const void*)0x004918B0);
     case ANM_VAR_RAND_ANGLE:
         if (flags & ANM_FLAG_USE_REPLAY_RNG)
-            return asm_Rng_NextFloatSigned_0044bb90((const void*)0x004918A8) * flt_pi;
-        return asm_Rng_NextFloatSigned_0044bb90((const void*)0x004918B0) * flt_pi;
+            return Rng_NextFloatSignedUnit((const void*)0x004918A8) * flt_pi;
+        return Rng_NextFloatSignedUnit((const void*)0x004918B0) * flt_pi;
     case ANM_VAR_POS_X:
         return pos_x;
     case ANM_VAR_POS_Y:

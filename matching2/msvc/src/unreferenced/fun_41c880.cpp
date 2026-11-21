@@ -1,4 +1,4 @@
-#include "../../build_support/include/asm_symbols.hpp"
+#include "th10/runtime/asm_symbols.hpp"
 
 // 0x0041C880..0x0041C8B5: walk linked records and sum virtual results.
 struct CountArgument {

@@ -47,7 +47,7 @@
     },
     {
       "name": "TextLog",
-      "symbol": "?Append@TextLog4@@QAAPADPADZZ",
+      "symbol": "?Append@TextLog@@QAAPADPADZZ",
       "section": ".text$05log",
       "address": "0x0044B810",
       "size": 201
@@ -143,7 +143,7 @@
       "kind": "data"
     },
     {
-      "symbol": "_asm_vsprintf_004524a6",
+      "symbol": "_crt_vsprintf",
       "address": "0x004524A6",
       "kind": "relative_code"
     },

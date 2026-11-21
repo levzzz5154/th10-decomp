@@ -3,7 +3,7 @@ extern "C" float flt_1_01;
 extern "C" float flt_0_99;
 extern "C" float flt_0_0001;
 extern "C" float g_game_speed;
-extern "C" int __cdecl asm_FUN_00463b2c_00463b2c();
+extern "C" int __cdecl crt_ftol2();
 #include <math.h>
 
 extern "C" double __cdecl atan2(double, double);

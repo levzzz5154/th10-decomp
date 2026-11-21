@@ -43,7 +43,7 @@ char* __stdcall RecoveryDecodePath(const unsigned char* encoded) {
 // is recovered by the registered marktext dispatcher cluster and is not
 // needed here. The executor only observes it through MarkText.
 void __stdcall RecoveryDispatchText2(
-    RecoveryTextResource* resource, int font_height,
+    AnmTextResource* resource, int font_height,
     const char* text, void* texture, int horizontal_offset,
     unsigned int color, int unshadowed);
 
@@ -55,11 +55,11 @@ void __stdcall RecoveryDispatchText2(
 #pragma code_seg()
 
 #pragma code_seg(".text$00447a50_fn")
-void RecoveryTextVm::MarkText(
+void AnmTextVm::MarkText(
     void* manager, unsigned int color, const char* format) {
     char buffer[128];
     recovery_vsprintf(buffer, format, const_cast<char*>(format));
-    RecoveryTextResource* text_resource = resource;
+    AnmTextResource* text_resource = resource;
     RecoveryDispatchText2(
         text_resource, static_cast<int>(font_height), buffer,
         text_resource->texture, 0, color, (flags_360 >> 1) & 1);

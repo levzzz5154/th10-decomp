@@ -7,6 +7,6 @@ short __stdcall Joystick_Probe2();
 #pragma code_seg(".text$05context")
 int __stdcall D3DTextLogAppendCompilerContext(char* format) {
     Joystick_Probe2();
-    return *(int*)((TextLog4*)0x00474F70)->Append(format);
+    return *(int*)((TextLog*)0x00474F70)->Append(format);
 }
 #pragma code_seg()

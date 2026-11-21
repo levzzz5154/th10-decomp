@@ -36,7 +36,7 @@
   "anchors": [
     {
       "name": "RegisterPrimaryBack",
-      "symbol": "_asm_AnimationManager_RegisterPrimaryBack_004489d0",
+      "symbol": "_AnimationManager_RegisterPrimaryBack",
       "section": ".text$004489d0_fn",
       "address": "0x004489D0",
       "size": 117

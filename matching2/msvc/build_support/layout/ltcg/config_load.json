@@ -6,7 +6,7 @@
   "headers": [
     "include/th10/app/config_load.hpp",
     "include/th10/game/large_initialization_state.hpp",
-    "build_support/layout/ltcg/native_archive_read/archive.hpp",
+    "include/th10/archive/native_read/archive.hpp",
     "include/th10/archive/dat_archive_types.hpp",
     "include/th10/platform/file.hpp",
     "include/th10/platform/windows_types.hpp"
@@ -75,14 +75,14 @@
     },
     {
       "name": "TextLog_Append",
-      "symbol": "?Append@TextLog3@@QAAPADPADZZ",
+      "symbol": "?Append@ConfigTextLog@@QAAPADPADZZ",
       "section": ".text$00i_append",
       "address": "0x0044B810",
       "size": 201
     },
     {
       "name": "TextLog_AppendLine",
-      "symbol": "?AppendLine@TextLog3@@QAAPADPADZZ",
+      "symbol": "?AppendLine@ConfigTextLog@@QAAPADPADZZ",
       "section": ".text$00j_line",
       "address": "0x0044B8E0",
       "size": 201
@@ -151,22 +151,22 @@
       "kind": "data"
     },
     {
-      "symbol": "_asm_strrchr_00452930",
+      "symbol": "_crt_strrchr",
       "address": "0x00452930",
       "kind": "relative_code"
     },
     {
-      "symbol": "_asm_stricmp_0046054e",
+      "symbol": "_crt_stricmp",
       "address": "0x0046054e",
       "kind": "relative_code"
     },
     {
-      "symbol": "_asm_malloc_00452706",
+      "symbol": "_crt_malloc",
       "address": "0x00452706",
       "kind": "relative_code"
     },
     {
-      "symbol": "_asm_vsprintf_004524a6",
+      "symbol": "_crt_vsprintf",
       "address": "0x004524A6",
       "kind": "relative_code"
     },
@@ -196,7 +196,7 @@
       "kind": "data"
     },
     {
-      "symbol": "_asm_free_00452422",
+      "symbol": "_crt_free",
       "address": "0x452422",
       "kind": "relative_code"
     },

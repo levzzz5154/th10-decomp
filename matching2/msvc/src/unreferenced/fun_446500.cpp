@@ -1,4 +1,4 @@
-#include "../../build_support/include/asm_symbols.hpp"
+#include "th10/runtime/asm_symbols.hpp"
 
 // 0x00446500..0x0044652D: accumulate one enabled RGB record.
 struct ColorAccumulator2 {

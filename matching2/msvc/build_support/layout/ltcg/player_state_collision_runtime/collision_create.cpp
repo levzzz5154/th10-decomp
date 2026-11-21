@@ -1,4 +1,4 @@
-#include "runtime.hpp"
+#include "th10/game/player_collision/runtime.hpp"
 extern "C" float flt_224, flt_16;
 #pragma code_seg(".text$f00448db0F")
 AnimationRef AnimationResourceFile::CreateOffset(

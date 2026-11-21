@@ -1,7 +1,7 @@
 // Complete genuine creation graph in a second translation unit. The shared
 // animation headers describe the same manager/entity storage used by the
 // collision sweep's named views. No ABI wrapper or synthetic caller is used.
-#include "animation_public_callers.hpp"
+#include "th10/game/player_collision/animation_public_callers.hpp"
 #include "entity_initialize.cpp"
 #include "dependencies.cpp"
 #include "preserve.cpp"

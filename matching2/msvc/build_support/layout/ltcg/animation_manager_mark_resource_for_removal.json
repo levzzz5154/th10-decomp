@@ -7,7 +7,8 @@
     "include/th10/render/animation_resource_removal.hpp",
     "include/th10/render/anm_file.hpp",
     "include/th10/render/anm_texture.hpp",
-    "include/th10/render/animation_position_record.hpp"
+    "include/th10/render/animation_position_record.hpp",
+    "include/th10/platform/text_log.hpp"
   ],
   "image_base": "0x00400000",
   "description": "AnimationManagerMarkResourceForRemoval, BulletPool::Reset, the resource release and its slot caller in one native /LTCG scope.",

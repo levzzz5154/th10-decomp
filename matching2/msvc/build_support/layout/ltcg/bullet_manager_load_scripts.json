@@ -127,7 +127,7 @@
     {
       "name": "Recovery_InstallPairClearFlags_0041ad90",
       "source": "src/game/item/item_install_pair_clear_flags.cpp",
-      "symbol": "_asm_Recovery_InstallPairClearFlags_0041ad90@4",
+      "symbol": "_ItemManager_InstallTaskPair@4",
       "section": ".text$00e_installclear",
       "address": "0x0041AD90",
       "size": 84,
@@ -235,7 +235,7 @@
     {
       "name": "TextLog_Append",
       "source": "src/core/zunlib/text_log.cpp",
-      "symbol": "?Append@TextLog4@@QAAPADPADZZ",
+      "symbol": "?Append@TextLog@@QAAPADPADZZ",
       "section": ".text$85textlog",
       "address": "0x0044B810",
       "size": 201,
@@ -651,22 +651,22 @@
       "kind": "metadata"
     },
     {
-      "symbol": "_asm_Recovery_ReleaseRawPairAndReset_00405620@4",
+      "symbol": "_Bomb_ReleaseState@4",
       "address": "0x00405620",
       "kind": "relative_code"
     },
     {
-      "symbol": "_asm_BulletManager_Release_0040af00@4",
+      "symbol": "_Effect_ReleaseState@4",
       "address": "0x0040AF00",
       "kind": "relative_code"
     },
     {
-      "symbol": "_asm_FUN_00419960_00419960@12",
+      "symbol": "_Hint_ParseDataEntry@12",
       "address": "0x00419960",
       "kind": "relative_code"
     },
     {
-      "symbol": "_asm_LaserManager_Destroy_0041c1c0@4",
+      "symbol": "_LaserManager_DestroyState@4",
       "address": "0x0041C1C0",
       "kind": "relative_code"
     },
@@ -696,7 +696,7 @@
       "kind": "relative_code"
     },
     {
-      "symbol": "_asm_vsprintf_004524a6",
+      "symbol": "_crt_vsprintf",
       "address": "0x004524A6",
       "kind": "relative_code"
     },
@@ -816,7 +816,7 @@
       "kind": "data"
     },
     {
-      "symbol": "_asm_FUN_00418ee0_00418ee0@4",
+      "symbol": "_ResourceManager_CleanupState@4",
       "address": "0x00418EE0",
       "kind": "relative_code"
     },
@@ -836,7 +836,7 @@
       "kind": "relative_code"
     },
     {
-      "symbol": "_asm_operator_new_00452493",
+      "symbol": "_crt_operator_new",
       "address": "0x00452493",
       "kind": "relative_code"
     },

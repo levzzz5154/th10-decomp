@@ -7,8 +7,8 @@
 #include "th10/game/title_menu.hpp"
 
 extern "C" void* g_sprt_ctrl;
-extern "C" void* __cdecl asm_FUN_00449950_00449950(void* manager);
-extern "C" void** __cdecl asm_AnimationManager_RegisterPrimaryBack_004489d0(
+extern "C" void* __cdecl AnimationPool_AllocateEntry(void* manager);
+extern "C" void** __cdecl AnimationManager_RegisterPrimaryBack(
     void* manager, void** out, void* object);
 struct AnimationBank {
     __declspec(noinline) void* InitializeObject(void* object, int index);
@@ -18,13 +18,13 @@ struct AnimationBank {
 __declspec(noinline) void __stdcall RecoveryMusicInstallSlot(
         Title* room, int index) {
     void* resource = room->animation_resource;
-    RecoveryMusicVm* object = static_cast<RecoveryMusicVm*>(
-        asm_FUN_00449950_00449950(g_sprt_ctrl));
+    TitleAnmVm* object = static_cast<TitleAnmVm*>(
+        AnimationPool_AllocateEntry(g_sprt_ctrl));
     object->render_bucket = 15;
     object->flags |= 0x40000000u;
     static_cast<AnimationBank*>(resource)->InitializeObject(object, index);
     void* handle;
-    asm_AnimationManager_RegisterPrimaryBack_004489d0(g_sprt_ctrl, &handle, object);
+    AnimationManager_RegisterPrimaryBack(g_sprt_ctrl, &handle, object);
     room->animation_slots[index].value = reinterpret_cast<int>(handle);
 }
 #pragma code_seg()

@@ -13,9 +13,10 @@
   "headers": [
     "include/th10/game/sound_start_context.hpp",
     "include/th10/platform/sound_fade.hpp",
-    "build_support/layout/ltcg/sound_restart_dependencies/sound_wave_types.hpp",
+    "include/th10/platform/sound_restart_types.hpp",
     "build_support/layout/ltcg/sound_restart_dependencies/sound_memory_words.hpp",
-    "build_support/layout/ltcg/sound_restart_dependencies/sound_effect_support.hpp"
+    "build_support/layout/ltcg/sound_restart_dependencies/sound_effect_support.hpp",
+    "include/th10/platform/text_log.hpp"
   ],
   "description": "Restart native diagnostic with complete genuine dispatcher and real helper models.",
   "image_base": "0x00400000",

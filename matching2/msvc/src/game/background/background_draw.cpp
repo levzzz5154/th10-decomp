@@ -20,10 +20,10 @@ int __stdcall BackGround_Draw(BackGround* stage) {
         StageSetFog(1);
         StageSetRenderState(0x0E, 0);
         StageSetRenderState(0x17, 8);
-        asm_AnimationManager_RenderBucket_00448980(g_sprt_ctrl, 0x11);
+        AnimationManager_RenderBucket(g_sprt_ctrl, 0x11);
         StageSetRenderState(0x17, 4);
         StageSetFog(0);
-        asm_AnimationManager_RenderBucket_00448980(g_sprt_ctrl, 0x12);
+        AnimationManager_RenderBucket(g_sprt_ctrl, 0x12);
         StageSetRenderState(0x17, 4);
         StageSetRenderState(0x22, stage->view.fog_color);
         StageSetRenderState(0x24, stage->view.fog_start);

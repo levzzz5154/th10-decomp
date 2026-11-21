@@ -264,17 +264,17 @@
       "kind": "relative_code"
     },
     {
-      "symbol": "_asm_sprintf_00452ae8",
+      "symbol": "_crt_sprintf",
       "address": "0x00452AE8",
       "kind": "relative_code"
     },
     {
-      "symbol": "_asm_FID_conflict___time32_00452b71",
+      "symbol": "_crt_time32",
       "address": "0x00452B71",
       "kind": "relative_code"
     },
     {
-      "symbol": "_asm_free_004524a1",
+      "symbol": "_crt_free_startup",
       "address": "0x004524A1",
       "kind": "relative_code"
     },
@@ -284,7 +284,7 @@
       "kind": "relative_code"
     },
     {
-      "symbol": "@asm_FUN_00429b60_00429b60@12",
+      "symbol": "@ReplaySaveManager_SaveFile@12",
       "address": "0x00429B60",
       "kind": "relative_code"
     }

@@ -5,7 +5,7 @@
   "driver": "build_support/layout/ltcg/sound_music_cache_0043d7d0_context.cpp",
   "headers": [
     "include/th10/app/supervisor.hpp",
-    "build_support/layout/ltcg/sound_interfaces_dependencies/sound_wave_types.hpp",
+    "include/th10/platform/sound_wave_types.hpp",
     "include/th10/platform/text_log.hpp"
   ],
   "image_base": "0x00400000",
@@ -73,12 +73,12 @@
       "kind": "data"
     },
     {
-      "symbol": "_asm_malloc_00452706",
+      "symbol": "_crt_malloc",
       "address": "0x00452706",
       "kind": "relative_code"
     },
     {
-      "symbol": "_asm_free_00452422",
+      "symbol": "_crt_free",
       "address": "0x00452422",
       "kind": "relative_code"
     },

@@ -13,7 +13,7 @@ struct AnchorEntity_0040d710 {
 // retail address, so the destructor's call bakes retail's own displacement.
 // None of these bytes are selected as recovered code.
 #pragma code_seg(".text$01anchor")
-extern "C" __declspec(noinline) void __cdecl asm_FUN_0040d530_0040d530(void* object) {
+extern "C" __declspec(noinline) void __cdecl EnemyCtrl_DestroyState(void* object) {
     AnchorEntity_0040d710* entity = (AnchorEntity_0040d710*)object;
     entity->slot = 0;
     // The real teardown calls out, so it preserves none of EAX/ECX/EDX.

@@ -1,4 +1,4 @@
-#include "effect_update.hpp"
+#include "th10/game/player_collision/effect_update.hpp"
 
 #pragma code_seg(".text$f00409e50F")
 void PlayerAnimationHandle::StopAtFrame1() {

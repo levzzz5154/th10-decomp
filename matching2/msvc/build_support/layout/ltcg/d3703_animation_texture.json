@@ -53,7 +53,7 @@
       "kind": "data"
     },
     {
-      "symbol": "_asm_D3DXCreateTexture_004521a0@32",
+      "symbol": "_Th10_D3DXCreateTexture@32",
       "address": "0x004521A0",
       "kind": "relative_code"
     }

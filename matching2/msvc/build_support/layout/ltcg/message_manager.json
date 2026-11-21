@@ -21,7 +21,7 @@
     "include/th10/platform/thread_sync.hpp",
     "include/th10/game/entity.hpp",
     "include/th10/types.hpp",
-    "build_support/layout/ltcg/native_archive_read/archive.hpp",
+    "include/th10/archive/native_read/archive.hpp",
     "include/th10/archive/dat_archive_types.hpp",
     "include/th10/platform/file.hpp",
     "include/th10/platform/windows_types.hpp",
@@ -71,14 +71,14 @@
     },
     {
       "name": "ScriptLoader",
-      "symbol": "_asm_AnimationObject_LoadScript_0043e710",
+      "symbol": "_AnmVm_LoadScript",
       "section": ".text$07loader",
       "address": "0x43e710",
       "size": 207
     },
     {
       "name": "Registrar",
-      "symbol": "_asm_AnimationManager_RegisterPrimaryBack_004489d0",
+      "symbol": "_AnimationManager_RegisterPrimaryBack",
       "section": ".text$09register",
       "address": "0x4489d0",
       "size": 114
@@ -120,7 +120,7 @@
     },
     {
       "name": "TextLog",
-      "symbol": "?Append@TextLog4@@QAAPADPADZZ",
+      "symbol": "?Append@TextLog@@QAAPADPADZZ",
       "section": ".text$85textlog",
       "address": "0x44b810",
       "size": 201
@@ -263,17 +263,17 @@
       "kind": "data"
     },
     {
-      "symbol": "_asm_malloc_00452706",
+      "symbol": "_crt_malloc",
       "address": "0x452706",
       "kind": "relative_code"
     },
     {
-      "symbol": "_asm_stricmp_0046054e",
+      "symbol": "_crt_stricmp",
       "address": "0x46054e",
       "kind": "relative_code"
     },
     {
-      "symbol": "_asm_strrchr_00452930",
+      "symbol": "_crt_strrchr",
       "address": "0x452930",
       "kind": "relative_code"
     },
@@ -358,7 +358,7 @@
       "kind": "relative_code"
     },
     {
-      "symbol": "_asm_vsprintf_004524a6",
+      "symbol": "_crt_vsprintf",
       "address": "0x004524A6",
       "kind": "relative_code"
     },

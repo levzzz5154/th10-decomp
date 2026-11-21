@@ -1,4 +1,4 @@
-#include "sound_queue.hpp"
+#include "th10/game/player_collision/sound_queue.hpp"
 
 extern "C" short g_sound_priority[];
 

@@ -39,7 +39,7 @@ struct ShakeOffset {
 extern "C" ShakeOffset g_screen_shake_x;
 
 // 0x00448980: walk the entity list of one render slot.
-extern "C" int __cdecl asm_AnimationManager_RenderBucket_00448980(
+extern "C" int __cdecl AnimationManager_RenderBucket(
     SprtCtrlBatchView* manager, int slot);
 
 #pragma code_seg(".text$01slot14")
@@ -49,6 +49,6 @@ int SprtCtrlBatchView::ResetOriginAndRenderSlot14() {
     shake->y = 0.0f;
     g_sprt_ctrl->origin_x = 0.0f;
     g_sprt_ctrl->origin_y = 0.0f;
-    return asm_AnimationManager_RenderBucket_00448980(this, 14);
+    return AnimationManager_RenderBucket(this, 14);
 }
 #pragma code_seg()

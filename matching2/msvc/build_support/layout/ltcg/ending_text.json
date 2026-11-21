@@ -60,7 +60,7 @@
     },
     {
       "name": "RegisterPrimaryBack",
-      "symbol": "_asm_AnimationManager_RegisterPrimaryBack_004489d0",
+      "symbol": "_AnimationManager_RegisterPrimaryBack",
       "section": ".text$09register",
       "address": "0x004489D0",
       "size": 114

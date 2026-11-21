@@ -1,4 +1,4 @@
-#include "title_teardown_dependencies.hpp"
+#include "th10/game/title_teardown/title_teardown_dependencies.hpp"
 #include "th10/render/anm_manager_lists.hpp"
 
 // The complete native owner at 0x00446220. The three actual Entity

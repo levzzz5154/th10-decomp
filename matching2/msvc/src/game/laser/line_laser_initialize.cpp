@@ -13,7 +13,7 @@ struct LineVelocity {
 struct AnimationResourceFile;
 void __stdcall Entity_StartScript(AnimationResourceFile* resource,
                                            Entity* entity, int script);
-extern "C" int __stdcall asm_FUN_0043ee30_0043ee30(Entity* entity);
+extern "C" int __stdcall AnmVm_TickScript(Entity* entity);
 
 struct LaserAnimationBank2 {
     unsigned char reserved_000[0x458];
@@ -87,14 +87,14 @@ __declspec(noinline) int LineLaser3::Initialize(const LineLaserParams3* init) {
     Entity_StartScript(g_laser_manager->laser_animation, animation,
                                 params.script + g_bullet_script_first[params.colour]);
     beam.StopFrame() = 2;
-    asm_FUN_0043ee30_0043ee30(animation);
+    AnmVm_TickScript(animation);
     if (params.flags & 1)
         animation->AnimationFlags() = (animation->AnimationFlags() & ~0x20) | 0x10;
     beam.AnimationFlags() = (beam.AnimationFlags() & 0xFC63FFFF) | 0x600000;
     animation = &flare;
     Entity_StartScript(g_laser_manager->laser_animation, animation, params.script + 0x103);
     flare.StopFrame() = 2;
-    asm_FUN_0043ee30_0043ee30(animation);
+    AnmVm_TickScript(animation);
     animation->AnimationFlags() = (animation->AnimationFlags() & ~0x20) | 0x10;
     flare.AnimationFlags() = (flare.AnimationFlags() & 0xFC7FFFFF) | 0x400000;
     startup_timer.Set(30);

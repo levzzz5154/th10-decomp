@@ -10,7 +10,7 @@
 //   advance step * cursor;
 // - render_bucket is cleared through a pointer, which orders the store right
 //   after the flags store.
-#include "../../../build_support/layout/ltcg/laser_cut/types.hpp"
+#include "th10/game/laser_cut/types.hpp"
 #include <string.h>
 static inline CutVector operator*(float factor,const CutVector& v) {
  return CutVector(factor*v.x,factor*v.y,factor*v.z);

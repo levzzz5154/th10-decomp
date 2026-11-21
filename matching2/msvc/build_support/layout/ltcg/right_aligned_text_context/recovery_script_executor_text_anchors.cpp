@@ -2,7 +2,7 @@
 // The native MSVC LTCG build determines the helpers' private register inputs.
 
 #include <stdarg.h>
-#include "../../../include/contexts/game/right_aligned_text_context/recovery_mark_text_and_dispatcher.hpp"
+#include "th10/game/hint_text/recovery_mark_text_and_dispatcher.hpp"
 
 extern "C" unsigned char recovery_decoded_path_00497d40[];
 

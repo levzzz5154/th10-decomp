@@ -7,14 +7,14 @@
   ],
   "driver": "build_support/layout/ltcg/recovery_slot_rearm_context.cpp",
   "headers": [
-    "build_support/include/asm_symbols.hpp"
+    "include/th10/runtime/asm_symbols.hpp"
   ],
   "image_base": "0x00400000",
   "description": "Effect-slot gate and re-arm compiled together with native LTCG so the gate tail passes this in ESI.",
   "functions": [
     {
       "name": "RecoverySlotTable_Rearm",
-      "symbol": "?Rearm@RecoverySlotTable@@QAEHXZ",
+      "symbol": "?Rearm@BulletSlotTable@@QAEHXZ",
       "section": ".text$01rearm",
       "address": "0x004065C0",
       "size": 249,
@@ -23,7 +23,7 @@
     },
     {
       "name": "RecoverySlotTable_CanRearm",
-      "symbol": "?OnUpdate@RecoverySlotTable@@QAEHXZ",
+      "symbol": "?OnUpdate@BulletSlotTable@@QAEHXZ",
       "section": ".text$05canrearm",
       "address": "0x00406770",
       "size": 40,
@@ -32,7 +32,7 @@
     }
   ],
   "context": {
-    "symbol": "?RecoverySlotRearmCompilerContext@@YGHPAURecoverySlotTable@@H@Z",
+    "symbol": "?RecoverySlotRearmCompilerContext@@YGHPAUBulletSlotTable@@H@Z",
     "section": ".text$03context",
     "address": "0x004066C0",
     "size": 47,
@@ -74,7 +74,7 @@
   ],
   "absolute_symbols": [
     {
-      "symbol": "_asm_FUN_00406240_00406240@4",
+      "symbol": "_BulletRuntime_Tick@4",
       "address": "0x00406240",
       "kind": "relative_code"
     },

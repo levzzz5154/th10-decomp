@@ -1,5 +1,5 @@
 // 0x0044B360: load a named file either from the packed archive index or from disk.
-#include "archive.hpp"
+#include "th10/archive/read/archive.hpp"
 
 extern "C" DatArchive g_archive;
 extern "C" unsigned char g_file_lock_depth;
@@ -13,9 +13,9 @@ extern "C" int (__stdcall *imp_CloseHandle)(void*);
 extern "C" int (__stdcall *imp_ReadFile)(void*, void*, unsigned int, unsigned int*, void*);
 extern "C" unsigned int (__stdcall *imp_GetFileSize)(void*, unsigned int*);
 
-extern "C" char* __cdecl asm_strrchr_00452930(const char*, int);
-extern "C" int __cdecl asm_stricmp_0046054e(const char*, const char*);
-extern "C" void* __cdecl asm_malloc_00452706(unsigned int);
+extern "C" char* __cdecl crt_strrchr(const char*, int);
+extern "C" int __cdecl crt_stricmp(const char*, const char*);
+extern "C" void* __cdecl crt_malloc(unsigned int);
 
 #ifndef ARCHIVE_LOAD_SECTION
 #define ARCHIVE_LOAD_SECTION ".text$a06load"
@@ -28,9 +28,9 @@ extern "C" __declspec(noinline) char* __stdcall Archive_LoadFile(const char* nam
     imp_EnterCriticalSection(g_file_lock);
     ++g_file_lock_depth;
     if (!fromDisk) {
-        const char* slash = asm_strrchr_00452930(name, '\\');
+        const char* slash = crt_strrchr(name, '\\');
         const char* base = (slash == 0) ? name : slash + 1;
-        const char* forward = asm_strrchr_00452930(base, '/');
+        const char* forward = crt_strrchr(base, '/');
         if (forward == 0) forward = name; else ++forward;
         base = forward;
 
@@ -38,7 +38,7 @@ extern "C" __declspec(noinline) char* __stdcall Archive_LoadFile(const char* nam
             DatArchiveEntry* entry = g_archive.entries;
             int remaining = g_archive.entry_count;
             do {
-                if (asm_stricmp_0046054e(base, entry->name) == 0) {
+                if (crt_stricmp(base, entry->name) == 0) {
                     size = entry->uncompressed_size;
                     goto looked_up;
                 }
@@ -52,7 +52,7 @@ looked_up:
             *outSize = size;
         if (!size)
             goto failed;
-        buffer = (char*)asm_malloc_00452706(size);
+        buffer = (char*)crt_malloc(size);
         if (!buffer)
             goto failed;
         DatArchiveRead(&g_archive, base, reinterpret_cast<unsigned char*>(buffer));
@@ -64,7 +64,7 @@ looked_up:
         if (file == (void*)-1)
             goto failed;
         size = imp_GetFileSize(file, 0);
-        buffer = (char*)asm_malloc_00452706(size);
+        buffer = (char*)crt_malloc(size);
         if (!buffer) {
             imp_CloseHandle(file);
             goto failed;

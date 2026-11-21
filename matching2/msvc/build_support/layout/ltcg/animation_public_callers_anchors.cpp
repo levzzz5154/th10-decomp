@@ -57,7 +57,7 @@ __declspec(noinline) void __fastcall Entity_Init(void* unused, Entity* entity) {
 #pragma code_seg()
 
 #pragma code_seg(".text$07loader")
-extern "C" __declspec(noinline) void __cdecl asm_AnimationObject_LoadScript_0043e710(
+extern "C" __declspec(noinline) void __cdecl AnmVm_LoadScript(
         void* resource, void* object, int index) {
     unsigned char* res = (unsigned char*)resource;
     unsigned char* obj = (unsigned char*)object;
@@ -100,7 +100,7 @@ struct AnmListNode_00448d50 {
 };
 
 #pragma code_seg(".text$09register")
-extern "C" __declspec(noinline) void** __cdecl asm_AnimationManager_RegisterPrimaryBack_004489d0(
+extern "C" __declspec(noinline) void** __cdecl AnimationManager_RegisterPrimaryBack(
         void* manager, void** out, void* entity) {
     unsigned char* m = (unsigned char*)manager;
     unsigned char* e = (unsigned char*)entity;
@@ -146,8 +146,8 @@ void** __stdcall AnimationManager_CreatePositionedPrimary(
     object->flags_035c |= 0x40000000u;
     object->render_bucket_020 = 0;
     object->position_340 = *position;
-    asm_AnimationObject_LoadScript_0043e710(resource, object, index);
-    asm_AnimationManager_RegisterPrimaryBack_004489d0(g_sprt_ctrl, out, object);
+    AnmVm_LoadScript(resource, object, index);
+    AnimationManager_RegisterPrimaryBack(g_sprt_ctrl, out, object);
     return out;
 }
 #pragma code_seg()

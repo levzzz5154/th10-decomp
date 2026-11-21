@@ -82,17 +82,17 @@
   "constants": [],
   "absolute_symbols": [
     {
-      "symbol": "_asm_free_00452422",
+      "symbol": "_crt_free",
       "address": "0x00452422",
       "kind": "relative_code"
     },
     {
-      "symbol": "_asm_free_004524a1",
+      "symbol": "_crt_free_startup",
       "address": "0x004524A1",
       "kind": "relative_code"
     },
     {
-      "symbol": "_asm_eh_vector_destructor_iterator_004525ff@16",
+      "symbol": "_crt_eh_vector_dtor@16",
       "address": "0x004525FF",
       "kind": "relative_code"
     },

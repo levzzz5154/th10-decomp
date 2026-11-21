@@ -7,7 +7,7 @@
 #include <string.h>
 #include "th10/archive/lzss.hpp"
 
-extern "C" void* __cdecl asm_malloc_00452706(unsigned int size);
+extern "C" void* __cdecl crt_malloc(unsigned int size);
 
 // ---------------------------------------------------------------------------
 // Compressor
@@ -55,7 +55,7 @@ unsigned char* __stdcall Lzss_Compress(const unsigned char* in, int inSize, int*
     unsigned int bits;
     unsigned char* out;
 
-    out = (unsigned char*)asm_malloc_00452706(inSize * 2);
+    out = (unsigned char*)crt_malloc(inSize * 2);
     if (out == 0)
         return 0;
     inCursor = in;
@@ -156,7 +156,7 @@ extern "C" unsigned char* __stdcall DecompressDatLzss2(
     unsigned int bits;
 
     if (out == 0) {
-        out = (unsigned char*)asm_malloc_00452706(outSize);
+        out = (unsigned char*)crt_malloc(outSize);
         if (out == 0)
             return 0;
     }

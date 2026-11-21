@@ -7,7 +7,7 @@
     "include/th10/math/rng.hpp",
     "include/th10/math/timer.hpp",
     "include/th10/platform/sound_fade.hpp",
-    "include/th10/platform/sound_fade_manager_wave18.hpp",
+    "include/th10/platform/sound_fade_manager.hpp",
     "include/th10/game/player.hpp",
     "include/th10/game/entity.hpp",
     "include/th10/game/stage_route.hpp",
@@ -59,57 +59,57 @@
       "kind": "data"
     },
     {
-      "symbol": "@PollInputWave18@4",
+      "symbol": "@Input_Poll@4",
       "address": "0x0044A5F0",
       "kind": "relative_code"
     },
     {
-      "symbol": "_AnmPendingWave18@4",
+      "symbol": "_SprtCtrl_HasPendingLoads@4",
       "address": "0x00447700",
       "kind": "relative_code"
     },
     {
-      "symbol": "_ModeCreateStateWave18",
+      "symbol": "_Loading_CreateMode",
       "address": "0x0041FD00",
       "kind": "relative_code"
     },
     {
-      "symbol": "_ModeReleaseGlobalsWave18@0",
+      "symbol": "_Supervisor_ReleaseGlobals@0",
       "address": "0x004203F0",
       "kind": "relative_code"
     },
     {
-      "symbol": "_ModeCreateProgressWave18",
+      "symbol": "_Title_CreateMode",
       "address": "0x0042CD50",
       "kind": "relative_code"
     },
     {
-      "symbol": "_ModeCreateUiWave18@4",
+      "symbol": "_Game_CreateMode@4",
       "address": "0x004180E0",
       "kind": "relative_code"
     },
     {
-      "symbol": "_ModeCreateSmallWave18@0",
+      "symbol": "_Ending_CreateMode@0",
       "address": "0x0040B940",
       "kind": "relative_code"
     },
     {
-      "symbol": "_ModeDestroyUiWave18@4",
+      "symbol": "_Game_DestroyMode@4",
       "address": "0x00417C80",
       "kind": "relative_code"
     },
     {
-      "symbol": "_ModeDestroyScriptWave18@4",
+      "symbol": "_Title_DestroyMode@4",
       "address": "0x0042CB60",
       "kind": "relative_code"
     },
     {
-      "symbol": "_ModeDestroySmallWave18@4",
+      "symbol": "_Ending_DestroyMode@4",
       "address": "0x0040B7B0",
       "kind": "relative_code"
     },
     {
-      "symbol": "_ModeFreeWave18",
+      "symbol": "_MainTask_FreeMode",
       "address": "0x004524A1",
       "kind": "relative_code"
     },
@@ -169,11 +169,11 @@
     "src/core/zwave/platform_set_operation_deadline.cpp",
     "src/core/zwave/sound_fade_steps.cpp"
   ],
-  "entry": "?MainTaskTickWave18@@YIHPAUMainTaskStateWave18@@@Z",
+  "entry": "?MainTask_Tick@@YIHPAUMainTaskState@@@Z",
   "functions": [
     {
       "name": "MainTaskTick",
-      "symbol": "?MainTaskTickWave18@@YIHPAUMainTaskStateWave18@@@Z",
+      "symbol": "?MainTask_Tick@@YIHPAUMainTaskState@@@Z",
       "section": ".text$00b2_main",
       "address": "0x0041FF80",
       "size": 113,
@@ -182,7 +182,7 @@
     },
     {
       "name": "MainTaskUpdateMode",
-      "symbol": "?UpdateMode@MainTaskStateWave18@@QAEHXZ",
+      "symbol": "?UpdateMode@MainTaskState@@QAEHXZ",
       "section": ".text$00c_mode",
       "address": "0x004218D0",
       "size": 666,
@@ -191,7 +191,7 @@
     },
     {
       "name": "SoundFadeTick",
-      "symbol": "?TickFades@SoundFadeManagerWave18@@QAEXXZ",
+      "symbol": "?TickFades@SoundFadeManager@@QAEXXZ",
       "section": ".text$00e_fade",
       "address": "0x00421E00",
       "size": 225,
@@ -324,38 +324,38 @@
   ],
   "calls": [
     {
-      "caller": "?MainTaskTickWave18@@YIHPAUMainTaskStateWave18@@@Z",
-      "callee": "?TickFades@SoundFadeManagerWave18@@QAEXXZ",
+      "caller": "?MainTask_Tick@@YIHPAUMainTaskState@@@Z",
+      "callee": "?TickFades@SoundFadeManager@@QAEXXZ",
       "address": "0x0041FFA6",
       "instruction": "call"
     },
     {
-      "caller": "?TickFades@SoundFadeManagerWave18@@QAEXXZ",
+      "caller": "?TickFades@SoundFadeManager@@QAEXXZ",
       "callee": "?SetOperationDeadline@PlatformInterfaceState2@@QAEHH@Z",
       "address": "0x00421E47",
       "instruction": "call"
     },
     {
-      "caller": "?TickFades@SoundFadeManagerWave18@@QAEXXZ",
+      "caller": "?TickFades@SoundFadeManager@@QAEXXZ",
       "callee": "?SetOperationDeadline@PlatformInterfaceState2@@QAEHH@Z",
       "address": "0x00421E75",
       "instruction": "call"
     },
     {
-      "caller": "?TickFades@SoundFadeManagerWave18@@QAEXXZ",
+      "caller": "?TickFades@SoundFadeManager@@QAEXXZ",
       "callee": "?SetOperationDeadline@PlatformInterfaceState2@@QAEHH@Z",
       "address": "0x00421EA8",
       "instruction": "call"
     },
     {
-      "caller": "?TickFades@SoundFadeManagerWave18@@QAEXXZ",
+      "caller": "?TickFades@SoundFadeManager@@QAEXXZ",
       "callee": "?SetOperationDeadline@PlatformInterfaceState2@@QAEHH@Z",
       "address": "0x00421ED9",
       "instruction": "call"
     }
   ],
   "included_sources": [
-    "build_support/layout/ltcg/sound_fade_wave18_dependencies.cpp"
+    "build_support/layout/ltcg/sound_fade_dependencies.cpp"
   ],
   "anchors": [
     {
@@ -374,7 +374,7 @@
     },
     {
       "name": "MainLeaveSlot",
-      "symbol": "?LeaveSlot@MainTaskStateWave18@@QAEXH@Z",
+      "symbol": "?LeaveSlot@MainTaskState@@QAEXH@Z",
       "section": ".text$00d_leave",
       "address": "0x00421C50",
       "size": 25

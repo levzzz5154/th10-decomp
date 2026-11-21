@@ -74,8 +74,8 @@ extern "C" __declspec(noinline) int __stdcall Hint_Initialize(Hint* manager) {
     manager->field_010 = 0;
 
     if (g_screen_mode) {
-        asm_FUN_00419960_00419960(manager, (const char*)0x46D6D8, 0);
-        asm_FUN_00419960_00419960(manager, (const char*)0x46D6C4, 1);
+        Hint_ParseDataEntry(manager, (const char*)0x46D6D8, 0);
+        Hint_ParseDataEntry(manager, (const char*)0x46D6C4, 1);
     }
     return 0;
 }
@@ -93,7 +93,7 @@ __declspec(noinline) Hint* __cdecl Hint_Create() {
         manager = 0;
     if (Hint_Initialize(manager)) {
         if (manager) {
-            asm_FUN_00418ee0_00418ee0(manager);
+            ResourceManager_CleanupState(manager);
             crt_free_startup(manager);
         }
         return 0;

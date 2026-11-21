@@ -31,7 +31,7 @@ extern "C" void *g_bomb;
 extern "C" void __cdecl crt_free_startup(void *block);
 extern "C" int __stdcall Bomb_RegisterTasks(
         RawPair2 *pair);
-extern "C" void __stdcall asm_Recovery_ReleaseRawPairAndReset_00405620(
+extern "C" void __stdcall Bomb_ReleaseState(
         RawPair2 *pair);
 
 #pragma code_seg(".text$00_xfixed")
@@ -51,7 +51,7 @@ extern "C" __declspec(noinline) void *__cdecl Bomb_Create(void) {
     }
     if (Bomb_RegisterTasks(state) != 0) {
         if (state) {
-            asm_Recovery_ReleaseRawPairAndReset_00405620(state);
+            Bomb_ReleaseState(state);
             crt_free_startup(state);
         }
         return 0;

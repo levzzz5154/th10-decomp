@@ -12,7 +12,7 @@ int File_WriteWholeFile(const char* path, const void* buffer, unsigned long size
 enum { kMessageBoxIconError = 0x10 };
 
 #pragma code_seg(".text$00fn")
-void TextLog4::WriteToFile() {
+void TextLog::WriteToFile() {
     if (cursor == text)
         return;
     Append("---------------------------------------------------------- \r\n");

@@ -1,6 +1,6 @@
 // 0x0041AFD0: update every normal and special item, including collection.
 #include <math.h>
-#include "../../../build_support/layout/ltcg/item_collection_runtime/types/update.hpp"
+#include "th10/game/item_collection/update.hpp"
 #include "th10/game/entity_script_start.hpp"
 
 static __forceinline Player*& CurrentItemPlayer() { return g_player; }

@@ -60,27 +60,27 @@
       "kind": "relative_code"
     },
     {
-      "symbol": "_asm_malloc_00452706",
+      "symbol": "_crt_malloc",
       "address": "0x00452706",
       "kind": "relative_code"
     },
     {
-      "symbol": "_asm_free_00452422",
+      "symbol": "_crt_free",
       "address": "0x00452422",
       "kind": "relative_code"
     },
     {
-      "symbol": "_asm_FUN_00452abc_00452abc",
+      "symbol": "_crt_mkdir",
       "address": "0x00452ABC",
       "kind": "relative_code"
     },
     {
-      "symbol": "_asm_File_OpenSharedWrite_0044b620@4",
+      "symbol": "_File_OpenSharedWritePath@4",
       "address": "0x0044B620",
       "kind": "relative_code"
     },
     {
-      "symbol": "_asm_sprintf_00452ae8",
+      "symbol": "_crt_sprintf",
       "address": "0x00452AE8",
       "kind": "relative_code"
     },

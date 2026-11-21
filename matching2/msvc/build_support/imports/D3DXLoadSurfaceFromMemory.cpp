@@ -2,7 +2,7 @@ typedef unsigned int (__stdcall *D3DXLoadSurfaceFromMemoryFn)(
     void*, const void*, const void*, const void*, unsigned int,
     unsigned int, const void*, const void*, unsigned int, unsigned int);
 extern "C" D3DXLoadSurfaceFromMemoryFn imp_D3DXLoadSurfaceFromMemory;
-extern "C" unsigned int __stdcall asm_D3DXLoadSurfaceFromMemory_004521a6(
+extern "C" unsigned int __stdcall Th10_D3DXLoadSurfaceFromMemory(
     void* destination, const void* destination_palette, const void* destination_rect,
     const void* source, unsigned int format, unsigned int pitch,
     const void* source_palette, const void* source_rect, unsigned int filter,

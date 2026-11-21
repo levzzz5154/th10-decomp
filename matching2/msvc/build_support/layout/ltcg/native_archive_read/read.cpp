@@ -1,4 +1,4 @@
-#include "archive.hpp"
+#include "th10/archive/native_read/archive.hpp"
 #ifndef ARCHIVE_READ_SECTION
 #define ARCHIVE_READ_SECTION ".text$a00read"
 #endif
@@ -15,7 +15,7 @@ extern "C" __declspec(noinline) unsigned char* __stdcall DatArchiveRead(
         if (stored_size == uncompressed_size && output)
             encrypted = output;
         else
-            encrypted = static_cast<unsigned char*>(asm_malloc_00452706(stored_size));
+            encrypted = static_cast<unsigned char*>(crt_malloc(stored_size));
         if (encrypted) {
             if (archive->file->Seek(static_cast<LONG>(entry->offset), 0) &&
                 archive->file->Read(encrypted, stored_size)) {
@@ -35,10 +35,10 @@ extern "C" __declspec(noinline) unsigned char* __stdcall DatArchiveRead(
                 else
                     result = encrypted;
                 if (encrypted != output && encrypted)
-                    asm_free_00452422(encrypted);
+                    crt_free(encrypted);
                 return result;
             }
-            asm_free_00452422(encrypted);
+            crt_free(encrypted);
         }
     }
     return 0;

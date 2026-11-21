@@ -6,7 +6,7 @@
   "headers": [
     "include/th10/game/spt_test.hpp",
     "include/th10/platform/archive_file.hpp",
-    "build_support/layout/ltcg/native_archive_read/archive.hpp",
+    "include/th10/archive/native_read/archive.hpp",
     "include/th10/archive/dat_archive_types.hpp",
     "include/th10/platform/file.hpp",
     "include/th10/platform/windows_types.hpp",
@@ -74,22 +74,22 @@
   "constants": [],
   "absolute_symbols": [
     {
-      "symbol": "_asm_malloc_00452706",
+      "symbol": "_crt_malloc",
       "address": "0x452706",
       "kind": "relative_code"
     },
     {
-      "symbol": "_asm_free_00452422",
+      "symbol": "_crt_free",
       "address": "0x452422",
       "kind": "relative_code"
     },
     {
-      "symbol": "_asm_stricmp_0046054e",
+      "symbol": "_crt_stricmp",
       "address": "0x46054e",
       "kind": "relative_code"
     },
     {
-      "symbol": "_asm_strrchr_00452930",
+      "symbol": "_crt_strrchr",
       "address": "0x452930",
       "kind": "relative_code"
     },

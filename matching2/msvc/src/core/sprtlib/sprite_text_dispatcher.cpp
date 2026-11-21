@@ -21,7 +21,7 @@ unsigned int __stdcall recovery_draw_unshadowed(
 
 #pragma code_seg(".text$004479d0_fn")
 void __stdcall RecoveryDispatchText2(
-    RecoveryTextResource* resource, void* texture,
+    AnmTextResource* resource, void* texture,
     int horizontal_offset, int font_height, unsigned int color,
     const char* text, int unshadowed) {
     if (font_height <= 0)
@@ -51,7 +51,7 @@ void __stdcall RecoveryDispatchText2(
 #define TH10_MARK_TEXT_SECTION ".text$00447a50_fn"
 #endif
 #pragma code_seg(TH10_MARK_TEXT_SECTION)
-void __cdecl RecoveryTextVm::MarkText(
+void __cdecl AnmTextVm::MarkText(
     void* manager, ...) {
     char buffer[128];
     const unsigned int height = font_height;
@@ -64,7 +64,7 @@ void __cdecl RecoveryTextVm::MarkText(
     va_end(args);
     const unsigned int color = va_arg(color_home, unsigned int);
     va_end(color_home);
-    RecoveryTextResource* text_resource = resource;
+    AnmTextResource* text_resource = resource;
     RecoveryDispatchText2(
         text_resource, text_resource->texture, 0, height, color, buffer,
         (flags_360 >> 1) & 1);

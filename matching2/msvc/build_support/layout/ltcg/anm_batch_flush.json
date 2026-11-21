@@ -311,7 +311,7 @@
     {
       "name": "AnmVmDrawDispatch",
       "source": "src/core/sprtfunc/anm_vm_draw_dispatch.cpp",
-      "symbol": "_asm_FUN_004451c0_004451c0",
+      "symbol": "_AnmVm_DrawDispatch",
       "section": ".text$06hdispatch",
       "address": "0x4451c0",
       "size": 216,
@@ -997,22 +997,22 @@
       "kind": "relative_code"
     },
     {
-      "symbol": "_asm_FUN_004391f0_004391f0",
+      "symbol": "_Device_ResetDisplay",
       "address": "0x004391F0",
       "kind": "relative_code"
     },
     {
-      "symbol": "_asm_FUN_00449c00_00449c00@4",
+      "symbol": "_FuncCtrl_RunPrimaryList@4",
       "address": "0x00449C00",
       "kind": "relative_code"
     },
     {
-      "symbol": "_asm_FUN_00449d40_00449d40@4",
+      "symbol": "_FuncCtrl_RunSecondaryList@4",
       "address": "0x00449D40",
       "kind": "relative_code"
     },
     {
-      "symbol": "_asm_FUN_0043ddf0_0043ddf0@4",
+      "symbol": "_WaveSoundManager_ProcessCommands@4",
       "address": "0x0043DDF0",
       "kind": "relative_code"
     },
@@ -1107,22 +1107,22 @@
       "kind": "data"
     },
     {
-      "symbol": "_asm_D3DXMatrixRotationX_004521ac@8",
+      "symbol": "_Th10_D3DXMatrixRotationX@8",
       "address": "0x004521AC",
       "kind": "relative_code"
     },
     {
-      "symbol": "_asm_D3DXMatrixRotationY_004521b8@8",
+      "symbol": "_Th10_D3DXMatrixRotationY@8",
       "address": "0x004521B8",
       "kind": "relative_code"
     },
     {
-      "symbol": "_asm_D3DXMatrixRotationZ_004521be@8",
+      "symbol": "_Th10_D3DXMatrixRotationZ@8",
       "address": "0x004521BE",
       "kind": "relative_code"
     },
     {
-      "symbol": "_asm_D3DXMatrixMultiply_004521b2@12",
+      "symbol": "_Th10_D3DXMatrixMultiply@12",
       "address": "0x004521B2",
       "kind": "relative_code"
     },
@@ -1491,7 +1491,7 @@
     },
     {
       "name": "AnimationManager_RenderBucket_00448980_abi_anchor",
-      "symbol": "_asm_AnimationManager_RenderBucket_00448980",
+      "symbol": "_AnimationManager_RenderBucket",
       "section": ".text$09bucket",
       "address": "0x00448980",
       "size": 66

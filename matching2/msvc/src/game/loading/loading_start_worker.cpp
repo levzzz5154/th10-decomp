@@ -7,7 +7,7 @@ extern FuncCtrl* g_func_ctrl;
 int __fastcall LoadingPrimary(void* owner);
 int __fastcall LoadingSecondary(void* owner);
 unsigned int __stdcall LoadingThreadMain(void* owner);
-unsigned int __cdecl asm_beginthreadex_00453683(
+unsigned int __cdecl crt_beginthreadex(
     void* security, unsigned int stack_size, PlatformWorkerEntry start,
     void* context, unsigned int initflag, unsigned int* thread_id);
 }
@@ -35,7 +35,7 @@ int LoadingView::StartWorker() {
     active_worker->entry = LoadingThreadMain;
     active_worker->running = 1;
     active_worker->stop_requested = 0;
-    active_worker->thread = (void*)asm_beginthreadex_00453683(
+    active_worker->thread = (void*)crt_beginthreadex(
         0, 0, LoadingThreadMain, this, 0, &active_worker->thread_id);
     return 0;
 }

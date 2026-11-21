@@ -4,7 +4,7 @@
 #include "../../../src/unreferenced/unassigned_415e30.cpp"
 
 #pragma code_seg(".text$03context")
-int __stdcall RecoveryTickStateCompilerContext_00415e30(RecoveryTickState** states,
+int __stdcall RecoveryTickStateCompilerContext_00415e30(GameHudTickState** states,
                                                        int count) {
     int result = 0;
     for (int index = 0; index < count; ++index)

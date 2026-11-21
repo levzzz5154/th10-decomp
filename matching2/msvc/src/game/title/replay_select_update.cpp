@@ -40,7 +40,7 @@ static __forceinline void PopSelection2(MenuCursor& cursor) {
 
 // The timer reset and SetTimerTarget (0x0042C620) as they are inlined in
 // phase 1.
-static __forceinline void ResetTimer2(RecoveryTimer2* timer) {
+static __forceinline void ResetTimer2(GameFrameTimer* timer) {
     if (!(timer->flags & 1u)) {
         timer->current = 0;
         timer->previous = -999999;

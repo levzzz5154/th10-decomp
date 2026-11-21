@@ -22,14 +22,14 @@ struct CardDrawView {
 
 extern "C" AnimationManager2* g_sprt_ctrl;
 
-extern "C" __declspec(noinline) int __cdecl asm_FUN_004451c0_004451c0(
+extern "C" __declspec(noinline) int __cdecl AnmVm_DrawDispatch(
         PlayerSprite2* sprite, AnimationManager2* manager);
 
 #pragma code_seg(".text$01draw")
 __declspec(noinline) int CardDrawView::DrawSprites() {
     if (flags & 1) {
-        asm_FUN_004451c0_004451c0(&body_sprite, g_sprt_ctrl);
-        asm_FUN_004451c0_004451c0(&option_sprite, g_sprt_ctrl);
+        AnmVm_DrawDispatch(&body_sprite, g_sprt_ctrl);
+        AnmVm_DrawDispatch(&option_sprite, g_sprt_ctrl);
     }
     return 1;
 }

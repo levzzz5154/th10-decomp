@@ -29,7 +29,7 @@
     }
   ],
   "context": {
-    "symbol": "_asm_FUN_004451c0_004451c0",
+    "symbol": "_AnmVm_DrawDispatch",
     "section": ".text$06hdispatch",
     "address": "0x004451c0",
     "size": 236,

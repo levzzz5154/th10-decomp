@@ -1,7 +1,7 @@
 struct FileTime { unsigned int low; unsigned int high; };
 extern "C" void (__stdcall *imp_GetSystemTimeAsFileTime)(FileTime*);
 
-extern "C" unsigned int __cdecl asm_FID_conflict___time32_00452b71(unsigned int* output) {
+extern "C" unsigned int __cdecl crt_time32(unsigned int* output) {
     FileTime time;
     imp_GetSystemTimeAsFileTime(&time);
     unsigned long long ticks = *reinterpret_cast<unsigned long long*>(&time);

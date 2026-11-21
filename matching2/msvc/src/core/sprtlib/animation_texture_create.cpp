@@ -4,7 +4,7 @@
 extern "C" int g_texture_formats_a[];
 extern "C" int g_texture_formats_b[];
 extern "C" void* g_d3d_device;
-extern "C" int __stdcall asm_D3DXCreateTexture_004521a0(
+extern "C" int __stdcall Th10_D3DXCreateTexture(
         void*, unsigned int, unsigned int, unsigned int, unsigned int,
         unsigned int, unsigned int, void**);
 
@@ -15,7 +15,7 @@ extern "C" int __stdcall asm_D3DXCreateTexture_004521a0(
 __declspec(noinline) int AnimationTextureCreate2(
         int width, int height, void* output, int format_index) {
     int format = g_texture_formats_a[format_index];
-    asm_D3DXCreateTexture_004521a0(g_d3d_device, width, height, 1, 0, format, 1,
+    Th10_D3DXCreateTexture(g_d3d_device, width, height, 1, 0, format, 1,
                                    (void**)output);
     *(int*)((unsigned char*)output + 0xc) = g_texture_formats_b[format_index];
     return 0;

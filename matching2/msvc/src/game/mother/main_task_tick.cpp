@@ -1,4 +1,4 @@
-#include "th10/platform/sound_fade_manager_wave18.hpp"
+#include "th10/platform/sound_fade_manager.hpp"
 
 enum MainTaskTickFlags {
     APP_FLAG_CLOSING = 0x80,
@@ -9,12 +9,12 @@ enum MainTaskTickFlags {
 };
 
 #pragma code_seg(".text$00b2_main")
-__declspec(noinline) int __fastcall MainTaskTickWave18(MainTaskStateWave18* state) {
+__declspec(noinline) int __fastcall MainTask_Tick(MainTaskState* state) {
     if ((state->flags_3CC & APP_FLAG_CLOSING) != 0 && state->state_63C == 0)
         g_main_state = MAIN_MODE_QUIT_REQ;
     g_sound_manager.TickFades();
-    PollInputWave18(0);
-    if (AnmPendingWave18(g_sprt_ctrl)) return MAIN_TICK_STOP;
+    Input_Poll(0);
+    if (SprtCtrl_HasPendingLoads(g_sprt_ctrl)) return MAIN_TICK_STOP;
     int request = state->request_648;
     if (request) {
         // MATCH: retail encodes the two statuses as a mask: request 2 returns 4,

@@ -42,8 +42,8 @@
   },
   "anchors": [
     {
-      "name": "?RecoveryMusicStopHandle@@YGXPAURecoveryHandle@@@Z",
-      "symbol": "?RecoveryMusicStopHandle@@YGXPAURecoveryHandle@@@Z",
+      "name": "?RecoveryMusicStopHandle@@YGXPAUAnmScriptHandle@@@Z",
+      "symbol": "?RecoveryMusicStopHandle@@YGXPAUAnmScriptHandle@@@Z",
       "section": ".text$00409e50_fn",
       "address": 4198400,
       "size": 65
@@ -119,22 +119,22 @@
       "size": 90
     },
     {
-      "name": "?InitializeTransition@RecoveryMusicVm@@QAEXPBURecoveryMusicVector@@0HE@Z",
-      "symbol": "?InitializeTransition@RecoveryMusicVm@@QAEXPBURecoveryMusicVector@@0HE@Z",
+      "name": "?InitializeTransition@TitleAnmVm@@QAEXPBUTitleVec3@@0HE@Z",
+      "symbol": "?InitializeTransition@TitleAnmVm@@QAEXPBUTitleVec3@@0HE@Z",
       "section": ".text$00434a80_fn",
       "address": 4409968,
       "size": 206
     },
     {
-      "name": "?RegisterResource@RecoveryMusicResourceQueue@@QAEPADPBDHH@Z",
-      "symbol": "?RegisterResource@RecoveryMusicResourceQueue@@QAEPADPBDHH@Z",
+      "name": "?RegisterResource@MusicRequestQueue@@QAEPADPBDHH@Z",
+      "symbol": "?RegisterResource@MusicRequestQueue@@QAEPADPBDHH@Z",
       "section": ".text$0043e460_fn",
       "address": 4410176,
       "size": 76
     },
     {
-      "name": "?Find@RecoveryLookup@@QAIPAXPAURecoveryLookupContext@@UAnimationScriptId@@@Z",
-      "symbol": "?Find@RecoveryLookup@@QAIPAXPAURecoveryLookupContext@@UAnimationScriptId@@@Z",
+      "name": "?Find@AnmLookup@@QAIPAXPAUAnmLookupContext@@UAnimationScriptId@@@Z",
+      "symbol": "?Find@AnmLookup@@QAIPAXPAUAnmLookupContext@@UAnimationScriptId@@@Z",
       "section": ".text$004491c0_fn",
       "address": 4410256,
       "size": 73
@@ -283,7 +283,7 @@
       "address": 4791316
     },
     {
-      "symbol": "_asm_AnimationManager_RegisterPrimaryBack_004489d0",
+      "symbol": "_AnimationManager_RegisterPrimaryBack",
       "kind": "relative_code",
       "address": 4491728
     },
@@ -293,7 +293,7 @@
       "address": 4495472
     },
     {
-      "symbol": "_asm_FUN_00449950_00449950",
+      "symbol": "_AnimationPool_AllocateEntry",
       "kind": "relative_code",
       "address": 4495696
     },
@@ -353,7 +353,7 @@
       "address": 4681688
     },
     {
-      "symbol": "?Validate@RecoveryLookup@@QAAPAXPAURecoveryHandle@@@Z",
+      "symbol": "?Validate@AnmLookup@@QAAPAXPAUAnmScriptHandle@@@Z",
       "kind": "relative_code",
       "address": 4494416
     },
@@ -368,7 +368,7 @@
       "address": 4648180
     },
     {
-      "symbol": "?MarkText@RecoveryTextVm@@QAAXPAXZZ",
+      "symbol": "?MarkText@AnmTextVm@@QAAXPAXZZ",
       "kind": "relative_code",
       "address": 4487760
     },

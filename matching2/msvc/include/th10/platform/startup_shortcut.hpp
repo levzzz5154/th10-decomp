@@ -42,12 +42,7 @@ struct PersistFileVtable {
 struct ShellLink { ShellLinkVtable* vtable; };
 struct PersistFile { PersistFileVtable* vtable; };
 struct CriticalSection { unsigned char storage[24]; };
-struct TextLog5 {
-    char text[0x2000];
-    char* cursor;
-    unsigned char dirty;
-    char* AppendLine(char* format, ...);
-};
+#include "th10/platform/text_log.hpp"
 extern "C" {
 __declspec(dllimport) HANDLE __stdcall CreateMutexA(void*, int, const char*);
 __declspec(dllimport) DWORD __stdcall GetLastError();
@@ -61,7 +56,7 @@ __declspec(dllimport) int __stdcall MultiByteToWideChar(DWORD, DWORD, const char
 __declspec(dllimport) void __stdcall EnterCriticalSection(CriticalSection*);
 __declspec(dllimport) void __stdcall LeaveCriticalSection(CriticalSection*);
 __declspec(dllimport) int __stdcall CloseHandle(HANDLE);
-int __cdecl asm_vsprintf_004524a6(char*, const char*, char*);
+int __cdecl crt_vsprintf(char*, const char*, char*);
 void* __cdecl Startup_New(unsigned int);
 void __cdecl Startup_Free(void*);
 extern char startupMutexName[], startupAlreadyRunning[], startupLinkExtension[];
@@ -69,13 +64,13 @@ extern Guid shellLinkClass, shellLinkInterface, persistFileInterface;
 extern HANDLE startupMutex;
 extern DWORD startupFlags;
 extern BYTE startupReplay;
-extern TextLog5 startupLog;
+extern TextLog startupLog;
 extern CriticalSection g_text_log_lock, g_file_critical_section;
 extern BYTE g_text_log_lock_depth, g_file_critical_depth;
 extern void* imp_EnterCriticalSection;
 extern void* imp_CreateFileA;
 }
-__declspec(noinline) int __stdcall asm_File_ProbeExists_0044b4d0(const char*);
+__declspec(noinline) int __stdcall File_ProbeExistsPath(const char*);
 // The complete real caller lets LTCG assign target to EBX and capacity to EDI.
 // Only shortcut remains on the stack, cleaned by the callee's RET4.
 __declspec(noinline) int __stdcall ResolveShortcutTarget(const char*, char*, DWORD);

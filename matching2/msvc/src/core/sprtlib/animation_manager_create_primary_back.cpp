@@ -12,8 +12,8 @@ struct AnimationBank {
 };
 
 extern "C" void* g_sprt_ctrl;
-extern "C" void* __cdecl asm_FUN_00449950_00449950(void* manager);
-extern "C" void** __cdecl asm_AnimationManager_RegisterPrimaryBack_004489d0(
+extern "C" void* __cdecl AnimationPool_AllocateEntry(void* manager);
+extern "C" void** __cdecl AnimationManager_RegisterPrimaryBack(
     void* manager, void** out, void* entity);
 
 #pragma code_seg(".text$05aa_back")
@@ -21,12 +21,12 @@ __declspec(noinline)
 void** __stdcall AnimationManager_CreatePrimaryBack(
         void* resource, void** out, int index, int render_bucket) {
     AnimationObject5* object =
-        (AnimationObject5*)asm_FUN_00449950_00449950(g_sprt_ctrl);
+        (AnimationObject5*)AnimationPool_AllocateEntry(g_sprt_ctrl);
     unsigned int flags = object->flags_035c;
     object->render_bucket_020 = render_bucket;
     object->flags_035c = flags | 0x40000000u;
     ((AnimationBank*)resource)->InitializeObject(object, index);
-    asm_AnimationManager_RegisterPrimaryBack_004489d0(g_sprt_ctrl, out, object);
+    AnimationManager_RegisterPrimaryBack(g_sprt_ctrl, out, object);
     return out;
 }
 #pragma code_seg()

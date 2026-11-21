@@ -38,7 +38,7 @@ BulletManager_Initialize(BulletManager4 *manager) {
     manager->bullet_resource = Recovery_LoadCachedResource(
             7, g_sprt_ctrl, "bullet.anm");
     if (!manager->bullet_resource) {
-        ((TextLog4 *)0x474F70)->Append((char *)0x46CD54);
+        ((TextLog *)0x474F70)->Append((char *)0x46CD54);
         return -1;
     }
     manager->cursor = &manager->bullets[0];

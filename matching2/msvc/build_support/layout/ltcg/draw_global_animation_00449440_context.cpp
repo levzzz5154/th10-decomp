@@ -15,7 +15,7 @@ struct AnimationManager14 {
 };
 
 #pragma code_seg(".text$01dispatch")
-extern "C" __declspec(noinline) int __cdecl asm_FUN_004451c0_004451c0(
+extern "C" __declspec(noinline) int __cdecl AnmVm_DrawDispatch(
         RenderEntity2* entity, AnimationManager14* manager) {
     if (!(entity->flags & 1))
         return -1;

@@ -1,4 +1,4 @@
-#include "../../build_support/include/asm_symbols.hpp"
+#include "th10/runtime/asm_symbols.hpp"
 #include <stddef.h>
 
 // 0x004367D0..0x004367D4: memmove forwarding thunk.

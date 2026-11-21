@@ -1,4 +1,4 @@
-#include "types.hpp"
+#include "th10/game/laser_line_types.hpp"
 extern float g_playfield_min_x,g_playfield_max_x,g_playfield_min_y,g_playfield_max_y;
 #pragma code_seg(".text$20bounds")
 int LinePosition::IsPartiallyOutside(float horizontal,float vertical) const {

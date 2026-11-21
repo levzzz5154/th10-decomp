@@ -1,6 +1,6 @@
 // Complete existing dependency semantics, with typed views of the shared
 // animation manager. These native bodies are unselected in this cluster.
-#include "message_teardown_dependencies.hpp"
+#include "th10/game/ending_teardown.hpp"
 
 #pragma code_seg(".text$01child")
 __declspec(noinline) void EndingTextView::Destroy() {

@@ -86,7 +86,7 @@
     },
     {
       "name": "Logger",
-      "symbol": "?Append@TextLog4@@QAAPADPADZZ",
+      "symbol": "?Append@TextLog@@QAAPADPADZZ",
       "section": ".text$a18logger",
       "address": "0x44b810",
       "size": 201
@@ -188,7 +188,7 @@
       "kind": "data"
     },
     {
-      "symbol": "_asm_vsprintf_004524a6",
+      "symbol": "_crt_vsprintf",
       "address": "0x4524a6",
       "kind": "relative_code"
     },

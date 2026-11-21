@@ -19,8 +19,12 @@ struct GameApp2 {
 typedef char GameAppConfigOffset[offsetof(GameApp2, config) == 0x120 ? 1 : -1];
 typedef char GameAppVsyncOffset[offsetof(GameApp2, no_vsync) == 0x3B4 ? 1 : -1];
 
-// The 8 KiB diagnostic text log at 0x00474F70.
-struct TextLog3 {
+// MATCH: The 8 KiB diagnostic text log at 0x00474F70. Kept as a distinct
+// external-ABI view from `TextLog` so that when `config_load.cpp` is
+// co-compiled as an anchor inside `game_main.json`, MSVC LTCG does not merge
+// its calls into `game_main`'s internal `TextLog` register-passing convention
+// and shift the anchor size.
+struct ConfigTextLog {
     char text[0x2000];
     char* cursor;
     unsigned char dirty;
@@ -31,7 +35,7 @@ struct TextLog3 {
 
 extern "C" {
 extern GameApp2 g_application;
-extern TextLog3 g_log;
+extern ConfigTextLog g_log;
 extern char g_key_bindings_current[];      // the key configuration in use (18 bytes)
 
 // Log lines (Shift-JIS).

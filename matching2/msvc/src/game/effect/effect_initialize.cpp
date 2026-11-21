@@ -21,13 +21,7 @@ struct BulletResourceCache;
 
 // Declared here exactly as the co-compiled TextLog translation unit defines it,
 // so the whole-program pass can pick the register agreement retail used.
-struct TextLog4 {
-    char text[0x2000];
-    char *cursor;
-    unsigned char dirty;
-    char *Append(char *format, ...);
-};
-
+#include "th10/platform/text_log.hpp"
 extern "C" void * __fastcall Recovery_LoadCachedResource(
         int id, BulletResourceCache *cache, const char *name);
 extern "C" SchedulerTask * __stdcall SchedulerTask_Create(void *callback);
@@ -41,7 +35,7 @@ extern "C" __declspec(noinline) int __stdcall Effect_Initialize(
             7, g_sprt_ctrl, (const char *)0x46CD88);
     state->bullet_resource = resource;
     if (!resource) {
-        ((TextLog4 *)0x474F70)->Append((char *)0x46CF74);
+        ((TextLog *)0x474F70)->Append((char *)0x46CF74);
         return -1;
     }
 

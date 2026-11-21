@@ -2,7 +2,7 @@
 #include "../../../src/unreferenced/unassigned_439700.cpp"
 
 #pragma code_seg(".text$11context")
-int __stdcall TextLogLineCompilerContext(TextLog5** logs, int count, int value, const char* name) {
+int __stdcall TextLogLineCompilerContext(TextLog** logs, int count, int value, const char* name) {
     for (int index = 0; index < count; ++index)
         logs[index]->AppendLine("%d %s", value, name);
     return 0;

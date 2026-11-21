@@ -8,11 +8,11 @@ struct Stream {
     int buffer_size;
 };
 extern "C" unsigned int g_crt_stdio_bufsize;
-extern "C" void* __cdecl asm_malloc_00452706(unsigned int);
+extern "C" void* __cdecl crt_malloc(unsigned int);
 
 extern "C" void __cdecl asm_getbuf_00459f39(Stream* stream) {
     ++g_crt_stdio_bufsize;
-    stream->base = static_cast<char*>(asm_malloc_00452706(0x1000));
+    stream->base = static_cast<char*>(crt_malloc(0x1000));
     if (stream->base) {
         stream->flags |= 8;
         stream->buffer_size = 0x1000;

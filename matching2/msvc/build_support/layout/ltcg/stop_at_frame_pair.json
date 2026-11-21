@@ -83,7 +83,7 @@
     {
       "name": "RecoveryTimedState_InitializeTimedState_00423510",
       "source": "src/game/pause/result_reset_timed_state.cpp",
-      "symbol": "?InitializeTimedState@RecoveryTimedState@@QAEXXZ",
+      "symbol": "?InitializeTimedState@ResultTimedState@@QAEXXZ",
       "section": ".text$45timed",
       "address": "0x00423510",
       "size": 89,
@@ -181,7 +181,7 @@
     }
   ],
   "context": {
-    "symbol": "?StopAtFrameCompilerContext@@YGHPAUAnimationHandle@@HPAURecoveryTimedState@@@Z",
+    "symbol": "?StopAtFrameCompilerContext@@YGHPAUAnimationHandle@@HPAUResultTimedState@@@Z",
     "section": ".text$80context",
     "address": "0x004494E0",
     "size": 185,

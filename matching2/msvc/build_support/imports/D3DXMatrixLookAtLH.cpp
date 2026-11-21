@@ -3,7 +3,7 @@ typedef void* (__stdcall* D3DXMatrixLookAtLHFn_00452194)(
 extern "C" D3DXMatrixLookAtLHFn_00452194 imp_D3DXMatrixLookAtLH;
 
 // 0x00452194..0x00452199: imported D3DXMatrixLookAtLH tail thunk.
-extern "C" void* __stdcall asm_D3DXMatrixLookAtLH_00452194(
+extern "C" void* __stdcall Th10_D3DXMatrixLookAtLH(
     void* out, const void* eye, const void* at, const void* up) {
     return imp_D3DXMatrixLookAtLH(out, eye, at, up);
 }

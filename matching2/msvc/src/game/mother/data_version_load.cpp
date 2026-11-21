@@ -6,7 +6,7 @@
 #include "th10/app/data_version.hpp"
 #include "th10/archive/dat_archive_types.hpp"
 #include "th10/platform/archive_file.hpp"
-#include "resource_surface_loading_log.hpp"
+#include "th10/render/surface_loading_log.hpp"
 
 extern "C" int __cdecl sprintf(char* buffer, const char* format, ...);
 

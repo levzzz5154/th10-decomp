@@ -1,4 +1,4 @@
-#include "runtime.hpp"
+#include "th10/game/player_collision/runtime.hpp"
 #include <string.h>
 
 #pragma code_seg(".text$f00427c70F")

@@ -1,4 +1,4 @@
-#include "../../../include/asm_symbols.hpp"
+#include "th10/runtime/asm_symbols.hpp"
 
 typedef void (__stdcall* EnterCriticalSectionFn)(void* section);
 typedef void (__stdcall* LeaveCriticalSectionFn)(void* section);
@@ -12,13 +12,13 @@ extern "C" unsigned char g_scheduler_lock_depth;
 extern "C" unsigned char g_func_ctrl;
 extern "C" unsigned char g_bomb;
 
-struct RecoveryRawPair {
+struct SchedulerRawTaskPair {
     unsigned char unknown_00[0x8];
     SchedulerTask* primary;
     SchedulerTask* secondary;
 };
 
-void __stdcall LabRecovery(RecoveryRawPair* pair) {
+void __stdcall LabRecovery(SchedulerRawTaskPair* pair) {
     EnterCriticalSectionFn enter = *(EnterCriticalSectionFn*)&imp_EnterCriticalSection;
     LeaveCriticalSectionFn leave = *(LeaveCriticalSectionFn*)&imp_LeaveCriticalSection;
     FuncCtrl* const scheduler = *(FuncCtrl**)&g_func_ctrl;

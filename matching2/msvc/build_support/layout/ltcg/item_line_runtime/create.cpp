@@ -22,7 +22,7 @@ __declspec(noinline) void** __stdcall ItemAnimation_CreateOffset(
     object->position.z = position->z;
     LoadScript2(static_cast<AnimationResourceFile*>(resource),
         reinterpret_cast<AnimationObjectFile*>(object),index);
-    asm_AnimationManager_RegisterPrimaryBack_004489d0(g_sprt_ctrl, out, object);
+    AnimationManager_RegisterPrimaryBack(g_sprt_ctrl, out, object);
     return out;
 }
 #pragma code_seg()

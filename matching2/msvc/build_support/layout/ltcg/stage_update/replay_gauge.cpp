@@ -1,4 +1,4 @@
-#include "types.hpp"
+#include "th10/game/stage_update/types.hpp"
 #pragma code_seg(".text$00428e10_fn")
 Player* Player::SetFixedPosition(const FixedPoint* source) {
     int* fixed = &fixed_position.x;

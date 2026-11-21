@@ -7,11 +7,11 @@
 // build_support/layout/ltcg/legacy_string_duplicate.json.
 #include <string.h>
 
-extern "C" void* __cdecl asm_malloc_00452706(unsigned int size);
+extern "C" void* __cdecl crt_malloc(unsigned int size);
 
 #pragma code_seg(".text$a14duplicate")
 __declspec(noinline) char* LegacyString_Duplicate(const char* text) {
-    char* copy = (char*)asm_malloc_00452706(strlen(text) + 1);
+    char* copy = (char*)crt_malloc(strlen(text) + 1);
     if (copy)
         strcpy(copy, text);
     return copy;

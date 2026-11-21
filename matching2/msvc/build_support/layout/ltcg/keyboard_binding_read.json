@@ -60,7 +60,7 @@
       "kind": "data"
     },
     {
-      "symbol": "_asm_FUN_0044a190_0044a190",
+      "symbol": "_Joystick_ReadPad",
       "address": "0x0044A190",
       "kind": "relative_code"
     },

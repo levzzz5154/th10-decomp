@@ -1,6 +1,6 @@
 #include "th10/archive/dat_archive_types.hpp"
 
-extern "C" int __cdecl asm_stricmp_0046054e(
+extern "C" int __cdecl crt_stricmp(
     const unsigned char* left, const unsigned char* right);
 
 #pragma code_seg(".text$01findsize")
@@ -10,7 +10,7 @@ __declspec(noinline) unsigned int DatArchive_FindSize(
     if (entry != 0) {
         int remaining = archive->entry_count;
         while (remaining > 0) {
-            if (asm_stricmp_0046054e(
+            if (crt_stricmp(
                     reinterpret_cast<const unsigned char*>(name),
                     reinterpret_cast<const unsigned char*>(entry->name)) == 0)
                 goto found;

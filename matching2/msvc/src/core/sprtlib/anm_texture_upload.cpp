@@ -23,7 +23,7 @@ int AnmTexture::Upload(AnmUploadTag tag, int format, const void* data, int size,
     AnmSurface* surface = 0;
     texture->GetSurfaceLevel(0, &surface);
     if (!has_thtx) {
-        asm_D3DXLoadSurfaceFromFileInMemory_004521d0(surface, 0, 0, data, size, 0, 1, 0, 0);
+        Th10_D3DXLoadSurfaceFromFileInMemory(surface, 0, 0, data, size, 0, 1, 0, 0);
     } else {
         const AnmEntryHeader2* entry = static_cast<const AnmEntryHeader2*>(data);
         AnmRect rect;
@@ -31,7 +31,7 @@ int AnmTexture::Upload(AnmUploadTag tag, int format, const void* data, int size,
         rect.top = 0;
         rect.right = entry->Thtx()->width;
         rect.bottom = entry->Thtx()->height;
-        asm_D3DXLoadSurfaceFromMemory_004521a6(
+        Th10_D3DXLoadSurfaceFromMemory(
             surface, 0, 0, entry->Thtx()->pixels, g_texture_formats_a[entry->Thtx()->format],
             entry->Thtx()->width * g_texture_formats_b[entry->Thtx()->format], 0, &rect, 1, 0);
     }

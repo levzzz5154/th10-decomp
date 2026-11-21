@@ -20,10 +20,10 @@ struct RenderEntityMatrixView {
 extern "C" double dbl_0;
 extern "C" __declspec(noinline) void SyncRenderState2(
         SprtCtrlBatchView* manager, RenderEntity* entity);
-extern "C" void __stdcall asm_D3DXMatrixRotationX_004521ac(RenderMatrix4x4* out, float angle);
-extern "C" void __stdcall asm_D3DXMatrixRotationY_004521b8(RenderMatrix4x4* out, float angle);
-extern "C" void __stdcall asm_D3DXMatrixRotationZ_004521be(RenderMatrix4x4* out, float angle);
-extern "C" void __stdcall asm_D3DXMatrixMultiply_004521b2(RenderMatrix4x4* out,
+extern "C" void __stdcall Th10_D3DXMatrixRotationX(RenderMatrix4x4* out, float angle);
+extern "C" void __stdcall Th10_D3DXMatrixRotationY(RenderMatrix4x4* out, float angle);
+extern "C" void __stdcall Th10_D3DXMatrixRotationZ(RenderMatrix4x4* out, float angle);
+extern "C" void __stdcall Th10_D3DXMatrixMultiply(RenderMatrix4x4* out,
                                                           const RenderMatrix4x4* left,
                                                           const RenderMatrix4x4* right);
 
@@ -51,16 +51,16 @@ int EntityDraw5(RenderEntity* entity, SprtCtrlBatchView* manager) {
         flags &= 0xFFFFFFF7u;
         entity->flags = flags;
         if (entity->rotation.x != dbl_0) {
-            asm_D3DXMatrixRotationX_004521ac(&rotation, entity->rotation.x);
-            asm_D3DXMatrixMultiply_004521b2(&view->world_transform, &view->world_transform, &rotation);
+            Th10_D3DXMatrixRotationX(&rotation, entity->rotation.x);
+            Th10_D3DXMatrixMultiply(&view->world_transform, &view->world_transform, &rotation);
         }
         if (entity->rotation.y != dbl_0) {
-            asm_D3DXMatrixRotationY_004521b8(&rotation, entity->rotation.y);
-            asm_D3DXMatrixMultiply_004521b2(&view->world_transform, &view->world_transform, &rotation);
+            Th10_D3DXMatrixRotationY(&rotation, entity->rotation.y);
+            Th10_D3DXMatrixMultiply(&view->world_transform, &view->world_transform, &rotation);
         }
         if (entity->rotation.z != dbl_0) {
-            asm_D3DXMatrixRotationZ_004521be(&rotation, entity->rotation.z);
-            asm_D3DXMatrixMultiply_004521b2(&view->world_transform, &view->world_transform, &rotation);
+            Th10_D3DXMatrixRotationZ(&rotation, entity->rotation.z);
+            Th10_D3DXMatrixMultiply(&view->world_transform, &view->world_transform, &rotation);
         }
         entity->flags &= 0xFFFFFFFBu;
     }

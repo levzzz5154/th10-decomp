@@ -8,7 +8,7 @@
 // native-LTCG cluster build_support/layout/ltcg/dtor_delete_405710.json whose array-walking synthetic
 // caller establishes that convention.
 
-extern "C" void __stdcall asm_Recovery_ReleaseRawPairAndReset_00405620(void* object);
+extern "C" void __stdcall Bomb_ReleaseState(void* object);
 extern "C" void __cdecl crt_free_startup(void* block);
 
 struct Deletable3 {
@@ -19,7 +19,7 @@ __declspec(noinline) void* Deletable_00405710_Delete(Deletable3* object, int fla
 
 #pragma code_seg(".text$01del")
 void* Deletable_00405710_Delete(Deletable3* object, int flags) {
-    asm_Recovery_ReleaseRawPairAndReset_00405620(object);
+    Bomb_ReleaseState(object);
     if ((flags & 1) != 0) {
         crt_free_startup(object);
     }

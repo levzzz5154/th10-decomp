@@ -1,7 +1,7 @@
 // 0x00408210: clear the projectiles inside the manager's region.
 #include "th10/game/projectile_manager.hpp"
-#include "../../../build_support/layout/ltcg/laser_cut/item_spawn.hpp"
-#include "../../../build_support/layout/ltcg/projectile_clear_region/lookup.hpp"
+#include "th10/game/laser_cut/item_spawn.hpp"
+#include "th10/game/projectile_clear_lookup.hpp"
 
 extern "C" {
 extern ItemSpawnManager* g_item_manager;

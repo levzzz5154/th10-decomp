@@ -71,7 +71,7 @@ __declspec(noinline) int __stdcall File_WriteWholeFile(const char* path, const v
 
 // The bodies of the two log appenders (src/core/zunlib/text_log.cpp and
 // text_log_append_line.cpp).
-extern "C" int __cdecl asm_vsprintf_004524a6(char* buffer, const char* format, char* arguments);
+extern "C" int __cdecl crt_vsprintf(char* buffer, const char* format, char* arguments);
 struct ConfigLoadCriticalSection { unsigned char storage[24]; };
 extern "C" {
 __declspec(dllimport) void __stdcall EnterCriticalSection(ConfigLoadCriticalSection* section);
@@ -80,13 +80,13 @@ extern ConfigLoadCriticalSection g_text_log_lock;
 extern unsigned char g_text_log_lock_depth;
 }
 #pragma code_seg(".text$00i_append")
-__declspec(noinline) char* TextLog3::Append(char* format, ...) {
+__declspec(noinline) char* ConfigTextLog::Append(char* format, ...) {
     char staging[0x2000];
     va_list arguments;
     va_start(arguments, format);
     EnterCriticalSection(&g_text_log_lock);
     ++g_text_log_lock_depth;
-    asm_vsprintf_004524a6(staging, format, arguments);
+    crt_vsprintf(staging, format, arguments);
     unsigned int length = strlen(staging);
     char* destination = cursor;
     if ((unsigned int)(destination + length) < (unsigned int)((char*)this + 0x1FFF)) {
@@ -99,13 +99,13 @@ __declspec(noinline) char* TextLog3::Append(char* format, ...) {
     return format;
 }
 #pragma code_seg(".text$00j_line")
-__declspec(noinline) char* TextLog3::AppendLine(char* format, ...) {
+__declspec(noinline) char* ConfigTextLog::AppendLine(char* format, ...) {
     char buffer[512];
     va_list va;
     va_start(va, format);
     EnterCriticalSection(&g_text_log_lock);
     ++g_text_log_lock_depth;
-    asm_vsprintf_004524a6(buffer, format, va);
+    crt_vsprintf(buffer, format, va);
     unsigned int length = strlen(buffer);
     char* dest = cursor;
     if ((unsigned int)(dest + length) < (unsigned int)((char*)this + 0x1FFF)) {

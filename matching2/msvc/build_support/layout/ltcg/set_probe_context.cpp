@@ -5,8 +5,8 @@
 
 #pragma code_seg(".text$00401000_context")
 extern "C" int __stdcall SetProbeCompilerContext(
-    RecoveryScriptState* script,
-    RecoveryTimer2* timers, int count, int value) {
+    EndingScriptState* script,
+    GameFrameTimer* timers, int count, int value) {
     for (int index = 0; index < count; ++index) {
         timers[index].Set(value + index);
         timers[index].Advance(1.0f);

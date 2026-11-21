@@ -8,7 +8,7 @@
 // build_support/layout/ltcg/dtor_delete_40d710.json; the callee is compiled into the same link as an
 // ABI anchor so the pass hands it the object in EAX.
 
-extern "C" void __cdecl asm_FUN_0040d530_0040d530(void* object);
+extern "C" void __cdecl EnemyCtrl_DestroyState(void* object);
 extern "C" void __cdecl crt_free_startup(void* block);
 
 struct EnemyCtrl {
@@ -19,7 +19,7 @@ __declspec(noinline) void* EnemyCtrl_DeletingDestructor(EnemyCtrl* object, int f
 
 #pragma code_seg(".text$03del")
 void* EnemyCtrl_DeletingDestructor(EnemyCtrl* object, int flags) {
-    asm_FUN_0040d530_0040d530(object);
+    EnemyCtrl_DestroyState(object);
     if ((flags & 1) != 0) {
         crt_free_startup(object);
     }
@@ -35,7 +35,7 @@ __declspec(noinline) void EnemyCtrl_Delete(EnemyCtrl* object);
 #pragma code_seg(".text$04m_delete")
 void EnemyCtrl_Delete(EnemyCtrl* object) {
     if (object != 0) {
-        asm_FUN_0040d530_0040d530(object);
+        EnemyCtrl_DestroyState(object);
         crt_free_startup(object);
     }
 }

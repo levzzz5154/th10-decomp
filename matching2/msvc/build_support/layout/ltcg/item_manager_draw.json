@@ -38,7 +38,7 @@
     },
     {
       "name": "AnmVmDrawDispatch_anchor",
-      "symbol": "_asm_FUN_004451c0_004451c0",
+      "symbol": "_AnmVm_DrawDispatch",
       "section": ".text$03dispatch",
       "address": "0x004451C0",
       "size": 19

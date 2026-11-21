@@ -1,4 +1,4 @@
-#include "types.hpp"
+#include "th10/game/laser_line_types.hpp"
 #pragma code_seg(".text$90advance")
 void FrameTimer::Advance(float delta) {
     previous=current;

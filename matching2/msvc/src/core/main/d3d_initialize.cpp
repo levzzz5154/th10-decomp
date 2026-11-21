@@ -18,15 +18,15 @@
 struct SprtCtrlStateCacheView;
 
 extern "C" {
-Direct3DMatrix* __stdcall asm_D3DXMatrixLookAtLH_00452194(Direct3DMatrix* out,
+Direct3DMatrix* __stdcall Th10_D3DXMatrixLookAtLH(Direct3DMatrix* out,
     const Direct3DVector* eye, const Direct3DVector* at, const Direct3DVector* up);
-Direct3DMatrix* __stdcall asm_D3DXMatrixPerspectiveFovLH_0045219a(Direct3DMatrix* out,
+Direct3DMatrix* __stdcall Th10_D3DXMatrixPerspectiveFovLH(Direct3DMatrix* out,
     float fov_y, float aspect, float near_z, float far_z);
 SprtCtrlStateCacheView* __cdecl Renderer_ApplyDeviceDefaults(void);
 
 extern Application g_application;
 extern MainWindow g_main_window;
-extern TextLog4 g_log;
+extern TextLog g_log;
 
 // Log lines (Shift-JIS).
 extern char str_first_run_32bit[];    // "first run, the screen was initialised at 32 bits"
@@ -46,13 +46,6 @@ extern char str_no_a8r8g8b8[];    // "D3DFMT_A8R8G8B8 is not supported, running 
 }
 
 int __stdcall ApplyDefaultViewport(unsigned int color);
-
-struct TextLog5 {
-    char text[0x2000];
-    char* cursor;
-    unsigned char dirty;
-    char* AppendLine(char* format, ...);
-};
 
 #pragma code_seg(".text$00439890_fn")
 __declspec(noinline) int __stdcall D3DInitialize() {
@@ -133,7 +126,7 @@ reference:
                         parameters.swap_effect = 3;
                         continue;
                     }
-                    reinterpret_cast<TextLog5*>(&g_log)->AppendLine(str_d3d_init_failed);
+                    g_log.AppendLine(str_d3d_init_failed);
                     if (g_application.direct3d != 0) {
                         g_application.direct3d->Release();
                         g_application.direct3d = 0;
@@ -168,8 +161,8 @@ reference:
     up.y = 1.0f;
     up.z = 0.0f;
     eye.z = -(240.0f / (float)tan(field_of_view / 2));
-    asm_D3DXMatrixLookAtLH_00452194(&g_application.view, &eye, &at, &up);
-    asm_D3DXMatrixPerspectiveFovLH_0045219a(&g_application.projection, field_of_view,
+    Th10_D3DXMatrixLookAtLH(&g_application.view, &eye, &at, &up);
+    Th10_D3DXMatrixPerspectiveFovLH(&g_application.projection, field_of_view,
                                             640.0f / 480.0f, 100.0f, 10000.0f);
     g_application.device->SetTransform(2, &g_application.view);
     g_application.device->SetTransform(3, &g_application.projection);

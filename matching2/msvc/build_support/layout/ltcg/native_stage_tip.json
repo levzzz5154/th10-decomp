@@ -89,7 +89,7 @@
   "constants": [],
   "absolute_symbols": [
     {
-      "symbol": "_asm_FUN_00419960_00419960@12",
+      "symbol": "_Hint_ParseDataEntry@12",
       "address": "0x00419960",
       "kind": "relative_code"
     },
@@ -139,7 +139,7 @@
       "kind": "data"
     },
     {
-      "symbol": "_asm_FUN_00418ee0_00418ee0@4",
+      "symbol": "_ResourceManager_CleanupState@4",
       "address": "0x00418EE0",
       "kind": "relative_code"
     },

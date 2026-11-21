@@ -1,4 +1,4 @@
-#include "runtime.hpp"
+#include "th10/game/player_collision/runtime.hpp"
 
 // The enemy update is the sweep's only caller; it passes no result record.
 struct SweepCallerEnemy {

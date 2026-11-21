@@ -35,7 +35,7 @@ static unsigned int NextPoolIndex_00449950(unsigned int index) {
 // The animation-manager pool allocator modelled only for its argument shape.
 // These bytes are never selected as recovered code.
 #pragma code_seg(".text$08zspool")
-extern "C" __declspec(noinline) void* __cdecl asm_FUN_00449950_00449950(void* manager) {
+extern "C" __declspec(noinline) void* __cdecl AnimationPool_AllocateEntry(void* manager) {
     unsigned char* bytes = (unsigned char*)manager;
     unsigned int index = *(unsigned int*)(bytes + 0x3AD068);
     if (bytes[0x3AC068 + index] != 0) {
@@ -63,7 +63,7 @@ extern "C" __declspec(noinline) void* __cdecl asm_FUN_00449950_00449950(void* ma
 
 // The script loader modelled only for its argument shape.
 #pragma code_seg(".text$07zzload")
-extern "C" __declspec(noinline) void __cdecl asm_AnimationObject_LoadScript_0043e710(
+extern "C" __declspec(noinline) void __cdecl AnmVm_LoadScript(
         void* resource, void* object, int index) {
     unsigned char* res = (unsigned char*)resource;
     unsigned char* obj = (unsigned char*)object;
@@ -120,7 +120,7 @@ struct AnmListManager_00448d50 {
 };
 
 #pragma code_seg(".text$08zregback")
-extern "C" __declspec(noinline) void** __cdecl asm_AnimationManager_RegisterPrimaryBack_004489d0(
+extern "C" __declspec(noinline) void** __cdecl AnimationManager_RegisterPrimaryBack(
         void* manager, void** out, void* entity) {
     unsigned char* m = (unsigned char*)manager;
     unsigned char* e = (unsigned char*)entity;
@@ -163,12 +163,12 @@ void** __stdcall AnimationManager_CreatePositionedPrimary(
     void* resource, void** out, int index,
     const AnimationPosition* position) {
     AnimationObject6* object =
-        (AnimationObject6*)asm_FUN_00449950_00449950(g_sprt_ctrl);
+        (AnimationObject6*)AnimationPool_AllocateEntry(g_sprt_ctrl);
     object->flags_035c |= 0x40000000u;
     object->render_bucket_020 = 0;
     object->position_340 = *position;
-    asm_AnimationObject_LoadScript_0043e710(resource, object, index);
-    asm_AnimationManager_RegisterPrimaryBack_004489d0(g_sprt_ctrl, out, object);
+    AnmVm_LoadScript(resource, object, index);
+    AnimationManager_RegisterPrimaryBack(g_sprt_ctrl, out, object);
     return out;
 }
 #pragma code_seg()

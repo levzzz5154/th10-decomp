@@ -1,4 +1,4 @@
-#include "types.hpp"
+#include "th10/game/laser_cut/types.hpp"
 extern float g_playfield_min_x,g_playfield_max_x,g_playfield_min_y,g_playfield_max_y;
 #pragma code_seg(".text$f0041f7a0F")
 int CutVector::IsPartiallyOutside(float horizontal,float vertical) const {

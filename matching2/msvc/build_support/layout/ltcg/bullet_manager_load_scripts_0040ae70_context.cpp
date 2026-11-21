@@ -5,7 +5,7 @@
 struct Effect;
 Effect *Effect_Create();
 extern "C" void *__cdecl Bomb_Create(void);
-extern "C" int __stdcall asm_Recovery_InstallPairClearFlags_0041ad90(void *pair);
+extern "C" int __stdcall ItemManager_InstallTaskPair(void *pair);
 extern "C" void *__cdecl LaserManager_Create(void);
 struct ScoreManager2;
 ScoreManager2 *InitializeManager(ScoreManager2 *manager);
@@ -78,7 +78,7 @@ int __stdcall BulletManagerLoadScriptsCompilerContext(
     }
     if (Bomb_Create())
         ++created;
-    if (asm_Recovery_InstallPairClearFlags_0041ad90(tasks[0]))
+    if (ItemManager_InstallTaskPair(tasks[0]))
         ++created;
     for (int index = 0; index < count; ++index) {
         if (LaserManager_Create())

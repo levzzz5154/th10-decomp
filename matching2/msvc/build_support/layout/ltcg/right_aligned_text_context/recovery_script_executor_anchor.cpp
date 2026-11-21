@@ -1,6 +1,6 @@
 // 0x0040B480: replace a loaded asset through the shared filename buffer.
 #include <string.h>
-#include "../../../include/contexts/game/right_aligned_text_context/archive_callers.hpp"
+#include "th10/game/hint_text/archive_callers.hpp"
 extern "C" char g_recovery_script_path[];
 extern "C" void __cdecl crt_free(void*);
 #pragma code_seg(".text$0040b480_fn")

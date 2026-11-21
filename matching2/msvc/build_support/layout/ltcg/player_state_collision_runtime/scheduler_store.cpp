@@ -23,9 +23,9 @@
 //         C2 04 00           ret 4
 // The record pointer arrives in EAX while the value stays on the stack, so the
 // setter is compiled as a native LTCG cluster.
-// Carved out of build_support/contexts/legacy/game/player.cpp (asm_Player_SetSchedulerValue_00405410).
+// Carved out of build_support/contexts/legacy/game/player.cpp (Player_SetSchedulerValue).
 
-#include "player_state.hpp"
+#include "th10/game/player_collision/player_state.hpp"
 
 #pragma code_seg(".text$f00405410F")
 void PlayerSchedulerRecord::SetSchedulerValue(int value) {

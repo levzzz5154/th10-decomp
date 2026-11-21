@@ -44,7 +44,7 @@ extern "C" RenderStageState6 g_application;
 // 0x00448980 reads its manager from EDI and its bucket index from EAX; the
 // declaration only fixes the argument shape, the compiled anchor below supplies
 // the registers.
-extern "C" int __cdecl asm_AnimationManager_RenderBucket_00448980(void* manager, int index);
+extern "C" int __cdecl AnimationManager_RenderBucket(void* manager, int index);
 
 #pragma code_seg(".text$08stage0f")
 int SprtCtrlBatchView::RenderStage1Bucket0F() {
@@ -53,13 +53,13 @@ int SprtCtrlBatchView::RenderStage1Bucket0F() {
     stage->camera.ApplyDefault();
     g_d3d_device->Viewport(&g_application.active_stage->camera.viewport_x);
     g_application.stage_index = 1;
-    return asm_AnimationManager_RenderBucket_00448980(this, 0x0F);
+    return AnimationManager_RenderBucket(this, 0x0F);
 }
 #pragma code_seg()
 
 // The per-object draw 0x00448980 dispatches; an absolute binding, never a
 // compiler-visible body in this link.
-extern "C" void __cdecl asm_FUN_004451c0_004451c0(unsigned char* object, void* manager);
+extern "C" void __cdecl AnmVm_DrawDispatch(unsigned char* object, void* manager);
 
 // 0x00448980's own body, modelled only for its argument shape: it walks one
 // animation bucket's list, runs each object's hook and dispatches its draw -
@@ -70,7 +70,7 @@ extern "C" void __cdecl asm_FUN_004451c0_004451c0(unsigned char* object, void* m
 // region at 0x00448980 (its two internal call shapes are not modelled, so this
 // body is 4 bytes off retail and does not promote that region).
 #pragma code_seg(".text$09bucket")
-extern "C" __declspec(noinline) int __cdecl asm_AnimationManager_RenderBucket_00448980(
+extern "C" __declspec(noinline) int __cdecl AnimationManager_RenderBucket(
         void* manager, int index) {
     unsigned char* base = (unsigned char*)manager;
     unsigned char* object = *(unsigned char**)(base + 0x72DB00 + index * 0x3AC);
@@ -80,7 +80,7 @@ extern "C" __declspec(noinline) int __cdecl asm_AnimationManager_RenderBucket_00
             if (hook != 0) {
                 hook(object);
             }
-            asm_FUN_004451c0_004451c0(object, manager);
+            AnmVm_DrawDispatch(object, manager);
         }
         object = *(unsigned char**)(object + 0x1C);
     }

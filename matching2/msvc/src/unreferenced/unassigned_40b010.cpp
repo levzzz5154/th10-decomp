@@ -7,7 +7,7 @@
 // build_support/layout/ltcg/dtor_release_40b010.json whose array-walking synthetic caller establishes that
 // convention.
 
-extern "C" void __stdcall asm_BulletManager_Release_0040af00(void* object);
+extern "C" void __stdcall Effect_ReleaseState(void* object);
 extern "C" void __cdecl crt_free_startup(void* block);
 
 struct Destroyable5 {
@@ -19,7 +19,7 @@ __declspec(noinline) void Destroyable_0040b010_Release(Destroyable5* object);
 #pragma code_seg(".text$01rel")
 void Destroyable_0040b010_Release(Destroyable5* object) {
     if (object != 0) {
-        asm_BulletManager_Release_0040af00(object);
+        Effect_ReleaseState(object);
         crt_free_startup(object);
     }
 }

@@ -27,13 +27,7 @@ typedef char LaserManagerView_size_must_be_45c[
 
 // Declared here exactly as the co-compiled TextLog translation unit defines it,
 // so the whole-program pass can pick the register agreement retail used.
-struct TextLog4 {
-    char text[0x2000];
-    char *cursor;
-    unsigned char dirty;
-    char *Append(char *format, ...);
-};
-
+#include "th10/platform/text_log.hpp"
 extern "C" void *__fastcall Recovery_LoadCachedResource(
         int id, void *cache, const char *name);
 extern "C" SchedulerTask *__stdcall SchedulerTask_Create(void *callback);
@@ -49,7 +43,7 @@ LaserManager_RegisterTasks(LaserManagerView *manager) {
             7, g_sprt_ctrl, (const char *)0x46CD88);
     manager->display_resource_458 = resource;
     if (!resource) {
-        ((TextLog4 *)0x474F70)->Append((char *)0x46CD54);
+        ((TextLog *)0x474F70)->Append((char *)0x46CD54);
         return -1;
     }
 

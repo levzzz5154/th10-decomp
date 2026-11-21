@@ -1,8 +1,8 @@
-#include "archive.hpp"
+#include "th10/archive/index/archive.hpp"
 #include "log.hpp"
 extern "C" int __cdecl archive_sprintf(char*,const char*,...);
 extern "C" DatArchive g_archive;
-extern "C" TextLog5 g_log;
+extern "C" TextLog g_log;
 extern "C" char* g_data_version_buffer;
 extern "C" int g_data_version_size;
 extern "C" char version_archive_name[],version_filename_format[];

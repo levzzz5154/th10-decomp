@@ -20,13 +20,13 @@ struct AnimationObject15 {
 };
 
 extern "C" void* g_sprt_ctrl;
-extern "C" void* __cdecl asm_FUN_00449950_00449950(void* manager);
-extern "C" void __cdecl asm_AnimationObject_LoadScript_0043e710(
+extern "C" void* __cdecl AnimationPool_AllocateEntry(void* manager);
+extern "C" void __cdecl AnmVm_LoadScript(
     void* resource, void* object, int index);
 // The secondary-list front registration, spelled with the handle record retail
 // keeps in EAX second: it is the object the assigned id is written to, while
 // the entity in EBX is the one whose embedded node is linked.
-extern "C" void** __cdecl asm_AnimationManager_RegisterSecondaryFront_00448b40(
+extern "C" void** __cdecl AnimationManager_RegisterSecondaryFront(
     void* manager, void** out, void* entity);
 
 // noinline: the whole-program pass must keep this body as its own contribution
@@ -35,12 +35,12 @@ __declspec(noinline)
 void** __stdcall AnimationManager_CreatePositionedSecondaryFront(
     void* resource, void** out, int index, const AnimationPosition7* position) {
     AnimationObject15* object =
-        (AnimationObject15*)asm_FUN_00449950_00449950(g_sprt_ctrl);
+        (AnimationObject15*)AnimationPool_AllocateEntry(g_sprt_ctrl);
     object->flags_035c |= 0x40000000u;
     object->render_bucket_020 = 0;
     object->position_340 = *position;
-    asm_AnimationObject_LoadScript_0043e710(resource, object, index);
-    asm_AnimationManager_RegisterSecondaryFront_00448b40(g_sprt_ctrl, out, object);
+    AnmVm_LoadScript(resource, object, index);
+    AnimationManager_RegisterSecondaryFront(g_sprt_ctrl, out, object);
     return out;
 }
 #pragma code_seg()

@@ -2,7 +2,7 @@
 // actual representable ECX-dummy/EDX-object fastcall boundary from entity.hpp.
 #include "th10/render/animation_public_callers.hpp"
 #include <string.h>
-#include "animation_ids.hpp"
+#include "th10/game/laser_cut/animation_ids.hpp"
 struct AnmListNode_00448d50 {
     void* owner;
     AnmListNode_00448d50* next;

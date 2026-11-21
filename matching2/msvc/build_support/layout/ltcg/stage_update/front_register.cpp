@@ -11,7 +11,7 @@
 #define g_main_state stage_front_data_00491fb8
 #define g_sound_manager stage_front_data_00492590
 // 0x004489D0: append an animation to the primary list and assign its nonzero ID.
-#include "front_view.hpp"
+#include "th10/game/stage_update/front_view.hpp"
 
 #pragma code_seg(".text$004489d0_fn")
 FrontAnimationId FrontAnimationLists::RegisterPrimaryBack(Entity *object) {

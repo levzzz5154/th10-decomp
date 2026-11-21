@@ -65,7 +65,7 @@
   "anchors": [
     {
       "name": "asm_FUN_0040d530_0040d530_abi_anchor",
-      "symbol": "_asm_FUN_0040d530_0040d530",
+      "symbol": "_EnemyCtrl_DestroyState",
       "section": ".text$01anchor",
       "address": "0x0040D530",
       "size": 16

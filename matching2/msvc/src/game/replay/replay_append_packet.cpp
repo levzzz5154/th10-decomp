@@ -1,4 +1,4 @@
-#include "../../../build_support/layout/ltcg/input_recorder_dependencies.hpp"
+#include "th10/platform/input_recorder_dependencies.hpp"
 
 #pragma code_seg(".text$07packet")
 int RecorderPool::AppendPacket(

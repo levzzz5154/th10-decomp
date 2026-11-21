@@ -8,7 +8,7 @@
 // native-LTCG cluster build_support/layout/ltcg/dtor_delete_406120.json whose array-walking synthetic
 // caller establishes that convention.
 
-extern "C" void asm_BulletManager_DestroyRetail_00405f70(void* object);
+extern "C" void BulletManager_DestroyState(void* object);
 extern "C" void __cdecl crt_free_startup(void* block);
 
 struct Deletable4 {
@@ -19,7 +19,7 @@ __declspec(noinline) void* Deletable_00406120_Delete(Deletable4* object, int fla
 
 #pragma code_seg(".text$01del")
 void* Deletable_00406120_Delete(Deletable4* object, int flags) {
-    asm_BulletManager_DestroyRetail_00405f70(object);
+    BulletManager_DestroyState(object);
     if ((flags & 1) != 0) {
         crt_free_startup(object);
     }

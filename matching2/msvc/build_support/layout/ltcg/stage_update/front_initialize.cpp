@@ -12,7 +12,7 @@
 #define g_sound_manager stage_front_data_00492590
 // 0x00449870: reset animation vectors and start a script while preserving object state.
 #include "th10/game/entity_script_start.hpp"
-#include "front_view.hpp"
+#include "th10/game/stage_update/front_view.hpp"
 struct AnimationObject4;
 struct AnimationResource4;
 __declspec(noinline) void *__stdcall

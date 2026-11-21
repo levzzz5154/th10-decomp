@@ -33,10 +33,10 @@ struct AnimationObject6 {
     unsigned int flags_035c;                        // +0x35C
 };
 
-extern "C" void* __cdecl asm_FUN_00449950_00449950(void* manager);
-extern "C" void __cdecl asm_AnimationObject_LoadScript_0043e710(
+extern "C" void* __cdecl AnimationPool_AllocateEntry(void* manager);
+extern "C" void __cdecl AnmVm_LoadScript(
     void* resource, void* object, int index);
-extern "C" void** __cdecl asm_AnimationManager_RegisterPrimaryBack_004489d0(
+extern "C" void** __cdecl AnimationManager_RegisterPrimaryBack(
     void* manager, void** out, void* entity);
 
 // A loaded animation file.

@@ -21,7 +21,7 @@ struct RenderStageState8 {
 };
 extern "C" RenderStageState8 g_application;
 
-extern "C" int __cdecl asm_AnimationManager_RenderBucket_00448980(void* manager, int index);
+extern "C" int __cdecl AnimationManager_RenderBucket(void* manager, int index);
 
 #pragma code_seg(".text$08stage13")
 int SprtCtrlBatchView::RenderStage1Bucket13() {
@@ -30,6 +30,6 @@ int SprtCtrlBatchView::RenderStage1Bucket13() {
     stage->camera.ApplyDefault();
     g_d3d_device->Viewport(&g_application.active_stage->camera.viewport_x);
     g_application.stage_index = 1;
-    return asm_AnimationManager_RenderBucket_00448980(this, 0x13);
+    return AnimationManager_RenderBucket(this, 0x13);
 }
 #pragma code_seg()

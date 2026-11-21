@@ -25,13 +25,13 @@ static inline HintVm* FindIndicatorInline(
         void* manager, unsigned int id) {
     if (id == 0)
         return 0;
-    RecoveryLookupContext* context =
-        static_cast<RecoveryLookupContext*>(manager);
-    for (RecoveryLookupNode* node = context->primary;
+    AnmLookupContext* context =
+        static_cast<AnmLookupContext*>(manager);
+    for (AnmLookupNode* node = context->primary;
          node != 0; node = node->next)
         if (*reinterpret_cast<unsigned int*>(node->object) == id)
             return reinterpret_cast<HintVm*>(node->object);
-    for (RecoveryLookupNode* node = context->secondary;
+    for (AnmLookupNode* node = context->secondary;
          node != 0; node = node->next)
         if (*reinterpret_cast<unsigned int*>(node->object) == id)
             return reinterpret_cast<HintVm*>(node->object);
@@ -99,8 +99,8 @@ int HintLink::Drain(
             unsigned int* handle = &state->handles[state->slot];
             AnimationScriptId id = { static_cast<int>(*handle) };
             vm = static_cast<HintVm*>(
-                reinterpret_cast<RecoveryLookup*>(g_sprt_ctrl)->Find(
-                    static_cast<RecoveryLookupContext*>(g_sprt_ctrl), id));
+                reinterpret_cast<AnmLookup*>(g_sprt_ctrl)->Find(
+                    static_cast<AnmLookupContext*>(g_sprt_ctrl), id));
             if (vm == 0)
                 *handle = 0;
             unsigned char font_size = static_cast<unsigned char>(
@@ -128,8 +128,8 @@ int HintLink::Drain(
             unsigned int* handle = &state->handles[state->slot];
             AnimationScriptId id = { static_cast<int>(*handle) };
             vm = static_cast<HintVm*>(
-                reinterpret_cast<RecoveryLookup*>(manager)->Find(
-                    static_cast<RecoveryLookupContext*>(manager), id));
+                reinterpret_cast<AnmLookup*>(manager)->Find(
+                    static_cast<AnmLookupContext*>(manager), id));
             if (vm == 0)
                 *handle = 0;
             vm->font_width = 30;
@@ -157,7 +157,7 @@ int HintLink::Drain(
             state->positions[state->slot] = vm->position;
             state->positions[state->slot].x += entry->offset * recovery_indicator_half_00470b0c;
             state->values[state->slot] = entry->offset;
-            reinterpret_cast<RecoveryTextVm*>(vm)->MarkText(
+            reinterpret_cast<AnmTextVm*>(vm)->MarkText(
                 manager, 0x00FFFFFFu, static_cast<const char*>(entry->text));
             vm->flags = (vm->flags & 0xFFF7FFFFu) | 0x00040000u;
             manager = g_sprt_ctrl;

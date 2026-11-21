@@ -11,15 +11,9 @@ extern "C" void _ReadWriteBarrier(void);
 extern "C" void* __fastcall LoadCachedResource(
     int index, void* owner, const char* name);
 
-struct TextLog4 {
-    char text[0x2000];
-    char* cursor;
-    unsigned char dirty;
-    char* Append(char* format, ...);
-};
-
+#include "th10/platform/text_log.hpp"
 extern "C" float g_game_speed;
-extern "C" TextLog4 g_log;
+extern "C" TextLog g_log;
 extern "C" char str_data_corrupted[];
 
 // The addressed bytes are linker-owned game globals. Their uses here match

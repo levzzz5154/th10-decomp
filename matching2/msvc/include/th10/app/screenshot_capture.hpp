@@ -84,24 +84,17 @@ typedef char GameAppInfoOffset[offsetof(GameApp, info_header) == 0x520 ? 1 : -1]
 typedef char GameAppNameOffset[offsetof(GameApp, filename) == 0x528 ? 1 : -1];
 
 // The 8 KiB diagnostic text log at 0x00474F70.
-struct TextLog2 {
-    char text[0x2000];
-    char* cursor;
-    unsigned char dirty;
-
-    char* Append(char* format, ...);        // 0x0044B810
-};
-
+#include "th10/platform/text_log.hpp"
 extern "C" {
 extern GameApp g_application;
-extern TextLog2 g_log;
+extern TextLog g_log;
 extern char str_snapshot_alloc_failed[];      // Shift-JIS: "not enough memory for the screenshot"
 extern char str_snapshot_16bit_unsupported[];      // Shift-JIS: "screenshots need a 32-bit display"
 extern char str_mother_cpp_error[];      // "error ? .\\src\\game\\mother.cpp\r\n"
 
 __declspec(dllimport) void __stdcall Sleep(unsigned long milliseconds);
-void* __cdecl asm_malloc_00452706(unsigned int size);
-unsigned long __cdecl asm_beginthread_00452eec(void (__cdecl* start)(void*), unsigned int stack_size,
+void* __cdecl crt_malloc(unsigned int size);
+unsigned long __cdecl crt_beginthread(void (__cdecl* start)(void*), unsigned int stack_size,
                                                void* argument);
 void __cdecl ScreenshotWriter(void* argument);
 }

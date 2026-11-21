@@ -19,7 +19,7 @@ static unsigned int NextPoolIndex_00449950(unsigned int index) {
 // Complete genuine animation-manager pool allocator for this caller graph.
 // These bytes are never selected as recovered code.
 #pragma code_seg(".text$00449950_fn")
-extern "C" __declspec(noinline) void* __cdecl asm_FUN_00449950_00449950(void* manager) {
+extern "C" __declspec(noinline) void* __cdecl AnimationPool_AllocateEntry(void* manager) {
     unsigned char* bytes = (unsigned char*)manager;
     unsigned int index = *(unsigned int*)(bytes + 0x3AD068);
     if (bytes[0x3AC068 + index] != 0) {
@@ -75,7 +75,7 @@ struct AnmListManager_00448d50 {
 };
 
 #pragma code_seg(".text$004489d0_fn")
-extern "C" __declspec(noinline) void** __cdecl asm_AnimationManager_RegisterPrimaryBack_004489d0(
+extern "C" __declspec(noinline) void** __cdecl AnimationManager_RegisterPrimaryBack(
         void* manager, void** out, void* entity) {
     unsigned char* m = (unsigned char*)manager;
     unsigned char* e = (unsigned char*)entity;

@@ -5,37 +5,37 @@
 #include "th10/game/title_input.hpp"
 #include "th10/game/recovery_script_executor.hpp"
 
-struct RecoveryMusicVector { float x, y, z; };
-struct RecoveryMusicVm;
-struct RecoveryMusicChild {
-    RecoveryMusicVm* object;
-    RecoveryMusicChild* next;
+struct TitleVec3 { float x, y, z; };
+struct TitleAnmVm;
+struct TitleAnmChild {
+    TitleAnmVm* object;
+    TitleAnmChild* next;
 };
-struct RecoveryMusicVm {
+struct TitleAnmVm {
     unsigned int id;
     unsigned char reserved_004[0x10];
-    RecoveryMusicChild* children;
+    TitleAnmChild* children;
     int children_flagged;
     unsigned int reserved_01c;
     int render_bucket;
     unsigned char reserved_024[0x70 - 0x24];
-    RecoveryMusicVector base_transition;
-    RecoveryMusicVector target_transition;
-    RecoveryMusicVector defaults_088;
-    RecoveryMusicVector defaults_094;
-    RecoveryTimer2 transition_timer;
+    TitleVec3 base_transition;
+    TitleVec3 target_transition;
+    TitleVec3 defaults_088;
+    TitleVec3 defaults_094;
+    GameFrameTimer transition_timer;
     int transition_mode;
     unsigned int transition_flag;
     unsigned char reserved_0bc[0x304 - 0xBC];
     unsigned short stop_frame;
     unsigned char reserved_306[0x334 - 0x306];
-    RecoveryMusicVector position;
+    TitleVec3 position;
     unsigned char reserved_340[0x35C - 0x340];
     unsigned int flags;
 
     __declspec(noinline) void InitializeTransition(
-        const RecoveryMusicVector* base,
-        const RecoveryMusicVector* target, int mode, unsigned char flag);
+        const TitleVec3* base,
+        const TitleVec3* target, int mode, unsigned char flag);
 };
 
 extern "C" float g_game_speed;
@@ -52,12 +52,12 @@ struct Title {
     int phase;
     MenuCursor cursor;
     unsigned char reserved_0fc[0x2B0 - 0xFC];
-    RecoveryTimer2 timer;
+    GameFrameTimer timer;
     AnimationScriptId animation_slots[195]; // +2C4 through +5CC
-    RecoveryHandle fallback_handle;
+    AnmScriptHandle fallback_handle;
     unsigned char reserved_5d4[0x614 - 0x5D4];
-    RecoveryHandle row_handles[20];
-    RecoveryHandle preview_handles[8];
+    AnmScriptHandle row_handles[20];
+    AnmScriptHandle preview_handles[8];
     unsigned int reserved_684;
     int parsed_track_count;
     int preview_cursor;
@@ -97,7 +97,7 @@ struct Title {
 
 #pragma code_seg(pop)
 
-struct RecoveryMusicResourceQueue {
+struct MusicRequestQueue {
     __declspec(noinline) char* RegisterResource(const char* name, int kind, int parameter);
 };
 
@@ -116,9 +116,9 @@ typedef char TitleKeyboardOffset[offsetof(Title, keyboard) == 0x58DC ? 1 : -1];
 typedef char TitleBindingsOffset[offsetof(Title, edited_key_bindings) == 0x59CC ? 1 : -1];
 typedef char TitleReplayListOffset[offsetof(Title, replay_list) == 0x59D8 ? 1 : -1];
 typedef char RecoveryMusicRoomBufferCheck[offsetof(Title,file_buffer)==0x5AAC?1:-1];
-typedef char RecoveryMusicVmDepthCheck[offsetof(RecoveryMusicVm,stop_frame)==0x304?1:-1];
-typedef char RecoveryMusicVmPositionCheck[offsetof(RecoveryMusicVm,position)==0x334?1:-1];
-typedef char RecoveryMusicVmFlagsCheck[offsetof(RecoveryMusicVm,flags)==0x35C?1:-1];
+typedef char RecoveryMusicVmDepthCheck[offsetof(TitleAnmVm,stop_frame)==0x304?1:-1];
+typedef char RecoveryMusicVmPositionCheck[offsetof(TitleAnmVm,position)==0x334?1:-1];
+typedef char RecoveryMusicVmFlagsCheck[offsetof(TitleAnmVm,flags)==0x35C?1:-1];
 
 extern "C" __declspec(noinline) int __stdcall Title_UpdateMusicRoom(
     Title* room);

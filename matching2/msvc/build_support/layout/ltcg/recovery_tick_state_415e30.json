@@ -9,7 +9,7 @@
   "functions": [
     {
       "name": "TickRecoveryState",
-      "symbol": "?TickRecoveryState@@YGHPAURecoveryTickState@@@Z",
+      "symbol": "?TickRecoveryState@@YGHPAUGameHudTickState@@@Z",
       "section": ".text$01tick",
       "address": "0x00415E30",
       "size": 93,
@@ -17,7 +17,7 @@
     }
   ],
   "context": {
-    "symbol": "?RecoveryTickStateCompilerContext_00415e30@@YGHPAPAURecoveryTickState@@H@Z",
+    "symbol": "?RecoveryTickStateCompilerContext_00415e30@@YGHPAPAUGameHudTickState@@H@Z",
     "section": ".text$03context",
     "address": "0x00415EA0",
     "size": 41,

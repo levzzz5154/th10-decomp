@@ -70,13 +70,13 @@ struct ProjectedEntity {
 
 // The D3DX entry thunks at 0x45218E/0x4521AC..0x4521BE; their targets pop the
 // arguments, so every call site is a plain stdcall with no cleanup.
-extern "C" void __stdcall asm_D3DXMatrixRotationX_004521ac(ProjectionMatrix2* out, float angle);
-extern "C" void __stdcall asm_D3DXMatrixRotationY_004521b8(ProjectionMatrix2* out, float angle);
-extern "C" void __stdcall asm_D3DXMatrixRotationZ_004521be(ProjectionMatrix2* out, float angle);
-extern "C" void __stdcall asm_D3DXMatrixMultiply_004521b2(ProjectionMatrix2* out,
+extern "C" void __stdcall Th10_D3DXMatrixRotationX(ProjectionMatrix2* out, float angle);
+extern "C" void __stdcall Th10_D3DXMatrixRotationY(ProjectionMatrix2* out, float angle);
+extern "C" void __stdcall Th10_D3DXMatrixRotationZ(ProjectionMatrix2* out, float angle);
+extern "C" void __stdcall Th10_D3DXMatrixMultiply(ProjectionMatrix2* out,
                                                           const ProjectionMatrix2* left,
                                                           const ProjectionMatrix2* right);
-extern "C" void __stdcall asm_D3DXVec3Project_0045218e(void* out, const void* vector,
+extern "C" void __stdcall Th10_D3DXVec3Project(void* out, const void* vector,
                                                        const D3DViewport* viewport,
                                                        const ProjectionMatrix2* projection,
                                                        const ProjectionMatrix2* view,
@@ -100,16 +100,16 @@ int ProjectedEntity::ProjectQuad(ProjectionManager* manager) {
         flags &= 0xFFFFFFF7u;
         ProjectionMatrix2 rotation;
         if (rotation_x != dbl_0) {
-            asm_D3DXMatrixRotationX_004521ac(&rotation, rotation_x);
-            asm_D3DXMatrixMultiply_004521b2(&world_matrix, &world_matrix, &rotation);
+            Th10_D3DXMatrixRotationX(&rotation, rotation_x);
+            Th10_D3DXMatrixMultiply(&world_matrix, &world_matrix, &rotation);
         }
         if (rotation_y != dbl_0) {
-            asm_D3DXMatrixRotationY_004521b8(&rotation, rotation_y);
-            asm_D3DXMatrixMultiply_004521b2(&world_matrix, &world_matrix, &rotation);
+            Th10_D3DXMatrixRotationY(&rotation, rotation_y);
+            Th10_D3DXMatrixMultiply(&world_matrix, &world_matrix, &rotation);
         }
         if (rotation_z != dbl_0) {
-            asm_D3DXMatrixRotationZ_004521be(&rotation, rotation_z);
-            asm_D3DXMatrixMultiply_004521b2(&world_matrix, &world_matrix, &rotation);
+            Th10_D3DXMatrixRotationZ(&rotation, rotation_z);
+            Th10_D3DXMatrixMultiply(&world_matrix, &world_matrix, &rotation);
         }
         flags &= 0xFFFFFFFBu;
     }
@@ -147,13 +147,13 @@ int ProjectedEntity::ProjectQuad(ProjectionManager* manager) {
         break;
     }
     input[0].z = input[1].z = input[2].z = input[3].z = 0.0f;
-    asm_D3DXVec3Project_0045218e(&g_quad_vertices[0], &input[0], &g_render_stage_active->viewport,
+    Th10_D3DXVec3Project(&g_quad_vertices[0], &input[0], &g_render_stage_active->viewport,
                                  &g_render_stage_active->projection, &g_render_stage_active->view, &world);
-    asm_D3DXVec3Project_0045218e(&g_quad_vertices[1], &input[1], &g_render_stage_active->viewport,
+    Th10_D3DXVec3Project(&g_quad_vertices[1], &input[1], &g_render_stage_active->viewport,
                                  &g_render_stage_active->projection, &g_render_stage_active->view, &world);
-    asm_D3DXVec3Project_0045218e(&g_quad_vertices[2], &input[2], &g_render_stage_active->viewport,
+    Th10_D3DXVec3Project(&g_quad_vertices[2], &input[2], &g_render_stage_active->viewport,
                                  &g_render_stage_active->projection, &g_render_stage_active->view, &world);
-    asm_D3DXVec3Project_0045218e(&g_quad_vertices[3], &input[3], &g_render_stage_active->viewport,
+    Th10_D3DXVec3Project(&g_quad_vertices[3], &input[3], &g_render_stage_active->viewport,
                                  &g_render_stage_active->projection, &g_render_stage_active->view, &world);
     manager->projected_world = world;
     return 0;

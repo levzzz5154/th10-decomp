@@ -10,8 +10,8 @@
     "build_support/layout/ltcg/input_recorder_helpers.cpp"
   ],
   "headers": [
-    "build_support/layout/ltcg/input_recorder.hpp",
-    "build_support/layout/ltcg/input_recorder_dependencies.hpp"
+    "include/th10/platform/input_recorder.hpp",
+    "include/th10/platform/input_recorder_dependencies.hpp"
   ],
   "image_base": "0x00400000",
   "description": "Input recorder update, its registered ECX scheduler callback and the typed packet serialization, compiled with the KeyRepeat and linked-pool helpers.",

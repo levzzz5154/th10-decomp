@@ -3,12 +3,7 @@
 #include <stdlib.h>
 #include "th10/platform/archive_file.hpp"
 #include "th10/game/background.hpp"
-struct TextLog4 {
-    char text[0x2000];
-    char* cursor;
-    unsigned char dirty;
-    char* Append(char* format, ...);
-};
+#include "th10/platform/text_log.hpp"
 extern "C" {
 extern char g_recovery_script_path[];
 
@@ -30,7 +25,7 @@ int BackGround::Load(const char* name) {
     animation = LoadCachedResource((stage_flags & 1) + 4, g_sprt_ctrl,
                                            file->animation_name);
     if (!animation) {
-        ((TextLog4*)0x474F70)->Append((char*)0x46CBC0);
+        ((TextLog*)0x474F70)->Append((char*)0x46CBC0);
         return -1;
     }
     BackGroundFile* data = file;

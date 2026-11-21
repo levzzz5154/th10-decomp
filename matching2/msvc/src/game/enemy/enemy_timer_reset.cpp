@@ -1,5 +1,5 @@
 // 0x00412DB0: lazily initialize, then reset, an embedded timer record.
-struct RecoveryTimer3 {
+struct EnemyTimerView {
     unsigned char pad_000[0x20];
     int value;
     int current;
@@ -11,7 +11,7 @@ struct RecoveryTimer3 {
 };
 
 #pragma code_seg(".text$01timerreset00412db0")
-void RecoveryTimer3::Reset() {
+void EnemyTimerView::Reset() {
     if ((initialized & 1) == 0) {
         current = 0;
         value = -999999;

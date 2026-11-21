@@ -40,11 +40,11 @@ AnmFile* __stdcall AnmManager_LoadFile(AnmManager2* manager, int slot,
     }
     file->entry_count = entries;
     file->textures = static_cast<AnmTexture*>(
-        asm_malloc_00452706(entries * sizeof(AnmTexture)));
+        crt_malloc(entries * sizeof(AnmTexture)));
     memset(file->textures, 0, entries * sizeof(AnmTexture));
     file->sprites = static_cast<AnimationPositionRecord*>(
-        asm_malloc_00452706(sprites * sizeof(AnimationPositionRecord)));
-    file->scripts = static_cast<const void**>(asm_malloc_00452706(scripts * sizeof(void*)));
+        crt_malloc(sprites * sizeof(AnimationPositionRecord)));
+    file->scripts = static_cast<const void**>(crt_malloc(scripts * sizeof(void*)));
     file->script_count = scripts;
     file->sprite_count = sprites;
 

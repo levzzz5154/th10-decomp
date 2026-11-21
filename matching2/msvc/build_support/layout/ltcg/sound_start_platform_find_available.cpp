@@ -17,6 +17,6 @@ PlatformInterfaceState::FindAvailable() {
     if (index != count_010)
         return reinterpret_cast<PlatformD370Entry*>(entries_004[index]);
     return reinterpret_cast<PlatformD370Entry*>(
-        entries_004[(unsigned int)asm_rand_0045371b() % count_010]);
+        entries_004[(unsigned int)crt_rand() % count_010]);
 }
 #pragma code_seg()

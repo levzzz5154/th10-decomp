@@ -15,16 +15,16 @@ int ProjectedEntity::ProjectQuad(ProjectionManager* manager) {
         flags &= 0xFFFFFFF7u;
         ProjectionMatrix2 rotation;
         if (rotation_x != dbl_0) {
-            asm_D3DXMatrixRotationX_004521ac(&rotation, rotation_x);
-            asm_D3DXMatrixMultiply_004521b2(&world_matrix, &world_matrix, &rotation);
+            Th10_D3DXMatrixRotationX(&rotation, rotation_x);
+            Th10_D3DXMatrixMultiply(&world_matrix, &world_matrix, &rotation);
         }
         if (rotation_y != dbl_0) {
-            asm_D3DXMatrixRotationY_004521b8(&rotation, rotation_y);
-            asm_D3DXMatrixMultiply_004521b2(&world_matrix, &world_matrix, &rotation);
+            Th10_D3DXMatrixRotationY(&rotation, rotation_y);
+            Th10_D3DXMatrixMultiply(&world_matrix, &world_matrix, &rotation);
         }
         if (rotation_z != dbl_0) {
-            asm_D3DXMatrixRotationZ_004521be(&rotation, rotation_z);
-            asm_D3DXMatrixMultiply_004521b2(&world_matrix, &world_matrix, &rotation);
+            Th10_D3DXMatrixRotationZ(&rotation, rotation_z);
+            Th10_D3DXMatrixMultiply(&world_matrix, &world_matrix, &rotation);
         }
         flags &= 0xFFFFFFFBu;
     }
@@ -62,13 +62,13 @@ int ProjectedEntity::ProjectQuad(ProjectionManager* manager) {
         break;
     }
     input[0].z = input[1].z = input[2].z = input[3].z = 0.0f;
-    asm_D3DXVec3Project_0045218e(&g_quad_vertices[0], &input[0], &((ProjectionEnvironment*)g_render_stage_active)->viewport,
+    Th10_D3DXVec3Project(&g_quad_vertices[0], &input[0], &((ProjectionEnvironment*)g_render_stage_active)->viewport,
                                  &((ProjectionEnvironment*)g_render_stage_active)->projection, &((ProjectionEnvironment*)g_render_stage_active)->view, &world);
-    asm_D3DXVec3Project_0045218e(&g_quad_vertices[1], &input[1], &((ProjectionEnvironment*)g_render_stage_active)->viewport,
+    Th10_D3DXVec3Project(&g_quad_vertices[1], &input[1], &((ProjectionEnvironment*)g_render_stage_active)->viewport,
                                  &((ProjectionEnvironment*)g_render_stage_active)->projection, &((ProjectionEnvironment*)g_render_stage_active)->view, &world);
-    asm_D3DXVec3Project_0045218e(&g_quad_vertices[2], &input[2], &((ProjectionEnvironment*)g_render_stage_active)->viewport,
+    Th10_D3DXVec3Project(&g_quad_vertices[2], &input[2], &((ProjectionEnvironment*)g_render_stage_active)->viewport,
                                  &((ProjectionEnvironment*)g_render_stage_active)->projection, &((ProjectionEnvironment*)g_render_stage_active)->view, &world);
-    asm_D3DXVec3Project_0045218e(&g_quad_vertices[3], &input[3], &((ProjectionEnvironment*)g_render_stage_active)->viewport,
+    Th10_D3DXVec3Project(&g_quad_vertices[3], &input[3], &((ProjectionEnvironment*)g_render_stage_active)->viewport,
                                  &((ProjectionEnvironment*)g_render_stage_active)->projection, &((ProjectionEnvironment*)g_render_stage_active)->view, &world);
     manager->projected_world = world;
     return 0;

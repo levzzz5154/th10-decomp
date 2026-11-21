@@ -1,4 +1,4 @@
-#include "../../../build_support/include/asm_symbols.hpp"
+#include "th10/runtime/asm_symbols.hpp"
 
 // 0x0043CD30 is the sound-device/window initialisation routine that follows
 // this entry point. It takes its target object in ECX and the window handle on
@@ -17,7 +17,7 @@ extern "C" unsigned char g_sound_manager;
 void __stdcall Sound_InitThread() {
     // The handle is bit-cast to float only so that it selects the stack-passing
     // form of the call above; no conversion happens.
-    ((SoundDeviceInitFn)asm_FUN_0043cd30_0043cd30)(&g_sound_manager,
+    ((SoundDeviceInitFn)WaveSoundManager_InitializeDevice)(&g_sound_manager,
                                                    *(float*)&g_sound_init_volume);
     while (*(int*)&g_sound_init_status == 0)
         Sleep(1);

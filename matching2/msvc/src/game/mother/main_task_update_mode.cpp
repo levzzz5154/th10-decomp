@@ -7,7 +7,7 @@
 inline StageRunState* GameState() { return &g_globals; }
 
 #pragma code_seg(".text$00c_mode")
-int MainTaskStateWave18::UpdateMode() {
+int MainTaskState::UpdateMode() {
     if (current_mode != next_mode) {
         imp_EnterCriticalSection(critical_sections[5]);
         int previous = current_mode;
@@ -18,7 +18,7 @@ int MainTaskStateWave18::UpdateMode() {
         case MAIN_MODE_BOOT:
             // Start-up: create the loading/bootstrap task (0x0041FD00); quit on failure.
             next_mode = MAIN_MODE_LOADING;
-            created_state = ModeCreateStateWave18();
+            created_state = Loading_CreateMode();
             if (created_state) break;
             next_mode = MAIN_MODE_QUIT;
             goto quit;
@@ -29,11 +29,11 @@ int MainTaskStateWave18::UpdateMode() {
                 Game_Delete(g_game);
             case MAIN_MODE_LOADING:
             case MAIN_MODE_INIT_DONE:
-                ModeCreateProgressWave18();
+                Title_CreateMode();
                 break;
             case MAIN_MODE_ENDING:
                 ScoreOwnedObject_Destroy(g_ending);
-                ModeCreateProgressWave18();
+                Title_CreateMode();
                 break;
             }
             break;
@@ -53,28 +53,28 @@ int MainTaskStateWave18::UpdateMode() {
             }
             next_mode = MAIN_MODE_TITLE;
             g_main_mode_request = 3;
-            ModeCreateProgressWave18();
+            Title_CreateMode();
             break;
         case MAIN_MODE_GAME:
             // Start normal gameplay (Game_Create(0) at 0x004180E0).
             if (previous == MAIN_MODE_TITLE) Title_Delete(g_title);
             ui_mode = 1;
-            ModeCreateUiWave18(0);
+            Game_CreateMode(0);
             break;
         case MAIN_MODE_GAME_REPLAY:
             // Start replay playback (Game_Create(1)).
             if (previous == MAIN_MODE_TITLE) Title_Delete(g_title);
             next_mode = MAIN_MODE_GAME;
             ui_mode = 1;
-            ModeCreateUiWave18(1);
+            Game_CreateMode(1);
             break;
         case MAIN_MODE_GAME_RESTART: {
             // Restart gameplay preserving the replay_mode argument.
-            unsigned int argument = reinterpret_cast<GameUiArgumentWave18*>(g_game)->argument;
+            unsigned int argument = reinterpret_cast<GameModeArgument*>(g_game)->argument;
             ui_mode = 0;
             if (previous == MAIN_MODE_GAME) Game_Delete(g_game);
             next_mode = MAIN_MODE_GAME;
-            ModeCreateUiWave18(argument);
+            Game_CreateMode(argument);
             break;
         }
         case MAIN_MODE_GAME_NEXT_STAGE:
@@ -84,23 +84,23 @@ int MainTaskStateWave18::UpdateMode() {
             next_mode = MAIN_MODE_GAME;
             GameState()->stage = GameState()->stage_shown;
             g_stage_route_current = g_stage_routes + GameState()->stage_shown;
-            ModeCreateUiWave18(0);
+            Game_CreateMode(0);
             break;
         case MAIN_MODE_GAME_RELOAD:
             // Tear down and recreate gameplay for the current stage.
             Game_Delete(g_game);
             ui_mode = 1;
             next_mode = MAIN_MODE_GAME;
-            ModeCreateUiWave18(0);
+            Game_CreateMode(0);
             break;
         case MAIN_MODE_ENDING:
             // Open the ending / staffroll screen (0x0040B940).
             if (previous == MAIN_MODE_GAME) Game_Delete(g_game);
-            ModeCreateSmallWave18();
+            Ending_CreateMode();
             break;
         case MAIN_MODE_QUIT:
         quit:
-            ModeReleaseGlobalsWave18();
+            Supervisor_ReleaseGlobals();
             LeaveSlot(5);
             return MAIN_TASK_QUIT;
         }

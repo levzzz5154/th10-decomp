@@ -215,7 +215,7 @@
   "constants": [],
   "absolute_symbols": [
     {
-      "symbol": "_asm_FUN_004451c0_004451c0",
+      "symbol": "_AnmVm_DrawDispatch",
       "address": "0x004451C0",
       "kind": "relative_code"
     }

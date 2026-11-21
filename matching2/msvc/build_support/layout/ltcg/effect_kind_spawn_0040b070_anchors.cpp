@@ -39,7 +39,7 @@ AnimationNode2* AnimationPool2::Allocate() {
 }
 
 #pragma code_seg(".text$004489d0_fn")
-extern "C" __declspec(noinline) void** __cdecl asm_AnimationManager_RegisterPrimaryBack_004489d0(
+extern "C" __declspec(noinline) void** __cdecl AnimationManager_RegisterPrimaryBack(
         void* manager, void** out, void* entity) {
     unsigned char* m = (unsigned char*)manager;
     unsigned char* e = (unsigned char*)entity;

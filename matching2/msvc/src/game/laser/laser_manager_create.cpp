@@ -36,7 +36,7 @@ extern "C" LaserManagerView *g_laser_manager;
 LaserBaseView *__fastcall Laser_Construct(void *, LaserBaseView *self);
 extern "C" int __stdcall LaserManager_RegisterTasks(
         LaserManagerView *manager);
-extern "C" void __stdcall asm_LaserManager_Destroy_0041c1c0(
+extern "C" void __stdcall LaserManager_DestroyState(
         LaserManagerView *manager);
 
 extern "C" __declspec(noinline) void *__cdecl
@@ -56,7 +56,7 @@ LaserManager_Create(void) {
     }
     if (LaserManager_RegisterTasks(manager) != 0) {
         if (manager) {
-            asm_LaserManager_Destroy_0041c1c0(manager);
+            LaserManager_DestroyState(manager);
             crt_free_startup(manager);
         }
         return 0;

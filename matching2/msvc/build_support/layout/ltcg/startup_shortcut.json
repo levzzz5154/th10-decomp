@@ -8,7 +8,8 @@
     "build_support/layout/ltcg/startup_helpers/log.cpp"
   ],
   "headers": [
-    "include/th10/platform/startup_shortcut.hpp"
+    "include/th10/platform/startup_shortcut.hpp",
+    "include/th10/platform/text_log.hpp"
   ],
   "image_base": "0x00400000",
   "description": "Complete actual no-input startup entry and full shortcut COM/Win32 resolver; complete recovered probe/log anchors. No synthetic callers or fabricated private register inputs.",
@@ -34,14 +35,14 @@
   "anchors": [
     {
       "name": "Log",
-      "symbol": "?AppendLine@TextLog5@@QAAPADPADZZ",
+      "symbol": "?AppendLine@TextLog@@QAAPADPADZZ",
       "section": ".text$04log",
       "address": "0x0044B8E0",
       "size": 201
     }
   ],
   "context": {
-    "symbol": "?asm_File_ProbeExists_0044b4d0@@YGHPBD@Z",
+    "symbol": "?File_ProbeExistsPath@@YGHPBD@Z",
     "section": ".text$03probe",
     "address": "0x0044B4D0",
     "size": 111,
@@ -235,7 +236,7 @@
       "kind": "relative_code"
     },
     {
-      "symbol": "_asm_vsprintf_004524a6",
+      "symbol": "_crt_vsprintf",
       "address": "0x4524a6",
       "kind": "relative_code"
     },

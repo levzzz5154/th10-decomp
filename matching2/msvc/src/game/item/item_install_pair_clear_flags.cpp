@@ -26,7 +26,7 @@ extern "C" void *g_func_ctrl;
 
 #pragma code_seg(".text$00e_installclear")
 extern "C" __declspec(noinline) int __stdcall
-asm_Recovery_InstallPairClearFlags_0041ad90(RawPair3 *pair) {
+ItemManager_InstallTaskPair(RawPair3 *pair) {
     SchedulerTask *primary = SchedulerTask_Create((void *)0x41BA00);
     primary->reserved_flags &= ~1u;
     primary->context = pair;

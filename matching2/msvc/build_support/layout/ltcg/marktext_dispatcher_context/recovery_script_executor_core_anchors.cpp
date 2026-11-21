@@ -1,9 +1,9 @@
-#include "../../../include/contexts/game/marktext_dispatcher_context/recovery_script_executor.hpp"
+#include "th10/game/ending_script/recovery_script_executor.hpp"
 extern "C" void* g_sprt_ctrl;
 extern float g_frame_timer_normal_lower;
 extern float g_frame_timer_normal_upper;
 #pragma code_seg(".text$00405410_fn")
-void RecoveryTimer2::Set(int value) {
+void GameFrameTimer::Set(int value) {
     if (!(flags & 1u)) {
         current = 0;
         previous = static_cast<int>(0xFFF0BDC1u);
@@ -16,7 +16,7 @@ void RecoveryTimer2::Set(int value) {
     elapsed = static_cast<float>(value);
 }
 #pragma code_seg(".text$0044bf40_fn")
-void RecoveryTimer2::Advance(float delta) {
+void GameFrameTimer::Advance(float delta) {
     previous = current;
     if (*speed > g_frame_timer_normal_lower && *speed < g_frame_timer_normal_upper)
         elapsed += delta;
@@ -25,13 +25,13 @@ void RecoveryTimer2::Advance(float delta) {
     current = int(elapsed);
 }
 #pragma code_seg(".text$004491c0_fn")
-void* __fastcall RecoveryLookup::Find(RecoveryLookupContext* context, AnimationScriptId id) {
+void* __fastcall AnmLookup::Find(AnmLookupContext* context, AnimationScriptId id) {
     if (!id.value)
         return 0;
-    for (RecoveryLookupNode* node = context->primary; node != 0; node = node->next)
+    for (AnmLookupNode* node = context->primary; node != 0; node = node->next)
         if (*reinterpret_cast<int*>(node->object) == id.value)
             return node->object;
-    for (RecoveryLookupNode* node = context->secondary; node != 0; node = node->next)
+    for (AnmLookupNode* node = context->secondary; node != 0; node = node->next)
         if (*reinterpret_cast<int*>(node->object) == id.value)
             return node->object;
     return 0;
@@ -42,9 +42,9 @@ void* __fastcall RecoveryLookup::Find(RecoveryLookupContext* context, AnimationS
 #define TH10_LOOKUP_SETFLAG_SECTION ".text$004492a0_fn"
 #endif
 #pragma code_seg(TH10_LOOKUP_SETFLAG_SECTION)
-void* __fastcall RecoveryLookup::SetFlag(RecoveryLookupContext* context, int id) {
+void* __fastcall AnmLookup::SetFlag(AnmLookupContext* context, int id) {
     AnimationScriptId script_id = { id };
-    RecoveryLookupNode* node = static_cast<RecoveryLookupNode*>(Find(context, script_id));
+    AnmLookupNode* node = static_cast<AnmLookupNode*>(Find(context, script_id));
     if (node) {
         node->flags |= 0x04000000u;
         if (!node->children_flagged)
@@ -57,47 +57,47 @@ void* __fastcall RecoveryLookup::SetFlag(RecoveryLookupContext* context, int id)
 #define TH10_LOOKUP_VALIDATE_SECTION ".text$00449450_fn"
 #endif
 #pragma code_seg(TH10_LOOKUP_VALIDATE_SECTION)
-void* __cdecl RecoveryLookup::Validate(RecoveryHandle* handle) {
+void* __cdecl AnmLookup::Validate(AnmScriptHandle* handle) {
     AnimationScriptId id = { static_cast<int>(handle->value) };
-    void* object = Find(reinterpret_cast<RecoveryLookupContext*>(g_sprt_ctrl), id);
+    void* object = Find(reinterpret_cast<AnmLookupContext*>(g_sprt_ctrl), id);
     if (object == 0)
         handle->value = 0;
     return object;
 }
-struct RecoveryStopNode_0040bd80 {
-    RecoveryStopNode_0040bd80* object;
-    RecoveryStopNode_0040bd80* next;
+struct EndingScriptStopNode {
+    EndingScriptStopNode* object;
+    EndingScriptStopNode* next;
     unsigned char reserved_008[0x0C];
-    RecoveryStopNode_0040bd80* children;
+    EndingScriptStopNode* children;
     int children_flagged;
     unsigned char reserved_01c[0x2E8];
     unsigned short stop_frame;
 };
 #pragma code_seg(".text$0040c480_fn")
-void RecoveryHandle::StopAtFrame2() {
+void AnmScriptHandle::StopAtFrame2() {
     AnimationScriptId id = { static_cast<int>(value) };
-    RecoveryStopNode_0040bd80* node = static_cast<RecoveryStopNode_0040bd80*>(reinterpret_cast<RecoveryLookup*>(g_sprt_ctrl)->Find(reinterpret_cast<RecoveryLookupContext*>(g_sprt_ctrl), id));
+    EndingScriptStopNode* node = static_cast<EndingScriptStopNode*>(reinterpret_cast<AnmLookup*>(g_sprt_ctrl)->Find(reinterpret_cast<AnmLookupContext*>(g_sprt_ctrl), id));
     if (node != 0) {
         node->stop_frame = 2;
         if (!node->children_flagged)
-            for (RecoveryStopNode_0040bd80* child = node->children; child != 0; child = child->next)
+            for (EndingScriptStopNode* child = node->children; child != 0; child = child->next)
                 child->object->stop_frame = 2;
     }
 }
 #pragma code_seg(".text$0040c4d0_fn")
-void RecoveryHandle::StopAtFrame3() {
+void AnmScriptHandle::StopAtFrame3() {
     AnimationScriptId id = { static_cast<int>(value) };
-    RecoveryStopNode_0040bd80* node = static_cast<RecoveryStopNode_0040bd80*>(reinterpret_cast<RecoveryLookup*>(g_sprt_ctrl)->Find(reinterpret_cast<RecoveryLookupContext*>(g_sprt_ctrl), id));
+    EndingScriptStopNode* node = static_cast<EndingScriptStopNode*>(reinterpret_cast<AnmLookup*>(g_sprt_ctrl)->Find(reinterpret_cast<AnmLookupContext*>(g_sprt_ctrl), id));
     if (node != 0) {
         node->stop_frame = 3;
         if (!node->children_flagged)
-            for (RecoveryStopNode_0040bd80* child = node->children; child != 0; child = child->next)
+            for (EndingScriptStopNode* child = node->children; child != 0; child = child->next)
                 child->object->stop_frame = 3;
     }
 }
 #pragma code_seg(".text$00449630_fn")
-void RecoveryHandle::MarkForRemoval() {
-    reinterpret_cast<RecoveryLookup*>(g_sprt_ctrl)->SetFlag(reinterpret_cast<RecoveryLookupContext*>(g_sprt_ctrl), static_cast<int>(value));
+void AnmScriptHandle::MarkForRemoval() {
+    reinterpret_cast<AnmLookup*>(g_sprt_ctrl)->SetFlag(reinterpret_cast<AnmLookupContext*>(g_sprt_ctrl), static_cast<int>(value));
     value = 0;
 }
 #pragma code_seg()

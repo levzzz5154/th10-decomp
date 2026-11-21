@@ -43,7 +43,7 @@ struct DispatcherHandle {
 };
 __declspec(noinline) DispatcherRef __stdcall DispatcherCreateAnimation(
     AnimationBank* resource, int script_index, int render_bucket);
-typedef RecoveryTextVm DispatcherObject;
+typedef AnmTextVm DispatcherObject;
 struct AnimationLookupContext;
 static __forceinline DispatcherObject* DispatcherFindAnimation(
         AnimationLookupContext* context, AnimationScriptId id) {
@@ -162,6 +162,6 @@ extern "C" unsigned g_input_keys_secondary;
 
 // Real public stack interfaces: Music_Play has two inputs and RET8,
 // RandomVoice has one float and RET4. Incoming ECX is unused in both.
-extern "C" int __stdcall asm_Sound_PlayDummyRetail_00420b10(int slot, int heard_index);
-extern "C" int __stdcall asm_Sound_PlayRandomVoiceRetail_00420c30(float amount);
+extern "C" int __stdcall Music_PlayTrack(int slot, int heard_index);
+extern "C" int __stdcall Music_FadeOutEntry(float amount);
 

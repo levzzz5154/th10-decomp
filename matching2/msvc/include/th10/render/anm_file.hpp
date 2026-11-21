@@ -67,18 +67,12 @@ struct AnmScriptRef {
 
 extern "C" char str_texture_load_failed[], str_texture_create_failed_format[];
 
-extern "C" void* __cdecl asm_malloc_00452706(unsigned int size);
+extern "C" void* __cdecl crt_malloc(unsigned int size);
 
 #ifndef SURFACE_LOADING_LOG_HPP
 #define SURFACE_LOADING_LOG_HPP
-struct TextLog5 {
-    char text[0x2000];
-    char* cursor;
-    unsigned char dirty;
-    char* AppendLine(char* format, ...);
-};
-
-extern "C" TextLog5 g_log;
+#include "th10/platform/text_log.hpp"
+extern "C" TextLog g_log;
 #endif
 
 extern "C" char str_texture_load_failed_format[], str_anm_version_mismatch[], str_anm_load_failed[], str_texture_slots_full[];

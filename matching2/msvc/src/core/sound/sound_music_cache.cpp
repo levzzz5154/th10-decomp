@@ -11,7 +11,7 @@
 // the track size is read through an inline accessor: as a call argument it is
 // evaluated ahead of the other ReadFile arguments, which is what gives retail
 // its register order there.
-#include "../../../build_support/layout/ltcg/sound_interfaces_dependencies/sound_wave_types.hpp"
+#include "th10/platform/sound_wave_types.hpp"
 #include "th10/app/supervisor.hpp"
 #include <string.h>
 #pragma intrinsic(strcmp)
@@ -26,8 +26,8 @@ __declspec(dllimport) unsigned int __stdcall SetFilePointer(void* file, int dist
 __declspec(dllimport) int __stdcall ReadFile(void* file, void* buffer, unsigned int bytes,
     unsigned int* received, void* overlapped);
 __declspec(dllimport) int __stdcall CloseHandle(void* handle);
-void* __cdecl asm_malloc_00452706(unsigned int bytes);
-void __cdecl asm_free_00452422(void* memory);
+void* __cdecl crt_malloc(unsigned int bytes);
+void __cdecl crt_free(void* memory);
 }
 
 // 0x0043D2A0: index of the track whose name is the path's basename.
@@ -56,7 +56,7 @@ int WaveSoundManager::CacheMusic(int slot, const char* name) {
         return 0;
 
     if (cached_music_data[slot]) {
-        asm_free_00452422(cached_music_data[slot]);
+        crt_free(cached_music_data[slot]);
         cached_music_data[slot] = 0;
     }
     void* file = CreateFileA(music_file_name, 0x80000000, 1, 0, 3, 0x08000080, 0);
@@ -68,7 +68,7 @@ int WaveSoundManager::CacheMusic(int slot, const char* name) {
     SetFilePointer(file, reinterpret_cast<MusicTrackRecord*>(loaded_music_data)[index].file_offset,
         0, 0);
     unsigned char* data =
-        static_cast<unsigned char*>(asm_malloc_00452706(TrackBytes(this, index)));
+        static_cast<unsigned char*>(crt_malloc(TrackBytes(this, index)));
     if (!data) {
         CloseHandle(file);
         return -1;

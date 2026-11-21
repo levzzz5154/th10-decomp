@@ -1,7 +1,7 @@
 // Compiler context only: an unselected copy of the music launcher 0x0043D690
 // (recovered in sound_music_launch.cpp) that gives the file-stream factory its
 // direct caller. Native LTCG passes the manager in EAX.
-#include "../../../layout/ltcg/sound_interfaces_dependencies/sound_wave_types.hpp"
+#include "th10/platform/sound_wave_types.hpp"
 #include <string.h>
 #pragma intrinsic(strcpy)
 

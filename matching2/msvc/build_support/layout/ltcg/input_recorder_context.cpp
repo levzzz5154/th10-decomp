@@ -1,4 +1,4 @@
-#include "input_recorder.hpp"
+#include "th10/platform/input_recorder.hpp"
 
 
 #include "input_recorder_helpers.cpp"

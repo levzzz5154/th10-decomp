@@ -2,7 +2,7 @@ struct File { unsigned int padding[3]; unsigned int flags; int handle; unsigned 
 extern "C" int __cdecl asm_flush_0045fbf6(File*);
 extern "C" void __cdecl asm_freebuf_00462225(File*);
 extern "C" int __cdecl asm_close_0046218a(int);
-extern "C" void __cdecl asm_free_00452422(void*);
+extern "C" void __cdecl crt_free(void*);
 
 extern "C" int __cdecl asm_fclose_lk_0046140c(File* file) {
     int result = -1;
@@ -11,7 +11,7 @@ extern "C" int __cdecl asm_fclose_lk_0046140c(File* file) {
         asm_freebuf_00462225(file);
         if (asm_close_0046218a(file->handle) < 0) result = -1;
         else if (file->buffer) {
-            asm_free_00452422(file->buffer);
+            crt_free(file->buffer);
             file->buffer = 0;
         }
     }

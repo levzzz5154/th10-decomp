@@ -10,7 +10,7 @@
 #define g_stage_flags stage_front_data_00491fc4
 #define g_main_state stage_front_data_00491fb8
 #define g_sound_manager stage_front_data_00492590
-#include "front_view.hpp"
+#include "th10/game/stage_update/front_view.hpp"
 static __forceinline Entity *AllocateFrontObject(void *resource, int script, int offset = 0) {
     Entity *object = reinterpret_cast<FrontAnimationPool *>(g_sprt_ctrl)->Allocate();
     unsigned int flags = object->flags_35C | 0x40000000;

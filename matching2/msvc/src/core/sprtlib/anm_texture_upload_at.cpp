@@ -33,7 +33,7 @@ int __stdcall AnmTexture_UploadAt(AnmUploadTag tag, AnmTexture* texture,
         destination.top = top;
         destination.right = desc.width;
         destination.bottom = desc.height;
-        asm_D3DXLoadSurfaceFromFileInMemory_004521d0(surface, 0, &destination, data, size, 0, 1, 0, 0);
+        Th10_D3DXLoadSurfaceFromFileInMemory(surface, 0, &destination, data, size, 0, 1, 0, 0);
     } else {
         const AnmEntryHeader2* entry = static_cast<const AnmEntryHeader2*>(data);
         AnmRect source;
@@ -46,7 +46,7 @@ int __stdcall AnmTexture_UploadAt(AnmUploadTag tag, AnmTexture* texture,
         destination.top = top;
         destination.right = entry->Thtx()->width;
         destination.bottom = entry->Thtx()->height + top;
-        asm_D3DXLoadSurfaceFromMemory_004521a6(
+        Th10_D3DXLoadSurfaceFromMemory(
             surface, 0, &destination, entry->Thtx()->pixels, g_texture_formats_a[entry->Thtx()->format],
             entry->Thtx()->width * g_texture_formats_b[entry->Thtx()->format], 0, &source, 1, 0);
     }

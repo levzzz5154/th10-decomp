@@ -25,7 +25,7 @@
     }
   ],
   "context": {
-    "symbol": "_asm_FUN_004451c0_004451c0",
+    "symbol": "_AnmVm_DrawDispatch",
     "section": ".text$06hdispatch",
     "address": "0x4451c0",
     "size": 236,
@@ -152,22 +152,22 @@
       "kind": "data"
     },
     {
-      "symbol": "_asm_D3DXMatrixRotationX_004521ac@8",
+      "symbol": "_Th10_D3DXMatrixRotationX@8",
       "address": "0x004521AC",
       "kind": "relative_code"
     },
     {
-      "symbol": "_asm_D3DXMatrixRotationY_004521b8@8",
+      "symbol": "_Th10_D3DXMatrixRotationY@8",
       "address": "0x004521B8",
       "kind": "relative_code"
     },
     {
-      "symbol": "_asm_D3DXMatrixRotationZ_004521be@8",
+      "symbol": "_Th10_D3DXMatrixRotationZ@8",
       "address": "0x004521BE",
       "kind": "relative_code"
     },
     {
-      "symbol": "_asm_D3DXMatrixMultiply_004521b2@12",
+      "symbol": "_Th10_D3DXMatrixMultiply@12",
       "address": "0x004521B2",
       "kind": "relative_code"
     },
@@ -182,7 +182,7 @@
       "kind": "relative_code"
     },
     {
-      "symbol": "_asm_D3DXVec3Project_0045218e@24",
+      "symbol": "_Th10_D3DXVec3Project@24",
       "address": "0x45218e",
       "kind": "relative_code"
     },

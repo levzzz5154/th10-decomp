@@ -40,7 +40,7 @@ extern "C" KeyboardDevice* g_keyboard_device;     // 0x00491C38  keyboard device
 // set index and a flag, zero here); the 8-byte parameter keeps that stack
 // layout. The call goes through a function-pointer cast so the callee's name is
 // the plain extern "C" one the manifest already binds.
-extern "C" unsigned short __cdecl asm_FUN_0044a190_0044a190(
+extern "C" unsigned short __cdecl Joystick_ReadPad(
     unsigned short mask, unsigned long long args);
 typedef unsigned short (__fastcall* KeyMaskSink)(unsigned short mask,
                                                  unsigned long long args);
@@ -134,7 +134,7 @@ unsigned short __fastcall FUN_0044a5f0_0044a5f0(unsigned int binding_index,
         }
     }
 
-    unsigned short result = ((KeyMaskSink)asm_FUN_0044a190_0044a190)(
+    unsigned short result = ((KeyMaskSink)Joystick_ReadPad)(
         mask, (unsigned long long)binding_index);
     binding->previous = binding->current;
     binding->current = result;

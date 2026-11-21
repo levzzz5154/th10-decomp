@@ -47,8 +47,8 @@ enum TitleOpeningConstants {
 int __stdcall EndingScreen_Update2(Title* room) {
     switch (room->phase) {
     case OPENING_PHASE_ENTER: {
-        if (reinterpret_cast<RecoveryLookup*>(g_sprt_ctrl)->Find(
-                reinterpret_cast<RecoveryLookupContext*>(g_sprt_ctrl),
+        if (reinterpret_cast<AnmLookup*>(g_sprt_ctrl)->Find(
+                reinterpret_cast<AnmLookupContext*>(g_sprt_ctrl),
                 room->animation_slots[88]) == 0) {
             RecoveryMusicInstallSlot(room, 88);
             RecoveryMusicInstallSlot(room, 90);
@@ -71,7 +71,7 @@ int __stdcall EndingScreen_Update2(Title* room) {
             room->SetTimerTarget(OPENING_PHASE_FADE_OUT);
             g_sound_manager.Queue(OPENING_SFX_START, 0);
             RecoveryMusicStopHandle(
-                reinterpret_cast<RecoveryHandle*>(&room->reserved_684));
+                reinterpret_cast<AnmScriptHandle*>(&room->reserved_684));
         }
         break;
     case OPENING_PHASE_FADE_OUT:

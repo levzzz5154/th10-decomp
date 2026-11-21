@@ -6,7 +6,7 @@
 // and taking the address keeps the standard thiscall convention; a plain body
 // gets a private convention with the receiver in EAX.
 // The production region is src/game/laser/polar_vector.cpp.
-#include "types.hpp"
+#include "th10/game/laser_cut/types.hpp"
 #include <math.h>
 #pragma intrinsic(cos,sin)
 #pragma code_seg(".text$f0041f800F")

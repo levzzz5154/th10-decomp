@@ -17,7 +17,7 @@ static __forceinline void CreatePrimaryBack(
     object->render_bucket = bucket;
     object->flags = flags | 0x40000000u;
     file->InitializeObject(object, index);
-    asm_AnimationManager_RegisterPrimaryBack_004489d0(g_sprt_ctrl, (void**)out, object);
+    AnimationManager_RegisterPrimaryBack(g_sprt_ctrl, (void**)out, object);
 }
 
 #pragma code_seg(".text$0040b070_fn")

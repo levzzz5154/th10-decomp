@@ -1,6 +1,6 @@
 #pragma once
 #include <string.h>
-#include "../../../build_support/include/asm_symbols.hpp"
+#include "th10/runtime/asm_symbols.hpp"
 
 
 // Recovered semantic C++ definitions.

@@ -7,7 +7,7 @@
 #include "th10/math/rng.hpp"
 
 extern "C" RngState g_rng;
-extern "C" void* __cdecl asm_malloc_00452706(unsigned int size);
+extern "C" void* __cdecl crt_malloc(unsigned int size);
 extern "C" void __cdecl crt_free(void* block);
 
 // The loop draws from the shared generator inline: two steps through a 32-bit
@@ -92,7 +92,7 @@ int RingEntity::BuildRing() {
         crt_free(state);
         state = 0;
     }
-    RingState* ring = (RingState*)asm_malloc_00452706(sizeof(RingState));
+    RingState* ring = (RingState*)crt_malloc(sizeof(RingState));
     state = ring;
     on_update = &RingEntity::Advance;
     on_draw = &RingEntity::DrawFan33;

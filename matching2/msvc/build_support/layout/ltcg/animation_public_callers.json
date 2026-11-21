@@ -34,14 +34,14 @@
     },
     {
       "name": "ScriptLoader",
-      "symbol": "_asm_AnimationObject_LoadScript_0043e710",
+      "symbol": "_AnmVm_LoadScript",
       "section": ".text$07loader",
       "address": "0x0043E710",
       "size": 207
     },
     {
       "name": "PrimaryRegistrar",
-      "symbol": "_asm_AnimationManager_RegisterPrimaryBack_004489d0",
+      "symbol": "_AnimationManager_RegisterPrimaryBack",
       "section": ".text$09register",
       "address": "0x004489D0",
       "size": 114

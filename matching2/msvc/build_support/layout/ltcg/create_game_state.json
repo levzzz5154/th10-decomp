@@ -16,7 +16,8 @@
     "include/th10/render/camera_batch.hpp",
     "include/th10/render/textured_quad.hpp",
     "include/th10/render/quad_batch.hpp",
-    "include/th10/types.hpp"
+    "include/th10/types.hpp",
+    "include/th10/platform/text_log.hpp"
   ],
   "included_sources": [
     "src/game/background/background_initialize.cpp",
@@ -106,7 +107,7 @@
     },
     {
       "name": "AppendLine",
-      "symbol": "?AppendLine@TextLog5@@QAAPADPADZZ",
+      "symbol": "?AppendLine@TextLog@@QAAPADPADZZ",
       "section": ".text$15log",
       "address": "0x0044B8E0",
       "size": 201
@@ -241,7 +242,7 @@
       "kind": "metadata"
     },
     {
-      "symbol": "_asm_vsprintf_004524a6",
+      "symbol": "_crt_vsprintf",
       "address": "0x4524a6",
       "kind": "relative_code"
     },
@@ -291,7 +292,7 @@
       "kind": "relative_code"
     },
     {
-      "symbol": "?Append@TextLog4@@QAAPADPADZZ",
+      "symbol": "?Append@TextLog@@QAAPADPADZZ",
       "address": "0x0044B810",
       "kind": "relative_code"
     },

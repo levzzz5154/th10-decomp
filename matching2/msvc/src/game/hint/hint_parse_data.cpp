@@ -19,9 +19,9 @@ Hint_ParseData(TipManager* manager, const char* filename, int noDuplicate) {
     char* data = Archive_LoadFile(filename, &remaining, 1);
     if (!data)
         return -1;
-    char* line = (char*)asm_malloc_00452706(4096);
-    char* key = (char*)asm_malloc_00452706(4096);
-    char* value = (char*)asm_malloc_00452706(4096);
+    char* line = (char*)crt_malloc(4096);
+    char* key = (char*)crt_malloc(4096);
+    char* value = (char*)crt_malloc(4096);
     char* cursor = data;
     while (remaining > 0) {
         cursor = ReadScriptLine(cursor, line, &remaining, 4096);
@@ -51,7 +51,7 @@ Hint_ParseData(TipManager* manager, const char* filename, int noDuplicate) {
                 cursor = ReadScriptLine(cursor, line, &remaining, 4096);
                 SplitResourcePath(key, value, line);
                 if ((strcmp(key, "Pos") == 0)) {
-                    char* second = asm_FUN_00452730_00452730(value, ',');
+                    char* second = crt_strchr(value, ',');
                     if (second) {
                         *second++ = 0;
                         TrimWhitespace(value);
@@ -60,7 +60,7 @@ Hint_ParseData(TipManager* manager, const char* filename, int noDuplicate) {
                         tip->y = (float)parser_atol(second);
                     }
                 } else if ((strcmp(key, "Text") == 0)) {
-                    char* text = asm_FUN_00452730_00452730(value, '"');
+                    char* text = crt_strchr(value, '"');
                     if (text) {
                         ++text;
                         char* end = parser_strrchr(text, '"');
@@ -87,13 +87,13 @@ Hint_ParseData(TipManager* manager, const char* filename, int noDuplicate) {
                     else if (scale < -4.0f)
                         tip->scale = -4.0f;
                 } else if ((strcmp(key, "Color") == 0)) {
-                    char* second = asm_FUN_00452730_00452730(value, ',');
+                    char* second = crt_strchr(value, ',');
                     if (second) {
                         *second++ = 0;
                         TrimWhitespace(value);
                         tip->red = (unsigned char)parser_atol(value);
                         char* green = second;
-                        second = asm_FUN_00452730_00452730(second, ',');
+                        second = crt_strchr(second, ',');
                         if (second) {
                             *second = 0;
                             TrimWhitespace(green);

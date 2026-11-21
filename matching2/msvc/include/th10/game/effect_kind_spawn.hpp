@@ -47,7 +47,7 @@ struct AnimationPool2 {
 };
 
 extern "C" AnimationLists2* g_sprt_ctrl;
-extern "C" void** __cdecl asm_AnimationManager_RegisterPrimaryBack_004489d0(
+extern "C" void** __cdecl AnimationManager_RegisterPrimaryBack(
     void* manager, void** out, void* entity);
 
 // One kind of effect: its script, an optional setup step and two values

@@ -1,6 +1,6 @@
 #include "th10/game/entity_script_start.hpp"
 
-#include "item_spawn.hpp"
+#include "th10/game/player_collision/item_spawn.hpp"
 
 #pragma code_seg(".text$f00404f30F")
 __declspec(noinline) void __stdcall Entity_StartScript(

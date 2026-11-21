@@ -1,5 +1,5 @@
 // Compiler context only: the animation lookup at 0x004491C0.
-#include "lookup.hpp"
+#include "th10/game/projectile_clear_lookup.hpp"
 #pragma code_seg(".text$f004491c0F")
 Entity* __fastcall AnimationLookup::Find(AnimationLookupContext* context, CutAnimationId id) {
     if (!id.value)

@@ -8,7 +8,7 @@
 // native-LTCG cluster build_support/layout/ltcg/dtor_delete_40aff0.json whose array-walking synthetic
 // caller establishes that convention.
 
-extern "C" void __stdcall asm_BulletManager_Release_0040af00(void* object);
+extern "C" void __stdcall Effect_ReleaseState(void* object);
 extern "C" void __cdecl crt_free_startup(void* block);
 
 struct Deletable7 {
@@ -19,7 +19,7 @@ __declspec(noinline) void* Deletable_0040aff0_Delete(Deletable7* object, int fla
 
 #pragma code_seg(".text$01del")
 void* Deletable_0040aff0_Delete(Deletable7* object, int flags) {
-    asm_BulletManager_Release_0040af00(object);
+    Effect_ReleaseState(object);
     if ((flags & 1) != 0) {
         crt_free_startup(object);
     }

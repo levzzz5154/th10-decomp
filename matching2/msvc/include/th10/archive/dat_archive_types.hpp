@@ -31,9 +31,9 @@ typedef char DatArchive_file_must_be_at_12[
 
 typedef void (__fastcall *ArchiveEntryCallback)(DatArchiveEntry* entry);
 
-extern "C" void __cdecl asm_free_00452422(void* memory);
-extern "C" void __cdecl asm_free_004524a1(void* memory);
-extern "C" void __stdcall asm_eh_vector_destructor_iterator_004525ff(
+extern "C" void __cdecl crt_free(void* memory);
+extern "C" void __cdecl crt_free_startup(void* memory);
+extern "C" void __stdcall crt_eh_vector_dtor(
     void* entries, unsigned int entry_size, int entry_count,
     ArchiveEntryCallback release);
 

@@ -1,4 +1,4 @@
-#include "types.hpp"
+#include "th10/game/stage_update/types.hpp"
 #include <stdlib.h>
 // One 0x6284-byte page of input records (th10/game/linked_pool_append.hpp).
 struct ReplayPoolPage {

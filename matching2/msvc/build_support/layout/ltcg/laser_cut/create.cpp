@@ -2,7 +2,7 @@
 // This file is an unselected ABI anchor candidate, not a byte-match claim.
 // Native LTCG must earn position in EDI with resource/out/index on the stack.
 #include "th10/render/animation_public_callers.hpp"
-#include "animation_ids.hpp"
+#include "th10/game/laser_cut/animation_ids.hpp"
 
 struct AnimationResourceFile;
 struct AnimationObjectFile;

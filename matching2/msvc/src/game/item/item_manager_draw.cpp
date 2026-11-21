@@ -28,7 +28,7 @@ __declspec(noinline) int ItemManager3::Draw() {
             g_bullet_manager->item_sprites->ConfigureObject(item->Sprite(), item->type + 0x157);
             item->sprite_alpha = 0xFF;
         }
-        asm_FUN_004451c0_004451c0(item->Sprite(), g_sprt_ctrl);
+        AnmVm_DrawDispatch(item->Sprite(), g_sprt_ctrl);
     }
     return 1;
 }

@@ -2,7 +2,7 @@
 // The genuine full caller graph lets native LTCG choose their private ABI.
 
 #include <stdarg.h>
-#include "../../../include/contexts/game/right_aligned_text_context/recovery_mark_text_and_dispatcher.hpp"
+#include "th10/game/hint_text/recovery_mark_text_and_dispatcher.hpp"
 
 extern "C" {
 int __cdecl recovery_vsprintf(
@@ -21,7 +21,7 @@ unsigned int __stdcall recovery_draw_unshadowed(
 
 #pragma code_seg(".text$004479d0_fn")
 void __stdcall RecoveryDispatchText2(
-    RecoveryTextResource* resource, void* texture,
+    AnmTextResource* resource, void* texture,
     int horizontal_offset, int font_height, unsigned int color,
     const char* text, int unshadowed) {
     if (font_height <= 0)
@@ -46,7 +46,7 @@ void __stdcall RecoveryDispatchText2(
 #pragma code_seg()
 
 #pragma code_seg(".text$00447a50_fn")
-void __cdecl RecoveryTextVm::MarkText(
+void __cdecl AnmTextVm::MarkText(
     void* manager, ...) {
     char buffer[128];
     const unsigned int height = font_height;
@@ -59,7 +59,7 @@ void __cdecl RecoveryTextVm::MarkText(
     va_end(args);
     const unsigned int color = va_arg(color_home, unsigned int);
     va_end(color_home);
-    RecoveryTextResource* text_resource = resource;
+    AnmTextResource* text_resource = resource;
     RecoveryDispatchText2(
         text_resource, text_resource->texture, 0, height, color, buffer,
         (flags_360 >> 1) & 1);

@@ -36,7 +36,7 @@
   "constant_aliases": [],
   "absolute_symbols": [
     {
-      "symbol": "_asm_malloc_00452706",
+      "symbol": "_crt_malloc",
       "address": "0x00452706",
       "kind": "relative_code"
     },

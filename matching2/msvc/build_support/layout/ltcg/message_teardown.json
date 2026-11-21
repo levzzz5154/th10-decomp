@@ -12,7 +12,7 @@
     "include/th10/render/native_render_targets.hpp",
     "include/th10/game/ending_text_view.hpp",
     "include/th10/platform/worker.hpp",
-    "build_support/layout/ltcg/message_teardown_dependencies.hpp",
+    "include/th10/game/ending_teardown.hpp",
     "include/th10/render/animation_resource_removal.hpp"
   ],
   "image_base": "0x00400000",

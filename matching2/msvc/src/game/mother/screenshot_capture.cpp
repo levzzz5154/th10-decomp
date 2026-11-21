@@ -27,13 +27,13 @@ int GameApp::CaptureScreenshot(const char* name) {
 
     switch (back_buffer_format) {
     case 0x16: {
-        info_header = (BitmapInfoHeader*)asm_malloc_00452706(sizeof(BitmapInfoHeader));
+        info_header = (BitmapInfoHeader*)crt_malloc(sizeof(BitmapInfoHeader));
         if (info_header == 0) {
             g_log.Append(str_snapshot_alloc_failed);
             goto done;
         }
         memset(info_header, 0, sizeof(BitmapInfoHeader));
-        pixels = (unsigned char*)asm_malloc_00452706(640 * 480 * 3);
+        pixels = (unsigned char*)crt_malloc(640 * 480 * 3);
         if (pixels == 0) {
             g_log.Append(str_snapshot_alloc_failed);
             goto done;
@@ -64,7 +64,7 @@ int GameApp::CaptureScreenshot(const char* name) {
         } while (row > -1);
         back_buffer->methods->UnlockRect(back_buffer);
 
-        g_application.screenshot_thread = asm_beginthread_00452eec(ScreenshotWriter, 0, 0);
+        g_application.screenshot_thread = crt_beginthread(ScreenshotWriter, 0, 0);
         break;
     }
     case 0x17:

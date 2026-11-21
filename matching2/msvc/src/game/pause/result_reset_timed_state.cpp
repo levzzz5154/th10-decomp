@@ -22,7 +22,7 @@
 
 extern "C" float g_game_speed;
 
-struct RecoveryTimedState {
+struct ResultTimedState {
     unsigned char unknown_00[0x04];
     int state;                                 // +0x04
     unsigned char unknown_08[0x08];
@@ -41,10 +41,10 @@ struct RecoveryTimedState {
 };
 
 typedef char RecoveryTimedState_00423510_size_must_fit[
-    sizeof(RecoveryTimedState) == 0x2C4 ? 1 : -1];
+    sizeof(ResultTimedState) == 0x2C4 ? 1 : -1];
 
 #pragma code_seg(".text$45timed")
-void RecoveryTimedState::InitializeTimedState() {
+void ResultTimedState::InitializeTimedState() {
     int* record = &state;
     record[0] = 13;
     if ((timer_flags & 1) == 0) {

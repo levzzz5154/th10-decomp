@@ -153,7 +153,7 @@
     },
     {
       "name": "RegisterAnimation",
-      "symbol": "_asm_AnimationManager_RegisterPrimaryBack_004489d0",
+      "symbol": "_AnimationManager_RegisterPrimaryBack",
       "address": "0x4489d0",
       "size": 114,
       "section": ".text$110register"
@@ -330,7 +330,7 @@
       "kind": "relative_code"
     },
     {
-      "symbol": "_asm_FUN_0043ee30_0043ee30@4",
+      "symbol": "_AnmVm_TickScript@4",
       "address": "0x0043EE30",
       "kind": "relative_code"
     },

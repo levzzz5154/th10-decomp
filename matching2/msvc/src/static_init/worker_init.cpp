@@ -4,8 +4,8 @@
 // runtime keeps it in the atexit table and runs it from doexit.
 
 void __cdecl StaticExit_Worker(void);
-extern "C" int __cdecl asm_atexit_00452e0a(void (__cdecl*)(void));
+extern "C" int __cdecl crt_atexit(void (__cdecl*)(void));
 
 extern "C" void __cdecl StaticInit_Worker(void) {
-    asm_atexit_00452e0a(StaticExit_Worker);
+    crt_atexit(StaticExit_Worker);
 }

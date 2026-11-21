@@ -1,4 +1,4 @@
-#include "../../../build_support/include/asm_symbols.hpp"
+#include "th10/runtime/asm_symbols.hpp"
 // Resource loading is owned by resource_load2.cpp.
 
 #include <string.h>
@@ -27,7 +27,7 @@ struct ArchiveName {
 const ArchiveEntry2* ArchiveName::Find() const {
     char buffer[0x104];
     const char* name = text;
-    const char* slash = ((char* (__cdecl*)(const char*, int))asm_FUN_00452730_00452730)(name, '/');
+    const char* slash = ((char* (__cdecl*)(const char*, int))crt_strchr)(name, '/');
     const char* base = slash ? slash + 1 : name;
     int length = (int)(base - name) - 1;
     strcpy(buffer, name);

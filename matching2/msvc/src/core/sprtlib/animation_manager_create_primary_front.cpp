@@ -12,8 +12,8 @@ struct AnimationBank {
 };
 
 extern "C" void* g_sprt_ctrl;
-extern "C" void* __cdecl asm_FUN_00449950_00449950(void* manager);
-extern "C" void** __cdecl asm_AnimationManager_RegisterPrimaryFront_00448a50(
+extern "C" void* __cdecl AnimationPool_AllocateEntry(void* manager);
+extern "C" void** __cdecl AnimationManager_RegisterPrimaryFront(
     void* manager, void** out, void* entity);
 
 #pragma code_seg(".text$05aa_front")
@@ -21,12 +21,12 @@ __declspec(noinline)
 void** __stdcall AnimationManager_CreatePrimaryFront(
         void* resource, void** out, int index, int render_bucket) {
     AnimationObject8* object =
-        (AnimationObject8*)asm_FUN_00449950_00449950(g_sprt_ctrl);
+        (AnimationObject8*)AnimationPool_AllocateEntry(g_sprt_ctrl);
     unsigned int flags = object->flags_035c;
     object->render_bucket_020 = render_bucket;
     object->flags_035c = flags | 0x40000000u;
     ((AnimationBank*)resource)->InitializeObject(object, index);
-    asm_AnimationManager_RegisterPrimaryFront_00448a50(g_sprt_ctrl, out, object);
+    AnimationManager_RegisterPrimaryFront(g_sprt_ctrl, out, object);
     return out;
 }
 #pragma code_seg()

@@ -38,7 +38,7 @@
   "constants": [],
   "absolute_symbols": [
     {
-      "symbol": "_asm_Recovery_ReleaseRawPair_0043cb00@4",
+      "symbol": "_Scheduler_ReleaseTaskPair@4",
       "address": "0x0043CB00",
       "kind": "relative_code"
     },

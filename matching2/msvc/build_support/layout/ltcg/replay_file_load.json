@@ -8,7 +8,7 @@
     "include/th10/game/replay_stage_begin.hpp",
     "include/th10/math/rng.hpp",
     "include/th10/math/timer.hpp",
-    "build_support/layout/ltcg/native_archive_read/archive.hpp",
+    "include/th10/archive/native_read/archive.hpp",
     "include/th10/archive/dat_archive_types.hpp",
     "include/th10/platform/file.hpp",
     "include/th10/platform/windows_types.hpp",
@@ -147,17 +147,17 @@
       "kind": "data"
     },
     {
-      "symbol": "_asm_strrchr_00452930",
+      "symbol": "_crt_strrchr",
       "address": "0x00452930",
       "kind": "relative_code"
     },
     {
-      "symbol": "_asm_stricmp_0046054e",
+      "symbol": "_crt_stricmp",
       "address": "0x0046054e",
       "kind": "relative_code"
     },
     {
-      "symbol": "_asm_malloc_00452706",
+      "symbol": "_crt_malloc",
       "address": "0x00452706",
       "kind": "relative_code"
     },
@@ -172,7 +172,7 @@
       "kind": "relative_code"
     },
     {
-      "symbol": "_asm_free_00452422",
+      "symbol": "_crt_free",
       "address": "0x452422",
       "kind": "relative_code"
     },
@@ -197,12 +197,12 @@
       "kind": "relative_code"
     },
     {
-      "symbol": "?asm_File_ProbeExists_0044b4d0@@YGHPBD@Z",
+      "symbol": "?File_ProbeExistsPath@@YGHPBD@Z",
       "address": "0x0044B4D0",
       "kind": "relative_code"
     },
     {
-      "symbol": "?asm_File_OpenSharedRead_0044b6b0@@YGHPBD@Z",
+      "symbol": "?File_OpenSharedReadPath@@YGHPBD@Z",
       "address": "0x0044B6B0",
       "kind": "relative_code"
     },

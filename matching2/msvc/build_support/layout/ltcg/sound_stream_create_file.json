@@ -4,7 +4,7 @@
   "source": "src/core/zwave/sound_stream_create_file.cpp",
   "driver": "build_support/layout/ltcg/sound_stream_create_file/context.cpp",
   "headers": [
-    "build_support/layout/ltcg/sound_interfaces_dependencies/sound_wave_types.hpp",
+    "include/th10/platform/sound_wave_types.hpp",
     "include/th10/platform/text_log.hpp"
   ],
   "image_base": "0x00400000",

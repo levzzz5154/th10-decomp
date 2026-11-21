@@ -24,17 +24,17 @@
     "include/th10/game/recovery_script_executor_text_sibling_anchors.hpp",
     "include/th10/game/replay_save_update.hpp",
     "include/th10/game/replay_select_update.hpp",
-    "build_support/include/contexts/game/right_aligned_text_context/archive_callers.hpp",
-    "build_support/include/contexts/game/right_aligned_text_context/archive_file.hpp",
-    "build_support/include/contexts/game/right_aligned_text_context/entity_movement_slot.hpp",
-    "build_support/include/contexts/game/right_aligned_text_context/recovery_mark_text_and_dispatcher.hpp",
-    "build_support/include/contexts/game/right_aligned_text_context/recovery_script_executor.hpp",
-    "build_support/include/contexts/game/right_aligned_text_context/recovery_script_executor_ascii_anchors.hpp",
-    "build_support/include/contexts/game/right_aligned_text_context/recovery_script_executor_caller.hpp",
-    "build_support/include/contexts/game/right_aligned_text_context/scheduler.hpp",
-    "build_support/include/contexts/game/right_aligned_text_context/sound_queue.hpp",
-    "build_support/include/contexts/game/right_aligned_text_context/timer.hpp",
-    "build_support/include/contexts/game/right_aligned_text_context/worker.hpp",
+    "include/th10/game/hint_text/archive_callers.hpp",
+    "include/th10/game/hint_text/archive_file.hpp",
+    "include/th10/game/hint_text/entity_movement_slot.hpp",
+    "include/th10/game/hint_text/recovery_mark_text_and_dispatcher.hpp",
+    "include/th10/game/hint_text/recovery_script_executor.hpp",
+    "include/th10/game/hint_text/recovery_script_executor_ascii_anchors.hpp",
+    "include/th10/game/hint_text/recovery_script_executor_caller.hpp",
+    "include/th10/game/hint_text/scheduler.hpp",
+    "include/th10/game/hint_text/sound_queue.hpp",
+    "include/th10/game/hint_text/timer.hpp",
+    "include/th10/game/hint_text/worker.hpp",
     "include/th10/core/func_ctrl.hpp",
     "include/th10/game/score_file.hpp",
     "include/th10/game/shot_type_select_update.hpp",
@@ -68,56 +68,56 @@
   "anchors": [
     {
       "name": "RecoveryTimer_Set",
-      "symbol": "?Set@RecoveryTimer2@@QAEXH@Z",
+      "symbol": "?Set@GameFrameTimer@@QAEXH@Z",
       "address": "0x00405410",
       "size": 57,
       "section": ".text$00405410_fn"
     },
     {
       "name": "RecoveryTimer_Advance",
-      "symbol": "?Advance@RecoveryTimer2@@QAEXM@Z",
+      "symbol": "?Advance@GameFrameTimer@@QAEXM@Z",
       "address": "0x0044BF40",
       "size": 88,
       "section": ".text$0044bf40_fn"
     },
     {
       "name": "RecoveryLookup_Find",
-      "symbol": "?Find@RecoveryLookup@@QAIPAXPAURecoveryLookupContext@@UAnimationScriptId@@@Z",
+      "symbol": "?Find@AnmLookup@@QAIPAXPAUAnmLookupContext@@UAnimationScriptId@@@Z",
       "address": "0x004491C0",
       "size": 73,
       "section": ".text$004491c0_fn"
     },
     {
       "name": "RecoveryLookup_SetFlag",
-      "symbol": "?SetFlag@RecoveryLookup@@QAIPAXPAURecoveryLookupContext@@H@Z",
+      "symbol": "?SetFlag@AnmLookup@@QAIPAXPAUAnmLookupContext@@H@Z",
       "address": "0x004492A0",
       "size": 66,
       "section": ".text$004492a0_fn"
     },
     {
       "name": "RecoveryLookup_Validate",
-      "symbol": "?Validate@RecoveryLookup@@QAAPAXPAURecoveryHandle@@@Z",
+      "symbol": "?Validate@AnmLookup@@QAAPAXPAUAnmScriptHandle@@@Z",
       "address": "0x00449450",
       "size": 21,
       "section": ".text$00449450_fn"
     },
     {
       "name": "RecoveryHandle_Stop2",
-      "symbol": "?StopAtFrame2@RecoveryHandle@@QAEXXZ",
+      "symbol": "?StopAtFrame2@AnmScriptHandle@@QAEXXZ",
       "address": "0x0040C480",
       "size": 65,
       "section": ".text$0040c480_fn"
     },
     {
       "name": "RecoveryHandle_Stop3",
-      "symbol": "?StopAtFrame3@RecoveryHandle@@QAEXXZ",
+      "symbol": "?StopAtFrame3@AnmScriptHandle@@QAEXXZ",
       "address": "0x0040C4D0",
       "size": 65,
       "section": ".text$0040c4d0_fn"
     },
     {
       "name": "RecoveryHandle_Remove",
-      "symbol": "?MarkForRemoval@RecoveryHandle@@QAEXXZ",
+      "symbol": "?MarkForRemoval@AnmScriptHandle@@QAEXXZ",
       "address": "0x00449630",
       "size": 21,
       "section": ".text$00449630_fn"
@@ -131,7 +131,7 @@
     },
     {
       "name": "RecoveryDispatchText2",
-      "symbol": "?RecoveryDispatchText2@@YGXPAURecoveryTextResource@@HPBDPAXHIH@Z",
+      "symbol": "?RecoveryDispatchText2@@YGXPAUAnmTextResource@@HPBDPAXHIH@Z",
       "section": ".text$004479d0_fn",
       "address": "0x004479D0",
       "size": 127
@@ -250,21 +250,21 @@
     },
     {
       "name": "AnmPool",
-      "symbol": "_asm_FUN_00449950_00449950",
+      "symbol": "_AnimationPool_AllocateEntry",
       "section": ".text$00449950_fn",
       "address": "0x00449950",
       "size": 171
     },
     {
       "name": "AnmScriptLoad",
-      "symbol": "_asm_AnimationObject_LoadScript_0043e710",
+      "symbol": "_AnmVm_LoadScript",
       "section": ".text$0043e710_fn",
       "address": "0x0043E710",
       "size": 207
     },
     {
       "name": "AnmPrimaryRegister",
-      "symbol": "_asm_AnimationManager_RegisterPrimaryBack_004489d0",
+      "symbol": "_AnimationManager_RegisterPrimaryBack",
       "section": ".text$004489d0_fn",
       "address": "0x004489D0",
       "size": 103
@@ -306,7 +306,7 @@
     },
     {
       "name": "RecoveryMusicStopHandle",
-      "symbol": "?RecoveryMusicStopHandle@@YGXPAURecoveryHandle@@@Z",
+      "symbol": "?RecoveryMusicStopHandle@@YGXPAUAnmScriptHandle@@@Z",
       "section": ".text$00409e50_fn",
       "address": "0x00409E50",
       "size": 65
@@ -341,14 +341,14 @@
     },
     {
       "name": "RecoveryMusicVm_InitializeTransition",
-      "symbol": "?InitializeTransition@RecoveryMusicVm@@QAEXPBURecoveryMusicVector@@0HE@Z",
+      "symbol": "?InitializeTransition@TitleAnmVm@@QAEXPBUTitleVec3@@0HE@Z",
       "section": ".text$00434a80_fn",
       "address": "0x00434A80",
       "size": 206
     },
     {
       "name": "RecoveryMusicResourceQueue_RegisterResource",
-      "symbol": "?RegisterResource@RecoveryMusicResourceQueue@@QAEPADPBDHH@Z",
+      "symbol": "?RegisterResource@MusicRequestQueue@@QAEPADPBDHH@Z",
       "section": ".text$0043e460_fn",
       "address": "0x0043E460",
       "size": 76
@@ -390,7 +390,7 @@
     },
     {
       "name": "RecoveryTextVm::MarkText",
-      "symbol": "?MarkText@RecoveryTextVm@@QAAXPAXZZ",
+      "symbol": "?MarkText@AnmTextVm@@QAAXPAXZZ",
       "section": ".text$00447a50_fn",
       "address": "0x00447A50",
       "size": 141
@@ -432,7 +432,7 @@
     },
     {
       "name": "AnimationManager_SetStopFrameAndRun",
-      "symbol": "?AnimationManager_SetStopFrameAndRun@@YIXGPAURecoveryLookupContext@@UAnimationScriptId@@@Z",
+      "symbol": "?AnimationManager_SetStopFrameAndRun@@YIXGPAUAnmLookupContext@@UAnimationScriptId@@@Z",
       "address": "0x00449250",
       "size": 76,
       "section": ".text$00449250_fn"
@@ -1159,7 +1159,7 @@
       "kind": "data"
     },
     {
-      "symbol": "_asm_beginthreadex_00453683",
+      "symbol": "_crt_beginthreadex",
       "address": "0x00453683",
       "kind": "relative_code"
     },
@@ -1259,17 +1259,17 @@
       "kind": "data"
     },
     {
-      "symbol": "_asm_strrchr_00452930",
+      "symbol": "_crt_strrchr",
       "address": "0x00452930",
       "kind": "relative_code"
     },
     {
-      "symbol": "_asm_stricmp_0046054e",
+      "symbol": "_crt_stricmp",
       "address": "0x0046054e",
       "kind": "relative_code"
     },
     {
-      "symbol": "_asm_malloc_00452706",
+      "symbol": "_crt_malloc",
       "address": "0x00452706",
       "kind": "relative_code"
     },
@@ -1339,7 +1339,7 @@
       "kind": "data"
     },
     {
-      "symbol": "_asm_vsprintf_004524a6",
+      "symbol": "_crt_vsprintf",
       "address": "0x004524A6",
       "kind": "relative_code"
     },

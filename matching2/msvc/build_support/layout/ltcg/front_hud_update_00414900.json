@@ -389,12 +389,12 @@
       "kind": "relative_code"
     },
     {
-      "symbol": "_asm_Sound_PlayDummyRetail_00420b10@8",
+      "symbol": "_Music_PlayTrack@8",
       "address": "0x00420B10",
       "kind": "relative_code"
     },
     {
-      "symbol": "_asm_Sound_PlayRandomVoiceRetail_00420c30@4",
+      "symbol": "_Music_FadeOutEntry@4",
       "address": "0x00420C30",
       "kind": "relative_code"
     },
@@ -809,15 +809,15 @@
       "size": 356
     },
     {
-      "name": "?RecoveryDispatchText2@@YGXPAURecoveryTextResource@@PAXHHIPBDH@Z",
-      "symbol": "?RecoveryDispatchText2@@YGXPAURecoveryTextResource@@PAXHHIPBDH@Z",
+      "name": "?RecoveryDispatchText2@@YGXPAUAnmTextResource@@PAXHHIPBDH@Z",
+      "symbol": "?RecoveryDispatchText2@@YGXPAUAnmTextResource@@PAXHHIPBDH@Z",
       "section": ".text$004479d0_fn",
       "address": "0x004479D0",
       "size": 127
     },
     {
-      "name": "?MarkText@RecoveryTextVm@@QAAXPAXZZ",
-      "symbol": "?MarkText@RecoveryTextVm@@QAAXPAXZZ",
+      "name": "?MarkText@AnmTextVm@@QAAXPAXZZ",
+      "symbol": "?MarkText@AnmTextVm@@QAAXPAXZZ",
       "section": ".text$00447a50_fn",
       "address": "0x00447A50",
       "size": 141

@@ -92,7 +92,7 @@
     },
     {
       "name": "Logger",
-      "symbol": "?Append@TextLog4@@QAAPADPADZZ",
+      "symbol": "?Append@TextLog@@QAAPADPADZZ",
       "section": ".text$a23body",
       "address": "0x44b810",
       "size": 201
@@ -261,7 +261,7 @@
       "kind": "relative_code"
     },
     {
-      "symbol": "_asm_FUN_0043ee30_0043ee30@4",
+      "symbol": "_AnmVm_TickScript@4",
       "address": "0x43ee30",
       "kind": "relative_code"
     },
@@ -276,22 +276,22 @@
       "kind": "metadata"
     },
     {
-      "symbol": "_asm_strrchr_00452930",
+      "symbol": "_crt_strrchr",
       "address": "0x452930",
       "kind": "relative_code"
     },
     {
-      "symbol": "_asm_stricmp_0046054e",
+      "symbol": "_crt_stricmp",
       "address": "0x46054e",
       "kind": "relative_code"
     },
     {
-      "symbol": "_asm_malloc_00452706",
+      "symbol": "_crt_malloc",
       "address": "0x452706",
       "kind": "relative_code"
     },
     {
-      "symbol": "_asm_vsprintf_004524a6",
+      "symbol": "_crt_vsprintf",
       "address": "0x4524a6",
       "kind": "relative_code"
     },

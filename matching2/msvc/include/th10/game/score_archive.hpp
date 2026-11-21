@@ -18,8 +18,8 @@ typedef char ScoreArchive_0042B1E0_settings_offset[offsetof(ScoreArchive, settin
 typedef char ScoreArchive_0042B1E0_size[sizeof(ScoreArchive) == 0x1DCB4 ? 1 : -1];
 
 extern "C" {
-void* __cdecl asm_malloc_00452706(unsigned int size);
-void __cdecl asm_free_00452422(void* memory);
+void* __cdecl crt_malloc(unsigned int size);
+void __cdecl crt_free(void* memory);
 unsigned char* __stdcall CompressScore(unsigned char* data, int size, int* packed_size);
 int __stdcall OpenSharedFileWrite(const char* name);
 

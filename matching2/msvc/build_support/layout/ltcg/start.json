@@ -84,7 +84,7 @@
       "kind": "data"
     },
     {
-      "symbol": "_asm_beginthreadex_00453683",
+      "symbol": "_crt_beginthreadex",
       "address": "0x00453683",
       "kind": "relative_code"
     },

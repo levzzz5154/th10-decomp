@@ -8,7 +8,7 @@
 #include "../../../src/game/spttest/spt_test_update.cpp"
 
 extern "C" void __cdecl crt_free(void* memory);
-extern "C" unsigned int __cdecl asm_beginthreadex_00453683(
+extern "C" unsigned int __cdecl crt_beginthreadex(
         void* security, unsigned int stack_size, PlatformWorkerEntry start,
         void* arglist, unsigned int initflag, unsigned int* thread_id);
 
@@ -97,7 +97,7 @@ void PlatformWorker::Start(void* context, PlatformWorkerEntry start) {
     entry = start;
     running = 1;
     stop_requested = 0;
-    thread = (void*)asm_beginthreadex_00453683(0, 0, start, context, 0, &thread_id);
+    thread = (void*)crt_beginthreadex(0, 0, start, context, 0, &thread_id);
 }
 
 // 0x0044FD10

@@ -11,8 +11,8 @@ int GameFrameAdvance(GameFrame* frame) {
         stage->camera.ApplyDefault();
         g_d3d_device->Viewport(&g_application.active_stage->camera.viewport_x);
         g_application.stage_index = 1;
-        int task = asm_FUN_00449c00_00449c00(g_func_ctrl);
-        asm_FUN_0043ddf0_0043ddf0(g_sound_manager);
+        int task = FuncCtrl_RunPrimaryList(g_func_ctrl);
+        WaveSoundManager_ProcessCommands(g_sound_manager);
         if (task == 0) {
             g_frame_worker.Stop();
             return 1;
@@ -34,14 +34,14 @@ int GameFrameAdvance(GameFrame* frame) {
             manager->batch_start = buffer;
             g_application.fog_enabled = 0xFF;
             g_application.DisableFog();
-            asm_FUN_00449d40_00449d40(g_func_ctrl);
+            FuncCtrl_RunSecondaryList(g_func_ctrl);
             g_sprt_ctrl->Flush();
             g_d3d_device->Texture(0, 0);
             typedef long (__stdcall *EndScene2)(void*);
             device = g_d3d_device;
             ((EndScene2)device->vtable[0xA8 / 4])(device);
             frame->tick = 0;
-            asm_FUN_004391f0_004391f0();
+            Device_ResetDisplay();
         }
         g_frame_leftover_time = FrameTimer_GetDelta() - frame->frame_time;
     } else {

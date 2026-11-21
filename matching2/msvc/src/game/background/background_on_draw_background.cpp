@@ -8,10 +8,10 @@
 // the forwarder is compiled as a native LTCG cluster
 // (see build_support/layout/ltcg/fun_403060.json).
 
-extern "C" void __stdcall asm_FUN_00402850_00402850(int value);
+extern "C" void __stdcall BackGround_DrawBackgroundLayer(int value);
 
 #pragma code_seg(".text$01forward")
 __declspec(noinline) void __fastcall BackGround_OnDrawBackground(int value) {
-    asm_FUN_00402850_00402850(value);
+    BackGround_DrawBackgroundLayer(value);
 }
 #pragma code_seg()

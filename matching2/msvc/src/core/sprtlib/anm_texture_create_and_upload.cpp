@@ -23,7 +23,7 @@ int __stdcall AnmTexture_CreateAndUpload(AnmTexture* texture, const AnmThtxHeade
     rect.top = 0;
     rect.right = thtx->width;
     rect.bottom = thtx->height;
-    if (asm_D3DXCreateTexture_004521a0(g_d3d_device, width, height, 1, 0,
+    if (Th10_D3DXCreateTexture(g_d3d_device, width, height, 1, 0,
                                        g_texture_formats_a[stored_format], 1,
                                        reinterpret_cast<void**>(&texture->texture)) != 0) {
         if (surface)
@@ -31,7 +31,7 @@ int __stdcall AnmTexture_CreateAndUpload(AnmTexture* texture, const AnmThtxHeade
         return -1;
     }
     texture->texture->GetSurfaceLevel(0, &surface);
-    asm_D3DXLoadSurfaceFromMemory_004521a6(
+    Th10_D3DXLoadSurfaceFromMemory(
         surface, 0, &rect, thtx->pixels, g_texture_formats_a[thtx->format],
         thtx->width * g_texture_formats_b[thtx->format], 0, &rect, 1, 0);
     texture->bytes_per_pixel = g_texture_formats_b[stored_format];

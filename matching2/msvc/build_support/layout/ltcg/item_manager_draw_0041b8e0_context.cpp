@@ -11,7 +11,7 @@ struct AnimationManager5 {
 };
 
 #pragma code_seg(".text$03dispatch")
-extern "C" __declspec(noinline) int __cdecl asm_FUN_004451c0_004451c0(
+extern "C" __declspec(noinline) int __cdecl AnmVm_DrawDispatch(
         AnimationObject3* entity, AnimationManager5* manager) {
     if (!(entity->record_index & 1))
         return -1;

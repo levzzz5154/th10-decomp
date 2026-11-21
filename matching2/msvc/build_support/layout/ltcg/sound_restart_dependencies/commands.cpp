@@ -1,7 +1,7 @@
 // Complete 0x0043DDF0 dispatcher: 1,452-byte manifest region, including its
 // jump table and interior alignment. Retail and candidate both use stdcall.
 // Native MSVC frame/byte matching is pending; there is no inline assembly.
-#include "sound_wave_types.hpp"
+#include "th10/platform/sound_restart_types.hpp"
 #include "sound_memory_words.hpp"
 #include "sound_effect_support.hpp"
 

@@ -1,4 +1,4 @@
-#include "../../../build_support/include/asm_symbols.hpp"
+#include "th10/runtime/asm_symbols.hpp"
 
 // 0x0040DAE0. Teardown of one enemy record: unlink it from the manager's list,
 // drop it from the selector's name tables and the active-enemy slot table,

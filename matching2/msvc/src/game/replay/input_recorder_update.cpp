@@ -2,7 +2,7 @@
 // the masked key state (with the optional hold-to-slow assist), stores one
 // analog sample every 30 frames and appends the input packet; during
 // playback it feeds the recorded packet back into the key state.
-#include "../../../build_support/layout/ltcg/input_recorder.hpp"
+#include "th10/platform/input_recorder.hpp"
 
 #pragma code_seg(".text$03update")
 int InputRecorder::Update() {

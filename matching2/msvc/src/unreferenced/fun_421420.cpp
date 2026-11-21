@@ -1,4 +1,4 @@
-#include "../../build_support/include/asm_symbols.hpp"
+#include "th10/runtime/asm_symbols.hpp"
 
 // 0x00421420..0x00421442: initialize seven critical sections in the state.
 extern "C" unsigned char imp_InitializeCriticalSection;

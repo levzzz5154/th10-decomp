@@ -83,7 +83,7 @@ enum AnmDrawMode {
 };
 
 #pragma code_seg(".text$06hdispatch")
-extern "C" __declspec(noinline) int __cdecl asm_FUN_004451c0_004451c0(
+extern "C" __declspec(noinline) int __cdecl AnmVm_DrawDispatch(
         SprtCtrlBatchView* manager, RenderEntity* entity) {
     unsigned int flags = entity->flags;
     if (!(flags & ANM_DRAW_VISIBLE)) return -1;

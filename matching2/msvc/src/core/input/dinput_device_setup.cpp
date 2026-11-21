@@ -1,6 +1,6 @@
 #include "th10/platform/native_game_input.hpp"
 #include "th10/platform/text_log.hpp"
-extern "C" TextLog4 g_log;
+extern "C" TextLog g_log;
 #pragma code_seg(".text$a10input")
 int GameInputSystem::InitializeDevices() {
     void* instance=(void*)imp_GetWindowLongA(window,-6);

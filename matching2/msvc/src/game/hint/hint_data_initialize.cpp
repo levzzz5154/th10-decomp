@@ -1,4 +1,4 @@
-#include "../../../build_support/include/asm_symbols.hpp"
+#include "th10/runtime/asm_symbols.hpp"
 #include "th10/game/hint_data.hpp"
 
 extern "C" void* __cdecl memset(void* destination, int value,

@@ -85,7 +85,7 @@
       "kind": "data"
     },
     {
-      "symbol": "_asm_FUN_0040bd80_0040bd80@4",
+      "symbol": "_EndingScript_ExecuteStep@4",
       "address": "0x0040BD80",
       "kind": "relative_code"
     },

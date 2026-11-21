@@ -1,4 +1,4 @@
-#include "archive.hpp"
+#include "th10/archive/index/archive.hpp"
 #ifndef ARCHIVE_READ_SECTION
 #define ARCHIVE_READ_SECTION ".text$a00read"
 #endif
@@ -8,7 +8,7 @@ __forceinline bool TryReadEncrypted(DatArchive* archive, DatArchiveEntry* entry,
     if (stored_size == uncompressed_size && original_output) {
         encrypted = original_output;
     } else {
-        encrypted = static_cast<unsigned char*>(asm_malloc_00452706(stored_size));
+        encrypted = static_cast<unsigned char*>(crt_malloc(stored_size));
         if (!encrypted)
             return false;
     }
@@ -16,7 +16,7 @@ __forceinline bool TryReadEncrypted(DatArchive* archive, DatArchiveEntry* entry,
         archive->file->Read(encrypted, stored_size))
         return true;
     if (encrypted)
-        asm_free_00452422(encrypted);
+        crt_free(encrypted);
     return false;
 }
 
@@ -53,7 +53,7 @@ succeeded:
         else
             result = encrypted;
         if (encrypted != output && encrypted)
-            asm_free_00452422(encrypted);
+            crt_free(encrypted);
         return result;
     }
 }

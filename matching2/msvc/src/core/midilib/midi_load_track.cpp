@@ -34,16 +34,10 @@ __declspec(dllimport) void __stdcall LeaveCriticalSection(
     CriticalSection2* section);
 extern CriticalSection2 g_text_log_lock;
 extern unsigned char g_text_log_lock_depth;
-extern int __cdecl asm_vsprintf_004524a6(char* buffer, const char* format, char* arguments);
+extern int __cdecl crt_vsprintf(char* buffer, const char* format, char* arguments);
 }
 
-struct TextLog4 {
-    char text[0x2000];
-    char* cursor;
-    unsigned char dirty;
-    char* Append(char* format, ...);
-};
-
+#include "th10/platform/text_log.hpp"
 extern "C" void __cdecl crt_free(void*);
 
 struct SoundManager2 {
@@ -68,7 +62,7 @@ int SoundManager2::LoadTrack(int index, const char* name) {
     char* data = Archive_LoadFile(name, 0, 0);
     tracks[index] = data;
     if (!data) {
-        ((TextLog4*)0x474F70)->Append((char*)0x46F908, name);
+        ((TextLog*)0x474F70)->Append((char*)0x46F908, name);
         return -1;
     }
     return 0;
@@ -106,14 +100,14 @@ __declspec(noinline) void SoundManager2::MidiStop() {
 // entry's own shape, and the deciding property is that the log object stays
 // live across the anchor's own calls.
 #pragma code_seg(".text$09append")
-__declspec(noinline) char* TextLog4::Append(char* format, ...) {
+__declspec(noinline) char* TextLog::Append(char* format, ...) {
     char staging[0x2000];
     va_list arguments;
     va_start(arguments, format);
 
     EnterCriticalSection(&g_text_log_lock);
     ++g_text_log_lock_depth;
-    asm_vsprintf_004524a6(staging, format, arguments);
+    crt_vsprintf(staging, format, arguments);
 
     unsigned int length = strlen(staging);
     char* destination = cursor;

@@ -4,7 +4,7 @@
 #include "../../../src/core/zunlib/text_log.cpp"
 
 #pragma code_seg(".text$90context")
-int __stdcall TextLogWriteContext_00438950(TextLog4** logs, int count) {
+int __stdcall TextLogWriteContext_00438950(TextLog** logs, int count) {
     while (count--)
         (*logs++)->WriteToFile();
     return 0;

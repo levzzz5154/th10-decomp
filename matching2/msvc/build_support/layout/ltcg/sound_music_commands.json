@@ -5,13 +5,13 @@
   "driver": "build_support/layout/ltcg/sound_music_commands_0043ddf0_context.cpp",
   "headers": [
     "include/th10/app/supervisor.hpp",
-    "build_support/layout/ltcg/sound_interfaces_dependencies/sound_wave_types.hpp",
+    "include/th10/platform/sound_wave_types.hpp",
     "include/th10/platform/text_log.hpp",
     "include/th10/platform/sound_fade.hpp",
     "include/th10/platform/native_sound_shutdown.hpp",
     "include/th10/game/sound_stream_fill_model.hpp",
     "include/th10/game/sound_start_context.hpp",
-    "build_support/layout/ltcg/sound_restart_dependencies/sound_wave_types.hpp"
+    "include/th10/platform/sound_restart_types.hpp"
   ],
   "image_base": "0x00400000",
   "description": "The music command handler compiled with its two call sites and the real bodies of the routines it drives, so the pass gives each call its private register convention.",
@@ -341,12 +341,12 @@
       "kind": "data"
     },
     {
-      "symbol": "_asm_free_00452422",
+      "symbol": "_crt_free",
       "address": "0x452422",
       "kind": "relative_code"
     },
     {
-      "symbol": "_asm_malloc_00452706",
+      "symbol": "_crt_malloc",
       "address": "0x452706",
       "kind": "relative_code"
     },
@@ -396,7 +396,7 @@
       "kind": "data"
     },
     {
-      "symbol": "_asm_rand_0045371b",
+      "symbol": "_crt_rand",
       "address": "0x0045371B",
       "kind": "relative_code"
     },

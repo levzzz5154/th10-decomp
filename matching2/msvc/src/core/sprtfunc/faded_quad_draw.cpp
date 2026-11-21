@@ -71,13 +71,13 @@ struct ProjectedEntity {
 
 // The D3DX entry thunks at 0x45218E/0x4521AC..0x4521BE; their targets pop the
 // arguments, so every call site is a plain stdcall with no cleanup.
-extern "C" void __stdcall asm_D3DXMatrixRotationX_004521ac(ProjectionMatrix2* out, float angle);
-extern "C" void __stdcall asm_D3DXMatrixRotationY_004521b8(ProjectionMatrix2* out, float angle);
-extern "C" void __stdcall asm_D3DXMatrixRotationZ_004521be(ProjectionMatrix2* out, float angle);
-extern "C" void __stdcall asm_D3DXMatrixMultiply_004521b2(ProjectionMatrix2* out,
+extern "C" void __stdcall Th10_D3DXMatrixRotationX(ProjectionMatrix2* out, float angle);
+extern "C" void __stdcall Th10_D3DXMatrixRotationY(ProjectionMatrix2* out, float angle);
+extern "C" void __stdcall Th10_D3DXMatrixRotationZ(ProjectionMatrix2* out, float angle);
+extern "C" void __stdcall Th10_D3DXMatrixMultiply(ProjectionMatrix2* out,
                                                           const ProjectionMatrix2* left,
                                                           const ProjectionMatrix2* right);
-extern "C" void __stdcall asm_D3DXVec3Project_0045218e(void* out, const void* vector,
+extern "C" void __stdcall Th10_D3DXVec3Project(void* out, const void* vector,
                                                        const D3DViewport* viewport,
                                                        const ProjectionMatrix2* projection,
                                                        const ProjectionMatrix2* view,

@@ -6,7 +6,7 @@ extern "C" InitFn g_crt_cinit_end;
 extern "C" VoidInitFn g_crt_preterm_starts[];
 extern "C" VoidInitFn g_crt_preterm_end;
 extern "C" void __cdecl asm_FUN_004597ba_004597ba();
-extern "C" int __cdecl asm_atexit_00452e0a(void (__cdecl*)());
+extern "C" int __cdecl crt_atexit(void (__cdecl*)());
 
 extern "C" int __cdecl asm_cinit_004575bf(int argument) {
     if (g_crt_init_callback) g_crt_init_callback(argument);
@@ -18,7 +18,7 @@ extern "C" int __cdecl asm_cinit_004575bf(int argument) {
         ++p;
     }
     if (!result) {
-        asm_atexit_00452e0a(&asm_FUN_004597ba_004597ba);
+        crt_atexit(&asm_FUN_004597ba_004597ba);
         VoidInitFn* q = g_crt_preterm_starts;
         while (q < &g_crt_preterm_end) {
             if (*q) (*q)();

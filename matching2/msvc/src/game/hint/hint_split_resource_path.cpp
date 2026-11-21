@@ -9,7 +9,7 @@
 
 // 0x00452730: the CRT first-occurrence byte search (strchr shape), bound to the
 // retail address by the layout.  The custom name keeps /Oi from inlining it.
-extern "C" char* __cdecl asm_FUN_00452730_00452730(const char* text, int ch);
+extern "C" char* __cdecl crt_strchr(const char* text, int ch);
 
 // 0x0041A0A0: co-compiled whitespace trim (argument and result in EAX).
 char* TrimWhitespace(char* text);
@@ -17,7 +17,7 @@ char* TrimWhitespace(char* text);
 #pragma code_seg(".text$01split")
 extern "C" __declspec(noinline) char* __stdcall SplitResourcePath(char* line, char* value, char* key) {
     strcpy(key, line);
-    char* colon = asm_FUN_00452730_00452730(key, ':');
+    char* colon = crt_strchr(key, ':');
     if (colon == 0) {
         return TrimWhitespace(key);
     }

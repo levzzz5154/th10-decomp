@@ -27,7 +27,7 @@ extern "C" int __stdcall TitleEffectsAdvance(TitleEffectState* state) {
         object->AnimationFlags() = flags | 0x40000000u;
         resource->InitializeObject(object, 0);
         int handle;
-        asm_AnimationManager_RegisterPrimaryBack_004489d0(g_sprt_ctrl, (void**)&handle, object);
+        AnimationManager_RegisterPrimaryBack(g_sprt_ctrl, (void**)&handle, object);
         state->signature_handle = handle;
         ++state->signature_ready;
     }

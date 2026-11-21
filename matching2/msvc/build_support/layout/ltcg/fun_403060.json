@@ -38,7 +38,7 @@
   "constants": [],
   "absolute_symbols": [
     {
-      "symbol": "_asm_FUN_00402850_00402850@4",
+      "symbol": "_BackGround_DrawBackgroundLayer@4",
       "address": "0x00402850",
       "kind": "relative_code"
     }

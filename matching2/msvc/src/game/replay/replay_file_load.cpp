@@ -20,9 +20,9 @@ int ReplayManager2::LoadFile(const char* name) {
     strcpy(filename, name);
     if (!(g_globals_flags & 0x20)) {
         sprintf(path, "replay/%s", name);
-        if (!asm_File_ProbeExists_0044b4d0(path))
+        if (!File_ProbeExistsPath(path))
             return -1;
-        if (asm_File_OpenSharedRead_0044b6b0(path) != 0)
+        if (File_OpenSharedReadPath(path) != 0)
             return -1;
         header = (ReplayHeader2*)ReadShared2(sizeof(ReplayHeader2));
         if (header->magic != 0x72303174) {

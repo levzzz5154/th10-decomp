@@ -4,7 +4,7 @@
 // then get retail's late ids, so point += step loads step first), and the
 // line-animation creation is spelled out with the render-bucket clear
 // through a pointer, as retail schedules it.
-#include "../../../build_support/layout/ltcg/laser_cut/types.hpp"
+#include "th10/game/laser_cut/types.hpp"
 #include <string.h>
 #pragma code_seg(".text$f0041efa0F")
 int CutLaser::CutCircle(const CutVector* center,float radius,int spawn_items) {

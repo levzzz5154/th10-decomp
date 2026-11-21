@@ -1,4 +1,4 @@
-#include "archive.hpp"
+#include "th10/archive/read/archive.hpp"
 #ifndef ARCHIVE_FIND_SECTION
 #define ARCHIVE_FIND_SECTION ".text$a02find"
 #endif
@@ -8,7 +8,7 @@ extern "C" __declspec(noinline) DatArchiveEntry* __stdcall ArchiveFind(DatArchiv
     DatArchiveEntry* entry = archive->entries;
     int remaining = archive->entry_count;
     while (remaining > 0) {
-        if (asm_stricmp_0046054e(name,entry->name)==0) return entry;
+        if (crt_stricmp(name,entry->name)==0) return entry;
         --remaining;
         ++entry;
     }

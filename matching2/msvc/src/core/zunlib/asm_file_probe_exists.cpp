@@ -1,7 +1,7 @@
 #include "th10/source_views/file_581343_0.hpp"
 #include "th10/source_views/file_581343_1.hpp"
 #include "th10/source_views/file_581343_2.hpp"
-int __stdcall asm_File_ProbeExists_0044b4d0(LPCSTR path) {
+int __stdcall File_ProbeExistsPath(LPCSTR path) {
     (*(EnterCriticalSectionFn*)&imp_EnterCriticalSection)(&g_file_critical_section);
     ++g_file_critical_depth;
     HANDLE handle = (*(CreateFileFn*)&imp_CreateFileA)(
@@ -23,7 +23,7 @@ int __stdcall asm_File_ProbeExists_0044b4d0(LPCSTR path) {
 #include "th10/source_views/file_581343_1.hpp"
 #include "th10/source_views/file_581343_2.hpp"
 #include "th10/source_views/file_581343_3.hpp"
-int __stdcall asm_File_OpenSharedWrite_0044b620(LPCSTR path) {
+int __stdcall File_OpenSharedWritePath(LPCSTR path) {
     (*(EnterCriticalSectionFn*)&imp_EnterCriticalSection)(&g_file_critical_section);
     ++g_file_critical_depth;
     HANDLE handle = (*(CreateFileFn*)&imp_CreateFileA)(
@@ -48,7 +48,7 @@ int __stdcall asm_File_OpenSharedWrite_0044b620(LPCSTR path) {
 #include "th10/source_views/file_581343_2.hpp"
 #include "th10/source_views/file_581343_3.hpp"
 #include "th10/source_views/file_581343_4.hpp"
-int __stdcall asm_File_OpenSharedRead_0044b6b0(LPCSTR path) {
+int __stdcall File_OpenSharedReadPath(LPCSTR path) {
     (*(EnterCriticalSectionFn*)&imp_EnterCriticalSection)(&g_file_critical_section);
     ++g_file_critical_depth;
     HANDLE handle = (*(CreateFileFn*)&imp_CreateFileA)(

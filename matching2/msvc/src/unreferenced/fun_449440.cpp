@@ -9,11 +9,11 @@ struct RenderEntity2;
 
 extern "C" AnimationManager14* g_sprt_ctrl;
 
-extern "C" __declspec(noinline) int __cdecl asm_FUN_004451c0_004451c0(
+extern "C" __declspec(noinline) int __cdecl AnmVm_DrawDispatch(
         RenderEntity2* entity, AnimationManager14* manager);
 
 #pragma code_seg(".text$03draw")
 __declspec(noinline) int DrawGlobalAnimation(RenderEntity2* entity) {
-    return asm_FUN_004451c0_004451c0(entity, g_sprt_ctrl);
+    return AnmVm_DrawDispatch(entity, g_sprt_ctrl);
 }
 #pragma code_seg()

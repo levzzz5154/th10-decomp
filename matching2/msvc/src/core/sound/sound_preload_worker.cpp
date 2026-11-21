@@ -17,7 +17,7 @@ extern const char* g_sound_effect_files[kSoundEffectCount];     // "se_plst00.wa
 extern char* g_pending_sound_effects[kSoundEffectCount];
 extern volatile int g_sound_thread_state;
 extern char g_sound_load_error_format[];   // "error : Sound file could not be read. Check the data %s\r\n"
-extern TextLog4 g_text_log;
+extern TextLog g_text_log;
 }
 
 #pragma code_seg(".text$03fn")

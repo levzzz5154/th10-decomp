@@ -3,7 +3,7 @@
 extern "C" {
 __declspec(dllimport) void __stdcall EnterCriticalSection(void* critical_section);
 __declspec(dllimport) void __stdcall LeaveCriticalSection(void* critical_section);
-unsigned int __cdecl asm_beginthreadex_00453683(
+unsigned int __cdecl crt_beginthreadex(
     void* security, unsigned int stack_size, PlatformWorkerEntry start,
     void* context, unsigned int initflag, unsigned int* thread_id);
 }
@@ -18,7 +18,7 @@ int GameUiThreadHost::Spawn(PlatformWorkerEntry start, void* context) {
     active_worker->entry = start;
     active_worker->running = 1;
     active_worker->stop_requested = 0;
-    active_worker->thread = (void*)asm_beginthreadex_00453683(
+    active_worker->thread = (void*)crt_beginthreadex(
         0, 0, start, context, 0, &active_worker->thread_id);
     LeaveCriticalSection(critical_section);
     --spawning;

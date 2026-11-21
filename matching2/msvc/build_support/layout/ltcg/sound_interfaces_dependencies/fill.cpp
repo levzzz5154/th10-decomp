@@ -1,4 +1,4 @@
-#include "sound_wave_types.hpp"
+#include "th10/platform/sound_wave_types.hpp"
 typedef void (__stdcall* StreamSleep)(unsigned int);
 extern "C" { extern StreamSleep imp_Sleep; extern unsigned int g_bgm_data_offset; extern unsigned int (__stdcall* imp_SetFilePointer)(void*,int,int*,unsigned int); __declspec(dllimport) int __stdcall ReadFile(void*,void*,unsigned int,unsigned int*,void*); }
 extern "C" __declspec(noinline) int __stdcall ArchiveRead(MusicReadCursor*,unsigned int,unsigned int,unsigned int*);

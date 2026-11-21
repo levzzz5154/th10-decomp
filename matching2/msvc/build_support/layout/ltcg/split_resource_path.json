@@ -51,7 +51,7 @@
   "constants": [],
   "absolute_symbols": [
     {
-      "symbol": "_asm_FUN_00452730_00452730",
+      "symbol": "_crt_strchr",
       "address": "0x00452730",
       "kind": "relative_code"
     }

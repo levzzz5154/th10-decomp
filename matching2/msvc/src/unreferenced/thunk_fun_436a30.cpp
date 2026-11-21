@@ -1,4 +1,4 @@
-#include "../../build_support/include/asm_symbols.hpp"
+#include "th10/runtime/asm_symbols.hpp"
 
 // 0x00436A20..0x00436A24: thunk_FUN_00436a30
 // The retail body is a bare forwarder: it shares the argument list of the

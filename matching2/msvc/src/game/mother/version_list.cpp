@@ -1,6 +1,6 @@
-extern "C" int __cdecl asm_strncmp_00452f80(const char*, const char*, unsigned);
-extern "C" int __cdecl asm_sscanf_00452fb9(const char*, const char*, ...);
-extern "C" char* __cdecl asm_FUN_00452730_00452730(const char*, int);
+extern "C" int __cdecl crt_strncmp(const char*, const char*, unsigned);
+extern "C" int __cdecl crt_sscanf(const char*, const char*, ...);
+extern "C" char* __cdecl crt_strchr(const char*, int);
 
 extern const char version_debug[] = "debug";
 extern const char version_0100a[] = "0100a";
@@ -23,18 +23,18 @@ __declspec(noinline) int VersionList::Match(const char* tag, int first, int seco
     const char* cursor = text;
     if (cursor == 0) return 0;
     unsigned int remaining = length;
-    int result = asm_strncmp_00452f80(tag, version_debug, 5);
+    int result = crt_strncmp(tag, version_debug, 5);
     if (result == 0) return result;
     if (strcmp("0100a", "debug") == 0) return 0;
     while (remaining > 0) {
-        if (asm_strncmp_00452f80(tag, cursor, 5) == 0) {
+        if (crt_strncmp(tag, cursor, 5) == 0) {
             int parsed_first, parsed_second;
             cursor += 6;
-            asm_sscanf_00452fb9(cursor, version_format, &parsed_first, &parsed_second);
+            crt_sscanf(cursor, version_format, &parsed_first, &parsed_second);
             if (parsed_first == first && parsed_second == second) return 0;
         }
         const char* old = cursor;
-        cursor = asm_FUN_00452730_00452730(cursor, 10) + 1;
+        cursor = crt_strchr(cursor, 10) + 1;
         remaining += int(old - cursor);
     }
     return -1;

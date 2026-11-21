@@ -6,7 +6,7 @@
     "include/th10/platform/archive_file.hpp",
     "include/th10/platform/archive_callers.hpp",
     "include/th10/game/background.hpp",
-    "build_support/layout/ltcg/native_archive_read/archive.hpp",
+    "include/th10/archive/native_read/archive.hpp",
     "include/th10/archive/dat_archive_types.hpp",
     "include/th10/platform/file.hpp",
     "include/th10/platform/windows_types.hpp",
@@ -17,7 +17,8 @@
     "include/th10/render/camera_batch.hpp",
     "include/th10/render/textured_quad.hpp",
     "include/th10/render/quad_batch.hpp",
-    "include/th10/types.hpp"
+    "include/th10/types.hpp",
+    "include/th10/platform/text_log.hpp"
   ],
   "image_base": "0x00400000",
   "description": "Inherited archive caller cluster retains its eight unrelated selected owners. LoadFile360 is now a complete truthful free-Read ABI anchor with complete Read279/Find53/cipher323 bodies; checksum207 and LoadFile360 are selected by the genuine native_archive_read cluster. Other inherited synthetic caller conventions remain explicit.",
@@ -234,17 +235,17 @@
       "kind": "data"
     },
     {
-      "symbol": "_asm_strrchr_00452930",
+      "symbol": "_crt_strrchr",
       "address": "0x00452930",
       "kind": "relative_code"
     },
     {
-      "symbol": "_asm_stricmp_0046054e",
+      "symbol": "_crt_stricmp",
       "address": "0x0046054e",
       "kind": "relative_code"
     },
     {
-      "symbol": "_asm_malloc_00452706",
+      "symbol": "_crt_malloc",
       "address": "0x00452706",
       "kind": "relative_code"
     },
@@ -334,7 +335,7 @@
       "kind": "metadata"
     },
     {
-      "symbol": "_asm_vsprintf_004524a6",
+      "symbol": "_crt_vsprintf",
       "address": "0x004524A6",
       "kind": "relative_code"
     },
@@ -414,11 +415,6 @@
       "kind": "data"
     },
     {
-      "symbol": "_asm_free_00452422",
-      "address": "0x452422",
-      "kind": "relative_code"
-    },
-    {
       "symbol": "_DecompressDatLzss2@16",
       "address": "0x435dc0",
       "kind": "relative_code"
@@ -461,7 +457,7 @@
     },
     {
       "name": "TextLog_0044b810_Append_abi_anchor",
-      "symbol": "?Append@TextLog4@@QAAPADPADZZ",
+      "symbol": "?Append@TextLog@@QAAPADPADZZ",
       "section": ".text$09append",
       "address": "0x0044B810",
       "size": 201

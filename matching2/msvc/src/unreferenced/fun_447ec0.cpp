@@ -1,6 +1,6 @@
 #include "th10/render/resource_surface_loading.hpp"
 #include "th10/platform/archive_file.hpp"
-#include "../../build_support/layout/ltcg/resource_surface_loading_log.hpp"
+#include "th10/render/surface_loading_log.hpp"
 #pragma code_seg(".text$03memory")
 extern "C" __declspec(noinline) int __stdcall AnimationLoadMemory2(int index,AnimationManagerIndexed* manager,const char* name) {
     char path[260];

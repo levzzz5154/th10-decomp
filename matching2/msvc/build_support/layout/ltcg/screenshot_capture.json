@@ -4,7 +4,8 @@
   "source": "src/game/mother/screenshot_capture.cpp",
   "driver": "build_support/layout/ltcg/screenshot_capture_00420670_context.cpp",
   "headers": [
-    "include/th10/app/screenshot_capture.hpp"
+    "include/th10/app/screenshot_capture.hpp",
+    "include/th10/platform/text_log.hpp"
   ],
   "image_base": "0x00400000",
   "description": "The screenshot capture compiled with native LTCG beside the body of the log appender and a synthetic caller.",
@@ -28,7 +29,7 @@
   "anchors": [
     {
       "name": "TextLog_Append",
-      "symbol": "?Append@TextLog2@@QAAPADPADZZ",
+      "symbol": "?Append@TextLog@@QAAPADPADZZ",
       "section": ".text$00i_append",
       "address": "0x0044B810",
       "size": 201
@@ -47,12 +48,12 @@
       "kind": "relative_code"
     },
     {
-      "symbol": "_asm_malloc_00452706",
+      "symbol": "_crt_malloc",
       "address": "0x00452706",
       "kind": "relative_code"
     },
     {
-      "symbol": "_asm_vsprintf_004524a6",
+      "symbol": "_crt_vsprintf",
       "address": "0x004524A6",
       "kind": "relative_code"
     },
@@ -97,7 +98,7 @@
       "kind": "data"
     },
     {
-      "symbol": "_asm_beginthread_00452eec",
+      "symbol": "_crt_beginthread",
       "address": "0x00452EEC",
       "kind": "relative_code"
     },

@@ -216,7 +216,7 @@ extern "C" __declspec(noinline) int __stdcall ItemManager_UpdateItems(ItemSpawnM
                 }
             }
         }
-        asm_FUN_0043ee30_0043ee30(&item->animation);
+        AnmVm_TickScript(&item->animation);
         item->timer.TickInline();
         ++manager->live_count;
     }

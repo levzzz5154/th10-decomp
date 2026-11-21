@@ -2,7 +2,7 @@
 // The two counters are declared before the origin copy (retail zeroes their
 // homes from EDX next to the SetPolar call), and the run loop is guarded by
 // a single hit_count test.
-#include "../../../build_support/layout/ltcg/laser_cut/types.hpp"
+#include "th10/game/laser_cut/types.hpp"
 #include <string.h>
 #pragma code_seg(".text$f0041eb00F")
 int CutLaser::CutRectangle(const CutVector* center,const CutVector* size,int spawn_items) {

@@ -29,10 +29,10 @@
     "build_support/layout/ltcg/laser_grow/loader.cpp"
   ],
   "headers": [
-    "build_support/layout/ltcg/laser_cut/types.hpp",
-    "build_support/layout/ltcg/laser_cut/animation_ids.hpp",
+    "include/th10/game/laser_cut/types.hpp",
+    "include/th10/game/laser_cut/animation_ids.hpp",
     "include/th10/game/item_velocity.hpp",
-    "build_support/layout/ltcg/laser_cut/item_spawn.hpp",
+    "include/th10/game/laser_cut/item_spawn.hpp",
     "include/th10/render/animation_public_callers.hpp",
     "include/th10/game/entity.hpp",
     "include/th10/types.hpp",
@@ -300,7 +300,7 @@
       "kind": "relative_code"
     },
     {
-      "symbol": "_asm_FUN_0043ee30_0043ee30@4",
+      "symbol": "_AnmVm_TickScript@4",
       "address": "0x0043EE30",
       "kind": "relative_code"
     },

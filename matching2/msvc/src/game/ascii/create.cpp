@@ -49,19 +49,19 @@ int AsciiManager2::LoadResources() {
     manager->ascii_resource = (Resource2 *)Recovery_LoadCachedResource(
             2, g_sprt_ctrl, "ascii.anm");
     if (!manager->ascii_resource) {
-        ((TextLog4 *)0x474F70)->Append((char *)0x46CB68);
+        ((TextLog *)0x474F70)->Append((char *)0x46CB68);
         return -1;
     }
     manager->text_resource = (Resource2 *)Recovery_LoadCachedResource(
             0, g_sprt_ctrl, "text.anm");
     if (!manager->text_resource) {
-        ((TextLog4 *)0x474F70)->Append((char *)0x46CB68);
+        ((TextLog *)0x474F70)->Append((char *)0x46CB68);
         return -1;
     }
     manager->capture_resource = (Resource2 *)Recovery_LoadCachedResource(
             3, g_sprt_ctrl, "capture.anm");
     if (!manager->capture_resource) {
-        ((TextLog4 *)0x474F70)->Append((char *)0x46CB68);
+        ((TextLog *)0x474F70)->Append((char *)0x46CB68);
         return -1;
     }
 

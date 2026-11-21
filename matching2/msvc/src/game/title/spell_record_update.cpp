@@ -31,26 +31,26 @@ static __forceinline int PageCount(int difficulty) {
 
 // The animation a handle refers to, searching both of the manager's lists
 // (0x004491C0 as it is inlined in phase 2).
-static __forceinline RecoveryMusicVm* FindAnimation2(
-        RecoveryLookupContext* context, unsigned int handle) {
+static __forceinline TitleAnmVm* FindAnimation2(
+        AnmLookupContext* context, unsigned int handle) {
     if (handle == 0)
         return 0;
-    RecoveryLookupNode* node;
+    AnmLookupNode* node;
     for (node = context->primary; node != 0; node = node->next)
-        if (reinterpret_cast<RecoveryMusicVm*>(node->object)->id == handle)
-            return reinterpret_cast<RecoveryMusicVm*>(node->object);
+        if (reinterpret_cast<TitleAnmVm*>(node->object)->id == handle)
+            return reinterpret_cast<TitleAnmVm*>(node->object);
     for (node = context->secondary; node != 0; node = node->next)
-        if (reinterpret_cast<RecoveryMusicVm*>(node->object)->id == handle)
-            return reinterpret_cast<RecoveryMusicVm*>(node->object);
+        if (reinterpret_cast<TitleAnmVm*>(node->object)->id == handle)
+            return reinterpret_cast<TitleAnmVm*>(node->object);
     return 0;
 }
 
 // Stop an animation and its children at a frame.
-static __forceinline void SetTreeFrame(RecoveryMusicVm* object, unsigned short frame) {
+static __forceinline void SetTreeFrame(TitleAnmVm* object, unsigned short frame) {
     if (object != 0) {
         object->stop_frame = frame;
         if (object->children_flagged == 0) {
-            for (RecoveryMusicChild* child = object->children; child != 0; child = child->next)
+            for (TitleAnmChild* child = object->children; child != 0; child = child->next)
                 child->object->stop_frame = frame;
         }
     }
@@ -127,13 +127,13 @@ __declspec(noinline) int __stdcall TitleMode11(Title* room) {
         if ((short)g_input_keys_raw.InputMaskActive(SPELL_KEY_UP)) {
             difficulty->Advance(-1);
             AnimationManager_SetStopFrameAndRun(
-                2, reinterpret_cast<RecoveryLookupContext*>(g_sprt_ctrl),
+                2, reinterpret_cast<AnmLookupContext*>(g_sprt_ctrl),
                 room->animation_slots[170]);
         }
         if ((short)g_input_keys_raw.InputMaskActive(SPELL_KEY_DOWN)) {
             difficulty->Advance(1);
             AnimationManager_SetStopFrameAndRun(
-                2, reinterpret_cast<RecoveryLookupContext*>(g_sprt_ctrl),
+                2, reinterpret_cast<AnmLookupContext*>(g_sprt_ctrl),
                 room->animation_slots[171]);
         }
         if (difficulty->previous_selection != difficulty->selection) {
@@ -149,13 +149,13 @@ __declspec(noinline) int __stdcall TitleMode11(Title* room) {
         if ((short)g_input_keys_raw.InputMaskActive(SPELL_KEY_LEFT)) {
             room->cursor.Advance(-1);
             AnimationManager_SetStopFrameAndRun(
-                2, reinterpret_cast<RecoveryLookupContext*>(g_sprt_ctrl),
+                2, reinterpret_cast<AnmLookupContext*>(g_sprt_ctrl),
                 room->animation_slots[168]);
         }
         if ((short)g_input_keys_raw.InputMaskActive(SPELL_KEY_RIGHT)) {
             room->cursor.Advance(1);
             AnimationManager_SetStopFrameAndRun(
-                2, reinterpret_cast<RecoveryLookupContext*>(g_sprt_ctrl),
+                2, reinterpret_cast<AnmLookupContext*>(g_sprt_ctrl),
                 room->animation_slots[169]);
         }
         if (room->cursor.previous_selection != room->cursor.selection) {
@@ -236,7 +236,7 @@ __declspec(noinline) int __stdcall TitleMode11(Title* room) {
             room->ClearAnimationSlot(172);
             for (int line = 0; line < SPELL_LINES_PER_PAGE; ++line)
                 SetTreeFrame(
-                    FindAnimation2(reinterpret_cast<RecoveryLookupContext*>(g_sprt_ctrl),
+                    FindAnimation2(reinterpret_cast<AnmLookupContext*>(g_sprt_ctrl),
                                            records->lines[line].value), 1);
         }
         break;

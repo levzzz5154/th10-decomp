@@ -1,7 +1,7 @@
 // 0x0043B110: the MIDI event parser. It reads one event from a track, updates
 // the sequencer's channel state, forwards the message to the output device and
 // schedules the track's next event.
-#include "../../../build_support/include/asm_symbols.hpp"
+#include "th10/runtime/asm_symbols.hpp"
 #include <string.h>
 #include "th10/platform/midi_sequencer.hpp"
 
@@ -168,14 +168,14 @@ extern "C" __declspec(noinline) void __stdcall ProcessMidiEvent2(
                     sequencer->midi_headers[sequencer->midi_header_index]);
 
             sequencer->midi_headers[sequencer->midi_header_index] =
-                static_cast<midihdr_tag*>(asm_malloc_00452706(0x40));
+                static_cast<midihdr_tag*>(crt_malloc(0x40));
             MidiEventHeader* header = reinterpret_cast<MidiEventHeader*>(
                 sequencer->midi_headers[sequencer->midi_header_index]);
             const int length = ReadMidiVariableLength(track->cursor);
 
             memset(header, 0, sizeof(*header));
 
-            header->data = static_cast<unsigned char*>(asm_malloc_00452706(length + 1));
+            header->data = static_cast<unsigned char*>(crt_malloc(length + 1));
             header->data[0] = MIDI_STATUS_SYSEX;
             header->flags = 0;
             header->buffer_length = length + 1;
@@ -185,10 +185,10 @@ extern "C" __declspec(noinline) void __stdcall ProcessMidiEvent2(
 
             if (SendMidiLongMessage(reinterpret_cast<MidiPlaybackState*>(sequencer), header)) {
                 if (header->data != 0) {
-                    asm_free_00452422(header->data);
+                    crt_free(header->data);
                     header->data = 0;
                 }
-                asm_free_00452422(header);
+                crt_free(header);
                 sequencer->midi_headers[sequencer->midi_header_index] = 0;
             }
 

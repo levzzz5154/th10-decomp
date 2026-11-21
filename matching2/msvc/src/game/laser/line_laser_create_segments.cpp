@@ -1,7 +1,7 @@
 // Full 0041F400..0041F66E (623 bytes) C++ recovery model.
 // This routine is distinct from 0041E260: it conditionally creates an
 // animation after an outer rectangle check and calls the outlined registrar.
-#include "../../../build_support/layout/ltcg/item_line_runtime/types/line_sweeps.hpp"
+#include "th10/game/item_line/line_sweeps.hpp"
 extern "C" void _ReadWriteBarrier();
 #pragma intrinsic(_ReadWriteBarrier)
 
@@ -47,7 +47,7 @@ __declspec(noinline) int LineEffectSweep::CreateSegmentsInBounds(int spawn_items
                     static_cast<AnimationResourceFile*>(resource),
                     reinterpret_cast<AnimationObjectFile*>(animation), script);
                 void* handle;
-                asm_AnimationManager_RegisterPrimaryBack_004489d0(
+                AnimationManager_RegisterPrimaryBack(
                     g_sprt_ctrl, &handle, animation);
 
                 // The second rectangle has a 32-unit margin and is reached

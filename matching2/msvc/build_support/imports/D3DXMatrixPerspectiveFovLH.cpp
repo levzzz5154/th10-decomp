@@ -3,7 +3,7 @@ typedef void* (__stdcall* D3DXMatrixPerspectiveFovLHFn_0045219a)(
 extern "C" D3DXMatrixPerspectiveFovLHFn_0045219a imp_D3DXMatrixPerspectiveFovLH;
 
 // 0x0045219A..0x0045219F: imported D3DXMatrixPerspectiveFovLH tail thunk.
-extern "C" void* __stdcall asm_D3DXMatrixPerspectiveFovLH_0045219a(
+extern "C" void* __stdcall Th10_D3DXMatrixPerspectiveFovLH(
     void* out, float fov_y, float aspect, float z_near, float z_far) {
     return imp_D3DXMatrixPerspectiveFovLH(out, fov_y, aspect, z_near, z_far);
 }

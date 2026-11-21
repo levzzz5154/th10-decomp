@@ -43,7 +43,7 @@ extern "C" KeyboardDevice* g_keyboard_device;     // 0x00491C38  keyboard device
 // 0x0044A190 receives the packed mask in ECX, an unused register argument and
 // two stack words (the binding set and the device, both zero here) and answers
 // with the action word; the 8-byte parameter keeps that stack layout.
-extern "C" unsigned short __cdecl asm_FUN_0044a190_0044a190(unsigned short mask, long long args);
+extern "C" unsigned short __cdecl Joystick_ReadPad(unsigned short mask, long long args);
 typedef unsigned short (__fastcall* KeyMaskSink)(unsigned short mask, long long args);
 
 struct KeyboardBinding2 {          // one 0x6A-byte binding entry
@@ -139,7 +139,7 @@ unsigned short __fastcall FUN_0044a9d0_0044a9d0(unsigned int binding_set, unsign
         }
     }
 
-    unsigned short result = ((KeyMaskSink)asm_FUN_0044a190_0044a190)(mask, 0);
+    unsigned short result = ((KeyMaskSink)Joystick_ReadPad)(mask, 0);
     binding->previous = binding->current;
     binding->current = result;
     unsigned short bit = 1;

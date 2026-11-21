@@ -46,7 +46,7 @@ struct AnimationPosition {
 };
 extern "C" void* g_sprt_ctrl;
 extern "C" void* g_ascii_manager;
-extern "C" __declspec(noinline) void** __cdecl asm_AnimationManager_RegisterPrimaryBack_004489d0(
+extern "C" __declspec(noinline) void** __cdecl AnimationManager_RegisterPrimaryBack(
     void* manager, void** out, void* entity);
 __declspec(noinline) void** __stdcall AnimationManager_CreatePositionedPrimary(
     void* resource, void** out, int index, const AnimationPosition* position);

@@ -6,8 +6,8 @@
 #include <string.h>
 #include "th10/archive/crypt.hpp"
 
-extern "C" void* __cdecl asm_malloc_00452706(unsigned int size);
-extern "C" void __cdecl asm_free_00452422(void* memory);
+extern "C" void* __cdecl crt_malloc(unsigned int size);
+extern "C" void __cdecl crt_free(void* memory);
 
 #pragma code_seg(".text$crypt01_decrypt")
 unsigned char* Dat_Decrypt(unsigned char* data, int size, unsigned char key,
@@ -16,7 +16,7 @@ unsigned char* Dat_Decrypt(unsigned char* data, int size, unsigned char key,
     int tail = remainder < block_size / 4 ? remainder : 0;
     int count = limit > size ? size : limit;
     unsigned char* out = data;
-    unsigned char* snapshot = (unsigned char*)asm_malloc_00452706(count);
+    unsigned char* snapshot = (unsigned char*)crt_malloc(count);
     unsigned char* in = snapshot;
     if (!snapshot)
         return data;
@@ -47,7 +47,7 @@ unsigned char* Dat_Decrypt(unsigned char* data, int size, unsigned char key,
         size -= block_size;
         limit -= block_size;
     }
-    asm_free_00452422(snapshot);
+    crt_free(snapshot);
     return data;
 }
 
@@ -58,7 +58,7 @@ unsigned char* Dat_Encrypt(unsigned char* data, int size, unsigned char key,
     int tail = remainder < block_size / 4 ? remainder : 0;
     int count = limit > size ? size : limit;
     unsigned char* out = data;
-    unsigned char* snapshot = (unsigned char*)asm_malloc_00452706(count);
+    unsigned char* snapshot = (unsigned char*)crt_malloc(count);
     unsigned char* in = snapshot;
     if (!snapshot)
         return data;
@@ -89,7 +89,7 @@ unsigned char* Dat_Encrypt(unsigned char* data, int size, unsigned char key,
         size -= block_size;
         limit -= block_size;
     }
-    asm_free_00452422(snapshot);
+    crt_free(snapshot);
     return data;
 }
 #pragma code_seg()

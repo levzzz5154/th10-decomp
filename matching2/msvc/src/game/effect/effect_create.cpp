@@ -21,7 +21,7 @@ struct Effect {
 extern "C" void *__cdecl memset(void *dest, int value, unsigned size);
 extern "C" int __stdcall Effect_Initialize(
         Effect *state);
-extern "C" void __stdcall asm_BulletManager_Release_0040af00(
+extern "C" void __stdcall Effect_ReleaseState(
         Effect *state);
 extern "C" void __cdecl crt_free_startup(void *memory);
 extern "C" Effect *g_effect;
@@ -41,7 +41,7 @@ Effect *Effect_Create() {
     }
     if (Effect_Initialize(state)) {
         if (state) {
-            asm_BulletManager_Release_0040af00(state);
+            Effect_ReleaseState(state);
             crt_free_startup(state);
         }
         return 0;

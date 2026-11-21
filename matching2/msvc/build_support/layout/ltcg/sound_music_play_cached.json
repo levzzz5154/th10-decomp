@@ -5,7 +5,7 @@
   "driver": "build_support/layout/ltcg/sound_music_play_cached_0043d950_context.cpp",
   "headers": [
     "include/th10/app/supervisor.hpp",
-    "build_support/layout/ltcg/sound_interfaces_dependencies/sound_wave_types.hpp",
+    "include/th10/platform/sound_wave_types.hpp",
     "include/th10/platform/text_log.hpp"
   ],
   "image_base": "0x00400000",

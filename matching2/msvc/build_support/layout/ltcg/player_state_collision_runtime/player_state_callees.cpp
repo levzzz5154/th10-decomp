@@ -1,8 +1,8 @@
 // Callees of the player-state update, present so that the update sees their
 // register conventions. Compiler context only; none of these bytes enter the
 // image. The bodies repeat the recovered sources named beside them.
-#include "player_state.hpp"
-#include "animation_public_callers.hpp"
+#include "th10/game/player_collision/player_state.hpp"
+#include "th10/game/player_collision/animation_public_callers.hpp"
 #pragma intrinsic(atan2)
 
 struct OpenReplayState { unsigned char reserved_00[0x58]; unsigned int flags; int replay_mode; };

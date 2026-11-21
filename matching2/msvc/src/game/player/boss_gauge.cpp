@@ -1,4 +1,4 @@
-#include "../../../build_support/include/asm_symbols.hpp"
+#include "th10/runtime/asm_symbols.hpp"
 
 // 0x00428C20..0x00428C9C: FUN15
 // The manager (ECX) owns the 0x98-byte score slots based at +0x3244 and the

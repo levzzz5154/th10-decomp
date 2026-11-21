@@ -14,7 +14,7 @@ struct RenderSlotNode_00448740 {
 };
 
 // 0x004451C0: the per-node draw call.
-extern "C" void __cdecl asm_FUN_004451c0_004451c0(void* object, void* manager);
+extern "C" void __cdecl AnmVm_DrawDispatch(void* object, void* manager);
 
 // 0x00448980's body.  It is compiled only so the whole-program pass can put the
 // manager in EDI and the slot index in EAX: its caller is the modelled task and
@@ -22,7 +22,7 @@ extern "C" void __cdecl asm_FUN_004451c0_004451c0(void* object, void* manager);
 // the retail address, so the task's call bakes retail's displacement and needs no
 // relocation.  None of these bytes are selected as recovered code.
 #pragma code_seg(".text$03bucket")
-extern "C" __declspec(noinline) int __cdecl asm_AnimationManager_RenderBucket_00448980(
+extern "C" __declspec(noinline) int __cdecl AnimationManager_RenderBucket(
         SprtCtrlBatchView* manager, int slot) {
     RenderSlotNode_00448740* node = *(RenderSlotNode_00448740**)
         ((unsigned char*)manager + 0x72DB00 + slot * 0x3AC);
@@ -31,7 +31,7 @@ extern "C" __declspec(noinline) int __cdecl asm_AnimationManager_RenderBucket_00
             if (node->on_render != 0) {
                 node->on_render(node);
             }
-            asm_FUN_004451c0_004451c0(node, manager);
+            AnmVm_DrawDispatch(node, manager);
         }
         node = node->next;
     }

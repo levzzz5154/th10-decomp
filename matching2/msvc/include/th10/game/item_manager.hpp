@@ -22,7 +22,7 @@ extern "C" ItemPauseState* g_game;
 extern "C" AnimationManager5* g_sprt_ctrl;
 
 // 0x004451C0: entity in EAX, manager in ECX.
-extern "C" __declspec(noinline) int __cdecl asm_FUN_004451c0_004451c0(
+extern "C" __declspec(noinline) int __cdecl AnmVm_DrawDispatch(
         AnimationObject3* entity, AnimationManager5* manager);
 
 int __fastcall ItemManager_OnDraw2(ItemManager3* manager);

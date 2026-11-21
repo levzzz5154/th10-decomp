@@ -1,7 +1,7 @@
 // 0x00449350 (src/core/sprtlib/animation_manager_set_translated_position.cpp),
 // present so its callers see its register convention. Compiler context only.
-#include "movement.hpp"
-#include "animation_tree.hpp"
+#include "th10/game/player_collision/movement.hpp"
+#include "th10/game/player_collision/animation_tree.hpp"
 
 #pragma code_seg(".text$f00449350F")
 void __fastcall Animation_SetTranslatedPosition(

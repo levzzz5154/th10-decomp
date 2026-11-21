@@ -1,7 +1,7 @@
 // 0x00415800: draw the front animation banks, progress bars and input prompts.
 #include "th10/render/quad_batch.hpp"
 #include <stddef.h>
-extern "C" __declspec(noinline) int __cdecl asm_FUN_004451c0_004451c0(
+extern "C" __declspec(noinline) int __cdecl AnmVm_DrawDispatch(
     SprtCtrlBatchView* manager, RenderEntity* entity);
 
 struct OverlayVm {
@@ -43,26 +43,26 @@ extern "C" __declspec(noinline) int __stdcall GameStateOverlay_Draw(FrontDrawVie
     OverlayVm* cursor = state->secondary;
     int count = 10;
     do {
-        asm_FUN_004451c0_004451c0(g_sprt_ctrl, &cursor[-10].entity);
-        asm_FUN_004451c0_004451c0(g_sprt_ctrl, &cursor->entity);
+        AnmVm_DrawDispatch(g_sprt_ctrl, &cursor[-10].entity);
+        AnmVm_DrawDispatch(g_sprt_ctrl, &cursor->entity);
         ++cursor;
     } while (--count);
     cursor = state->tertiary;
     count = 9;
     do {
-        asm_FUN_004451c0_004451c0(g_sprt_ctrl, &cursor->entity);
+        AnmVm_DrawDispatch(g_sprt_ctrl, &cursor->entity);
         ++cursor;
     } while (--count);
     cursor = state->quaternary;
     count = 4;
     do {
-        asm_FUN_004451c0_004451c0(g_sprt_ctrl, &cursor->entity);
+        AnmVm_DrawDispatch(g_sprt_ctrl, &cursor->entity);
         ++cursor;
     } while (--count);
     cursor = state->quinary;
     count = 7;
     do {
-        asm_FUN_004451c0_004451c0(g_sprt_ctrl, &cursor->entity);
+        AnmVm_DrawDispatch(g_sprt_ctrl, &cursor->entity);
         ++cursor;
     } while (--count);
     if (g_player_power_display) {
@@ -107,12 +107,12 @@ extern "C" __declspec(noinline) int __stdcall GameStateOverlay_Draw(FrontDrawVie
     if (g_enemy_ctrl) {
         OverlayInputDevice* device = g_enemy_ctrl->device;
         if (device && (~(device->flags >> 4) & 1) && (~device->flags & 1))
-            asm_FUN_004451c0_004451c0(g_sprt_ctrl, &state->input_prompt.entity);
+            AnmVm_DrawDispatch(g_sprt_ctrl, &state->input_prompt.entity);
         if (g_enemy_ctrl && state->stage_index >= 0 && g_enemy_ctrl->device && !state->prompt_hidden) {
             cursor = state->late_pair;
             count = 2;
             do {
-                asm_FUN_004451c0_004451c0(g_sprt_ctrl, &cursor->entity);
+                AnmVm_DrawDispatch(g_sprt_ctrl, &cursor->entity);
                 ++cursor;
             } while (--count);
         }

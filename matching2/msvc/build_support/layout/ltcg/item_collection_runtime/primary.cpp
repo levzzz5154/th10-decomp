@@ -1,5 +1,5 @@
 // Complete primary-back creator, using its actual allocator and initializer.
-#include "types/update.hpp"
+#include "th10/game/item_collection/update.hpp"
 #include "types/animation_public.hpp"
 #pragma code_seg(".text$f00448d00F")
 void** __stdcall ItemAnimation_CreatePrimaryBack(
@@ -9,7 +9,7 @@ void** __stdcall ItemAnimation_CreatePrimaryBack(
     object->render_bucket=layer;
     object->flags_35C=flags|0x40000000u;
     static_cast<AnimationBank*>(resource)->InitializeObject(object,script);
-    asm_AnimationManager_RegisterPrimaryBack_004489d0(g_sprt_ctrl,output,object);
+    AnimationManager_RegisterPrimaryBack(g_sprt_ctrl,output,object);
     return output;
 }
 #pragma code_seg()

@@ -31,7 +31,7 @@ __declspec(noinline) int ScriptFileChunkContext::ParseAnimationChunk(char* chunk
                 g_sprt_ctrl, name);
             g_enemy_ctrl->animation_files[index + 1] = resource;
             if (!resource) {
-                reinterpret_cast<TextLog4*>(0x00474F70)->Append(
+                reinterpret_cast<TextLog*>(0x00474F70)->Append(
                     reinterpret_cast<char*>(0x0046CB68));
                 return -1;
             }

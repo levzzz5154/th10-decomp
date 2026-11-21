@@ -117,7 +117,7 @@ __declspec(noinline) int __stdcall Title_DispatchUpdate(
         manager->MarkResourceForRemoval(*reinterpret_cast<void**>(manager_bytes + 0x3ad074));
         manager->MarkResourceForRemoval(*reinterpret_cast<void**>(manager_bytes + 0x3ad078));
         manager->MarkResourceForRemoval(*reinterpret_cast<void**>(manager_bytes + 0x3ad06c));
-        RecoveryHandle* handle = reinterpret_cast<RecoveryHandle*>(
+        AnmScriptHandle* handle = reinterpret_cast<AnmScriptHandle*>(
             reinterpret_cast<unsigned char*>(g_ascii_manager) + 0x89a4);
         RecoveryMusicStopHandle(handle);
         handle->value = 0;

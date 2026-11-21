@@ -16,8 +16,8 @@ struct DatArchive {
 };
 
 extern "C" void __cdecl DeleteFontCacheObjects2();
-extern "C" void __cdecl asm_free_00452422(void* memory);
-extern "C" void __cdecl asm_free_004524a1(void* memory);
+extern "C" void __cdecl crt_free(void* memory);
+extern "C" void __cdecl crt_free_startup(void* memory);
 void __stdcall Recovery_ReleaseGlobalStates();
 __declspec(noinline) void DeletePublishedBlock(PublishedBlock* block);
 
@@ -65,7 +65,7 @@ extern "C" const char str_dummy[];
 static inline void DeleteTimer(Win32Timer* timer) {
     if (timer) {
         timer->Release();
-        asm_free_004524a1(timer);
+        crt_free_startup(timer);
     }
 }
 
@@ -75,7 +75,7 @@ int App2::Shutdown() {
     g_sound_init_status = 2;
     g_application.worker.Stop();
     if (g_application.buffer_764) {
-        asm_free_00452422(g_application.buffer_764);
+        crt_free(g_application.buffer_764);
         g_application.buffer_764 = 0;
     }
     Recovery_ReleaseGlobalStates();

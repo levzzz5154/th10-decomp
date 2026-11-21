@@ -1,7 +1,7 @@
 #include <string.h>
 
 // Retail strrchr at 0x00452930 (cdecl: string, character).
-extern "C" char* __cdecl asm_strrchr_00452930(const char* text, int character);
+extern "C" char* __cdecl crt_strrchr(const char* text, int character);
 
 
 // 0x0043D2A0..0x0043D382: ?Path_FindBasenameSlot@@
@@ -18,9 +18,9 @@ struct PathName {
 int PathName::FindBasenameSlot(void* owner) {
     char basename[128];
     int index = 0;
-    char* separator = asm_strrchr_00452930(text, '/');
+    char* separator = crt_strrchr(text, '/');
     if (!separator)
-        separator = asm_strrchr_00452930(text, '\\');
+        separator = crt_strrchr(text, '\\');
     if (!separator)
         strcpy(basename, text);
     else

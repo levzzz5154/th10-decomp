@@ -24,7 +24,7 @@ extern "C" GameCounters g_globals_score;
 extern "C" const char* g_ending_files[12];
 extern "C" char g_recovery_script_path[260];
 extern "C" char str_data_corrupted[];
-extern "C" TextLog4 g_log;
+extern "C" TextLog g_log;
 struct EndingUnlocks {
     unsigned char reserved[0x1D882];
     unsigned char endings[12];

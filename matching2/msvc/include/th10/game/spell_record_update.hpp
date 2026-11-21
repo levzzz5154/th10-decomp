@@ -9,7 +9,7 @@ struct TitleSpellRecordView {
     MenuCursor difficulty;              // +0x0FC
     MenuCursor page;                    // +0x1D4: 0 is the summary, 1.. the card pages
     unsigned char reserved_02ac[0x5D4 - 0x2AC];
-    RecoveryHandle lines[10];  // +0x5D4: the ten text lines of a page
+    AnmScriptHandle lines[10];  // +0x5D4: the ten text lines of a page
 
 };
 typedef char SpellRecordRoomPage[offsetof(TitleSpellRecordView, page) == 0x1D4 ? 1 : -1];

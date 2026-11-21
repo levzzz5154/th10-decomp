@@ -4,7 +4,7 @@
 // power_display_set_digits.cpp, floating_text_draw.cpp,
 // entity_angle_from_point.cpp, sound_queue_pan2.cpp.
 #include <math.h>
-#include "../../../build_support/layout/ltcg/item_collection_runtime/types/update.hpp"
+#include "th10/game/item_collection/update.hpp"
 #include "th10/render/animation_byte_interpolator.hpp"
 
 #pragma code_seg(".text$f00405b60F")

@@ -27,7 +27,7 @@ extern "C" EnemyState* g_front;
 extern "C" DialogState* g_pause;
 extern "C" int g_player_power_display;
 extern "C" __declspec(noinline) double __stdcall FloorPixelCoordinate(float);
-extern "C" __declspec(noinline) int __cdecl asm_FUN_004451c0_004451c0(
+extern "C" __declspec(noinline) int __cdecl AnmVm_DrawDispatch(
     SprtCtrlBatchView*, RenderEntity*);
 
 // Copy coordinates in order so source and destination may alias.
@@ -40,7 +40,7 @@ inline void CopyRenderPosition(RenderVec3& to, const RenderVec3& from, float dx,
 int PlayerRenderState::Draw() {
     if (state != 2) {
         CopyRenderPosition(sprite.position, position, 224.0f, 16.0f);
-        asm_FUN_004451c0_004451c0(g_sprt_ctrl, &sprite);
+        AnmVm_DrawDispatch(g_sprt_ctrl, &sprite);
         for (int index = 0; index < 4; ++index) {
             if (options[index].draw) options[index].draw(&options[index]);
         }

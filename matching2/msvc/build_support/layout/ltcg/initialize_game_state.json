@@ -13,7 +13,8 @@
     "include/th10/platform/thread_sync.hpp",
     "include/th10/game/entity.hpp",
     "include/th10/types.hpp",
-    "include/th10/math/timer.hpp"
+    "include/th10/math/timer.hpp",
+    "include/th10/platform/text_log.hpp"
   ],
   "description": "Complete initializer with actual recovered loader, logger, and scheduler bodies as compiler-only ABI anchors. Only the initializer is selected as game code.",
   "image_base": "0x00400000",
@@ -51,7 +52,7 @@
     },
     {
       "name": "AppendLine",
-      "symbol": "?AppendLine@TextLog5@@QAAPADPADZZ",
+      "symbol": "?AppendLine@TextLog@@QAAPADPADZZ",
       "section": ".text$15log",
       "address": "0x0044B8E0",
       "size": 201
@@ -154,7 +155,7 @@
       "kind": "metadata"
     },
     {
-      "symbol": "_asm_vsprintf_004524a6",
+      "symbol": "_crt_vsprintf",
       "address": "0x4524a6",
       "kind": "relative_code"
     },
@@ -204,7 +205,7 @@
       "kind": "relative_code"
     },
     {
-      "symbol": "?Append@TextLog4@@QAAPADPADZZ",
+      "symbol": "?Append@TextLog@@QAAPADPADZZ",
       "address": "0x0044B810",
       "kind": "relative_code"
     }

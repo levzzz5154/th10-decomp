@@ -8,7 +8,7 @@ struct ScanStream {
 extern "C" unsigned int __cdecl asm_strlen_00456720(const char*);
 extern "C" int __cdecl asm_FUN_00457a7c_00457a7c(ScanStream*, const char*, void*);
 
-extern "C" int __cdecl asm_sscanf_00452fb9(char* input, const char* format, ...) {
+extern "C" int __cdecl crt_sscanf(char* input, const char* format, ...) {
     ScanStream stream;
     stream.flags = 0x49;
     stream.base = input;

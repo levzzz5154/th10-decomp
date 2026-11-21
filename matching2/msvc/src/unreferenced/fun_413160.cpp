@@ -1,4 +1,4 @@
-#include "../../build_support/include/asm_symbols.hpp"
+#include "th10/runtime/asm_symbols.hpp"
 
 // 0x00413160..0x00413169: FUN11
 // The value arrives on the stack and the object in ECX, so this is a

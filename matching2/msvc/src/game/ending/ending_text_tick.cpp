@@ -22,7 +22,7 @@
 extern float g_frame_timer_normal_lower;  // 0x00470B68
 extern float g_frame_timer_normal_upper;  // 0x00470B64
 
-extern "C" int __stdcall asm_FUN_0040bd80_0040bd80(void* state);
+extern "C" int __stdcall EndingScript_ExecuteStep(void* state);
 
 struct EndingTextTickView {
     int pad_00;             // +0x00
@@ -34,7 +34,7 @@ struct EndingTextTickView {
 
 #pragma code_seg(".text$01tick")
 __declspec(noinline) int __stdcall EndingText_Tick(EndingTextTickView* state) {
-    if (asm_FUN_0040bd80_0040bd80(state))
+    if (EndingScript_ExecuteStep(state))
         return 1;
 
     state->previous = state->current;

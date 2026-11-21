@@ -2,13 +2,13 @@
 // array construction EH. The real Version -> Open -> LoadIndex caller graph
 // establishes all three stack inputs and RET12. No register adapter is used.
 #include <string.h>
-#include "../../../build_support/layout/ltcg/native_archive_index/parser.hpp"
-extern "C" void* __cdecl asm_malloc_00452706(unsigned int);
+#include "th10/archive/native_index/parser.hpp"
+extern "C" void* __cdecl crt_malloc(unsigned int);
 #pragma code_seg(".text$a18ctor")
 ArchiveEntry::ArchiveEntry(): name(0) {}
 #pragma code_seg(".text$a16release")
 ArchiveEntry::~ArchiveEntry() {
-    if(name) { asm_free_00452422(name); name=0; }
+    if(name) { crt_free(name); name=0; }
 }
 #pragma code_seg()
 inline int NameBytes(const char* name) {
@@ -25,7 +25,7 @@ __declspec(noinline) DatArchiveEntry* __stdcall BuildIndex(const unsigned char* 
     ArchiveEntry* entry=entries;
     for(int remaining=count;remaining>0;--remaining,++entry) {
         const char* name=(const char*)cursor;
-        char* copy=(char*)asm_malloc_00452706(NameBytes(name));
+        char* copy=(char*)crt_malloc(NameBytes(name));
         if(copy) CopyName(copy,name);
         entry->name=copy;
         int bytes=NameBytes(name);

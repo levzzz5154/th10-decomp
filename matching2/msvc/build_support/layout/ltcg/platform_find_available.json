@@ -43,7 +43,7 @@
   "constants": [],
   "absolute_symbols": [
     {
-      "symbol": "_asm_rand_0045371b",
+      "symbol": "_crt_rand",
       "address": "0x0045371B",
       "kind": "relative_code"
     }

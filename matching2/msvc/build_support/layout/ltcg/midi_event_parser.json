@@ -13,7 +13,7 @@
   ],
   "headers": [
     "include/th10/platform/midi_sequencer.hpp",
-    "build_support/include/asm_symbols.hpp",
+    "include/th10/runtime/asm_symbols.hpp",
     "include/th10/platform/window_midi_native.hpp",
     "include/th10/platform/windows_types.hpp"
   ],
@@ -90,13 +90,8 @@
   "constants": [],
   "absolute_symbols": [
     {
-      "symbol": "_asm_malloc_00452706",
+      "symbol": "_crt_malloc",
       "address": "0x452706",
-      "kind": "relative_code"
-    },
-    {
-      "symbol": "_asm_free_00452422",
-      "address": "0x452422",
       "kind": "relative_code"
     },
     {

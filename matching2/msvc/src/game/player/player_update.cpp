@@ -1,8 +1,8 @@
 // 0x00425730: the per-frame update of the player's state machine: respawn
 // entry, the live state, death and its item fan, then the collision regions,
 // timers and bounding boxes shared by every state.
-#include "../../../build_support/layout/ltcg/player_state_collision_runtime/runtime.hpp"
-#include "../../../build_support/layout/ltcg/player_state_collision_runtime/player_state.hpp"
+#include "th10/game/player_collision/runtime.hpp"
+#include "th10/game/player_collision/player_state.hpp"
 
 // These are inline expansions of the real embedded timer operations.
 static inline void ResetPlayerTimer(FrameTimer& timer, int frame) {
@@ -192,7 +192,7 @@ extern "C" __declspec(noinline) int __stdcall Player_Update(Player* player) {
             player->sprite.flags_35C |= 0x8000;
         } else player->sprite.flags_35C &= ~0x8000u;
     } else player->sprite.flags_35C &= ~0x8000u;
-    asm_FUN_0043ee30_0043ee30(&player->sprite);
+    AnmVm_TickScript(&player->sprite);
 
     player->hitbox.min = player->position - player->hitbox_half_size;
     player->hitbox.max = player->position + player->hitbox_half_size;

@@ -4,7 +4,7 @@
   "source": "src/pack/arcmngr/dat_archive_read.cpp",
   "driver": "build_support/layout/ltcg/archive_read_00434dd0_context.cpp",
   "headers": [
-    "build_support/layout/ltcg/archive_read/archive.hpp",
+    "include/th10/archive/read/archive.hpp",
     "include/th10/archive/dat_archive_types.hpp",
     "include/th10/platform/file.hpp",
     "include/th10/platform/windows_types.hpp",
@@ -88,22 +88,22 @@
   "constants": [],
   "absolute_symbols": [
     {
-      "symbol": "_asm_malloc_00452706",
+      "symbol": "_crt_malloc",
       "address": "0x452706",
       "kind": "relative_code"
     },
     {
-      "symbol": "_asm_free_00452422",
+      "symbol": "_crt_free",
       "address": "0x452422",
       "kind": "relative_code"
     },
     {
-      "symbol": "_asm_stricmp_0046054e",
+      "symbol": "_crt_stricmp",
       "address": "0x46054e",
       "kind": "relative_code"
     },
     {
-      "symbol": "_asm_strrchr_00452930",
+      "symbol": "_crt_strrchr",
       "address": "0x452930",
       "kind": "relative_code"
     },
@@ -166,11 +166,6 @@
       "symbol": "_imp_GetModuleFileNameA",
       "address": "0x4660dc",
       "kind": "data"
-    },
-    {
-      "symbol": "_crt_free",
-      "address": "0x452422",
-      "kind": "relative_code"
     },
     {
       "symbol": "_g_executable_checksum",

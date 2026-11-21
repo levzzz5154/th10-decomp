@@ -1,7 +1,7 @@
 #pragma once
 #include <string.h>
 
-#include "../../../build_support/include/asm_symbols.hpp"
+#include "th10/runtime/asm_symbols.hpp"
 #include "th10/math/angle.hpp"
 
 // Recovered semantic definitions: the platform prototypes they call and the
@@ -23,10 +23,10 @@ extern "C" void __cdecl crt_free_startup(void* memory);
 // Allocate the small recovery state, register it in the global slot and hand it
 // to the pair installer. When the installer rejects it the state is torn down
 // through its own release entry and returned to the CRT heap.
-struct RecoverySmallState {
+struct EndingSmallState {
     unsigned int flags;             // +0x00, bit 1 marks a registered state
     unsigned int reserved_04[9];    // +0x04..+0x27
 
-    RecoverySmallState();
+    EndingSmallState();
 };
 

@@ -105,7 +105,7 @@ int HintLink::Drain(
             state->positions[state->slot] = vm->position;
             state->positions[state->slot].x += entry->offset * 0.5f;
             state->widths[state->slot] = entry->offset;
-            reinterpret_cast<RecoveryTextVm*>(vm)->MarkText(
+            reinterpret_cast<AnmTextVm*>(vm)->MarkText(
                 g_sprt_ctrl, 0x00FFFFFFu, static_cast<const char*>(entry->text));
             vm->flags = (vm->flags & 0xFFF7FFFFu) | 0x00040000u;
             break;

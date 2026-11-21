@@ -24,15 +24,15 @@
   "headers": [
     "include/th10/game/projectile_manager.hpp",
     "include/th10/math/vector.hpp",
-    "build_support/layout/ltcg/laser_cut/animation_ids.hpp",
+    "include/th10/game/laser_cut/animation_ids.hpp",
     "include/th10/game/item_velocity.hpp",
-    "build_support/layout/ltcg/laser_cut/item_spawn.hpp",
+    "include/th10/game/laser_cut/item_spawn.hpp",
     "include/th10/render/animation_public_callers.hpp",
     "include/th10/game/entity.hpp",
     "include/th10/types.hpp",
     "include/th10/math/timer.hpp",
     "include/th10/game/entity_script_start.hpp",
-    "build_support/layout/ltcg/projectile_clear_region/lookup.hpp"
+    "include/th10/game/projectile_clear_lookup.hpp"
   ],
   "image_base": "0x400000",
   "description": "The projectile region sweep with its real item-spawn, animation-creation and lookup callees as compiler context.",
@@ -206,7 +206,7 @@
       "kind": "relative_code"
     },
     {
-      "symbol": "_asm_FUN_0043ee30_0043ee30@4",
+      "symbol": "_AnmVm_TickScript@4",
       "address": "0x0043EE30",
       "kind": "relative_code"
     },

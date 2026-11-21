@@ -242,7 +242,7 @@
       "kind": "metadata"
     },
     {
-      "symbol": "_asm_FUN_00452730_00452730",
+      "symbol": "_crt_strchr",
       "address": "0x452730",
       "kind": "relative_code"
     },
@@ -277,7 +277,7 @@
       "kind": "relative_code"
     },
     {
-      "symbol": "_asm_malloc_00452706",
+      "symbol": "_crt_malloc",
       "address": "0x452706",
       "kind": "relative_code"
     },
@@ -287,12 +287,12 @@
       "kind": "relative_code"
     },
     {
-      "symbol": "_asm_strrchr_00452930",
+      "symbol": "_crt_strrchr",
       "address": "0x452930",
       "kind": "relative_code"
     },
     {
-      "symbol": "_asm_stricmp_0046054e",
+      "symbol": "_crt_stricmp",
       "address": "0x46054e",
       "kind": "relative_code"
     },

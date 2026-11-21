@@ -5,7 +5,7 @@
 #include "../../../../src/game/eclview/ecl_view_update.cpp"
 
 extern "C" void __cdecl crt_free(void* memory);
-extern "C" unsigned int __cdecl asm_beginthreadex_00453683(
+extern "C" unsigned int __cdecl crt_beginthreadex(
         void* security, unsigned int stack_size, PlatformWorkerEntry start,
         void* arglist, unsigned int initflag, unsigned int* thread_id);
 extern "C" __declspec(noinline) void __stdcall EclViewStandIn_Callee(void* object);
@@ -249,7 +249,7 @@ void PlatformWorker::Start(void* context, PlatformWorkerEntry start) {
     entry = start;
     running = 1;
     stop_requested = 0;
-    thread = (void*)asm_beginthreadex_00453683(0, 0, start, context, 0, &thread_id);
+    thread = (void*)crt_beginthreadex(0, 0, start, context, 0, &thread_id);
 }
 #pragma code_seg()
 

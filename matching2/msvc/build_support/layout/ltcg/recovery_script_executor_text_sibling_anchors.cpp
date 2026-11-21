@@ -26,13 +26,13 @@ void __cdecl HintVm::FormatRightAligned(
     va_end(color_home);
 
     const unsigned int length = static_cast<unsigned int>(strlen(buffer));
-    RecoveryTextResource* text_resource = resource;
+    AnmTextResource* text_resource = resource;
     const unsigned int mode = (mode_flags >> 1) & 1;
     const unsigned int text_width = ((height - 1u) * length) >> 1;
     // Keep the unsigned width conversion: retail emits FILD plus a possible
     // 2^32 correction before subtracting it from the resource's float width.
     const float resource_width =
-        reinterpret_cast<RecoveryTextResourceWidthView*>(text_resource)->width;
+        reinterpret_cast<AnmTextResourceWidthView*>(text_resource)->width;
     const int horizontal_offset = static_cast<int>(resource_width - text_width);
     RecoveryDispatchText2(
         text_resource, static_cast<int>(height), buffer, text_resource->texture,
@@ -59,11 +59,11 @@ void __cdecl HintVm::FormatCentered(
     va_end(color_home);
 
     const unsigned int length = static_cast<unsigned int>(strlen(buffer));
-    RecoveryTextResource* text_resource = resource;
+    AnmTextResource* text_resource = resource;
     const unsigned int mode = (mode_flags >> 1) & 1;
     const unsigned int quarter_width = ((height - 1u) * length) >> 2;
     const float resource_width =
-        reinterpret_cast<RecoveryTextResourceWidthView*>(text_resource)->width;
+        reinterpret_cast<AnmTextResourceWidthView*>(text_resource)->width;
     // Retail first truncates the resource width to an integer, then divides
     // that signed integer by two toward zero. Its final subtraction preserves
     // the low 32 bits of the unsigned text-span product.

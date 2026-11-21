@@ -19,7 +19,7 @@ int __stdcall AnmTexture_CreateFromMemory(AnmUploadTag tag,
         else if (d3d_format == 20)
             stored_format = 3;
     }
-    if (asm_D3DXCreateTextureFromFileInMemoryEx_004521ca(
+    if (Th10_D3DXCreateTextureFromFileInMemoryEx(
             g_d3d_device, texture->file_data, texture->data_size, width, height, 0, 0,
             g_texture_formats_a[stored_format], 1, 1, 0xFFFFFFFF, color_key, 0, 0, &texture->texture) != 0)
         return -1;

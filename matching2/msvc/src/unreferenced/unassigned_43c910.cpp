@@ -7,7 +7,7 @@
 // build_support/layout/ltcg/dtor_release_43c910.json whose array-walking synthetic caller
 // establishes that convention.
 
-extern "C" void asm_Recovery_ReleaseRawPair_0043cb00(void* object);
+extern "C" void Scheduler_ReleaseTaskPair(void* object);
 extern "C" void __cdecl crt_free_startup(void* block);
 
 struct Destroyable6 {
@@ -19,7 +19,7 @@ __declspec(noinline) void Destroyable_0043c910_Release(Destroyable6* object);
 #pragma code_seg(".text$01rel")
 void Destroyable_0043c910_Release(Destroyable6* object) {
     if (object != 0) {
-        asm_Recovery_ReleaseRawPair_0043cb00(object);
+        Scheduler_ReleaseTaskPair(object);
         crt_free_startup(object);
     }
 }

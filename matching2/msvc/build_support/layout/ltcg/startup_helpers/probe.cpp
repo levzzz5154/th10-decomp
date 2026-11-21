@@ -2,7 +2,7 @@
 typedef void (__stdcall* EnterCriticalSectionFn)(void*);
 typedef HANDLE (__stdcall* CreateFileFn)(const char*, DWORD, DWORD, void*, DWORD, DWORD, HANDLE);
 #pragma code_seg(".text$03probe")
-__declspec(noinline) int __stdcall asm_File_ProbeExists_0044b4d0(const char* path) {
+__declspec(noinline) int __stdcall File_ProbeExistsPath(const char* path) {
     (*(EnterCriticalSectionFn*)&imp_EnterCriticalSection)(&g_file_critical_section);
     ++g_file_critical_depth;
     HANDLE handle = (*(CreateFileFn*)&imp_CreateFileA)(path, 0x80000000, 1, 0, 3, 0x8000080, 0);

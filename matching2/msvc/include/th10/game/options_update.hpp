@@ -48,7 +48,7 @@ struct FrameCounterPair {
 // so a call that writes into one member makes the others be read again.
 struct ApplicationState {
     unsigned char reserved_000[0x10];
-    RecoveryLookupContext* animations; // +0x010 (0x00491C10)
+    AnmLookupContext* animations; // +0x010 (0x00491C10)
     unsigned char reserved_014[0x14C - 0x14];
     OptionsConfig config;      // +0x14C (0x00491D4C)
     unsigned char reserved_16b[0x990 - 0x16B];

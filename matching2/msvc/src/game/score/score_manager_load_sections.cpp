@@ -8,8 +8,8 @@
 // header to save with: the loaded one, or a fresh empty one.
 #include <string.h>
 #include "th10/game/score_archive_manager.hpp"
-extern "C" void *__cdecl asm_malloc_00452706(unsigned int);
-extern "C" void __cdecl asm_free_00452422(void *);
+extern "C" void *__cdecl crt_malloc(unsigned int);
+extern "C" void __cdecl crt_free(void *);
 unsigned char * __stdcall Dat_Decrypt(unsigned char *,int,unsigned char,unsigned char,int,int);
 unsigned char *__stdcall DecompressDatLzss2(unsigned char *,int,unsigned char *,unsigned int);
 #pragma code_seg(".text$04b")
@@ -19,7 +19,7 @@ int ScoreArchiveManager::LoadSections() {
             unsigned char* packed = (unsigned char*)(file + 1);
             Dat_Decrypt(packed, file->compressed_size, 0xAC, 0x35, 0x10, file->compressed_size);
             packed = (unsigned char*)(file + 1);
-            sections = (unsigned char*)asm_malloc_00452706(file->decompressed_size * 4);
+            sections = (unsigned char*)crt_malloc(file->decompressed_size * 4);
             DecompressDatLzss2(packed, file->compressed_size, sections, file->decompressed_size);
             int remaining = file->decompressed_size;
             ScoreSectionHeader* section = (ScoreSectionHeader*)sections;
@@ -54,11 +54,11 @@ int ScoreArchiveManager::LoadSections() {
         }
 invalid:
         if (file) {
-            asm_free_00452422(file);
+            crt_free(file);
             file = 0;
         }
     }
-    file = (ScoreFileHeader*)asm_malloc_00452706(sizeof(ScoreFileHeader));
+    file = (ScoreFileHeader*)crt_malloc(sizeof(ScoreFileHeader));
     memset(file, 0, sizeof(ScoreFileHeader));
     file->magic = SCORE_FILE_MAGIC;
     file->version = 3;

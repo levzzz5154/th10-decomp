@@ -2,8 +2,8 @@
 #include "../../../src/game/item/item_list_append_node.cpp"
 
 #pragma code_seg(".text$03context")
-int __stdcall RecoveryAppendCompilerContext(RecoveryNode** heads,
-                                            RecoveryNode** nodes,
+int __stdcall RecoveryAppendCompilerContext(ItemListNode** heads,
+                                            ItemListNode** nodes,
                                             int count) {
     while (count--) {
         (*heads++)->Append(*nodes++);

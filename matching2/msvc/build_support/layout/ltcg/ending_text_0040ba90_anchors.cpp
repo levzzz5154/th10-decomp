@@ -2,7 +2,7 @@
 #include "th10/render/animation_public_callers.hpp"
 #include "../../../src/core/zunlib/platform_stop_worker.cpp"
 #pragma code_seg(".text$09register")
-extern "C" __declspec(noinline) void** __cdecl asm_AnimationManager_RegisterPrimaryBack_004489d0(
+extern "C" __declspec(noinline) void** __cdecl AnimationManager_RegisterPrimaryBack(
         void* manager, void** out, void* entity) {
     unsigned char* m = (unsigned char*)manager;
     unsigned char* e = (unsigned char*)entity;

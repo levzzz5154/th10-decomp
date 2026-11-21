@@ -7,7 +7,7 @@
 void __stdcall SubPlatformResource_Destroy(PlatformResource* resource) {
     if (resource) {
         ReplayManager_Destroy2(resource);
-        asm_free_004524a1(resource);
+        crt_free_startup(resource);
     }
 }
 #pragma code_seg()

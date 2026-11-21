@@ -14,7 +14,7 @@ extern "C" {
     extern FuncCtrl* g_func_ctrl;
     extern char str_pl00_anm[],str_pl01_anm[],str_player_data_missing[];
     extern const char* data_00476fc0[];
-    extern TextLog4 g_log;
+    extern TextLog g_log;
     extern float g_game_speed;
     extern float data_00476fb8[],data_00476fb0[],data_00476fa0[],data_00476fa8[];
     int __fastcall LargePlayerTick(void*);

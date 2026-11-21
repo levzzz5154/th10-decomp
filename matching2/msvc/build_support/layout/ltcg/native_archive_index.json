@@ -4,7 +4,7 @@
   "source": "src/pack/arcmngr/dat.cpp",
   "driver": "build_support/layout/ltcg/native_archive_index_context.cpp",
   "headers": [
-    "build_support/layout/ltcg/native_archive_index/parser.hpp",
+    "include/th10/archive/native_index/parser.hpp",
     "build_support/layout/ltcg/native_archive_index/native_archive_read/archive.hpp",
     "include/th10/archive/dat_archive_types.hpp",
     "include/th10/platform/file.hpp",
@@ -116,7 +116,7 @@
   "constants": [],
   "absolute_symbols": [
     {
-      "symbol": "_asm_malloc_00452706",
+      "symbol": "_crt_malloc",
       "address": "0x452706",
       "kind": "relative_code"
     },
@@ -126,7 +126,7 @@
       "kind": "data"
     },
     {
-      "symbol": "_asm_free_00452422",
+      "symbol": "_crt_free",
       "address": "0x452422",
       "kind": "relative_code"
     },

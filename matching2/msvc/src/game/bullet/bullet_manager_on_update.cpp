@@ -1,15 +1,15 @@
-#include "../../../build_support/include/asm_symbols.hpp"
+#include "th10/runtime/asm_symbols.hpp"
 
 // 0x00406770..0x00406797: the bullet manager's update task (registered by
 // 0x00405E20 at priority 0x14); runs the bullet update 0x004065C0.
 // The flag gate is the first half of the same thiscall function whose tail
-// enters RecoverySlotTable::Rearm with the object in ESI.
-struct RecoverySlotOwner {
+// enters BulletSlotTable::Rearm with the object in ESI.
+struct BulletSlotOwner {
     unsigned char pad_00[0x58];
     unsigned int field_58;
 };
 
-struct RecoverySlotTable {
+struct BulletSlotTable {
     unsigned char pad_0000[0x14];
     void* heads[6];
     void* tails[6];
@@ -22,9 +22,9 @@ struct RecoverySlotTable {
 };
 
 #pragma code_seg(".text$05canrearm")
-__declspec(noinline) int RecoverySlotTable::OnUpdate() {
-    RecoverySlotOwner* owner =
-        *reinterpret_cast<RecoverySlotOwner**>(&g_game);
+__declspec(noinline) int BulletSlotTable::OnUpdate() {
+    BulletSlotOwner* owner =
+        *reinterpret_cast<BulletSlotOwner**>(&g_game);
     if (owner != 0 && ((owner->field_58 >> 2 | owner->field_58) & 1) != 0)
         return 1;
     return Rearm();

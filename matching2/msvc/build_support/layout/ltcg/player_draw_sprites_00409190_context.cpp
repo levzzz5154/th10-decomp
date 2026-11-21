@@ -9,7 +9,7 @@ struct AnimationManager2 {
 };
 
 #pragma code_seg(".text$03dispatch")
-extern "C" __declspec(noinline) int __cdecl asm_FUN_004451c0_004451c0(
+extern "C" __declspec(noinline) int __cdecl AnmVm_DrawDispatch(
         PlayerSprite2* sprite, AnimationManager2* manager) {
     if (!(sprite->reserved[0] & 1))
         return -1;

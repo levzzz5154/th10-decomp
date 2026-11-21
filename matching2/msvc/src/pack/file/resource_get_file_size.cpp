@@ -2,7 +2,7 @@
 // Its normal and exceptional destruction retain the original vtable changes
 // and handle close. Native MSVC emits the genuine unwind action and handler.
 #include "th10/archive/dat_archive_types.hpp"
-#include "../../../build_support/layout/ltcg/resource_size_file.hpp"
+#include "th10/archive/resource_size_file.hpp"
 __declspec(noinline) unsigned int DatArchive_FindSize(DatArchive*, const char*);
 struct ArchiveEntry2;
 struct ArchiveName {

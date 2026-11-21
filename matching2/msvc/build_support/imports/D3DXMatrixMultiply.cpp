@@ -6,7 +6,7 @@ extern "C" D3DXMatrixMultiplyFn_004521b2 imp_D3DXMatrixMultiply;
 // Ghidra identifies this as a six-byte JMP through the D3DX import slot at
 // 0x004662D8.  The stdcall prototype preserves the three matrix pointers and
 // lets MSVC emit the same indirect tail call without inline assembly.
-extern "C" void __stdcall asm_D3DXMatrixMultiply_004521b2(
+extern "C" void __stdcall Th10_D3DXMatrixMultiply(
     void* out, const void* left, const void* right) {
     imp_D3DXMatrixMultiply(out, left, right);
 }

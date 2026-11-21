@@ -7,19 +7,19 @@
 #include "th10/platform/text_log.hpp"
 #include "th10/platform/thread_sync.hpp"
 
-extern "C" int __cdecl asm_vsprintf_004524a6(
+extern "C" int __cdecl crt_vsprintf(
     char* buffer, const char* format, char* arguments);
 
 
 #pragma code_seg(".text$a18logger")
-__declspec(noinline) char* TextLog4::Append(char* format, ...) {
+__declspec(noinline) char* TextLog::Append(char* format, ...) {
     char staging[0x2000];
     va_list arguments;
     va_start(arguments, format);
 
     EnterCriticalSection(&g_thread_synchronization.critical_sections[3]);
     ++g_thread_synchronization.text_log_lock_depth;
-    asm_vsprintf_004524a6(staging, format, arguments);
+    crt_vsprintf(staging, format, arguments);
 
     unsigned int length = strlen(staging);
     char* destination = cursor;

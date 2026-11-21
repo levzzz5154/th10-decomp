@@ -1,10 +1,10 @@
 #include "th10/game/recovery_script_executor_caller.hpp"
 
 extern "C" void* g_sprt_ctrl;
-extern "C" void* __cdecl asm_FUN_00449950_00449950(void* manager);
-extern "C" void __cdecl asm_AnimationObject_LoadScript_0043e710(
+extern "C" void* __cdecl AnimationPool_AllocateEntry(void* manager);
+extern "C" void __cdecl AnmVm_LoadScript(
     void* resource, void* object, int index);
-extern "C" void** __cdecl asm_AnimationManager_RegisterPrimaryBack_004489d0(
+extern "C" void** __cdecl AnimationManager_RegisterPrimaryBack(
     void* manager, void** result, void* object);
 extern "C" float recovery_indicator_x_origin_00470b4c;
 extern "C" float recovery_indicator_y_origin_00470b48;
@@ -16,7 +16,7 @@ void** __stdcall RecoveryPlayerAnimationCreate(
         void* resource, void** result, int script,
         const HintPosition* position) {
     unsigned char* object = static_cast<unsigned char*>(
-        asm_FUN_00449950_00449950(g_sprt_ctrl));
+        AnimationPool_AllocateEntry(g_sprt_ctrl));
     *reinterpret_cast<unsigned int*>(object + 0x35C) |= 0x40000000u;
     *reinterpret_cast<int*>(object + 0x20) = 0;
     HintPosition* object_position =
@@ -24,8 +24,8 @@ void** __stdcall RecoveryPlayerAnimationCreate(
     object_position->x = position->x + recovery_indicator_x_origin_00470b4c;
     object_position->y = position->y + recovery_indicator_y_origin_00470b48;
     object_position->z = position->z;
-    asm_AnimationObject_LoadScript_0043e710(resource, object, script);
-    asm_AnimationManager_RegisterPrimaryBack_004489d0(g_sprt_ctrl, result, object);
+    AnmVm_LoadScript(resource, object, script);
+    AnimationManager_RegisterPrimaryBack(g_sprt_ctrl, result, object);
     return result;
 }
 #pragma code_seg()

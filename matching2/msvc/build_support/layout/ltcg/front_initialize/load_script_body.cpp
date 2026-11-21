@@ -4,7 +4,7 @@ struct AnimationManager10 {
 };
 
 extern "C" float g_game_speed;
-extern "C" void __stdcall asm_FUN_0043ee30_0043ee30(Entity *object);
+extern "C" void __stdcall AnmVm_TickScript(Entity *object);
 extern "C" void __stdcall LoadScript2(AnimationResourceFile *resource,
                                               AnimationObjectFile *object, int index);
 
@@ -38,7 +38,7 @@ __declspec(noinline) void __stdcall LoadScript2(AnimationResourceFile *resource,
     object->previous_frame = -1;
     uint32_t *flag_word = &object->AnimationFlags();
     *flag_word &= ~1u;
-    asm_FUN_0043ee30_0043ee30(object);
+    AnmVm_TickScript(object);
     ++reinterpret_cast<AnimationManager10 *>(g_sprt_ctrl)->script_tick_counter;
 }
 #pragma code_seg()

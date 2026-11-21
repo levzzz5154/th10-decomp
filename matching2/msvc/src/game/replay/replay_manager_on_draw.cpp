@@ -1,4 +1,4 @@
-#include "../../../build_support/include/asm_symbols.hpp"
+#include "th10/runtime/asm_symbols.hpp"
 
 // 0x0042A430: the replay manager's draw task (registered by 0x00428F60).
 // The scene arrives in ECX. The routine reports whether the active global scene
@@ -13,5 +13,5 @@ int __fastcall ReplayManager_OnDraw(void* self) {
     void* scene = *(void**)&g_game;
     if (scene != 0 && (*(unsigned char*)((char*)scene + 0x58) & 4) != 0)
         return 1;
-    return ((SceneTick)asm_FUN_00429a70_00429a70)((int)self, self);
+    return ((SceneTick)ReplayManager_DrawPanel)((int)self, self);
 }

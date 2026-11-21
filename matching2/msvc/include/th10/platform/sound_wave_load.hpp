@@ -226,7 +226,7 @@ typedef char WavePendingMustBe5230[offsetof(WaveSoundManager, pending_wave) == 0
 
 extern "C" {
     extern volatile int g_sound_shutdown_state;
-    extern TextLog4 g_wave_error_log;
+    extern TextLog g_wave_error_log;
     int __fastcall SoundWave_LoadPending2(int index, WaveSoundManager*, const char* filename);
     void __stdcall Sound_StopMusicWorker(WaveSoundManager*);
     int __stdcall SoundStream_Start(SoundStream*, unsigned int priority, unsigned int flags);

@@ -96,7 +96,7 @@ int __stdcall BackGround_DrawLayer(BackGround* stage, int layer) {
             }
             if ((entity->flags & 0x03C00000) == 0x02000000) StageSetFog(1);
             else StageSetFog(0);
-            asm_FUN_004451c0_004451c0(g_sprt_ctrl, entity);
+            AnmVm_DrawDispatch(g_sprt_ctrl, entity);
             ++stage->drawn_quads;
         }
         ++stage->drawn_objects;

@@ -47,7 +47,7 @@ __declspec(noinline) int LineEffectSweep::CreateSegmentsInBounds(int spawn_items
                     static_cast<AnimationResourceFile*>(resource),
                     reinterpret_cast<AnimationObjectFile*>(animation), script);
                 void* handle;
-                asm_AnimationManager_RegisterPrimaryBack_004489d0(
+                AnimationManager_RegisterPrimaryBack(
                     g_sprt_ctrl, &handle, animation);
 
                 // The second rectangle has a 32-unit margin and is reached

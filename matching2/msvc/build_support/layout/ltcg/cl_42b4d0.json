@@ -200,7 +200,7 @@
       "kind": "relative_code"
     },
     {
-      "symbol": "_asm_FUN_0042b570_0042b570@4",
+      "symbol": "_SmollScore_DestroyState@4",
       "address": "0x0042B570",
       "kind": "relative_code"
     }

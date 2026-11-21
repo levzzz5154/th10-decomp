@@ -27,7 +27,7 @@
   "anchors": [
     {
       "name": "AnmVmDrawDispatch_anchor",
-      "symbol": "_asm_FUN_004451c0_004451c0",
+      "symbol": "_AnmVm_DrawDispatch",
       "section": ".text$05dispatch",
       "address": "0x004451C0",
       "size": 15

@@ -1,7 +1,7 @@
 // Complete semantic candidate for retail 0x00448DB0..0x00448E25 (118 bytes).
 // This file is an unselected ABI anchor candidate, not a byte-match claim.
 // Native LTCG must earn position in EDI with resource/out/index on the stack.
-#include "types.hpp"
+#include "th10/game/laser_grow_types.hpp"
 struct AnimationResourceFile;
 struct AnimationObjectFile;
 
@@ -24,7 +24,7 @@ __declspec(noinline) void** __stdcall ItemAnimation_CreateOffset(
     object->position.z = position->z;
     LoadScript2(static_cast<AnimationResourceFile*>(resource),
         reinterpret_cast<AnimationObjectFile*>(object),index);
-    asm_AnimationManager_RegisterPrimaryBack_004489d0(g_sprt_ctrl, out, object);
+    AnimationManager_RegisterPrimaryBack(g_sprt_ctrl, out, object);
     return out;
 }
 #pragma code_seg()

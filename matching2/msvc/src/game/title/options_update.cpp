@@ -26,9 +26,9 @@ static __forceinline void SelectItem4(MenuCursor& cursor, int index) {
 // The child animation `script` of an animation slot (0x004497D0 with the
 // manager already loaded).
 static __forceinline AnimationRef2 FindChild2(
-        RecoveryLookupContext* manager, AnimationScriptId* slot, int script) {
+        AnmLookupContext* manager, AnimationScriptId* slot, int script) {
     LabelParent* parent = static_cast<LabelParent*>(
-        reinterpret_cast<RecoveryLookup*>(manager)->Find(manager, *slot));
+        reinterpret_cast<AnmLookup*>(manager)->Find(manager, *slot));
     if (parent == 0)
         slot->value = 0;
     for (LabelLink* link = &parent->children; link != 0; link = link->next)
@@ -39,7 +39,7 @@ static __forceinline AnimationRef2 FindChild2(
 
 // Show a sprite on the child animation `script` of the options slot.
 static __forceinline void ShowLabel(
-        RecoveryLookupContext* manager, Title* room, int script, int sprite) {
+        AnmLookupContext* manager, Title* room, int script, int sprite) {
     AnimationRef2 child = FindChild2(
         manager, &room->animation_slots[1], script);
     reinterpret_cast<SpriteHandle*>(&child)->SelectSprite(sprite);
@@ -47,7 +47,7 @@ static __forceinline void ShowLabel(
 
 // Show the two labels of the current screen mode.
 static __forceinline void ShowModeLabels(
-        RecoveryLookupContext* manager, Title* room) {
+        AnmLookupContext* manager, Title* room) {
     if (g_key_bindings.screen_mode == 0) {
         ShowLabel(manager, room, 0x1f, 0x2e);
         ShowLabel(manager, room, 0x20, 0x2f);
@@ -61,14 +61,14 @@ static __forceinline void ShowModeLabels(
 }
 
 static __forceinline void ShowScreenMode(Title* room) {
-    RecoveryLookupContext* manager = reinterpret_cast<RecoveryLookupContext*>(g_sprt_ctrl);
+    AnmLookupContext* manager = reinterpret_cast<AnmLookupContext*>(g_sprt_ctrl);
     ShowModeLabels(manager, room);
 }
 
 // Restart the cursor animation of slot 1.
 static __forceinline void RunCursorSlot2(Title* room) {
     AnimationManager_SetStopFrameAndRun(
-        3, reinterpret_cast<RecoveryLookupContext*>(g_sprt_ctrl),
+        3, reinterpret_cast<AnmLookupContext*>(g_sprt_ctrl),
         room->animation_slots[1]);
 }
 
@@ -157,9 +157,9 @@ __declspec(noinline) int __stdcall TitleOptions(Title* room) {
             if (room->cursor.selection == OPT_ITEM_SOUND_VOLUME
                     && reinterpret_cast<FrameCounterPair*>(&room->timer)->AtInterval(60))
                 application_state.sound.Queue(OPT_SFX_TEST, 0);
-            RecoveryLookupContext* manager;
+            AnmLookupContext* manager;
             if ((short)g_input_keys_raw.InputMaskActive(OPT_KEY_LEFT)) {
-                manager = reinterpret_cast<RecoveryLookupContext*>(g_sprt_ctrl);
+                manager = reinterpret_cast<AnmLookupContext*>(g_sprt_ctrl);
                 switch (room->cursor.selection) {
                 case OPT_ITEM_SCREEN_MODE:
                     if (g_key_bindings.screen_mode > 0)
@@ -194,7 +194,7 @@ __declspec(noinline) int __stdcall TitleOptions(Title* room) {
                 }
             }
             else
-                manager = reinterpret_cast<RecoveryLookupContext*>(g_sprt_ctrl);
+                manager = reinterpret_cast<AnmLookupContext*>(g_sprt_ctrl);
             if ((short)g_input_keys_raw.InputMaskActive(OPT_KEY_RIGHT)) {
                 switch (room->cursor.selection) {
                 case OPT_ITEM_SCREEN_MODE:
