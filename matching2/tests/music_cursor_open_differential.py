@@ -9,10 +9,11 @@ import tempfile
 
 from unicorn import UC_HOOK_CODE
 from unicorn.x86_const import UC_X86_REG_EAX, UC_X86_REG_ECX, UC_X86_REG_EDX, UC_X86_REG_ESI
+
+from x86_fixture import ROOT, CANDIDATE, STOP, load_fixture
 from music_cursor_differential import (
-    Case as CursorCase, Execution as CursorExecution, compile_candidate as compile_cursor,
-    COMMON, BINDINGS, SYMBOLS, ROOT, CANDIDATE, STOP, STATE, CURSOR, RECORD, ALT_RECORD,
-    SOURCE, SEEK, READ, PEImage, load_manifest, load_oracle, difference)
+    Case as CursorCase, Execution as CursorExecution, compile_candidate as compile_cursor, COMMON,
+    BINDINGS, SYMBOLS, STATE, CURSOR, RECORD, ALT_RECORD, SOURCE, SEEK, READ, difference)
 from coff_module import load_module
 
 PATH, CREATE_FILE = STATE + 0x900, STOP + 0x300
@@ -99,17 +100,11 @@ def cases():
         yield Case(mode=mode, after_read=True, actual=actual, requested=requested, api_result=0)
 
 
-import sys as _project_sys
-from pathlib import Path as _ProjectPath
-_project_sys.path.insert(0, str(_ProjectPath(__file__).resolve().parents[2]))
-from matching2.tools.common.project_paths import project_support
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--oracle", type=Path, default=ROOT / "matching2/build/oracle/th10.exe")
     options = parser.parse_args()
-    config = load_manifest(project_support((ROOT) / 'matching2/msvc', 'regions.json'))
-    load_oracle(options.oracle, config)
-    image = PEImage(options.oracle.read_bytes())
+    _, image = load_fixture(options.oracle)
     with tempfile.TemporaryDirectory(prefix="th10-music-cursor-open-") as temporary:
         compiled = compile_candidates(Path(temporary))
         count = faults = 0

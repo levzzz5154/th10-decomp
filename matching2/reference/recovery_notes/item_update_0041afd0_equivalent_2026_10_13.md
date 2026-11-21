@@ -1,18 +1,87 @@
 # ItemUpdate 0x0041AFD0 as an equivalent C++ model (2026-10-13)
 
-**Current status (2026-10-14): C++ repaired and registered; current validation is listed in the execution investigation.** The historical measurements below are superseded by [the execution investigation](equivalent_runtime_failures_2026_10_14.md).
+The [maintained update](../../msvc/src/game/item/item_update.cpp) occupies all
+2,320 bytes. It matches 2,312 at their retail offsets, including both switch
+tables. The only remaining difference is the order of two loads in the
+magnetized pursuit path: retail reads the pursued player's state before
+reloading the active collector; the compiler reads the collector first. The
+[layout](../../msvc/build_support/layout/equivalent/item_update.json) permits
+only this order difference, not changes to the stack frame or branch targets.
 
-**Status: accepted equivalent-recovery draft.** `equivalence.py` verifies the model with no
-gate reasons: 448 of 601 instructions identical, 2,284 of 2,320 bytes used, 0 base/index
-swaps, 22 frame-offset instructions, 131 instructions in 84 recorded differences
-(structural 68 of 601 = 11.3%, budget 12.5%; total 183 of 601 = 30.4%, budget 33.3%).
-The layout is `layout/equivalent/item_update_0041afd0.json`; it stays unregistered until
-the orchestrator adds `{"region": "asm_FUN_0041afd0_0041afd0",
-"layout": "layout/equivalent/item_update_0041afd0.json"}` to `equivalent_recoveries`.
+The model's entry is the real [item scheduler callback](../../msvc/src/game/item/item_manager_on_update.cpp),
+not a volatile function pointer. The callback is 48/48 bytes exact and calls
+the update directly. `UpdateItemContact` checks pickup before magnet attraction;
+only a completed pickup skips the animation and timer. `CollectItem` handles
+rewards and retirement. Small and large power pickups share the HUD update but
+preserve their different sound, score-text and full-power check order.
+The [shared velocity layout](../../msvc/include/th10/game/item_velocity.hpp)
+separates the two floats written by `SetPolar` from the depth velocity at
+item offset `0x3C0`. Spawning clears that float; movement integrates it.
+The shipped body passed 473 bounded differential cases against retail; that
+is a behavior check, not a byte match.
+
+The allocator, update, converter and pool lifecycle use the same
+[item record](../../msvc/include/th10/game/item_record.hpp). Both constructor
+entry points clear the animation base, then clear only bit 0 of the motion
+timer's flags at `+0x3D8`; no byte past a nominal `Entity` is accessed.
+The scheduler graph compiles the update as an independent translation unit.
+The fixed-address graph for `ConvertItems`, `AddPower` and `AddLives` includes
+that same source instead of a separate 227-line implementation. Its update is
+unselected (2,340 bytes); all three helper bodies remain exact.
+
+The native `Player::AngleFromPoint` context matches its complete 67-byte
+retail callee. Compiling the real 30-byte `SetPolar` as an external object
+leaves MSVC unable to see that it preserves EDX; the caller then differs at
+2,166 positions. A visible C++ leaf with the same integer-register and memory
+effects retains the shared comparison but does not correct the load order.
+
+In a scheduler-rooted native link with 30 bodies placed at their retail entry
+addresses, the raw update still differed in the same eight bytes. Both tables,
+all 44 call sites and the 48-byte scheduler callback matched without relocation
+adjustments. This is not a promotable cluster: its 36-byte `SetPolar` overlaps
+the following retail function. Using the 30-byte scalar version instead grows
+the update to 2,340 bytes, overlapping `Draw` by 20.
+
+Linking the full ANM interpreter instead of its external declaration also
+leaves those same eight bytes different. This holds with the real recursive
+primary-back creator, timer and RNG helpers, and the bullet callback that
+consumes the interpreter's return value. All 44 item call sites still match.
+
+MSVC 13.10.3052 and 6030 produced the same eight differing bytes. Tracing the
+6030 optimizer shows where the order changes: `GoptSingleUseCopyProp` moves
+the state read past the collector lookup to its only use, the hit comparison.
+`Riscify` later separates the load from the compare; the two loads reach the
+scheduler with equal priority. Looking up the collector on each arm of a
+hit/default switch lets `FgDoHeadMerge` put the reads in retail order. It also
+swaps the target and velocity registers. Joining both pursuit states before
+the hit test likewise gets the order right, but compares ESI instead of EAX.
+Neither version matches the complete function.
+
+With the shared motion layout, looking up the collector on both hit/no-hit
+paths can produce both loads **in retail order and in the retail registers**.
+Using a `bool` for the deferred conversion request also keeps one in EBX, but
+the request then uses 8-bit stores instead of 32-bit stores, and the script
+start call loses its register contract. The complete body is 2,308 bytes.
+Standard C++98 `register` hints did not change the optimized object sections.
+
+Walking only a `SpawnItem*` put `position.x` in EBP and grew the update to
+2,332 bytes. The maintained `ItemMotionCursor` instead carries the native
+address of `position.y` and recovers the real `Item::motion` on access.
+There is no duplicate motion struct or `(&position_y)[-1]` access. The last
+stride increments an integer, not an out-of-bounds pointer. `ApplyItemGravity`
+tests the extended sum; the subsequent falling-speed cap reloads binary32.
+
+A compiler barrier between the state and collector reads split the shared
+comparison and produced 2,344 bytes.
+MSVC 13.10.6030 does not implement the narrower `_ReadBarrier`: `/we4163`
+rejects it and permissive compilation emits an external call. Making both
+real reads volatile does order them, but the split form tests ESI before
+loading the collector. The common-test form loads the collector before
+testing ESI, not EAX.
 
 ## Model
 
-`equivalent/game/item_update_0041afd0.cpp` — the complete 2,198-slot pool walk: idle
+The maintained update performs the complete 2,198-slot pool walk: idle
 short-circuit, delayed script activation (state 5, kind + 374), falling integration with
 retail's extended-precision planar adds and binary32 Z boundary, player-seeking with the
 FPATAN angle and the π/2 degenerate case, magnetized pursuit, the collection box with the
@@ -24,20 +93,19 @@ animation tick, the frame-timer expansion and the terminal ConvertItems tail cal
 The BLOCKED note's lever — native LTCG with the real scene caller, production state
 layout and helper prototypes — plus four nonobvious source shapes:
 
-1. **Genuine helper graph as one translation unit.** The context TU includes the complete
-   `item_collection_runtime` graph *minus the former unselected update body*, so every
-   helper keeps exactly the region's own call sites. The whole-program link then derives
+1. **Genuine helper graph.** The context unit supplies the complete item,
+   animation and sound helpers. The native linker sees both that unit and
+   the separately compiled update, and derives
    each retail private convention from those sites: script index in EAX and entity in ESI
    for `Entity_StartScript`, HUD owner in ESI for `SetPowerDigits`, run counters in EAX
    for `AddPower`/`AddLives`/`AdjustPower`, converting manager in ESI for `ConvertItems`,
    and the collection point in EAX for `AngleFromPoint`. Twelve helper symbols are bound
-   to their retail addresses through `bindings`; the two assembly callees
-   (`ItemCollector_PowerChanged`, the ANM tick) and `__ftol2` arrive as absolute code.
-2. **Y-anchored motion view.** Retail keeps EBP at `position.y` for the whole walk, so
-   every displacement is +4 from the record base. The model iterates a view struct whose
-   first member is `position.y` (state at +0x2c, timer at +0x18, variant at +0x3c), with
-   `position.x` one float below the anchor. This one change moved the measurement from
-   49% to 66% identical on its own.
+   to their retail addresses through `bindings`; `Player_RefreshOptions`,
+   `RunAnimationVm` and `__ftol2` are external calls in this item graph.
+2. **Y-anchored motion walk.** Retail keeps EBP at `position.y`, with the
+   state, timer and variant at offsets `+0x2c`, `+0x18` and `+0x3c`.
+   Discovering that anchor first raised the instruction match from 49% to
+   66%. The cursor now derives it from the layout used by the allocator.
 3. **Case blocks in retail's emission order.** MSVC 7.1 emits switch bodies in source
    order; retail's jump-table targets run 1, 2, 5, 3, 8, 9, 4, 7 — the original source's
    case order. Reordering the switch to that sequence removed the 76-instruction

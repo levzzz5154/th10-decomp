@@ -15,7 +15,7 @@ __declspec(noinline) int __stdcall EndingScreen_Update2(
         Title* room) {
     switch (room->phase) {
     case 0: {
-        RecoveryScriptId id = { static_cast<int>(room->animation_slots[88]) };
+        AnimationScriptId id = room->animation_slots[88];
         if (reinterpret_cast<RecoveryLookup*>(g_sprt_ctrl)->Find(
                 reinterpret_cast<RecoveryLookupContext*>(g_sprt_ctrl), id) == 0) {
             RecoveryMusicInstallSlot(room, 88);

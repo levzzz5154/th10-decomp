@@ -285,6 +285,7 @@
     }
   ],
   "included_sources": [
+    "src/core/sound/sound_queue.cpp",
     "build_support/layout/ltcg/pause_choice/child.cpp",
     "build_support/layout/ltcg/pause_choice/find.cpp",
     "build_support/layout/ltcg/pause_choice/input_mask.cpp",

@@ -21,10 +21,10 @@
       "sha256": "c4bfe3c9fa083643c55a84e22d1e46201fc3aba7cf52ccfb25d517cf1b82da05"
     },
     "code": {
-      "source": "build_support/pe/dos_stub.cpp",
+      "source": "linker.dos_stub",
       "size": 64,
       "sha256": "7764e7022dcac1b5779d1f96fc05af5c1fee394aaff8a3a7e9a881e1a1b163a3",
-      "description": "Compiled C++ DOS stub and message sections."
+      "description": "Standard DOS compatibility program and message supplied by the PE linker."
     },
     "rich_metadata": {
       "path": "../../reference/data/rich_metadata.bin",

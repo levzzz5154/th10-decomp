@@ -9,11 +9,12 @@ from pathlib import Path
 import tempfile
 
 from unicorn.x86_const import UC_X86_REG_EBP, UC_X86_REG_ESP, UC_X86_REG_EIP
+
+from x86_fixture import ROOT, STACK, STOP, load_fixture
 from sound_stream_create_memory_differential import (
     Case, Execution, compile_candidates, FACTORY_SYMBOL, ALLOCATE, FREE, CREATE, QUERY, SET_NOTICES,
-    ROOT, STOP, STATE, PEImage, load_manifest, load_oracle, difference)
+    STATE, difference)
 from sound_stream_initialize_differential import RELEASE_NOTIFY, POSITION
-from lzss_compressor_differential import STACK
 from x86_seh import TEB, INITIAL_EXCEPTION_LIST, exception_list
 
 
@@ -94,17 +95,11 @@ class UnwindExecution(Execution):
                 "allocated": self.allocated, "freed": self.freed, "state": state}
 
 
-import sys as _project_sys
-from pathlib import Path as _ProjectPath
-_project_sys.path.insert(0, str(_ProjectPath(__file__).resolve().parents[2]))
-from matching2.tools.common.project_paths import project_support
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--oracle", type=Path, default=ROOT / "matching2/build/oracle/th10.exe")
     options = parser.parse_args()
-    config = load_manifest(project_support((ROOT) / 'matching2/msvc', 'regions.json'))
-    load_oracle(options.oracle, config)
-    image = PEImage(options.oracle.read_bytes())
+    _, image = load_fixture(options.oracle)
     with tempfile.TemporaryDirectory(prefix="th10-create-memory-unwind-") as temporary:
         compiled = compile_candidates(Path(temporary))
         comparisons = 0

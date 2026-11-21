@@ -97,7 +97,7 @@ int HintLink::Drain(
                     static_cast<HintThread*>(g_ascii_manager)->resource,
                     &result, state->slot + 12, &entry->position));
             unsigned int* handle = &state->handles[state->slot];
-            RecoveryScriptId id = { static_cast<int>(*handle) };
+            AnimationScriptId id = { static_cast<int>(*handle) };
             vm = static_cast<HintVm*>(
                 reinterpret_cast<RecoveryLookup*>(g_sprt_ctrl)->Find(
                     static_cast<RecoveryLookupContext*>(g_sprt_ctrl), id));
@@ -126,7 +126,7 @@ int HintLink::Drain(
                     &result, state->slot + 12, &entry->position));
             manager = g_sprt_ctrl;
             unsigned int* handle = &state->handles[state->slot];
-            RecoveryScriptId id = { static_cast<int>(*handle) };
+            AnimationScriptId id = { static_cast<int>(*handle) };
             vm = static_cast<HintVm*>(
                 reinterpret_cast<RecoveryLookup*>(manager)->Find(
                     static_cast<RecoveryLookupContext*>(manager), id));

@@ -5,6 +5,7 @@
   "driver": "build_support/layout/ltcg/floating_text_draw_0042b780_context.cpp",
   "headers": [
     "include/th10/game/smoll_score_draw.hpp",
+    "include/th10/render/textured_quad.hpp",
     "include/th10/render/quad_batch.hpp",
     "include/th10/render/animation_byte_interpolator.hpp",
     "include/th10/math/timer.hpp",

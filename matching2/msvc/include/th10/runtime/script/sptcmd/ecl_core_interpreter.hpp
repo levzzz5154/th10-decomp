@@ -3,9 +3,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <math.h>
-
-extern "C" float flt_0;
-extern "C" float flt_neg1;
+#include "th10/script/ecl_float_values.hpp"
 
 struct EclInstr {
     int time;
@@ -104,7 +102,9 @@ struct EclVm {
     __declspec(noinline) int IntOperand(int selector);
     __declspec(noinline) int IntValue(int selector, int value);
     __declspec(noinline) float FloatOperand(int selector);
-    __declspec(noinline) static float FloatValue(int selector, EclVm* vm, float value);
+    static float FloatValue(int selector, EclVm* vm, float value);
+    // The float operand view shares this VM's stack and variable owner.
+    EclFloatVm& FloatOperands() { return *reinterpret_cast<EclFloatVm*>(this); }
     __declspec(noinline) int* IntDest(int index);
     __declspec(noinline) float* FloatDest(int index);
 };

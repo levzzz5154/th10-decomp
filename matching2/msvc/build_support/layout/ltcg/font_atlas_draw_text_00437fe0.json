@@ -4,6 +4,7 @@
   "source": "src/core/main/font_atlas_draw_text.cpp",
   "driver": "build_support/layout/ltcg/font_atlas_draw_text_00437fe0_context.cpp",
   "headers": [
+    "include/th10/render/font_atlas.hpp",
     "include/th10/runtime/core/main/font_atlas_draw_text.hpp"
   ],
   "image_base": "0x00400000",
@@ -75,12 +76,12 @@
       "kind": "data"
     },
     {
-      "symbol": "?InvertAlpha@FontAtlas3@@QAEDH@Z",
+      "symbol": "?InvertAlpha@FontAtlas@@QAEDH@Z",
       "address": "0x00437160",
       "kind": "relative_code"
     },
     {
-      "symbol": "_FontAtlas_Convert@8",
+      "symbol": "?FontAtlas_FillTransparentPixels@@YGDPAUFontAtlas@@I@Z",
       "address": "0x00436DA0",
       "kind": "relative_code"
     },

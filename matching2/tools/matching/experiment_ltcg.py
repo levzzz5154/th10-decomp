@@ -22,6 +22,7 @@ import subprocess
 import tempfile
 
 from matching2.tools.common.process import sha
+from matching2.tools.common.project_paths import DEFAULT_PROJECT, project_support
 from matching2.tools.common.wine import DEFAULT_TOOLKIT, compiler_environment, winpath
 from matching2.tools.matching.ltcg_cluster import (
     build_cluster, load_cluster, _snapshot, _verify_snapshot,
@@ -29,7 +30,7 @@ from matching2.tools.matching.ltcg_cluster import (
 from matching2.tools.matching.ltcg_semantic import (
     PEImage, _run_logged, extract_functions, parse_map, validate_map_pe,
 )
-from matching2.tools.matching.probe import DEFAULT_PROJECT, default_oracle, load_oracle
+from matching2.tools.matching.retail import default_oracle, load_oracle
 
 MANIFEST = 'layout/ltcg/platform_worker_shutdown.json'
 
@@ -134,7 +135,6 @@ def control(name, spec, production, output, toolkit):
                   'layout_objects_from': str(native_dir)}
 
 
-from matching2.tools.common.project_paths import project_support
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--project', type=Path, default=DEFAULT_PROJECT)

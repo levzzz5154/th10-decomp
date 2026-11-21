@@ -59,7 +59,6 @@ static __forceinline void SetTimerTarget2(Title* room, int target) {
 
 #pragma code_seg(".text$004315c0_fn")
 __declspec(noinline) int __stdcall TitleMode12(Title* room) {
-    TitleReplayView* replays = reinterpret_cast<TitleReplayView*>(room);
     char path[64];
     ReplayFindData find;
     void* handle;
@@ -68,20 +67,13 @@ __declspec(noinline) int __stdcall TitleMode12(Title* room) {
         room->cursor.item_count = 25;
         UpdateBoundedCounter(g_title_replay_selection, reinterpret_cast<unsigned int*>(&room->cursor));
         g_title_replay_selection = 0;
-        if (reinterpret_cast<RecoveryLookup*>(g_sprt_ctrl)->Find(
-                reinterpret_cast<RecoveryLookupContext*>(g_sprt_ctrl),
-                *reinterpret_cast<RecoveryScriptId*>(&room->animation_slots[94])) == 0) {
-            RecoveryMusicInstallSlot(room, 94);
-            void* resource = g_ascii_manager->animation_resource;
-            void** result = AnimationManager_CreatePrimaryBack(resource, &handle, 8, 15);
-            room->fallback_handle.value = reinterpret_cast<unsigned int>(*result);
-        }
+        EnsureTitleMenuBackdrop(room, handle);
         RecoveryMusicInstallSlot(room, 101);
         room->SetTimerTarget(1);
-        memset(replays->replays, 0, sizeof(replays->replays));
+        memset(room->replay_list.files, 0, sizeof(room->replay_list.files));
         for (int number = 1; number <= 25; ++number) {
             sprintf(path, "th10_%.2d.rpy", number);
-            replays->replays[number - 1] = ReplayFile_Open(path);
+            room->replay_list.files[number - 1] = ReplayFile_Open(path);
         }
         _mkdir("replay");
         _chdir("replay");
@@ -89,7 +81,7 @@ __declspec(noinline) int __stdcall TitleMode12(Title* room) {
         if (search != reinterpret_cast<void*>(-1)) {
             for (int index = 25; index < 50; ++index) {
                 _chdir("../");
-                replays->replays[index] = ReplayFile_Open(find.name);
+                room->replay_list.files[index] = ReplayFile_Open(find.name);
                 _chdir("replay");
                 if (!FindNextFileA(search, &find))
                     break;
@@ -97,7 +89,7 @@ __declspec(noinline) int __stdcall TitleMode12(Title* room) {
         }
         FindClose(search);
         _chdir("../");
-        replays->reserved_59d8 = 0;
+        room->replay_list.reserved_59d8 = 0;
     }
     case 1:
         if (room->timer.current > 6)
@@ -114,16 +106,16 @@ __declspec(noinline) int __stdcall TitleMode12(Title* room) {
             room->SetTimerTarget(5);
             g_sound_manager.Queue(11, 0);
         } else if (g_input_keys_held & 0x1001) {
-            if (replays->replays[cursor->selection] != 0) {
+            if (room->replay_list.files[cursor->selection] != 0) {
                 room->SetTimerTarget(4);
-                replays->selected_replay = cursor->selection;
+                room->replay_list.selected_replay = cursor->selection;
                 cursor->PushSelection();
                 g_sound_manager.Queue(10, 0);
                 room->cursor.item_count = 7;
                 SelectItem9(*cursor, 0);
                 int stage = 0;
                 do {
-                    if (replays->replays[replays->selected_replay]->stages[stage].recorded == 0)
+                    if (room->replay_list.files[room->replay_list.selected_replay]->stages[stage].recorded == 0)
                         DisableItem5(*cursor, stage);
                     ++stage;
                 } while (stage < 7);
@@ -148,7 +140,7 @@ __declspec(noinline) int __stdcall TitleMode12(Title* room) {
                 room->SetTimerTarget(2);
                 g_sound_manager.Queue(11, 0);
             } else if (g_input_keys_held & 0x1001) {
-                replays->selected_stage = cursor->selection;
+                room->replay_list.selected_stage = cursor->selection;
                 room->SetTimerTarget(3);
             }
         }
@@ -160,31 +152,31 @@ __declspec(noinline) int __stdcall TitleMode12(Title* room) {
         }
         if (room->timer.current >= 32) {
             room->DisableTimerWithOwner(3);
-            int stage = replays->selected_stage + 1;
-            g_stage_route_current = g_stage_routes + stage * 0x30;
+            int stage = room->replay_list.selected_stage + 1;
+            g_stage_route_current = &g_stage_routes[stage];
             g_globals_stage = stage;
             g_globals_stage_shown = stage;
             Music_FadeOut(6.0f);
             g_main_state = 12;
-            strcpy(g_replay_path, replays->replays[replays->selected_replay]->path);
-            ReplayFileHeader2* header = replays->replays[replays->selected_replay]->header;
+            strcpy(g_replay_path, room->replay_list.files[room->replay_list.selected_replay]->path);
+            ReplayFileHeader2* header = room->replay_list.files[room->replay_list.selected_replay]->header;
             g_globals_character = header->character;
             g_globals_shot_type = header->shot_type;
             g_globals_difficulty = header->difficulty;
             g_main_mode_request = 2;
-            g_title_replay_selection = replays->selected_replay;
+            g_title_replay_selection = room->replay_list.selected_replay;
         }
         break;
     case 5:
         if (room->timer.current >= 6) {
             for (int index = 0; index < 50; ++index) {
-                ReplayFile* replay = replays->replays[index];
+                ReplayFile* replay = room->replay_list.files[index];
                 if (replay != 0) {
                     ReplayFile_Destroy(replay);
                     free(replay);
                 }
             }
-            memset(replays->replays, 0, sizeof(replays->replays));
+            memset(room->replay_list.files, 0, sizeof(room->replay_list.files));
             room->ClearAnimationSlot(101);
             room->SetSlotFrame(0x5a, 8);
             room->SetSlotFrame(0x5b, 8);

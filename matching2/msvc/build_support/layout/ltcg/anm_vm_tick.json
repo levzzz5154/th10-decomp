@@ -227,7 +227,7 @@
    "symbol": "?SetPolar@AnmVertex@@QAEPAU1@MM@Z",
    "section": ".text$00441ef0_fn",
    "address": "0x00441EF0",
-   "size": 30
+   "size": 36
   },
   {
    "name": "?InitRing@AnmVm@@QAEXXZ",
@@ -348,9 +348,9 @@
    "size": 472
   },
   {
-   "section": ".text$00441f0e_gap",
-   "address": "0x00441F0E",
-   "size": 66
+   "section": ".text$00441f14_gap",
+   "address": "0x00441F14",
+   "size": 60
   },
   {
    "section": ".text$00441fc4_gap",

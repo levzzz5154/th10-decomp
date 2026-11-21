@@ -8,6 +8,7 @@
   ],
   "driver": "build_support/layout/ltcg/ascii_overlay_draw_context.cpp",
   "headers": [
+    "include/th10/render/textured_quad.hpp",
     "include/th10/render/quad_batch.hpp"
   ],
   "image_base": "0x00400000",

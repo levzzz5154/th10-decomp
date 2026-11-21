@@ -67,7 +67,7 @@ void __stdcall FontAtlas_DrawPlainText(const FontAtlasRect* destination, int x, 
     TextOutA(dc, x * 2, 0, text, length);
     SelectObject(dc, previous);
     g_font_atlas_surface.InvertAlpha(row_count);
-    FontAtlas_Convert(&g_font_atlas_surface, row_count);
+    FontAtlas_FillTransparentPixels(&g_font_atlas_surface, row_count);
     SelectObject(dc, previous);
 
     FontAtlasRect source;

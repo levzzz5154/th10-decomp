@@ -15,9 +15,9 @@ import tempfile
 import unittest
 from unittest.mock import patch
 
-from matching2.tools.common.coff_regions import (
-    CoffRegionError, _read_object, normalize_object,
-)
+from matching2.tools.common.coff import CoffRegionError, function_body, read_object
+from matching2.tools.common.coff_regions import normalize_object
+from matching2.tools.common.project_paths import project_support
 from matching2.tools.matching import gcc_llvm_backend as backend
 from matching2.tools.matching import build_msvc
 from matching2.tools.matching import probe
@@ -27,14 +27,14 @@ def _sha(path):
     return hashlib.sha256(path.read_bytes()).hexdigest()
 
 
-def _write_coff(path, body, *, symbol_value=0, relocations=()):
+def _write_coff(path, body, *, symbol_value=0, relocations=(), section_name=b".text", strings=b""):
     """Write one function section and one external relocation target."""
     raw_offset = 60
     reloc_offset = raw_offset + len(body)
     symbol_offset = reloc_offset + 10 * len(relocations)
     header = struct.pack("<HHIIIHH", 0x14C, 1, 0, symbol_offset, 2, 0, 0)
     section = struct.pack(
-        "<8sIIIIIIHHI", b".text\0\0\0", 0, 0, len(body), raw_offset,
+        "<8sIIIIIIHHI", section_name, 0, 0, len(body), raw_offset,
         reloc_offset if relocations else 0, 0, len(relocations), 0, 0x60500020,
     )
     records = b"".join(struct.pack("<IIH", offset, 1, kind)
@@ -43,7 +43,7 @@ def _write_coff(path, body, *, symbol_value=0, relocations=()):
         struct.pack("<8sIhHBB", b"_body\0\0\0", symbol_value, 1, 0x20, 2, 0)
         + struct.pack("<8sIhHBB", b"_callee\0", 0, 0, 0x20, 2, 0)
     )
-    path.write_bytes(header + section + body + records + symbols + struct.pack("<I", 4))
+    path.write_bytes(header + section + body + records + symbols + struct.pack("<I", 4 + len(strings)) + strings)
 
 
 class WholeSectionOwnershipTests(unittest.TestCase):
@@ -67,7 +67,7 @@ class WholeSectionOwnershipTests(unittest.TestCase):
             report = normalize_object(source, output, [{
                 "symbol": "_body", "address": "0x00401000", "size": len(body),
             }])
-            normalized = _read_object(output)
+            normalized = read_object(output)
             self.assertEqual(normalized["machine"], 0x14C)
             self.assertEqual(normalized["sections"][0]["raw"], body)
             self.assertEqual(normalized["sections"][0]["raw_size"], len(body))
@@ -88,6 +88,43 @@ class WholeSectionOwnershipTests(unittest.TestCase):
                     "symbol": "_body", "address": "0x00401000", "size": 1,
                 }])
             self.assertFalse(output.exists())
+
+    def test_long_section_name_requires_string_table_terminator(self):
+        with tempfile.TemporaryDirectory() as directory:
+            path = Path(directory) / "unwind.obj"
+            name = b".text$cleanup"
+            _write_coff(path, b"\xc3", section_name=b"/4", strings=name + b"\0")
+            self.assertEqual(read_object(path)["sections"][0]["name"], ".text$cleanup")
+            _write_coff(path, b"\xc3", section_name=b"/4", strings=name)
+            with self.assertRaisesRegex(CoffRegionError, "unterminated section name"):
+                read_object(path)
+
+    def test_probe_reports_wrong_binding_even_when_only_linker_bytes_differ(self):
+        with tempfile.TemporaryDirectory() as directory:
+            path = Path(directory) / "call.obj"
+            _write_coff(path, b"\xe8\0\0\0\0\xc3", relocations=[(1, 0x14)])
+            obj = read_object(path)
+            region = {"name": "caller", "symbol": "_body", "address": "0x401000", "size": 6}
+            # At 0x401000, CALL +0xFB targets 0x401100. Its unlinked operand is zero.
+            retail = b"\xe8\xfb\0\0\0\xc3"
+            for binding, exact in [(0x401100, True), (0x401101, False)]:
+                report = probe.compare_region(region, obj, retail, 0x401000,
+                                              {"_callee": binding}, {}, 16)
+                self.assertEqual(report["exact"], exact)
+                self.assertEqual(report["relocations"][0]["target"], 0x401100)
+
+    def test_function_offsets_start_at_symbol_not_section(self):
+        with tempfile.TemporaryDirectory() as directory:
+            path = Path(directory) / "offset.obj"
+            code = b"\xe8\0\0\0\0\xc3"
+            _write_coff(path, b"\0\0\0\0" + code, symbol_value=4, relocations=[(0, 6), (5, 0x14)])
+            obj = read_object(path)
+            body = function_body(obj, "body")
+            self.assertEqual(body.data, code)
+            self.assertEqual(body.linker_bytes(), {1, 2, 3, 4})
+            self.assertEqual([r.symbol for r in body.relocations], ["_callee"])
+            with self.assertRaises(CoffRegionError):
+                function_body(obj, "_callee")  # Undefined, not a body in section zero.
 
 
 class BackendFixture(unittest.TestCase):
@@ -194,14 +231,10 @@ class BackendFixture(unittest.TestCase):
 
     def compile(self):
         profile = self.profile()
-        with patch.object(backend.subprocess, "run", side_effect=self.fake_run):
+        with patch.object(subprocess, "run", side_effect=self.fake_run):
             return backend.compile_gcc_llvm(self.project, self.output, 3, self.source, profile)
 
 
-import sys as _project_sys
-from pathlib import Path as _ProjectPath
-_project_sys.path.insert(0, str(_ProjectPath(__file__).resolve().parents[3]))
-from matching2.tools.common.project_paths import project_support
 class ProfileValidationTests(BackendFixture):
     def test_valid_profile_loads_without_invoking_tools(self):
         profile = self.profile()
@@ -342,7 +375,7 @@ class CompilationIntegrityTests(BackendFixture):
         report = self.compile()
         serialized = json.loads(json.dumps(report))
         obj = Path(report["object"])
-        self.assertEqual(_read_object(obj)["sections"][0]["raw"], self.body)
+        self.assertEqual(read_object(obj)["sections"][0]["raw"], self.body)
         self.assertEqual(report["compiler_kind"], backend.KIND)
         self.assertEqual(report["source_sha256"], _sha(self.source_path))
         self.assertEqual(report["compiler_profile"]["sha256"], _sha(self.profile_path))
@@ -389,7 +422,7 @@ class CompilationIntegrityTests(BackendFixture):
     def test_cached_profile_change_is_rejected_before_commands(self):
         profile = self.profile()
         self.profile_path.write_text(self.profile_path.read_text() + "\n")
-        with patch.object(backend.subprocess, "run", side_effect=self.fake_run):
+        with patch.object(subprocess, "run", side_effect=self.fake_run):
             with self.assertRaises(backend.GCCBackendError):
                 backend.compile_gcc_llvm(self.project, self.output, 3, self.source, profile)
         self.assertEqual(self.calls, [])
@@ -466,7 +499,7 @@ class CompilationIntegrityTests(BackendFixture):
             if "-print-prog-name=cc1plus" in args:
                 return subprocess.CompletedProcess(args, 0, "/unreviewed/cc1plus\n", "")
             return self.fake_run(args, **kwargs)
-        with patch.object(backend.subprocess, "run", side_effect=run):
+        with patch.object(subprocess, "run", side_effect=run):
             with self.assertRaisesRegex(backend.GCCBackendError, "unpinned tool"):
                 backend.compile_gcc_llvm(self.project, self.output, 3, self.source, self.profile())
         self.assertFalse((self.output / "objects/unit0003.obj").exists())
@@ -509,8 +542,8 @@ class CompilationIntegrityTests(BackendFixture):
                 alias.unlink()
                 alias.symlink_to(other)
         self.mutation = mutate
-        with patch.object(backend, "_environment", return_value={"PATH": str(aliases)}), \
-             patch.object(backend.subprocess, "run", side_effect=run):
+        with patch.object(backend.coff, "compiler_environment", return_value={"PATH": str(aliases)}), \
+             patch.object(subprocess, "run", side_effect=run):
             with self.assertRaisesRegex(backend.GCCBackendError, "tool selection changed"):
                 backend.compile_gcc_llvm(self.project, self.output, 3, self.source, self.profile())
 
@@ -586,13 +619,9 @@ class CompilerDispatchTests(BackendFixture):
 
     def test_build_and_probe_dispatch_same_ordinary_backend(self):
         profiles = self.validate()
-        raw = {"source": self.source, "object": "raw.obj", "compiler_kind": backend.KIND}
-        normalized = {"object": "normalized.obj", "normalization": {}}
-        with patch.object(build_msvc, "compile_gcc_llvm", return_value=raw) as compile_gcc, \
-             patch.object(build_msvc, "normalize_unit", return_value=normalized), \
-             patch.object(probe, "normalize_unit", return_value=normalized), \
-             patch.object(probe, "resolve_regions", return_value=self.config["regions"]), \
-             patch.object(probe, "extra_sections", return_value=[]):
+        # Exercise the real region resolver and normalizer on the compiler's
+        # object in both paths; only the external tools are substituted.
+        with patch.object(subprocess, "run", side_effect=self.fake_run):
             build_report = build_msvc.compile_unit(
                 self.project, self.root, self.output, self.config,
                 {self.source: self.config["regions"]}, {}, 3, self.source, profiles,
@@ -601,10 +630,9 @@ class CompilerDispatchTests(BackendFixture):
                 self.project, self.root, self.output, self.config, self.source,
                 self.config["regions"], {}, 3, profiles,
             )
-        self.assertEqual(compile_gcc.call_count, 2)
-        self.assertEqual(compile_gcc.call_args_list[0], compile_gcc.call_args_list[1])
-        self.assertEqual(compile_gcc.call_args.args,
-                         (self.project, self.output, 3, self.source, profiles[self.source]))
+        for report in (build_report, probe_report):
+            self.assertEqual(report["normalization"]["regions"][0]["sha256"],
+                             hashlib.sha256(self.body).hexdigest())
         self.assertEqual(build_report["compiler_kind"], backend.KIND)
         self.assertEqual(probe_report["compiler_kind"], backend.KIND)
         self.assertEqual(resolved, self.config["regions"])

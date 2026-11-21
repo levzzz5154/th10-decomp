@@ -1,4 +1,3 @@
-#include "../../../build_support/include/asm_encoding.hpp"
 #include "../../../build_support/include/asm_symbols.hpp"
 
 // 0x00406770..0x00406797: the bullet manager's update task (registered by

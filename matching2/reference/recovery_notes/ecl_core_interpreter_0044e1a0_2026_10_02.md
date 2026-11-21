@@ -1,15 +1,17 @@
-# Core ECL interpreter at 0x0044E1A0: equivalent recovery, not byte-exact
+# Core ECL interpreter at 0x0044E1A0
 
-The 7,020-byte region (6,692 bytes of code plus jump tables) is registered
-under `equivalent_recoveries`: readable C++ that compiles to the same
-instructions as retail apart from compiler tie-breaks. The default build
-compiles it into the executable after `tools/matching/equivalence.py` has
-checked it against the exact bytes. The inline assembly in
-`msvc/src/script/ecl_core_interpreter.cpp` is kept for the exact link that
-check compares against and for `make EXACT=1`. This note records the model, the accepted
-differences, and why they were not closed.
+[`EclVm::Run`](../../msvc/src/script/sptcmd/ecl_core_interpreter.cpp) now
+matches all 7,020 retail bytes: 6,692 instruction bytes and 328 bytes of
+dispatch tables, SHA-256 `b802e20de41d15a9bd59d3b7110f99840e56e5d40f27a2cda159b883d9fe3667`.
+Both build modes select the same [native LTCG region](../../msvc/build_support/layout/ltcg/ecl_core_interpreter.json);
+there is no interpreter assembly fallback. The formatted argument paths call
+the real floating operand resolver, and bitwise OR pops both tagged words
+through the stack object. Together these reproduce the last register-order
+choices without changing compiled instructions or ignoring differences.
 
-## Files
+The remainder records the earlier equivalent models and experiments.
+
+## Historical model files
 
 - `msvc/equivalent/script/ecl_core_interpreter_0044e1a0.cpp`: `EclVm::Run(float delta)`.
 - `msvc/equivalent/script/ecl_core_interpreter_0044e1a0.hpp`: the VM, stack,
@@ -20,7 +22,7 @@ differences, and why they were not closed.
 - `msvc/layout/equivalent/ecl_core_interpreter_0044e1a0.json`: symbol bindings
   and the recorded differences.
 
-## How close it is
+## Initial equivalent model
 
 Compiled with the project flags plus `/GL`, linked with `/LTCG`, and compared
 against the built region by instruction, with branch targets and jump-table

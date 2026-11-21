@@ -16,7 +16,7 @@
 #include "../ltcg/item_collection_runtime/primary.cpp"
 #include "../ltcg/item_collection_runtime/collaborators.cpp"
 #include "../../../src/game/game/update_helpers.cpp"
-#include "../ltcg/item_collection_runtime/update.cpp"
+#include "../../../src/game/item/item_update.cpp"
 #include <math.h>
 #pragma intrinsic(cos,sin)
 #pragma code_seg(".text$f0041beb0F")

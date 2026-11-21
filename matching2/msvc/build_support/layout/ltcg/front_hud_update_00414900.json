@@ -17,6 +17,7 @@
     "include/th10/game/player.hpp",
     "include/th10/game/recovery_mark_text_and_dispatcher.hpp",
     "include/th10/game/score.hpp",
+    "include/th10/game/stage_route.hpp",
     "include/th10/math/timer.hpp",
     "include/th10/platform/sound_queue.hpp",
     "include/th10/platform/thread_sync.hpp",
@@ -935,6 +936,7 @@
     }
   ],
   "included_sources": [
+    "src/core/sound/sound_queue.cpp",
     "build_support/layout/ltcg/front_hud_pair/result_dispatcher.cpp",
     "build_support/layout/ltcg/result_open/allocate.cpp",
     "build_support/layout/ltcg/result_open/animation_manager_queue_resource.cpp",

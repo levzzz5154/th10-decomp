@@ -1,5 +1,3 @@
-#include "../build_support/include/asm_encoding.hpp"
-
 typedef void* (__stdcall* Direct3DCreate9Import_00452176)(unsigned int sdk_version);
 extern "C" Direct3DCreate9Import_00452176 imp_Direct3DCreate9;
 

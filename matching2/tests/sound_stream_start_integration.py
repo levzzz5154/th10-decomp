@@ -14,11 +14,12 @@ import tempfile
 
 from unicorn import UC_HOOK_CODE
 from unicorn.x86_const import UC_X86_REG_EAX, UC_X86_REG_EBX, UC_X86_REG_ECX, UC_X86_REG_ESI, UC_X86_REG_EDI
+
+from x86_fixture import ROOT, CANDIDATE, OUTPUT, STOP, load_fixture, maintained_region
 from sound_stream_fill_differential import (
-    Case as FillCase, Execution as FillExecution, compile_candidates as compile_fill,
-    FILL_SYMBOL, STREAM, BUFFER, TABLE, ALT_TABLE, ALT_CURSOR, STATUS,
-    ROOT, CANDIDATE, STOP, STATE, OUTPUT, CURSOR, RECORD, ALT_RECORD, SOURCE, DESTINATION,
-    COMMON, difference, PEImage, load_manifest, load_oracle)
+    Case as FillCase, Execution as FillExecution, compile_candidates as compile_fill, FILL_SYMBOL,
+    STREAM, BUFFER, TABLE, ALT_TABLE, ALT_CURSOR, STATUS, STATE, CURSOR, RECORD, ALT_RECORD, SOURCE,
+    DESTINATION, COMMON, difference)
 from coff_module import load_module
 
 MANAGER, ARRAY, ALT_ARRAY, ALT_BUFFER, THIRD = (STATE + offset for offset in (0x2000, 0x1800, 0x1900, 0x1400, 0x1500))
@@ -26,10 +27,10 @@ PLAY, POSITION, SET_VOLUME, OTHER_PLAY = (STOP + 0x100 * i for i in range(12, 16
 START_SYMBOL = "_SoundStream_Start_0044d440@12"
 COMMAND_SYMBOL = "_Sound_StartMusicCommand_0043da80@8"
 HELPERS = (
-    ("find", "reference/semantic_candidates/sound_stream_select.cpp", "?FindAvailable@SoundStream@@QAEPAUWaveSecondaryBuffer@@XZ", "?FindAvailable@SoundStream@@QAEPAUWaveSecondaryBuffer@@XZ", CANDIDATE + 0x3000),
-    ("restore-helper", "msvc/src/game/platform_run_interface_0044d300.cpp", "?Run@PlatformD300Entry@@QAEHPAI@Z", "?RestoreIfLost@WaveSecondaryBuffer@@QAEHPAI@Z", CANDIDATE + 0x5000),
-    ("rewind-buffers", "msvc/src/game/platform_query_interfaces_0044d600.cpp", "?Query@PlatformQueryInterfaces_0044D600@@QAEHXZ", "?RewindBuffers@SoundStream@@QAEHXZ", CANDIDATE + 0x6000),
-    ("volume", "msvc/src/game/platform_set_operation_deadline_0044d4e0.cpp", "?SetOperationDeadline@PlatformInterfaceState_0044D4E0@@QAEHH@Z", "?SetVolume@SoundStream@@QAEHH@Z", CANDIDATE + 0x7000))
+    ("find", 0x44D370, "?FindAvailable@SoundStream@@QAEPAUWaveSecondaryBuffer@@XZ", CANDIDATE + 0x3000),
+    ("restore-helper", 0x44D300, "?RestoreIfLost@WaveSecondaryBuffer@@QAEHPAI@Z", CANDIDATE + 0x5000),
+    ("rewind-buffers", 0x44D600, "?RewindBuffers@SoundStream@@QAEHXZ", CANDIDATE + 0x6000),
+    ("volume", 0x44D4E0, "?SetVolume@SoundStream@@QAEHH@Z", CANDIDATE + 0x7000))
 
 
 @dataclass(frozen=True)
@@ -54,11 +55,18 @@ def compile_candidates(directory):
     fill = compile_fill(directory)
     modules, entries = {}, {}
     bindings = {"__imp__Sleep@4": 0x4660AC, "_asm_rand_0045371b": 0x45371B,
-                "_data_00497854": 0x497854, "__ftol2": 0x463B2C,
+                "_g_options_music_volume": 0x497854, "__ftol2": 0x463B2C,
                 FILL_SYMBOL: fill[1].symbols[FILL_SYMBOL]}
-    for name, source, symbol, binding, address in HELPERS:
+    for name, retail_address, binding, address in HELPERS:
+        if name == "find":
+            source = ROOT / "matching2/reference/semantic_candidates/sound_stream_select.cpp"
+            symbol = binding
+        else:
+            region = maintained_region(retail_address)
+            source, symbol = region.source, region.symbol
         obj = directory / (name + ".obj")
-        subprocess.run([*COMMON, "-fno-delete-null-pointer-checks", "-c", str(ROOT / "matching2" / source),
+        subprocess.run([*COMMON, "-I", str(ROOT / "matching2/msvc/include"),
+                        "-fno-delete-null-pointer-checks", "-c", str(source),
                         "-o", str(obj)], check=True, timeout=60)
         module = load_module(obj, address, bindings)
         modules[name] = module
@@ -84,7 +92,7 @@ class Execution(FillExecution):
         fill, modules, entries = compiled if compiled else (None, {}, {})
         super().__init__(image, fill, {module.base: module.data for module in modules.values()})
         self.entries = entries
-        self.helper_entries = {0x44D370: "find", 0x44D300: "restore-helper", 0x44D600: "rewind-buffers", 0x44D4E0: "volume"}
+        self.helper_entries = {address: name for name, address, _, _ in HELPERS}
         self.helper_entries.update((entries[name], name) for name, *_ in HELPERS if name in entries)
         self.fill_entries = {0x44D110}
         if fill:
@@ -195,17 +203,11 @@ def cases():
     yield Case(status=2, bits=8, locked_bytes=31, end=29)
 
 
-import sys as _project_sys
-from pathlib import Path as _ProjectPath
-_project_sys.path.insert(0, str(_ProjectPath(__file__).resolve().parents[2]))
-from matching2.tools.common.project_paths import project_support
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--oracle", type=Path, default=ROOT / "matching2/build/oracle/th10.exe")
     options = parser.parse_args()
-    config = load_manifest(project_support((ROOT) / 'matching2/msvc', 'regions.json'))
-    load_oracle(options.oracle, config)
-    image = PEImage(options.oracle.read_bytes())
+    _, image = load_fixture(options.oracle)
     with tempfile.TemporaryDirectory(prefix="th10-stream-start-integration-") as temporary:
         compiled = compile_candidates(Path(temporary))
         total = faults = reads = plays = 0

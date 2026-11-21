@@ -16,9 +16,10 @@ import tempfile
 
 from unicorn import UC_HOOK_CODE
 from unicorn.x86_const import UC_X86_REG_ECX
-from dat_archive_integration_differential import (
-    Execution, Fixture, ROOT, CANDIDATE, OUTPUT, QUERY, FILE, PEImage,
-    load_manifest, load_oracle, load_candidate)
+
+from x86_fixture import ROOT, CANDIDATE, OUTPUT, load_candidate, load_fixture
+from matching2.tools.common.project_paths import DEFAULT_PROJECT, compilation_source
+from dat_archive_integration_differential import Execution, Fixture, QUERY, FILE
 from resource_paths_differential import COUNT, compile_candidates as compile_resources
 from file_open_resolve_differential import compile_candidates as compile_files
 
@@ -59,7 +60,7 @@ def compile_candidates(directory, config):
         "clang++", "--target=i686-pc-windows-msvc", "-std=c++03", "-O2", "-mno-sse", "-mno-sse2",
         "-fno-exceptions", "-fno-rtti", "-fno-stack-protector", "-ffunction-sections",
         "-I", str(ROOT / "matching2/msvc/include"), "-c",
-        str(ROOT / 'matching2/msvc' / json.loads(project_support(ROOT / 'matching2/msvc', 'regions.json').read_text()).get('compilation_units', {}).get('src/pack/file/file_handle.cpp', 'src/pack/file/file_handle.cpp')), "-o", str(obj)],
+        str(compilation_source(DEFAULT_PROJECT, "src/pack/file/file_handle.cpp", config)), "-o", str(obj)],
         check=True, timeout=60)
     bodies[WHOLE] = load_candidate(obj, config, "?ReadWhole@FileHandle@@QAEPAXI@Z", code_address=WHOLE)
     bodies.update((module.base, module.data) for module in files.values())
@@ -186,17 +187,11 @@ def cases():
     yield Case(seek_failure=True)
 
 
-import sys as _project_sys
-from pathlib import Path as _ProjectPath
-_project_sys.path.insert(0, str(_ProjectPath(__file__).resolve().parents[2]))
-from matching2.tools.common.project_paths import project_support
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--oracle", type=Path, default=ROOT / "matching2/build/oracle/th10.exe")
     options = parser.parse_args()
-    config = load_manifest(project_support((ROOT) / 'matching2/msvc', 'regions.json'))
-    load_oracle(options.oracle, config)
-    image = PEImage(options.oracle.read_bytes())
+    config, image = load_fixture(options.oracle)
     with tempfile.TemporaryDirectory(prefix="th10-loose-file-") as temporary:
         resources, modules, file_open = compile_candidates(Path(temporary), config)
         counts = {"load": 0, "size": 0, "whole": 0}

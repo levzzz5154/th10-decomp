@@ -7,6 +7,7 @@
   ],
   "driver": "build_support/layout/ltcg/animation_manager_render_bucket1_00448600_context.cpp",
   "headers": [
+    "include/th10/render/textured_quad.hpp",
     "include/th10/render/quad_batch.hpp"
   ],
   "image_base": "0x00400000",

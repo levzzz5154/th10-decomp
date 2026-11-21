@@ -4,6 +4,10 @@
   "source": "src/core/sprtlib/recovery_right_aligned_text.cpp",
   "driver": "build_support/layout/ltcg/right_aligned_text_00447ae0_context.cpp",
   "headers": [
+    "include/th10/platform/sound_queue.hpp",
+    "include/th10/game/title_input.hpp",
+    "include/th10/game/menu_cursor.hpp",
+    "include/th10/render/animation_script_id.hpp",
     "build_support/include/contexts/game/right_aligned_text_context/recovery_script_executor.hpp",
     "build_support/include/contexts/game/right_aligned_text_context/recovery_mark_text_and_dispatcher.hpp",
     "build_support/include/contexts/game/right_aligned_text_context/recovery_script_executor_ascii_anchors.hpp",
@@ -17,8 +21,7 @@
     "build_support/include/contexts/game/right_aligned_text_context/recovery_script_executor_caller.hpp",
     "build_support/include/contexts/game/right_aligned_text_context/entity_movement_slot.hpp",
     "build_support/include/contexts/game/right_aligned_text_context/recovery_script_executor_text_sibling_anchors.hpp",
-    "build_support/include/contexts/game/right_aligned_text_context/recovery_script_executor_caller_433ef0.hpp",
-    "build_support/include/contexts/game/right_aligned_text_context/menu_cursor.hpp"
+    "build_support/include/contexts/game/right_aligned_text_context/recovery_script_executor_caller_433ef0.hpp"
   ],
   "image_base": "0x00400000",
   "description": "Complete right-aligned VM formatter selected alone; genuine complete callers, exact MarkText/dispatcher and complete sibling models establish private ABI. Unselected contexts add no recovered bytes.",
@@ -59,7 +62,7 @@
     },
     {
       "name": "RecoveryLookup_Find",
-      "symbol": "?Find@RecoveryLookup@@QAIPAXPAURecoveryLookupContext@@URecoveryScriptId@@@Z",
+      "symbol": "?Find@RecoveryLookup@@QAIPAXPAURecoveryLookupContext@@UAnimationScriptId@@@Z",
       "section": ".text$004491c0_fn",
       "address": "0x004491C0",
       "size": 73
@@ -1373,6 +1376,7 @@
   ],
   "roots": [],
   "included_sources": [
+    "src/core/sound/sound_queue.cpp",
     "build_support/layout/ltcg/right_aligned_text_context/exact_text_dispatcher_anchor.cpp"
   ]
 }

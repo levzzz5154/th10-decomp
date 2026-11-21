@@ -5,143 +5,94 @@
 // The atlas holds a GDI DIB; format 26 is A4R4G4B4 and format 21 is A8R8G8B8.
 // A transparent pixel takes the average of the opaque pixels to its left,
 // right, above and below (halved in the 4-bit format); its alpha stays zero.
-//
-// Equivalent recovery: the loops, the neighbour tests and every register of
-// the 4-bit loop body match retail. Retail reads the three halved 4-bit sums
-// as bytes (`and cl,0Fh; movzx ax,cl`, the spilled blue sum through
-// `mov cl,[esp+20h]`) where this source masks whole registers, and in the
-// 32-bit path retail keeps a zero in EBX and recomputes the trailing pixel
-// pointer for every row.
+#include "th10/render/font_atlas.hpp"
+#include "th10/render/texture_pixels.hpp"
 
-struct FontAtlas {
-    unsigned char palette[0x100];
-    int format;                         // +0x100
-    int width;                          // +0x104
-    int height;                         // +0x108
-    unsigned char reserved_10c[4];
-    int pitch;                          // +0x110
-    unsigned char reserved_114[0x0C];
-    unsigned char* pixels;              // +0x120
-};
-
-struct Pixel4444 {
-    unsigned short b : 4;
-    unsigned short g : 4;
-    unsigned short r : 4;
-    unsigned short a : 4;
-};
+using namespace TexturePixels;
 
 char __stdcall FontAtlas_FillTransparentPixels(FontAtlas* atlas, unsigned int rows) {
-    unsigned int i;
-    unsigned int j;
-    unsigned int sum[3];
-    unsigned int n;
-    unsigned short v;
+    unsigned int row, column;
+    unsigned int rgb[3];
+    unsigned int neighbors;
 
     switch (atlas->format) {
-    case 26: {
-        Pixel4444* p = (Pixel4444*)atlas->pixels;
-        for (i = 0; i < rows; i++) {
-            for (j = 0; j < (unsigned int)atlas->width; j++) {
-                if (p->a == 0) {
-                    sum[0] = sum[1] = sum[2] = 0;
-                    n = 0;
-                    if (j > 0 && p[-1].a != 0) {
-                        sum[0] = p[-1].r;
-                        sum[1] = p[-1].g;
-                        sum[2] = p[-1].b;
-                        n = 1;
+    case A4R4G4B4: {
+        Argb4444* pixel = reinterpret_cast<Argb4444*>(atlas->pixels);
+        for (row = 0; row < rows; ++row) {
+            for (column = 0; column < static_cast<unsigned int>(atlas->width); ++column) {
+                if (pixel->a == 0) {
+                    rgb[0] = rgb[1] = rgb[2] = 0;
+                    neighbors = 0;
+                    if (column > 0 && pixel[-1].a != 0) {
+                        rgb[0] = pixel[-1].r;
+                        rgb[1] = pixel[-1].g;
+                        rgb[2] = pixel[-1].b;
+                        neighbors = 1;
                     }
-                    if (j < (unsigned int)atlas->width - 1 && p[1].a != 0) {
-                        sum[0] += p[1].r;
-                        sum[1] += p[1].g;
-                        sum[2] += p[1].b;
-                        n++;
+                    if (column < static_cast<unsigned int>(atlas->width) - 1 && pixel[1].a != 0) {
+                        rgb[0] += pixel[1].r;
+                        rgb[1] += pixel[1].g;
+                        rgb[2] += pixel[1].b;
+                        ++neighbors;
                     }
-                    if (i > 0) {
-                        Pixel4444* above = p - atlas->pitch / 2;
+                    if (row > 0) {
+                        Argb4444* above = pixel - atlas->pitch / 2;
                         if (above->a != 0) {
-                            sum[0] += above->r;
-                            sum[1] += above->g;
-                            sum[2] += above->b;
-                            n++;
+                            rgb[0] += above->r;
+                            rgb[1] += above->g;
+                            rgb[2] += above->b;
+                            ++neighbors;
                         }
                     }
-                    if (i < (unsigned int)atlas->height - 1) {
-                        Pixel4444* below = p + atlas->pitch / 2;
+                    if (row < static_cast<unsigned int>(atlas->height) - 1) {
+                        Argb4444* below = pixel + atlas->pitch / 2;
                         if (below->a != 0) {
-                            sum[0] += below->r;
-                            sum[1] += below->g;
-                            sum[2] += below->b;
-                            n++;
+                            rgb[0] += below->r;
+                            rgb[1] += below->g;
+                            rgb[2] += below->b;
+                            ++neighbors;
                         }
                     }
-                    if (n > 1) {
-                        sum[0] /= n;
-                        sum[1] /= n;
-                        sum[2] /= n;
+                    if (neighbors > 1) {
+                        for (unsigned int channel = 0; channel < 3; ++channel)
+                            rgb[channel] /= neighbors;
                     }
-                    sum[0] >>= 1;
-                    sum[1] >>= 1;
-                    sum[2] >>= 1;
-                    p->r = sum[0];
-                    p->g = sum[1];
-                    p->b = sum[2];
+                    rgb[0] >>= 1;
+                    rgb[1] >>= 1;
+                    rgb[2] >>= 1;
+                    pixel->r = static_cast<unsigned char>(rgb[0]);
+                    pixel->g = static_cast<unsigned char>(rgb[1]);
+                    pixel->b = static_cast<unsigned char>(rgb[2]);
                 }
-                p++;
+                ++pixel;
             }
         }
         break;
     }
-    case 21: {
-        unsigned char* q = atlas->pixels;
-        unsigned char* c = q - 2;
-        for (i = 0; i < rows; i++) {
-            for (j = 0; j < (unsigned int)atlas->width; j++) {
-                if (c[5] == 0) {
-                    n = 0;
-                    sum[1] = sum[2] = sum[0] = 0;
-                    if (j > 0 && c[1] != 0) {
-                        sum[0] = c[0];
-                        sum[1] = c[-1];
-                        sum[2] = c[-2];
-                        n = 1;
+    case A8R8G8B8: {
+        Argb8888* pixel = reinterpret_cast<Argb8888*>(atlas->pixels);
+        for (row = 0; row < rows; ++row) {
+            for (column = 0; column < static_cast<unsigned int>(atlas->width); ++column) {
+                if (pixel->a == 0) {
+                    neighbors = rgb[0] = rgb[1] = rgb[2] = 0;
+                    if (column > 0)
+                        AddOpaque8888(rgb, &neighbors, pixel - 1);
+                    if (column < static_cast<unsigned int>(atlas->width) - 1)
+                        AddOpaque8888(rgb, &neighbors, pixel + 1);
+                    if (row > 0)
+                        AddOpaque8888(rgb, &neighbors, pixel - atlas->pitch / 4);
+                    if (row < static_cast<unsigned int>(atlas->height) - 1)
+                        AddOpaque8888(rgb, &neighbors, pixel + atlas->pitch / 4);
+                    if (neighbors > 1) {
+                        rgb[0] /= neighbors;
+                        rgb[1] /= neighbors;
+                        rgb[2] /= neighbors;
                     }
-                    if (j < (unsigned int)atlas->width - 1 && c[9] != 0) {
-                        sum[0] += c[8];
-                        sum[1] += c[7];
-                        sum[2] += c[6];
-                        n++;
-                    }
-                    if (i > 0) {
-                        unsigned char* above = q - atlas->pitch / 4 * 4;
-                        if (above[3] != 0) {
-                            sum[0] += above[2];
-                            sum[1] += above[1];
-                            sum[2] += above[0];
-                            n++;
-                        }
-                    }
-                    if (i < (unsigned int)atlas->height - 1) {
-                        unsigned char* below = q + atlas->pitch / 4 * 4;
-                        if (below[3] != 0) {
-                            sum[0] += below[2];
-                            sum[1] += below[1];
-                            sum[2] += below[0];
-                            n++;
-                        }
-                    }
-                    if (n > 1) {
-                        sum[0] /= n;
-                        sum[1] /= n;
-                        sum[2] /= n;
-                    }
-                    c[4] = (unsigned char)sum[0];
-                    c[3] = (unsigned char)sum[1];
-                    q[0] = (unsigned char)sum[2];
+                    pixel->r = static_cast<unsigned char>(rgb[0]);
+                    pixel->g = static_cast<unsigned char>(rgb[1]);
+                    pixel->b = static_cast<unsigned char>(rgb[2]);
                 }
-                c += 4;
-                q += 4;
+                ++pixel;
             }
         }
         break;

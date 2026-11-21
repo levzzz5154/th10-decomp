@@ -15,6 +15,7 @@
     "include/th10/game/ascii_manager.hpp",
     "include/th10/game/entity_script_start.hpp",
     "include/th10/render/camera_batch.hpp",
+    "include/th10/render/textured_quad.hpp",
     "include/th10/render/quad_batch.hpp",
     "include/th10/game/entity.hpp",
     "include/th10/types.hpp"

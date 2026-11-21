@@ -18,9 +18,9 @@ import tempfile
 from unicorn import Uc, UcError, UC_ARCH_X86, UC_MODE_32, UC_HOOK_CODE, UC_HOOK_MEM_READ, UC_HOOK_MEM_INVALID
 from unicorn.x86_const import (UC_X86_REG_EAX, UC_X86_REG_EBX, UC_X86_REG_ECX, UC_X86_REG_EDX,
                               UC_X86_REG_EDI, UC_X86_REG_ESP, UC_X86_REG_EIP)
-from lzss_compressor_differential import (
-    ROOT, CANDIDATE, OUTPUT, STACK, STOP, PRESERVED, PEImage,
-    load_manifest, load_oracle, region_directory)
+
+from x86_fixture import ROOT, CANDIDATE, OUTPUT, STACK, STOP, PRESERVED, load_fixture
+from matching2.tools.matching.retail import region_directory
 from coff_module import load_module
 from sound_primary_format_differential import compile_candidate as compile_primary
 from sound_wave_load_differential import compile_candidates as compile_wave, wave
@@ -419,17 +419,11 @@ def verify_observations(case, result):
         assert not any(event[0] == "free" for event in events), "late failure must retain the device owner"
 
 
-import sys as _project_sys
-from pathlib import Path as _ProjectPath
-_project_sys.path.insert(0, str(_ProjectPath(__file__).resolve().parents[2]))
-from matching2.tools.common.project_paths import project_support
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--oracle", type=Path, default=ROOT / "matching2/build/oracle/th10.exe")
     options = parser.parse_args()
-    config = load_manifest(project_support((ROOT) / 'matching2/msvc', 'regions.json'))
-    load_oracle(options.oracle, config)
-    image = PEImage(options.oracle.read_bytes())
+    config, image = load_fixture(options.oracle)
     with tempfile.TemporaryDirectory(prefix="th10-sound-init-") as temporary:
         module = compile_candidate(Path(temporary) / "init.obj", config)
         trials = [Case(), Case(global_receiver=False), Case(allocate=False), Case(previous_after_construct=True)]

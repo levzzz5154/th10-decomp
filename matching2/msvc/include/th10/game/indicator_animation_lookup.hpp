@@ -60,7 +60,7 @@ static inline HintVm* IndicatorHandle_Get(
     HintVm* vm = static_cast<HintVm*>(
         static_cast<RecoveryLookup*>(g_sprt_ctrl)->Find(
             static_cast<RecoveryLookupContext*>(g_sprt_ctrl),
-            *reinterpret_cast<RecoveryScriptId*>(&handle)));
+            *reinterpret_cast<AnimationScriptId*>(&handle)));
     if (vm == 0)
         handle.value = 0;
     return vm;

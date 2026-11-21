@@ -3,15 +3,6 @@
 #include "th10/platform/archive_file.hpp"
 #include "th10/render/anm_file.hpp"
 
-extern "C" void __stdcall entry_external_00446c70(void*, int);
-
-// Stand-in for 0x004465B0: texture in EAX.
-#pragma code_seg(".text$00fill")
-void AnmTexture::FillTransparentPixels() {
-    entry_external_00446c70(texture, bytes_per_pixel);
-}
-#pragma code_seg()
-
 #pragma code_seg(".text$05scontext")
 extern "C" int __stdcall AnmTextureUploadContext_00446c70(
         AnmTexture** textures, const void** data, int count) {

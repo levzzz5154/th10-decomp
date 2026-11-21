@@ -1,17 +1,14 @@
 #pragma once
 #include <stddef.h>
 #include "th10/game/entity.hpp"
+#include "th10/game/item_velocity.hpp"
 #include "th10/math/timer.hpp"
 struct AnimationResourceFile;
 __declspec(noinline) void __stdcall Entity_StartScript(AnimationResourceFile* resource, Entity* entity, int script);
-struct ItemPolarVelocity2 {
-    float x, y, z;
-    __declspec(noinline) ItemPolarVelocity2* SetPolar(float angle, float speed);
-};
 struct SpawnItem {
     Entity animation;
     Vector3 position;
-    ItemPolarVelocity2 velocity;
+    ItemVelocity velocity;
     int motion_counter;
     FrameTimer timer;
     int state;
@@ -40,6 +37,6 @@ typedef char SpawnItemAnimationOffset[offsetof(SpawnItem,animation)==0?1:-1];
 typedef char SpawnItemPositionOffset[offsetof(SpawnItem,position)==0x3AC?1:-1];
 typedef char SpawnItemTimerOffset[offsetof(SpawnItem,timer)==0x3C8?1:-1];
 
-typedef char SpawnItemVerticalVelocityOffset[offsetof(SpawnItem,velocity)+offsetof(ItemPolarVelocity2,z)==0x3C0?1:-1];
+typedef char SpawnItemVerticalVelocityOffset[offsetof(SpawnItem,velocity)+offsetof(ItemVelocity,z)==0x3C0?1:-1];
 typedef char SpawnItemMagnetSpeedOffset[offsetof(SpawnItem,magnet_speed)==0x3E8?1:-1];
 typedef char ItemLiveCountOffset[offsetof(ItemSpawnManager,live_count)==0x21CEB4?1:-1];

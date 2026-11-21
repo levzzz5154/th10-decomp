@@ -29,8 +29,10 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[3]
 sys.path.insert(0, str(ROOT))
 
-from matching2.tools.matching.probe import DEFAULT_PROJECT, defined_functions, probe_unit
-from matching2.tools.matching.build_msvc import DEFAULT_TOOLKIT, compile_raw
+from matching2.tools.common.coff import defined_functions, read_object
+from matching2.tools.common.project_paths import DEFAULT_PROJECT, project_support
+from matching2.tools.common.wine import DEFAULT_TOOLKIT
+from matching2.tools.matching.build_msvc import compile_raw
 from matching2.tools.matching.ltcg_cluster import load_clusters
 
 WAVE = ROOT / "matching2/build/waves"
@@ -79,7 +81,6 @@ def match_symbols(regions, defined):
     return mapping
 
 
-from matching2.tools.common.project_paths import project_support
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--project", type=Path, default=DEFAULT_PROJECT)
@@ -117,7 +118,7 @@ def main():
         try:
             raw = compile_raw(project, args.toolkit.resolve(), args.output.resolve(),
                               index, source, manifest)
-            defined = defined_functions(raw["object"])
+            defined = defined_functions(read_object(raw["object"]))
         except Exception as error:
             defined = {}
             note = str(error)[:160]

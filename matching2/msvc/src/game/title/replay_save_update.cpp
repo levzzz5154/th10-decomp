@@ -29,30 +29,30 @@ static __forceinline void SelectItem12(MenuCursor& cursor, int index) {
 
 #pragma code_seg(".text$00433570_fn")
 __declspec(noinline) int __stdcall TitleMode16(Title* room) {
-    TitleReplaySaveView* save = reinterpret_cast<TitleReplaySaveView*>(room);
+    Title& screen = *room;
     char path[64];
-    switch (room->phase) {
+    switch (screen.phase) {
     case 0:
-        room->cursor.item_count = 25;
-        room->cursor.wrap = 1;
-        SelectItem12(room->cursor, 0);
-        g_stage_route_current = g_stage_routes + 8 * 0x30;
-        g_globals_stage = 8;
-        g_globals_stage_shown = 8;
+        screen.cursor.item_count = 25;
+        screen.cursor.wrap = 1;
+        SelectItem12(screen.cursor, 0);
+        g_stage_route_current = g_stage_routes + StageRouteCount;
+        g_globals_stage = StageRouteCount;
+        g_globals_stage_shown = StageRouteCount;
         for (int number = 1; number <= 25; ++number) {
             sprintf(path, "th10_%.2d.rpy", number);
-            save->replays[number - 1] = ReplayFile_Open(path);
+            screen.replay_list.files[number - 1] = ReplayFile_Open(path);
         }
         RecoveryMusicInstallSlot(room, 105);
-        room->SetTimerTarget(1);
+        screen.SetTimerTarget(1);
     case 1: {
-        const bool opening_delay_done = (room->timer.current > 6);
+        const bool opening_delay_done = (screen.timer.current > 6);
         if (opening_delay_done)
-            room->SetTimerTarget(2);
+            screen.SetTimerTarget(2);
         break;
     }
     case 2: {
-        MenuCursor* cursor = &room->cursor;
+        MenuCursor* cursor = &screen.cursor;
         cursor->previous_selection = cursor->selection;
         const bool slot_up = ((short)g_input_keys_raw.InputMaskActive(0x10));
         if (slot_up) cursor->Advance(-1);
@@ -63,36 +63,36 @@ __declspec(noinline) int __stdcall TitleMode16(Title* room) {
             g_sound_manager.Queue(12, 0);
         const bool cancel_slot = (g_input_keys_held & 0xa);
         if (cancel_slot) {
-            room->SetTimerTarget(4);
+            screen.SetTimerTarget(4);
             g_sound_manager.Queue(11, 0);
         } else if (g_input_keys_held & 0x1001) {
-            MenuCursor* grid = &save->grid;
-            save->selected_replay = cursor->selection;
+            MenuCursor* grid = &screen.keyboard.grid;
+            screen.replay_list.selected_replay = cursor->selection;
             SelectItem12(*grid, 0);
-            save->grid.item_count = strlen(g_name_entry_grid);
-            save->grid.wrap = 1;
+            screen.keyboard.grid.item_count = strlen(g_name_entry_grid);
+            screen.keyboard.grid.wrap = 1;
             ReplayFileHeader2** header = &g_replay->header;
             time2(&(*header)->date);
-            (*header)->stage = 8;
-            strcpy(save->name, g_score->last_name);
-            save->name_length = 0;
-            const bool has_previous_name = (strcmp(save->name, "        ") != 0);
+            (*header)->stage = StageRouteCount;
+            strcpy(screen.keyboard.name, g_score->last_name);
+            screen.keyboard.name_length = 0;
+            const bool has_previous_name = (strcmp(screen.keyboard.name, "        ") != 0);
             if (has_previous_name)
                 grid->Advance(-1);
             int length;
             for (length = 8; length > 0; --length) {
-                const bool has_name_character = (save->name[length - 1] != ' ');
+                const bool has_name_character = (screen.keyboard.name[length - 1] != ' ');
                 if (has_name_character)
                     break;
             }
-            save->name_length = length;
+            screen.keyboard.name_length = length;
             g_sound_manager.Queue(10, 0);
-            room->SetTimerTarget(3);
+            screen.SetTimerTarget(3);
         }
         break;
     }
     case 3: {
-        MenuCursor* grid = &save->grid;
+        MenuCursor* grid = &screen.keyboard.grid;
         grid->previous_selection = grid->selection;
         const bool grid_up = ((short)g_input_keys_raw.InputMaskActive(0x10));
         if (grid_up) grid->Advance(-13);
@@ -124,60 +124,60 @@ __declspec(noinline) int __stdcall TitleMode16(Title* room) {
             int cell = grid->selection;
             const bool is_character = (cell < count - 3);
             if (is_character) {
-                if (save->name_length < 8) {
-                    save->name[save->name_length] = characters[cell];
-                    ++save->name_length;
-                    if (save->name_length >= 8)
+                if (screen.keyboard.name_length < 8) {
+                    screen.keyboard.name[screen.keyboard.name_length] = characters[cell];
+                    ++screen.keyboard.name_length;
+                    if (screen.keyboard.name_length >= 8)
                         UpdateBoundedCounter(count - 1, reinterpret_cast<unsigned int*>(grid));
                 } else {
-                    save->name[save->name_length - 1] = characters[cell];
+                    screen.keyboard.name[screen.keyboard.name_length - 1] = characters[cell];
                 }
             } else if (cell == count - 3) {
-                if (save->name_length < 8) {
-                    save->name[save->name_length] = ' ';
-                    ++save->name_length;
-                    if (save->name_length >= 8)
+                if (screen.keyboard.name_length < 8) {
+                    screen.keyboard.name[screen.keyboard.name_length] = ' ';
+                    ++screen.keyboard.name_length;
+                    if (screen.keyboard.name_length >= 8)
                         UpdateBoundedCounter(count - 1, reinterpret_cast<unsigned int*>(grid));
                 } else {
-                    save->name[save->name_length - 1] = ' ';
+                    screen.keyboard.name[screen.keyboard.name_length - 1] = ' ';
                 }
             } else if (cell == count - 2) {
-                if (save->name_length == 0)
+                if (screen.keyboard.name_length == 0)
                     break;
-                --save->name_length;
-                save->name[save->name_length] = ' ';
+                --screen.keyboard.name_length;
+                screen.keyboard.name[screen.keyboard.name_length] = ' ';
             } else if (cell == count - 1) {
                 g_sound_manager.Queue(0x2c, 0);
-                sprintf(path, "th10_%.2d.rpy", room->cursor.selection + 1);
-                ReplayFile_Delete(save->replays[room->cursor.selection]);
-                ReplayFile_Save(g_replay, path, save->name);
-                int slot = room->cursor.selection;
-                save->replays[slot] = ReplayFile_Open(path);
-                strcpy(g_score->last_name, save->name);
-                room->SetTimerTarget(2);
+                sprintf(path, "th10_%.2d.rpy", screen.cursor.selection + 1);
+                ReplayFile_Delete(screen.replay_list.files[screen.cursor.selection]);
+                ReplayFile_Save(g_replay, path, screen.keyboard.name);
+                int slot = screen.cursor.selection;
+                screen.replay_list.files[slot] = ReplayFile_Open(path);
+                strcpy(g_score->last_name, screen.keyboard.name);
+                screen.SetTimerTarget(2);
             }
             g_sound_manager.Queue(10, 0);
         }
         if (g_input_keys_held & 0xa) {
-            if (save->name_length == 0) {
-                room->SetTimerTarget(2);
+            if (screen.keyboard.name_length == 0) {
+                screen.SetTimerTarget(2);
             } else {
                 g_sound_manager.Queue(11, 0);
-                --save->name_length;
-                save->name[save->name_length] = ' ';
+                --screen.keyboard.name_length;
+                screen.keyboard.name[screen.keyboard.name_length] = ' ';
             }
         }
         break;
     }
     case 4:
-        if (room->timer.current >= 6) {
-            room->ClearAnimationSlot(105);
-            room->SetSlotFrame(0x5a, 8);
-            room->SetSlotFrame(0x5b, 8);
-            room->ClearAnimationSlot(94);
-            RecoveryMusicStopHandle(&room->fallback_handle);
-            room->DisableTimerWithOwner(2);
-            room->cursor.PopSelection();
+        if (screen.timer.current >= 6) {
+            screen.ClearAnimationSlot(105);
+            screen.SetSlotFrame(0x5a, 8);
+            screen.SetSlotFrame(0x5b, 8);
+            screen.ClearAnimationSlot(94);
+            RecoveryMusicStopHandle(&screen.fallback_handle);
+            screen.DisableTimerWithOwner(2);
+            screen.cursor.PopSelection();
             ReplayFile* recorded = g_replay;
             if (recorded != 0) {
                 ReplayFile_Destroy(recorded);
@@ -186,13 +186,13 @@ __declspec(noinline) int __stdcall TitleMode16(Title* room) {
             Music_Load2(0, "bgm/th10_02.wav");
             Music_Play2(0, 0);
             for (int index = 0; index < 25; ++index) {
-                ReplayFile* replay = save->replays[index];
+                ReplayFile* replay = screen.replay_list.files[index];
                 if (replay != 0) {
                     ReplayFile_Destroy(replay);
                     free(replay);
                 }
             }
-            memset(save->replays, 0, sizeof(save->replays));
+            memset(screen.replay_list.files, 0, sizeof(screen.replay_list.files));
         }
         break;
     }

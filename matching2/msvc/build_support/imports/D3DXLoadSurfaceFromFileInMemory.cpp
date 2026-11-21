@@ -1,5 +1,3 @@
-#include "../build_support/include/asm_encoding.hpp"
-
 typedef long (__stdcall *D3DXLoadSurfaceFromFileInMemoryImport_004521d0)(
     void* destination_surface, const void* destination_palette,
     const void* destination_rect, const void* source_file,

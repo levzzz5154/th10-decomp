@@ -38,7 +38,7 @@ extern "C" __declspec(noinline) int __stdcall RecoveryScript_Execute2(RecoverySc
                 RecoveryHandle* handle = state->text_handles;
                 for (int remaining = 5; remaining != 0; --remaining, ++handle) {
                     RecoveryLookup* manager = reinterpret_cast<RecoveryLookup*>(g_sprt_ctrl);
-                    RecoveryScriptId id = { static_cast<int>(handle->value) };
+                    AnimationScriptId id = { static_cast<int>(handle->value) };
                     RecoveryTextVm* object = static_cast<RecoveryTextVm*>(manager->Find(reinterpret_cast<RecoveryLookupContext*>(g_sprt_ctrl), id));
                     if (object == 0)
                         handle->value = 0;
@@ -46,7 +46,7 @@ extern "C" __declspec(noinline) int __stdcall RecoveryScript_Execute2(RecoverySc
                     handle->StopAtFrame3();
                 }
                 RecoveryLookup* manager = reinterpret_cast<RecoveryLookup*>(g_sprt_ctrl);
-                RecoveryScriptId id = { static_cast<int>(state->text_handles[0].value) };
+                AnimationScriptId id = { static_cast<int>(state->text_handles[0].value) };
                 RecoveryTextVm* object = static_cast<RecoveryTextVm*>(manager->Find(reinterpret_cast<RecoveryLookupContext*>(g_sprt_ctrl), id));
                 if (object == 0)
                     state->text_handles[0].value = 0;

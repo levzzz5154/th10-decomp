@@ -59,7 +59,7 @@ static __forceinline RecoveryTextVm* ValidateInPlace(RecoveryHandle* handle) {
     RecoveryTextVm* object = static_cast<RecoveryTextVm*>(
         reinterpret_cast<RecoveryLookup*>(g_sprt_ctrl)->Find(
             reinterpret_cast<RecoveryLookupContext*>(g_sprt_ctrl),
-            *reinterpret_cast<const RecoveryScriptId*>(&handle->value)));
+            *reinterpret_cast<const AnimationScriptId*>(&handle->value)));
     if (object == 0)
         handle->value = 0;
     return object;

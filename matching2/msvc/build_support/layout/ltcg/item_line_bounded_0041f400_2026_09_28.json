@@ -7,12 +7,14 @@
     "include/th10/game/entity.hpp",
     "include/th10/types.hpp",
     "include/th10/render/animation_public_callers.hpp",
+    "include/th10/game/item_velocity.hpp",
     "build_support/layout/ltcg/item_line_runtime/types/item_spawn.hpp",
     "build_support/layout/ltcg/item_line_runtime/types/line_sweeps.hpp",
     "include/th10/game/entity_script_start.hpp",
     "include/th10/math/timer.hpp"
   ],
   "included_sources": [
+    "build_support/layout/ltcg/laser_grow/loader.cpp",
     "build_support/layout/ltcg/item_line_runtime/allocator.cpp",
     "build_support/layout/ltcg/item_line_runtime/dependencies.cpp",
     "build_support/layout/ltcg/item_line_runtime/loader.cpp",

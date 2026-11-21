@@ -20,17 +20,17 @@ static inline void SelectItem(MenuCursor* cursor, int item) {
 
 #pragma code_seg(".text$00423570_fn")
 void __stdcall PrepareNameEntry(NameEntryMenu* menu) {
-    if (g_globals_score.stage == 7 && menu->extra_cleared != 0) {
-        g_stage_route_current = &g_stage_routes[8];
-        g_globals_score.stage = 8;
-        g_globals_score.stage_shown = 8;
+    if (g_globals_score.stage == ExtraStageIndex && menu->extra_cleared != 0) {
+        g_stage_route_current = g_stage_routes + StageRouteCount;
+        g_globals_score.stage = StageRouteCount;
+        g_globals_score.stage_shown = StageRouteCount;
     }
     int rank = g_score->players[g_globals_score.shot_type + g_globals_score.character * 3]
                    .table.InsertScore();
-    if (g_globals_score.stage == 7 && menu->extra_cleared != 0) {
-        g_stage_route_current = &g_stage_routes[7];
-        g_globals_score.stage = 7;
-        g_globals_score.stage_shown = 7;
+    if (g_globals_score.stage == ExtraStageIndex && menu->extra_cleared != 0) {
+        g_stage_route_current = &g_stage_routes[ExtraStageIndex];
+        g_globals_score.stage = ExtraStageIndex;
+        g_globals_score.stage_shown = ExtraStageIndex;
     }
     if (rank >= 0) {
         menu->rows.item_count = 25;

@@ -25,6 +25,6 @@ __declspec(noinline) void __stdcall RecoveryMusicInstallSlot(
     static_cast<AnimationBank*>(resource)->InitializeObject(object, index);
     void* handle;
     asm_AnimationManager_RegisterPrimaryBack_004489d0(g_sprt_ctrl, &handle, object);
-    room->animation_slots[index] = reinterpret_cast<unsigned int>(handle);
+    room->animation_slots[index].value = reinterpret_cast<int>(handle);
 }
 #pragma code_seg()

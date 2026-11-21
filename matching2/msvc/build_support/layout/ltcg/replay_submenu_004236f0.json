@@ -12,6 +12,7 @@
     "include/th10/core/func_ctrl.hpp",
     "include/th10/platform/thread_sync.hpp",
     "include/th10/game/replay_pool_append.hpp",
+    "include/th10/game/stage_route.hpp",
     "build_support/layout/ltcg/replay_submenu/animation.hpp"
   ],
   "image_base": "0x00400000",

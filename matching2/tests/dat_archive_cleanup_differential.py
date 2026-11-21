@@ -19,9 +19,8 @@ import tempfile
 from unicorn import Uc, UC_ARCH_X86, UC_MODE_32, UC_HOOK_CODE
 from unicorn.x86_const import (UC_X86_REG_EAX, UC_X86_REG_ECX, UC_X86_REG_ESI,
                               UC_X86_REG_ESP, UC_X86_REG_EIP)
-from lzss_compressor_differential import (
-    ROOT, CANDIDATE, STACK, STOP, PRESERVED,
-    PEImage, load_manifest, load_oracle, load_candidate)
+
+from x86_fixture import ROOT, CANDIDATE, STACK, STOP, PRESERVED, load_candidate, load_fixture
 
 CLOSE, RESET, DELETE = CANDIDATE + 0xA000, CANDIDATE + 0xA800, CANDIDATE + 0xAA00
 STATE, ARRAYS, NAMES = 0x2500000, 0x2600000, 0x2700000
@@ -204,17 +203,11 @@ def deletion_cases():
         yield Case(array_count=count, flags=flags, mutate_cookie=mutate)
 
 
-import sys as _project_sys
-from pathlib import Path as _ProjectPath
-_project_sys.path.insert(0, str(_ProjectPath(__file__).resolve().parents[2]))
-from matching2.tools.common.project_paths import project_support
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--oracle", type=Path, default=ROOT / "matching2/build/oracle/th10.exe")
     options = parser.parse_args()
-    config = load_manifest(project_support((ROOT) / 'matching2/msvc', 'regions.json'))
-    load_oracle(options.oracle, config)
-    image = PEImage(options.oracle.read_bytes())
+    config, image = load_fixture(options.oracle)
     with tempfile.TemporaryDirectory(prefix="th10-archive-cleanup-") as temporary:
         modules = compile_candidates(Path(temporary), config)
         counts = {}

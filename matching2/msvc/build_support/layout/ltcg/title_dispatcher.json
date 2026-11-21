@@ -4,6 +4,9 @@
   "source": "src/game/title/title_dispatcher.cpp",
   "driver": "build_support/layout/ltcg/title_dispatcher_context.cpp",
   "headers": [
+    "include/th10/game/title_score_file.hpp",
+    "include/th10/game/score_table_insert.hpp",
+    "include/th10/game/title_input.hpp",
     "include/th10/game/character_select_update.hpp",
     "include/th10/game/difficulty_select_update.hpp",
     "include/th10/game/ending_screen.hpp",
@@ -12,6 +15,7 @@
     "include/th10/game/menu_cursor.hpp",
     "include/th10/game/options_update.hpp",
     "include/th10/game/practice_stage_select_update.hpp",
+    "include/th10/render/animation_script_id.hpp",
     "include/th10/game/recovery_script_executor.hpp",
     "include/th10/game/recovery_script_executor_ascii_anchors.hpp",
     "include/th10/game/recovery_script_executor_caller.hpp",
@@ -48,7 +52,8 @@
     "include/th10/render/animation_stop_frame_handle.hpp",
     "include/th10/render/animation_stop_run.hpp",
     "include/th10/game/key_config_update.hpp",
-    "include/th10/game/key_config_refresh.hpp"
+    "include/th10/game/key_config_refresh.hpp",
+    "include/th10/game/stage_route.hpp"
   ],
   "image_base": "0x00400000",
   "description": "The title dispatcher 0x0042CDF0 with its caller, the menu-flow and key-config context sources it was recovered against and the difficulty-select cluster as compiler context; the donor dispatcher stand-in is parked at the start of the image. Only the dispatcher is selected.",
@@ -79,7 +84,7 @@
     },
     {
       "name": "RecoveryLookup_Find",
-      "symbol": "?Find@RecoveryLookup@@QAIPAXPAURecoveryLookupContext@@URecoveryScriptId@@@Z",
+      "symbol": "?Find@RecoveryLookup@@QAIPAXPAURecoveryLookupContext@@UAnimationScriptId@@@Z",
       "address": "0x004491C0",
       "size": 73,
       "section": ".text$004491c0_fn"
@@ -422,7 +427,7 @@
     },
     {
       "name": "AnimationManager_SetStopFrameAndRun",
-      "symbol": "?AnimationManager_SetStopFrameAndRun@@YIXGPAURecoveryLookupContext@@URecoveryScriptId@@@Z",
+      "symbol": "?AnimationManager_SetStopFrameAndRun@@YIXGPAURecoveryLookupContext@@UAnimationScriptId@@@Z",
       "address": "0x00449250",
       "size": 76,
       "section": ".text$00449250_fn"
@@ -2184,6 +2189,7 @@
   ],
   "roots": [],
   "included_sources": [
+    "src/core/sound/sound_queue.cpp",
     "build_support/layout/ltcg/ending_screen_dependencies/title_dispatcher.cpp",
     "build_support/layout/ltcg/recovery_script_executor_anchor.cpp",
     "build_support/layout/ltcg/recovery_script_executor_anchor_40c540.cpp",

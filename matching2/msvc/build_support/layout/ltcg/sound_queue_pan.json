@@ -4,7 +4,7 @@
   "source": "src/game/bullet/fun.cpp_407780.cpp",
   "additional_sources": [
     "src/game/laser/laser_line_decelerate.cpp",
-    "src/core/sound/animation_manager_queue_resource.cpp",
+    "src/core/sound/sound_queue.cpp",
     "src/game/bullet/fun.cpp_407a30.cpp",
     "src/game/bullet/fun.cpp_407be0.cpp",
     "src/core/sound/sound_queue_pan.cpp"
@@ -59,7 +59,7 @@
     },
     {
       "name": "SoundQueue_Queue",
-      "source": "src/core/sound/animation_manager_queue_resource.cpp",
+      "source": "src/core/sound/sound_queue.cpp",
       "symbol": "?Queue@SoundQueue@@QAEHHH@Z",
       "section": ".text$05queue",
       "address": "0x0043DC90",

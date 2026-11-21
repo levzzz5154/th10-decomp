@@ -2514,5 +2514,8 @@
     "?Stage_StartQuadScripts@@YGXPAUStage2@@@Z",
     "?Music_Play@@YGHHH@Z"
   ],
-  "included_sources": []
+  "included_sources": [
+    "build_support/layout/ltcg/front_initialize/load_script_body.cpp",
+    "src/core/sound/sound_queue.cpp"
+  ]
 }

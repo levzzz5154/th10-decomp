@@ -42,9 +42,9 @@ extern "C" int __stdcall recovery_replace_extension(int selector, const char* pa
 extern "C" int __stdcall recovery_play_dummy(int selector, int slot);
 
 extern "C" void* __fastcall UiFinalFind(void* lookup,
-    RecoveryLookupContext* context, RecoveryScriptId id);
+    RecoveryLookupContext* context, AnimationScriptId id);
 static __forceinline RecoveryMusicVm* MusicFind(unsigned int handle) {
-    RecoveryScriptId id = { static_cast<int>(handle) };
+    AnimationScriptId id = { static_cast<int>(handle) };
     return static_cast<RecoveryMusicVm*>(
         UiFinalFind(g_sprt_ctrl,
             reinterpret_cast<RecoveryLookupContext*>(g_sprt_ctrl), id));
@@ -105,7 +105,7 @@ static __forceinline RecoveryMusicVm* MusicValidateInPlace(RecoveryHandle* handl
     RecoveryMusicVm* object = static_cast<RecoveryMusicVm*>(
         UiFinalFind(g_sprt_ctrl,
             reinterpret_cast<RecoveryLookupContext*>(g_sprt_ctrl),
-            *reinterpret_cast<RecoveryScriptId*>(&handle->value)));
+            *reinterpret_cast<AnimationScriptId*>(&handle->value)));
     if (object == 0)
         handle->value = 0;
     return object;
@@ -176,7 +176,7 @@ __declspec(noinline) int __stdcall TitleMusicRoom(Title* room) {
             MusicSelect(room->cursor, 0);
             if (UiFinalFind(g_sprt_ctrl,
                             reinterpret_cast<RecoveryLookupContext*>(g_sprt_ctrl),
-                            *reinterpret_cast<RecoveryScriptId*>(&room->animation_slots[95])) == 0) {
+                            room->animation_slots[95]) == 0) {
                 RecoveryMusicInstallSlot(room, 95);
                 void* resource = g_ascii_manager->animation_resource;
                 void** result = AnimationManager_CreatePrimaryBack(resource, &handle, 8, 15);

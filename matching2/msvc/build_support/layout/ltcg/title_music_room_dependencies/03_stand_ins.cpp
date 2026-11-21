@@ -36,7 +36,7 @@ extern "C" __declspec(noinline) char* __stdcall UiFinalExtractLine(char* destina
 #include "th10/game/title_menu.hpp"
 #pragma code_seg(".text$004491c0_fn")
 extern "C" __declspec(noinline) void* __fastcall UiFinalFind(
-        void* lookup, RecoveryLookupContext* context, RecoveryScriptId id) {
+        void* lookup, RecoveryLookupContext* context, AnimationScriptId id) {
     RecoveryLookupNode* node;
     unsigned int value = static_cast<unsigned int>(id.value);
     if (!value)

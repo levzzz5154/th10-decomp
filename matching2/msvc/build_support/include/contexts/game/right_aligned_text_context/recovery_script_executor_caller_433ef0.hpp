@@ -2,7 +2,7 @@
 #define TH10_RECOVERY_SCRIPT_EXECUTOR_CALLER_00433EF0_HPP
 
 #include <stddef.h>
-#include "menu_cursor.hpp"
+#include "th10/game/title_input.hpp"
 #include "recovery_script_executor.hpp"
 
 struct RecoveryMusicVector { float x, y, z; };
@@ -50,7 +50,7 @@ struct Title {
     MenuCursor cursor;
     unsigned char reserved_0fc[0x2B0 - 0xFC];
     RecoveryTimer2 timer;
-    unsigned int animation_slots[195]; // +2C4 through +5CC
+    AnimationScriptId animation_slots[195]; // +2C4 through +5CC
     RecoveryHandle fallback_handle;
     unsigned char reserved_5d4[0x614 - 0x5D4];
     RecoveryHandle row_handles[20];
@@ -64,7 +64,10 @@ struct Title {
     char comments[32][66];
     char preview_lines[32][8][66];
     int scroll_origin;
-    unsigned char reserved_58dc[0x5AAC - 0x58DC];
+    TitleNameKeyboard keyboard;
+    short edited_key_bindings[5];
+    unsigned char reserved_59d6[2];
+    TitleReplayList replay_list;
     char* file_buffer;
 
     __declspec(noinline) void SetTimerTarget(int target);
@@ -89,6 +92,9 @@ typedef char RecoveryMusicRoomTitlesCheck[offsetof(Title,titles)==0x698?1:-1];
 typedef char RecoveryMusicRoomCommentsCheck[offsetof(Title,comments)==0xE98?1:-1];
 typedef char RecoveryMusicRoomLinesCheck[offsetof(Title,preview_lines)==0x16D8?1:-1];
 typedef char RecoveryMusicRoomScrollCheck[offsetof(Title,scroll_origin)==0x58D8?1:-1];
+typedef char TitleKeyboardOffset[offsetof(Title, keyboard) == 0x58DC ? 1 : -1];
+typedef char TitleBindingsOffset[offsetof(Title, edited_key_bindings) == 0x59CC ? 1 : -1];
+typedef char TitleReplayListOffset[offsetof(Title, replay_list) == 0x59D8 ? 1 : -1];
 typedef char RecoveryMusicRoomBufferCheck[offsetof(Title,file_buffer)==0x5AAC?1:-1];
 typedef char RecoveryMusicVmDepthCheck[offsetof(RecoveryMusicVm,stop_frame)==0x304?1:-1];
 typedef char RecoveryMusicVmPositionCheck[offsetof(RecoveryMusicVm,position)==0x334?1:-1];

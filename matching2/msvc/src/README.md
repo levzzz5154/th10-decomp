@@ -47,11 +47,51 @@ compiler contexts, placement tables, import thunks and embedded `.text` data
 live under [`../build_support/`](../build_support/README.md). Some maintained
 files are compiled through private wrappers which preserve retail function
 order; use the top-level `make` rather than compiling folders independently.
-Runtime layout declarations remain under `include/th10/`.
+Runtime layout declarations live under `include/th10/`. For stage selection,
+[`stage_route.hpp`](../include/th10/game/stage_route.hpp) describes the eight
+resource records shared by stage startup, title, replay and score code. The
+score screens use the address *after* those records as a marker; it is not a
+ninth stage to load.
+
+The title's 195 animation slots hold [`AnimationScriptId`](../include/th10/render/animation_script_id.hpp)
+values. A slot contains an ID to look up in the sprite manager, not a pointer
+to an animation object.
+[`title_input.hpp`](../include/th10/game/title_input.hpp) defines the name
+keyboard shared by score entry and replay saving, and the same 50 replay
+slots used by replay selection. [`title_score_file.hpp`](../include/th10/game/title_score_file.hpp)
+places the score tables, practice unlocks and last entered name in one layout.
+Difficulty, replay, spell-record and score-name selection use the same
+[`EnsureTitleMenuBackdrop`](../include/th10/game/difficulty_select_update.hpp)
+to install slot 94 and retain the back-layer animation handle.
+
+[`SoundQueue::Queue`](core/sound/sound_queue.cpp) owns sound-request batching.
+The item, title, HUD and projectile compiler contexts include this body rather
+than separate copies; a context selects only its native code section.
+
+[`LoadScript2`](core/sprtanim/animation_object_load_script.cpp) installs an
+animation script and runs its first tick. Its private LTCG caller views do not
+all have the same signature. The laser and item-line contexts share the
+[loader that returns the sprite manager](../build_support/layout/ltcg/laser_grow/loader.cpp);
+the player contexts share a
+[void loader](../build_support/layout/ltcg/update_player_dependencies/item_spawn_0041bb00_loader.cpp).
+The [front loader](../build_support/layout/ltcg/front_initialize/load_script_body.cpp)
+uses the front HUD's own type declarations in both initialization and stage update.
 
 `crt/` contains maintained C-runtime functions, `static_init/` contains the
 compiler-generated global initializers and destructors, and `unreferenced/`
 contains recovered code nothing in the game calls.
+
+For script execution, start at the dispatcher for the bytecode you are reading:
+
+- [`EclVm::Run`](script/sptcmd/ecl_core_interpreter.cpp) checks instruction
+  time and rank, runs stack and control-flow operations, and delegates
+  game-specific instructions to the owner.
+- [`Enemy::Execute2`](game/enemy/enemy_execute.cpp) implements enemy ECL
+  operations, including spawning, movement, animation and shooting. Cases
+  stay in compiler order; the group comments identify related operations.
+- [`AnmVm::Tick`](core/sprtanim/anm_vm_tick.cpp) runs animation instructions
+  due this frame. A jump installs a new PC; a wait can keep the current PC
+  while motion and interpolation still advance.
 
 The game-file boundaries, including the info/query leaves before constructors:
 

@@ -55,7 +55,10 @@ extern "C" void __stdcall LoadScript2(AnimationResourceFile* resource,
                                              AnimationObjectFile* object,
                                              int index);
 
-#pragma code_seg(".text$100loader")
+#ifndef TH10_LOAD_SCRIPT_SECTION
+#define TH10_LOAD_SCRIPT_SECTION ".text$100loader"
+#endif
+#pragma code_seg(TH10_LOAD_SCRIPT_SECTION)
 __declspec(noinline) void __stdcall LoadScript2(
     AnimationResourceFile* resource, AnimationObjectFile* object,
     int index) {
@@ -89,3 +92,4 @@ __declspec(noinline) void __stdcall LoadScript2(
     ++static_cast<AnimationManager10*>(g_sprt_ctrl)->script_tick_counter;
 }
 #pragma code_seg()
+#undef TH10_LOAD_SCRIPT_SECTION

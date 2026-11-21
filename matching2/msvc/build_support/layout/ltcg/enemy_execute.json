@@ -1,0 +1,949 @@
+{
+  "schema_version": 1,
+  "name": "enemy_execute",
+  "source": "src/game/enemy/enemy_execute.cpp",
+  "driver": "build_support/layout/ltcg/enemy_execute_context.cpp",
+  "additional_sources": [
+    "build_support/layout/ltcg/enemy_execute_dependencies/callees.cpp"
+  ],
+  "headers": [
+    "include/th10/script/ecl_float_values.hpp",
+    "include/th10/runtime/game/enemy/enemy_execute.hpp",
+    "include/th10/runtime/script/sptcmd/ecl_core_interpreter.hpp"
+  ],
+  "image_base": "0x00400000",
+  "description": "Enemy-specific ECL instruction dispatch at 0x0040E770, with unselected callee and caller context to recover its native calling conventions.",
+  "functions": [
+    {
+      "name": "Enemy::Execute2",
+      "symbol": "?Execute2@Enemy@@QAEHXZ",
+      "section": ".text$0040e770_fn",
+      "address": "0x0040E770",
+      "size": 14416,
+      "actual_abi": "Enemy in ECX; integer result in EAX. Inline tables are part of this one compiler contribution."
+    }
+  ],
+  "anchors": [
+    {
+      "symbol": "?FloatValue@EclVm@@SGMHPAU1@M@Z",
+      "section": ".text$0044ff80_fn",
+      "address": "0x0044FF80",
+      "size": 171,
+      "name": "?FloatValue@EclVm@@SGMHPAU1@M@Z"
+    },
+    {
+      "symbol": "?IntOperand@EclVm@@QAEHH@Z",
+      "section": ".text$0044fdb0_fn",
+      "address": "0x0044FDB0",
+      "size": 144,
+      "name": "?IntOperand@EclVm@@QAEHH@Z"
+    },
+    {
+      "symbol": "?IntValue@EclVm@@QAEHHH@Z",
+      "section": ".text$0044ff00_fn",
+      "address": "0x0044FF00",
+      "size": 124,
+      "name": "?IntValue@EclVm@@QAEHHH@Z"
+    },
+    {
+      "symbol": "?FloatDest@EclVm@@QAEPAMH@Z",
+      "section": ".text$00450070_fn",
+      "address": "0x00450070",
+      "size": 93,
+      "name": "?FloatDest@EclVm@@QAEPAMH@Z"
+    },
+    {
+      "symbol": "?FloatOperand@EclVm@@QAEMH@Z",
+      "section": ".text$0044fe40_fn",
+      "address": "0x0044FE40",
+      "size": 183,
+      "name": "?FloatOperand@EclVm@@QAEMH@Z"
+    },
+    {
+      "symbol": "?FloatValue2@Enemy@@QAEMHM@Z",
+      "section": ".text$00412aa0_fn",
+      "address": "0x00412AA0",
+      "size": 26,
+      "name": "?FloatValue2@Enemy@@QAEMHM@Z"
+    },
+    {
+      "symbol": "?IntArg@Enemy@@QAEHH@Z",
+      "section": ".text$00412a00_fn",
+      "address": "0x00412A00",
+      "size": 16,
+      "name": "?IntArg@Enemy@@QAEHH@Z"
+    },
+    {
+      "symbol": "?IntDest2@Enemy@@QAEPAHH@Z",
+      "section": ".text$00412a10_fn",
+      "address": "0x00412A10",
+      "size": 75,
+      "name": "?IntDest2@Enemy@@QAEPAHH@Z"
+    },
+    {
+      "symbol": "?Set2@FrameTimer@@QAEXH@Z",
+      "section": ".text$00405410_fn",
+      "address": "0x00405410",
+      "size": 57,
+      "name": "?Set2@FrameTimer@@QAEXH@Z"
+    },
+    {
+      "symbol": "?Restart2@Float3Interp@@QAEXXZ",
+      "section": ".text$004050d0_fn",
+      "address": "0x004050D0",
+      "size": 50,
+      "name": "?Restart2@Float3Interp@@QAEXXZ"
+    },
+    {
+      "symbol": "?Restart3@Float2Interp@@QAEXXZ",
+      "section": ".text$00412db0_fn",
+      "address": "0x00412DB0",
+      "size": 50,
+      "name": "?Restart3@Float2Interp@@QAEXXZ"
+    },
+    {
+      "symbol": "?NextFloatSigned@RngState@@QAEMXZ",
+      "section": ".text$0044bb90_fn",
+      "address": "0x0044BB90",
+      "size": 115,
+      "name": "?NextFloatSigned@RngState@@QAEMXZ"
+    },
+    {
+      "symbol": "?Release2@AnmHandle@@QAEXXZ",
+      "section": ".text$00449630_fn",
+      "address": "0x00449630",
+      "size": 23,
+      "name": "?Release2@AnmHandle@@QAEXXZ"
+    },
+    {
+      "symbol": "?Show2@AnmHandle@@QAEXXZ",
+      "section": ".text$004495e0_fn",
+      "address": "0x004495E0",
+      "size": 67,
+      "name": "?Show2@AnmHandle@@QAEXXZ"
+    },
+    {
+      "symbol": "?Hide2@AnmHandle@@QAEXXZ",
+      "section": ".text$00449590_fn",
+      "address": "0x00449590",
+      "size": 67,
+      "name": "?Hide2@AnmHandle@@QAEXXZ"
+    },
+    {
+      "symbol": "?Anm_CreateBack@@YGPAUAnmHandle@@PAUAnmLoaded@@PAU1@HH@Z",
+      "section": ".text$00448d00_fn",
+      "address": "0x00448D00",
+      "size": 83,
+      "name": "?Anm_CreateBack@@YGPAUAnmHandle@@PAUAnmLoaded@@PAU1@HH@Z"
+    },
+    {
+      "symbol": "?Anm_CreateFront@@YGPAUAnmHandle@@PAUAnmLoaded@@PAU1@HH@Z",
+      "section": ".text$00448e30_fn",
+      "address": "0x00448E30",
+      "size": 83,
+      "name": "?Anm_CreateFront@@YGPAUAnmHandle@@PAUAnmLoaded@@PAU1@HH@Z"
+    },
+    {
+      "symbol": "?Anm_Resolve2@@YGPAUAnmVm@@PAUAnmHandle@@@Z",
+      "section": ".text$00449450_fn",
+      "address": "0x00449450",
+      "size": 20,
+      "name": "?Anm_Resolve2@@YGPAUAnmVm@@PAUAnmHandle@@@Z"
+    },
+    {
+      "symbol": "?OffsetPoint2@@YGPAUFloat3@@PBU1@@Z",
+      "section": ".text$00418810_fn",
+      "address": "0x00418810",
+      "size": 64,
+      "name": "?OffsetPoint2@@YGPAUFloat3@@PBU1@@Z"
+    },
+    {
+      "symbol": "?Apply@RigCamera@@QAEXXZ",
+      "section": ".text$004215a0_fn",
+      "address": "0x004215A0",
+      "size": 87,
+      "name": "?Apply@RigCamera@@QAEXXZ"
+    },
+    {
+      "symbol": "?SelectStage2@RenderStageState@@QAEXH@Z",
+      "section": ".text$00401d20_fn",
+      "address": "0x00401D20",
+      "size": 60,
+      "name": "?SelectStage2@RenderStageState@@QAEXH@Z"
+    },
+    {
+      "symbol": "?EnemyCtrl_Spawn@@YGPAUEnemyFull@@PBUEnemySpawn@@PAUEnemyCtrl@@PBD@Z",
+      "section": ".text$0040cfb0_fn",
+      "address": "0x0040CFB0",
+      "size": 605,
+      "name": "?EnemyCtrl_Spawn@@YGPAUEnemyFull@@PBUEnemySpawn@@PAUEnemyCtrl@@PBD@Z"
+    },
+    {
+      "symbol": "?EnemyCtrl_SweepDeaths@@YGXPAUEnemyCtrl@@@Z",
+      "section": ".text$0040e6a0_fn",
+      "address": "0x0040E6A0",
+      "size": 121,
+      "name": "?EnemyCtrl_SweepDeaths@@YGXPAUEnemyCtrl@@@Z"
+    },
+    {
+      "symbol": "?Enemy_BindSlot@@YGXPAUEnemyFull@@HHHPBD@Z",
+      "section": ".text$00412720_fn",
+      "address": "0x00412720",
+      "size": 48,
+      "name": "?Enemy_BindSlot@@YGXPAUEnemyFull@@HHHPBD@Z"
+    },
+    {
+      "symbol": "?Rig_Scatter@@YGXPBUFloat3@@PAUItemDrops@@@Z",
+      "section": ".text$00401000_park",
+      "address": "0x00401000",
+      "size": 193,
+      "name": "?Rig_Scatter@@YGXPBUFloat3@@PAUItemDrops@@@Z"
+    },
+    {
+      "symbol": "?Drops_Flush@@YGXPAUItemDrops@@PBUFloat3@@@Z",
+      "section": ".text$0040c9a0_fn",
+      "address": "0x0040C9A0",
+      "size": 48,
+      "name": "?Drops_Flush@@YGXPAUItemDrops@@PBUFloat3@@@Z"
+    },
+    {
+      "symbol": "?ShooterShoot@@YGHPAUBulletManager@@PAUShooter@@@Z",
+      "section": ".text$004073e0_fn",
+      "address": "0x004073E0",
+      "size": 216,
+      "name": "?ShooterShoot@@YGHPAUBulletManager@@PAUShooter@@@Z"
+    },
+    {
+      "symbol": "?Sweep2@BulletManager@@QAEHH@Z",
+      "section": ".text$00408210_fn",
+      "address": "0x00408210",
+      "size": 383,
+      "name": "?Sweep2@BulletManager@@QAEHH@Z"
+    },
+    {
+      "symbol": "?Check2@BulletManager@@QAEHPBUFloat3@@MHH@Z",
+      "section": ".text$00408100_fn",
+      "address": "0x00408100",
+      "size": 262,
+      "name": "?Check2@BulletManager@@QAEHPBUFloat3@@MHH@Z"
+    },
+    {
+      "symbol": "?Cleanup2@LaserManager@@QAEHH@Z",
+      "section": ".text$0041c850_fn",
+      "address": "0x0041C850",
+      "size": 44,
+      "name": "?Cleanup2@LaserManager@@QAEHH@Z"
+    },
+    {
+      "symbol": "?FindById2@LaserManager@@QAEPAULaser@@H@Z",
+      "section": ".text$0040cf90_fn",
+      "address": "0x0040CF90",
+      "size": 22,
+      "name": "?FindById2@LaserManager@@QAEPAULaser@@H@Z"
+    },
+    {
+      "symbol": "?Evaluate2@LaserManager@@QAEHPBUFloat3@@MH@Z",
+      "section": ".text$0041c800_fn",
+      "address": "0x0041C800",
+      "size": 76,
+      "name": "?Evaluate2@LaserManager@@QAEHPBUFloat3@@MH@Z"
+    },
+    {
+      "symbol": "?MarkEligible2@LaserManager@@QAEHXZ",
+      "section": ".text$0041c7d0_fn",
+      "address": "0x0041C7D0",
+      "size": 44,
+      "name": "?MarkEligible2@LaserManager@@QAEHXZ"
+    },
+    {
+      "symbol": "?SetVector@Laser@@QAEXABUFloat3@@@Z",
+      "section": ".text$0040cf60_fn",
+      "address": "0x0040CF60",
+      "size": 23,
+      "name": "?SetVector@Laser@@QAEXABUFloat3@@@Z"
+    },
+    {
+      "symbol": "?Rig_LaserConstruct@@YGPAXPAX@Z",
+      "section": ".text$004010d0_park",
+      "address": "0x004010D0",
+      "size": 29,
+      "name": "?Rig_LaserConstruct@@YGPAXPAX@Z"
+    },
+    {
+      "symbol": "?Rig_LaserConstruct2@@YGPAXPAX@Z",
+      "section": ".text$004010f0_park",
+      "address": "0x004010F0",
+      "size": 29,
+      "name": "?Rig_LaserConstruct2@@YGPAXPAX@Z"
+    },
+    {
+      "symbol": "?Spawn2@LaserManager@@QAEHPBULaserParams@@H@Z",
+      "section": ".text$0041c510_fn",
+      "address": "0x0041C510",
+      "size": 160,
+      "name": "?Spawn2@LaserManager@@QAEHPBULaserParams@@H@Z"
+    },
+    {
+      "symbol": "?Construct2@BeamLaserParams@@QAEPAU1@XZ",
+      "section": ".text$0040cf40_fn",
+      "address": "0x0040CF40",
+      "size": 23,
+      "name": "?Construct2@BeamLaserParams@@QAEPAU1@XZ"
+    },
+    {
+      "symbol": "?CreateScoreDisplay2@Gui@@QAEXH@Z",
+      "section": ".text$00415db0_fn",
+      "address": "0x00415DB0",
+      "size": 72,
+      "name": "?CreateScoreDisplay2@Gui@@QAEXH@Z"
+    },
+    {
+      "symbol": "?QueuePan2@SoundQueue@@QAEXHM@Z",
+      "section": ".text$0043dd10_fn",
+      "address": "0x0043DD10",
+      "size": 149,
+      "name": "?QueuePan2@SoundQueue@@QAEXHM@Z"
+    },
+    {
+      "symbol": "?Configure@RigEffect@@QAEXHHHHHH@Z",
+      "section": ".text$00401110_park",
+      "address": "0x00401110",
+      "size": 140,
+      "name": "?Configure@RigEffect@@QAEXHHHHHH@Z"
+    },
+    {
+      "symbol": "?Screen_Create@@YGPAXHHHHHH@Z",
+      "section": ".text$0043c8b0_fn",
+      "address": "0x0043C8B0",
+      "size": 76,
+      "name": "?Screen_Create@@YGPAXHHHHHH@Z"
+    },
+    {
+      "symbol": "?Score_SetMode2@@YGXPAUScoreState@@H@Z",
+      "section": ".text$00412ed0_fn",
+      "address": "0x00412ED0",
+      "size": 16,
+      "name": "?Score_SetMode2@@YGXPAUScoreState@@H@Z"
+    },
+    {
+      "symbol": "?Rig_StopAtFrame1@@YGXPAUAnmHandle@@@Z",
+      "section": ".text$004011a0_park",
+      "address": "0x004011A0",
+      "size": 41,
+      "name": "?Rig_StopAtFrame1@@YGXPAUAnmHandle@@@Z"
+    },
+    {
+      "symbol": "?End2@Card@@QAEXXZ",
+      "section": ".text$00409c00_fn",
+      "address": "0x00409C00",
+      "size": 280,
+      "name": "?End2@Card@@QAEXXZ"
+    },
+    {
+      "symbol": "?StopAnimation@Card@@QAEXXZ",
+      "section": ".text$0040cea0_fn",
+      "address": "0x0040CEA0",
+      "size": 46,
+      "name": "?StopAnimation@Card@@QAEXXZ"
+    },
+    {
+      "symbol": "?Card_Start@@YGXPAUCard@@HPBDHH@Z",
+      "section": ".text$00409280_fn",
+      "address": "0x00409280",
+      "size": 79,
+      "name": "?Card_Start@@YGXPAUCard@@HPBDHH@Z"
+    },
+    {
+      "symbol": "_EnemyVectorAddresses@4",
+      "section": ".text$00401280_park",
+      "address": "0x00401280",
+      "size": 27,
+      "name": "_EnemyVectorAddresses@4"
+    }
+  ],
+  "context": {
+    "symbol": "_RigEntry@8",
+    "section": ".text$004011d0_park",
+    "address": "0x004011D0",
+    "size": 171,
+    "description": "Call-site context for the native link; not recovered code."
+  },
+  "gaps": [
+    {
+      "section": ".text$004010c1_gap",
+      "address": "0x004010C1",
+      "size": 15
+    },
+    {
+      "section": ".text$004010ed_gap",
+      "address": "0x004010ED",
+      "size": 3
+    },
+    {
+      "section": ".text$0040110d_gap",
+      "address": "0x0040110D",
+      "size": 3
+    },
+    {
+      "section": ".text$0040119c_gap",
+      "address": "0x0040119C",
+      "size": 4
+    },
+    {
+      "section": ".text$004011c9_gap",
+      "address": "0x004011C9",
+      "size": 7
+    },
+    {
+      "section": ".text$0040127b_gap",
+      "address": "0x0040127B",
+      "size": 5
+    },
+    {
+      "section": ".text$0040129b_gap",
+      "address": "0x0040129B",
+      "size": 2693
+    },
+    {
+      "section": ".text$00401d5c_gap",
+      "address": "0x00401D5C",
+      "size": 13172
+    },
+    {
+      "section": ".text$00405102_gap",
+      "address": "0x00405102",
+      "size": 782
+    },
+    {
+      "section": ".text$00405449_gap",
+      "address": "0x00405449",
+      "size": 8087
+    },
+    {
+      "section": ".text$004074b8_gap",
+      "address": "0x004074B8",
+      "size": 3144
+    },
+    {
+      "section": ".text$00408206_gap",
+      "address": "0x00408206",
+      "size": 10
+    },
+    {
+      "section": ".text$0040838f_gap",
+      "address": "0x0040838F",
+      "size": 3825
+    },
+    {
+      "section": ".text$004092cf_gap",
+      "address": "0x004092CF",
+      "size": 2353
+    },
+    {
+      "section": ".text$00409d18_gap",
+      "address": "0x00409D18",
+      "size": 11400
+    },
+    {
+      "section": ".text$0040c9d0_gap",
+      "address": "0x0040C9D0",
+      "size": 1232
+    },
+    {
+      "section": ".text$0040cece_gap",
+      "address": "0x0040CECE",
+      "size": 114
+    },
+    {
+      "section": ".text$0040cf57_gap",
+      "address": "0x0040CF57",
+      "size": 9
+    },
+    {
+      "section": ".text$0040cf77_gap",
+      "address": "0x0040CF77",
+      "size": 25
+    },
+    {
+      "section": ".text$0040cfa6_gap",
+      "address": "0x0040CFA6",
+      "size": 10
+    },
+    {
+      "section": ".text$0040d20d_gap",
+      "address": "0x0040D20D",
+      "size": 5267
+    },
+    {
+      "section": ".text$0040e719_gap",
+      "address": "0x0040E719",
+      "size": 87
+    },
+    {
+      "section": ".text$00411fc0_gap",
+      "address": "0x00411FC0",
+      "size": 1888
+    },
+    {
+      "section": ".text$00412750_gap",
+      "address": "0x00412750",
+      "size": 688
+    },
+    {
+      "section": ".text$00412a5b_gap",
+      "address": "0x00412A5B",
+      "size": 69
+    },
+    {
+      "section": ".text$00412aba_gap",
+      "address": "0x00412ABA",
+      "size": 758
+    },
+    {
+      "section": ".text$00412de2_gap",
+      "address": "0x00412DE2",
+      "size": 238
+    },
+    {
+      "section": ".text$00412ee0_gap",
+      "address": "0x00412EE0",
+      "size": 11984
+    },
+    {
+      "section": ".text$00415df8_gap",
+      "address": "0x00415DF8",
+      "size": 10776
+    },
+    {
+      "section": ".text$00418850_gap",
+      "address": "0x00418850",
+      "size": 15552
+    },
+    {
+      "section": ".text$0041c5b0_gap",
+      "address": "0x0041C5B0",
+      "size": 544
+    },
+    {
+      "section": ".text$0041c7fc_gap",
+      "address": "0x0041C7FC",
+      "size": 4
+    },
+    {
+      "section": ".text$0041c84c_gap",
+      "address": "0x0041C84C",
+      "size": 4
+    },
+    {
+      "section": ".text$0041c87c_gap",
+      "address": "0x0041C87C",
+      "size": 19748
+    },
+    {
+      "section": ".text$004215f7_gap",
+      "address": "0x004215F7",
+      "size": 111289
+    },
+    {
+      "section": ".text$0043c8fc_gap",
+      "address": "0x0043C8FC",
+      "size": 5140
+    },
+    {
+      "section": ".text$0043dda5_gap",
+      "address": "0x0043DDA5",
+      "size": 44891
+    },
+    {
+      "section": ".text$00448d53_gap",
+      "address": "0x00448D53",
+      "size": 221
+    },
+    {
+      "section": ".text$00448e83_gap",
+      "address": "0x00448E83",
+      "size": 1485
+    },
+    {
+      "section": ".text$00449464_gap",
+      "address": "0x00449464",
+      "size": 300
+    },
+    {
+      "section": ".text$004495d3_gap",
+      "address": "0x004495D3",
+      "size": 13
+    },
+    {
+      "section": ".text$00449623_gap",
+      "address": "0x00449623",
+      "size": 13
+    },
+    {
+      "section": ".text$00449647_gap",
+      "address": "0x00449647",
+      "size": 9545
+    },
+    {
+      "section": ".text$0044bc03_gap",
+      "address": "0x0044BC03",
+      "size": 16813
+    },
+    {
+      "section": ".text$0044fef7_gap",
+      "address": "0x0044FEF7",
+      "size": 9
+    },
+    {
+      "section": ".text$0044ff7c_gap",
+      "address": "0x0044FF7C",
+      "size": 4
+    },
+    {
+      "section": ".text$0045002b_gap",
+      "address": "0x0045002B",
+      "size": 69
+    }
+  ],
+  "constants": [],
+  "constant_aliases": [
+    {
+      "symbol": "__real@41800000",
+      "address": "0x00470B48",
+      "value": 16.0
+    },
+    {
+      "symbol": "__real@43600000",
+      "address": "0x00470B4C",
+      "value": 224.0
+    },
+    {
+      "symbol": "__real@00000000",
+      "address": "0x00470B04",
+      "value": 0.0
+    },
+    {
+      "symbol": "__real@3fc90fdb",
+      "address": "0x00470B94",
+      "value": 1.5707963705062866
+    },
+    {
+      "symbol": "__real@40490fdb",
+      "address": "0x00470B18",
+      "value": 3.1415927410125732
+    },
+    {
+      "symbol": "__real@3f000000",
+      "address": "0x00470B0C",
+      "value": 0.5
+    },
+    {
+      "symbol": "__real@3a000000",
+      "address": "0x00470D48",
+      "value": 0.00048828125
+    },
+    {
+      "symbol": "__real@3eaaaaab",
+      "address": "0x00470CC4",
+      "value": 0.3333333432674408
+    },
+    {
+      "symbol": "__real@3f860a92",
+      "address": "0x00470D50",
+      "value": 1.0471975803375244
+    },
+    {
+      "symbol": "__real@3e800000",
+      "address": "0x00470D40",
+      "value": 0.25
+    },
+    {
+      "symbol": "__real@40c90fdb",
+      "address": "0x00470B14",
+      "value": 6.2831854820251465
+    }
+  ],
+  "data_aliases": [
+    {
+      "symbol": "__real@c12e847e00000000",
+      "address": "0x00470D58",
+      "bytes": "000000007e842ec1"
+    }
+  ],
+  "absolute_symbols": [
+    {
+      "symbol": "__fltused",
+      "address": "0x00000000",
+      "kind": "metadata"
+    },
+    {
+      "symbol": "?Angle_Normalize@@YGMM@Z",
+      "address": "0x0044BC70",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "?Motion_SetAngle@@YGXPAUEnemyMotion@@M@Z",
+      "address": "0x00413170",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "@ext_fc_spawn@20",
+      "address": "0x00401000",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "@ext_find@8",
+      "address": "0x00401000",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "@ext_find_node@12",
+      "address": "0x00401000",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "@ext_outside@16",
+      "address": "0x00401000",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "@ext_set_flag@12",
+      "address": "0x00401000",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_D3DXVec3Project2@24",
+      "address": "0x0045218E",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "__ftol2",
+      "address": "0x00463B2C",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_g_sound_priority",
+      "address": "0x004749CE",
+      "kind": "data"
+    },
+    {
+      "symbol": "_g_stage_progress",
+      "address": "0x00474C84",
+      "kind": "data"
+    },
+    {
+      "symbol": "_g_stage_progress_echo",
+      "address": "0x00474C8C",
+      "kind": "data"
+    },
+    {
+      "symbol": "_g_background",
+      "address": "0x004776E8",
+      "kind": "data"
+    },
+    {
+      "symbol": "_g_item_manager",
+      "address": "0x00477818",
+      "kind": "data"
+    },
+    {
+      "symbol": "_g_sprt_ctrl",
+      "address": "0x00491C10",
+      "kind": "data"
+    },
+    {
+      "symbol": "_ext_alloc_vm",
+      "address": "0x00401000",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_ext_call@8",
+      "address": "0x00401000",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_ext_construct@8",
+      "address": "0x00401000",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_ext_display@8",
+      "address": "0x00401000",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_ext_init_sprite@12",
+      "address": "0x00401000",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_ext_laser@8",
+      "address": "0x00401000",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_ext_new",
+      "address": "0x00401000",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_ext_register",
+      "address": "0x00401000",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_ext_shoot@16",
+      "address": "0x00401000",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_ext_spawn_item@24",
+      "address": "0x00401000",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_g_offset_point",
+      "address": "0x00497D80",
+      "kind": "data"
+    },
+    {
+      "symbol": "_g_offset_point_state",
+      "address": "0x00497D8C",
+      "kind": "data"
+    },
+    {
+      "symbol": "_g_enemy_rank_midpoint",
+      "address": "0x00470D4C",
+      "kind": "data"
+    },
+    {
+      "symbol": "@__security_check_cookie@4",
+      "address": "0x00458EA5",
+      "kind": "relative_code"
+    },
+    {
+      "symbol": "_flt_neg1",
+      "address": "0x00470B60",
+      "kind": "data"
+    },
+    {
+      "symbol": "_g_game_speed",
+      "address": "0x00476F78",
+      "kind": "data"
+    },
+    {
+      "symbol": "___security_cookie",
+      "address": "0x00473660",
+      "kind": "data"
+    },
+    {
+      "symbol": "_g_globals",
+      "address": "0x00474C40",
+      "kind": "data"
+    },
+    {
+      "symbol": "_g_laser_manager",
+      "address": "0x0047781C",
+      "kind": "data"
+    },
+    {
+      "symbol": "_g_application",
+      "address": "0x00491C28",
+      "kind": "data"
+    },
+    {
+      "symbol": "_g_projection_view_matrix",
+      "address": "0x00491E08",
+      "kind": "data"
+    },
+    {
+      "symbol": "_g_player",
+      "address": "0x00477834",
+      "kind": "data"
+    },
+    {
+      "symbol": "_g_effect_rng2",
+      "address": "0x004918B0",
+      "kind": "data"
+    },
+    {
+      "symbol": "_g_front",
+      "address": "0x0047770C",
+      "kind": "data"
+    },
+    {
+      "symbol": "_g_projection_world_matrix",
+      "address": "0x00491DC8",
+      "kind": "data"
+    },
+    {
+      "symbol": "_g_projection_matrix",
+      "address": "0x00491E48",
+      "kind": "data"
+    },
+    {
+      "symbol": "_g_card",
+      "address": "0x004776F4",
+      "kind": "data"
+    },
+    {
+      "symbol": "_g_sound_manager",
+      "address": "0x00492590",
+      "kind": "data"
+    },
+    {
+      "symbol": "_g_rank",
+      "address": "0x00474C98",
+      "kind": "data"
+    },
+    {
+      "symbol": "_g_bullet_manager",
+      "address": "0x004776F0",
+      "kind": "data"
+    },
+    {
+      "symbol": "_g_difficulty",
+      "address": "0x00474C74",
+      "kind": "data"
+    },
+    {
+      "symbol": "_g_enemy_project_viewport",
+      "address": "0x00474DF0",
+      "kind": "data"
+    },
+    {
+      "symbol": "_g_enemy_ctrl",
+      "address": "0x00477704",
+      "kind": "data"
+    },
+    {
+      "symbol": "_flt_0",
+      "address": "0x00470B04",
+      "kind": "data"
+    },
+    {
+      "symbol": "_g_zero_vector22",
+      "address": "0x00491C20",
+      "kind": "data"
+    },
+    {
+      "symbol": "_g_camera_offset",
+      "address": "0x00491D7C",
+      "kind": "data"
+    },
+    {
+      "symbol": "_g_zero_vector3f",
+      "address": "0x00491C14",
+      "kind": "data"
+    }
+  ],
+  "roots": [],
+  "anchor_roots": [
+    "_EnemyVectorAddresses@4"
+  ],
+  "included_sources": [
+    "src/script/sptcmd/ecl_int_value.cpp",
+    "src/script/sptcmd/ecl_float_value.cpp",
+    "src/script/sptcmd/ecl_int_operand.cpp"
+  ]
+}

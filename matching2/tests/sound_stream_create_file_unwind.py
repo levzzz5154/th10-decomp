@@ -4,10 +4,10 @@ import argparse
 from pathlib import Path
 import tempfile
 
+from x86_fixture import ROOT, load_fixture
 from sound_stream_create_memory_unwind import UnwindExecution as MemoryUnwindExecution, Injected
 from sound_stream_create_file_differential import (
-    Case, Execution, compile_candidates, CREATE_FILE, CLOSE_FILE,
-    ROOT, PEImage, load_manifest, load_oracle, difference)
+    Case, Execution, compile_candidates, CREATE_FILE, CLOSE_FILE, difference)
 from music_cursor_differential import SEEK
 
 
@@ -23,17 +23,11 @@ class UnwindExecution(MemoryUnwindExecution, Execution):
         super().hook(machine, address, size, context)
 
 
-import sys as _project_sys
-from pathlib import Path as _ProjectPath
-_project_sys.path.insert(0, str(_ProjectPath(__file__).resolve().parents[2]))
-from matching2.tools.common.project_paths import project_support
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--oracle", type=Path, default=ROOT / "matching2/build/oracle/th10.exe")
     options = parser.parse_args()
-    config = load_manifest(project_support((ROOT) / 'matching2/msvc', 'regions.json'))
-    load_oracle(options.oracle, config)
-    image = PEImage(options.oracle.read_bytes())
+    _, image = load_fixture(options.oracle)
     with tempfile.TemporaryDirectory(prefix="th10-create-file-unwind-") as temporary:
         compiled = compile_candidates(Path(temporary))
         comparisons = 0

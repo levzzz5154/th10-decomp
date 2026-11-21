@@ -14,10 +14,11 @@ import tempfile
 
 from unicorn import UC_HOOK_CODE, UC_HOOK_INTR
 from unicorn.x86_const import UC_X86_REG_EAX, UC_X86_REG_ECX, UC_X86_REG_EDX, UC_X86_REG_ESI
+
+from x86_fixture import ROOT, CANDIDATE, STOP, load_fixture, maintained_region
 from sound_stream_create_file_differential import (
     Case as FileCase, Execution as FileExecution, compile_candidates as compile_factory,
-    FACTORY_SYMBOL, PATH, CLOSE_FILE, COMMON, ROOT, CANDIDATE, STOP, STATE, RECORD,
-    ALT_RECORD, OWNER, PEImage, load_manifest, load_oracle, difference)
+    FACTORY_SYMBOL, PATH, CLOSE_FILE, COMMON, STATE, RECORD, ALT_RECORD, OWNER, difference)
 from sound_stream_initialize_differential import (
     ALLOCATE, FREE, RELEASE, CREATE, QUERY, SET_NOTICES, RELEASE_NOTIFY, POSITION,
     STREAM, TABLE, ALT_TABLE, ALT_OWNER, DEVICE, HEAP)
@@ -30,7 +31,7 @@ STOP_MUSIC, CREATE_EVENT, CREATE_THREAD, FACTORY, POST, WAIT, DESTROY, AGG_STOP 
 STREAM_TABLE = STATE + 0x3300
 LAUNCH_SYMBOL = "_SoundStream_LaunchFile_0043d690@8"
 STOP_SYMBOL = "_Sound_StopMusicWorker_0043dab0@4"
-AGG_SYMBOL = "?Aggregate@PlatformInterfaceState_0044D550@@QAEHXZ"
+AGGREGATE_REGION = maintained_region(0x44D550)
 
 
 @dataclass(frozen=True)
@@ -54,7 +55,7 @@ class Case(FileCase):
 def compile_candidates(directory):
     factory = compile_factory(directory)
     obj = directory / "aggregate.obj"
-    subprocess.run([*COMMON, "-c", str(ROOT / "matching2/msvc/src/game/platform_aggregate_interfaces_0044d550.cpp"),
+    subprocess.run([*COMMON, "-c", str(AGGREGATE_REGION.source),
                     "-o", str(obj)], check=True, timeout=60)
     aggregate = load_module(obj, CANDIDATE + 0x12000, {})
     obj = directory / "stop-music.obj"
@@ -63,7 +64,7 @@ def compile_candidates(directory):
     stop = load_module(obj, CANDIDATE + 0x10000, {
         "_g_sound_post_thread_message": 0x466210, "_g_sound_wait_for_object": 0x46611C,
         "_g_sound_close_handle": 0x4660CC,
-        "@Sound_AggregateInterfaces_0044d550@4": aggregate.symbols[AGG_SYMBOL]})
+        "@Sound_AggregateInterfaces_0044d550@4": aggregate.symbols[AGGREGATE_REGION.symbol]})
     obj = directory / "launch-file.obj"
     subprocess.run([*COMMON, "-c", str(ROOT / "matching2/reference/semantic_candidates/sound_stream_launch.cpp"),
                     "-o", str(obj)], check=True, timeout=60)
@@ -259,17 +260,11 @@ def cases():
         yield Case(integrated=True, mutations=((trigger, writes),))
 
 
-import sys as _project_sys
-from pathlib import Path as _ProjectPath
-_project_sys.path.insert(0, str(_ProjectPath(__file__).resolve().parents[2]))
-from matching2.tools.common.project_paths import project_support
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--oracle", type=Path, default=ROOT / "matching2/build/oracle/th10.exe")
     options = parser.parse_args()
-    config = load_manifest(project_support((ROOT) / 'matching2/msvc', 'regions.json'))
-    load_oracle(options.oracle, config)
-    image = PEImage(options.oracle.read_bytes())
+    _, image = load_fixture(options.oracle)
     with tempfile.TemporaryDirectory(prefix="th10-launch-file-stream-") as temporary:
         compiled = compile_candidates(Path(temporary))
         totals, faults = [0, 0], [0, 0]

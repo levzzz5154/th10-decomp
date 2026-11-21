@@ -167,6 +167,7 @@
     }
   ],
   "included_sources": [
+    "src/core/sound/sound_queue.cpp",
     "build_support/layout/ltcg/animation_lookup_anchors.cpp"
   ]
 }

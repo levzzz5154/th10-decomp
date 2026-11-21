@@ -18,8 +18,8 @@ import tempfile
 
 from unicorn import Uc, UcError, UC_ARCH_X86, UC_MODE_32, UC_HOOK_CODE, UC_HOOK_MEM_INVALID, UC_HOOK_INTR
 from unicorn.x86_const import UC_X86_REG_EAX, UC_X86_REG_EBX, UC_X86_REG_ECX, UC_X86_REG_ESI, UC_X86_REG_EDI, UC_X86_REG_ESP, UC_X86_REG_EIP
-from lzss_compressor_differential import (
-    ROOT, CANDIDATE, STACK, STOP, PRESERVED, PEImage, load_manifest, load_oracle)
+
+from x86_fixture import ROOT, CANDIDATE, STACK, STOP, PRESERVED, load_fixture, maintained_region
 from coff_module import load_module
 
 STATE = 0x2500000
@@ -30,10 +30,10 @@ FIND, RUN, FILL, REWIND, VOLUME, START = (STOP + 0x100 * i for i in range(1, 7))
 STATUS, RESTORE, SLEEP, PLAY, POSITION, SET_VOLUME, RANDOM, ALT_PLAY = (STOP + 0x100 * i for i in range(7, 15))
 OTHER_SLEEP = STOP + 0xF00
 START_FULL, COMMAND, COMMAND_FULL = CANDIDATE + 0x1000, CANDIDATE + 0x2000, CANDIDATE + 0x3000
-HELPERS = (("run", "platform_run_interface_0044d300", "?Run@PlatformD300Entry@@QAEHPAI@Z", CANDIDATE + 0x4000),
-           ("find", "platform_find_available_0044d370", "?FindAvailable@PlatformInterfaceState_0044D370@@QAEPAUPlatformD370Entry@@XZ", CANDIDATE + 0x6000),
-           ("rewind", "platform_query_interfaces_0044d600", "?Query@PlatformQueryInterfaces_0044D600@@QAEHXZ", CANDIDATE + 0x8000),
-           ("volume", "platform_set_operation_deadline_0044d4e0", "?SetOperationDeadline@PlatformInterfaceState_0044D4E0@@QAEHH@Z", CANDIDATE + 0xA000))
+HELPERS = (("run", 0x44D300, CANDIDATE + 0x4000),
+           ("find", 0x44D370, CANDIDATE + 0x6000),
+           ("rewind", 0x44D600, CANDIDATE + 0x8000),
+           ("volume", 0x44D4E0, CANDIDATE + 0xA000))
 SYMBOLS = {"find": "?FindAvailable@SoundStream@@QAEPAUWaveSecondaryBuffer@@XZ",
            "run": "?RestoreIfLost@WaveSecondaryBuffer@@QAEHPAI@Z",
            "rewind": "?RewindBuffers@SoundStream@@QAEHXZ", "volume": "?SetVolume@SoundStream@@QAEHH@Z"}
@@ -68,16 +68,18 @@ class Case:
 def compile_candidates(directory, config):
     helpers, bodies, entries = {}, {}, {}
     bindings = {"__imp__Sleep@4": 0x4660AC, "_asm_rand_0045371b": 0x45371B,
-                "_data_00497854": 0x497854, "__ftol2": 0x463B2C}
+                "_g_options_music_volume": 0x497854, "__ftol2": 0x463B2C}
     common = ["clang++", "--target=i686-pc-windows-msvc", "-std=c++03", "-O2", "-mno-sse", "-mno-sse2",
               "-fno-exceptions", "-fno-rtti", "-fno-stack-protector", "-fno-builtin",
-              "-fno-delete-null-pointer-checks"]
-    for name, source, symbol, address in HELPERS:
+              "-fno-delete-null-pointer-checks", "-I", str(ROOT / "matching2/msvc/include")]
+    for name, retail_address, address in HELPERS:
         obj = directory / (name + ".obj")
-        source_path = ROOT / "matching2/msvc/src/game" / (source + ".cpp")
         if name == "find":
             source_path = ROOT / "matching2/reference/semantic_candidates/sound_stream_select.cpp"
             symbol = SYMBOLS["find"]
+        else:
+            region = maintained_region(retail_address)
+            source_path, symbol = region.source, region.symbol
         subprocess.run([*common, "-c", str(source_path),
                         "-o", str(obj)], check=True, timeout=60)
         module = load_module(obj, address, bindings)
@@ -298,13 +300,14 @@ def execute(image, compiled, case):
 
 def compare_maintained_selector(directory, compiled, image):
     """Keep the observed Clang evaluation-order gap reproducible as evidence."""
+    region = maintained_region(0x44D370)
     obj = directory / "find-maintained.obj"
     subprocess.run(["clang++", "--target=i686-pc-windows-msvc", "-std=c++03", "-O2", "-mno-sse", "-mno-sse2",
                     "-fno-exceptions", "-fno-rtti", "-fno-stack-protector", "-fno-builtin", "-c",
-                    str(ROOT / "matching2/msvc/src/game/platform_find_available_0044d370.cpp"),
+                    str(region.source),
                     "-o", str(obj)], check=True, timeout=60)
     baseline = load_module(obj, CANDIDATE + 0xC000, {"_asm_rand_0045371b": 0x45371B})
-    baseline_entry = baseline.symbols[HELPERS[1][2]]
+    baseline_entry = baseline.symbols[region.symbol]
     modules, bodies, entries, helpers = compiled
     entries = dict(entries, find=baseline_entry)
     bindings = {SYMBOLS[name]: value for name, value in entries.items()}
@@ -394,17 +397,11 @@ def verify(case, result):
         assert result["result"] in (0, 0xFFFFFFFF)
 
 
-import sys as _project_sys
-from pathlib import Path as _ProjectPath
-_project_sys.path.insert(0, str(_ProjectPath(__file__).resolve().parents[2]))
-from matching2.tools.common.project_paths import project_support
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--oracle", type=Path, default=ROOT / "matching2/build/oracle/th10.exe")
     options = parser.parse_args()
-    config = load_manifest(project_support((ROOT) / 'matching2/msvc', 'regions.json'))
-    load_oracle(options.oracle, config)
-    image = PEImage(options.oracle.read_bytes())
+    config, image = load_fixture(options.oracle)
     with tempfile.TemporaryDirectory(prefix="th10-stream-start-") as temporary:
         compiled = compile_candidates(Path(temporary), config)
         baseline_gap = compare_maintained_selector(Path(temporary), compiled, image)

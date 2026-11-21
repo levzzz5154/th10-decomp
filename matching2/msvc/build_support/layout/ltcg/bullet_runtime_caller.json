@@ -620,5 +620,7 @@
       "bytes": "0000000000000000"
     }
   ],
-  "included_sources": []
+  "included_sources": [
+    "src/core/sound/sound_queue.cpp"
+  ]
 }

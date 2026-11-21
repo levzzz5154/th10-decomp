@@ -6,6 +6,7 @@ extern "C" void _ReadWriteBarrier(void);
 #include <string.h>
 
 #include "th10/platform/archive_file.hpp"
+#include "th10/game/stage_route.hpp"
 
 extern "C" void* __fastcall LoadCachedResource(
     int index, void* owner, const char* name);
@@ -17,17 +18,6 @@ struct TextLog4 {
     char* Append(char* format, ...);
 };
 
-struct ScoreTaskResourceNames {
-    unsigned char reserved_0000[0x18];
-    const char* archive_paths[2];      // +0x18, +0x1C, selected by g_globals_character
-    const char* cached_resource_name;  // +0x20
-};
-
-typedef char ScoreTaskResourceNames_00413a20_offsets_check[
-    offsetof(ScoreTaskResourceNames, archive_paths) == 0x18 &&
-    offsetof(ScoreTaskResourceNames, cached_resource_name) == 0x20
-        ? 1 : -1];
-
 extern "C" float g_game_speed;
 extern "C" TextLog4 g_log;
 extern "C" char str_data_corrupted[];
@@ -35,7 +25,6 @@ extern "C" char str_data_corrupted[];
 // The addressed bytes are linker-owned game globals. Their uses here match
 // the pointer/dword operations at 0x00413A20, without naming their owners.
 extern "C" {
-extern ScoreTaskResourceNames* g_stage_route_current;
 extern unsigned int g_globals_score;
 extern int g_globals_character;
 extern void* g_next_stage_buffer;
@@ -100,9 +89,7 @@ extern "C" __declspec(noinline) int __stdcall ScoreTask_Setup(
     FrontResourcesView* state) {
 
     void*& cached_resource = state->cached_resource_9e80;
-    cached_resource =
-        LoadCachedResource(0x1c, g_sprt_ctrl,
-                                   g_stage_route_current->cached_resource_name);
+    cached_resource = LoadCachedResource(0x1c, g_sprt_ctrl, g_stage_route_current->logo_animation_file);
     if (!cached_resource) {
         LogResourceLoadFailure();
         return -1;
@@ -114,8 +101,7 @@ extern "C" __declspec(noinline) int __stdcall ScoreTask_Setup(
         g_next_stage_buffer = 0;
     } else {
         const int path_index = g_globals_character;
-        ScoreTaskResourceNames* resource_names = g_stage_route_current;
-        const char* path_suffix = resource_names->archive_paths[path_index];
+        const char* path_suffix = g_stage_route_current->message_files[path_index];
         char* path = g_recovery_script_path;
         path[0] = '\0';
         strcat(path, path_suffix);

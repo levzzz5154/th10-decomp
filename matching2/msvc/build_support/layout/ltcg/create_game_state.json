@@ -14,6 +14,7 @@
     "include/th10/platform/archive_file.hpp",
     "include/th10/platform/thread_sync.hpp",
     "include/th10/render/camera_batch.hpp",
+    "include/th10/render/textured_quad.hpp",
     "include/th10/render/quad_batch.hpp",
     "include/th10/types.hpp"
   ],

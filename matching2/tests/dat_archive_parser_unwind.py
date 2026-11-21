@@ -16,8 +16,8 @@ import tempfile
 from unicorn import Uc, UC_ARCH_X86, UC_MODE_32, UC_HOOK_CODE
 from unicorn.x86_const import (UC_X86_REG_EAX, UC_X86_REG_ECX, UC_X86_REG_EBP,
                               UC_X86_REG_ESP, UC_X86_REG_EIP)
-from lzss_compressor_differential import (
-    ROOT, CANDIDATE, INPUT, STACK, STOP, PRESERVED, PEImage, load_manifest, load_oracle)
+
+from x86_fixture import ROOT, CANDIDATE, INPUT, STACK, STOP, PRESERVED, load_fixture
 from dat_archive_parser_differential import (
     ENTRY, ARRAY_ARENA, ALLOCATION, NAMES, INITIAL_EXCEPTION_LIST,
     compile_candidate, load_parser_candidate, pack)
@@ -223,17 +223,11 @@ def cases():
             yield Case(5, "malloc", index, null_names=null_names)
 
 
-import sys as _project_sys
-from pathlib import Path as _ProjectPath
-_project_sys.path.insert(0, str(_ProjectPath(__file__).resolve().parents[2]))
-from matching2.tools.common.project_paths import project_support
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--oracle", type=Path, default=ROOT / "matching2/build/oracle/th10.exe")
     options = parser.parse_args()
-    config = load_manifest(project_support((ROOT) / 'matching2/msvc', 'regions.json'))
-    load_oracle(options.oracle, config)
-    image = PEImage(options.oracle.read_bytes())
+    _, image = load_fixture(options.oracle)
     with tempfile.TemporaryDirectory(prefix="th10-parser-unwind-") as temporary:
         path = Path(temporary) / "parser.obj"
         compile_candidate(path)

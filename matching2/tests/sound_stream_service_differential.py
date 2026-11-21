@@ -14,12 +14,12 @@ import tempfile
 
 from unicorn import UC_HOOK_CODE, UC_HOOK_INTR
 from unicorn.x86_const import UC_X86_REG_EAX, UC_X86_REG_EBX, UC_X86_REG_ECX, UC_X86_REG_ESI, UC_X86_REG_EDI
+
+from x86_fixture import ROOT, CANDIDATE, OUTPUT, STOP, load_fixture, maintained_region
 from sound_stream_fill_differential import (
-    Case as FillCase, Execution as FillExecution, compile_candidates as compile_fill,
-    FILL_SYMBOL, SYMBOLS, BINDINGS, STREAM, BUFFER, TABLE, ALT_TABLE, ALT_CURSOR,
-    CURSOR_READ, CURSOR_REWIND, LOCK, ROOT, CANDIDATE, STOP, STATE, DATA, OUTPUT,
-    CURSOR, RECORD, ALT_RECORD, SOURCE, DESTINATION, COMMON, difference,
-    PEImage, load_manifest, load_oracle)
+    Case as FillCase, Execution as FillExecution, compile_candidates as compile_fill, FILL_SYMBOL,
+    SYMBOLS, BINDINGS, STREAM, BUFFER, TABLE, ALT_TABLE, ALT_CURSOR, CURSOR_READ, CURSOR_REWIND,
+    LOCK, STATE, DATA, CURSOR, RECORD, ALT_RECORD, SOURCE, DESTINATION, COMMON, difference)
 from coff_module import load_module
 
 ARRAY, ALT_ARRAY, ALT_BUFFER = STATE + 0x1800, STATE + 0x1900, STATE + 0x1400
@@ -58,12 +58,13 @@ class Case(FillCase):
 
 def compile_candidates(directory):
     fill = compile_fill(directory)
+    restore_region = maintained_region(0x44D300)
     obj = directory / "restore.obj"
     subprocess.run([*COMMON, "-fno-delete-null-pointer-checks", "-c",
-                    str(ROOT / "matching2/msvc/src/game/platform_run_interface_0044d300.cpp"),
+                    str(restore_region.source),
                     "-o", str(obj)], check=True, timeout=60)
     restore = load_module(obj, CANDIDATE + 0x5000, {"__imp__Sleep@4": 0x4660AC})
-    restore_entry = restore.symbols["?Run@PlatformD300Entry@@QAEHPAI@Z"]
+    restore_entry = restore.symbols[restore_region.symbol]
     unit_bindings = dict(BINDINGS, **{RESTORE_SYMBOL: RUN, FILL_SYMBOL: FILL,
                                      SYMBOLS["read"]: CURSOR_READ, SYMBOLS["rewind"]: CURSOR_REWIND})
     full_bindings = dict(BINDINGS, **{RESTORE_SYMBOL: restore_entry,
@@ -277,17 +278,11 @@ def cases():
                    status=2 if operation == "restart" else 0, mutations=((trigger, writes),))
 
 
-import sys as _project_sys
-from pathlib import Path as _ProjectPath
-_project_sys.path.insert(0, str(_ProjectPath(__file__).resolve().parents[2]))
-from matching2.tools.common.project_paths import project_support
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--oracle", type=Path, default=ROOT / "matching2/build/oracle/th10.exe")
     options = parser.parse_args()
-    config = load_manifest(project_support((ROOT) / 'matching2/msvc', 'regions.json'))
-    load_oracle(options.oracle, config)
-    image = PEImage(options.oracle.read_bytes())
+    _, image = load_fixture(options.oracle)
     with tempfile.TemporaryDirectory(prefix="th10-stream-service-") as temporary:
         compiled = compile_candidates(Path(temporary))
         totals, faults, prefixes = [0, 0], [0, 0], [0, 0]

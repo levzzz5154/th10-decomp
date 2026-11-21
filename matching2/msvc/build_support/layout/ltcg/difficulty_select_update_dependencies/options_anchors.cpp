@@ -23,7 +23,7 @@ void TitleAnimationSlotView::StopSlot(int slot) {
 }
 #pragma code_seg(".text$00449670_fn")
 void SpriteHandle::SelectSprite(int sprite) {
-    RecoveryScriptId id = { static_cast<int>(value) };
+    AnimationScriptId id = { static_cast<int>(value) };
     SpriteVm_00449670* vm = static_cast<SpriteVm_00449670*>(
         reinterpret_cast<RecoveryLookup*>(g_sprt_ctrl)->Find(
             reinterpret_cast<RecoveryLookupContext*>(g_sprt_ctrl), id));
@@ -37,7 +37,7 @@ void __stdcall RefreshOptions2(Title* room) {
     for (int kind = 8; kind < 12; ++kind) {
         reinterpret_cast<RecoveryMusicResourceQueue*>(&g_sound_manager)->RegisterResource(
             str_set_vol, kind, kind);
-        room->animation_slots[2] = 0;
+        room->animation_slots[2].value = 0;
     }
 }
 #endif

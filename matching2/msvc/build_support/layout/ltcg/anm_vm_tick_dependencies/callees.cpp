@@ -341,18 +341,20 @@ void AnmVm::StartScale(int end_time, unsigned char mode, const Float2* initial, 
     scale_interp.goal = *goal;
     ::Restart(&scale_interp.timer);
 }
+// This unselected callee establishes the register contract for Tick. The
+// shipped SetPolar at 0x00441EF0 is compiled from src/core/sprtanim/polar_vector.cpp.
+#pragma intrinsic(sin, cos)
 #pragma code_seg(".text$00441ef0_fn")
 AnmVertex* AnmVertex::SetPolar(float angle, float radius) {
-    __asm {
-        mov eax, this
-        fld angle
-        fsincos
-        fmul radius
-        fstp dword ptr [eax]
-        fmul radius
-        fstp dword ptr [eax + 4]
-    }
+    AnmVertex* volatile receiver = this;
+    AnmVertex* vertex = receiver;
+    vertex->position.x = static_cast<float>(cos(angle) * radius);
+    vertex->position.y = static_cast<float>(sin(angle) * radius);
+    return vertex;
 }
+// Taking the member address keeps the caller on thiscall in the whole-program link.
+AnmVertex* (AnmVertex::*const anm_polar_member)(float, float) = &AnmVertex::SetPolar;
+
 #pragma code_seg(".text$004452f0_fn")
 void AnmVm::InitRing() {
     int count = int_vars[0];

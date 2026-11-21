@@ -23,7 +23,9 @@
     "include/th10/platform/sound_queue.hpp",
     "include/th10/game/player.hpp"
   ],
-  "included_sources": [],
+  "included_sources": [
+    "build_support/layout/ltcg/laser_grow/loader.cpp"
+  ],
   "image_base": "0x00400000",
   "description": "Complete command and flag-driven virtual motion dispatch, beam extension and tail consumption, viewport retirement, player collision and graze, and dual-animation update. Full native dependency graph with the actual 4187C0 wrapper as an unselected link entry.",
   "functions": [

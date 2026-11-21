@@ -37,6 +37,7 @@ selection for each anchor. Compiler float literal aliases remain selected-body-o
 
 from __future__ import annotations
 
+from dataclasses import dataclass
 import json
 from pathlib import Path
 import re
@@ -45,7 +46,8 @@ import struct
 import tempfile
 from typing import Any, Mapping, Sequence
 
-from matching2.tools.common.coff_regions import _read_object, _write_name_table
+from matching2.tools.common.coff import read_object
+from matching2.tools.common.coff_regions import _write_name_table
 from matching2.tools.common.process import sha
 from matching2.tools.common.wine import compiler_environment, toolchain_hashes, winpath
 from matching2.tools.matching.ltcg_semantic import (
@@ -103,10 +105,7 @@ def _project_file(project: Path, value: Any, field: str, suffix: str) -> Path:
     return path
 
 
-def load_cluster(project: Path, manifest_path: str, regions: Sequence[Mapping[str, Any]]) -> dict[str, Any]:
-    """Validate layout and exact maintained-region ownership before compilation."""
-    project = project.resolve()
-    path = _project_file(project, manifest_path, 'cluster manifest', '.json')
+def _read_cluster_manifest(path):
     try:
         raw = json.loads(path.read_text())
     except (OSError, json.JSONDecodeError) as error:
@@ -133,11 +132,17 @@ def load_cluster(project: Path, manifest_path: str, regions: Sequence[Mapping[st
     name = _string(spec['name'], 'cluster name')
     if not re.fullmatch(r'[a-z][a-z0-9_]*', name):
         raise LTCGClusterError('cluster name must be a lowercase identifier')
+    spec.setdefault('additional_sources', [])
+    return spec
+
+
+def _load_source_ownership(project, spec):
+    """Resolve maintained sources, their compiler units and included dependencies."""
     source = _project_file(project, spec['source'], 'source', '.cpp')
-    driver = _project_file(project, spec['driver'], 'driver', '.cpp') if version == 1 else None
+    driver = _project_file(project, spec['driver'], 'driver', '.cpp') if spec['schema_version'] == 1 else None
     if source == driver:
         raise LTCGClusterError('the compiler-context driver must be separate from maintained game source')
-    additional_names = spec.get('additional_sources', [])
+    additional_names = spec['additional_sources']
     if not isinstance(additional_names, list) or any(not isinstance(item, str) for item in additional_names):
         raise LTCGClusterError('additional_sources must be an array of project C++ sources')
     additional_paths = [_project_file(project, item, 'additional source', '.cpp')
@@ -146,7 +151,6 @@ def load_cluster(project: Path, manifest_path: str, regions: Sequence[Mapping[st
         raise LTCGClusterError('additional_sources must be distinct from source and each other')
     source_names = [spec['source'], *additional_names]
     source_paths = [source, *additional_paths]
-    spec['additional_sources'] = additional_names
     included_names = spec.get('included_sources', [])
     if not isinstance(included_names, list) or any(not isinstance(item, str) for item in included_names):
         raise LTCGClusterError('included_sources must be an array of project C++ sources')
@@ -173,7 +177,23 @@ def load_cluster(project: Path, manifest_path: str, regions: Sequence[Mapping[st
                                        'compiler translation unit', '.cpp') for n in source_names]
     if len(set(compilation_paths)) != len(compilation_paths):
         raise LTCGClusterError('compiler translation units must be distinct')
-    raw_ordinary = spec.get('ordinary_sources', [])
+    return {
+        'source_path': source, 'source_paths': source_paths, 'source_names': source_names,
+        'owned_includes': owned_includes, 'ownership_names': ownership_names,
+        'compilation_paths': compilation_paths, 'additional_source_paths': additional_paths,
+        'driver_path': driver,
+    }, included_paths
+
+
+@dataclass
+class _OrdinarySources:
+    declarations: list[dict]
+    paths: list[Path]
+    sections_by_source: dict[str, dict[str, str]]
+    sections: set[str]
+
+
+def _load_ordinary_sources(project, raw_ordinary, exceptions, other_inputs):
     if not isinstance(raw_ordinary, list):
         raise LTCGClusterError('ordinary_sources must be an array')
     ordinary_sources = []
@@ -201,25 +221,32 @@ def load_cluster(project: Path, manifest_path: str, regions: Sequence[Mapping[st
     ordinary_names = [item['source'] for item in ordinary_sources]
     ordinary_paths = [_project_file(project, name, 'ordinary source', '.cpp') for name in ordinary_names]
     if (len(set(ordinary_paths)) != len(ordinary_paths)
-            or any(path in [*source_paths, *included_paths, driver] for path in ordinary_paths)):
+            or any(path in other_inputs for path in ordinary_paths)):
         raise LTCGClusterError('ordinary sources must be distinct from all other compiler inputs')
     ordinary_sections = [rename['to'] for item in ordinary_sources for rename in item['section_renames']]
     if len(set(ordinary_sections)) != len(ordinary_sections):
         raise LTCGClusterError('ordinary EH islands must be distinct')
-    ordinary_by_source = {item['source']: item for item in ordinary_sources}
-    if not isinstance(spec['headers'], list):
+    sections_by_source = {
+        item['source']: {rename['from']: rename['to'] for rename in item['section_renames']}
+        for item in ordinary_sources
+    }
+    return _OrdinarySources(ordinary_sources, ordinary_paths, sections_by_source, set(ordinary_sections))
+
+
+def _load_headers(project, raw_headers):
+    if not isinstance(raw_headers, list):
         raise LTCGClusterError('headers must be an array')
-    headers = [_project_file(project, item, 'header', '.hpp') for item in spec['headers']]
+    headers = [_project_file(project, item, 'header', '.hpp') for item in raw_headers]
     if len(headers) != len(set(headers)):
         raise LTCGClusterError('duplicate cluster header')
-    image_base = _integer(spec['image_base'], 'image_base')
-    if image_base != 0x400000:
-        raise LTCGClusterError('the supported fixed-address image base is 0x400000')
-    _string(spec['description'], 'description')
-    if not isinstance(spec['functions'], list) or not spec['functions']:
+    return headers
+
+
+def _load_functions(raw_functions, primary_source, ownership_names, image_base, exceptions):
+    if not isinstance(raw_functions, list) or not raw_functions:
         raise LTCGClusterError('functions must be a nonempty array')
     functions = []
-    for item in spec['functions']:
+    for item in raw_functions:
         required_keys = {'name', 'symbol', 'section', 'address', 'size', 'actual_abi'}
         function = _fields(item, required_keys | {'source', 'generated', 'native_symbol_pattern'}, required_keys, 'function')
         for key in ('name', 'symbol', 'section', 'actual_abi'):
@@ -228,7 +255,7 @@ def load_cluster(project: Path, manifest_path: str, regions: Sequence[Mapping[st
             raise LTCGClusterError('functions need a dedicated .text$ section')
         function['address'] = _integer(function['address'], 'function address', minimum=image_base)
         function['size'] = _integer(function['size'], 'function size', minimum=1)
-        function_source = _string(function.get('source', spec['source']), 'function source')
+        function_source = _string(function.get('source', primary_source), 'function source')
         if function_source not in ownership_names:
             raise LTCGClusterError('function source is not declared by the cluster: ' + function_source)
         function['_source'] = function_source
@@ -248,6 +275,10 @@ def load_cluster(project: Path, manifest_path: str, regions: Sequence[Mapping[st
         if len(members) > 1 and (not all(item.get('generated') for item in members)
                                 or len({item['_source'] for item in members}) != 1):
             raise LTCGClusterError('each function needs a distinct complete contribution')
+    return functions
+
+
+def _owned_regions(regions, ownership_names, functions):
     owned = [region for region in regions if region['source'] in ownership_names]
     if (len(owned) != len(functions)
             or {region['symbol'] for region in owned} != {item['symbol'] for item in functions}):
@@ -258,11 +289,11 @@ def load_cluster(project: Path, manifest_path: str, regions: Sequence[Mapping[st
                 or _integer(region['address'], 'region address') != function['address']
                 or region['size'] != function['size']):
             raise LTCGClusterError('cluster function address/extent/classification disagrees with region: ' + function['symbol'])
-    context = None
-    calls = []
+    return owned
+
+
+def _load_roots(raw_roots, by_symbol):
     roots = []
-    by_symbol = {item['symbol']: item for item in functions}
-    raw_roots = spec.get('roots', [])
     if not isinstance(raw_roots, list) or any(not isinstance(item, str) for item in raw_roots):
         raise LTCGClusterError('whole-program roots must be an array of selected symbols')
     for item in raw_roots:
@@ -274,42 +305,67 @@ def load_cluster(project: Path, manifest_path: str, regions: Sequence[Mapping[st
         roots.append(root_symbol)
     if len(set(roots)) != len(roots):
         raise LTCGClusterError('whole-program roots must be distinct')
-    if version == 1:
-        context_keys = {'symbol', 'section', 'address', 'size', 'description'}
-        context = _fields(spec['context'], context_keys, context_keys, 'compiler context')
-        for key in ('symbol', 'section', 'description'):
-            context[key] = _string(context[key], 'context ' + key)
-        if not re.fullmatch(r'\.text\$[a-zA-Z0-9_]+', context['section']):
-            raise LTCGClusterError('compiler context needs a dedicated .text$ section')
-        context['address'] = _integer(context['address'], 'context address', minimum=image_base)
-        context['size'] = _integer(context['size'], 'context size', minimum=1)
-        if any(item['symbol'] == context['symbol'] or item['section'] == context['section'] for item in functions):
-            raise LTCGClusterError('compiler context must not be selected as recovered code')
+    return roots
+
+
+def _load_compiler_context(raw_context, image_base, functions):
+    keys = {'symbol', 'section', 'address', 'size', 'description'}
+    context = _fields(raw_context, keys, keys, 'compiler context')
+    for key in ('symbol', 'section', 'description'):
+        context[key] = _string(context[key], 'context ' + key)
+    if not re.fullmatch(r'\.text\$[a-zA-Z0-9_]+', context['section']):
+        raise LTCGClusterError('compiler context needs a dedicated .text$ section')
+    context['address'] = _integer(context['address'], 'context address', minimum=image_base)
+    context['size'] = _integer(context['size'], 'context size', minimum=1)
+    if any(item['symbol'] == context['symbol'] or item['section'] == context['section'] for item in functions):
+        raise LTCGClusterError('compiler context must not be selected as recovered code')
+    return context
+
+
+def _load_internal_calls(raw_calls, image_base, by_symbol):
+    if not isinstance(raw_calls, list) or not raw_calls:
+        raise LTCGClusterError('whole-program calls must declare at least one real caller/callee edge')
+    calls = []
+    for item in raw_calls:
+        keys = {'caller', 'callee', 'address', 'instruction'}
+        call = _fields(item, keys, keys, 'internal call')
+        for key in ('caller', 'callee'):
+            if _string(call[key], 'call ' + key) not in by_symbol:
+                raise LTCGClusterError('both ends of an internal call must be selected in the same link')
+        call['address'] = _integer(call['address'], 'call address', minimum=image_base)
+        caller = by_symbol[call['caller']]
+        if not caller['address'] <= call['address'] <= caller['address'] + caller['size'] - 5:
+            raise LTCGClusterError('internal call lies outside its caller')
+        if call['instruction'] not in ('call', 'jmp'):
+            raise LTCGClusterError('internal call instruction must be call or jmp (REL32)')
+        calls.append(call)
+    if len({item['address'] for item in calls}) != len(calls):
+        raise LTCGClusterError('duplicate internal call site')
+    return calls
+
+
+def _load_call_graph(spec, image_base, functions, sources):
+    by_symbol = {item['symbol']: item for item in functions}
+    roots = _load_roots(spec.get('roots', []), by_symbol)
+    if spec['schema_version'] == 1:
+        context = _load_compiler_context(spec['context'], image_base, functions)
         entry = context
+        calls = []
     else:
+        context = None
         entry_symbol = _string(spec['entry'], 'entry')
         if entry_symbol not in by_symbol:
             raise LTCGClusterError('whole-program entry must be a selected real function')
         entry = by_symbol[entry_symbol]
-        if set(source_names) != {owned_includes.get(item['_source'], item['_source']) for item in functions}:
+        owners = sources['owned_includes']
+        if set(sources['source_names']) != {owners.get(item['_source'], item['_source']) for item in functions}:
             raise LTCGClusterError('every whole-program source must own selected functions')
-        if not isinstance(spec['calls'], list) or not spec['calls']:
-            raise LTCGClusterError('whole-program calls must declare at least one real caller/callee edge')
-        for item in spec['calls']:
-            keys = {'caller', 'callee', 'address', 'instruction'}
-            call = _fields(item, keys, keys, 'internal call')
-            for key in ('caller', 'callee'):
-                if _string(call[key], 'call ' + key) not in by_symbol:
-                    raise LTCGClusterError('both ends of an internal call must be selected in the same link')
-            call['address'] = _integer(call['address'], 'call address', minimum=image_base)
-            caller = by_symbol[call['caller']]
-            if not caller['address'] <= call['address'] <= caller['address'] + caller['size'] - 5:
-                raise LTCGClusterError('internal call lies outside its caller')
-            if call['instruction'] not in ('call', 'jmp'):
-                raise LTCGClusterError('internal call instruction must be call or jmp (REL32)')
-            calls.append(call)
-        if len({item['address'] for item in calls}) != len(calls):
-            raise LTCGClusterError('duplicate internal call site')
+        calls = _load_internal_calls(spec['calls'], image_base, by_symbol)
+    return context, {'entry_symbol': entry['symbol'], 'entry_address': entry['address'],
+                     'calls': calls, 'roots': roots}
+
+
+def _load_anchors(spec, image_base, ordinary, selected_code):
     # ABI anchors: a compiled C++ body for a callee whose parameter register no
     # declaration names.  The body is selected into the native /LTCG link (so
     # the whole-program pass can assign the register) and placed at the retail
@@ -320,7 +376,8 @@ def load_cluster(project: Path, manifest_path: str, regions: Sequence[Mapping[st
         raise LTCGClusterError('anchors must be an array')
     for item in raw_anchors:
         keys = {'name', 'symbol', 'section', 'address', 'size'}
-        anchor = _fields(item, keys | ({'source', 'generated', 'native_symbol_pattern'} if ordinary_sources else set()), keys, 'ABI anchor')
+        optional = {'source', 'generated', 'native_symbol_pattern'} if ordinary.declarations else set()
+        anchor = _fields(item, keys | optional, keys, 'ABI anchor')
         for key in ('name', 'symbol', 'section'):
             anchor[key] = _string(anchor[key], 'anchor ' + key)
         if not re.fullmatch(r'\.text\$[a-zA-Z0-9_]+', anchor['section']):
@@ -332,16 +389,15 @@ def load_cluster(project: Path, manifest_path: str, regions: Sequence[Mapping[st
             raise LTCGClusterError('generated anchor flag must be a boolean')
         if 'source' in anchor:
             anchor['_source'] = _string(anchor['source'], 'anchor source')
-            if anchor['_source'] not in ordinary_by_source:
+            if anchor['_source'] not in ordinary.sections_by_source:
                 raise LTCGClusterError('anchor source must name a declared ordinary source')
         if generated:
             if '_source' not in anchor:
                 raise LTCGClusterError('ordinary generated anchors require their source')
-            code_section = next(rename['to'] for rename in ordinary_by_source[anchor['_source']]['section_renames']
-                                if rename['from'] == '.text$x')
+            code_section = ordinary.sections_by_source[anchor['_source']]['.text$x']
             if anchor['section'] != code_section:
                 raise LTCGClusterError('generated anchor section must be its ordinary source EH island')
-        elif anchor['section'] in ordinary_sections:
+        elif anchor['section'] in ordinary.sections:
             raise LTCGClusterError('ordinary EH code islands require generated anchors')
         if 'native_symbol_pattern' in anchor:
             if not generated or anchor['native_symbol_pattern'] != r'\$L[0-9]+':
@@ -368,15 +424,18 @@ def load_cluster(project: Path, manifest_path: str, regions: Sequence[Mapping[st
         # Rooting it preserves that boundary without selecting it as new code.
         # Native validation still checks its compiler origin, fixed address and
         # entire dedicated CODE contribution before any selected body is used.
-    taken_symbols = {item['symbol'] for item in functions} | ({context['symbol']} if context else set())
-    taken_sections = {item['section'] for item in functions} | ({context['section']} if context else set())
+    taken_symbols = {item['symbol'] for item in selected_code}
+    taken_sections = {item['section'] for item in selected_code}
     if any(item['symbol'] in taken_symbols or item['section'] in taken_sections for item in anchors):
         raise LTCGClusterError('an ABI anchor must be distinct from the selected functions and context')
-    contexts = [context] if context else []
+    return anchors, anchor_roots
+
+
+def _load_gaps(raw_gaps, image_base, code_sections):
     gaps = []
-    if not isinstance(spec['gaps'], list):
+    if not isinstance(raw_gaps, list):
         raise LTCGClusterError('gaps must be an array')
-    for index, item in enumerate(spec['gaps']):
+    for index, item in enumerate(raw_gaps):
         keys = {'section', 'address', 'size'}
         gap = _fields(item, keys, keys, 'layout gap')
         gap['section'] = _string(gap['section'], 'gap section')
@@ -388,13 +447,16 @@ def load_cluster(project: Path, manifest_path: str, regions: Sequence[Mapping[st
             raise LTCGClusterError('layout gap exceeds the supported image')
         gap['symbol'] = f'_ltcg_gap_{index}'
         gaps.append(gap)
-    code_sections = list({item['section'] for item in functions}) + list({item['section'] for item in contexts + anchors})
-    if len(set(code_sections + [item['section'] for item in gaps])) != len(code_sections) + len(gaps):
+    if len(code_sections | {item['section'] for item in gaps}) != len(code_sections) + len(gaps):
         raise LTCGClusterError('layout gaps overlap selected/context section ownership')
+    return gaps
+
+
+def _load_constants(raw_constants, image_base):
     constants = []
-    if not isinstance(spec['constants'], list):
+    if not isinstance(raw_constants, list):
         raise LTCGClusterError('constants must be an array')
-    for item in spec['constants']:
+    for item in raw_constants:
         keys = {'symbol', 'address', 'value'}
         constant = _fields(item, keys, keys, 'compiler constant')
         constant['symbol'] = _string(constant['symbol'], 'constant symbol')
@@ -407,6 +469,10 @@ def load_cluster(project: Path, manifest_path: str, regions: Sequence[Mapping[st
             raise LTCGClusterError('compiler constant is not representable as float32') from error
         constant['size'] = 4
         constants.append(constant)
+    return constants
+
+
+def _load_constant_aliases(raw_aliases, image_base):
     # A compiler emits one pooled definition per distinct literal value
     # (``__real@`` plus its binary32 bit pattern).  When retail's own pool put
     # that literal at an address the cluster layout cannot reproduce, the
@@ -414,7 +480,6 @@ def load_cluster(project: Path, manifest_path: str, regions: Sequence[Mapping[st
     # object defines it absolutely, the link tolerates the discarded pooled
     # copy, and validation proves the alias is the definition that survived.
     aliases = []
-    raw_aliases = spec.get('constant_aliases', [])
     if not isinstance(raw_aliases, list):
         raise LTCGClusterError('constant_aliases must be an array')
     for item in raw_aliases:
@@ -435,8 +500,11 @@ def load_cluster(project: Path, manifest_path: str, regions: Sequence[Mapping[st
             raise LTCGClusterError('constant alias value does not match its compiler literal name')
         alias['size'] = 4
         aliases.append(alias)
+    return aliases
+
+
+def _load_data_aliases(raw_data_aliases, image_base):
     data_aliases = []
-    raw_data_aliases = spec.get('data_aliases', [])
     if not isinstance(raw_data_aliases, list):
         raise LTCGClusterError('data_aliases must be an array')
     for item in raw_data_aliases:
@@ -456,23 +524,25 @@ def load_cluster(project: Path, manifest_path: str, regions: Sequence[Mapping[st
         alias['bytes_value'] = bytes.fromhex(alias['bytes'])
         alias['size'] = len(alias['bytes_value'])
         data_aliases.append(alias)
+    return data_aliases
+
+
+def _load_native_data(raw_data, image_base, exceptions, ordinary):
     native_data = []
-    raw_data = spec.get('native_data', [])
     if not isinstance(raw_data, list):
         raise LTCGClusterError('native_data must be an array')
     for item in raw_data:
         keys = {'section', 'address', 'bytes', 'description'}
-        datum = _fields(item, keys | ({'source'} if ordinary_sources else set()), keys, 'native compiler data')
+        datum = _fields(item, keys | ({'source'} if ordinary.declarations else set()), keys, 'native compiler data')
         _string(datum['section'], 'native compiler data section')
         if 'source' in datum:
             datum['source'] = _string(datum['source'], 'native compiler data source')
-            if datum['source'] not in ordinary_by_source:
+            if datum['source'] not in ordinary.sections_by_source:
                 raise LTCGClusterError('native compiler data source must name a declared ordinary source')
-            data_section = next(rename['to'] for rename in ordinary_by_source[datum['source']]['section_renames']
-                                if rename['from'] == '.xdata$x')
+            data_section = ordinary.sections_by_source[datum['source']]['.xdata$x']
             if datum['section'] != data_section:
                 raise LTCGClusterError('ordinary native data must use its source EH data island')
-        elif datum['section'] in ordinary_sections:
+        elif datum['section'] in ordinary.sections:
             raise LTCGClusterError('ordinary EH metadata requires its compiler source')
         if not exceptions or not re.fullmatch(r'\.xdata\$x|\.rdata\$[a-zA-Z0-9_]+', datum['section']):
             raise LTCGClusterError('native compiler data requires declared exception data sections')
@@ -486,22 +556,27 @@ def load_cluster(project: Path, manifest_path: str, regions: Sequence[Mapping[st
         native_data.append(datum)
     if len({item['section'] for item in native_data}) != len(native_data):
         raise LTCGClusterError('native compiler data contributions must be distinct')
+    return native_data
+
+
+def _validate_unwind_layout(native_data, gaps, ordinary, functions, anchors):
     if any(item['section'] in {gap['section'] for gap in gaps} for item in native_data):
         raise LTCGClusterError('native compiler data overlaps layout section ownership')
-    for ordinary in ordinary_sources:
-        code_section, data_section = [next(rename['to'] for rename in ordinary['section_renames']
-                                          if rename['from'] == name) for name in ('.text$x', '.xdata$x')]
-        if (not any(item.get('_source') == ordinary['source'] and item.get('generated')
-                    and item['section'] == code_section for item in anchors)
-                or not any(item.get('source') == ordinary['source'] and item['section'] == data_section
+    for source, sections in ordinary.sections_by_source.items():
+        if (not any(item.get('_source') == source and item.get('generated')
+                    and item['section'] == sections['.text$x'] for item in anchors)
+                or not any(item.get('source') == source and item['section'] == sections['.xdata$x']
                            for item in native_data)):
             raise LTCGClusterError('ordinary source requires a complete unwind group and metadata')
     if any(item.get('generated') for item in functions) and not any(item['section'] == '.xdata$x' for item in native_data):
         raise LTCGClusterError('generated unwind functions require their complete native exception table')
+
+
+def _load_absolute_symbols(raw_symbols, image_base):
     absolute = []
-    if not isinstance(spec['absolute_symbols'], list):
+    if not isinstance(raw_symbols, list):
         raise LTCGClusterError('absolute_symbols must be an array')
-    for item in spec['absolute_symbols']:
+    for item in raw_symbols:
         keys = {'symbol', 'address', 'kind'}
         symbol = _fields(item, keys, keys, 'absolute symbol')
         symbol['symbol'] = _string(symbol['symbol'], 'absolute symbol name')
@@ -513,10 +588,10 @@ def load_cluster(project: Path, manifest_path: str, regions: Sequence[Mapping[st
         # Native LINK 7.10 applies the image base to absolute REL32 targets.
         symbol['coff_value'] = symbol['address'] - image_base if symbol['kind'] == 'relative_code' else symbol['address']
         absolute.append(symbol)
-    all_symbols = [item['symbol'] for item in functions + gaps + constants + aliases + data_aliases + absolute + contexts + anchors]
-    if len(set(all_symbols)) != len(all_symbols):
-        raise LTCGClusterError('duplicate symbol across cluster code/context/layout/bindings')
-    range_items = functions + gaps + constants + aliases + contexts + anchors + native_data
+    return absolute
+
+
+def _validate_layout_extents(range_items, gaps, data_aliases):
     ranges = sorted((item['address'], item['address'] + item['size']) for item in range_items)
     if any(end > 0x100000000 for _, end in ranges) or any(a[1] > b[0] for a, b in zip(ranges, ranges[1:])):
         raise LTCGClusterError('cluster code/context/layout extents overlap or overflow')
@@ -538,23 +613,55 @@ def load_cluster(project: Path, manifest_path: str, regions: Sequence[Mapping[st
             overlap = alias['address'] < other['address'] + other['size'] and other['address'] < alias['address'] + alias['size']
             if overlap and not (alias['address'] == other['address'] and alias['bytes_value'] == other['bytes_value']):
                 raise LTCGClusterError('overlapping data aliases must describe identical bytes at one address')
-    return {**spec, 'path': path, 'project': project, 'source_path': source,
-            'source_paths': source_paths, 'source_names': source_names,
-            'owned_includes': owned_includes, 'ownership_names': ownership_names,
-            'compilation_paths': compilation_paths,
-            'additional_source_paths': additional_paths, 'driver_path': driver,
-            'ordinary_sources': ordinary_sources, 'ordinary_source_paths': ordinary_paths,
-            'anchor_roots': anchor_roots,
-            'header_paths': headers, 'included_source_paths': included_paths,
-            'image_base': image_base, 'functions': functions,
-            'context': context, 'gaps': gaps, 'constants': constants, 'absolute_symbols': absolute,
-            'constant_aliases': aliases,
-            'data_aliases': data_aliases,
-            'exceptions': exceptions, 'native_data': native_data,
-            'anchors': anchors,
-            'entry_symbol': entry['symbol'], 'entry_address': entry['address'], 'calls': calls,
-            'roots': roots,
-            'regions': [dict(region) for region in owned]}
+
+
+def _load_layout(spec, image_base, exceptions, ordinary, functions, anchors, code):
+    gaps = _load_gaps(spec['gaps'], image_base, {item['section'] for item in code})
+    constants = _load_constants(spec['constants'], image_base)
+    aliases = _load_constant_aliases(spec.get('constant_aliases', []), image_base)
+    data_aliases = _load_data_aliases(spec.get('data_aliases', []), image_base)
+    native_data = _load_native_data(spec.get('native_data', []), image_base, exceptions, ordinary)
+    _validate_unwind_layout(native_data, gaps, ordinary, functions, anchors)
+    absolute = _load_absolute_symbols(spec['absolute_symbols'], image_base)
+
+    placed = code + gaps + constants + aliases
+    symbols = [item['symbol'] for item in placed + data_aliases + absolute]
+    if len(set(symbols)) != len(symbols):
+        raise LTCGClusterError('duplicate symbol across cluster code/context/layout/bindings')
+    _validate_layout_extents(placed + native_data, gaps, data_aliases)
+    return {'gaps': gaps, 'constants': constants, 'absolute_symbols': absolute,
+            'constant_aliases': aliases, 'data_aliases': data_aliases,
+            'exceptions': exceptions, 'native_data': native_data}
+
+
+def load_cluster(project: Path, manifest_path: str, regions: Sequence[Mapping[str, Any]]) -> dict[str, Any]:
+    """Validate layout and exact maintained-region ownership before compilation."""
+    project = project.resolve()
+    path = _project_file(project, manifest_path, 'cluster manifest', '.json')
+    spec = _read_cluster_manifest(path)
+    exceptions = spec.get('exceptions', False)
+    sources, included_paths = _load_source_ownership(project, spec)
+    ordinary = _load_ordinary_sources(project, spec.get('ordinary_sources', []), exceptions,
+                                      [*sources['source_paths'], *included_paths, sources['driver_path']])
+    headers = _load_headers(project, spec['headers'])
+    image_base = _integer(spec['image_base'], 'image_base')
+    if image_base != 0x400000:
+        raise LTCGClusterError('the supported fixed-address image base is 0x400000')
+    _string(spec['description'], 'description')
+
+    functions = _load_functions(spec['functions'], spec['source'], sources['ownership_names'],
+                                image_base, exceptions)
+    owned = _owned_regions(regions, sources['ownership_names'], functions)
+    context, graph = _load_call_graph(spec, image_base, functions, sources)
+    selected_and_context = functions + ([context] if context else [])
+    anchors, anchor_roots = _load_anchors(spec, image_base, ordinary, selected_and_context)
+    layout = _load_layout(spec, image_base, exceptions, ordinary, functions, anchors,
+                          selected_and_context + anchors)
+    return {**spec, 'path': path, 'project': project, **sources,
+            'ordinary_sources': ordinary.declarations, 'ordinary_source_paths': ordinary.paths,
+            'anchor_roots': anchor_roots, 'header_paths': headers, 'included_source_paths': included_paths,
+            'image_base': image_base, 'functions': functions, 'context': context, **layout,
+            'anchors': anchors, **graph, 'regions': [dict(region) for region in owned]}
 
 
 def load_clusters(project: Path, config: Mapping[str, Any], regions: Sequence[Mapping[str, Any]]) -> list[dict[str, Any]]:
@@ -605,7 +712,7 @@ def _padding_source(gaps: Sequence[Mapping[str, Any]]) -> str:
 
 def _prepare_padding_object(source: Path, destination: Path, gaps: Sequence[Mapping[str, Any]]) -> dict[str, Any]:
     """Reflag only verified zero-filled layout sections; preserve all payloads."""
-    obj = _read_object(source)
+    obj = read_object(source)
     data = bytearray(obj['data'])
     reports = []
     expected_names = {item['section'] for item in gaps}
@@ -630,7 +737,7 @@ def _prepare_padding_object(source: Path, destination: Path, gaps: Sequence[Mapp
         reports.append({'section': section['name'], 'size': len(section['raw']), 'sha256': sha(section['raw']),
                         'original_characteristics': section['characteristics'], 'characteristics': characteristics})
     destination.write_bytes(data)
-    rewritten = _read_object(destination)
+    rewritten = read_object(destination)
     if len(obj['sections']) != len(rewritten['sections']):
         raise LTCGClusterError('layout metadata rewrite changed the section count')
     for before, after in zip(obj['sections'], rewritten['sections']):
@@ -648,7 +755,7 @@ def _absolute_object(path: Path, symbols: Sequence[Mapping[str, Any]]) -> None:
                                    0x20 if item['kind'] == 'relative_code' else 0, 2, 0)
                        for name, item in zip(names, symbols))
     path.write_bytes(struct.pack('<HHIIIHH', 0x14c, 0, 0, 20, len(symbols), 0, 0) + records + strings)
-    parsed = _read_object(path)
+    parsed = read_object(path)
     if parsed['sections'] or any(item['section_number'] != -1 for item in parsed['records']):
         raise LTCGClusterError('absolute bindings object unexpectedly contains implementation sections')
 
@@ -656,7 +763,7 @@ def _absolute_object(path: Path, symbols: Sequence[Mapping[str, Any]]) -> None:
 def _prepare_ordinary_object(source: Path, destination: Path,
                              renames: Sequence[Mapping[str, str]]) -> dict[str, Any]:
     """Rename only whole ordinary compiler EH section headers, never payloads."""
-    original = _read_object(source)
+    original = read_object(source)
     if original['machine'] != 0x14c:
         raise LTCGClusterError('ordinary source did not emit an x86 COFF object')
     data = bytearray(original['data'])
@@ -689,7 +796,7 @@ def _prepare_ordinary_object(source: Path, destination: Path,
 def _verify_ordinary_object(source: Path, destination: Path,
                             changes: Sequence[Mapping[str, Any]]) -> None:
     """Prove that every changed byte lies in an explicitly renamed name slot."""
-    before, after = _read_object(source), _read_object(destination)
+    before, after = read_object(source), read_object(destination)
     if len(before['data']) != len(after['data']):
         raise LTCGClusterError('ordinary section rename changed the object extent')
     slots = [(item['offset'], item['offset'] + 8) for item in changes]
@@ -754,7 +861,7 @@ def _validate_ordinary_contributions(spec, link_map, ordinary_objects):
     for source in spec['ordinary_sources']:
         path = ordinary_objects[source['source']]
         _require_fresh_output(path)
-        obj = _read_object(path)
+        obj = read_object(path)
         for rename in source['section_renames']:
             sections = [item for item in obj['sections'] if item['name'] == rename['to']]
             contributions = [item for item in link_map.contributions if item.name == rename['to']]
@@ -1053,7 +1160,7 @@ def export_bodies(path: Path, functions: Sequence[Mapping[str, Any]]) -> dict[st
     data = (struct.pack('<HHIIIHH', 0x14c, len(functions), 0, offset, len(functions), 0, 0)
             + b''.join(headers) + b''.join(payloads) + b''.join(symbols) + strings)
     path.write_bytes(data)
-    output = _read_object(path)
+    output = read_object(path)
     for index, (item, section) in enumerate(zip(functions, output['sections']), 1):
         matches = [symbol for symbol in output['records'] if symbol['name'] == item['symbol']]
         if (section['raw'] != item['body'] or section['relocations'] or len(matches) != 1

@@ -222,5 +222,7 @@
   "anchor_roots": [
     "?InitializeObject@FrontAnimationResource@@QAEXPAUEntity@@H@Z"
   ],
-  "included_sources": []
+  "included_sources": [
+    "build_support/layout/ltcg/front_initialize/load_script_body.cpp"
+  ]
 }

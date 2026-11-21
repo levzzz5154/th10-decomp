@@ -15,11 +15,12 @@ import tempfile
 
 from unicorn import UC_HOOK_CODE
 from unicorn.x86_const import UC_X86_REG_EAX, UC_X86_REG_ESI, UC_X86_REG_EDI
+
+from x86_fixture import ROOT, CANDIDATE, OUTPUT, STOP, load_fixture, maintained_region
 from sound_stream_fill_differential import (
-    Case as FillCase, Execution as FillExecution, compile_candidates as compile_fill,
-    FILL_SYMBOL, BINDINGS, STREAM, BUFFER, TABLE, ALT_TABLE, ALT_CURSOR,
-    ROOT, CANDIDATE, STOP, STATE, OUTPUT, CURSOR, RECORD, ALT_RECORD, SOURCE, DESTINATION,
-    COMMON, difference, PEImage, load_manifest, load_oracle)
+    Case as FillCase, Execution as FillExecution, compile_candidates as compile_fill, FILL_SYMBOL,
+    BINDINGS, STREAM, BUFFER, TABLE, ALT_TABLE, ALT_CURSOR, STATE, CURSOR, RECORD, ALT_RECORD,
+    SOURCE, DESTINATION, COMMON, difference)
 from coff_module import load_module
 
 ARRAY, ALT_ARRAY, SOURCE_ARRAY, ALT_BUFFER, THIRD = (STATE + offset for offset in (0x1800, 0x1900, 0x1A00, 0x1400, 0x1500))
@@ -75,15 +76,16 @@ def compile_candidates(directory):
         if name == "initializers":
             modules[name + "_full"] = load_module(obj, CANDIDATE + 0x2000,
                 dict(bindings, **{FILL_SYMBOL: fill[1].symbols[FILL_SYMBOL]}))
+    restore = maintained_region(0x44D300)
     obj = directory / "restore.obj"
     subprocess.run([*COMMON, "-fno-delete-null-pointer-checks", "-c",
-                    str(ROOT / "matching2/msvc/src/game/platform_run_interface_0044d300.cpp"), "-o", str(obj)], check=True, timeout=60)
+                    str(restore.source), "-o", str(obj)], check=True, timeout=60)
     modules["restore"] = load_module(obj, CANDIDATE + 0x5000, {"__imp__Sleep@4": 0x4660AC})
     obj = directory / "restart.obj"
     subprocess.run([*COMMON, "-c", str(ROOT / "matching2/reference/semantic_candidates/sound_stream_restart.cpp"),
                     "-o", str(obj)], check=True, timeout=60)
     bindings.update({FILL_SYMBOL: fill[1].symbols[FILL_SYMBOL],
-                     "?RestoreIfLost@WaveSecondaryBuffer@@QAEHPAI@Z": modules["restore"].symbols["?Run@PlatformD300Entry@@QAEHPAI@Z"]})
+                     "?RestoreIfLost@WaveSecondaryBuffer@@QAEHPAI@Z": modules["restore"].symbols[restore.symbol]})
     modules["restart"] = load_module(obj, CANDIDATE + 0x6000, bindings)
     return fill, modules
 
@@ -280,17 +282,11 @@ def cases():
                    status=status, restore_results=(0,) * 8)
 
 
-import sys as _project_sys
-from pathlib import Path as _ProjectPath
-_project_sys.path.insert(0, str(_ProjectPath(__file__).resolve().parents[2]))
-from matching2.tools.common.project_paths import project_support
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--oracle", type=Path, default=ROOT / "matching2/build/oracle/th10.exe")
     options = parser.parse_args()
-    config = load_manifest(project_support((ROOT) / 'matching2/msvc', 'regions.json'))
-    load_oracle(options.oracle, config)
-    image = PEImage(options.oracle.read_bytes())
+    _, image = load_fixture(options.oracle)
     with tempfile.TemporaryDirectory(prefix="th10-stream-initialize-") as temporary:
         compiled = compile_candidates(Path(temporary))
         totals, faults, notices = [0, 0], [0, 0], 0

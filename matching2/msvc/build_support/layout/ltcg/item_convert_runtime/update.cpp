@@ -5,8 +5,8 @@
 #include "th10/game/entity_script_start.hpp"
 
 static __forceinline void IntegrateItem(SpawnItem* item) {
-    Vector3Value displacement(g_game_speed*item->velocity.x,
-        g_game_speed*item->velocity.y,g_game_speed*item->velocity.z);
+    Vector3Value displacement(g_game_speed*item->velocity.xy.x,
+        g_game_speed*item->velocity.xy.y,g_game_speed*item->velocity.z);
     item->position.x+=displacement.x;
     item->position.y+=displacement.y;
     item->position.z+=displacement.z;
@@ -47,16 +47,16 @@ extern "C" __declspec(noinline) int __stdcall ItemManager_UpdateItems(ItemSpawnM
             // Keep the planar products through the additions, as retail's
             // x87 path does; the Z displacement crosses a float store.
             {
-                double dx=static_cast<double>(g_game_speed)*item->velocity.x;
-                double dy=static_cast<double>(g_game_speed)*item->velocity.y;
+                double dx=static_cast<double>(g_game_speed)*item->velocity.xy.x;
+                double dy=static_cast<double>(g_game_speed)*item->velocity.xy.y;
                 volatile float dz=g_game_speed*item->velocity.z;
                 item->position.x=static_cast<float>(item->position.x+dx);
                 item->position.y=static_cast<float>(item->position.y+dy);
                 item->position.z+=dz;
             }
-            item->velocity.y+=g_game_speed*flt_0_03;
-            if (item->velocity.y>=flt_0) item->velocity.x=0.0f;
-            if (item->velocity.y>flt_2) item->velocity.y=2.0f;
+            item->velocity.xy.y+=g_game_speed*flt_0_03;
+            if (item->velocity.xy.y>=flt_0) item->velocity.xy.x=0.0f;
+            if (item->velocity.xy.y>flt_2) item->velocity.xy.y=2.0f;
             // Retail tests the stored binary32 position, after discarding
             // the extended result of the planar addition.
             const volatile float& stored_y=item->position.y;
@@ -66,8 +66,8 @@ extern "C" __declspec(noinline) int __stdcall ItemManager_UpdateItems(ItemSpawnM
             }
         } else if (item->state==2) {
             IntegrateItem(item);
-            item->velocity.y+=g_game_speed*flt_0_03;
-            if (item->velocity.y>=flt_0) {
+            item->velocity.xy.y+=g_game_speed*flt_0_03;
+            if (item->velocity.xy.y>=flt_0) {
                 player=g_player;
                 item->magnet_speed=player->movement->seek_speed;
                 item->state=3;
@@ -87,25 +87,25 @@ extern "C" __declspec(noinline) int __stdcall ItemManager_UpdateItems(ItemSpawnM
             float angle;
             if (dy==flt_0 && dx==flt_0) angle=flt_pi_2;
             else angle=static_cast<float>(atan2(static_cast<double>(dy),static_cast<double>(dx)));
-            item->velocity.SetPolar(angle,item->magnet_speed);
+            item->velocity.xy.SetPolar(angle,item->magnet_speed);
             IntegrateItem(item);
             if (item->magnet_speed<flt_12) item->magnet_speed+=flt_0_2;
             if (player->state==4) {
                 item->state=1;
-                item->velocity.x=0.0f;
-                item->velocity.y=0.0f;
+                item->velocity.xy.x=0.0f;
+                item->velocity.xy.y=0.0f;
             }
         } else if (item->state==4) {
             ItemCollector* target=g_player;
-            item->velocity.SetPolar(target->AngleFromPoint(&item->position),item->magnet_speed);
+            item->velocity.xy.SetPolar(target->AngleFromPoint(&item->position),item->magnet_speed);
             IntegrateItem(item);
             if (item->magnet_speed<flt_12) item->magnet_speed+=flt_0_2;
             int player_state=target->state;
             player=g_player;
             if (player_state==4) {
                 item->state=1;
-                item->velocity.x=0.0f;
-                item->velocity.y=0.0f;
+                item->velocity.xy.x=0.0f;
+                item->velocity.xy.y=0.0f;
             }
         } else {
             player=g_player;

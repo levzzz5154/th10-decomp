@@ -280,5 +280,7 @@
   "anchor_roots": [
     "?InitializeObject@ResultAnimationResource@@QAEXPAUEntity@@H@Z"
   ],
-  "included_sources": []
+  "included_sources": [
+    "src/core/sound/sound_queue.cpp"
+  ]
 }

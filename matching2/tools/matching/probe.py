@@ -3,9 +3,9 @@
 
 The full build proves the whole executable; this tool gives the same byte gate
 for one translation unit in a couple of seconds, so a single function can be
-recovered and checked without a complete rebuild. It consumes the same compile
-path (``compile_unit``) and the same region ownership as the build, so a region
-that reports EXACT here is byte-identical in the linked executable.
+recovered and checked without a complete rebuild. It uses the build's raw
+compilation, normalization and region ownership, so a region that reports
+EXACT here is byte-identical in the linked executable.
 
 Comparison masks nothing: object bytes must equal the retail bytes, except in
 the fields the linker fills. Those four-byte fields are checked separately by
@@ -22,62 +22,20 @@ if __package__ in (None, ""):
 import argparse
 from collections import defaultdict
 import json
-import os
 import struct
 
-from matching2.tools.common.coff import read_coff_function
-from matching2.tools.common.coff_regions import CoffRegionError
-from matching2.tools.common.pe import PEImage
-from matching2.tools.common.process import sha
+from matching2.tools.common.coff import RELOCATION_TYPES, defined_functions, function_body, read_object
+from matching2.tools.common.project_paths import DEFAULT_PROJECT, ROOT, project_support
 from matching2.tools.common.wine import DEFAULT_TOOLKIT
-from matching2.tools.matching.build_msvc import ROOT, compile_raw, normalize_unit
-from matching2.tools.matching.ltcg_cluster import build_cluster, load_clusters
+from matching2.tools.matching.build_msvc import CompilationPlan, compile_raw, normalize_unit
+from matching2.tools.matching.ltcg_cluster import build_cluster
 from matching2.tools.matching.gcc_llvm_backend import validate_source_compilers
 from matching2.tools.matching.mismatch import instruction_at
-
-DEFAULT_PROJECT = ROOT / "matching2/msvc"
-ORACLE_CANDIDATES = (Path(os.environ.get("TH10_ORACLE", "/nonexistent")),
-                     ROOT / "matching2/build/oracle/th10.exe",
-                     ROOT / "matching2/build/msvc/th10.exe")
-RELOCATION_TYPES = {0x0006: "dir32", 0x0014: "rel32"}
-
-
-def default_oracle():
-    """Prefer a stable copy: a running build deletes the build output mid-flight."""
-    for candidate in ORACLE_CANDIDATES:
-        if candidate.is_file():
-            return candidate
-    return ORACLE_CANDIDATES[-1]
-
-
-from matching2.tools.common.project_paths import project_support
-def load_manifest(path):
-    config = json.loads(path.read_text())
-    reference = json.loads((project_support(path.parent, 'pe_layout.json')).read_text())["reference"]
-    if config["text_sha256"] != reference["text_section_sha256"]:
-        raise ValueError("project manifest does not match the supported retail image")
-    return config
-
-
-def load_oracle(path, config):
-    image = PEImage(Path(path).read_bytes())
-    raw = image.read(int(config["text_start"], 0), config["text_bytes"])
-    if sha(raw) != config["text_sha256"]:
-        raise ValueError(f"{path} does not contain the supported .text bytes")
-    return raw
-
-
-def region_directory(config, regions):
-    """Map every defined name to its address for relocation target checks."""
-    bindings = {name: int(address, 0) for name, address in config["symbols"].items()}
-    for region in regions:
-        bindings.setdefault(region["symbol"], int(region["address"], 0))
-    return bindings
+from matching2.tools.matching.retail import default_oracle, load_manifest, load_oracle, region_directory
 
 
 def owned_regions(config, source):
-    entries = [region for region in [*config["regions"], *config["dos_regions"]]
-               if region["source"] == source]
+    entries = [region for region in config["regions"] if region["source"] == source]
     if not entries:
         raise ValueError("no maintained region is owned by " + source)
     return sorted(entries, key=lambda region: int(region["address"], 0))
@@ -97,36 +55,9 @@ def apply_proposals(regions, proposals, source):
     return [by_address[int(region["address"], 0)] for region in regions]
 
 
-def defined_functions(object_path):
-    """Map each defined function symbol to its section number.
-
-    A recovered function's C++ declaration decides its decorated name, so a
-    region only names the intended function. Resolution accepts an exact name
-    or a unique substring of the emitted one, which is how a member function or
-    an overloaded name is addressed without spelling MSVC's decoration.
-    """
-    data = Path(object_path).read_bytes()
-    _, section_count, _, symbol_offset, symbol_count, optional_size, _ = \
-        struct.unpack_from("<HHIIIHH", data, 0)
-    strings = data[symbol_offset + symbol_count * 18:]
-    symbols, index = {}, 0
-    while index < symbol_count:
-        offset = symbol_offset + index * 18
-        raw_name, _, section, symbol_type, storage, aux = struct.unpack_from("<8sIhHBB", data, offset)
-        if raw_name[:4] == b"\0\0\0\0":
-            start = struct.unpack_from("<I", raw_name, 4)[0]
-            text = strings[start:strings.find(b"\0", start)].decode("ascii")
-        else:
-            text = raw_name.rstrip(b"\0").decode("ascii")
-        if section > 0 and storage in (2, 3) and symbol_type & 0x20:
-            symbols[text] = section
-        index += 1 + aux
-    return symbols
-
-
-def resolve_regions(regions, object_path):
+def resolve_regions(regions, obj):
     """Return region records whose symbols name a function the object defines."""
-    defined = defined_functions(object_path)
+    defined = defined_functions(obj)
     resolved, problems = [], []
     for region in regions:
         if region.get("kind") == "library":
@@ -156,14 +87,16 @@ def resolve_regions(regions, object_path):
     return resolved
 
 
-def compare_region(region, object_path, oracle, text_start, bindings, aliases, show):
+def compare_region(region, obj, oracle, text_start, bindings, aliases, show):
     """Return a per-region report; 'exact' is the gate the build enforces."""
     address, size = int(region["address"], 0), region["size"]
-    name, body, ignored = read_coff_function(object_path, region["symbol"])
+    function = function_body(obj, region["symbol"], require_external=True)
+    name, body = function.name, function.data
     if len(body) != size:
         return {"region": region["name"], "address": address, "size": size, "symbol": name,
                 "exact": False, "detail": f"compiled extent {len(body)} differs from {size}"}
     expected = oracle[address - text_start:address - text_start + size]
+    ignored = function.linker_bytes()
     differing = [index for index in range(size) if index not in ignored and body[index] != expected[index]]
     report = {"region": region["name"], "address": address, "size": size, "symbol": name,
               "different_bytes": len(differing), "exact": not differing}
@@ -177,15 +110,17 @@ def compare_region(region, object_path, oracle, text_start, bindings, aliases, s
         report["actual_instruction"] = instruction_at(body, address, first)
         return report
     relocations, problems = [], []
-    targets = relocation_targets(object_path, name)
-    for offset, kind in sorted(relocation_offsets(object_path, name).items()):
+    for relocation in sorted(function.relocations, key=lambda r: r.offset):
+        if relocation.kind not in RELOCATION_TYPES:
+            continue
+        offset, kind = relocation.offset, RELOCATION_TYPES[relocation.kind]
         encoded = struct.unpack_from("<i", expected, offset)[0]
         target = address + offset + 4 + encoded if kind == "rel32" else encoded
         # A member access through a symbol (a struct global's second field, a
         # table element) keeps its offset as the relocation addend inside the
         # object, so the link-time value is the bound address plus that addend.
         addend = struct.unpack_from("<i", body, offset)[0]
-        symbol, local = targets[offset]
+        symbol, local = relocation.symbol, relocation.local
         canonical = aliases.get(symbol, symbol)
         bound = bindings.get(canonical)
         if local is not None:
@@ -205,87 +140,27 @@ def compare_region(region, object_path, oracle, text_start, bindings, aliases, s
     return report
 
 
-def relocation_table(object_path, symbol):
-    """Read the relocation rows of the section that defines symbol."""
-    data = Path(object_path).read_bytes()
-    _, section_count, _, symbol_offset, symbol_count, optional_size, _ = \
-        struct.unpack_from("<HHIIIHH", data, 0)
-    table = 20 + optional_size
-    sections = [struct.unpack_from("<8sIIIIIIHHI", data, table + index * 40)
-                for index in range(section_count)]
-    strings = data[symbol_offset + symbol_count * 18:]
-    names, value_section = {}, {}
-    index = 0
-    while index < symbol_count:
-        offset = symbol_offset + index * 18
-        raw_name, value, section, _, storage, aux = struct.unpack_from("<8sIhHBB", data, offset)
-        if raw_name[:4] == b"\0\0\0\0":
-            start = struct.unpack_from("<I", raw_name, 4)[0]
-            text = strings[start:strings.find(b"\0", start)].decode("ascii")
-        else:
-            text = raw_name.rstrip(b"\0").decode("ascii")
-        names[index], value_section[index] = text, (value, section, storage)
-        index += 1 + aux
-    owners = [number for number, (_, section, storage) in value_section.items()
-              if names[number] == symbol and section > 0 and storage == 2]
-    if len(owners) != 1:
-        raise ValueError(f"expected one definition of {symbol}, found {len(owners)}")
-    section_index = value_section[owners[0]][1] - 1
-    rows = []
-    for index in range(sections[section_index][7]):
-        offset = sections[section_index][5] + index * 10
-        virtual_address, symbol_index, kind = struct.unpack_from("<IIH", data, offset)
-        # A relocation may name a label the same object defines, such as the
-        # compiler's own basic-block symbols; the object already fixes where it
-        # lands, so no binding is needed for it.
-        value, section, _ = value_section.get(symbol_index, (0, 0, 0))
-        local = value if section == section_index + 1 else None
-        rows.append((virtual_address, names.get(symbol_index, "?"), kind, local))
-    return rows
-
-
-def relocation_offsets(object_path, symbol):
-    return {offset: RELOCATION_TYPES[kind]
-            for offset, _, kind, _ in relocation_table(object_path, symbol)
-            if kind in RELOCATION_TYPES}
-
-
-def relocation_targets(object_path, symbol):
-    """Map each relocation offset to its symbol name and same-section target."""
-    return {offset: (name, local) for offset, name, kind, local in relocation_table(object_path, symbol)
-            if kind in RELOCATION_TYPES}
-
-
-def conflicting_definitions(object_path, regions, config):
+def conflicting_definitions(obj, regions, config):
     """Name symbols this unit defines that the layout script also binds.
 
     The layout script gives every manifest binding a fixed address, so a unit
     that defines one of those names as well would place the same symbol twice.
     """
     owned = {region["symbol"] for region in regions}
-    return sorted(name for name in defined_functions(object_path)
+    return sorted(name for name in defined_functions(obj)
                   if name in config["symbols"] and name not in owned)
 
 
-def extra_sections(object_path, normalization):
+def extra_sections(obj, normalization):
     """Code sections the unit emits that no owned region selects.
 
     They are dropped by normalization, so they never reach the image; naming
     them shows when a body needs another region (a compiler-generated
     ``__ehhandler`` thunk, an EH-tracked array helper) rather than a code change.
     """
-    data = Path(object_path).read_bytes()
-    _, section_count, _, _, _, optional_size, _ = struct.unpack_from("<HHIIIHH", data, 0)
-    table = 20 + optional_size
     selected = {region["source_section"] for region in normalization["regions"]}
-    extra = []
-    for index in range(section_count):
-        name, _, _, size, _, _, _, _, _, characteristics = \
-            struct.unpack_from("<8sIIIIIIHHI", data, table + index * 40)
-        text = name.rstrip(b"\0").decode("ascii", "replace")
-        if size and characteristics & 0x20 and text not in selected:
-            extra.append({"section": text, "size": size})
-    return extra
+    return [{"section": s["name"], "size": s["raw_size"]} for s in obj["sections"]
+            if s["raw_size"] and s["characteristics"] & 0x20 and s["name"] not in selected]
 
 
 def probe_unit(project, toolkit, output, config, source, regions, cluster_by_source, index,
@@ -299,10 +174,11 @@ def probe_unit(project, toolkit, output, config, source, regions, cluster_by_sou
         return unit, [dict(region) for region in cluster["regions"]]
     raw = compile_raw(project, toolkit, output, index, source, config,
                       compiler_profiles=compiler_profiles)
-    resolved = resolve_regions(regions, raw["object"])
+    obj = read_object(raw["object"])
+    resolved = resolve_regions(regions, obj)
     normalized = output / "objects" / f"unit{index:04d}.normalized.obj"
     unit = {**raw, **normalize_unit(raw["object"], normalized, source, config, resolved)}
-    unit["dropped_sections"] = extra_sections(raw["object"], unit["normalization"])
+    unit["dropped_sections"] = extra_sections(obj, unit["normalization"])
     return unit, resolved
 
 
@@ -327,42 +203,35 @@ def main():
     config = load_manifest(project_support(project, 'regions.json'))
     oracle = load_oracle(args.oracle or default_oracle(), config)
     text_start = int(config["text_start"], 0)
-    bindings = region_directory(config, [*config["regions"], *config["dos_regions"]])
-    regions_by_source = defaultdict(list)
-    for region in [*config["regions"], *config["dos_regions"]]:
-        regions_by_source[region["source"]].append(region)
+    bindings = region_directory(config, config["regions"])
     proposals = defaultdict(list)
     for path in args.proposal:
         for region in json.loads(Path(path).read_text())["regions"]:
             proposals[region["source"]].append(region)
+    plan = CompilationPlan.from_manifest(project, config, config["regions"], config["translation_units"])
+    requested = set()
     for source in args.source:
-        regions_by_source.setdefault(source, owned_regions(config, source))
-    clusters = load_clusters(project, config, config["regions"])
-    compiler_profiles = validate_source_compilers(project, config, clusters)
-    cluster_by_source = {
-        source: cluster for cluster in clusters for source in cluster["source_names"]
-    }
-    cluster_additional_sources = {
-        source for cluster in clusters for source in cluster["additional_sources"]
-    }
-    units = sorted((set(config["translation_units"]) - cluster_additional_sources)
-                   | set(args.source))
+        if source not in plan.regions_by_source:
+            raise ValueError("no maintained region is owned by " + source)
+        cluster = plan.clusters_by_source.get(source)
+        requested.add(cluster["source"] if cluster else source)
     report = {"units": {}, "failures": [], "regions": [], "resolved": []}
-    for index, source in enumerate(units):
-        if source not in args.source:
+    for index, source in enumerate(plan.sources):
+        if source not in requested:
             continue
-        regions = apply_proposals(owned_regions(config, source), proposals[source], source)
+        regions = apply_proposals(plan.regions_by_source[source], proposals[source], source)
         try:
             unit, resolved = probe_unit(project, args.toolkit.resolve(), args.output.resolve(),
-                                        config, source, regions, cluster_by_source, index,
-                                        compiler_profiles)
+                                        config, source, regions, plan.clusters_by_source, index,
+                                        plan.compiler_profiles)
         except Exception as error:  # compiler and region-extent failures are data, not crashes
             log = args.output / "logs" / f"unit{index:04d}.log"
             detail = log.read_text().strip() if log.is_file() else ""
             report["failures"].append({"source": source, "error": str(error), "compiler_log": detail})
             continue
         report["units"][source] = unit
-        conflicts = conflicting_definitions(unit["object"], resolved, config)
+        obj = read_object(unit["object"])
+        conflicts = conflicting_definitions(obj, resolved, config)
         if conflicts:
             report["failures"].append({
                 "source": source, "compiler_log": "",
@@ -370,17 +239,19 @@ def main():
                          + ", ".join(conflicts)})
             continue
         aliases = config.get("coff_aliases", {}).get(source, {})
+        outcomes = []
         for region in resolved:
             try:
-                outcome = compare_region(region, unit["object"], oracle, text_start,
+                outcome = compare_region(region, obj, oracle, text_start,
                                          bindings, aliases, args.show)
-            except (CoffRegionError, ValueError) as error:
+            except ValueError as error:
                 outcome = {"region": region["name"], "address": int(region["address"], 0),
                            "size": region["size"], "symbol": region["symbol"],
                            "exact": False, "detail": str(error)}
-            outcome["source"] = source
-            report["regions"].append(outcome)
-        if all(region["exact"] for region in report["regions"] if region["source"] == source):
+            outcome["source"] = region["source"]
+            outcomes.append(outcome)
+        report["regions"].extend(outcomes)
+        if all(outcome["exact"] for outcome in outcomes):
             report["resolved"] += [{key: region.get(key) for key in
                                     ("name", "source", "symbol", "address", "size", "kind", "owner")}
                                    for region in resolved]

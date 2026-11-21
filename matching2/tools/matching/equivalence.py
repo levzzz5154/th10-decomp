@@ -69,11 +69,10 @@ import tempfile
 
 from matching2.tools.common.pe import PEImage
 from matching2.tools.common.process import sha
+from matching2.tools.common.project_paths import DEFAULT_PROJECT, ROOT, project_support
 from matching2.tools.common.wine import DEFAULT_TOOLKIT, compiler_environment, winpath
 from matching2.tools.matching.ltcg_cluster import _absolute_object
 
-ROOT = Path(__file__).resolve().parents[3]
-DEFAULT_PROJECT = ROOT / 'matching2/msvc'
 DEFAULT_OUTPUT = ROOT / 'matching2/build/msvc'
 TEXT_START, IMAGE_BASE = 0x401000, 0x400000
 # The model is linked a second time here; the fields that move with it are its absolute references.
@@ -122,7 +121,6 @@ def canonical_sib(text):
     return SIB.sub(lambda m: '[' + '+'.join(sorted((m[1], m[2]))) + '*1' + m[3] + ']', text)
 
 
-from matching2.tools.common.project_paths import project_support
 def load_recoveries(project, config, regions):
     """Read and validate every equivalent recovery the manifest declares."""
     by_name = {region['name']: region for region in regions}
@@ -665,6 +663,42 @@ def compare_tail(retail, model, retail_start, model_start, code_bytes, mapping, 
         cursor += 1
 
 
+def _model_code_extent(pe, link_map, start, retail, code_bytes):
+    """Locate the code/table boundary without borrowing the next function's bytes."""
+    size = len(retail)
+    window = b''
+    for slack in (0x400, 0x100, 0):
+        try:
+            window = pe.read(start, size + slack)
+            break
+        except ValueError:
+            continue
+    # The slack can reach a neighbour's jump table. It cannot belong to a
+    # function whose retail counterpart has neither a table jump nor a tail.
+    has_tail = size != code_bytes
+    if has_tail or TABLE_JUMP.search(retail):
+        tables = [address for match in TABLE_JUMP.finditer(window)
+                  if start < (address := struct.unpack('<I', match[1])[0]) <= start + size + 0x400]
+        if tables:
+            return min(tables) - start
+    if has_tail:
+        return code_bytes
+    return cap_function_extent(link_map, start, code_bytes)
+
+
+def _bound_addresses(recovery, symbols):
+    """Map model symbol addresses to their declared retail bindings."""
+    bound = {}
+    for name, address in recovery['bindings'].items():
+        if name not in symbols:
+            # Variant sweeps share one layout across many sources; they may opt out.
+            if os.environ.get('EQUIV_LENIENT_BINDINGS'):
+                continue
+            raise EquivalenceError('bound model symbol is absent from the link map: ' + name)
+        bound[symbols[name]] = int(address, 0)
+    return bound
+
+
 def verify_recovery(recovery, project, toolkit, flags, text, output, *, record=False):
     """Build one model and compare it with the built region; return a report."""
     start, size, code_bytes = recovery['address'], recovery['size'], recovery['code_bytes']
@@ -675,52 +709,25 @@ def verify_recovery(recovery, project, toolkit, flags, text, output, *, record=F
     work = Path(tempfile.mkdtemp(prefix=recovery['name'] + '-', dir=work_root))
     try:
         image, link_map, moved = build_model(recovery, project, toolkit, flags, work)
-        symbols = {name: int(value, 16) for name, value, _ in MAP_SYMBOL.findall(link_map)}
-        own = sorted(int(value, 16) for _, value, where in MAP_SYMBOL.findall(link_map) if where != '<absolute>')
+        pe = PEImage(image)
+        map_entries = MAP_SYMBOL.findall(link_map)
+        symbols = {name: int(value, 16) for name, value, _ in map_entries}
+        own = sorted(int(value, 16) for _, value, origin in map_entries if origin != '<absolute>')
         if recovery['function'] not in symbols:
             raise EquivalenceError('model function is absent from the link map: ' + recovery['function'])
         model_start = symbols[recovery['function']]
-        # The model's code may be a few bytes longer or shorter; its tables follow its own code.
-        window = b''
-        for slack in (0x400, 0x100, 0):
-            try:
-                window = PEImage(image).read(model_start, size + slack)
-                break
-            except ValueError:
-                continue
-        tables = [value for value in (struct.unpack('<I', match[1])[0] for match in TABLE_JUMP.finditer(window))
-                  if model_start < value <= model_start + size + 0x400]
         tail = size - code_bytes
-        # The slack window can reach the code that follows this function in the
-        # link.  When the retail region has no jump-table instruction and no
-        # separate tail, the model cannot have one either -- the same function is
-        # being compiled -- so every pattern in the window belongs to another
-        # function and must not be taken as this one's table.
-        if tail == 0 and not TABLE_JUMP.search(retail):
-            tables = []
-        model_code = min(tables) - model_start if tables else code_bytes
-        if tail == 0 and not tables:
-            # A shorter function must not borrow instructions from the next
-            # compiled callee just to fill the retail extent. Besides copying
-            # unrelated code, that can cut a neighbour's instruction in half.
-            model_code = cap_function_extent(link_map, model_start, model_code)
+        model_code = _model_code_extent(pe, link_map, model_start, retail, code_bytes)
         # A draft may be measured while it is still too long; it cannot be built in.
         if model_code + tail > size and not record:
             raise EquivalenceError(f'{recovery["name"]}: the C++ body needs {model_code + tail} bytes; '
                                    f'the region has {size}')
-        bound = {}
-        for name, address in recovery['bindings'].items():
-            if name not in symbols:
-                # Variant sweeps share one layout across many sources; they may opt out.
-                if os.environ.get('EQUIV_LENIENT_BINDINGS'):
-                    continue
-                raise EquivalenceError('bound model symbol is absent from the link map: ' + name)
-            bound[symbols[name]] = int(address, 0)
+        bound = _bound_addresses(recovery, symbols)
         rebind, rebase_verified = rebase_map(recovery['bindings'], symbols, model_start, model_code,
                                              start, size, recovery['rebase_regions'], recovery['name'])
-        body, rebased_rows = relocate(PEImage(image), PEImage(moved), disassemble(PEImage(image).read(model_start, model_code),
-                                                    model_start, work, 'model'),
-                        model_start, model_code, tail, start, bound, own, rebind)
+        model_instructions = disassemble(pe.read(model_start, model_code), model_start, work, 'model')
+        body, rebased_rows = relocate(pe, PEImage(moved), model_instructions, model_start, model_code,
+                                      tail, start, bound, own, rebind)
         identity = lambda value, spelling: spelling
         retail_rows = normalize(disassemble(retail[:code_bytes], start, work, 'retail'),
                                 start, code_bytes, size, identity)
@@ -739,6 +746,7 @@ def verify_recovery(recovery, project, toolkit, flags, text, output, *, record=F
     changed = sum(len(hunk['retail']) for hunk in hunks)
     verified_names = sorted({item['verified'] for item in rebase_verified}) if rebase_verified else []
     report = {'name': recovery['name'], 'region': recovery['region'], 'bytes': size,
+              'differing_bytes': sum(a != b for a, b in zip(retail, body)) + abs(len(retail) - len(body)),
               'instructions': len(retail_rows), 'identical': len(retail_rows) - swaps - changed - counts['frame'],
               'rebased_calls': {'count': len(rebased_rows), 'verified': verified_names, 'rows': rebased_rows},
               'base_index_order': swaps, 'frame_offset': counts['frame'], 'listed_differences': len(hunks), 'listed_instructions': changed}
@@ -781,10 +789,10 @@ def verify_all(project, config, regions, toolkit, text, output):
     # Models now live beside maintained game code. Hash their source/header
     # graph conservatively so a moved or edited ABI context cannot reuse a
     # previous verification result. Digest the shared inputs once per build.
-    shared = [Path(__file__).read_bytes(), json.dumps(config['flags']).encode(),
-              *[path.read_bytes() for path in sorted(project.rglob('*'))
-                if path.is_file() and path.suffix in ('.cpp', '.hpp', '.h', '.inc', '.json', '.cc')]]
-    shared_digest = sha(b'\0'.join(sha(part).encode() for part in shared)).encode()
+    shared = [sha(Path(__file__).read_bytes()), sha(json.dumps(config['flags']).encode())]
+    shared.extend(sha(path.read_bytes()) for path in sorted(project.rglob('*'))
+                  if path.is_file() and path.suffix in ('.cpp', '.hpp', '.h', '.inc', '.json', '.cc'))
+    shared_digest = sha('\0'.join(shared).encode()).encode()
     for recovery in recoveries:
         offset = recovery['address'] - TEXT_START
         key = sha(b'\0'.join(sha(part).encode() for part in
@@ -822,6 +830,7 @@ def apply_bodies(text, regions, bodies):
 
 def describe(report):
     return (f"{report['name']}: {report['code_bytes']:,} of {report['bytes']:,} bytes used, "
+            f"{report['differing_bytes']:,} bytes differ at retail offsets, "
             f"{report['identical']:,} of {report['instructions']:,} instructions identical, "
             f"{report['base_index_order']} base/index swaps, {report.get('frame_offset', 0)} frame-offset, "
             f"{report['listed_instructions']} instructions in {report['listed_differences']} recorded differences")
@@ -839,7 +848,7 @@ def main():
                         help='print the current differences for review instead of checking them')
     args = parser.parse_args()
     project, toolkit, output = args.project.resolve(), args.toolkit.resolve(), args.output.resolve()
-    config = json.loads((project_support(project, 'regions.json')).read_text())
+    config = json.loads(project_support(project, 'regions.json').read_text())
     text_path = output / 'text.bin'
     if not text_path.is_file():
         parser.error('no built .text image; run make first')

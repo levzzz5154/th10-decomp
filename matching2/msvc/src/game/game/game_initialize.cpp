@@ -6,6 +6,7 @@
 // build_support/layout/ltcg/stage_startup.json.
 #include <string.h>
 #include "th10/game/stage_startup.hpp"
+#include "th10/game/stage_route.hpp"
 #include "th10/game/title_draw.hpp"
 #include "th10/game/score_file.hpp"
 #include "th10/core/func_ctrl.hpp"
@@ -24,13 +25,6 @@ struct Game {
 typedef char Game_InitializeFlags[offsetof(Game, flags) == 0x58 ? 1 : -1];
 
 struct AnimationWaitState { int primary_pending; int secondary_pending; };
-struct StageResources {
-    int stage_kind;
-    const char* stage_file;
-    unsigned int unknown_08;
-    const char* enemy_file;
-    const char* music[2];
-};
 #pragma pack(push, 4)
 struct StageTiming {
     unsigned char unknown_00[0x24];
@@ -44,7 +38,6 @@ typedef char StageTimingSecond[offsetof(StageTiming, second) == 0x2C ? 1 : -1];
 extern "C" {
 extern AnimationWaitState* g_sprt_ctrl;
 extern FuncCtrl* g_func_ctrl;
-extern StageResources* g_stage_route_current;
 extern PathState* g_enemy_ctrl;
 extern StageTiming* g_fps;
 extern void* g_front;
@@ -163,7 +156,7 @@ extern "C" __declspec(noinline) int __stdcall Game_Initialize(Game* context) {
         if (!CreateStageState(g_stage_route_current->stage_file, 0)) goto failed;
     }
     if (!(g_globals.flags & 9)) {
-        if (!CreateEnemies(g_stage_route_current->enemy_file)) goto failed;
+        if (!CreateEnemies(g_stage_route_current->enemy_script_file)) goto failed;
     } else {
         g_enemy_ctrl->Reset();
     }
@@ -172,8 +165,8 @@ extern "C" __declspec(noinline) int __stdcall Game_Initialize(Game* context) {
     if (!CreatePlayer()) goto failed;
     if (!(g_globals.flags & 0x20)) {
         StopMusic();
-        LoadMusic(0, g_stage_route_current->music[0]);
-        LoadMusic(1, g_stage_route_current->music[1]);
+        LoadMusic(0, g_stage_route_current->music_files[0]);
+        LoadMusic(1, g_stage_route_current->music_files[1]);
     }
     g_fps->second = dbl_0;
     g_fps->first = dbl_0;

@@ -4,7 +4,7 @@
 The cached-archive loader and chunk walker are freshly compiled maintained
 C++; the other recovered bodies are semantic candidates. Only allocation,
 file/COM operations, critical-section imports, Sleep and logging are scripted.
-A register/stack adapter connects the cached loader to the DAT read candidate.
+The cached loader calls the DAT read candidate directly using their shared stdcall ABI.
 The schedule publishes all available buffers before consuming them; this is
 not a Windows thread scheduler or a native MSVC byte-equivalence test.
 """
@@ -17,16 +17,16 @@ import subprocess
 import tempfile
 
 from unicorn import UC_HOOK_CODE
-from unicorn.x86_const import UC_X86_REG_EAX, UC_X86_REG_ECX, UC_X86_REG_EDX, UC_X86_REG_ESP, UC_X86_REG_EIP
-from dat_archive_integration_differential import (
-    Execution, Entry, fixture, compile_modules, ROOT, CANDIDATE, OUTPUT, STATE,
-    STOP, READ, PEImage, load_manifest, load_oracle, load_candidate)
+from unicorn.x86_const import UC_X86_REG_EAX, UC_X86_REG_ECX, UC_X86_REG_EDX
+
+from x86_fixture import ROOT, CANDIDATE, OUTPUT, STOP, load_candidate, load_fixture, maintained_region
+from matching2.tools.common.wine import DEFAULT_TOOLKIT
+from dat_archive_integration_differential import Execution, Entry, fixture, compile_modules, STATE, READ
 from sound_preload_worker_differential import (
     compile_candidates as compile_preload, GLOBAL, NAMES, SHUTDOWN, PENDING)
 from sound_wave_load_differential import compile_candidates as compile_wave, wave
 
 CACHE, PRODUCER, CONSUMER = CANDIDATE + 0x10000, CANDIDATE + 0x20000, CANDIDATE + 0x30000
-READ_ADAPTER, READ_RETURN = CANDIDATE + 0xB200, CANDIDATE + 0xB300
 ARCHIVE = 0x497990
 ENTER, LEAVE, LOG, SLEEP, CREATE, LOCK, UNLOCK, RELEASE = (STOP + 0x100 * i for i in range(1, 9))
 DEVICE, OWNER, BUFFER_TABLE, DEVICE_TABLE = (STATE + i for i in (0x4000, 0x4100, 0x4200, 0x4300))
@@ -53,17 +53,15 @@ class Case:
 def compile_candidates(directory, config):
     modules = compile_modules(directory, config)
     obj = directory / "cached-archive-load.obj"
+    cache = maintained_region(0x44B360)
     subprocess.run([
         "clang++", "--target=i686-pc-windows-msvc", "-std=c++03", "-O2", "-mno-sse", "-mno-sse2",
         "-fno-exceptions", "-fno-rtti", "-fno-stack-protector", "-fno-builtin", "-ffunction-sections",
-        "-I", str(ROOT / "matching2/msvc/include"), "-c",
-        str(ROOT / "matching2/msvc/src/platform/fun_0044b360_0044b360.cpp"), "-o", str(obj)],
+        "-I", str(ROOT / "matching2/msvc/include"), "-isystem", str(DEFAULT_TOOLKIT / "include"),
+        "-c", str(cache.source), "-o", str(obj)],
         check=True, timeout=60)
-    bindings = {"?Read@ArchiveReader@@QAEPADPBXPAD@Z": READ_ADAPTER}
-    bindings.update((f"_data_{address:08x}", address) for address in (
-        0x497990, 0x497994, DEPTH, CRITICAL, 0x4660B0, 0x4660B4, 0x4660C4,
-        0x4660CC, 0x4660D0, 0x4660D8))
-    modules[CACHE] = load_candidate(obj, config, "Archive_LoadFile", bindings, code_address=CACHE)
+    bindings = {maintained_region(0x434DD0).symbol: READ, "_g_file_lock": CRITICAL}
+    modules[CACHE] = load_candidate(obj, config, cache.symbol, bindings, code_address=CACHE)
     producers = compile_preload(directory, config, PRODUCER, {
         "_Archive_LoadFile@12": CACHE, "?Append@TextLog_0044b810@@QAAPADPADZZ": LOG})
     modules.update((module.base, module.data) for module in producers.values())
@@ -92,7 +90,6 @@ class PreloadExecution(Execution):
     def __init__(self, image, modules, producers, consumer, source, waves, names, case):
         self.producers, self.consumer, self.case = producers, consumer, case
         self.waves, self.names = waves, names
-        self.read_frames = []
         self.cached_calls = []
         self.current_load = None
         self.current_consumer = None
@@ -125,7 +122,7 @@ class PreloadExecution(Execution):
             self.words(BUFFERS + index * 16, BUFFER_TABLE)
         for slot, address in ((0x4660B0, ENTER), (0x4660B4, LEAVE), (0x4660AC, SLEEP)):
             self.words(slot, address)
-        for address in (CACHE, 0x44B360, READ_ADAPTER, READ_RETURN, ENTER, LEAVE, LOG,
+        for address in (CACHE, 0x44B360, ENTER, LEAVE, LOG,
                         0x44B810, SLEEP, CREATE, LOCK, UNLOCK, RELEASE):
             uc.hook_add(UC_HOOK_CODE, self.hook, begin=address, end=address)
 
@@ -148,18 +145,6 @@ class PreloadExecution(Execution):
                 # The cached loader's output allocation succeeds, but the
                 # compressed reader's next (stored-byte) allocation fails.
                 self.fail_allocation = len(self.allocations) + 1
-        elif address == READ_ADAPTER:
-            archive, output = self.args(2)
-            name = uc.reg_read(UC_X86_REG_ECX)
-            sp = uc.reg_read(UC_X86_REG_ESP)
-            self.read_frames.append((sp, self.read_words(sp)[0]))
-            self.words(sp - 4, READ_RETURN, archive, name, output)
-            uc.reg_write(UC_X86_REG_ESP, sp - 4)
-            uc.reg_write(UC_X86_REG_EIP, READ)
-        elif address == READ_RETURN:
-            sp, ret = self.read_frames.pop()
-            assert uc.reg_read(UC_X86_REG_ESP) == sp + 12
-            uc.reg_write(UC_X86_REG_EIP, ret)
         elif address in (ENTER, LEAVE):
             critical, = self.args(1)
             depth = uc.mem_read(DEPTH, 1)[0]
@@ -232,7 +217,6 @@ class PreloadExecution(Execution):
         entry = (self.producers["sound_preload_worker"].symbols["_Sound_PreloadWorker_0043d080@0"]
                  if self.recovered else 0x43D080)
         self.call(entry, [])
-        assert not self.read_frames
         assert self.uc.mem_read(DEPTH, 1)[0] == self.case.depth
         return self.read_words(PENDING, 37)
 
@@ -248,11 +232,8 @@ class PreloadExecution(Execution):
         name = PATHS + index * 128
         if self.recovered:
             entry = self.producers["unassigned_0043d640"].symbols["_Sound_LoadPendingSlot_0043d640@12"]
-            result = self.call(entry, [name, GLOBAL, index])
-        else:
-            result = self.call(0x43D640, [GLOBAL, index], {UC_X86_REG_EAX: name})
-        assert not self.read_frames
-        return result
+            return self.call(entry, [name, GLOBAL, index])
+        return self.call(0x43D640, [GLOBAL, index], {UC_X86_REG_EAX: name})
 
     def snapshot(self):
         result = super().snapshot()
@@ -288,17 +269,11 @@ def cases():
         yield Case(label="reader-allocation-" + str(index), compression="all", reader_allocation_failure=index)
 
 
-import sys as _project_sys
-from pathlib import Path as _ProjectPath
-_project_sys.path.insert(0, str(_ProjectPath(__file__).resolve().parents[2]))
-from matching2.tools.common.project_paths import project_support
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--oracle", type=Path, default=ROOT / "matching2/build/oracle/th10.exe")
     options = parser.parse_args()
-    config = load_manifest(project_support((ROOT) / 'matching2/msvc', 'regions.json'))
-    load_oracle(options.oracle, config)
-    image = PEImage(options.oracle.read_bytes())
+    config, image = load_fixture(options.oracle)
     names = names_from_image(image)
     parameters = [struct.unpack("<BB2xii", image.read(0x474BD8 + index * 12, 12)) for index in range(8)]
     with tempfile.TemporaryDirectory(prefix="th10-sound-archive-") as temporary:

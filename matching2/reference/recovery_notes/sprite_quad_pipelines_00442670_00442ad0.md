@@ -1,27 +1,57 @@
 # Sprite quad submit pipelines at 0x00442670 and 0x00442AD0
 
-Current maintained-source status, 2026-09-27: both routines contain their inline
-`FRNDINT` blocks and pass the current full executable comparison. Removing
-those blocks while preserving byte identity remains unresolved. The active
-goal requires both byte matching and freedom from inline assembly. The source
-updates and scope statements below describe earlier snapshots, not the current
-maintained files. See the
-[verified checkpoint](native_recoveries_2026-09-27_third.md).
+The maintained [regular](../../msvc/src/core/sprtfunc/sprite_quad_submit.cpp)
+and [mirrored](../../msvc/src/core/sprtfunc/sprite_quad_submit_mirrored.cpp)
+pipelines byte-match retail and still use inline `FRNDINT` for pixel snapping.
+In the pinned MSVC 7.1 compiler, declaring `rint` or `nearbyint` and marking
+it intrinsic still emits an external call, not the retail instruction (`C4163` under `/Oi`). The backend does emit
+`FRNDINT` *inside* its `exp` expansion, between `FLD` and `FXCH`; that is
+not a pixel-rounding intrinsic. GCC emitted all four `FRNDINT` instructions in 24 full builds of each pipeline;
+none produced the retail 1,111-byte function. See the
+[byte-matched checkpoint](native_recoveries_2026-09-27_third.md).
+
+Calling the original CRT rounding routine (`_frnd`, `0x0045EBBA`) from C++
+produces four calls in each native MSVC body and expands each from 1,111 to
+1,189 bytes. The linked routine performs `FRNDINT`; calling it does not
+reproduce the inline instruction sequence. The native `exp` expansion rounds
+`x * log2(e)` for its own range reduction; C++ cannot read that intermediate
+as a rounding result. A full MSVC build with signed binary32 arithmetic in
+place of the snap block emitted 1,475 bytes and no `FRNDINT`.
+
+With GCC 16.2, `__builtin_rintl` emits all four rounding instructions,
+but even the 889-byte size-optimized submitters take the manager in EDX,
+not ECX. Compiling the real callers alongside them instead puts the entity
+on the stack and emits `ret 8`. Neither is callable with retail's contract.
+Clang's register calling convention can keep both incoming registers, but
+emits a plain `ret` and calls an external rounding routine.
+GCC 16.2 rejects combining `thiscall` and `regparm(1)`. Clang 23 accepts the
+combination but still receives the entity on the stack and emits `ret 8`.
+
+Open Watcom can express the entry directly (entity in EAX, manager in ECX,
+`ret 4`). In complete builds of both submitters, `rint` and `nearbyint`
+still emitted four library calls each, even with `#pragma intrinsic`. None
+emitted the four inline rounding instructions.
+
+Digital Mars C++ 8.57.0n emitted all four `FRNDINT`s and all eight corner
+stores in the regular submitter. It spilled three rounded coordinates,
+expected the entity on the stack and ended in `ret 8`. Its complete body
+was 1,047 bytes, not 1,111.
+
+Both versions share the [screen-origin adjustment, viewport culling and batch staging](../../msvc/include/th10/render/sprite_quad.hpp).
+Their U coordinates and half-pixel constant bindings remain distinct.
 
 Historical snapshot, 2026-09-13: the last two direct `SyncRenderState` callers
 were converted to ordinary C++. Both 1,111-byte sprite pipelines and the
 25-byte colour helper they call matched the retail image while the snap path
 still used inline x87 assembly.
 
-Current source update, 2026-09-23: both inline `FRNDINT` blocks were replaced
+Historical semantic-only experiment, 2026-09-23: both `FRNDINT` blocks were replaced
 with ordinary C++ calls to `rint`, followed by the same half-pixel adjustment
 and duplicated corner writes. Microsoft documents `rint` as following the
 active floating-point rounding mode and raising `FE_INEXACT` when rounding
 changes the value, matching the x87 operation's normal rounding and inexact
 behavior ([Microsoft CRT `rint` documentation](https://learn.microsoft.com/en-us/cpp/c-runtime-library/reference/rint-rintf-rintl?view=msvc-170)).
-The current source therefore has no inline assembly in either pipeline. The
-new version has not been compiled or compared with retail; byte identity and
-exceptional-value equivalence remain unverified.
+That version was not compared with retail and is not the maintained source.
 
 ## What the two pipelines do
 
@@ -85,19 +115,14 @@ standalone unit the same body compiles to a `movzx`-from-stack prologue instead.
   literals. The compiler pools one `__real@3f000000` per link, so a single
   literal can only ever reference one address; retail's two pipelines each read
   their own preserved `.rdata` slot.
-- The prior implementation kept the pixel snap in inline assembly because
-  earlier source-shape measurements focused on exact instruction output. The
-  current implementation instead prioritizes the semantic C++ requirement and
-  computes the four source edges as `rint(float-as-double) - half_pixel`, then
-  stores them to the same paired corners in the retail order. The regular and
-  mirrored paths preserve their distinct half-pixel constants.
+- Each snap reads one edge, rounds it according to the x87 control word,
+  subtracts the pipeline's half-pixel constant, and writes the paired corners.
+  Changing the rounding to a truncating integer cast is not equivalent.
 
 ## Historical validation before the source update
 
-The following byte-exact measurements describe the 2026-09-13 version with the
-inline x87 snap blocks still present. They do not validate the current `rint`
-implementation; no build, probe, or test was run for the 2026-09-23 source
-change.
+The following measurements describe the 2026-09-13 version with inline x87.
+They are not measurements of the later `rint` experiment.
 
 `python3 matching2/tools/matching/probe.py --source src/render/sprite_quad_submit.cpp`
 reports all 17 batch functions EXACT. `make MSVC_ARGS='--jobs 32'` passes: the

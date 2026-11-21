@@ -53,20 +53,13 @@ __declspec(noinline) int __stdcall TitleMode6(Title* room) {
     void* handle;
     switch (room->phase) {
     case 0:
-        if (reinterpret_cast<RecoveryLookup*>(g_sprt_ctrl)->Find(
-                reinterpret_cast<RecoveryLookupContext*>(g_sprt_ctrl),
-                *reinterpret_cast<RecoveryScriptId*>(&room->animation_slots[94])) == 0) {
-            RecoveryMusicInstallSlot(room, 94);
-            void* resource = g_ascii_manager->animation_resource;
-            void** result = AnimationManager_CreatePrimaryBack(resource, &handle, 8, 15);
-            room->fallback_handle.value = reinterpret_cast<unsigned int>(*result);
-        }
+        EnsureTitleMenuBackdrop(room, handle);
         room->cursor.item_count = g_globals_difficulty < 4 ? 4 : 1;
         room->ClearAnimationSlot(slot);
         RecoveryMusicInstallSlot(room, slot);
         AnimationManager_SetStopFrameAndRun(
             3, reinterpret_cast<RecoveryLookupContext*>(g_sprt_ctrl),
-            *reinterpret_cast<RecoveryScriptId*>(&room->animation_slots[slot]));
+            room->animation_slots[slot]);
         room->SetSlotFrame(slot, room->cursor.selection + 0x11);
         RecoveryMusicInstallSlot(room, 98);
         room->SetTimerTarget(1);

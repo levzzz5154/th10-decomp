@@ -25,7 +25,7 @@ __declspec(noinline) void* __fastcall RecoverySetFlag(RecoveryLookupContext* con
     RecoveryLookupNode* node = static_cast<RecoveryLookupNode*>(
         reinterpret_cast<RecoveryLookup*>(g_sprt_ctrl)->Find(
             context,
-            *reinterpret_cast<const RecoveryScriptId*>(&id)));
+            *reinterpret_cast<const AnimationScriptId*>(&id)));
     if (node) {
         node->flags |= 0x04000000u;
         if (!node->children_flagged)

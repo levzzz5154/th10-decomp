@@ -1,9 +1,9 @@
 // Interfaces and accessed fields for the stop-frame/run family.
 #pragma once
+#include "th10/render/animation_script_id.hpp"
 #include <stddef.h>
 
 struct AnimationLookupContext;
-struct AnimationScriptId { int value; };
 
 struct AnimationTreeNode {
     AnimationTreeNode* object;

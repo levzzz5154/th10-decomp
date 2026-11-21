@@ -5,6 +5,8 @@
   "driver": "build_support/layout/ltcg/anm_texture_upload_00446c70_context.cpp",
   "headers": [
     "include/th10/render/anm_texture.hpp",
+    "include/th10/render/anm_surface_fill.hpp",
+    "include/th10/render/texture_pixels.hpp",
     "include/th10/platform/archive_file.hpp",
     "build_support/layout/ltcg/native_archive_read/archive.hpp",
     "include/th10/archive/dat_archive_types.hpp",
@@ -15,8 +17,17 @@
     "include/th10/render/animation_position_record.hpp"
   ],
   "image_base": "0x00400000",
-  "description": "ANM texture file load and pixel upload compiled with native LTCG; a stand-in transparent-pixel pass, the real archive closure and a synthetic caller supply the private register arguments.",
+  "description": "ANM texture file loading, uploading and transparent-pixel filling with their archive callees; a synthetic entry supplies the native private calling conventions.",
   "functions": [
+    {
+      "name": "AnmTexture_FillTransparentPixels",
+      "source": "src/core/sprtlib/anm_texture_fill_transparent_pixels.cpp",
+      "symbol": "?FillTransparentPixels@AnmTexture@@QAEXXZ",
+      "section": ".text$00fill",
+      "address": "0x004465B0",
+      "size": 1463,
+      "actual_abi": "texture in EAX; plain RET"
+    },
     {
       "name": "AnmTexture_LoadFile_00446b70",
       "source": "src/core/sprtlib/anm_texture_load_file.cpp",
@@ -110,13 +121,6 @@
   ],
   "anchors": [
     {
-      "name": "AnmTexture_FillTransparentPixels_standin",
-      "symbol": "?FillTransparentPixels@AnmTexture@@QAEXXZ",
-      "section": ".text$00fill",
-      "address": "0x004465B0",
-      "size": 13
-    },
-    {
       "name": "ArchiveRead",
       "symbol": "_DatArchiveRead@12",
       "address": "0x434dd0",
@@ -191,8 +195,8 @@
     },
     {
       "section": ".text$00zlayout",
-      "address": "0x4465bd",
-      "size": 1459
+      "address": "0x446b67",
+      "size": 9
     },
     {
       "section": ".text$01lzgap",
@@ -295,11 +299,6 @@
     {
       "symbol": "_asm_D3DXLoadSurfaceFromMemory_004521a6@40",
       "address": "0x004521A6",
-      "kind": "relative_code"
-    },
-    {
-      "symbol": "_entry_external_00446c70@8",
-      "address": "0x00452000",
       "kind": "relative_code"
     },
     {
@@ -595,6 +594,7 @@
   ],
   "roots": [],
   "additional_sources": [
+    "src/core/sprtlib/anm_texture_fill_transparent_pixels.cpp",
     "src/core/sprtlib/anm_texture_load_file.cpp",
     "src/core/sprtlib/anm_texture_upload_at.cpp",
     "src/core/sprtlib/anm_texture_create_from_memory.cpp",

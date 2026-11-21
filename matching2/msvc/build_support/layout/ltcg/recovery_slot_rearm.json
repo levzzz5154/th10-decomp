@@ -7,7 +7,6 @@
   ],
   "driver": "build_support/layout/ltcg/recovery_slot_rearm_context.cpp",
   "headers": [
-    "build_support/include/asm_encoding.hpp",
     "build_support/include/asm_symbols.hpp"
   ],
   "image_base": "0x00400000",

@@ -1,17 +1,23 @@
 # Touhou 10 matching decompilation
 
-Readable C++ that compiles, with ZUN's own toolchain (MSVC 7.1, `/LTCG`), back
-into a byte-exact `th10.exe`.
+C++ recovery of Touhou 10, checked against the retail `th10.exe` using the
+original MSVC 7.1 whole-program optimizer and byte comparisons.
 
-![Project status](docs/status.png)
+![Touhou 10 build status: 2,321 of 2,322 game regions match retail; the default executable differs by 8 bytes.](docs/status.png)
 
-Every game function is recovered as C++ and the default build contains no
-inline assembly. 91.3% of the game code bytes are byte-exact C++ (99.6%
-counting the identical instructions of the remaining functions). The rest are
-*equivalent recoveries* (below): C++ that differs from retail only by recorded,
-reviewed compiler choices. `make EXACT=1` swaps those back to their retail
-assembly and produces the bit-identical executable. Development happens on
-`main`; [HANDOFF.md](HANDOFF.md) is the current state and how to continue.
+**2,321 of 2,322 game-code regions match retail byte for byte.** Together they
+cover 319,744 of 322,064 game bytes (99.3%), including the entire 1,400-byte
+[high-score keyboard](matching2/reference/recovery_notes/name_entry_update_00432cb0_exact.md).
+
+The only difference in the 487,936-byte default executable is in the
+[item update at `0x0041AFD0`](matching2/msvc/src/game/item/item_update.cpp).
+Two adjacent loads occur in the opposite order: **8 bytes differ** at their
+retail offsets. The C++ implementation remains an accepted near-match:
+all 44 external call sites match, and all 473 bounded differential cases pass.
+
+Five byte-matched renderer functions still use inline x87 assembly.
+`make EXACT=1` uses the item's assembly fallback to reproduce the retail hash;
+`make verify-cpp` correctly rejects this checkpoint as not assembly-free or byte-identical.
 
 ## Building
 
@@ -19,22 +25,19 @@ assembly and produces the bit-identical executable. Development happens on
 make             # Compile what changed; equivalent regions built from their C++
 make EXACT=1     # The same with equivalent regions from assembly: the bit-identical executable
 make rebuild     # The same, recompiling every unit from scratch
+make verify-cpp  # Require the retail file hash and no explicit assembly in maintained sources
 make progress    # Region and byte counts per kind, without building
 make abi-check   # Equivalent models must pass retail callees the same register arguments
 make behavior-check  # abi-check plus the Unicorn differential tests (see below)
 make ltcg-proof  # After make, or with LTCG_ARGS='--oracle /path/to/retail.exe'
 ```
 
-The output is `matching2/build/msvc/th10.exe`. Every build ends with a line
-like
-
-```
-Recovered: 100.0% of bytes (322,064 of 322,064), 100.0% of regions (2,322 of 2,322); byte-exact alone 91.3% of bytes, 99.6% counting identical instructions of equivalent regions
-```
-
-The last share credits each equivalent region with its fraction of identical
-instructions, weighted by region bytes, so it is an estimate. The runtime
-library and padding are not game code and are not counted.
+The output is `matching2/build/msvc/th10.exe`. The build reports both the size
+of complete byte-matched regions and the number of individual game bytes that
+match at their retail offsets. The latter compares the actual relocated bytes,
+including embedded jump tables and any padding within an equivalent region;
+it does not estimate a byte percentage from instruction counts. Runtime
+libraries and padding outside game regions are excluded from both counts.
 
 Requires Python 3.10+, Wine, MSVC 13.10.6030 with LINK 7.10.6030, GNU x86 PE
 binutils (`i686-w64-mingw32-ld`), and the pinned GCC, Clang and LLVM-MC
@@ -45,8 +48,14 @@ Run `./matching2/build_msvc.sh --help` for build options.
 
 The normal build uses maintained sources and data only; it does not read a
 retail EXE or the disassembly references. Every build, incremental or not,
-checks all bytes (`make verify` is an alias). To compare with a retail copy and
-get detailed mismatch diagnostics, use `make MSVC_ARGS='--verify /path/to/th10.exe'`.
+checks the exact link and every selected C++ replacement (`make verify` is an
+alias). `make MSVC_ARGS='--verify /path/to/th10.exe'` also compares the entire
+packaged executable with retail. It fails if the number of differing file bytes
+does not equal the sum verified in the selected C++ bodies; an exact build must
+have zero differences. `make verify-cpp` additionally rejects any assembly region or
+explicit assembly in the maintained `matching2/msvc/` sources and headers,
+including build support. It cannot be combined with `EXACT=1`. Toolkit
+libraries and historical references outside that project are not audited.
 
 The build is incremental. Each compiled unit is kept in a content-addressed
 cache under `matching2/build/msvc/cache/`, keyed by the build tools, the
@@ -64,13 +73,15 @@ deleting the cache directory is always safe.
 names the authoritative source of each address. A second naked body in a
 non-owning source does not contribute to the executable; remove such
 duplicates rather than treating them as unrecovered.
+The [build-support guide](matching2/msvc/build_support/README.md#following-a-build-in-the-tools)
+maps that ownership to the compiler, object reader, linker and verifier.
 
 **Single units.** `matching2/tools/matching/probe.py` gives the build's byte
 gate for one translation unit, which is how a function is recovered and
 checked before running `make`:
 
 ```sh
-python3 matching2/tools/matching/probe.py --source src/game/score.cpp
+python3 matching2/tools/matching/probe.py --source src/core/sprtanim/anm_vm_tick.cpp
 ```
 
 It compiles the unit through the build's own compile path, requires every
@@ -96,6 +107,8 @@ comparisons.
 GCC/LLVM-COFF or Clang/LLVM-COFF profiles where MSVC cannot express a recovered
 register ABI. Each profile pins its compiler and assembler; the build
 assembles the compiler's output unchanged and applies the same byte gate.
+The eight 30-byte polar-vector setters share [one x87 C++ implementation](matching2/msvc/include/th10/math/scaled_polar.hpp).
+Each keeps its own native entry point, including the variant with independent X and Y scales.
 
 **Runtime library.** The statically linked C/C++ runtime is not transcribed.
 A `library` region names a whole section of a member of the toolkit's own
@@ -158,9 +171,10 @@ Three checks cover that:
   compares where every register argument comes from. Cases reviewed by hand as
   passing the same value are listed with their reason in
   `callsite_abi_reviewed.json`.
-* `make behavior-check` also runs two Unicorn differential tests that execute
-  the installed item update and replay submenu bodies against the real retail
-  collaborators:
+* `make behavior-check` also runs Unicorn differential tests for the installed
+  item update, replay submenu and high-score keyboard. The keyboard test runs
+  all 91 grid cells against retail, including editing a full name, the input-delay
+  boundary and saving a short name without overwriting bytes after its NUL:
 
   ```sh
   python3 -m venv matching2/build/behavior-venv
@@ -175,6 +189,14 @@ Three checks cover that:
   all clear (48,428, where retail and the build both fault at the same frame)
   and Extra clear (43,353). Under this Wine setup retail itself drifts from the
   recordings late in those runs, so the build is compared with retail's trace.
+
+For a standalone differential test under `matching2/tests/`, start with
+[`x86_fixture.py`](matching2/tests/x86_fixture.py): it verifies the retail
+`.text` hash, defines the emulated addresses and preserved registers, and loads a
+single candidate function. Use `maintained_region(retail_address)` for a
+maintained function's source and symbol; both can change when a recovery is
+renamed. [`coff_module.py`](matching2/tests/coff_module.py) loads complete
+test modules when their data, helpers or unwind tables must move with the code.
 
 ## Repository layout
 

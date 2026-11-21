@@ -20,7 +20,7 @@ struct AnimationRef2 {
 };
 // An animation slot seen as the handle 0x004497D0 searches.
 struct AnimationHandle15 {
-    RecoveryScriptId id;
+    AnimationScriptId id;
     AnimationRef2 FindChildRef(int script_id);
 };
 // A child reference seen as the handle 0x00449470 works on.
@@ -40,7 +40,7 @@ struct TitleDifficultyView {
 // one slot at frame 3.
 struct TitleAnimationSlotView {
     unsigned char reserved_000[0x2C4];
-    RecoveryScriptId slots[195];
+    AnimationScriptId slots[195];
     __declspec(noinline) void RestartSlot(int slot);
     // 0x0042C730: the same at frame 2.
     __declspec(noinline) void StopSlot(int slot);
@@ -55,7 +55,7 @@ extern GameThread6* g_ascii_manager;
 
 // 0x00449250: set the stop frame of an animation and run it once.
 void __fastcall AnimationManager_SetStopFrameAndRun(
-    unsigned short frame, RecoveryLookupContext* context, RecoveryScriptId id);
+    unsigned short frame, RecoveryLookupContext* context, AnimationScriptId id);
 // 0x0040AD20: store the requested value in a counter, clamped to its bound.
 // Never expanded in the image, not even where the inliner's own score would
 // accept it (0x00431602); the one inline clamp, in 0x00430FF0, has another
@@ -64,6 +64,21 @@ __declspec(noinline) unsigned int __fastcall UpdateBoundedCounter(unsigned int r
 // 0x00448D00.
 __declspec(noinline) void** __stdcall AnimationManager_CreatePrimaryBack(
     void* resource, void** handle, int script, int layer);
+
+// The four selection screens share this backdrop. Keep the creator's output
+// slot in the caller: a helper-local slot changes the difficulty screen's frame.
+static __forceinline void EnsureTitleMenuBackdrop(Title* room, void*& handle) {
+    enum { BackdropSlot = 94, BackdropScript = 8, MenuLayer = 15 };
+    if (reinterpret_cast<RecoveryLookup*>(g_sprt_ctrl)->Find(
+            reinterpret_cast<RecoveryLookupContext*>(g_sprt_ctrl),
+            room->animation_slots[BackdropSlot]) != 0)
+        return;
+
+    RecoveryMusicInstallSlot(room, BackdropSlot);
+    void* resource = g_ascii_manager->animation_resource;
+    void** result = AnimationManager_CreatePrimaryBack(resource, &handle, BackdropScript, MenuLayer);
+    room->fallback_handle.value = reinterpret_cast<unsigned int>(*result);
+}
 
 __declspec(noinline) int __stdcall TitleMode6(Title* room);
 #endif

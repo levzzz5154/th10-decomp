@@ -6,7 +6,8 @@
   "headers": [
     "include/th10/game/menu_cursor.hpp",
     "include/th10/game/name_entry_prepare.hpp",
-    "include/th10/game/score_table_insert.hpp"
+    "include/th10/game/score_table_insert.hpp",
+    "include/th10/game/stage_route.hpp"
   ],
   "image_base": "0x00400000",
   "description": "The high-score insertion and the name entry preparation that calls it (table in EDI), compiled with native LTCG beside a synthetic caller that lets the game counters' address escape.",

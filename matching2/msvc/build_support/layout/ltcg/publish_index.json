@@ -3,7 +3,9 @@
   "name": "publish_index_0040ada0",
   "source": "src/unreferenced/publish_index.cpp",
   "driver": "build_support/layout/ltcg/publish_index_0040ada0_context.cpp",
-  "headers": [],
+  "headers": [
+    "include/th10/game/stage_route.hpp"
+  ],
   "image_base": "0x00400000",
   "description": "publish_index_0040ada0 compiled with native LTCG so the record arrives in EAX.",
   "functions": [
@@ -38,6 +40,11 @@
   "constants": [],
   "roots": [],
   "absolute_symbols": [
+    {
+      "symbol": "_g_stage_routes",
+      "address": "0x00474788",
+      "kind": "data"
+    },
     {
       "symbol": "_g_stage_route_current",
       "address": "0x00477848",

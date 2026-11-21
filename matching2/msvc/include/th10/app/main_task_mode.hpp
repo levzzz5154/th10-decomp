@@ -1,6 +1,7 @@
 #ifndef TH10_APP_MAIN_TASK_MODE_HPP
 #define TH10_APP_MAIN_TASK_MODE_HPP
 #include "th10/platform/sound_fade_manager_wave18.hpp"
+#include "th10/game/stage_route.hpp"
 
 // Objects owned by one mode of the main task; each is created when its mode
 // is entered and destroyed when the next mode replaces it.
@@ -12,13 +13,6 @@ extern "C" Game* g_game;
 extern "C" Title* g_title;
 extern "C" ScoreOwnedObject* g_ending;
 extern "C" int g_main_mode_request;
-
-// One row of the stage table at 0x00474788.
-struct StageRouteWave18 {
-    unsigned char bytes[0x30];
-};
-extern "C" StageRouteWave18 g_stage_routes[];
-extern "C" StageRouteWave18* g_stage_route_current;   // the current stage's row
 
 // The menu screen keeps the argument it was created with.
 struct GameUiArgumentWave18 {

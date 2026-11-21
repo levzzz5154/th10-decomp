@@ -2,7 +2,7 @@ from pathlib import Path
 import json,re,subprocess,sys
 from matching2.tools.common.wine import DEFAULT_TOOLKIT,compiler_environment,winpath
 from matching2.tools.matching.ltcg_cluster import _absolute_object
-from matching2.tools.common.coff_regions import _read_object
+from matching2.tools.common.coff import read_object
 p=Path('matching2/reference/semantic_candidates/ending_screen_0042d300').resolve()
 variant=sys.argv[1] if len(sys.argv)>1 else 'opaque'
 source={'opaque':'title_dispatcher.cpp','leaves':'native_leaves.cpp','music':'music_caller.cpp','adapter':'adapter_context.cpp','adapter_public_music':'adapter_context.cpp','full_script':'full_script_context.cpp','full_script_count':'full_script_count.cpp','full_script_menu':'full_script_menu.cpp','full_script_menu_history':'full_script_menu.cpp','full_script_menu_push':'full_script_menu_push.cpp','full_script_menu_leaves':'full_script_menu_leaves.cpp','full_script_menu_member':'full_script_menu_member.cpp','full_script_menu_no_global':'full_script_menu_no_global.cpp','full_script_menu_cursor':'full_script_menu_cursor.cpp','full_script_menu_clamp':'full_script_menu_clamp.cpp','full_script_menu_direct_exit':'full_script_menu_direct_exit.cpp'}[variant]
@@ -25,7 +25,7 @@ for mode in ('ordinary','gl'):
   if mode=='gl':cmd+=['/GL']
   cmd+=['/I'+winpath(Path('matching2/msvc/include').resolve()),'/Fo'+winpath(object_path),winpath(input_path)]
   r=subprocess.run(cmd,env=env,capture_output=True,text=True);(w/(mode+'_'+str(index)+'.log')).write_text(r.stdout+r.stderr);cmds.append(cmd);assert r.returncode==0,r.stdout+r.stderr
-records=[record for object_path in objects['ordinary'] for record in _read_object(object_path)['records']]
+records=[record for object_path in objects['ordinary'] for record in read_object(object_path)['records']]
 defined={item['name'] for item in records if item.get('section_number',0)>0 and item.get('storage_class')==2}
 bindings=[]
 known={}

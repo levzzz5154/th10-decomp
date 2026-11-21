@@ -45,8 +45,7 @@ static int MusicAttenuation(const int& stored_music) {
 static __forceinline LabelAnimation* FindLabel(
         RecoveryLookupContext* manager, Title* room,
         int script) {
-    RecoveryScriptId* slot =
-        reinterpret_cast<RecoveryScriptId*>(&room->animation_slots[1]);
+    AnimationScriptId* slot = &room->animation_slots[1];
     LabelParent* parent = static_cast<LabelParent*>(
         reinterpret_cast<RecoveryLookup*>(manager)->Find(manager, *slot));
     if (parent == 0)
@@ -63,7 +62,7 @@ static __forceinline LabelAnimation* FindLabel(
         id = match->object->id;
     else
         id = 0;
-    RecoveryScriptId key = { id };
+    AnimationScriptId key = { id };
     return static_cast<LabelAnimation*>(
         reinterpret_cast<RecoveryLookup*>(manager)->Find(manager, key));
 }

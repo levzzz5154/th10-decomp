@@ -13,6 +13,7 @@
     "include/th10/core/func_ctrl.hpp",
     "include/th10/math/timer.hpp",
     "include/th10/render/camera_batch.hpp",
+    "include/th10/render/textured_quad.hpp",
     "include/th10/render/quad_batch.hpp"
   ],
   "description": "GameState constructor with its member-array unwind funclet and EH handler; a new-expression caller is the compiler-only context.",

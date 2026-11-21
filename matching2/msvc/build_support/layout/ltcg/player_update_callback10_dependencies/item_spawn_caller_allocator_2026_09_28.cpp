@@ -21,7 +21,7 @@ struct ItemConfiguredEntity_00404f30 : Entity {
 __declspec(noinline) void** __stdcall ItemAnimation_CreateOffset(
     void* resource, void** output, int script, const Vector3* position);
 static __forceinline void ResetSpawnTimer_0041bb00(SpawnItem* item) {
-    item->motion_state=0;
+    item->velocity.z=0.0f;
     _ReadWriteBarrier();
     unsigned int flags=item->timer_flags;
     if (!(flags&1u)) {
@@ -59,7 +59,7 @@ __declspec(noinline) int ItemSpawnManager::Spawn(
         location[2]=position[2];
         if (location[0]<=-192.0f) location[0]=-192.0f;
         else if (location[0]>=192.0f) location[0]=192.0f;
-        item->velocity.SetPolar(angle,speed);
+        item->velocity.xy.SetPolar(angle,speed);
         ResetSpawnTimer_0041bb00(item);
         int mapped_kind=kind;
         if (g_globals_power>=100) {
@@ -107,7 +107,7 @@ __declspec(noinline) int ItemSpawnManager::Spawn(
         item->position[0]=position[0];
         item->position[1]=position[1];
         item->position[2]=position[2];
-        item->velocity.SetPolar(angle,speed);
+        item->velocity.xy.SetPolar(angle,speed);
         ResetSpawnTimer_0041bb00(item);
     }
     manager->special_cursor=(manager->special_cursor+1)%2048;

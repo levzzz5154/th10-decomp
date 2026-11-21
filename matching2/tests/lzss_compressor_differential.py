@@ -15,34 +15,22 @@ from pathlib import Path
 import random
 import struct
 import subprocess
-import sys
 import tempfile
 
-ROOT = Path(__file__).resolve().parents[2]
-sys.path.insert(0, str(ROOT))
-
 from unicorn import Uc, UC_ARCH_X86, UC_MODE_32, UC_HOOK_CODE
-from unicorn.x86_const import (UC_X86_REG_EAX, UC_X86_REG_EBX, UC_X86_REG_EBP,
-                              UC_X86_REG_ESI, UC_X86_REG_EDI, UC_X86_REG_ESP,
-                              UC_X86_REG_EIP)
-from matching2.tools.common.coff import read_coff_function
-from matching2.tools.common.pe import PEImage
+from unicorn.x86_const import UC_X86_REG_EAX, UC_X86_REG_ESP, UC_X86_REG_EIP
+
+from x86_fixture import ROOT, CANDIDATE, INPUT, OUTPUT, STACK, STOP, PRESERVED, load_candidate, load_fixture
+from matching2.tools.common.project_paths import DEFAULT_PROJECT, project_support
 from matching2.tools.common.wine import DEFAULT_TOOLKIT, compiler_environment, winpath
-from matching2.tools.matching.probe import load_manifest, load_oracle, region_directory, relocation_table
+from matching2.tools.matching.retail import region_directory
 
 ENTRY = 0x4359B0
-CANDIDATE = 0x1000000
-INPUT = 0x2000000
-OUTPUT = 0x2100000
 SIZE = 0x2200000
-STACK = 0x2300000
-STOP = 0x2400000
 TREE = 0x477858
 TREE_BYTES = 0x2001 * 12
 RING = 0x48F868
 GUARD = bytes([0xA5]) * 64
-PRESERVED = {UC_X86_REG_EBX: 0x13579BDF, UC_X86_REG_EBP: 0x2468ACE0,
-             UC_X86_REG_ESI: 0x12345678, UC_X86_REG_EDI: 0x87654321}
 
 
 def compile_candidate(output, config):
@@ -54,27 +42,14 @@ def compile_candidate(output, config):
                    check=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE, timeout=180)
 
 
-from matching2.tools.common.project_paths import project_support
-def load_candidate(path, config, requested_symbol="Lzss_Compress_004359B0", extra_bindings=None,
-                   code_address=CANDIDATE):
-    symbol, raw, _ = read_coff_function(path, requested_symbol)
-    bindings = region_directory(config, config["regions"])
-    cluster = json.loads((project_support((ROOT) / 'matching2/msvc', 'layout/ltcg/lzss.json')).read_text())
-    bindings.update({row["symbol"]: int(row["address"], 0)
-                     for row in cluster["absolute_symbols"]})
+def load_compressor(path, config):
+    cluster = json.loads(project_support(DEFAULT_PROJECT, 'layout/ltcg/lzss.json').read_text())
+    bindings = {row["symbol"]: int(row["address"], 0) for row in cluster["absolute_symbols"]}
     # The archived candidates still name the match tree as one object.
     bindings["?g_compression_tree@@3UCompressionTree@@A"] = bindings["?g_LzssTree@@3PAULzssNode@@A"]
-    bindings.update(extra_bindings or {})
-    code = bytearray(raw)
-    for offset, name, kind, local in relocation_table(path, symbol):
-        target = code_address + local if local is not None else bindings[name]
-        value = struct.unpack_from("<I", code, offset)[0] + target
-        if kind == 0x14:
-            value -= code_address + offset + 4
-        elif kind != 6:
-            raise ValueError(f"unsupported relocation kind {kind:#x}")
-        struct.pack_into("<I", code, offset, value & 0xFFFFFFFF)
-    return bytes(code)
+    bindings["@Lzss_RemoveNode_00436210@4"] = region_directory(config, config["regions"])[
+        "?Lzss_DeleteString@@YIXH@Z"]
+    return load_candidate(path, config, "Lzss_Compress_004359B0", bindings)
 
 
 def execute(image, candidate, payload, fail_allocation=False):
@@ -183,14 +158,12 @@ def main():
     parser.add_argument("--object", type=Path)
     parser.add_argument("--oracle", type=Path, default=ROOT / "matching2/build/oracle/th10.exe")
     args = parser.parse_args()
-    config = load_manifest(project_support((ROOT) / 'matching2/msvc', 'regions.json'))
-    load_oracle(args.oracle, config)  # Refuse an unverified retail text section.
-    image = PEImage(args.oracle.read_bytes())
+    config, image = load_fixture(args.oracle)
     with tempfile.TemporaryDirectory(prefix="th10-lzss-") as temporary:
         obj = args.object or Path(temporary) / "compress.obj"
         if args.object is None:
             compile_candidate(obj, config)
-        code = load_candidate(obj, config)
+        code = load_compressor(obj, config)
         count = 0
         for label, payload in cases():
             try:

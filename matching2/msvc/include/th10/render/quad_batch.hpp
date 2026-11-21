@@ -1,7 +1,8 @@
 #ifndef TH10_QUAD_BATCH_HPP
 #define TH10_QUAD_BATCH_HPP
+#include "th10/render/textured_quad.hpp"
+
 struct RenderEntity;
-struct TexturedVertex { float x, y, z, rhw; unsigned int color; float u, v; };
 struct SprtCtrlBatchView {
     unsigned char unknown_00000000[0x54];
     int state_changes;
@@ -103,8 +104,6 @@ struct RenderEntity {
     // src/core/sprtfunc/render_entity_draw_fan.cpp.
     __declspec(noinline) int DrawFan33();
 };
-// The shared sprite quad both submit pipelines finish and append.
-extern "C" TexturedVertex g_quad_vertices[4];
 // The half-pixel the two submit pipelines pull their snapped edges back by.
 // Retail kept one .rdata copy per pipeline instead of the shared 0.5f pool.
 extern "C" float data_00470e8;

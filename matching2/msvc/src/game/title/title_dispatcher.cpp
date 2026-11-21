@@ -2,6 +2,7 @@
 // counter that starts a demo replay, then the handler of the current mode.
 // Built in the title_dispatcher LTCG cluster, whose driver adds its caller.
 #include "th10/game/ending_screen.hpp"
+#include "th10/game/stage_route.hpp"
 #include "th10/render/animation_resource_removal.hpp"
 #include <stdlib.h>
 #include <string.h>
@@ -26,7 +27,7 @@ struct DemoFile {
     unsigned char reserved_000[0x18];
     DemoHeader* header;
     unsigned char reserved_01c[0xb0 - 0x1c];
-    DemoStageRecord stages[8];
+    DemoStageRecord stages[StageRouteCount];
 };
 typedef char DemoStageOffset[offsetof(DemoFile, stages) == 0xb0 ? 1 : -1];
 // The game state object at 0x00474C44 as the title screen uses it.
@@ -52,8 +53,6 @@ extern "C" {
     extern unsigned int g_app_flags;
     extern const char* g_title_demo_paths[4];
     extern char g_replay_path[];
-    extern unsigned char g_stage_routes[];
-    extern unsigned char* g_stage_route_current;
     extern GameThread6* g_ascii_manager;
     extern float flt_0_99, flt_1_01, flt_1;
 }
@@ -100,9 +99,9 @@ static __forceinline int UpdateIdleDemo(TitlePrefix* title) {
             DemoFile* file = TitleLoadDemo(g_replay_path);
             g_globals_score.next_demo = (g_globals_score.next_demo + 1) % 4;
             int stage = 0;
-            while (stage < 8 && file->stages[stage].present == 0)
+            while (stage < StageRouteCount && file->stages[stage].present == 0)
                 ++stage;
-            g_stage_route_current = g_stage_routes + stage * 0x30;
+            g_stage_route_current = &g_stage_routes[stage];
             g_globals_score.stage = stage;
             g_globals_score.first_stage = stage;
             g_main_state = 12;

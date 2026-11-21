@@ -14,13 +14,13 @@ import tempfile
 
 from unicorn import UC_HOOK_CODE
 from unicorn.x86_const import UC_X86_REG_EBX, UC_X86_REG_ECX, UC_X86_REG_ESI, UC_X86_REG_EDI, UC_X86_REG_FPCW, UC_X86_REG_FPTAG, UC_X86_REG_FPSW
+
+from x86_fixture import ROOT, CANDIDATE, OUTPUT, STOP, load_fixture, maintained_region
 from sound_effect_queue_differential import (
     Case as QueueCase, Execution as QueueExecution, compile_candidates as compile_queue, float_bits,
-    PLAY_SYMBOL, STOP_SYMBOL, ROOT, COMMON, CANDIDATE, STATE, MANAGER, BUFFER, DISPATCH_SYMBOL,
-    DATA, OUTPUT, PEImage, load_manifest, load_oracle, difference)
+    PLAY_SYMBOL, STOP_SYMBOL, COMMON, STATE, MANAGER, BUFFER, DISPATCH_SYMBOL, DATA, difference)
 from sound_commands_differential import TABLE, ALT_TABLE, ALT_BUFFER, THIRD, VOLUME, EFFECT_POSITION
 from sound_stream_initialize_differential import DEVICE, DEVICE_TABLE, OWNER, ALT_OWNER
-from lzss_compressor_differential import STOP
 from coff_module import load_module
 
 GLOBAL = 0x492590
@@ -29,7 +29,7 @@ PWAIT, PSLEEP, PCLOSE, OTHER_WAIT, OTHER_SLEEP, OTHER_CLOSE, STOP_WORKERS, DUPLI
     STOP + value for value in (0x7000, 0x7100, 0x7200, 0x7300, 0x7400, 0x7500, 0x7600, 0x7700))
 SETUP_SYMBOL = "_Sound_InitializeEffects_0043db60@4"
 WORKER_SYMBOL = "_Sound_StopPreloadWorkers_0043cc40@4"
-MAINTAINED_SYMBOL = "?Stop@SoundWorkerPair_0043cc40@@QAEHXZ"
+MAINTAINED_WORKER = maintained_region(0x43CC40)
 
 
 @dataclass(frozen=True)
@@ -59,7 +59,7 @@ def compile_candidates(directory):
     imports = {"_g_sound_wait_for_object": 0x46611C, "_g_sound_sleep": 0x4660AC, "_g_sound_close_handle": 0x4660CC}
     worker = load_module(obj, CANDIDATE + 0x3C000, imports)
     obj = directory / "maintained-preload-stop.obj"
-    subprocess.run([*COMMON, "-c", str(ROOT / "matching2/msvc/src/platform/sound_worker.cpp"),
+    subprocess.run([*COMMON, "-c", str(MAINTAINED_WORKER.source),
                     "-o", str(obj)], check=True, timeout=60)
     maintained = load_module(obj, CANDIDATE + 0x3E000, {
         "__imp__WaitForSingleObject@8": 0x46611C, "__imp__Sleep@4": 0x4660AC, "__imp__CloseHandle@4": 0x4660CC})
@@ -89,7 +89,7 @@ class Execution(QueueExecution):
             for module in compiled[1:]:
                 self.uc.mem_write(module.base, module.data)
             self.worker_entries.add(compiled[3].symbols[WORKER_SYMBOL])
-            self.maintained_entry = compiled[4].symbols[MAINTAINED_SYMBOL]
+            self.maintained_entry = compiled[4].symbols[MAINTAINED_WORKER.symbol]
             self.worker_entries.add(self.maintained_entry)
         self.duplicate_calls = self.preload_wait_calls = 0
 
@@ -172,7 +172,7 @@ class Execution(QueueExecution):
             self.uc.hook_add(UC_HOOK_CODE, self.hook, begin=address, end=address)
         if case.operation == "worker":
             if self.worker:
-                observed = (self.run(self.worker.symbols[MAINTAINED_SYMBOL], (), {UC_X86_REG_ECX: case.manager})
+                observed = (self.run(self.worker.symbols[MAINTAINED_WORKER.symbol], (), {UC_X86_REG_ECX: case.manager})
                             if self.maintained else self.run(self.worker.symbols[WORKER_SYMBOL], (case.manager,)))
             else:
                 observed = self.run(0x43CC40, (), {UC_X86_REG_ESI: case.manager})
@@ -298,17 +298,11 @@ def maintained_import_diagnostic(image, compiled):
     assert normalized == expected
 
 
-import sys as _project_sys
-from pathlib import Path as _ProjectPath
-_project_sys.path.insert(0, str(_ProjectPath(__file__).resolve().parents[2]))
-from matching2.tools.common.project_paths import project_support
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--oracle", type=Path, default=ROOT / "matching2/build/oracle/th10.exe")
     options = parser.parse_args()
-    config = load_manifest(project_support((ROOT) / 'matching2/msvc', 'regions.json'))
-    load_oracle(options.oracle, config)
-    image = PEImage(options.oracle.read_bytes())
+    _, image = load_fixture(options.oracle)
     with tempfile.TemporaryDirectory(prefix="th10-effect-buffers-") as temporary:
         compiled = compile_candidates(Path(temporary))
         totals, faults, bounded = {}, {}, 0

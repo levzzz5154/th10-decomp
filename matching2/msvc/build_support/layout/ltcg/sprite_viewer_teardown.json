@@ -11,6 +11,7 @@
     "include/th10/core/func_ctrl.hpp",
     "include/th10/platform/thread_sync.hpp",
     "include/th10/platform/worker.hpp",
+    "include/th10/render/textured_quad.hpp",
     "include/th10/render/quad_batch.hpp",
     "include/th10/game/menu_cursor.hpp"
   ],

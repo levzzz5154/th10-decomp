@@ -22,6 +22,7 @@
   "headers": [
     "include/th10/game/entity.hpp",
     "include/th10/game/item_spawn.hpp",
+    "include/th10/game/item_velocity.hpp",
     "include/th10/game/bomb_state.hpp",
     "include/th10/game/player_update_collision.hpp",
     "include/th10/game/player_update_score.hpp",

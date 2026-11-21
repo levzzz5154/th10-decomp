@@ -1,4 +1,4 @@
-#include "../../../src/core/sound/animation_manager_queue_resource.cpp"
+#include "../../../src/core/sound/sound_queue.cpp"
 #include "../../../src/game/title/key_config.cpp"
 // Compiler-visible ABI anchors and synthetic caller, never selected as recovered code.
 #include "../../../src/game/title/fun.cpp"

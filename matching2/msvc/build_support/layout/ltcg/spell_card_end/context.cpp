@@ -4,8 +4,6 @@
 #include "../../../../src/game/card/card_end.cpp"
 #include "../animation_lookup_anchors.cpp"
 
-extern "C" short g_sound_priority[];
-
 extern "C" __declspec(noinline) void* __stdcall CardStandIn_Allocate(void* manager);
 extern "C" __declspec(noinline) void __stdcall CardStandIn_Register(void* manager, int* out, void* object);
 
@@ -78,31 +76,8 @@ AnimationScriptId __stdcall Card_CreateAnimation(void* file, int script, int lay
 }
 
 // 0x0043DC90
-#pragma code_seg(".text$01e_queue")
-int SoundQueue::Queue(int sound_id, int request) {
-    int priority = g_sound_priority[sound_id * 4];
-    int slot;
-    for (slot = 0; slot < 12; ++slot) {
-        if (sound_ids[slot] < 0)
-            break;
-        if (sound_ids[slot] == sound_id) {
-            int count = counts[slot];
-            if (count < 128) {
-                requests[slot][count] = request;
-                ++counts[slot];
-            }
-            return slot;
-        }
-    }
-    if (slot < 12) {
-        sound_ids[slot] = sound_id;
-        priorities[sound_id] = priority;
-        requests[slot][0] = request;
-        ++counts[slot];
-    }
-    return slot;
-}
-#pragma code_seg()
+#define TH10_SOUND_QUEUE_SECTION ".text$01e_queue"
+#include "../../../../src/core/sound/sound_queue.cpp"
 
 #pragma code_seg(".text$01b_context")
 void __stdcall CardEndCompilerContext(Card5** cards, int count) {

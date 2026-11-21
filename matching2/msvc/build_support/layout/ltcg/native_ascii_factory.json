@@ -12,7 +12,8 @@
     "include/th10/core/func_ctrl.hpp",
     "include/th10/math/timer.hpp",
     "include/th10/platform/thread_sync.hpp",
-    "include/th10/game/background_fade.hpp"
+    "include/th10/game/background_fade.hpp",
+    "include/th10/game/stage_route.hpp"
   ],
   "image_base": "0x00400000",
   "description": "Full game-state BeginFade, existing screen-effect factory and selector with genuine scheduler bodies. Complete direct-global stage update supplies a real compiler context; its remaining private helper ABIs are explicitly diagnostic and it is not recovered.",

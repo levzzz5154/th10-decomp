@@ -32,17 +32,6 @@ struct ReplayFile {
 };
 typedef char ReplayFilePath[offsetof(ReplayFile, path) == 0x1D4 ? 1 : -1];
 
-// The title screen object past the music-room view: the replays offered by
-// the replay selection (25 numbered ones, then up to 25 user-named ones).
-struct TitleReplayView {
-    unsigned char reserved_0000[0x59D8];
-    int reserved_59d8;
-    int selected_replay;                // +0x59DC
-    int selected_stage;                 // +0x59E0
-    ReplayFile* replays[50];   // +0x59E4
-};
-typedef char ReplaySelectRoomSize[sizeof(TitleReplayView) == 0x5AAC ? 1 : -1];
-
 // WIN32_FIND_DATAA.
 struct ReplayFindData {
     unsigned int attributes;

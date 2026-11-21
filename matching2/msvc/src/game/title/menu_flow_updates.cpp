@@ -54,7 +54,7 @@ static __forceinline void LoadBindings(Title* room) {
 // Restart the cursor animation of slot 2.
 static __forceinline void RunCursorSlot3(Title* room) {
     AnimationManager_SetStopFrameAndRun(3, reinterpret_cast<AnimationLookupContext*>(g_sprt_ctrl),
-        *reinterpret_cast<AnimationScriptId*>(&room->animation_slots[2]));
+        room->animation_slots[2]);
 }
 
 // Phase 2: cursor movement, pad button assignment, cancel and confirm.

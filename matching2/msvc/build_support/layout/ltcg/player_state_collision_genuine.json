@@ -48,6 +48,7 @@
     "build_support/layout/ltcg/player_state_collision_runtime/registration.hpp",
     "build_support/layout/ltcg/player_state_collision_runtime/sound_queue.hpp",
     "build_support/layout/ltcg/player_state_collision_runtime/collision.hpp",
+    "include/th10/game/item_velocity.hpp",
     "build_support/layout/ltcg/player_state_collision_runtime/item_spawn.hpp",
     "build_support/layout/ltcg/player_state_collision_runtime/timer.hpp",
     "build_support/layout/ltcg/player_state_collision_runtime/animation_public_callers.hpp",

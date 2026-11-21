@@ -1,4 +1,3 @@
-#include "../../build_support/include/asm_encoding.hpp"
 #include "../../build_support/include/asm_symbols.hpp"
 
 // 0x00405BD0..0x00405BD4: thunk_FUN_0043e5a0

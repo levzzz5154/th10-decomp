@@ -7,6 +7,7 @@
     "build_support/layout/ltcg/item_collection_runtime/all.cpp"
   ],
   "included_sources": [
+    "src/core/sound/sound_queue.cpp",
     "build_support/layout/ltcg/item_collection_runtime/allocator.cpp",
     "build_support/layout/ltcg/item_collection_runtime/bounded.cpp",
     "build_support/layout/ltcg/item_collection_runtime/configure.cpp",
@@ -14,7 +15,7 @@
     "build_support/layout/ltcg/item_collection_runtime/dependencies.cpp",
     "build_support/layout/ltcg/item_collection_runtime/loader.cpp",
     "src/game/item/item_spawn_manager_convert_items.cpp",
-    "build_support/layout/ltcg/item_collection_runtime/update.cpp",
+    "src/game/item/item_update.cpp",
     "build_support/layout/ltcg/item_collection_runtime/resource_configure.cpp",
     "build_support/layout/ltcg/item_collection_runtime/collaborators.cpp",
     "build_support/layout/ltcg/item_collection_runtime/initialize.cpp",
@@ -32,6 +33,8 @@
     "include/th10/game/entity_script_start.hpp",
     "include/th10/platform/sound_queue.hpp",
     "build_support/layout/ltcg/item_collection_runtime/types/animation_public.hpp",
+    "include/th10/game/item_record.hpp",
+    "include/th10/game/item_velocity.hpp",
     "build_support/layout/ltcg/item_collection_runtime/types/item_spawn.hpp",
     "build_support/layout/ltcg/item_collection_runtime/types/line_sweeps.hpp",
     "build_support/layout/ltcg/item_collection_runtime/types/update.hpp",
@@ -271,8 +274,8 @@
     "symbol": "_ItemManager_UpdateItems@4",
     "section": ".text$f0041afd0F",
     "address": "0x41afd0",
-    "size": 2232,
-    "description": "Complete genuine item-update callback, unselected; native 2232 bytes versus 2320 retail bytes."
+    "size": 2340,
+    "description": "Shared item update as the compiler context for ConvertItems, AddPower and AddLives; not selected as game code in this cluster."
   },
   "gaps": [
     {
@@ -327,8 +330,8 @@
     },
     {
       "section": ".text$f0041ba50A",
-      "address": "0x41b888",
-      "size": 456
+      "address": "0x41b8f4",
+      "size": 348
     },
     {
       "section": ".text$f0041bb00A",
@@ -480,7 +483,7 @@
       "kind": "metadata"
     },
     {
-      "symbol": "_asm_FUN_0043ee30_0043ee30@4",
+      "symbol": "_RunAnimationVm@4",
       "address": "0x0043EE30",
       "kind": "relative_code"
     },

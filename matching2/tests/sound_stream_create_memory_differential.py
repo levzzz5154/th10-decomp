@@ -16,11 +16,13 @@ import tempfile
 
 from unicorn import UC_HOOK_CODE
 from unicorn.x86_const import UC_X86_REG_EAX, UC_X86_REG_ECX, UC_X86_REG_EDX, UC_X86_REG_ESI
+
+from x86_fixture import ROOT, CANDIDATE, OUTPUT, STOP, load_fixture
 from sound_stream_initialize_differential import (
-    Case as InitializeCase, Execution as InitializeExecution, compile_candidates as compile_initializers,
-    SYMBOLS, ALLOCATE, FREE, IID, CREATE, QUERY, SET_NOTICES, OWNER, ALT_OWNER, DEVICE, NOTIFY, ALT_NOTIFY,
-    NEW_BUFFERS, STREAM, RECORD, ALT_RECORD, SOURCE, DESTINATION, ROOT, CANDIDATE, STOP, STATE, OUTPUT,
-    COMMON, difference, PEImage, load_manifest, load_oracle)
+    Case as InitializeCase, Execution as InitializeExecution,
+    compile_candidates as compile_initializers, SYMBOLS, ALLOCATE, FREE, IID, CREATE, QUERY,
+    SET_NOTICES, OWNER, ALT_OWNER, DEVICE, NOTIFY, ALT_NOTIFY, NEW_BUFFERS, STREAM, RECORD,
+    ALT_RECORD, SOURCE, DESTINATION, STATE, COMMON, difference)
 from coff_module import load_module
 from x86_seh import install as install_seh, exception_list, INITIAL_EXCEPTION_LIST
 
@@ -182,17 +184,11 @@ def cases():
         yield Case(integrated=True, **kwargs)
 
 
-import sys as _project_sys
-from pathlib import Path as _ProjectPath
-_project_sys.path.insert(0, str(_ProjectPath(__file__).resolve().parents[2]))
-from matching2.tools.common.project_paths import project_support
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--oracle", type=Path, default=ROOT / "matching2/build/oracle/th10.exe")
     options = parser.parse_args()
-    config = load_manifest(project_support((ROOT) / 'matching2/msvc', 'regions.json'))
-    load_oracle(options.oracle, config)
-    image = PEImage(options.oracle.read_bytes())
+    _, image = load_fixture(options.oracle)
     with tempfile.TemporaryDirectory(prefix="th10-create-memory-stream-") as temporary:
         compiled = compile_candidates(Path(temporary))
         totals, faults = [0, 0], [0, 0]

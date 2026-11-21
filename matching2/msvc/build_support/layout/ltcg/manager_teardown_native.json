@@ -5,6 +5,9 @@
   "driver": "build_support/layout/ltcg/manager_teardown_native/context.cpp",
   "headers": [
     "include/th10/game/item_manager_destructor.hpp",
+    "include/th10/game/item_record.hpp",
+    "include/th10/game/item_velocity.hpp",
+    "include/th10/math/timer.hpp",
     "include/th10/game/entity.hpp",
     "include/th10/types.hpp",
     "include/th10/core/func_ctrl.hpp",

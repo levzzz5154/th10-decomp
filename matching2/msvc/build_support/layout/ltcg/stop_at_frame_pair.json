@@ -23,6 +23,7 @@
   "driver": "build_support/layout/ltcg/stop_at_frame_pair_0040c480_context.cpp",
   "headers": [
     "include/th10/render/animation_handle.hpp",
+    "include/th10/render/animation_script_id.hpp",
     "include/th10/render/animation_stop_run.hpp",
     "include/th10/render/animation_stop_frame_handle.hpp",
     "include/th10/game/playback_state.hpp",

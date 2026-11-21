@@ -18,8 +18,8 @@ import tempfile
 from unicorn import Uc, UcError, UC_ARCH_X86, UC_MODE_32, UC_HOOK_CODE, UC_HOOK_MEM_INVALID
 from unicorn.x86_const import (UC_X86_REG_EAX, UC_X86_REG_ECX, UC_X86_REG_ESI, UC_X86_REG_EDI,
                               UC_X86_REG_ESP, UC_X86_REG_EIP)
-from lzss_compressor_differential import (
-    ROOT, CANDIDATE, STACK, STOP, PRESERVED, PEImage, load_manifest, load_oracle, load_candidate)
+
+from x86_fixture import ROOT, CANDIDATE, STACK, STOP, PRESERVED, load_candidate, load_fixture, maintained_region
 from coff_module import load_module
 
 STATE, DATA = 0x2500000, 0x2600000
@@ -76,12 +76,13 @@ def compile_candidates(directory, config, code_base=CANDIDATE):
                                 "@Sound_AggregateInterfaces_0044d550@4": aggregate_address})
         modules[linked] = load_module(obj, linked, linked_bindings)
     obj = directory / "aggregate.obj"
+    region = maintained_region(0x44D550)
     subprocess.run([
         "clang++", "--target=i686-pc-windows-msvc", "-std=c++03", "-O2", "-mno-sse", "-mno-sse2",
         "-fno-exceptions", "-fno-rtti", "-fno-stack-protector", "-fno-builtin", "-ffunction-sections",
-        "-c", str(ROOT / "matching2/msvc/src/game/platform_aggregate_interfaces_0044d550.cpp"),
+        "-c", str(region.source),
         "-o", str(obj)], check=True, timeout=60)
-    aggregate = load_candidate(obj, config, "?Aggregate@PlatformInterfaceState_0044D550@@QAEHXZ",
+    aggregate = load_candidate(obj, config, region.symbol,
                                code_address=aggregate_address)
     return modules, aggregate
 
@@ -386,17 +387,11 @@ def verify(case, result):
         assert [event[0] for event in events] == ["midi"]
 
 
-import sys as _project_sys
-from pathlib import Path as _ProjectPath
-_project_sys.path.insert(0, str(_ProjectPath(__file__).resolve().parents[2]))
-from matching2.tools.common.project_paths import project_support
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--oracle", type=Path, default=ROOT / "matching2/build/oracle/th10.exe")
     options = parser.parse_args()
-    config = load_manifest(project_support((ROOT) / 'matching2/msvc', 'regions.json'))
-    load_oracle(options.oracle, config)
-    image = PEImage(options.oracle.read_bytes())
+    config, image = load_fixture(options.oracle)
     with tempfile.TemporaryDirectory(prefix="th10-sound-shutdown-") as temporary:
         compiled = compile_candidates(Path(temporary), config)
         counts, faults = [], []

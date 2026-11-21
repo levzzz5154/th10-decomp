@@ -18,8 +18,9 @@ import tempfile
 
 from unicorn import Uc, UcError, UC_ARCH_X86, UC_MODE_32, UC_HOOK_CODE, UC_HOOK_MEM_INVALID
 from unicorn.x86_const import UC_X86_REG_EAX, UC_X86_REG_ECX, UC_X86_REG_ESI, UC_X86_REG_ESP, UC_X86_REG_EIP
-from lzss_compressor_differential import (
-    ROOT, CANDIDATE, STACK, STOP, PRESERVED, PEImage, load_manifest, load_oracle, load_candidate, DEFAULT_TOOLKIT)
+
+from x86_fixture import ROOT, CANDIDATE, STACK, STOP, PRESERVED, load_candidate, load_fixture, maintained_region
+from matching2.tools.common.wine import DEFAULT_TOOLKIT
 from coff_module import load_module
 
 STATE, DATA = 0x2500000, 0x2600000
@@ -28,7 +29,7 @@ TABLE, ALT_TABLE, OLD, ALLOCATION = (DATA + offset for offset in (0x1000, 0x2000
 MODE = 0x491D78
 FIND, TABLE_LOAD, STRCPY = CANDIDATE + 0x6000, CANDIDATE + 0x4000, CANDIDATE + 0x8000
 CREATE, SEEK, READ, CLOSE, ARCHIVE = (STOP + 0x100 * i for i in range(1, 6))
-FIND_SYMBOL = "?FindBasenameSlot_0043d2a0@PathName_0043d2a0@@QAEHPAX@Z"
+CACHE_FIND_IMPORT = "?FindBasenameSlot_0043d2a0@PathName_0043d2a0@@QAEHPAX@Z"
 FILE_DATA = bytes((i * 19 + 7) & 255 for i in range(0x4000))
 
 
@@ -63,7 +64,7 @@ def compile_candidates(directory, config, code_base=CANDIDATE, extra_bindings=No
                 "_g_music_create_file": 0x4660C4, "_g_music_seek_file": 0x4660C8,
                 "_g_music_read_file": 0x4660D0, "_g_music_close_file": 0x4660CC,
                 "_asm_malloc_00452706": 0x452706, "_entry_free_00452422": 0x452422,
-                FIND_SYMBOL: find, "_Archive_LoadFile@12": ARCHIVE,
+                CACHE_FIND_IMPORT: find, "_Archive_LoadFile@12": ARCHIVE,
                 "_strcpy": strcpy_address, "_strcmp": 0x45BF30, "_asm_strrchr_00452930": 0x452930}
     bindings.update(extra_bindings or {})
     modules = {}
@@ -77,12 +78,13 @@ def compile_candidates(directory, config, code_base=CANDIDATE, extra_bindings=No
             check=True, timeout=60)
         modules[source] = load_module(obj, address, bindings)
     obj = directory / "music-basename.obj"
+    basename = maintained_region(0x43D2A0)
     subprocess.run([
         "clang++", "--target=i686-pc-windows-msvc", "-std=c++03", "-O2", "-mno-sse", "-mno-sse2",
         "-fno-exceptions", "-fno-rtti", "-fno-stack-protector", "-fno-builtin", "-ffunction-sections",
         "-I", str(ROOT / "matching2/msvc/include"), "-isystem", str(DEFAULT_TOOLKIT / "include"),
-        "-c", str(ROOT / "matching2/msvc/src/platform/path.cpp"), "-o", str(obj)], check=True, timeout=60)
-    find_body = load_candidate(obj, config, FIND_SYMBOL, bindings, code_address=find)
+        "-c", str(basename.source), "-o", str(obj)], check=True, timeout=60)
+    find_body = load_candidate(obj, config, basename.symbol, bindings, code_address=find)
     # The maintained source's strcpy is inlined by retail MSVC, while this
     # Clang build emits a library call. Supply its normal byte-copy contract.
     source = directory / "strcpy-fixture.cpp"
@@ -365,17 +367,11 @@ def verify(case, result):
             assert seek[2] == 0x90 + index * 64
 
 
-import sys as _project_sys
-from pathlib import Path as _ProjectPath
-_project_sys.path.insert(0, str(_ProjectPath(__file__).resolve().parents[2]))
-from matching2.tools.common.project_paths import project_support
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--oracle", type=Path, default=ROOT / "matching2/build/oracle/th10.exe")
     options = parser.parse_args()
-    config = load_manifest(project_support((ROOT) / 'matching2/msvc', 'regions.json'))
-    load_oracle(options.oracle, config)
-    image = PEImage(options.oracle.read_bytes())
+    config, image = load_fixture(options.oracle)
     with tempfile.TemporaryDirectory(prefix="th10-music-cache-") as temporary:
         compiled = compile_candidates(Path(temporary), config)
         total = integrated = faults = 0

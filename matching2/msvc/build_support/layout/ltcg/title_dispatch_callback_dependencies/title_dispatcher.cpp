@@ -1,5 +1,6 @@
 // Complete readable caller baseline. Unselected; private leaf ABIs require LTCG.
 #include "ending_screen.cpp"
+#include "th10/game/stage_route.hpp"
 #include "th10/render/animation_resource_removal.hpp"
 #include <stdlib.h>
 
@@ -23,7 +24,7 @@ struct DemoFile {
     unsigned char reserved_000[0x18];
     DemoHeader* header;
     unsigned char reserved_01c[0xb0 - 0x1c];
-    DemoStageRecord stages[8];
+    DemoStageRecord stages[StageRouteCount];
 };
 typedef char DemoStageOffset[offsetof(DemoFile, stages) == 0xb0 ? 1 : -1];
 extern "C" {
@@ -35,8 +36,6 @@ extern "C" {
     extern unsigned int g_app_flags;
     extern const char* g_title_demo_paths[4];
     extern char g_replay_path[];
-    extern unsigned char g_stage_routes[];
-    extern unsigned char* g_stage_route_current;
     extern GameThread6* g_ascii_manager;
     extern float flt_0_99, flt_1_01, flt_1;
 }
@@ -87,14 +86,14 @@ __declspec(noinline) int __stdcall Title_DispatchUpdate(
             DemoFile* file = TitleLoadDemo(g_replay_path);
             g_title_demo_index = (g_title_demo_index + 1) % 4;
             int stage = 0;
-            while (stage < 8 && file->stages[stage].present == 0)
+            while (stage < StageRouteCount && file->stages[stage].present == 0)
                 ++stage;
             g_globals_stage = stage;
             g_globals_stage_shown = stage;
             g_main_state = 12;
             DemoHeader* header = file->header;
             g_globals_character = header->character;
-            g_stage_route_current = g_stage_routes + stage * 0x30;
+            g_stage_route_current = &g_stage_routes[stage];
             g_globals_shot_type = header->shot;
             g_menu_difficulty_saved = g_globals_difficulty;
             g_globals_difficulty = header->difficulty;

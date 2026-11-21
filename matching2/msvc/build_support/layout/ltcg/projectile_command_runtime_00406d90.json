@@ -292,6 +292,7 @@
     }
   ],
   "included_sources": [
+    "src/core/sound/sound_queue.cpp",
     "build_support/layout/ltcg/enemy_grid_scan_anchors.cpp",
     "build_support/layout/ltcg/enemy_grid_scan_dependencies/sound_pan.cpp",
     "build_support/layout/ltcg/player_initialize_dependencies/sound_pan.cpp",

@@ -25,10 +25,13 @@
     "src/game/laser/laser_circle_split.cpp",
     "build_support/layout/ltcg/laser_cut/cut_polar.cpp"
   ],
-  "included_sources": [],
+  "included_sources": [
+    "build_support/layout/ltcg/laser_grow/loader.cpp"
+  ],
   "headers": [
     "build_support/layout/ltcg/laser_cut/types.hpp",
     "build_support/layout/ltcg/laser_cut/animation_ids.hpp",
+    "include/th10/game/item_velocity.hpp",
     "build_support/layout/ltcg/laser_cut/item_spawn.hpp",
     "include/th10/render/animation_public_callers.hpp",
     "include/th10/game/entity.hpp",

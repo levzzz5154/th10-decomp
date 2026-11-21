@@ -3,7 +3,9 @@
   "name": "projection_quads",
   "source": "src/core/sprtfunc/projection_quads.cpp",
   "driver": "build_support/layout/ltcg/projection_quads_context.cpp",
-  "headers": [],
+  "headers": [
+    "include/th10/render/textured_quad.hpp"
+  ],
   "image_base": "0x00400000",
   "description": "Native-LTCG billboard projection: retail takes the source in EAX, a convention only a /GL link assigns, so a synthetic pointer-array caller establishes it. No context or layout-gap byte counts as recovered game code.",
   "functions": [

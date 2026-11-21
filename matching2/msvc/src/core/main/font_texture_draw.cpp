@@ -1,5 +1,5 @@
 #include <string.h>
-#include "../../../build_support/include/asm_encoding.hpp"
+#include "th10/render/font_atlas.hpp"
 #include "../../../build_support/include/asm_symbols.hpp"
 
 typedef unsigned int DWORD;
@@ -7,11 +7,6 @@ typedef void* HGDIOBJ;
 typedef const char* LPCSTR;
 typedef void* HDC;
 typedef unsigned int COLORREF;
-
-// The shared font atlas object at 0x00474CB0: a 256-byte palette, 15 cached
-// GDI fonts, the pixel buffer, its pitch, the source format and the DC the
-// fonts are selected into.
-extern "C" unsigned char g_font_atlas_surface;
 
 // GDI entry points, reached through the image's own import slots so the calls
 // stay indirect exactly as the retail build issues them.
@@ -28,7 +23,6 @@ struct StackWord {
 };
 
 typedef char (__fastcall* AtlasSetHeightFn)(void* atlas, StackWord height);
-typedef void (__stdcall* AtlasRebuildFn)(void* atlas, int height);
 typedef int (__stdcall* LoadSurfaceFromMemoryFn)(void* surface, void* destination_palette,
         const void* destination_rect, const void* source_memory, unsigned int source_pitch,
         unsigned int source_format, const void* source_palette, const void* source_rect,
@@ -103,7 +97,7 @@ int __stdcall sub_437DB0(DWORD* destination_rect, int x, int size, COLORREF colo
     SelectObject(dc, previous);
     height.value = line_height;
     ((AtlasSetHeightFn)asm_FUN_00437160_00437160)(&g_font_atlas_surface, height);
-    ((AtlasRebuildFn)asm_FUN_00436da0_00436da0)(&g_font_atlas_surface, line_height);
+    FontAtlas_FillTransparentPixels(&g_font_atlas_surface, line_height);
     SelectObject(dc, previous);
 
     SrgbRect source_rect;

@@ -30,7 +30,7 @@ extern "C" int __stdcall recovery_replace_extension(int selector, const char* pa
 extern "C" int __stdcall recovery_play_dummy(int selector, int slot);
 
 static __forceinline RecoveryMusicVm* MusicFind(unsigned int handle) {
-    RecoveryScriptId id = { static_cast<int>(handle) };
+    AnimationScriptId id = { static_cast<int>(handle) };
     return static_cast<RecoveryMusicVm*>(
         reinterpret_cast<RecoveryLookup*>(g_sprt_ctrl)->Find(
             reinterpret_cast<RecoveryLookupContext*>(g_sprt_ctrl), id));
@@ -93,7 +93,7 @@ __declspec(noinline) void __stdcall RecoveryMusicInstallSlot(
     static_cast<AnimationBank*>(resource)->InitializeObject(object, index);
     void* handle;
     asm_AnimationManager_RegisterPrimaryBack_004489d0(g_sprt_ctrl, &handle, object);
-    room->animation_slots[index] = reinterpret_cast<unsigned int>(handle);
+    room->animation_slots[index].value = reinterpret_cast<int>(handle);
 }
 #pragma code_seg(".text$004349e0_fn")
 __declspec(noinline) char* __stdcall RecoveryMusicSkipLine_004349e0(char* cursor, int* remaining) {
@@ -228,7 +228,7 @@ extern "C" __declspec(noinline) int __stdcall Title_UpdateMusicRoom(
         if (room->timer.current == 1) {
             room->cursor.item_count = 6;
             room->cursor.selection = MusicFirstSelection(room->cursor.item_count);
-            if (MusicFind(room->animation_slots[95]) == 0) {
+            if (MusicFind(room->animation_slots[95].value) == 0) {
                 RecoveryMusicInstallSlot(room, 95);
                 void* handle;
                 void** result = AnimationManager_CreatePrimaryBack(

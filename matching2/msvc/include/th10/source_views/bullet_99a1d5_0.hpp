@@ -1,5 +1,4 @@
 #pragma once
-#include "../../../build_support/include/asm_encoding.hpp"
 #include "../../../build_support/include/asm_symbols.hpp"
 
 // 0x0040AE70: recovered in src/game/effect/effect_initialize.cpp.

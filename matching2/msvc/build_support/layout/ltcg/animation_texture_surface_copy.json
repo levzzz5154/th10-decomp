@@ -4,6 +4,7 @@
   "source": "src/core/sprtlib/animation_texture_surface_copy.cpp",
   "driver": "build_support/layout/ltcg/animation_texture_surface_copy/context.cpp",
   "headers": [
+    "include/th10/render/textured_quad.hpp",
     "include/th10/render/quad_batch.hpp",
     "include/th10/render/resource_surface_loading.hpp"
   ],

@@ -36,7 +36,7 @@ int __stdcall EndingScreen_Update2(Title* room) {
     case 0: {
         if (reinterpret_cast<RecoveryLookup*>(g_sprt_ctrl)->Find(
                 reinterpret_cast<RecoveryLookupContext*>(g_sprt_ctrl),
-                *reinterpret_cast<RecoveryScriptId*>(&room->animation_slots[88])) == 0) {
+                room->animation_slots[88]) == 0) {
             RecoveryMusicInstallSlot(room, 88);
             RecoveryMusicInstallSlot(room, 90);
             void* handle;

@@ -11025,13 +11025,22 @@
       "kind": "padding"
     },
     {
-      "name": "asm_FUN_0040e770_0040e770",
-      "source": "build_support/exact/game/enemy/ecl_vm.cpp",
-      "symbol": "_asm_FUN_0040e770_0040e770",
+      "name": "semantic_Enemy_Execute2_0040e770",
+      "source": "src/game/enemy/enemy_execute.cpp",
+      "symbol": "?Execute2@Enemy@@QAEHXZ",
       "address": "0x0040E770",
       "size": 14416,
-      "kind": "asm",
-      "owner": "0x0040E770"
+      "kind": "semantic",
+      "owner": "0x0040E770",
+      "previous_record": {
+        "name": "asm_FUN_0040e770_0040e770",
+        "source": "build_support/exact/game/enemy/ecl_vm.cpp",
+        "symbol": "_asm_FUN_0040e770_0040e770",
+        "address": "0x0040E770",
+        "size": 14416,
+        "kind": "asm",
+        "owner": "0x0040E770"
+      }
     },
     {
       "name": "semantic_EclIntegerSource_ResolveIntegerValue_00411fc0",
@@ -17076,7 +17085,7 @@
     {
       "name": "semantic_SetItemPolar_0041beb0",
       "source": "src/game/item/polar_vector.cpp",
-      "symbol": "__ZN20ScoreItemPolarVector12SetItemPolarEff",
+      "symbol": "__ZN18ItemPolarVelocity28SetPolarEff",
       "address": "0x0041BEB0",
       "size": 30,
       "kind": "semantic",
@@ -27411,12 +27420,12 @@
       "kind": "padding"
     },
     {
-      "name": "asm_FUN_00432cb0_00432cb0",
-      "source": "build_support/exact/game/title/name_entry.cpp",
-      "symbol": "_asm_FUN_00432cb0_00432cb0",
+      "name": "semantic_TitleNameEntry_00432cb0",
+      "source": "src/game/title/name_entry_update.cpp",
+      "symbol": "?TitleNameEntry@@YGHPAUTitle@@@Z",
       "address": "0x00432CB0",
       "size": 1400,
-      "kind": "asm",
+      "kind": "semantic",
       "owner": "0x00432CB0"
     },
     {
@@ -30234,13 +30243,22 @@
       "kind": "padding"
     },
     {
-      "name": "asm_FUN_00436da0_00436da0",
-      "source": "build_support/exact/core/main/transparent_pixel_fill.cpp",
-      "symbol": "_asm_FUN_00436da0_00436da0",
+      "name": "semantic_FontAtlas_FillTransparentPixels_00436da0",
+      "source": "src/core/main/font_atlas_fill_transparent.cpp",
+      "symbol": "?FontAtlas_FillTransparentPixels@@YGDPAUFontAtlas@@I@Z",
       "address": "0x00436DA0",
       "size": 946,
-      "kind": "asm",
-      "owner": "0x00436DA0"
+      "kind": "semantic",
+      "owner": "0x00436DA0",
+      "previous_record": {
+        "name": "asm_FUN_00436da0_00436da0",
+        "source": "build_support/exact/core/main/transparent_pixel_fill.cpp",
+        "symbol": "_asm_FUN_00436da0_00436da0",
+        "address": "0x00436DA0",
+        "size": 946,
+        "kind": "asm",
+        "owner": "0x00436DA0"
+      }
     },
     {
       "name": "text_padding_00437152",
@@ -34232,7 +34250,7 @@
     },
     {
       "name": "semantic_SoundQueue_Queue_0043dc90",
-      "source": "src/core/sound/animation_manager_queue_resource.cpp",
+      "source": "src/core/sound/sound_queue.cpp",
       "symbol": "?Queue@SoundQueue@@QAEHHH@Z",
       "address": "0x0043DC90",
       "size": 123,
@@ -34240,7 +34258,7 @@
       "owner": "0x0043DC90",
       "previous_record": {
         "name": "asm_AnimationManager_QueueResource_0043dc90",
-        "source": "src/core/sound/animation_manager_queue_resource.cpp",
+        "source": "src/core/sound/sound_queue.cpp",
         "symbol": "_asm_AnimationManager_QueueResource_0043dc90",
         "address": "0x0043DC90",
         "size": 123,
@@ -36984,13 +37002,22 @@
       "kind": "padding"
     },
     {
-      "name": "asm_FUN_004465b0_004465b0",
-      "source": "build_support/exact/core/sprtlib/transparent_pixel_fill_locked.cpp",
-      "symbol": "_asm_FUN_004465b0_004465b0",
+      "name": "semantic_AnmTexture_FillTransparentPixels_004465b0",
+      "source": "src/core/sprtlib/anm_texture_fill_transparent_pixels.cpp",
+      "symbol": "?FillTransparentPixels@AnmTexture@@QAEXXZ",
       "address": "0x004465B0",
       "size": 1463,
-      "kind": "asm",
-      "owner": "0x004465B0"
+      "kind": "semantic",
+      "owner": "0x004465B0",
+      "previous_record": {
+        "name": "asm_FUN_004465b0_004465b0",
+        "source": "build_support/exact/core/sprtlib/transparent_pixel_fill_locked.cpp",
+        "symbol": "_asm_FUN_004465b0_004465b0",
+        "address": "0x004465B0",
+        "size": 1463,
+        "kind": "asm",
+        "owner": "0x004465B0"
+      }
     },
     {
       "name": "text_padding_00446b67",
@@ -43010,13 +43037,22 @@
       "kind": "padding"
     },
     {
-      "name": "asm_EclVm_StartChildRetail_0044df70",
-      "source": "build_support/exact/script/sptcmd/ecl_vm_start_child_retail.cpp",
-      "symbol": "_asm_EclVm_StartChildRetail_0044df70",
+      "name": "semantic_EclVm_Start_0044df70",
+      "source": "src/script/sptcmd/ecl_start_child.cpp",
+      "symbol": "?Start@EclVm@@QAEHRAU1@H@Z",
       "address": "0x0044DF70",
       "size": 550,
-      "kind": "asm",
-      "owner": "0x0044DF70"
+      "kind": "semantic",
+      "owner": "0x0044DF70",
+      "previous_record": {
+        "name": "asm_EclVm_StartChildRetail_0044df70",
+        "source": "build_support/exact/script/sptcmd/ecl_vm_start_child_retail.cpp",
+        "symbol": "_asm_EclVm_StartChildRetail_0044df70",
+        "address": "0x0044DF70",
+        "size": 550,
+        "kind": "asm",
+        "owner": "0x0044DF70"
+      }
     },
     {
       "name": "text_padding_0044e196",
@@ -43027,13 +43063,22 @@
       "kind": "padding"
     },
     {
-      "name": "asm_FUN_0044e1a0_0044e1a0",
-      "source": "build_support/exact/script/sptcmd/ecl_core_interpreter.cpp",
-      "symbol": "_asm_FUN_0044e1a0_0044e1a0",
+      "name": "EclVm::Run",
+      "source": "src/script/sptcmd/ecl_core_interpreter.cpp",
+      "symbol": "?Run@EclVm@@QAEHM@Z",
       "address": "0x0044E1A0",
       "size": 7020,
-      "kind": "asm",
-      "owner": "0x0044E1A0"
+      "kind": "semantic",
+      "owner": "0x0044E1A0",
+      "previous_record": {
+        "name": "asm_FUN_0044e1a0_0044e1a0",
+        "source": "build_support/exact/script/sptcmd/ecl_core_interpreter.cpp",
+        "symbol": "_asm_FUN_0044e1a0_0044e1a0",
+        "address": "0x0044E1A0",
+        "size": 7020,
+        "kind": "asm",
+        "owner": "0x0044E1A0"
+      }
     },
     {
       "name": "text_padding_0044fd0c",
@@ -43070,9 +43115,9 @@
       "kind": "padding"
     },
     {
-      "name": "semantic_ECL_ResolveIntOperand_0044fdb0",
-      "source": "src/script/sptcmd/resolve_integer.cpp",
-      "symbol": "?ECL_ResolveIntOperand@@YIHHPAUEclFrame@@H@Z",
+      "name": "EclVm::IntOperand",
+      "source": "src/script/sptcmd/ecl_int_operand.cpp",
+      "symbol": "?IntOperand@EclVm@@QAEHH@Z",
       "address": "0x0044FDB0",
       "size": 144,
       "kind": "semantic",
@@ -43114,9 +43159,9 @@
       "kind": "padding"
     },
     {
-      "name": "semantic_ECL_ResolveIntValue_0044ff00",
-      "source": "src/script/sptcmd/resolve_integer.cpp",
-      "symbol": "?ECL_ResolveIntValue2@@YIHHPAUEclFrame@@HH@Z",
+      "name": "EclVm::IntValue",
+      "source": "src/script/sptcmd/ecl_int_value.cpp",
+      "symbol": "?IntValue@EclVm@@QAEHHH@Z",
       "address": "0x0044FF00",
       "size": 124,
       "kind": "semantic",
@@ -43219,8 +43264,8 @@
     },
     {
       "name": "semantic_EclSpawnChild_004500d0",
-      "source": "src/script/sptcmd/ecl_child_pair.cpp",
-      "symbol": "_EclSpawnChild@12",
+      "source": "src/script/sptcmd/ecl_start_child.cpp",
+      "symbol": "?SpawnChild@EclOwner@@QAEHHH@Z",
       "address": "0x004500D0",
       "size": 142,
       "kind": "semantic",
@@ -54153,7 +54198,6 @@
     "@asm_ECL_ResolveIntValue_0044ff00@8": "0x0044FF00",
     "@asm_ECL_SetPolarVector_004501b0@8": "0x004501B0",
     "@asm_EclVm_SpawnChild_004500d0@8": "0x004500D0",
-    "@asm_EclVm_StartChildRetail_0044df70@8": "0x0044DF70",
     "@asm_EclVm_TickChildren_0044fd10@4": "0x0044FD10",
     "@asm_Ecl_ForwardFloat_00412aa0@8": "0x00412AA0",
     "@asm_Ecl_SetResourceSlot_00412720@4": "0x00412720",
@@ -54760,8 +54804,6 @@
     "_asm_ECL_SetPolarVector_004501b0@8": "0x004501B0",
     "_asm_EclVm_SpawnChild_004500d0": "0x004500D0",
     "_asm_EclVm_SpawnChild_004500d0@8": "0x004500D0",
-    "_asm_EclVm_StartChildRetail_0044df70": "0x0044DF70",
-    "_asm_EclVm_StartChildRetail_0044df70@8": "0x0044DF70",
     "_asm_EclVm_TickChildren_0044fd10": "0x0044FD10",
     "_asm_EclVm_TickChildren_0044fd10@4": "0x0044FD10",
     "_asm_Ecl_ForwardFloat_00412aa0": "0x00412AA0",
@@ -54947,7 +54989,6 @@
     "_asm_FUN_0040dae0_0040dae0@4": "0x0040DAE0",
     "_asm_FUN_0040dc80_0040dc80": "0x0040DC80",
     "_asm_FUN_0040dc80_0040dc80@4": "0x0040DC80",
-    "_asm_FUN_0040e770_0040e770": "0x0040E770",
     "_asm_FUN_004127a0_004127a0": "0x004127A0",
     "_asm_FUN_00412ac0_00412ac0": "0x00412AC0",
     "_asm_FUN_00412f10_00412f10@4": "0x00412F10",
@@ -55020,8 +55061,7 @@
     "_asm_FUN_0041aed0_0041aed0": "0x0041AED0",
     "_asm_FUN_0041afb0_0041afb0": "0x0041AFB0",
     "_asm_FUN_0041afd0_0041afd0": "0x0041AFD0",
-    "_asm_FUN_0041afd0_0041afd0@4": "0x0041AFD0",
-    "_asm_FUN_0041afd0_part_0041b010": "0x0041B010",
+    "_ItemManager_UpdateItems@4": "0x0041AFD0",
     "_asm_FUN_0041b8e0_0041b8e0": "0x0041B8E0",
     "_asm_FUN_0041b8e0_part_0041b900": "0x0041B900",
     "_asm_FUN_0041bb00_0041bb00": "0x0041BB00",
@@ -55270,8 +55310,6 @@
     "_asm_FUN_00436af0_00436af0": "0x00436AF0",
     "_asm_FUN_00436af0_00436af0@12": "0x00436AF0",
     "_asm_FUN_00436ca0_00436ca0": "0x00436CA0",
-    "_asm_FUN_00436da0_00436da0": "0x00436DA0",
-    "_asm_FUN_00436da0_part_00436fe0": "0x00436FE0",
     "_asm_FUN_00437160_00437160": "0x00437160",
     "_asm_FUN_00437160_00437160@4": "0x00437160",
     "_asm_FUN_004372a0_004372a0@20": "0x004372A0",
@@ -55385,8 +55423,6 @@
     "_asm_FUN_00446220_00446220": "0x00446220",
     "_asm_FUN_00446220_00446220@4": "0x00446220",
     "_asm_FUN_004462f0_004462f0": "0x004462F0",
-    "_asm_FUN_004465b0_004465b0": "0x004465B0",
-    "_asm_FUN_004465b0_part_004467d0": "0x004467D0",
     "_asm_FUN_00446b70_00446b70@12": "0x00446B70",
     "_asm_FUN_00446c70_00446c70@8": "0x00446C70",
     "_asm_FUN_00446d70_00446d70@16": "0x00446D70",
@@ -55440,7 +55476,6 @@
     "_asm_FUN_0044cf20_0044cf20": "0x0044CF20",
     "_asm_FUN_0044d850_0044d850": "0x0044D850",
     "_asm_FUN_0044d850_part_0044d9f0": "0x0044D9F0",
-    "_asm_FUN_0044e1a0_0044e1a0": "0x0044E1A0",
     "_asm_FUN_0044e1a0_part_0044e1e0": "0x0044E1E0",
     "_asm_FUN_00450210_00450210@4": "0x00450210",
     "_asm_FUN_00450220_00450220": "0x00450220",
@@ -56392,7 +56427,6 @@
     "_asm_target_0041aa79": "0x0041AA79",
     "_asm_target_0041aaaf": "0x0041AAAF",
     "_asm_target_0041aabb": "0x0041AABB",
-    "_asm_target_0041b004": "0x0041B004",
     "_asm_target_0041b133": "0x0041B133",
     "_asm_target_0041b1d8": "0x0041B1D8",
     "_asm_target_0041b1e7": "0x0041B1E7",
@@ -60627,16 +60661,16 @@
     "src/game/laser/laser_rectangle_split.cpp",
     "src/game/laser/laser_circle_trim.cpp",
     "src/game/replay/replay_frame_step.cpp",
-    "build_support/exact/core/main/transparent_pixel_fill.cpp",
+    "src/core/main/font_atlas_fill_transparent.cpp",
     "src/core/sprtanim/animation_change_script.cpp",
-    "build_support/exact/core/sprtlib/transparent_pixel_fill_locked.cpp",
-    "build_support/exact/game/enemy/ecl_vm.cpp",
+    "src/core/sprtlib/anm_texture_fill_transparent_pixels.cpp",
+    "src/game/enemy/enemy_execute.cpp",
     "build_support/exact/game/item/manager_factories.cpp",
     "build_support/layout/ltcg/large_player_dependencies/runtime.cpp",
-    "build_support/exact/game/title/name_entry.cpp",
+    "src/game/title/name_entry_update.cpp",
     "src/game/title/ui_final_runtime.cpp",
-    "build_support/exact/script/sptcmd/ecl_core_interpreter.cpp",
-    "build_support/exact/script/sptcmd/ecl_vm_start_child_retail.cpp",
+    "src/script/sptcmd/ecl_core_interpreter.cpp",
+    "src/script/sptcmd/ecl_start_child.cpp",
     "lib/libc.lib/build/intel/st_obj/a_cmp.obj",
     "lib/libc.lib/build/intel/st_obj/getqloc.obj",
     "lib/libc.lib/build/intel/st_obj/setlocal.obj",
@@ -60855,7 +60889,7 @@
     "src/core/screen/texture_stage_reset.cpp",
     "src/core/screen/updates.cpp",
     "src/core/screen/viewport_apply_default_retail.cpp",
-    "src/core/sound/animation_manager_queue_resource.cpp",
+    "src/core/sound/sound_queue.cpp",
     "src/core/sound/midi_worker.cpp",
     "src/core/sound/midi_worker_stop.cpp",
     "src/core/sound/path.cpp",
@@ -61742,7 +61776,6 @@
     "build_support/imports/Direct3DCreate9.cpp",
     "build_support/imports/DirectInput8Create.cpp",
     "build_support/imports/Ordinal_11.cpp",
-    "src/script/sptcmd/ecl_child_pair.cpp",
     "src/script/sptcmd/ecl_find_variable.cpp",
     "src/script/sptcmd/ecl_reset_variable_bindings.cpp",
     "src/script/sptcmd/ecl_resolve_float_destination.cpp",
@@ -61751,7 +61784,8 @@
     "src/script/sptcmd/ecl_resolve_variable_value.cpp",
     "src/script/sptcmd/ecl_vm_children.cpp",
     "src/script/sptcmd/polar_vector.cpp",
-    "src/script/sptcmd/resolve_integer.cpp",
+    "src/script/sptcmd/ecl_int_operand.cpp",
+    "src/script/sptcmd/ecl_int_value.cpp",
     "src/script/sptlib/ecl_pop_scratch_value.cpp",
     "src/script/sptlib/ecl_push_scratch_value.cpp",
     "src/script/sptlib/final_script_runtime.cpp",
@@ -62586,23 +62620,9 @@
     "Unidentified bodies are physical code fragments, not inferred source-level functions.",
     "Normal builds do not read the retail executable, disassembly, or source generator."
   ],
-  "dos_regions": [
-    {
-      "name": "dos_stub_code",
-      "symbol": "_dos_stub_code",
-      "address": "0x0",
-      "size": 14,
-      "source": "build_support/pe/dos_stub.cpp"
-    },
-    {
-      "name": "dos_stub_message",
-      "symbol": "_dos_stub_message",
-      "address": "0xe",
-      "size": 50,
-      "source": "build_support/pe/dos_stub.cpp"
-    }
-  ],
   "ltcg_clusters": [
+    "build_support/layout/ltcg/enemy_execute.json",
+    "build_support/layout/ltcg/ecl_core_interpreter.json",
     "build_support/layout/ltcg/recovery_script_executor.json",
     "build_support/layout/ltcg/replay_save.json",
     "build_support/layout/ltcg/replay_runtime_bootstrap.json",
@@ -64578,32 +64598,8 @@
   },
   "equivalent_recoveries": [
     {
-      "region": "asm_FUN_0044e1a0_0044e1a0",
-      "layout": "build_support/layout/equivalent/ecl_core_interpreter.json"
-    },
-    {
-      "region": "asm_FUN_0040e770_0040e770",
-      "layout": "build_support/layout/equivalent/enemy_execute.json"
-    },
-    {
-      "region": "asm_FUN_00436da0_00436da0",
-      "layout": "build_support/layout/equivalent/font_atlas_fill_transparent.json"
-    },
-    {
-      "region": "asm_FUN_00432cb0_00432cb0",
-      "layout": "build_support/layout/equivalent/name_entry_update.json"
-    },
-    {
       "region": "asm_FUN_0041afd0_0041afd0",
       "layout": "build_support/layout/equivalent/item_update.json"
-    },
-    {
-      "region": "asm_FUN_004465b0_004465b0",
-      "layout": "build_support/layout/equivalent/anm_texture_fill_transparent.json"
-    },
-    {
-      "region": "asm_EclVm_StartChildRetail_0044df70",
-      "layout": "build_support/layout/equivalent/ecl_start_child.json"
     }
   ],
   "compilation_units": {
@@ -64631,8 +64627,6 @@
     "src/core/zunlib/asm_file_probe_exists.cpp": "build_support/layout/units/file_581343.cpp",
     "src/core/zunlib/platform_get_os_version_code.cpp": "build_support/layout/units/process_00435c.cpp",
     "src/core/zwave/platform_invoke_interface.cpp": "build_support/layout/units/process_00435c.cpp",
-    "src/core/main/save_system_settings.cpp": "build_support/layout/units/window_exact.cpp",
-    "build_support/exact/script/sptcmd/ecl_core_interpreter.cpp": "build_support/layout/units/ecl_core_interpreter_exact.cpp",
-    "src/script/sptcmd/resolve_integer.cpp": "build_support/layout/units/ecl_core_interpreter_exact.cpp"
+    "src/core/main/save_system_settings.cpp": "build_support/layout/units/window_exact.cpp"
   }
 }

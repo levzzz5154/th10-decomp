@@ -41,7 +41,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[3]
 sys.path.insert(0, str(ROOT))
 
-from matching2.tools.common.coff_regions import _read_object
+from matching2.tools.common.coff import read_object
 from matching2.tools.common.library import ar_members, library_source, split_library_source
 from matching2.tools.common.pe import PEImage
 from matching2.tools.common.wine import DEFAULT_TOOLKIT
@@ -81,7 +81,7 @@ def scan(toolkit, manifest, text):
                     continue
                 path.write_bytes(blob)
                 try:
-                    obj = _read_object(path)
+                    obj = read_object(path)
                 except Exception:
                     continue
                 for section in obj["sections"]:
@@ -292,7 +292,7 @@ def rewrite(manifest, chosen, project, dry_run):
                 raise ValueError(f"{region['name']}: {region['symbol']} is bound to {bound}")
     regions.sort(key=lambda region: int(region["address"], 0))
     manifest["regions"] = regions
-    owning = {region["source"] for region in regions} | {region["source"] for region in manifest["dos_regions"]}
+    owning = {region["source"] for region in regions}
     orphaned = sorted(source for source in old_sources if source not in owning)
     units = set(manifest["translation_units"]) - set(orphaned)
     units |= {region["source"] for region in regions}

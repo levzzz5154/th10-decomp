@@ -27,6 +27,14 @@ class PEImage:
                                   "virtual_size": virtual_size, "raw_size": size, "raw_offset": raw,
                                   "characteristics": fields[9]})
 
+    def dos_stub(self):
+        """Bytes the linker placed between the MZ header and the PE signature."""
+        header_paragraphs, = struct.unpack_from("<H", self.data, 8)
+        start = header_paragraphs * 16
+        if not 64 <= start <= self.pe:
+            raise ValueError("invalid DOS header size")
+        return self.data[start:self.pe]
+
     def read(self, address, size):
         for section in self.sections:
             offset = address - section["address"]

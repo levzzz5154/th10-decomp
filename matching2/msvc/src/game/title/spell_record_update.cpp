@@ -72,14 +72,7 @@ __declspec(noinline) int __stdcall TitleMode11(Title* room) {
         SelectItem10(records->page, 0);
         MenuCursor* page = &records->page;
         page->wrap = 1;
-        if (reinterpret_cast<RecoveryLookup*>(g_sprt_ctrl)->Find(
-                reinterpret_cast<RecoveryLookupContext*>(g_sprt_ctrl),
-                *reinterpret_cast<RecoveryScriptId*>(&room->animation_slots[94])) == 0) {
-            RecoveryMusicInstallSlot(room, 94);
-            void* resource = g_ascii_manager->animation_resource;
-            void** result = AnimationManager_CreatePrimaryBack(resource, &handle, 8, 15);
-            room->fallback_handle.value = reinterpret_cast<unsigned int>(*result);
-        }
+        EnsureTitleMenuBackdrop(room, handle);
         RecoveryMusicInstallSlot(room, 102);
         room->SetTimerTarget(1);
         RecoveryMusicInstallSlot(room, room->cursor.selection / 3 + 152);
@@ -107,13 +100,13 @@ __declspec(noinline) int __stdcall TitleMode11(Title* room) {
             difficulty->Advance(-1);
             AnimationManager_SetStopFrameAndRun(
                 2, reinterpret_cast<RecoveryLookupContext*>(g_sprt_ctrl),
-                *reinterpret_cast<RecoveryScriptId*>(&room->animation_slots[170]));
+                room->animation_slots[170]);
         }
         if ((short)g_input_keys_raw.InputMaskActive(0x20)) {
             difficulty->Advance(1);
             AnimationManager_SetStopFrameAndRun(
                 2, reinterpret_cast<RecoveryLookupContext*>(g_sprt_ctrl),
-                *reinterpret_cast<RecoveryScriptId*>(&room->animation_slots[171]));
+                room->animation_slots[171]);
         }
         if (difficulty->previous_selection != difficulty->selection) {
             g_sound_manager.Queue(12, 0);
@@ -129,13 +122,13 @@ __declspec(noinline) int __stdcall TitleMode11(Title* room) {
             room->cursor.Advance(-1);
             AnimationManager_SetStopFrameAndRun(
                 2, reinterpret_cast<RecoveryLookupContext*>(g_sprt_ctrl),
-                *reinterpret_cast<RecoveryScriptId*>(&room->animation_slots[168]));
+                room->animation_slots[168]);
         }
         if ((short)g_input_keys_raw.InputMaskActive(0x80)) {
             room->cursor.Advance(1);
             AnimationManager_SetStopFrameAndRun(
                 2, reinterpret_cast<RecoveryLookupContext*>(g_sprt_ctrl),
-                *reinterpret_cast<RecoveryScriptId*>(&room->animation_slots[169]));
+                room->animation_slots[169]);
         }
         if (room->cursor.previous_selection != room->cursor.selection) {
             g_sound_manager.Queue(12, 0);

@@ -18,9 +18,8 @@ import tempfile
 from unicorn import Uc, UC_ARCH_X86, UC_MODE_32, UC_HOOK_CODE
 from unicorn.x86_const import (UC_X86_REG_EAX, UC_X86_REG_ECX, UC_X86_REG_ESI,
                               UC_X86_REG_EDI, UC_X86_REG_ESP, UC_X86_REG_EIP)
-from lzss_compressor_differential import (
-    ROOT, CANDIDATE, STACK, STOP, PRESERVED,
-    PEImage, load_manifest, load_oracle, load_candidate)
+
+from x86_fixture import ROOT, CANDIDATE, STACK, STOP, PRESERVED, load_candidate, load_fixture
 from dat_archive_cleanup_differential import CLOSE
 
 OPEN, OPEN_RESOURCE, DUPLICATE = CANDIDATE + 0xD000, CANDIDATE + 0xD200, CANDIDATE + 0xD400
@@ -209,17 +208,11 @@ def duplication_cases():
             yield Case(path=path, allocate_name=allocate, mutate_on_malloc=mutate)
 
 
-import sys as _project_sys
-from pathlib import Path as _ProjectPath
-_project_sys.path.insert(0, str(_ProjectPath(__file__).resolve().parents[2]))
-from matching2.tools.common.project_paths import project_support
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--oracle", type=Path, default=ROOT / "matching2/build/oracle/th10.exe")
     options = parser.parse_args()
-    config = load_manifest(project_support((ROOT) / 'matching2/msvc', 'regions.json'))
-    load_oracle(options.oracle, config)
-    image = PEImage(options.oracle.read_bytes())
+    config, image = load_fixture(options.oracle)
     with tempfile.TemporaryDirectory(prefix="th10-archive-open-") as temporary:
         modules = compile_candidates(Path(temporary), config)
         counts = {}

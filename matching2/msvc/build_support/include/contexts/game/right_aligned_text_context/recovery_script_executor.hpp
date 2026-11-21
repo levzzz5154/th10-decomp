@@ -1,4 +1,5 @@
 #pragma once
+#include "th10/render/animation_script_id.hpp"
 #include <stddef.h>
 #include "worker.hpp"
 #include "archive_callers.hpp"
@@ -41,9 +42,8 @@ struct RecoveryLookupContext {
     int reserved_72dad8;
     RecoveryLookupNode* secondary;
 };
-struct RecoveryScriptId { int value; };
 struct RecoveryLookup {
-    __declspec(noinline) void* __fastcall Find(RecoveryLookupContext* context, RecoveryScriptId id);
+    __declspec(noinline) void* __fastcall Find(RecoveryLookupContext* context, AnimationScriptId id);
     __declspec(noinline) void* __fastcall SetFlag(RecoveryLookupContext* context, int id);
     __declspec(noinline) void* __cdecl Validate(RecoveryHandle* handle);
 };

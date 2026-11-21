@@ -1,5 +1,6 @@
 #ifndef TH10_KEY_CONFIG_UPDATE_0042F540_HPP
 #define TH10_KEY_CONFIG_UPDATE_0042F540_HPP
+#include "th10/render/animation_script_id.hpp"
 #include "th10/game/ending_screen.hpp"
 
 // The title screen object seen by the key configuration helpers: the five
@@ -30,7 +31,6 @@ struct KeyState {
 };
 
 struct AnimationLookupContext;
-struct AnimationScriptId { unsigned int value; };
 
 extern "C" {
 extern KeyBindings g_key_bindings_current;

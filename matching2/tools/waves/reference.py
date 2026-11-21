@@ -30,7 +30,7 @@ ORACLE_CANDIDATES = (ROOT / "matching2/build/oracle/th10.exe",
                      ROOT / "matching2/build/msvc/th10.exe")
 TEXT_START = int(CONFIG["text_start"], 0)
 SYMBOLS = {int(address, 0): name for name, address in CONFIG["symbols"].items()}
-for region in [*CONFIG["regions"], *CONFIG["dos_regions"]]:
+for region in CONFIG["regions"]:
     SYMBOLS.setdefault(int(region["address"], 0), region["name"])
 
 

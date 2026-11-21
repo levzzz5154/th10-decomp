@@ -38,7 +38,7 @@ __declspec(noinline) int __stdcall TitleMode8(Title* room) {
     case 0:
         room->cursor.item_count = 3;
         if (g_globals_difficulty == 4) {
-            ScoreFile4* score = g_score;
+            TitleScoreFile* score = g_score;
             if (!score->cleared[g_globals_character][0]) {
                 if (room->cursor.selection == 0) {
                     if (score->cleared[g_globals_character][1])
@@ -72,7 +72,7 @@ __declspec(noinline) int __stdcall TitleMode8(Title* room) {
         RecoveryMusicInstallSlot(room, g_globals_character + 150);
         AnimationManager_SetStopFrameAndRun(
             3, reinterpret_cast<RecoveryLookupContext*>(g_sprt_ctrl),
-            *reinterpret_cast<RecoveryScriptId*>(&room->animation_slots[g_globals_character + 150]));
+            room->animation_slots[g_globals_character + 150]);
         room->SetSlotFrame(g_globals_character + 150, room->cursor.selection + 0x11);
         room->SetTimerTarget(1);
         if (g_score->shots[g_globals_character][0].clears[g_globals_difficulty] == 0) {
@@ -135,13 +135,13 @@ __declspec(noinline) int __stdcall TitleMode8(Title* room) {
             if ((g_globals_flags & 0x10) == 0) {
                 room->DisableTimerWithOwner(3);
                 if (g_globals_difficulty < 4) {
-                    g_stage_route_current = g_stage_routes + 1 * 0x30;
+                    g_stage_route_current = &g_stage_routes[1];
                     g_globals_stage = 1;
                     g_globals_stage_shown = 1;
                 } else {
-                    g_stage_route_current = g_stage_routes + 7 * 0x30;
-                    g_globals_stage = 7;
-                    g_globals_stage_shown = 7;
+                    g_stage_route_current = &g_stage_routes[ExtraStageIndex];
+                    g_globals_stage = ExtraStageIndex;
+                    g_globals_stage_shown = ExtraStageIndex;
                 }
                 g_main_state = 7;
                 Music_FadeOut(6.0f);

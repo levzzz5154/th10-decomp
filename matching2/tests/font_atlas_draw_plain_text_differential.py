@@ -17,9 +17,10 @@ from unicorn.x86_const import (
 
 ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(ROOT))
-from matching2.tools.matching.equivalence import load_recoveries, verify_recovery
-from matching2.tools.matching.probe import load_manifest, load_oracle
+from matching2.tools.common.project_paths import project_support
 from matching2.tools.common.wine import DEFAULT_TOOLKIT
+from matching2.tools.matching.equivalence import load_recoveries, verify_recovery
+from matching2.tools.matching.retail import load_manifest, load_oracle
 
 ENTRY, EXTENT = 0x437FE0, 509
 ATLAS = 0x474CB0
@@ -120,7 +121,6 @@ class Execution:
         return self.trace
 
 
-from matching2.tools.common.project_paths import project_support
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--project', type=Path, default=ROOT / 'matching2/msvc')

@@ -1,69 +1,105 @@
 {
   "schema_version": 1,
   "name": "ecl_child_pair",
-  "source": "src/script/sptcmd/ecl_child_pair.cpp",
+  "source": "src/script/sptcmd/ecl_start_child.cpp",
   "driver": "build_support/layout/ltcg/ecl_child_pair_context.cpp",
   "headers": [
-    "include/th10/script/ecl_children.hpp",
     "include/th10/script/ecl_float_values.hpp",
+    "include/th10/runtime/script/sptcmd/ecl_core_interpreter.hpp",
     "include/script_resolver.hpp"
   ],
+  "included_sources": [
+    "build_support/layout/ltcg/ecl_child_script_anchor.cpp",
+    "src/script/sptcmd/ecl_int_value.cpp",
+    "src/script/sptcmd/ecl_float_value.cpp"
+  ],
   "image_base": "0x00400000",
-  "description": "Complete142-byte ECL child spawn with genuine full C++ callee scope. StartChild557 is unselected and nonexact versus retail550; real int124, float171, and script136 bodies are unselected exact anchors.",
+  "description": "Start a named ECL subroutine or spawn a linked child VM. Both complete functions share their real operand and name resolvers.",
   "functions": [
     {
+      "name": "StartChild",
+      "symbol": "?Start@EclVm@@QAEHRAU1@H@Z",
+      "section": ".text$01start",
+      "address": "0x0044DF70",
+      "size": 550,
+      "actual_abi": "child EAX; source and operand index on stack; status EAX; RET 8"
+    },
+    {
       "name": "SpawnChild",
-      "symbol": "_EclSpawnChild@12",
+      "symbol": "?SpawnChild@EclOwner@@QAEHHH@Z",
       "section": ".text$07spawn",
-      "address": 4522192,
+      "address": "0x004500D0",
       "size": 142,
-      "actual_abi": "owner EDI; id and operand index on stack; status EAX; RET8"
+      "actual_abi": "owner in EDI; id and operand index on stack; status in EAX; RET 8"
     }
   ],
   "context": {
     "symbol": "_EclChildPairContext@16",
     "section": ".text$11context",
-    "address": 4523520,
+    "address": "0x00450600",
     "size": 91,
-    "description": "Unselected compiler context exercising both real call shapes."
+    "description": "Exercise call-to-self and spawn shapes; unselected."
   },
   "gaps": [
     {
-      "address": 4198400,
+      "address": "0x00401000",
       "size": 315248,
       "section": ".text$00layout"
     },
     {
-      "address": 4514205,
-      "size": 7523,
+      "address": "0x0044E196",
+      "size": 7530,
       "section": ".text$02layout"
     },
     {
-      "address": 4521852,
+      "address": "0x0044FF7C",
       "size": 4,
       "section": ".text$04layout"
     },
     {
-      "address": 4522027,
+      "address": "0x0045002B",
       "size": 165,
       "section": ".text$06layout"
     },
     {
-      "address": 4522334,
+      "address": "0x0045015E",
       "size": 786,
       "section": ".text$08layout"
     },
     {
-      "address": 4523256,
+      "address": "0x004504F8",
       "size": 264,
       "section": ".text$10layout"
+    }
+  ],
+  "anchors": [
+    {
+      "name": "IntValue",
+      "symbol": "?IntValue@EclVm@@QAEHHH@Z",
+      "section": ".text$03intvalue",
+      "address": "0x0044FF00",
+      "size": 124
+    },
+    {
+      "name": "FloatValue",
+      "symbol": "?FloatValue@EclVm@@SGMHPAU1@M@Z",
+      "section": ".text$05value",
+      "address": "0x0044FF80",
+      "size": 171
+    },
+    {
+      "name": "Resolve",
+      "symbol": "?Resolve@ScriptTable2@@QAEHPBD@Z",
+      "section": ".text$09resolve",
+      "address": "0x00450470",
+      "size": 136
     }
   ],
   "constants": [],
   "absolute_symbols": [
     {
       "symbol": "__ftol2",
-      "address": "0x463b2c",
+      "address": "0x00463B2C",
       "kind": "relative_code"
     },
     {
@@ -73,61 +109,23 @@
     },
     {
       "symbol": "_flt_0",
-      "address": "0x470b04",
+      "address": "0x00470B04",
       "kind": "data"
     },
     {
       "symbol": "_flt_neg1",
-      "address": "0x470b60",
+      "address": "0x00470B60",
       "kind": "data"
     },
     {
       "symbol": "__real@00000000",
-      "address": "0x470b04",
+      "address": "0x00470B04",
       "kind": "data"
     },
     {
       "symbol": "_operator_new_child",
-      "address": "0x452493",
+      "address": "0x00452493",
       "kind": "relative_code"
     }
-  ],
-  "additional_sources": [
-    "build_support/layout/ltcg/ecl_child_int_anchor.cpp",
-    "build_support/layout/ltcg/ecl_child_float_anchor.cpp",
-    "build_support/layout/ltcg/ecl_child_script_anchor.cpp"
-  ],
-  "anchors": [
-    {
-      "symbol": "_EclStartChild@12",
-      "section": ".text$01start",
-      "address": 4513648,
-      "size": 557,
-      "name": "EclStartChild_full_unselected_candidate"
-    },
-    {
-      "symbol": "?ECL_ResolveIntValue2@@YIHHPAUEclFrame@@HH@Z",
-      "section": ".text$03intvalue",
-      "address": 4521728,
-      "size": 124,
-      "name": "Complete genuine C++ callee; unselected."
-    },
-    {
-      "symbol": "?ResolveFloatValue@EclFloatVm@@QAEMHM@Z",
-      "section": ".text$05value",
-      "address": 4521856,
-      "size": 171,
-      "name": "Complete genuine C++ callee; unselected."
-    },
-    {
-      "symbol": "?Resolve@ScriptTable2@@QAEHPBD@Z",
-      "section": ".text$09resolve",
-      "address": 4523120,
-      "size": 136,
-      "name": "Complete genuine C++ callee; unselected."
-    }
-  ],
-  "included_sources": [
-    "src/script/sptcmd/ecl_resolve_float_value.cpp"
   ]
 }

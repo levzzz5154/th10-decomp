@@ -14,10 +14,11 @@ import struct
 import tempfile
 
 from unicorn.x86_const import UC_X86_REG_EAX, UC_X86_REG_ECX
+
+from x86_fixture import ROOT, CANDIDATE, OUTPUT, load_fixture
 from dat_archive_integration_differential import (
-    Execution, Entry, compile_modules, fixtures, fixture, ROOT, CANDIDATE,
-    OUTPUT, PATH, QUERY, READ, OPEN, FILE_OPEN, FILE_READ, FILE_SIZE,
-    FILE_SEEK, FILE_DELETE, PEImage, load_manifest, load_oracle)
+    Execution, Entry, compile_modules, fixtures, fixture, PATH, QUERY, READ, OPEN, FILE_OPEN,
+    FILE_READ, FILE_SIZE, FILE_SEEK, FILE_DELETE)
 from resource_paths_differential import COUNT, ARCHIVES, compile_candidates
 
 RESOURCE_BASE = CANDIDATE + 0x20000
@@ -127,17 +128,11 @@ def close_slot(retail, recovered, index, reset=False):
     compare(retail, recovered, ("close", index, reset))
 
 
-import sys as _project_sys
-from pathlib import Path as _ProjectPath
-_project_sys.path.insert(0, str(_ProjectPath(__file__).resolve().parents[2]))
-from matching2.tools.common.project_paths import project_support
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--oracle", type=Path, default=ROOT / "matching2/build/oracle/th10.exe")
     options = parser.parse_args()
-    config = load_manifest(project_support((ROOT) / 'matching2/msvc', 'regions.json'))
-    load_oracle(options.oracle, config)
-    image = PEImage(options.oracle.read_bytes())
+    config, image = load_fixture(options.oracle)
     parameters = [struct.unpack("<BB2xii", image.read(0x474BD8 + index * 12, 12)) for index in range(8)]
     with tempfile.TemporaryDirectory(prefix="th10-resource-integration-") as temporary:
         directory = Path(temporary)

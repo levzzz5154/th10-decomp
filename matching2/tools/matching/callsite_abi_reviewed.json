@@ -1,16 +1,5 @@
 {
   "_comment": "Call-site provenance mismatches reviewed by hand and found to pass the same values. Key: model name -> callee address -> reason. Any other mismatch fails callsite_abi.py.",
-  "enemy_execute2": {
-    "0x40e6a0": "tail merge: retail has two call sites, the model one shared tail",
-    "0x412a10": "call blocks start after a ret; EAX/ECX come from the block's predecessor, as in retail",
-    "0x44fdb0": "duplicated/merged tails change the call-site count; same argument provenance",
-    "0x44fe40": "duplicated/merged tails change the call-site count; same argument provenance",
-    "0x458ea5": "duplicated/merged tails change the call-site count; same argument provenance"
-  },
-  "item_update_0041afd0": {
-    "0x412ff0": "EDI copied from ECX/EAX = 0x474C40 after 0x41BE80/0x409D90 (preserve ECX) and 0x405B60 (preserves EAX)",
-    "0x409d90": "ECX = 0x474C40 copied from EAX after 0x405B60 (preserves EAX) or from EDI after 0x412FF0 (never writes EDI)"
-  },
   "manager_teardown2": {
     "0x43e460": "both load EAX = 0x492590; retail's load sits before a branch the scan does not follow"
   },

@@ -4,6 +4,7 @@
 #include "th10/math/timer.hpp"
 #include "th10/game/player.hpp"
 #include "th10/game/score.hpp"
+#include "th10/game/stage_route.hpp"
 #include "th10/platform/sound_queue.hpp"
 #include "th10/core/screen.hpp"
 #include "th10/game/recovery_mark_text_and_dispatcher.hpp"
@@ -139,10 +140,6 @@ struct DispatcherProgress {
 struct DispatcherReplayOwner {
     unsigned char reserved_00[0x10];
     int replay_mode;
-};
-struct DispatcherMusicRecord {
-    int values[10];
-    int music_slot;
 };
 
 extern "C" DispatcherStageResourceOwner* g_enemy_ctrl;

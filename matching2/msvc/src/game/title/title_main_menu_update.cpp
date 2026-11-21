@@ -42,7 +42,7 @@ static __forceinline void DisableItem2(MenuCursor& cursor, int item) {
 static __forceinline void RunCursorSlot(Title* room) {
     AnimationManager_SetStopFrameAndRun(
         3, reinterpret_cast<RecoveryLookupContext*>(g_sprt_ctrl),
-        *reinterpret_cast<RecoveryScriptId*>(&room->animation_slots[0]));
+        room->animation_slots[0]);
 }
 
 #pragma code_seg(".text$0042d420_fn")
@@ -58,7 +58,7 @@ __declspec(noinline) int __stdcall TitleMainMenu(Title* room) {
         }
         if (reinterpret_cast<RecoveryLookup*>(g_sprt_ctrl)->Find(
                 reinterpret_cast<RecoveryLookupContext*>(g_sprt_ctrl),
-                *reinterpret_cast<RecoveryScriptId*>(&room->animation_slots[88])) == 0)
+                room->animation_slots[88]) == 0)
             RecoveryMusicInstallSlot(room, 88);
         RecoveryMusicInstallSlot(room, 0);
         room->SetTimerTarget(1);

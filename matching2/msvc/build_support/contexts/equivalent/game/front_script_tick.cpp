@@ -12,10 +12,6 @@ static __forceinline int* ClearCount() {
     return reinterpret_cast<int*>(ProgressBytes() + 0x4D0 +
         ((g_globals_shot_type + g_globals_character * 3) * 0x10DF + g_globals_difficulty) * 4);
 }
-static DispatcherMusicRecord* MusicRecord();
-extern "C" DispatcherMusicRecord* g_stage_route_current;
-static DispatcherMusicRecord* MusicRecord() { return g_stage_route_current; }
-
 
 // The pool creation 0x00448D00 as this walker calls it: the reference comes
 // back through the record the caller supplies (EDI), and the caller reads it
@@ -309,7 +305,7 @@ ResultDispatcher2(ResultDispatcherState* state) {
                 state->countdown = 1;
                 break;
             case 18:
-                asm_Sound_PlayDummyRetail_00420b10(1, MusicRecord()->music_slot);
+                asm_Sound_PlayDummyRetail_00420b10(1, g_stage_route_current->music_tracks[1]);
                 { int created; DispatcherCreateAt(StageState()->effect_resource, &created, 2, 15); }
                 break;
             case 19:

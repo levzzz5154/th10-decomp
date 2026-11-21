@@ -4,11 +4,14 @@
   "source": "src/game/title/title_on_update.cpp",
   "driver": "build_support/layout/ltcg/title_dispatch_callback_0042d2e0_context.cpp",
   "headers": [
+    "include/th10/game/title_input.hpp",
     "include/th10/game/menu_cursor.hpp",
+    "include/th10/render/animation_script_id.hpp",
     "include/th10/game/recovery_script_executor.hpp",
     "include/th10/game/recovery_script_executor_ascii_anchors.hpp",
     "include/th10/game/title_menu.hpp",
     "include/th10/game/recovery_script_executor_text_anchors.hpp",
+    "include/th10/game/stage_route.hpp",
     "include/th10/core/func_ctrl.hpp",
     "include/th10/game/title_dispatch_callback.hpp",
     "include/th10/math/timer.hpp",
@@ -130,8 +133,8 @@
       "size": 76
     },
     {
-      "name": "?Find@RecoveryLookup@@QAIPAXPAURecoveryLookupContext@@URecoveryScriptId@@@Z",
-      "symbol": "?Find@RecoveryLookup@@QAIPAXPAURecoveryLookupContext@@URecoveryScriptId@@@Z",
+      "name": "?Find@RecoveryLookup@@QAIPAXPAURecoveryLookupContext@@UAnimationScriptId@@@Z",
+      "symbol": "?Find@RecoveryLookup@@QAIPAXPAURecoveryLookupContext@@UAnimationScriptId@@@Z",
       "section": ".text$004491c0_fn",
       "address": 4410256,
       "size": 73
@@ -616,7 +619,7 @@
     "src/game/title/recovery_animation_slot_frames.cpp",
     "src/game/title/recovery_install_animation_slot.cpp",
     "src/core/sprtlib/animation_manager_mark_resource_for_removal.cpp",
-    "src/core/sound/animation_manager_queue_resource.cpp"
+    "src/core/sound/sound_queue.cpp"
   ],
   "roots": [
     "?OnUpdate@Title@@QAEHXZ"

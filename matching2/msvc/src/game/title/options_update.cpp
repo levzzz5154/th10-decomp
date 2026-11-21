@@ -26,7 +26,7 @@ static __forceinline void SelectItem4(MenuCursor& cursor, int index) {
 // The child animation `script` of an animation slot (0x004497D0 with the
 // manager already loaded).
 static __forceinline AnimationRef2 FindChild2(
-        RecoveryLookupContext* manager, RecoveryScriptId* slot, int script) {
+        RecoveryLookupContext* manager, AnimationScriptId* slot, int script) {
     LabelParent* parent = static_cast<LabelParent*>(
         reinterpret_cast<RecoveryLookup*>(manager)->Find(manager, *slot));
     if (parent == 0)
@@ -41,7 +41,7 @@ static __forceinline AnimationRef2 FindChild2(
 static __forceinline void ShowLabel(
         RecoveryLookupContext* manager, Title* room, int script, int sprite) {
     AnimationRef2 child = FindChild2(
-        manager, reinterpret_cast<RecoveryScriptId*>(&room->animation_slots[1]), script);
+        manager, &room->animation_slots[1], script);
     reinterpret_cast<SpriteHandle*>(&child)->SelectSprite(sprite);
 }
 
@@ -69,7 +69,7 @@ static __forceinline void ShowScreenMode(Title* room) {
 static __forceinline void RunCursorSlot2(Title* room) {
     AnimationManager_SetStopFrameAndRun(
         3, reinterpret_cast<RecoveryLookupContext*>(g_sprt_ctrl),
-        *reinterpret_cast<RecoveryScriptId*>(&room->animation_slots[1]));
+        room->animation_slots[1]);
 }
 
 #pragma code_seg(".text$0042d920_fn")

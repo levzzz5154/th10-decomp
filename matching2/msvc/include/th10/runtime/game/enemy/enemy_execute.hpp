@@ -20,6 +20,7 @@ extern "C" Float3 g_camera_offset;
 extern "C" float g_game_speed;
 extern "C" int g_difficulty;
 extern "C" int g_rank;
+extern "C" const float g_enemy_rank_midpoint;  // 1024.0f, the midpoint of the rank interpolation range.
 
 struct RngState {
     unsigned short seed;

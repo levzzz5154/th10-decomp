@@ -65,7 +65,8 @@
     "include/th10/game/counter_block.hpp",
     "include/th10/game/ecl_view.hpp",
     "include/th10/render/animation_resource_removal.hpp",
-    "include/th10/game/enemy_ctrl.hpp"
+    "include/th10/game/enemy_ctrl.hpp",
+    "include/th10/game/stage_route.hpp"
   ],
   "image_base": "0x00400000",
   "description": "BulletManager_LoadScripts and BulletManager_Create compiled with the scheduler registration/removal pair, the constant-log formatter and the joystick probe under native LTCG, so the pass keeps the manager in EBX, the callback in ESI and the registration priority in EDI. It also carries the fixed-state factory and the callback installers it calls, the score-manager factory and the message host initialiser, whose EBX receiver is the same whole-program agreement. The ItemFront initializer uses EBX and calls the public score setup callback before its two scheduler registrations.",
@@ -782,6 +783,11 @@
     {
       "symbol": "_g_laser_manager",
       "address": "0x0047781C",
+      "kind": "data"
+    },
+    {
+      "symbol": "_g_stage_routes",
+      "address": "0x00474788",
       "kind": "data"
     },
     {

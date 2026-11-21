@@ -15,10 +15,11 @@ import tempfile
 
 from unicorn import Uc, UcError, UC_ARCH_X86, UC_MODE_32, UC_HOOK_CODE, UC_HOOK_MEM_INVALID
 from unicorn.x86_const import UC_X86_REG_EAX, UC_X86_REG_EDX, UC_X86_REG_ESI, UC_X86_REG_ESP, UC_X86_REG_EIP
-from lzss_compressor_differential import ROOT, CANDIDATE, STACK, STOP, PRESERVED, PEImage, load_manifest, load_oracle
+
+from x86_fixture import ROOT, CANDIDATE, OUTPUT, STACK, STOP, PRESERVED, load_fixture
 from coff_module import load_module
 
-STATE, DATA, OUTPUT = 0x2500000, 0x2600000, 0x2100000
+STATE, DATA = 0x2500000, 0x2600000
 CURSOR, RECORD, ALT_RECORD, COUNT = STATE + 0x100, STATE + 0x400, STATE + 0x500, STATE + 0x800
 SOURCE, DESTINATION = DATA + 0x100, OUTPUT + 0x100
 SEEK, READ = STOP + 0x100, STOP + 0x200
@@ -217,17 +218,11 @@ def difference(expected, actual):
             for key in expected if expected[key] != actual[key]}
 
 
-import sys as _project_sys
-from pathlib import Path as _ProjectPath
-_project_sys.path.insert(0, str(_ProjectPath(__file__).resolve().parents[2]))
-from matching2.tools.common.project_paths import project_support
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--oracle", type=Path, default=ROOT / "matching2/build/oracle/th10.exe")
     options = parser.parse_args()
-    config = load_manifest(project_support((ROOT) / 'matching2/msvc', 'regions.json'))
-    load_oracle(options.oracle, config)
-    image = PEImage(options.oracle.read_bytes())
+    _, image = load_fixture(options.oracle)
     with tempfile.TemporaryDirectory(prefix="th10-music-cursor-") as temporary:
         module = compile_candidate(Path(temporary))
         total = faults = 0

@@ -1,18 +1,8 @@
-#include "../../../include/asm_encoding.hpp"
 #include "../../../include/asm_symbols.hpp"
 
-
-// 0x0041AFD0..0x0041B007: FUN_0041afd0
-// Naked body preserves the retail register/stack ABI.
-// BLOCKED (D3601): closest_byte_count=128/2320; first_diff=0x0041AFD2;
-// residual_class=large state-machine loop with private register/live-global
-// ABI, x87 angle/position ordering, and ten unresolved helper bindings;
-// variants_tested=live Ghidra decompilation with state caller 0x0041BA29 and
-// callees 0x00404F30, 0x004054B0, 0x00405B60, 0x00412FF0, 0x004188A0,
-// 0x00418930, 0x0041BA50, 0x00426660, 0x0042B9C0, 0x0043DD10, plus MSVC
-// 13.10 readable loop/switch candidate (626-byte extent, 128 non-relocation
-// bytes equal); next_lever=native-LTCG schema2 with the real scene caller,
-// production state layout, and helper prototypes.
+// Exact-link fallback for ItemManager_UpdateItems (0x0041AFD0, 2,320 bytes).
+// The normal build uses src/game/item/item_update.cpp. Its remaining mismatch
+// is two loads in the attraction path, not a missing callee or jump table.
 extern "C" __declspec(naked) void __cdecl asm_FUN_0041afd0_0041afd0() {
     __asm {
     L_0041afd0:
@@ -43,12 +33,14 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_0041afd0_0041afd0() {
         lea ebp,[esi+3B0h]
     L_0041affa:
         mov dword ptr [esp+1Ch],896h
-    L_0041b002:
-        TH10_REL8(0xeb, 0x0041b002, VA_asm_FUN_0041afd0_part_0041b010)
-    L_0041b004:
+    }
+    goto scan_slot;
+    __asm {
+    next_slot:
         xor ecx,ecx
-    L_0041b006:
-        TH10_REL8(0xeb, 0x0041b006, VA_asm_FUN_0041afd0_part_0041b010)
+    }
+    goto scan_slot;
+    __asm {
         _emit 0x8d
         _emit 0xa4
         _emit 0x24
@@ -58,7 +50,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_0041afd0_0041afd0() {
         _emit 0x00
         _emit 0x90
 
-    L_0041b010:
+    scan_slot:
         mov eax,dword ptr [ebp+2Ch]
     L_0041b013:
         cmp eax,ecx
@@ -1195,7 +1187,7 @@ extern "C" __declspec(naked) void __cdecl asm_FUN_0041afd0_0041afd0() {
     L_0041b873:
         mov dword ptr [esp+1Ch],eax
     L_0041b877:
-        jne asm_target_0041b004
+        jne next_slot
     L_0041b87d:
         mov eax,dword ptr [esp+14h]
     L_0041b881:

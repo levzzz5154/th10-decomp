@@ -16,15 +16,17 @@ import tempfile
 
 from unicorn import UC_HOOK_CODE
 from unicorn.x86_const import UC_X86_REG_EAX, UC_X86_REG_ECX
+
+from x86_fixture import ROOT, CANDIDATE, STOP, load_fixture
 import sound_archive_preload_integration as preload
 from sound_shutdown_differential import compile_candidates as compile_shutdown
 
-SHUTDOWN_BASE = preload.CANDIDATE + 0x40000
+SHUTDOWN_BASE = CANDIDATE + 0x40000
 CLEANUP = SHUTDOWN_BASE + 0x2000
 AGGREGATE = SHUTDOWN_BASE + 0x8000
 STREAM, MIDI, MIDI_TABLE, AGG_TABLE, ENTRIES = (preload.STATE + 0x6000 + i * 0x100 for i in range(5))
 KILL, STOP_STREAM, DESTROY, POST, WAIT, CLOSE, AGG_STOP, AGG_QUERY = (
-    preload.STOP + 0x900 + i * 0x100 for i in range(8))
+    STOP + 0x900 + i * 0x100 for i in range(8))
 
 
 @dataclass(frozen=True)
@@ -134,17 +136,11 @@ def cases():
         yield Case(consumed=consumed, midi=True, thread=True, owner=False)
 
 
-import sys as _project_sys
-from pathlib import Path as _ProjectPath
-_project_sys.path.insert(0, str(_ProjectPath(__file__).resolve().parents[2]))
-from matching2.tools.common.project_paths import project_support
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--oracle", type=Path, default=preload.ROOT / "matching2/build/oracle/th10.exe")
+    parser.add_argument("--oracle", type=Path, default=ROOT / "matching2/build/oracle/th10.exe")
     options = parser.parse_args()
-    config = preload.load_manifest(project_support((preload.ROOT) / 'matching2/msvc', 'regions.json'))
-    preload.load_oracle(options.oracle, config)
-    image = preload.PEImage(options.oracle.read_bytes())
+    config, image = load_fixture(options.oracle)
     names = preload.names_from_image(image)
     parameters = [struct.unpack("<BB2xii", image.read(0x474BD8 + index * 12, 12)) for index in range(8)]
     source, waves = preload.make_fixture(preload.Case(), names, parameters)

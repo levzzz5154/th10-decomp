@@ -47,7 +47,7 @@ __declspec(noinline) int __stdcall TitleMode7(Title* room) {
     case 0:
         room->cursor.item_count = 2;
         if (g_globals_difficulty == 4) {
-            ScoreFile3* score = g_score;
+            TitleScoreFile* score = g_score;
             if (!score->cleared[0][0] && !score->cleared[0][1] && !score->cleared[0][2]) {
                 if (room->cursor.selection == 0)
                     SelectItem6(room->cursor, 1);
@@ -64,7 +64,7 @@ __declspec(noinline) int __stdcall TitleMode7(Title* room) {
         RecoveryMusicInstallSlot(room, 125);
         AnimationManager_SetStopFrameAndRun(
             3, reinterpret_cast<RecoveryLookupContext*>(g_sprt_ctrl),
-            *reinterpret_cast<RecoveryScriptId*>(&room->animation_slots[125]));
+            room->animation_slots[125]);
         room->SetSlotFrame(125, room->cursor.selection + 0x11);
         room->SetTimerTarget(1);
     case 1:

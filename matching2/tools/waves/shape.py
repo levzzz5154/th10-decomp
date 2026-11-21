@@ -28,9 +28,11 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[3]
 sys.path.insert(0, str(ROOT))
 
-from matching2.tools.common.coff import read_coff_function
-from matching2.tools.matching.build_msvc import DEFAULT_TOOLKIT, ROOT as BUILD_ROOT
-from matching2.tools.matching.probe import load_manifest, load_oracle
+from matching2.tools.common.coff import function_body, read_object
+from matching2.tools.common.project_paths import DEFAULT_PROJECT, project_support
+from matching2.tools.common.wine import DEFAULT_TOOLKIT
+from matching2.tools.matching.build_msvc import compile_raw
+from matching2.tools.matching.retail import load_manifest, load_oracle
 from matching2.tools.waves.vdiff import disassemble
 
 REGISTERS = re.compile(
@@ -49,11 +51,10 @@ def listing(data, address):
     return [normalise(text) for _, (_, text) in sorted(disassemble(data, address).items())]
 
 
-from matching2.tools.common.project_paths import project_support
 def main():
     parser = argparse.ArgumentParser(description=__doc__,
                                      formatter_class=argparse.RawDescriptionHelpFormatter)
-    parser.add_argument("--project", type=Path, default=BUILD_ROOT / "matching2/msvc")
+    parser.add_argument("--project", type=Path, default=DEFAULT_PROJECT)
     parser.add_argument("--toolkit", type=Path, default=DEFAULT_TOOLKIT)
     parser.add_argument("--output", type=Path, default=ROOT / "matching2/build/shape")
     parser.add_argument("--source", required=True)
@@ -67,10 +68,10 @@ def main():
     config = load_manifest(project_support(project, 'regions.json'))
     oracle = load_oracle(ROOT / "matching2/build/oracle/th10.exe", config)
     text_start = int(config["text_start"], 0)
-    from matching2.tools.matching.build_msvc import compile_raw
     args.output.mkdir(parents=True, exist_ok=True)
     raw = compile_raw(project, args.toolkit.resolve(), args.output, 0, args.source, config)
-    name, body, ignored = read_coff_function(raw["object"], args.symbol)
+    function = function_body(read_object(raw["object"]), args.symbol)
+    body, ignored = function.data, function.linker_bytes()
     expected = oracle[args.address - text_start:args.address - text_start + args.size]
     differing = [index for index in range(min(len(body), args.size))
                  if index not in ignored and body[index] != expected[index]]
@@ -80,7 +81,7 @@ def main():
     rows = [(tag, retail[i1:i2], compiled[j1:j2])
             for tag, i1, i2, j1, j2 in matcher.get_opcodes() if tag != "equal"]
     report = {
-        "symbol": name, "address": args.address, "declared": args.size,
+        "symbol": function.name, "address": args.address, "declared": args.size,
         "compiled_extent": len(body), "differing_bytes": len(differing),
         "retail_instructions": len(retail), "compiled_instructions": len(compiled),
         "shape_similarity": round(matcher.ratio(), 3),
@@ -90,7 +91,7 @@ def main():
     if args.json:
         print(json.dumps(report, indent=2))
         return 0
-    print(f"{name} {args.address:#010x}  retail {args.size} / compiled {len(body)} bytes, "
+    print(f"{function.name} {args.address:#010x}  retail {args.size} / compiled {len(body)} bytes, "
           f"{len(differing)} differing; {len(retail)} / {len(compiled)} instructions; "
           f"shape similarity {report['shape_similarity']:.3f}")
     for tag, left, right in rows:

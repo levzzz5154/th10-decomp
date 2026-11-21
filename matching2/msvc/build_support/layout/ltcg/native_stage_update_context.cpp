@@ -3,6 +3,7 @@
 #include <string.h>
 #include <stdlib.h>
 #include "th10/game/background_fade.hpp"
+#include "th10/game/stage_route.hpp"
 #include "th10/core/screen.hpp"
 struct StageContextFade_00418190 {
     unsigned char reserved000[0x14];
@@ -28,7 +29,6 @@ extern unsigned char* g_player;
 extern unsigned char* g_replay;
 extern unsigned char* g_score;
 extern unsigned char* g_smoll_score;
-extern unsigned char* g_stage_route_current;
 extern unsigned int g_globals_flags,g_input_keys_raw,g_app_flags,g_sound_flags;
 extern int g_main_state,data_00474c88,g_stage_progress_echo,g_globals_character,g_globals_shot_type;
 extern unsigned char g_frame_worker[],g_sound_manager[],g_application[],g_globals[];
@@ -98,14 +98,14 @@ static __forceinline void StageReset(StageContextFade_00418190* context,int* loc
     StageKillPair(g_hint);
     if (delayed) {
         StageRegisterMusic_0043e460(g_sound_manager,str_dummy,(g_sound_flags&0x10u)?4:3,0);
-        StagePlayMusic_00420b10(0,StageWord(g_stage_route_current,0x24));
+        StagePlayMusic_00420b10(0, g_stage_route_current->music_tracks[0]);
         unsigned char* thread=g_ascii_manager;
         StageStopAnimation_00409e50(thread+0x89A4);
         StageWord(thread,0x89A4)=0;
         StageSetTimer_00405410(reinterpret_cast<unsigned char*>(context)+0x10,0);
     } else {
         if (!(g_globals_flags&0x20u))
-            StagePlayMusic_00420b10(0,StageWord(g_stage_route_current,0x24));
+            StagePlayMusic_00420b10(0, g_stage_route_current->music_tracks[0]);
         unsigned char* thread=g_ascii_manager;
         StageStopAnimation_00409e50(thread+0x89A0);
         StageStopAnimation_00409e50(thread+0x89A4);

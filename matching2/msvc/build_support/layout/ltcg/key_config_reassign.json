@@ -4,7 +4,7 @@
   "source": "src/game/title/key_config.cpp",
   "included_sources": [
     "src/game/title/fun.cpp",
-    "src/core/sound/animation_manager_queue_resource.cpp"
+    "src/core/sound/sound_queue.cpp"
   ],
   "driver": "build_support/layout/ltcg/key_config_reassign_context.cpp",
   "headers": [

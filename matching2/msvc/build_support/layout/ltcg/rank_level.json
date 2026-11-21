@@ -3,7 +3,9 @@
   "name": "rank_level",
   "source": "src/game/front/rank_level.cpp",
   "driver": "build_support/layout/ltcg/rank_level_context.cpp",
-  "headers": [],
+  "headers": [
+    "include/th10/game/stage_route.hpp"
+  ],
   "image_base": "0x00400000",
   "description": "Ordinary C++ rank-level advance compiled with native LTCG so the internal register convention (this in EAX) matches retail.",
   "functions": [

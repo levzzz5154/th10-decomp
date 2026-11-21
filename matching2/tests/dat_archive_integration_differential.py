@@ -18,14 +18,13 @@ import tempfile
 from unicorn import Uc, UC_ARCH_X86, UC_MODE_32, UC_HOOK_CODE
 from unicorn.x86_const import (UC_X86_REG_EAX, UC_X86_REG_EBX, UC_X86_REG_ECX,
                               UC_X86_REG_ESI, UC_X86_REG_ESP, UC_X86_REG_EIP)
-from lzss_compressor_differential import (
-    ROOT, CANDIDATE, OUTPUT, STACK, STOP, RING, PRESERVED,
-    PEImage, load_manifest, load_oracle, load_candidate)
+
+from x86_fixture import ROOT, CANDIDATE, OUTPUT, STACK, STOP, PRESERVED, load_candidate, load_fixture
 from dat_archive_load_index_differential import compile_candidate as compile_loader
 from dat_archive_read_differential import compile_candidate as compile_reader
 from dat_archive_parser_differential import compile_candidate as compile_parser, load_parser_candidate
 from dat_crypt_differential import compile_candidate as compile_cipher
-from lzss_decoder_differential import compile_candidate as compile_decoder, encode
+from lzss_decoder_differential import RING, compile_candidate as compile_decoder, encode
 from dat_archive_cleanup_differential import compile_candidates as compile_cleanup, CLOSE, RESET
 from dat_archive_open_differential import compile_candidates as compile_open, OPEN, OPEN_RESOURCE
 
@@ -359,17 +358,11 @@ def fixtures(parameters):
         yield fixture(f"random-{trial}", entries, parameters)
 
 
-import sys as _project_sys
-from pathlib import Path as _ProjectPath
-_project_sys.path.insert(0, str(_ProjectPath(__file__).resolve().parents[2]))
-from matching2.tools.common.project_paths import project_support
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--oracle", type=Path, default=ROOT / "matching2/build/oracle/th10.exe")
     options = parser.parse_args()
-    config = load_manifest(project_support((ROOT) / 'matching2/msvc', 'regions.json'))
-    load_oracle(options.oracle, config)
-    image = PEImage(options.oracle.read_bytes())
+    config, image = load_fixture(options.oracle)
     parameters = [struct.unpack("<BB2xii", image.read(0x474BD8 + index * 12, 12)) for index in range(8)]
     with tempfile.TemporaryDirectory(prefix="th10-archive-integration-") as temporary:
         modules = compile_modules(Path(temporary), config)

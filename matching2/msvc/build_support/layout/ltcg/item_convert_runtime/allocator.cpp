@@ -58,7 +58,7 @@ __declspec(noinline) int ItemSpawnManager::Spawn(
         *location=*position;
         if (location->x<=-192.0f) location->x=-192.0f;
         else if (location->x>=192.0f) location->x=192.0f;
-        item->velocity.SetPolar(angle,speed);
+        item->velocity.xy.SetPolar(angle,speed);
         ResetSpawnTimer_0041bb00(item);
         if (g_globals_power>=100) {
             switch(kind) {
@@ -103,7 +103,7 @@ __declspec(noinline) int ItemSpawnManager::Spawn(
         item->display_kind=8;
         item->state=5;
         item->position=*position;
-        item->velocity.SetPolar(angle,speed);
+        item->velocity.xy.SetPolar(angle,speed);
         ResetSpawnTimer_0041bb00(item);
     }
     special_cursor=(special_cursor+1)%2048;

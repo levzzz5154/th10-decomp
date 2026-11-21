@@ -30,7 +30,7 @@ void RecoveryTimer2::Advance(float delta) {
 #define TH10_LOOKUP_FIND_SECTION ".text$004491c0_fn"
 #endif
 #pragma code_seg(TH10_LOOKUP_FIND_SECTION)
-void* __fastcall RecoveryLookup::Find(RecoveryLookupContext* context, RecoveryScriptId id) {
+void* __fastcall RecoveryLookup::Find(RecoveryLookupContext* context, AnimationScriptId id) {
     if (!id.value)
         return 0;
     for (RecoveryLookupNode* node = context->primary; node != 0; node = node->next)
@@ -43,7 +43,7 @@ void* __fastcall RecoveryLookup::Find(RecoveryLookupContext* context, RecoverySc
 }
 #pragma code_seg(".text$004492a0_fn")
 void* __fastcall RecoveryLookup::SetFlag(RecoveryLookupContext* context, int id) {
-    RecoveryScriptId script_id = { id };
+    AnimationScriptId script_id = { id };
     RecoveryLookupNode* node = static_cast<RecoveryLookupNode*>(Find(context, script_id));
     if (node) {
         node->flags |= 0x04000000u;
@@ -58,7 +58,7 @@ void* __fastcall RecoveryLookup::SetFlag(RecoveryLookupContext* context, int id)
 #endif
 #pragma code_seg(TH10_LOOKUP_VALIDATE_SECTION)
 void* __cdecl RecoveryLookup::Validate(RecoveryHandle* handle) {
-    RecoveryScriptId id = { static_cast<int>(handle->value) };
+    AnimationScriptId id = { static_cast<int>(handle->value) };
     void* object = Find(reinterpret_cast<RecoveryLookupContext*>(g_sprt_ctrl), id);
     if (object == 0)
         handle->value = 0;
@@ -75,7 +75,7 @@ struct RecoveryStopNode_0040bd80 {
 };
 #pragma code_seg(".text$0040c480_fn")
 void RecoveryHandle::StopAtFrame2() {
-    RecoveryScriptId id = { static_cast<int>(value) };
+    AnimationScriptId id = { static_cast<int>(value) };
     RecoveryStopNode_0040bd80* node = static_cast<RecoveryStopNode_0040bd80*>(reinterpret_cast<RecoveryLookup*>(g_sprt_ctrl)->Find(reinterpret_cast<RecoveryLookupContext*>(g_sprt_ctrl), id));
     if (node != 0) {
         node->stop_frame = 2;
@@ -86,7 +86,7 @@ void RecoveryHandle::StopAtFrame2() {
 }
 #pragma code_seg(".text$0040c4d0_fn")
 void RecoveryHandle::StopAtFrame3() {
-    RecoveryScriptId id = { static_cast<int>(value) };
+    AnimationScriptId id = { static_cast<int>(value) };
     RecoveryStopNode_0040bd80* node = static_cast<RecoveryStopNode_0040bd80*>(reinterpret_cast<RecoveryLookup*>(g_sprt_ctrl)->Find(reinterpret_cast<RecoveryLookupContext*>(g_sprt_ctrl), id));
     if (node != 0) {
         node->stop_frame = 3;

@@ -20,9 +20,11 @@ from unicorn import (Uc, UcError, UC_ARCH_X86, UC_MODE_32, UC_HOOK_CODE,
                      UC_HOOK_MEM_READ, UC_HOOK_MEM_INVALID)
 from unicorn.x86_const import (UC_X86_REG_EAX, UC_X86_REG_ECX, UC_X86_REG_EDX,
                               UC_X86_REG_EDI, UC_X86_REG_ESP, UC_X86_REG_EIP)
-from lzss_compressor_differential import (
-    ROOT, CANDIDATE, OUTPUT, STACK, STOP, PRESERVED, PEImage,
-    load_manifest, load_oracle, load_candidate, region_directory)
+
+from x86_fixture import ROOT, CANDIDATE, OUTPUT, STACK, STOP, PRESERVED, load_candidate, maintained_region
+from matching2.tools.common.pe import PEImage
+from matching2.tools.common.project_paths import project_support
+from matching2.tools.matching.retail import load_manifest, load_verified_image, region_directory
 from coff_module import load_module
 
 STATE, DATA = 0x2500000, 0x2600000
@@ -82,6 +84,7 @@ class Case:
 
 def compile_candidates(directory, config, extra_bindings=None, code_base=CANDIDATE):
     chunk_address = code_base + 0x8000
+    walker = maintained_region(0x43D250)
     bindings = region_directory(config, config["regions"])
     bindings.update({"_strncmp": 0x452F80, "_memcpy": 0x45BFC0,
                      "_entry_free_00452422": 0x452422, "_g_sound_sleep": 0x4660AC,
@@ -91,20 +94,21 @@ def compile_candidates(directory, config, extra_bindings=None, code_base=CANDIDA
                      "_g_wave_riff_tag": 0x46FDA4, "_g_wave_wave_tag": 0x46FD80,
                      "_g_wave_format_tag": 0x46FD5C, "_g_wave_data_tag": 0x46FD54,
                      "?Append@TextLog_0044b810@@QAAPADPADZZ": LOG,
-                     "?Resource_FindChunk@@YAPBEPBEIQBDPAI@Z": chunk_address})
+                     walker.symbol: chunk_address})
     bindings.update(extra_bindings or {})
     objects = {}
     for name, source in (("wave", ROOT / "matching2/reference/semantic_candidates/sound_wave_load.cpp"),
-                         ("chunk", ROOT / "matching2/msvc/src/platform/resource_chunks.cpp")):
+                         ("chunk", walker.source)):
         obj = directory / (name + ".obj")
+        # Both units include the project declaration, which uses /Gz's default stdcall.
         subprocess.run([
-            "clang++", "--target=i686-pc-windows-msvc", "-std=c++03", "-O2", "-mno-sse", "-mno-sse2",
+            "clang++", "--target=i686-pc-windows-msvc", "-std=c++03", "-mrtd", "-O2", "-mno-sse", "-mno-sse2",
             "-fno-exceptions", "-fno-rtti", "-fno-stack-protector", "-fno-builtin", "-ffunction-sections",
             "-I", str(ROOT / "matching2/msvc/include"), "-c", str(source), "-o", str(obj)],
             check=True, timeout=60)
         objects[name] = obj
     module = load_module(objects["wave"], code_base, bindings)
-    body = load_candidate(objects["chunk"], config, "Resource_FindChunk", bindings, code_address=chunk_address)
+    body = load_candidate(objects["chunk"], config, walker.symbol, bindings, code_address=chunk_address)
     return module, {code_base: module.data, chunk_address: body}
 
 
@@ -381,10 +385,6 @@ def verify_observations(case, result):
         assert len(frees) == 1, "Create/Lock failures must also release the wave"
 
 
-import sys as _project_sys
-from pathlib import Path as _ProjectPath
-_project_sys.path.insert(0, str(_ProjectPath(__file__).resolve().parents[2]))
-from matching2.tools.common.project_paths import project_support
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--oracle", type=Path, default=ROOT / "matching2/build/oracle/th10.exe")
@@ -394,8 +394,7 @@ def main():
     options = parser.parse_args()
     project = options.project.resolve()
     config = load_manifest(project_support(project, 'regions.json'))
-    text = load_oracle(options.oracle, config)
-    image = PEImage(options.oracle.read_bytes())
+    image, text = load_verified_image(options.oracle, config)
     with tempfile.TemporaryDirectory(prefix="th10-wave-load-") as temporary:
         if options.native:
             from matching2.tools.matching.ltcg_cluster import load_clusters, build_cluster

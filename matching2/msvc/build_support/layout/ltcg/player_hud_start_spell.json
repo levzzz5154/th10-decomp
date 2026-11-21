@@ -20,6 +20,7 @@
     "include/th10/game/pause_result_open/open_animation.hpp",
     "build_support/include/contexts/game/right_aligned_text_context/recovery_script_executor_text_sibling_anchors.hpp",
     "build_support/include/contexts/game/right_aligned_text_context/recovery_script_executor_caller.hpp",
+    "include/th10/render/animation_script_id.hpp",
     "build_support/include/contexts/game/right_aligned_text_context/recovery_script_executor.hpp",
     "build_support/include/contexts/game/right_aligned_text_context/worker.hpp",
     "build_support/include/contexts/game/right_aligned_text_context/archive_callers.hpp",
@@ -137,7 +138,7 @@
   ],
   "included_sources": [
     "src/game/background/entity_start_script.cpp",
-    "src/core/sound/animation_manager_queue_resource.cpp",
+    "src/core/sound/sound_queue.cpp",
     "src/core/sprtanim/animation_object_load_script.cpp",
     "build_support/layout/ltcg/position_setter_find_anchor.cpp",
     "src/core/sprtlib/animation_manager_set_translated_position.cpp",

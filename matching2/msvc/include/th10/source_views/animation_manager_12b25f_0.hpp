@@ -1,5 +1,4 @@
 #pragma once
-#include "../../../build_support/include/asm_encoding.hpp"
 #include "../../../build_support/include/asm_symbols.hpp"
 
 // 0x0043EC70..0x0043ECFF: read an integer-valued animation variable.

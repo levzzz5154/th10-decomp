@@ -2,11 +2,11 @@
 // Lookup and timer bodies copied from the maintained executor contexts.
 #include "title_dispatcher.cpp"
 #include "../../../../src/game/title/recovery_animation_slot_frames.cpp"
-#include "../../../../src/core/sound/animation_manager_queue_resource.cpp"
+#include "../../../../src/core/sound/sound_queue.cpp"
 #include "../../../../src/core/sprtlib/animation_manager_mark_resource_for_removal.cpp"
 extern "C" float g_game_speed;
 #pragma code_seg(".text$004491c0_fn")
-void* __fastcall RecoveryLookup::Find(RecoveryLookupContext* context, RecoveryScriptId id) {
+void* __fastcall RecoveryLookup::Find(RecoveryLookupContext* context, AnimationScriptId id) {
     if (!id.value)
         return 0;
     for (RecoveryLookupNode* node = context->primary; node != 0; node = node->next)
@@ -20,7 +20,7 @@ void* __fastcall RecoveryLookup::Find(RecoveryLookupContext* context, RecoverySc
 #include "../recovery_script_executor_caller_433ef0.cpp"
 #pragma code_seg(".text$00409e50_title_fn")
 void StopHandle2(AnimationHandle3* handle) {
-    RecoveryScriptId id = { static_cast<int>(handle->id) };
+    AnimationScriptId id = { static_cast<int>(handle->id) };
     RecoveryMusicVm* object = static_cast<RecoveryMusicVm*>(
         reinterpret_cast<RecoveryLookup*>(g_sprt_ctrl)->Find(
             reinterpret_cast<RecoveryLookupContext*>(g_sprt_ctrl), id));

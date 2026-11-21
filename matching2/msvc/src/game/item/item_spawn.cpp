@@ -18,7 +18,7 @@ static __forceinline void ResetTimer(FrameTimer* timer) {
 }
 
 static __forceinline void ResetMotion(SpawnItem* item) {
-    item->motion_state = 0;
+    item->velocity.z = 0.0f;
     ResetTimer(&item->timer);
     item->motion_counter = 0;
 }
@@ -47,7 +47,7 @@ __declspec(noinline) int PlayerItemManager::Spawn(
         *location = *position;
         if (location->x <= -192.0f) location->x = -192.0f;
         else if (location->x >= 192.0f) location->x = 192.0f;
-        item->velocity.SetPolar(angle, speed);
+        item->velocity.xy.SetPolar(angle, speed);
         ResetMotion(item);
         // At full power, power items turn into point-value ones.
         if (g_globals.power >= 100) {
@@ -87,7 +87,7 @@ __declspec(noinline) int PlayerItemManager::Spawn(
         item->display_kind = 8;
         item->state = 5;
         item->position = *position;
-        item->velocity.SetPolar(angle, speed);
+        item->velocity.xy.SetPolar(angle, speed);
         ResetMotion(item);
     }
     special_cursor = (special_cursor + 1) % 2048;

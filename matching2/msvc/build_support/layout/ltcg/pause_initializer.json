@@ -4,6 +4,7 @@
   "source": "src/game/ascii/entity_init.cpp",
   "driver": "build_support/layout/ltcg/pause_initializer_00422ab0_context.cpp",
   "included_sources": [
+    "src/core/sound/sound_queue.cpp",
     "build_support/layout/ltcg/pause_initializer_helpers/constructor.cpp",
     "build_support/layout/ltcg/pause_initializer_helpers/stop.cpp",
     "build_support/layout/ltcg/pause_initializer_helpers/update.cpp",

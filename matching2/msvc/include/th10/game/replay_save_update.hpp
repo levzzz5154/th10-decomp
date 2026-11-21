@@ -2,24 +2,6 @@
 #define TH10_REPLAY_SAVE_UPDATE_00433570_HPP
 #include "th10/game/replay_select_update.hpp"
 
-// The title screen object past the music-room view as the replay save screen
-// and the high score name entry use it: the name being typed, the cursor on
-// the character grid and the 25 numbered replays.
-struct TitleReplaySaveView {
-    unsigned char reserved_0000[0x58DC];
-    char name[12];                      // +0x58DC
-    int name_length;                    // +0x58E8
-    int name_confirmed;                 // +0x58EC, high score entry: nothing to type
-    int reserved_58f0;
-    MenuCursor grid;                    // +0x58F4
-    unsigned char reserved_59cc[0x59DC - 0x59CC];
-    int selected_replay;                // +0x59DC
-    int selected_stage;                 // +0x59E0
-    ReplayFile* replays[50];   // +0x59E4
-};
-typedef char ReplaySaveRoomGrid[offsetof(TitleReplaySaveView, grid) == 0x58F4 ? 1 : -1];
-typedef char ReplaySaveRoomSize[sizeof(TitleReplaySaveView) == 0x5AAC ? 1 : -1];
-
 extern "C" {
 extern ReplayFile* g_replay;  // the replay just recorded
 extern const char* g_name_entry_grid;           // the name entry character grid

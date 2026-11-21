@@ -4,7 +4,6 @@
   "source": "src/core/sprtanim/animation_object_variables_read_integer_variable.cpp",
   "driver": "build_support/layout/ltcg/animation_read_integer_0043ec70_context.cpp",
   "headers": [
-    "build_support/include/asm_encoding.hpp",
     "build_support/include/asm_symbols.hpp",
     "include/th10/source_views/animation_manager_12b25f_0.hpp",
     "include/th10/source_views/animation_manager_12b25f_1.hpp"

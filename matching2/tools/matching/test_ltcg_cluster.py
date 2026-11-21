@@ -5,8 +5,11 @@ from pathlib import Path
 import struct
 import tempfile
 import unittest
-from matching2.tools.common.coff_regions import _read_object, CoffRegionError
 
+from matching2.tools.common.coff import CoffRegionError, read_object
+from matching2.tools.common.project_paths import project_support
+
+from matching2.tools.matching.build_msvc import CompilationPlan
 from matching2.tools.matching.ltcg_cluster import (
     LTCGClusterError, _validate_generated_contributions, _verify_duplicates,
     load_cluster, validate_internal_calls, validate_native_output,
@@ -17,10 +20,6 @@ from matching2.tools.matching.ltcg_semantic import (
 )
 
 
-import sys as _project_sys
-from pathlib import Path as _ProjectPath
-_project_sys.path.insert(0, str(_ProjectPath(__file__).resolve().parents[3]))
-from matching2.tools.common.project_paths import project_support
 class ClusterSourceOwnershipTests(unittest.TestCase):
     def _write_manifest(self, project, *, multi_source):
         (project / "src").mkdir()
@@ -303,6 +302,10 @@ class ClusterSourceOwnershipTests(unittest.TestCase):
             regions, path, manifest = self._owned_include_manifest(project)
             path.write_text(json.dumps(manifest))
             loaded = load_cluster(project, str(path.relative_to(project)), regions)
+            config = {"ltcg_clusters": [str(path.relative_to(project))]}
+            plan = CompilationPlan.from_manifest(project, config, regions, [r["source"] for r in regions])
+        self.assertEqual(plan.sources, ["src/primary.cpp"])
+        self.assertEqual(plan.clusters_by_source["src/secondary.cpp"]["source"], "src/primary.cpp")
         self.assertEqual(loaded["source_names"], ["src/primary.cpp"])
         self.assertEqual(loaded["ownership_names"], ["src/primary.cpp", "src/secondary.cpp"])
         self.assertEqual(loaded["functions"][1]["_source"], "src/secondary.cpp")
@@ -851,7 +854,7 @@ class OrdinarySourceManifestTests(unittest.TestCase):
                 _verify_snapshot(snapshot)
 
     def test_unit_cache_key_covers_complete_ordinary_include_closure(self):
-        from matching2.tools.matching.build_msvc import UnitCache
+        from matching2.tools.matching.unit_cache import UnitCache
         with tempfile.TemporaryDirectory() as directory:
             project = Path(directory)
             loaded = self._load(project)
@@ -864,7 +867,7 @@ class OrdinarySourceManifestTests(unittest.TestCase):
             config = {'flags': ['/O2'], 'compiler_version': '13.10.6030'}
             def key():
                 cache = UnitCache(project, toolkit, project/'cache', config)
-                return cache.key(loaded['source'], config, loaded['regions'], loaded, 'native-ltcg')
+                return cache.key(loaded['source'], config, loaded['regions'], loaded)
             first = key()
             header.write_text('// changed header\n')
             second = key()
@@ -904,7 +907,7 @@ class OrdinaryObjectRenameTests(unittest.TestCase):
     def test_section_names_change_while_all_other_bytes_remain_identical(self):
         with tempfile.TemporaryDirectory() as directory:
             original, placed, report = self._prepare(Path(directory))
-            before, after = _read_object(original), _read_object(placed)
+            before, after = read_object(original), read_object(placed)
             self.assertEqual(before['records'], after['records'])
             self.assertEqual([s['raw'] for s in before['sections']], [s['raw'] for s in after['sections']])
             self.assertEqual([s['relocations'] for s in before['sections']], [s['relocations'] for s in after['sections']])

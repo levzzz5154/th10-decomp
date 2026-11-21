@@ -7,10 +7,10 @@
 // axis, and the in-plane rotation turns those corners into the shared vertex
 // array. A centre outside the normalized depth range rejects the quad.
 
+#include "th10/render/textured_quad.hpp"
 #include <math.h>
 
 struct ProjectionVec3 { float x, y, z; };
-struct ProjectionVertex { float x, y, z, rhw; unsigned int color; float u, v; };
 struct ProjectionMatrix { float m[16]; };
 
 // The render target whose view, projection and viewport matrices feed the
@@ -25,14 +25,7 @@ struct ProjectionDevice {
     float viewport[6];                     // 0xCC
 };
 
-// The shared .rdata float constants, read through their retail addresses.
-extern "C" float flt_0;            //  0.0f
-extern "C" float flt_1;            //  1.0f
-extern "C" float flt_0_5;            //  0.5f
-extern "C" float flt_neg0_5;            // -0.5f
-
 extern "C" ProjectionDevice* g_render_stage_active;
-extern "C" ProjectionVertex g_quad_vertices[4];
 
 // The projection helper the renderer reaches through its own import stub.
 extern "C" int __stdcall D3DXVec3Project(void* out, const void* in, const void* viewport,
@@ -77,11 +70,9 @@ int BillboardSource::BuildProjectedQuad() {
     ProjectionMatrix world;
     ProjectionVec3 delta;
     float half;
-    float xs[4], ys[4];
 
-    // Retail keeps the trigonometric pair in inline assembly: for sin/cos of one
-    // value the compiler emits an FSIN/FCOS pair, never the combined FSINCOS the
-    // renderer's projection uses.
+    // Both native sites use FSINCOS; the pinned compiler emits separate
+    // instructions for the C++ sine and cosine intrinsics.
     angle = this->rotation;
     __asm {
         fld angle
@@ -131,46 +122,7 @@ int BillboardSource::BuildProjectedQuad() {
         fstp sa
     }
 
-    // (flags >> 18) & 3 anchors the two horizontal corners, (flags >> 20) & 3
-    // the vertical ones. The two-valued cases leave the fourth corner in the
-    // floating-point register the retail body keeps it in.
-    switch ((this->flags >> 18) & 3) {
-    case 0:
-        xs[0] = xs[2] = extent_x * -0.5f;
-        xs[1] = xs[3] = extent_x * 0.5f;
-        break;
-    case 1:
-        xs[0] = xs[2] = 0.0f;
-        xs[1] = xs[3] = extent_x;
-        break;
-    case 2:
-        xs[0] = xs[2] = -extent_x;
-        xs[1] = xs[3] = 0.0f;
-        break;
-    }
-    switch ((this->flags >> 20) & 3) {
-    case 0:
-        ys[0] = ys[1] = extent_y * -0.5f;
-        ys[2] = ys[3] = extent_y * 0.5f;
-        break;
-    case 1:
-        ys[0] = ys[1] = 0.0f;
-        ys[2] = ys[3] = extent_y;
-        break;
-    case 2:
-        ys[0] = ys[1] = -extent_y;
-        ys[2] = ys[3] = 0.0f;
-        break;
-    }
-
-    g_quad_vertices[0].x = xs[0] * ca - ys[0] * sa + center_x;
-    g_quad_vertices[0].y = xs[0] * sa + ys[0] * ca + center_y;
-    g_quad_vertices[1].x = xs[1] * ca - ys[1] * sa + center_x;
-    g_quad_vertices[1].y = xs[1] * sa + ys[1] * ca + center_y;
-    g_quad_vertices[2].x = xs[2] * ca - ys[2] * sa + center_x;
-    g_quad_vertices[2].y = xs[2] * sa + ys[2] * ca + center_y;
-    g_quad_vertices[3].x = xs[3] * ca - ys[3] * sa + center_x;
-    g_quad_vertices[3].y = xs[3] * sa + ys[3] * ca + center_y;
+    WriteAnchoredSpriteCorners(flags, extent_x, extent_y, ca, sa, center_x, center_y);
     return 0;
 }
 #pragma code_seg()

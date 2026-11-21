@@ -12,10 +12,6 @@ static __forceinline int* ClearCount() {
     return reinterpret_cast<int*>(ProgressBytes() + 0x4D0 +
         ((g_globals_shot_type + g_globals_character * 3) * 0x10DF + g_globals_difficulty) * 4);
 }
-static DispatcherMusicRecord* MusicRecord();
-extern "C" DispatcherMusicRecord* g_stage_route_current;
-static DispatcherMusicRecord* MusicRecord() { return g_stage_route_current; }
-
 // Preserve the manager and resolved animation across the decode call, as the
 // actual caller does. A failed lookup clears the handle, but SetText is still
 // invoked with its null result; the callee owns that behavior.
@@ -221,7 +217,7 @@ ResultDispatcher2(ResultDispatcherState* state) {
                 state->second_text.StopAtFrame3();
                 break;
             case 18:
-                asm_Sound_PlayDummyRetail_00420b10(1, MusicRecord()->music_slot);
+                asm_Sound_PlayDummyRetail_00420b10(1, g_stage_route_current->music_tracks[1]);
                 DispatcherCreateAnimation(StageState()->effect_resource, 2, 15);
                 break;
             case 19: {

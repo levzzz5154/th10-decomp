@@ -1,16 +1,12 @@
 #pragma once
 #include <stddef.h>
-struct ItemPolarVelocity2 {
-    float x, y;
-    __declspec(noinline) ItemPolarVelocity2* SetPolar(float angle, float speed);
-};
+#include "th10/game/item_velocity.hpp"
 struct SpawnItem {
     unsigned char animation[0x2fc];
     int identifier;
     unsigned char reserved_300[0x3ac-0x300];
     float position[3];
-    ItemPolarVelocity2 velocity;
-    int motion_state;
+    ItemVelocity velocity;
     int motion_counter;
     int timer_previous;
     int timer_current;

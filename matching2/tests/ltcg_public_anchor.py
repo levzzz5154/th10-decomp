@@ -15,12 +15,13 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[2]))
 
+from matching2.tools.common.project_paths import DEFAULT_PROJECT, project_support
 from matching2.tools.common.wine import DEFAULT_TOOLKIT
 from matching2.tools.matching.ltcg_cluster import (
     LTCGClusterError, build_cluster, load_cluster, validate_native_output,
 )
 from matching2.tools.matching.ltcg_semantic import PEImage, parse_map
-from matching2.tools.matching.probe import DEFAULT_PROJECT, default_oracle
+from matching2.tools.matching.retail import default_oracle
 
 LAYOUT = 'layout/ltcg/result_overlay_004172e0.json'
 
@@ -35,7 +36,6 @@ def rejected(action, message):
     raise AssertionError('invalid control was accepted: ' + message)
 
 
-from matching2.tools.common.project_paths import project_support
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--project', type=Path, default=DEFAULT_PROJECT)

@@ -3,6 +3,8 @@
   "name": "anm_batch_flush2",
   "source": "src/core/screen/texture_stage_reset.cpp",
   "headers": [
+    "include/th10/render/sprite_quad.hpp",
+    "include/th10/render/textured_quad.hpp",
     "include/th10/render/quad_batch.hpp",
     "include/th10/render/camera_batch.hpp",
     "include/th10/math/angle.hpp",

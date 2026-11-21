@@ -4,9 +4,11 @@
   "source": "src/game/title/menu_flow_updates.cpp",
   "driver": "build_support/layout/ltcg/key_config_update_0042f540_context.cpp",
   "headers": [
+    "include/th10/game/title_input.hpp",
     "include/th10/game/ending_screen.hpp",
     "include/th10/game/entity_movement_slot.hpp",
     "include/th10/game/key_config_refresh.hpp",
+    "include/th10/render/animation_script_id.hpp",
     "include/th10/game/key_config_update.hpp",
     "include/th10/game/menu_cursor.hpp",
     "include/th10/game/recovery_script_executor.hpp",
@@ -15,6 +17,7 @@
     "include/th10/game/title_menu.hpp",
     "include/th10/game/recovery_script_executor_text_anchors.hpp",
     "include/th10/game/recovery_script_executor_text_sibling_anchors.hpp",
+    "include/th10/game/stage_route.hpp",
     "include/th10/core/func_ctrl.hpp",
     "include/th10/math/timer.hpp",
     "include/th10/platform/archive_callers.hpp",
@@ -54,7 +57,7 @@
     },
     {
       "name": "RecoveryLookup_Find",
-      "symbol": "?Find@RecoveryLookup@@QAIPAXPAURecoveryLookupContext@@URecoveryScriptId@@@Z",
+      "symbol": "?Find@RecoveryLookup@@QAIPAXPAURecoveryLookupContext@@UAnimationScriptId@@@Z",
       "address": "0x004491C0",
       "size": 73,
       "section": ".text$004491c0_fn"
@@ -1673,6 +1676,7 @@
   ],
   "roots": [],
   "included_sources": [
+    "src/core/sound/sound_queue.cpp",
     "build_support/layout/ltcg/ending_screen_dependencies/title_dispatcher.cpp",
     "build_support/layout/ltcg/recovery_script_executor_anchor.cpp",
     "build_support/layout/ltcg/recovery_script_executor_anchor_40c540.cpp",

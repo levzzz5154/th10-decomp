@@ -20,9 +20,11 @@
     "include/th10/render/animation_object.hpp",
     "include/th10/render/resource_registrar.hpp",
     "include/th10/types.hpp",
-    "include/th10/game/player.hpp"
+    "include/th10/game/player.hpp",
+    "include/th10/game/stage_route.hpp"
   ],
   "included_sources": [
+    "src/core/sound/sound_queue.cpp",
     "build_support/layout/ltcg/result_open/allocate.cpp",
     "build_support/layout/ltcg/result_open/descriptor.cpp",
     "build_support/layout/ltcg/result_open/dispatcher_animation_helpers.cpp",

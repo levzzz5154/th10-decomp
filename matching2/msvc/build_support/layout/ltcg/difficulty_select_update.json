@@ -4,6 +4,10 @@
   "source": "src/game/title/difficulty_select_update.cpp",
   "driver": "build_support/layout/ltcg/difficulty_select_update_00430320_context.cpp",
   "headers": [
+    "include/th10/game/title_score_file.hpp",
+    "include/th10/game/name_entry_update.hpp",
+    "include/th10/game/score_table_insert.hpp",
+    "include/th10/game/title_input.hpp",
     "include/th10/game/character_select_update.hpp",
     "include/th10/game/difficulty_select_update.hpp",
     "include/th10/game/ending_screen.hpp",
@@ -12,6 +16,7 @@
     "include/th10/game/menu_cursor.hpp",
     "include/th10/game/options_update.hpp",
     "include/th10/game/practice_stage_select_update.hpp",
+    "include/th10/render/animation_script_id.hpp",
     "include/th10/game/recovery_script_executor.hpp",
     "include/th10/game/recovery_script_executor_ascii_anchors.hpp",
     "include/th10/game/recovery_script_executor_caller.hpp",
@@ -35,6 +40,7 @@
     "include/th10/game/score_file.hpp",
     "include/th10/game/shot_type_select_update.hpp",
     "include/th10/game/spell_record_update.hpp",
+    "include/th10/game/stage_route.hpp",
     "include/th10/game/title_main_menu_update.hpp",
     "include/th10/game/title_draw.hpp",
     "include/th10/math/timer.hpp",
@@ -49,7 +55,7 @@
     "include/th10/render/animation_stop_run.hpp"
   ],
   "image_base": "0x00400000",
-  "description": "Difficulty selection screen 0x00430320 and character selection screen 0x004306A0 (with their phase tables) with their real title dispatcher caller, the animation-slot leaf context of the ending screen cluster and the real animation, cursor and input leaves; only the two screen handlers are selected.",
+  "description": "Title menu updates with their dispatcher and real animation, cursor, input and score-table callees. The selected handlers include their phase tables.",
   "functions": [
     {
       "name": "DifficultySelect_Update",
@@ -115,6 +121,15 @@
       "actual_abi": "room on the stack from the title dispatcher 0x0042CDF0; integer result EAX, RET 4"
     },
     {
+      "name": "TitleNameEntry",
+      "symbol": "?TitleNameEntry@@YGHPAUTitle@@@Z",
+      "section": ".text$00432cb0_fn",
+      "address": "0x00432CB0",
+      "size": 1400,
+      "source": "src/game/title/name_entry_update.cpp",
+      "actual_abi": "room on the stack from the title dispatcher 0x0042CDF0; integer result EAX, RET 4"
+    },
+    {
       "name": "Options_Update",
       "symbol": "?TitleOptions@@YGHPAUTitle@@@Z",
       "section": ".text$0042d920_fn",
@@ -141,7 +156,7 @@
     },
     {
       "name": "RecoveryLookup_Find",
-      "symbol": "?Find@RecoveryLookup@@QAIPAXPAURecoveryLookupContext@@URecoveryScriptId@@@Z",
+      "symbol": "?Find@RecoveryLookup@@QAIPAXPAURecoveryLookupContext@@UAnimationScriptId@@@Z",
       "address": "0x004491C0",
       "size": 73,
       "section": ".text$004491c0_fn"
@@ -350,6 +365,13 @@
       "size": 136
     },
     {
+      "name": "ScoreTable_InsertScore",
+      "symbol": "?InsertScore@ScoreTable@@QAEHXZ",
+      "section": ".text$00421fa0_fn",
+      "address": "0x00421FA0",
+      "size": 262
+    },
+    {
       "name": "HintVm_FormatRightAligned",
       "symbol": "?FormatRightAligned@HintVm@@QAAXPAXZZ",
       "section": ".text$00447ae0_fn",
@@ -491,7 +513,7 @@
     },
     {
       "name": "AnimationManager_SetStopFrameAndRun",
-      "symbol": "?AnimationManager_SetStopFrameAndRun@@YIXGPAURecoveryLookupContext@@URecoveryScriptId@@@Z",
+      "symbol": "?AnimationManager_SetStopFrameAndRun@@YIXGPAURecoveryLookupContext@@UAnimationScriptId@@@Z",
       "address": "0x00449250",
       "size": 76,
       "section": ".text$00449250_fn"
@@ -683,7 +705,12 @@
     {
       "section": ".text$0041abf8_gap",
       "address": "0x0041ABF8",
-      "size": 72136
+      "size": 29608
+    },
+    {
+      "section": ".text$004220a6_gap",
+      "address": "0x004220A6",
+      "size": 42266
     },
     {
       "section": ".text$0042c613_gap",
@@ -763,7 +790,12 @@
     {
       "section": ".text$004329e2_gap",
       "address": "0x004329E2",
-      "size": 5390
+      "size": 718
+    },
+    {
+      "section": ".text$00433228_gap",
+      "address": "0x00433228",
+      "size": 3272
     },
     {
       "section": ".text$004349bc_gap",
@@ -1690,9 +1722,14 @@
       "address": 4328080
     },
     {
-      "symbol": "?TitleNameEntry@@YGHPAUTitle@@@Z",
-      "kind": "relative_code",
-      "address": 4402352
+      "symbol": "_g_fps",
+      "address": "0x00477708",
+      "kind": "data"
+    },
+    {
+      "symbol": "_g_key_bindings",
+      "address": "0x00491D4C",
+      "kind": "data"
     },
     {
       "symbol": "?TitleReleaseDemo@@YGXPAUDemoFile@@@Z",
@@ -2036,6 +2073,8 @@
     }
   ],
   "additional_sources": [
+    "src/game/title/name_entry_update.cpp",
+    "build_support/layout/ltcg/difficulty_select_update_dependencies/score_table_insert.cpp",
     "build_support/layout/ltcg/difficulty_select_update_dependencies/recovery_script_executor_text_anchors.cpp",
     "build_support/layout/ltcg/difficulty_select_update_dependencies/recovery_script_executor_core_anchors.cpp",
     "build_support/layout/ltcg/difficulty_select_update_dependencies/recovery_script_executor_ascii_anchors.cpp",
@@ -2077,6 +2116,8 @@
   ],
   "roots": [],
   "included_sources": [
+    "src/game/mother/score_table_insert.cpp",
+    "src/core/sound/sound_queue.cpp",
     "build_support/layout/ltcg/ending_screen_dependencies/title_dispatcher.cpp",
     "build_support/layout/ltcg/recovery_script_executor_anchor.cpp",
     "build_support/layout/ltcg/recovery_script_executor_anchor_40c540.cpp",
@@ -2108,6 +2149,16 @@
     "src/core/sprtlib/animation_manager_set_stop_frame_from_handle_retail.cpp"
   ],
   "data_aliases": [
+    {
+      "symbol": "??_C@_0BA@JMOMNNJJ@bgm?1th10_17?4wav?$AA@",
+      "address": "0x0046E0D8",
+      "bytes": "62676d2f746831305f31372e77617600"
+    },
+    {
+      "symbol": "??_C@_08GGFKNFHG@?5?5?5?5?5?5?5?5?$AA@",
+      "address": "0x0046E354",
+      "bytes": "202020202020202000"
+    },
     {
       "symbol": "??_C@_0BA@GKFGEHJO@bgm?1th10_02?4wav?$AA@",
       "address": 4648984,

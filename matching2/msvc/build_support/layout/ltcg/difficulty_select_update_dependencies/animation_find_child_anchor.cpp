@@ -4,7 +4,6 @@
 // free to inline, as it is in the screen's own translation unit.
 #define SprtCtrl RecoveryLookup
 #define AnimationLookupContext RecoveryLookupContext
-#define AnimationScriptId RecoveryScriptId
 #define noinline
 #define code_seg(name) code_seg(".text$004497d0_fn")
 #include "../../../../src/core/sprtlib/animation_manager_find_child_by_script_index.cpp"

@@ -1,5 +1,3 @@
-#include "../build_support/include/asm_encoding.hpp"
-
 typedef long (__stdcall* D3DXCreateTextureFn_004521a0)(
     void* device, unsigned int width, unsigned int height, unsigned int mip_levels,
     unsigned int usage, unsigned int format, unsigned int pool, void** texture);

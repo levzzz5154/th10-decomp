@@ -4,6 +4,7 @@
   "source": "build_support/layout/ltcg/large_player_dependencies/runtime.cpp",
   "driver": "build_support/layout/ltcg/player_reset_block_initialize_004247f0_context.cpp",
   "included_sources": [
+    "build_support/layout/ltcg/update_player_dependencies/item_spawn_0041bb00_loader.cpp",
     "build_support/contexts/legacy/game/player_reset.cpp",
     "build_support/layout/ltcg/large_player_dependencies/configure.cpp",
     "build_support/layout/ltcg/large_player_dependencies/script.cpp",

@@ -11,13 +11,13 @@ void** __stdcall ItemAnimation_CreateOffset(
 #pragma code_seg(".text$f0041ba50F")
 int ItemSpawnManager::ConvertItems() {
     for (int index = 0; index < 150; ++index) {
-        SpawnItem* item = &items[index];
-        if (item->motion.state == 0)
+        Item* item = &items[index];
+        if (item->motion.state == Inactive)
             continue;
         int kind = item->motion.kind;
         if (kind != 1 && kind != 4)
             continue;
-        item->motion.state = 0;
+        item->motion.state = Inactive;
         if (kind == 1) {
             Spawn(&item->motion.position, 9, -1, -1.5707964f, 2.2f);
         } else if (kind == 4) {

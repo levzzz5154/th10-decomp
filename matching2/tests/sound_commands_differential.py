@@ -17,19 +17,22 @@ from unicorn import UC_HOOK_CODE, UC_HOOK_INTR
 from unicorn.x86_const import (
     UC_X86_REG_EAX, UC_X86_REG_ECX, UC_X86_REG_ESI, UC_X86_REG_EDI, UC_X86_REG_FPCW,
     UC_X86_REG_FPTAG, UC_X86_REG_FPSW)
+
+from x86_fixture import ROOT, CANDIDATE, STOP, load_candidate, load_fixture, maintained_region
+from matching2.tools.common.project_paths import DEFAULT_PROJECT, project_support
+from matching2.tools.common.wine import DEFAULT_TOOLKIT
+from matching2.tools.matching.retail import load_manifest
 from sound_stream_launch_cached_differential import (
-    Case as LaunchCase, Execution as LaunchExecution, compile_candidates as compile_launch,
-    ROOT, COMMON, CANDIDATE, STOP, STATE, MANAGER, STREAM, SOURCE, RECORD, ALT_RECORD, OWNER,
-    ALT_OWNER, CURSOR, ALT_CURSOR, MUSIC_RECORDS, FIND_SYMBOL, RECORD_SYMBOL,
-    PEImage, load_manifest, load_oracle, difference)
+    Case as LaunchCase, Execution as LaunchExecution, compile_candidates as compile_launch, COMMON,
+    STATE, MANAGER, STREAM, SOURCE, RECORD, ALT_RECORD, OWNER, ALT_OWNER, CURSOR, ALT_CURSOR,
+    MUSIC_RECORDS, FIND_SYMBOL, RECORD_SYMBOL, difference)
 from sound_stream_initialize_differential import (
     BUFFER, ALT_BUFFER, THIRD, ARRAY, ALT_ARRAY, TABLE, ALT_TABLE, HEAP, SYMBOLS,
     ALLOCATE, FREE, RELEASE, CREATE, QUERY, SET_NOTICES, RELEASE_NOTIFY, POSITION)
 from sound_stream_fill_differential import FILL_SYMBOL
-from sound_stream_launch_differential import CREATE_EVENT, CREATE_THREAD, POST, WAIT, DESTROY, AGG_STOP, STOP_SYMBOL, AGG_SYMBOL
-from coff_module import load_module
-from coff_module import Module
-from lzss_compressor_differential import DEFAULT_TOOLKIT, load_candidate
+from sound_stream_launch_differential import (
+    CREATE_EVENT, CREATE_THREAD, POST, WAIT, DESTROY, AGG_STOP, STOP_SYMBOL, AGGREGATE_REGION)
+from coff_module import Module, load_module
 from x86_seh import exception_list, INITIAL_EXCEPTION_LIST
 
 QUEUE, COMMAND_BYTES = MANAGER + 0x1F88, 0x10C
@@ -49,7 +52,7 @@ HELPERS = {
     "stop-first": (0x44D5B0, "@SoundStream_StopFirst_0044d5b0@4"),
     "resume": (0x44D5D0, "?ResumeConfigured@SoundStream@@QAEHXZ"),
     "volume-helper": (0x44D4E0, "?SetVolume@SoundStream@@QAEHH@Z"),
-    "find": (0x43D2A0, FIND_SYMBOL),
+    "find": (0x43D2A0, "?FindBasenameSlot_0043d2a0@PathName_0043d2a0@@QAEHPAX@Z"),
     "record": (0x44DCA0, "?SelectRecord@MusicReadCursor@@QAEHPAUMusicTrackRecord@@@Z")}
 STUBS = {name: STOP + 0x5000 + index * 0x100 for index, name in enumerate(HELPERS)}
 
@@ -76,14 +79,10 @@ def command(kind, argument=1, step=0, name=b"track1.wav"):
     return kind, argument, step, name
 
 
-import sys as _project_sys
-from pathlib import Path as _ProjectPath
-_project_sys.path.insert(0, str(_ProjectPath(__file__).resolve().parents[2]))
-from matching2.tools.common.project_paths import project_support
 def compile_candidates(directory):
     launch = compile_launch(directory)
     obj = directory / "command-aggregate.obj"
-    subprocess.run([*COMMON, "-c", str(ROOT / "matching2/msvc/src/game/platform_aggregate_interfaces_0044d550.cpp"),
+    subprocess.run([*COMMON, "-c", str(AGGREGATE_REGION.source),
                     "-o", str(obj)], check=True, timeout=60)
     aggregate = load_module(obj, COMMAND_BASE + 0x4000, {})
     support = [aggregate]
@@ -105,41 +104,44 @@ def compile_candidates(directory):
                "recreate": launch[0][0][1]["recreate"].symbols[SYMBOLS["recreate"]],
                "fill": launch[0][0][0][1].symbols[FILL_SYMBOL],
                "find": launch[5].symbols[FIND_SYMBOL], "record": launch[3].symbols[RECORD_SYMBOL],
-               "aggregate": aggregate.symbols[AGG_SYMBOL]}
+               "aggregate": aggregate.symbols[AGGREGATE_REGION.symbol]}
     helper_bindings = {FILL_SYMBOL: entries["fill"],
                        "?RestoreIfLost@WaveSecondaryBuffer@@QAEHPAI@Z":
-                           launch[0][0][1]["restore"].symbols["?Run@PlatformD300Entry@@QAEHPAI@Z"],
-                       "_asm_rand_0045371b": 0x45371B, "_data_00497854": 0x497854, "__ftol2": 0x463B2C,
+                           launch[0][0][1]["restore"].symbols[maintained_region(0x44D300).symbol],
+                       "_asm_rand_0045371b": 0x45371B, "_g_options_music_volume": 0x497854, "__ftol2": 0x463B2C,
                        "_g_sound_post_thread_message": 0x466210, "_g_sound_wait_for_object": 0x46611C,
                        "_g_sound_close_handle": 0x4660CC,
                        "@Sound_AggregateInterfaces_0044d550@4": entries["aggregate"]}
+    candidates = ROOT / "matching2/reference/semantic_candidates"
+    rewind = maintained_region(0x44D600)
+    volume = maintained_region(0x44D4E0)
+    resume = maintained_region(0x44D5D0)
     for name, source, exported, imported, offset in (
-            ("stop-music", "reference/semantic_candidates/sound_midi_stop.cpp", STOP_SYMBOL, STOP_SYMBOL, 0x5000),
-            ("find-buffer", "reference/semantic_candidates/sound_stream_select.cpp",
+            ("stop-music", candidates / "sound_midi_stop.cpp", STOP_SYMBOL, STOP_SYMBOL, 0x5000),
+            ("find-buffer", candidates / "sound_stream_select.cpp",
              "?FindAvailable@SoundStream@@QAEPAUWaveSecondaryBuffer@@XZ", "?FindAvailable@SoundStream@@QAEPAUWaveSecondaryBuffer@@XZ", 0x7000),
-            ("rewind-buffers", "msvc/src/game/platform_query_interfaces_0044d600.cpp",
-             "?Query@PlatformQueryInterfaces_0044D600@@QAEHXZ", "?RewindBuffers@SoundStream@@QAEHXZ", 0x8000),
-            ("volume-helper", "msvc/src/game/platform_set_operation_deadline_0044d4e0.cpp",
-             "?SetOperationDeadline@PlatformInterfaceState_0044D4E0@@QAEHH@Z", HELPERS["volume-helper"][1], 0x9000),
-            ("resume", "msvc/src/game/platform_invoke_configured_0044d5d0.cpp",
-             "?InvokeConfigured@PlatformInterfaceState_0044D5D0@@QAEHXZ", HELPERS["resume"][1], 0xA000),
-            ("start", "reference/semantic_candidates/sound_stream_start.cpp",
+            ("rewind-buffers", rewind.source, rewind.symbol, "?RewindBuffers@SoundStream@@QAEHXZ", 0x8000),
+            ("volume-helper", volume.source, volume.symbol, HELPERS["volume-helper"][1], 0x9000),
+            ("resume", resume.source, resume.symbol, HELPERS["resume"][1], 0xA000),
+            ("start", candidates / "sound_stream_start.cpp",
              HELPERS["start"][1], HELPERS["start"][1], 0x6000)):
         obj = directory / ("command-" + name + ".obj")
-        subprocess.run([*COMMON, "-c", str(ROOT / "matching2" / source), "-o", str(obj)], check=True, timeout=60)
+        subprocess.run([*COMMON, "-I", str(DEFAULT_PROJECT / "include"), "-c", str(source), "-o", str(obj)],
+                       check=True, timeout=60)
         module = load_module(obj, COMMAND_BASE + offset, helper_bindings)
         support.append(module)
         helper_bindings[imported] = module.symbols[exported]
         if name in HELPERS:
             entries[name] = module.symbols[exported]
     obj = directory / "command-stop-first.obj"
-    subprocess.run([*COMMON, "-ffunction-sections", "-I", str(ROOT / "matching2/msvc/include"),
+    first = maintained_region(0x44D5B0)
+    subprocess.run([*COMMON, "-ffunction-sections", "-I", str(DEFAULT_PROJECT / "include"),
                     "-isystem", str(DEFAULT_TOOLKIT / "include"), "-c",
-                    str(ROOT / "matching2/msvc/src/platform/process.cpp"), "-o", str(obj)], check=True, timeout=60)
-    first_symbol = "?Platform_InvokeInterface@@YIHPAUSoundBuffer@@@Z"
+                    str(first.source), "-o", str(obj)], check=True, timeout=60)
     first_address = COMMAND_BASE + 0xB000
-    first_body = load_candidate(obj, load_manifest(project_support((ROOT) / 'matching2/msvc', 'regions.json')), first_symbol, code_address=first_address)
-    support.append(Module(first_address, first_body, {first_symbol: first_address}, ()))
+    config = load_manifest(project_support(DEFAULT_PROJECT, "regions.json"))
+    first_body = load_candidate(obj, config, first.symbol, code_address=first_address)
+    support.append(Module(first_address, first_body, {first.symbol: first_address}))
     entries["stop-first"] = first_address
     # Restore the dispatcher object: the helper loop reuses the obj variable.
     full = load_module(directory / "commands.obj", COMMAND_BASE + 0x2000,
@@ -382,9 +384,7 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--oracle", type=Path, default=ROOT / "matching2/build/oracle/th10.exe")
     options = parser.parse_args()
-    config = load_manifest(project_support((ROOT) / 'matching2/msvc', 'regions.json'))
-    load_oracle(options.oracle, config)
-    image = PEImage(options.oracle.read_bytes())
+    _, image = load_fixture(options.oracle)
     with tempfile.TemporaryDirectory(prefix="th10-sound-commands-") as temporary:
         compiled = compile_candidates(Path(temporary))
         totals, faults = [0, 0], [0, 0]

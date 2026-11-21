@@ -1,5 +1,3 @@
-#include "../build_support/include/asm_encoding.hpp"
-
 // D3DXVec3Normalize is the two-pointer stdcall import entry used by the
 // renderer.  Keeping the native calling convention gives MSVC 13.10 the
 // original six-byte indirect tail jump and preserves the API's decorated

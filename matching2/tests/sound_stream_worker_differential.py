@@ -13,10 +13,12 @@ import subprocess
 import tempfile
 
 from unicorn import UC_HOOK_CODE
+
+from x86_fixture import ROOT, CANDIDATE, STOP, load_fixture, maintained_region
 from sound_stream_service_differential import (
     Case as ServiceCase, Execution as ServiceExecution, compile_candidates as compile_service,
-    SERVICE_SYMBOL, RESTART_SYMBOL, STREAM, ALT_CURSOR, ALT_ARRAY, CURSOR, BUFFER, ROOT, CANDIDATE,
-    STOP, STATE, COMMON, difference, PEImage, load_manifest, load_oracle)
+    SERVICE_SYMBOL, RESTART_SYMBOL, STREAM, ALT_CURSOR, ALT_ARRAY, CURSOR, BUFFER, STATE, COMMON,
+    difference)
 from coff_module import load_module
 from unicorn.x86_const import UC_X86_REG_EDI
 
@@ -24,7 +26,7 @@ ALT_STREAM = STATE + 0x3000
 ACTIVE, EVENT = 0x497798, 0x49779C
 SERVICE, WAIT, PEEK, OTHER_WAIT, OTHER_PEEK = (STOP + 0x100 * i for i in range(17, 22))
 WORKER_SYMBOL = "_SoundStream_Worker_0043e3a0@4"
-MAINTAINED_SYMBOL = "_asm_MidiWorker_MessageLoopRetail_0043e3a0@4"
+MAINTAINED_WORKER = maintained_region(0x43E3A0)
 
 
 @dataclass(frozen=True)
@@ -51,12 +53,13 @@ def compile_candidates(directory):
     bindings = {"_g_sound_worker_wait": 0x46620C, "_g_sound_worker_peek": 0x46623C,
                 "_g_active_music_stream": ACTIVE, "_g_music_notification_event": EVENT,
                 "__imp__MsgWaitForMultipleObjects@20": 0x46620C, "__imp__PeekMessageA@20": 0x46623C,
-                "_data_00497798": ACTIVE, "_data_0049779c": EVENT}
+                "_g_midi_worker_state": ACTIVE, "_g_midi_worker_event": EVENT}
     modules = {}
-    for name, source, base in (("worker", "reference/semantic_candidates/sound_stream_worker.cpp", CANDIDATE + 0x9000),
-                               ("maintained", "msvc/src/platform/midi_worker.cpp", CANDIDATE + 0xB000)):
+    candidate = ROOT / "matching2/reference/semantic_candidates/sound_stream_worker.cpp"
+    for name, source, base in (("worker", candidate, CANDIDATE + 0x9000),
+                               ("maintained", MAINTAINED_WORKER.source, CANDIDATE + 0xB000)):
         obj = directory / (name + ".obj")
-        subprocess.run([*COMMON, "-I", str(ROOT / "matching2/msvc/include"), "-c", str(ROOT / "matching2" / source),
+        subprocess.run([*COMMON, "-I", str(ROOT / "matching2/msvc/include"), "-c", str(source),
                         "-o", str(obj)], check=True, timeout=60)
         for full in (False, True):
             target = service[1]["service_full"].symbols[SERVICE_SYMBOL] if full else SERVICE
@@ -148,7 +151,7 @@ class Execution(ServiceExecution):
             self.event("restart-result", restarted["result"])
         if self.workers:
             key = ("maintained" if self.maintained else "worker") + ("_full" if case.integrated else "")
-            symbol = MAINTAINED_SYMBOL if self.maintained else WORKER_SYMBOL
+            symbol = MAINTAINED_WORKER.symbol if self.maintained else WORKER_SYMBOL
             entry = self.workers[key].symbols[symbol]
         else:
             entry = 0x43E3A0
@@ -186,17 +189,11 @@ def cases():
         yield Case(integrated=True, **kwargs)
 
 
-import sys as _project_sys
-from pathlib import Path as _ProjectPath
-_project_sys.path.insert(0, str(_ProjectPath(__file__).resolve().parents[2]))
-from matching2.tools.common.project_paths import project_support
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--oracle", type=Path, default=ROOT / "matching2/build/oracle/th10.exe")
     options = parser.parse_args()
-    config = load_manifest(project_support((ROOT) / 'matching2/msvc', 'regions.json'))
-    load_oracle(options.oracle, config)
-    image = PEImage(options.oracle.read_bytes())
+    _, image = load_fixture(options.oracle)
     with tempfile.TemporaryDirectory(prefix="th10-music-worker-") as temporary:
         compiled = compile_candidates(Path(temporary))
         totals, faults, services, maintained_gaps = [0, 0], [0, 0], 0, 0

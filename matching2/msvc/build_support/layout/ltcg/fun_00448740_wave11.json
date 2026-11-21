@@ -4,6 +4,7 @@
   "source": "src/core/sprtlib/animation_manager_draw_slot14.cpp",
   "driver": "build_support/layout/ltcg/fun_00448740_wave11_context.cpp",
   "headers": [
+    "include/th10/render/textured_quad.hpp",
     "include/th10/render/quad_batch.hpp"
   ],
   "image_base": "0x00400000",

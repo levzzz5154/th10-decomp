@@ -1,18 +1,14 @@
 #pragma once
 #include <stddef.h>
+#include "th10/game/item_velocity.hpp"
 #include "collision.hpp"
 #include "timer.hpp"
 struct AnimationResourceFile;
 __declspec(noinline) void __stdcall Entity_StartScript(AnimationResourceFile* resource, Entity* entity, int script);
-struct ItemPolarVelocity2 {
-    float x, y;
-    __declspec(noinline) ItemPolarVelocity2* SetPolar(float angle, float speed);
-};
 struct SpawnItem {
     Entity animation;
     Vector3 position;
-    ItemPolarVelocity2 velocity;
-    int motion_state;
+    ItemVelocity velocity;
     int motion_counter;
     FrameTimer timer;
     int state;

@@ -1,4 +1,3 @@
-#include "../../../include/asm_encoding.hpp"
 #include "../../../include/asm_symbols.hpp"
 
 typedef void (__stdcall* EnterCriticalSectionFn)(void* section);

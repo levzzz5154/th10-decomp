@@ -10,7 +10,7 @@ MSVC_ARGS += --exact
 endif
 LTCG_ARGS ?=
 
-.PHONY: build rebuild verify abi-check behavior-check progress ltcg-proof
+.PHONY: build rebuild verify verify-cpp abi-check behavior-check progress ltcg-proof
 build:
 	./matching2/build_msvc.sh $(MSVC_ARGS)
 
@@ -20,13 +20,17 @@ rebuild:
 
 verify: build
 
+verify-cpp:
+	./matching2/build_msvc.sh --require-cpp-parity $(MSVC_ARGS)
+
 # Requires capstone; checks that equivalent models pass retail callees their register arguments.
 abi-check: build
 	$(PYTHON) matching2/tools/matching/callsite_abi.py
 
-# Requires Unicorn; checks the installed item body with real retail callees.
+# Requires Unicorn; exercises installed gameplay and title code against retail.
 behavior-check: abi-check
 	$(BEHAVIOR_PYTHON) matching2/tests/item_update_shipped_differential.py
+	$(BEHAVIOR_PYTHON) matching2/tests/title_name_entry_shipped_differential.py
 	$(BEHAVIOR_PYTHON) matching2/tests/replay_submenu_shipped_differential.py
 
 progress:

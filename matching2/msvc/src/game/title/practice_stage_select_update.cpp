@@ -98,7 +98,7 @@ __declspec(noinline) int __stdcall TitleMode9(Title* room) {
             cursor->PushSelection();
             room->DisableTimerWithOwner(3);
             int stage = cursor->selection + 1;
-            g_stage_route_current = g_stage_routes + stage * 0x30;
+            g_stage_route_current = &g_stage_routes[stage];
             g_globals_stage = stage;
             g_globals_stage_shown = stage;
             Music_FadeOut(6.0f);

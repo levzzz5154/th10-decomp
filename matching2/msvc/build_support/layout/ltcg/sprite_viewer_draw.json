@@ -7,6 +7,7 @@
     "include/th10/game/ecl_view_draw.hpp",
     "include/th10/game/game_thread_queue_native.hpp",
     "include/th10/render/camera_batch.hpp",
+    "include/th10/render/textured_quad.hpp",
     "include/th10/render/quad_batch.hpp",
     "include/th10/game/menu_cursor.hpp"
   ],

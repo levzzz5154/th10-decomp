@@ -18,7 +18,6 @@ import argparse
 import json
 import re
 import shutil
-import struct
 import subprocess
 import sys
 import tempfile
@@ -27,11 +26,12 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[3]
 sys.path.insert(0, str(ROOT))
 
-from matching2.tools.common.pe import PEImage
-from matching2.tools.matching.build_msvc import DEFAULT_TOOLKIT, ROOT as BUILD_ROOT
-from matching2.tools.matching.probe import (
-    apply_proposals, load_manifest, load_oracle, owned_regions, probe_unit)
-from matching2.tools.matching.ltcg_cluster import load_clusters
+from matching2.tools.common.coff import function_body, read_object
+from matching2.tools.common.project_paths import DEFAULT_PROJECT, project_support
+from matching2.tools.common.wine import DEFAULT_TOOLKIT
+from matching2.tools.matching.build_msvc import CompilationPlan
+from matching2.tools.matching.probe import apply_proposals, owned_regions, probe_unit
+from matching2.tools.matching.retail import load_manifest, load_oracle
 
 
 def disassemble(data, start):
@@ -71,10 +71,9 @@ def aligned(expected, actual, start):
     return rows
 
 
-from matching2.tools.common.project_paths import project_support
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--project", type=Path, default=BUILD_ROOT / "matching2/msvc")
+    parser.add_argument("--project", type=Path, default=DEFAULT_PROJECT)
     parser.add_argument("--toolkit", type=Path, default=DEFAULT_TOOLKIT)
     parser.add_argument("--output", type=Path, default=ROOT / "matching2/build/vdiff")
     parser.add_argument("--source", required=True)
@@ -92,17 +91,17 @@ def main():
     for path in args.proposal:
         proposals += json.loads(Path(path).read_text())["regions"]
     regions = apply_proposals(owned_regions(config, args.source), proposals, args.source)
-    clusters = load_clusters(project, config, config["regions"])
-    cluster_by_source = {cluster["source"]: cluster for cluster in clusters}
+    plan = CompilationPlan.from_manifest(project, config, config["regions"], config["translation_units"])
     unit, resolved = probe_unit(project, args.toolkit.resolve(), args.output.resolve(),
-                                config, args.source, regions, cluster_by_source, 0)
+                                config, args.source, regions, plan.clusters_by_source, 0,
+                                plan.compiler_profiles)
     target = next((region for region in resolved
                    if int(region["address"], 0) == args.address), None)
     if target is None:
         print(f"{args.source} owns no region at {args.address:#x}", file=sys.stderr)
         return 2
-    from matching2.tools.common.coff import read_coff_function
-    _, body, ignored = read_coff_function(unit["object"], target["symbol"])
+    function = function_body(read_object(unit["object"]), target["symbol"])
+    body, ignored = function.data, function.linker_bytes()
     size = target["size"]
     offset = args.address - text_start
     expected = oracle[offset:offset + size]

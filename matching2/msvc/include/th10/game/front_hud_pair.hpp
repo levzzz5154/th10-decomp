@@ -42,7 +42,6 @@ extern "C" void* g_enemy_ctrl;                      // sequence record
 extern "C" void* g_pause;                      // clear state object
 extern "C" void* g_replay;                      // replay state record
 extern "C" void* g_score;                      // notice table
-extern "C" void* g_stage_route_current;                      // bgm state record
 extern "C" short g_sound_priority[];                    // sound priority table
 extern "C" float flt_1;                      // 1.0f
 extern "C" float flt_0;                      // gauge threshold (slow)

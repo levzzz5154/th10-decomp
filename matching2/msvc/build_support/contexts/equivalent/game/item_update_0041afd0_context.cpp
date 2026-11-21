@@ -1,9 +1,7 @@
-// Context only, never compared: the complete genuine item/line/animation and
-// sound helper graph around UpdateItems, minus the former unselected update
-// body itself. With the region's own call sites as the only remaining callers,
-// the whole-program link derives each helper's retail register convention
-// (the item script index in EAX, the HUD owner in ESI, the run counters in
-// EAX, the converting manager in ESI, the collection angle point in EAX).
+// Private helper definitions for the separately compiled item update.
+// Native LTCG derives the register conventions from real call sites: script
+// index in EAX, HUD owner in ESI, run counters in EAX, converting manager in
+// ESI and the collection angle point in EAX.
 // SetPolar must retain its public thiscall receiver in ECX. Giving the
 // initializer a public entry also prevents the compiler from keeping the
 // StartScript entity in a scratch register across initialization; the bound
@@ -30,9 +28,11 @@
 #pragma intrinsic(cos,sin)
 #pragma code_seg(".text$00context")
 __declspec(dllexport) __declspec(noinline) ItemPolarVelocity2* ItemPolarVelocity2::SetPolar(float angle,float speed) {
-    x=static_cast<float>(cos(angle)*speed);
-    y=static_cast<float>(sin(angle)*speed);
-    return this;
+    ItemPolarVelocity2* volatile self=this;
+    ItemPolarVelocity2* out=self;
+    out->x=static_cast<float>(cos(angle)*speed);
+    out->y=static_cast<float>(sin(angle)*speed);
+    return out;
 }
 __declspec(noinline) LinePolarVelocity2* LinePolarVelocity2::SetPolar(float angle,float speed) {
     x=static_cast<float>(cos(angle)*speed);

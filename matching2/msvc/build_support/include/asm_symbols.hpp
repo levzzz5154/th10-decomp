@@ -367,8 +367,6 @@ extern "C" void __cdecl asm_ECL_SetPolarVector_004501b0();
 #define VA_asm_ECL_SetPolarVector_004501b0 0x004501b0
 extern "C" void __cdecl asm_EclVm_SpawnChild_004500d0();
 #define VA_asm_EclVm_SpawnChild_004500d0 0x004500d0
-extern "C" void __cdecl asm_EclVm_StartChildRetail_0044df70();
-#define VA_asm_EclVm_StartChildRetail_0044df70 0x0044df70
 extern "C" void __cdecl asm_EclVm_TickChildren_0044fd10();
 #define VA_asm_EclVm_TickChildren_0044fd10 0x0044fd10
 extern "C" void __cdecl asm_Ecl_ForwardFloat_00412aa0();
@@ -605,8 +603,6 @@ extern "C" void __cdecl asm_FUN_0040dae0_0040dae0();
 #define VA_asm_FUN_0040dae0_0040dae0 0x0040dae0
 extern "C" void __cdecl asm_FUN_0040dc80_0040dc80();
 #define VA_asm_FUN_0040dc80_0040dc80 0x0040dc80
-extern "C" void __cdecl asm_FUN_0040e770_0040e770();
-#define VA_asm_FUN_0040e770_0040e770 0x0040e770
 extern "C" void __cdecl asm_FUN_004127a0_004127a0();
 #define VA_asm_FUN_004127a0_004127a0 0x004127a0
 extern "C" void __cdecl asm_FUN_00412ac0_00412ac0();
@@ -707,8 +703,6 @@ extern "C" void __cdecl asm_FUN_0041afb0_0041afb0();
 #define VA_asm_FUN_0041afb0_0041afb0 0x0041afb0
 extern "C" void __cdecl asm_FUN_0041afd0_0041afd0();
 #define VA_asm_FUN_0041afd0_0041afd0 0x0041afd0
-extern "C" void __cdecl asm_FUN_0041afd0_part_0041b010();
-#define VA_asm_FUN_0041afd0_part_0041b010 0x0041b010
 extern "C" void __cdecl asm_FUN_0041b8e0_0041b8e0();
 #define VA_asm_FUN_0041b8e0_0041b8e0 0x0041b8e0
 extern "C" void __cdecl asm_FUN_0041b8e0_part_0041b900();
@@ -1091,10 +1085,6 @@ extern "C" void __cdecl asm_FUN_00436af0_00436af0();
 #define VA_asm_FUN_00436af0_00436af0 0x00436af0
 extern "C" void __cdecl asm_FUN_00436ca0_00436ca0();
 #define VA_asm_FUN_00436ca0_00436ca0 0x00436ca0
-extern "C" void __cdecl asm_FUN_00436da0_00436da0();
-#define VA_asm_FUN_00436da0_00436da0 0x00436da0
-extern "C" void __cdecl asm_FUN_00436da0_part_00436fe0();
-#define VA_asm_FUN_00436da0_part_00436fe0 0x00436fe0
 extern "C" void __cdecl asm_FUN_00437160_00437160();
 #define VA_asm_FUN_00437160_00437160 0x00437160
 extern "C" void __cdecl asm_FUN_00437380_00437380();
@@ -1243,10 +1233,6 @@ extern "C" void __cdecl asm_FUN_00446220_00446220();
 #define VA_asm_FUN_00446220_00446220 0x00446220
 extern "C" void __cdecl asm_FUN_004462f0_004462f0();
 #define VA_asm_FUN_004462f0_004462f0 0x004462f0
-extern "C" void __cdecl asm_FUN_004465b0_004465b0();
-#define VA_asm_FUN_004465b0_004465b0 0x004465b0
-extern "C" void __cdecl asm_FUN_004465b0_part_004467d0();
-#define VA_asm_FUN_004465b0_part_004467d0 0x004467d0
 extern "C" void __cdecl asm_FUN_004470c0_004470c0();
 #define VA_asm_FUN_004470c0_004470c0 0x004470c0
 extern "C" void __cdecl asm_FUN_004472e0_004472e0();
@@ -1303,8 +1289,6 @@ extern "C" void __cdecl asm_FUN_0044d850_0044d850();
 #define VA_asm_FUN_0044d850_0044d850 0x0044d850
 extern "C" void __cdecl asm_FUN_0044d850_part_0044d9f0();
 #define VA_asm_FUN_0044d850_part_0044d9f0 0x0044d9f0
-extern "C" void __cdecl asm_FUN_0044e1a0_0044e1a0();
-#define VA_asm_FUN_0044e1a0_0044e1a0 0x0044e1a0
 extern "C" void __cdecl asm_FUN_0044e1a0_part_0044e1e0();
 #define VA_asm_FUN_0044e1a0_part_0044e1e0 0x0044e1e0
 extern "C" void __cdecl asm_FUN_00450220_00450220();
@@ -3061,8 +3045,6 @@ extern "C" void __cdecl asm_target_0041aaaf();
 #define VA_asm_target_0041aaaf 0x0041aaaf
 extern "C" void __cdecl asm_target_0041aabb();
 #define VA_asm_target_0041aabb 0x0041aabb
-extern "C" void __cdecl asm_target_0041b004();
-#define VA_asm_target_0041b004 0x0041b004
 extern "C" void __cdecl asm_target_0041b133();
 #define VA_asm_target_0041b133 0x0041b133
 extern "C" void __cdecl asm_target_0041b1d8();
@@ -6040,7 +6022,8 @@ extern "C" unsigned char g_replay;
 extern "C" unsigned char g_score;
 extern "C" unsigned char g_smoll_score;
 extern "C" unsigned char g_spt_test;
-extern "C" unsigned char g_stage_route_current;
+struct StageRoute;
+extern "C" StageRoute* g_stage_route_current;
 extern "C" unsigned char g_title;
 extern "C" unsigned char g_archive_entry_count;
 extern "C" unsigned char data_00477864;

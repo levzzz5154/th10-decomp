@@ -9,19 +9,23 @@ import subprocess
 import tempfile
 
 from unicorn.x86_const import UC_X86_REG_EAX, UC_X86_REG_ECX, UC_X86_REG_ESI
+
+from x86_fixture import ROOT, CANDIDATE, STOP, load_fixture, maintained_region
+from matching2.tools.common.wine import DEFAULT_TOOLKIT
 from sound_stream_create_memory_differential import (
-    Execution as MemoryExecution, compile_candidates as compile_factory, FACTORY_SYMBOL,
-    ROOT, COMMON, CANDIDATE, STOP, STATE, STREAM, SOURCE, RECORD, ALT_RECORD, OWNER, ALT_OWNER,
-    PEImage, load_manifest, load_oracle, difference)
+    Execution as MemoryExecution, compile_candidates as compile_factory, FACTORY_SYMBOL, COMMON,
+    STATE, STREAM, SOURCE, RECORD, ALT_RECORD, OWNER, ALT_OWNER, difference)
 from sound_stream_launch_differential import Case as LaunchCase, LaunchHarness, MANAGER, FACTORY
 from sound_stream_initialize_differential import CURSOR, ALT_CURSOR, HEAP
-from lzss_compressor_differential import DEFAULT_TOOLKIT
 from coff_module import load_module
 
 LAUNCH_SYMBOL = "_SoundStream_LaunchCached_0043d950@8"
-ARCHIVE_SYMBOL = "?SelectArchiveEntry@PathName_0043d2a0@@QAEHPAUPlatformD790ArchiveOwner@@@Z"
-RECORD_SYMBOL = "?Select@PlatformStreamState_0044DCA0@@QAEHPAUPlatformStreamRecord_0044DCA0@@@Z"
-FIND_SYMBOL = "?FindBasenameSlot_0043d2a0@PathName_0043d2a0@@QAEHPAX@Z"
+ARCHIVE_REGION = maintained_region(0x43D790)
+RECORD_REGION = maintained_region(0x44DCA0)
+FIND_REGION = maintained_region(0x43D2A0)
+RECORD_SYMBOL = RECORD_REGION.symbol
+FIND_SYMBOL = FIND_REGION.symbol
+LAUNCH_ARCHIVE_IMPORT = "?SelectArchiveEntry@PathName_0043d2a0@@QAEHPAUPlatformD790ArchiveOwner@@@Z"
 SELECT = STOP + 0x2B00
 MUSIC_RECORDS = STATE + 0x3400
 
@@ -55,16 +59,16 @@ def compile_candidates(directory):
     obj = directory / "basename.obj"
     subprocess.run([*COMMON, "-I", str(ROOT / "matching2/msvc/include"),
                     "-isystem", str(DEFAULT_TOOLKIT / "include"), "-c",
-                    str(ROOT / "matching2/msvc/src/platform/path.cpp"), "-o", str(obj)], check=True, timeout=60)
+                    str(FIND_REGION.source), "-o", str(obj)], check=True, timeout=60)
     find = load_module(obj, CANDIDATE + 0x14000, {
         "_strcpy": copy.symbols["_strcpy"], "_strcmp": 0x45BF30, "_asm_strrchr_00452930": 0x452930})
     obj = directory / "select-record.obj"
-    subprocess.run([*COMMON, "-c", str(ROOT / "matching2/msvc/src/game/platform_select_stream_record_0044dca0.cpp"),
+    subprocess.run([*COMMON, "-c", str(RECORD_REGION.source),
                     "-o", str(obj)], check=True, timeout=60)
     select_record = load_module(obj, CANDIDATE + 0x10000,
-                                {"_data_004977a4": 0x4977A4, "__imp__SetFilePointer@16": 0x4660C8})
+                                {"_g_bgm_data_offset": 0x4977A4, "__imp__SetFilePointer@16": 0x4660C8})
     obj = directory / "select-archive.obj"
-    subprocess.run([*COMMON, "-c", str(ROOT / "matching2/msvc/src/game/recovery_select_archive_entry_0043d790.cpp"),
+    subprocess.run([*COMMON, "-c", str(ARCHIVE_REGION.source),
                     "-o", str(obj)], check=True, timeout=60)
     select_archive = load_module(obj, CANDIDATE + 0x12000,
                                  {FIND_SYMBOL: find.symbols[FIND_SYMBOL], RECORD_SYMBOL: select_record.symbols[RECORD_SYMBOL]})
@@ -76,9 +80,9 @@ def compile_candidates(directory):
                 "_g_music_worker_argument": 0x491C70, "_g_music_stream_algorithm": 0x46A67C,
                 "_SoundStream_Worker_0043e3a0@4": 0x43E3A0}
     unit = load_module(obj, CANDIDATE + 0xE000,
-                       dict(bindings, **{FACTORY_SYMBOL: FACTORY, ARCHIVE_SYMBOL: SELECT}))
+                       dict(bindings, **{FACTORY_SYMBOL: FACTORY, LAUNCH_ARCHIVE_IMPORT: SELECT}))
     full = load_module(obj, CANDIDATE + 0xF000, dict(bindings, **{
-        FACTORY_SYMBOL: factory[2].symbols[FACTORY_SYMBOL], ARCHIVE_SYMBOL: select_archive.symbols[ARCHIVE_SYMBOL]}))
+        FACTORY_SYMBOL: factory[2].symbols[FACTORY_SYMBOL], LAUNCH_ARCHIVE_IMPORT: select_archive.symbols[ARCHIVE_REGION.symbol]}))
     return factory, unit, full, select_record, select_archive, find, copy
 
 
@@ -92,7 +96,7 @@ class Execution(LaunchHarness, MemoryExecution):
         self.record_entries = {0x44DCA0}
         self.find_entries = {0x43D2A0}
         if compiled:
-            self.select_entries.add(compiled[4].symbols[ARCHIVE_SYMBOL])
+            self.select_entries.add(compiled[4].symbols[ARCHIVE_REGION.symbol])
             self.record_entries.add(compiled[3].symbols[RECORD_SYMBOL])
             self.find_entries.add(compiled[5].symbols[FIND_SYMBOL])
 
@@ -204,17 +208,11 @@ def cases():
         yield Case(integrated=True, mode=0, buffered=0, mutations=((trigger, writes),))
 
 
-import sys as _project_sys
-from pathlib import Path as _ProjectPath
-_project_sys.path.insert(0, str(_ProjectPath(__file__).resolve().parents[2]))
-from matching2.tools.common.project_paths import project_support
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--oracle", type=Path, default=ROOT / "matching2/build/oracle/th10.exe")
     options = parser.parse_args()
-    config = load_manifest(project_support((ROOT) / 'matching2/msvc', 'regions.json'))
-    load_oracle(options.oracle, config)
-    image = PEImage(options.oracle.read_bytes())
+    _, image = load_fixture(options.oracle)
     with tempfile.TemporaryDirectory(prefix="th10-launch-cached-stream-") as temporary:
         compiled = compile_candidates(Path(temporary))
         totals, faults = [0, 0], [0, 0]

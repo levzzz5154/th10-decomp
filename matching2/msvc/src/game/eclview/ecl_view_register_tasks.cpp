@@ -8,6 +8,7 @@
 // therefore compiled in the same native-LTCG link as the registration pair it
 // calls (see build_support/layout/ltcg/bullet_manager_load_scripts.json).
 #include "th10/core/func_ctrl.hpp"
+#include "th10/game/stage_route.hpp"
 
 struct RawState {
     unsigned char pad_000[8];
@@ -17,16 +18,15 @@ struct RawState {
 
 extern "C" SchedulerTask *__stdcall SchedulerTask_Create(void *callback);
 extern "C" FuncCtrl *g_func_ctrl;
-extern "C" unsigned char g_stage_route_current;
-extern "C" unsigned char g_globals_stage;
-extern "C" unsigned char g_globals_stage_shown;
+extern "C" int g_globals_stage;
+extern "C" int g_globals_stage_shown;
 
 #pragma code_seg(".text$00_ystatereg")
 extern "C" __declspec(noinline) int __stdcall
 EclView_RegisterTasks(RawState *state) {
-    *(void **)&g_stage_route_current = (void *)0x474788;
-    *(unsigned int *)&g_globals_stage = 0;
-    *(unsigned int *)&g_globals_stage_shown = 0;
+    g_stage_route_current = g_stage_routes;
+    g_globals_stage = 0;
+    g_globals_stage_shown = 0;
 
     SchedulerTask *primary = SchedulerTask_Create((void *)0x40ABE0);
     primary->reserved_flags |= 1u;

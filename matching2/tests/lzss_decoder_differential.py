@@ -19,11 +19,10 @@ from unicorn import (Uc, UcError, UC_ARCH_X86, UC_MODE_32, UC_HOOK_CODE,
                      UC_HOOK_MEM_READ, UC_HOOK_MEM_WRITE, UC_HOOK_MEM_INVALID)
 from unicorn.x86_const import UC_X86_REG_EAX, UC_X86_REG_ESP, UC_X86_REG_EIP
 
-from lzss_compressor_differential import (
-    ROOT, CANDIDATE, INPUT, OUTPUT, STACK, STOP, RING, PRESERVED, PEImage,
-    load_manifest, load_oracle, load_candidate)
+from x86_fixture import ROOT, CANDIDATE, INPUT, OUTPUT, STACK, STOP, PRESERVED, load_candidate, load_fixture
 
 ENTRY = 0x435DC0
+RING = 0x48F868
 SEED_RING = bytes((index * 37 + 13) & 255 for index in range(0x2000))
 GUARD = b"\xA5" * 64
 
@@ -140,18 +139,12 @@ def encode(tokens):
     return packed, bytes(output)
 
 
-import sys as _project_sys
-from pathlib import Path as _ProjectPath
-_project_sys.path.insert(0, str(_ProjectPath(__file__).resolve().parents[2]))
-from matching2.tools.common.project_paths import project_support
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--object", type=Path)
     parser.add_argument("--oracle", type=Path, default=ROOT / "matching2/build/oracle/th10.exe")
     args = parser.parse_args()
-    config = load_manifest(project_support((ROOT) / 'matching2/msvc', 'regions.json'))
-    load_oracle(args.oracle, config)
-    image = PEImage(args.oracle.read_bytes())
+    config, image = load_fixture(args.oracle)
     with tempfile.TemporaryDirectory(prefix="th10-lzss-decode-") as temporary:
         obj = args.object or Path(temporary) / "decoder.obj"
         if args.object is None:

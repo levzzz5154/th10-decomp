@@ -39,19 +39,20 @@ import subprocess
 import sys
 from pathlib import Path
 
-ROOT = Path('/home/levzzz/Games/th10Decomp')
+ROOT = Path(__file__).resolve().parents[3]
 sys.path.insert(0, str(ROOT))
 from matching2.tools.common.pe import PEImage
+from matching2.tools.common.project_paths import project_support
+from matching2.tools.common.wine import DEFAULT_TOOLKIT
 from matching2.tools.matching.ltcg_cluster import (LTCGClusterError,
                                                    build_cluster, load_cluster)
 from matching2.tools.matching.ltcg_semantic import LTCGSemanticError
-from matching2.tools.matching.probe import DEFAULT_TOOLKIT, load_manifest, load_oracle
+from matching2.tools.matching.retail import load_manifest, load_oracle
 
 PROJECT = ROOT / 'matching2/msvc'
 BUILD = Path('/tmp/cluster-attempts')
 
 
-from matching2.tools.common.project_paths import project_support
 def oracle_bytes(address, size):
     config = load_manifest(project_support(PROJECT, 'regions.json'))
     oracle = load_oracle(ROOT / 'matching2/build/oracle/th10.exe', config)

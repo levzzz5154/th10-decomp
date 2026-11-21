@@ -4,6 +4,8 @@
   "source": "src/game/title/recovery_animation_slot_frames.cpp",
   "driver": "build_support/layout/ltcg/recovery_animation_slot_frames_0042c6d0_context.cpp",
   "headers": [
+    "include/th10/game/title_input.hpp",
+    "include/th10/render/animation_script_id.hpp",
     "include/th10/game/recovery_script_executor.hpp",
     "include/th10/game/recovery_script_executor_text_anchors.hpp",
     "include/th10/game/recovery_script_executor_ascii_anchors.hpp",
@@ -66,7 +68,7 @@
     },
     {
       "name": "RecoveryLookup_Find",
-      "symbol": "?Find@RecoveryLookup@@QAIPAXPAURecoveryLookupContext@@URecoveryScriptId@@@Z",
+      "symbol": "?Find@RecoveryLookup@@QAIPAXPAURecoveryLookupContext@@UAnimationScriptId@@@Z",
       "address": "0x004491C0",
       "size": 73,
       "section": ".text$004491c0_fn"
@@ -1366,5 +1368,7 @@
     "src/game/title/recovery_install_animation_slot.cpp"
   ],
   "roots": [],
-  "included_sources": []
+  "included_sources": [
+    "src/core/sound/sound_queue.cpp"
+  ]
 }

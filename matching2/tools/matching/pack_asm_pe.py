@@ -127,25 +127,25 @@ def _pack_section(section: Mapping[str, Any]) -> bytes:
     return struct.pack("<8sIIIIIIHHI", encoded_name.ljust(8, b"\0"), *fields)
 
 
-def _build_dos_prefix(layout_path: Path, spec: Mapping[str, Any], dos_code: bytes) -> bytes:
+def _build_dos_prefix(layout_path: Path, spec: Mapping[str, Any], dos_stub: bytes) -> bytes:
     header_spec = spec.get("header")
     rich_spec = spec.get("rich_metadata")
     if not isinstance(header_spec, Mapping) or not isinstance(rich_spec, Mapping):
         raise PackError("dos_prefix requires header and rich_metadata assets")
     header = _read_asset(layout_path, str(header_spec["path"]), _integer(header_spec["size"], "dos_prefix.header.size"),
                          str(header_spec["sha256"]))
-    if not isinstance(dos_code, bytes):
-        raise PackError("dos_code must be caller-supplied compiled bytes")
-    code = dos_code
+    if spec["code"].get("source") != "linker.dos_stub":
+        raise PackError("dos_prefix.code must come from the PE linker")
     expected_code_size = _integer(spec["code"].get("size"), "dos_prefix.code.size")
-    if len(code) != expected_code_size:
-        raise PackError(f"DOS stub has {len(code)} bytes; expected {expected_code_size}")
+    if len(dos_stub) != expected_code_size:
+        raise PackError(f"DOS stub has {len(dos_stub)} bytes; expected {expected_code_size}")
     expected_code_hash = str(spec["code"].get("sha256"))
-    if _sha256(code) != expected_code_hash:
-        raise PackError(f"DOS stub hash mismatch: expected {expected_code_hash}, got {_sha256(code)}")
+    actual_code_hash = _sha256(dos_stub)
+    if actual_code_hash != expected_code_hash:
+        raise PackError(f"DOS stub hash mismatch: expected {expected_code_hash}, got {actual_code_hash}")
     rich = _read_asset(layout_path, str(rich_spec["path"]), _integer(rich_spec["size"], "dos_prefix.rich_metadata.size"),
                        str(rich_spec["sha256"]))
-    prefix = header + code + rich
+    prefix = header + dos_stub + rich
     expected_size = _integer(spec.get("size"), "dos_prefix.size")
     if len(prefix) != expected_size:
         raise PackError(f"DOS prefix has {len(prefix)} bytes; expected {expected_size}")
@@ -220,14 +220,13 @@ def _validate_layout(layout: Mapping[str, Any]) -> list[Mapping[str, Any]]:
     return sections
 
 
-def build_image(layout_path: Path, text_path: Path, output_path: Path,
-                verify_path: Path | None = None, *,
-                dos_code: bytes, exact: bool = True) -> dict[str, Any]:
-    """Build and validate an image, returning a small reproducibility report.
+def build_image(layout_path: Path, text_path: Path, output_path: Path, *,
+                dos_stub: bytes, expected_differing_bytes: int = 0,
+                oracle: bytes | None = None) -> dict[str, Any]:
+    """Package the checked .text. An explicit oracle verifies the entire file.
 
-    With ``exact`` false the caller has already verified the .text image by
-    other means (exact outside its equivalent regions); the headers and every
-    other section are still required to match the reference.
+    Only the caller's already-verified equivalent bodies may contribute
+    differences. Headers and every non-code section must always match.
     """
 
     layout = _load_layout(layout_path)
@@ -242,11 +241,13 @@ def build_image(layout_path: Path, text_path: Path, output_path: Path,
         raise PackError(f"compiled .text has {len(text)} bytes; expected {expected_text_size}")
     expected_text_hash = str(reference["text_section_sha256"])
     actual_text_hash = _sha256(text)
-    if exact and actual_text_hash != expected_text_hash:
+    if not 0 <= expected_differing_bytes <= len(text):
+        raise PackError("expected difference count exceeds the compiled .text extent")
+    if expected_differing_bytes == 0 and actual_text_hash != expected_text_hash:
         raise PackError(f"compiled .text hash mismatch: expected {expected_text_hash}, got {actual_text_hash}")
 
     dos_spec = layout["dos_prefix"]
-    dos = _build_dos_prefix(layout_path, dos_spec, dos_code)
+    dos = _build_dos_prefix(layout_path, dos_spec, dos_stub)
     header = dos + _build_headers(layout, sections)
     header_size = _integer(layout["image"].get("size_of_headers"), "image.size_of_headers")
     if len(header) != header_size:
@@ -274,18 +275,20 @@ def build_image(layout_path: Path, text_path: Path, output_path: Path,
 
     actual_image_hash = _sha256(image)
     expected_image_hash = str(reference["executable_sha256"])
-    if exact and actual_image_hash != expected_image_hash:
+    exact = actual_image_hash == expected_image_hash
+    if not exact and not expected_differing_bytes:
         raise PackError(f"packed image hash mismatch: expected {expected_image_hash}, got {actual_image_hash}")
+    if exact and expected_differing_bytes:
+        raise PackError("packed image is exact despite differences in the selected bodies")
 
-    if exact and verify_path is not None:
-        try:
-            oracle = verify_path.read_bytes()
-        except OSError as exc:
-            raise PackError(f"cannot read verification oracle {verify_path}: {exc}") from exc
-        if _sha256(oracle) != expected_image_hash:
-            raise PackError("verification oracle SHA-256 does not match the supported reference")
-        if oracle != image:
-            raise PackError("packed image differs from the explicit verification oracle")
+    observed = None
+    if oracle is not None:
+        if len(oracle) != len(image) or _sha256(oracle) != expected_image_hash:
+            raise PackError("verification oracle does not match the supported reference")
+        observed = 0 if image == oracle else sum(a != b for a, b in zip(image, oracle))
+        if observed != expected_differing_bytes:
+            raise PackError(f"packed image differs from retail at {observed} byte positions; "
+                            f"the selected bodies account for {expected_differing_bytes}")
 
     output_path.parent.mkdir(parents=True, exist_ok=True)
     output_path.write_bytes(image)
@@ -298,6 +301,7 @@ def build_image(layout_path: Path, text_path: Path, output_path: Path,
         "text_bytes": len(text),
         "sections": [{"name": section["name"], "raw_offset": section["raw_offset"],
                       "raw_size": section["raw_size"]} for section in sections],
-        "exact": exact and actual_image_hash == expected_image_hash,
-        "verified_against_oracle": exact and verify_path is not None,
+        "exact": exact,
+        "verified_against_oracle": oracle is not None,
+        "oracle_differing_bytes": observed,
     }

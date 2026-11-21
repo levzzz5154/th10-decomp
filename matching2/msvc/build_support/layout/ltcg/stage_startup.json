@@ -26,6 +26,7 @@
     "build_support/layout/ltcg/stage_startup/callback_task.hpp",
     "include/th10/game/player.hpp",
     "include/th10/game/entity.hpp",
+    "include/th10/game/stage_route.hpp",
     "include/th10/types.hpp"
   ],
   "image_base": "0x00400000",

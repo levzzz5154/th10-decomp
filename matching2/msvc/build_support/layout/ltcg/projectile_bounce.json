@@ -4,6 +4,7 @@
   "source": "src/game/laser/projectile_bounce.cpp",
   "driver": "build_support/layout/ltcg/projectile_bounce_context.cpp",
   "included_sources": [
+    "src/core/sound/sound_queue.cpp",
     "build_support/layout/ltcg/projectile_bounce/base.cpp",
     "build_support/layout/ltcg/projectile_bounce/spawn.cpp",
     "build_support/layout/ltcg/projectile_bounce/queue.cpp"

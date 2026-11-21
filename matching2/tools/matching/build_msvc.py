@@ -17,20 +17,18 @@ if __package__ in (None, ""):
 import argparse
 from collections import defaultdict
 from concurrent.futures import ThreadPoolExecutor, as_completed
-import hashlib
+from dataclasses import dataclass
 import json
-import re
-import shutil
 import subprocess
 
 from matching2.tools.common.pe import PEImage
 from matching2.tools.common.process import run, sha
 from matching2.tools.common.coff_regions import normalize_object
-from matching2.tools.common.coff import read_coff_function
 from matching2.tools.common.library import is_library_source, read_library_member
+from matching2.tools.common.project_paths import DEFAULT_PROJECT, ROOT, compilation_source, project_support
 from matching2.tools.matching.pack_asm_pe import build_image
 from matching2.tools.common.wine import DEFAULT_TOOLKIT, compiler_environment, toolchain_hashes, winpath
-from matching2.tools.matching.progress import recovered, summarize
+from matching2.tools.matching.progress import cpp_parity_issues, recovered, summarize
 from matching2.tools.matching.equivalence import apply_bodies, describe, verify_all
 from matching2.tools.matching.mismatch import describe_mismatch
 from matching2.tools.matching.ltcg_cluster import build_cluster, load_clusters
@@ -38,9 +36,7 @@ from matching2.tools.matching.gcc_llvm_backend import (
     compile_gcc_llvm, validate_source_compilers,
 )
 from matching2.tools.matching.clang_llvm_backend import compile_clang_llvm
-
-ROOT = Path(__file__).resolve().parents[3]
-DEFAULT_PROJECT = ROOT / 'matching2/msvc'
+from matching2.tools.matching.unit_cache import UnitCache
 
 
 def validate_project(config, reference):
@@ -100,8 +96,7 @@ def make_link_script(regions, selected, bindings, output):
     output.write_text('\n'.join(lines) + '\n')
 
 
-def verify_linked(path, config, oracle=None):
-    linked = PEImage(path.read_bytes())
+def verify_linked(linked, config, oracle=None):
     sections = [section for section in linked.sections if section['name'] == '.text']
     if len(sections) != 1 or any(section['name'] != '.text' and section['raw_size'] for section in linked.sections):
         raise ValueError('unexpected output section in C++ link')
@@ -134,18 +129,6 @@ def extract_library_unit(toolkit, output, index, source):
     return {'source': source, 'object': str(obj), 'command': None, 'member_sha256': sha(blob)}
 
 
-def compilation_source(project, source, config):
-    """Resolve the private compiler wrapper without changing maintained ownership."""
-    units = config.get('compilation_units', {})
-    if not isinstance(units, dict) or any(not isinstance(k, str) or not isinstance(v, str)
-                                          for k, v in units.items()):
-        raise ValueError('compilation_units must map sources to project C++ files')
-    path = (project / units.get(source, source)).resolve()
-    if not path.is_relative_to(project) or path.suffix != '.cpp' or not path.is_file():
-        raise ValueError('compiler translation unit must be a project C++ source: ' + str(path))
-    return path
-
-
 def compile_raw(project, toolkit, output, index, source, config, *, compiler_profiles=None):
     """Compile one maintained source to a raw COFF object without selecting regions."""
     profiles = (validate_source_compilers(project, config) if compiler_profiles is None
@@ -159,8 +142,6 @@ def compile_raw(project, toolkit, output, index, source, config, *, compiler_pro
     if is_library_source(source):
         return extract_library_unit(toolkit, output, index, source)
     source_path = compilation_source(project, source, config)
-    if not source_path.is_relative_to(project) or source_path.suffix != '.cpp':
-        raise ValueError('translation unit must be a project C++ source: ' + source)
     objects, logs = output / 'objects', output / 'logs'
     objects.mkdir(parents=True, exist_ok=True)
     logs.mkdir(parents=True, exist_ok=True)
@@ -193,8 +174,8 @@ def compile_unit(project, toolkit, output, config, by_source, cluster_by_source,
                  compiler_profiles=None):
     """Compile one maintained unit into the normalized COFF object the link consumes.
 
-    Shared by the exact-match build and by per-unit probes so both consume one
-    compile path. ``by_source`` maps a source to the region records it owns.
+    A native cluster already exports normalized sections. Other sources, like
+    the per-unit probe, go through raw compilation followed by normalization.
     """
     if source in cluster_by_source:
         if compiler_profiles is None and config.get('source_compilers'):
@@ -207,122 +188,125 @@ def compile_unit(project, toolkit, output, config, by_source, cluster_by_source,
     return {**raw, **normalize_unit(raw['object'], normalized, source, config, by_source[source])}
 
 
-INCLUDE_PATTERN = re.compile(rb'^[ \t]*#[ \t]*include[ \t]*["<]([^">]+)[">]', re.MULTILINE)
+@dataclass
+class CompilationPlan:
+    sources: list[str]
+    regions_by_source: dict
+    clusters_by_source: dict
+    compiler_profiles: dict
+
+    @classmethod
+    def from_manifest(cls, project, config, regions, text_sources):
+        clusters = load_clusters(project, config, regions)
+        profiles = validate_source_compilers(project, config, clusters)
+        clusters_by_source = {s: c for c in clusters for s in c['ownership_names']}
+        # A cluster builds all of its owners, even bodies kept in included files.
+        sources = sorted(s for s in text_sources
+                         if s not in clusters_by_source or clusters_by_source[s]['source'] == s)
+        regions_by_source = defaultdict(list)
+        for region in regions:
+            regions_by_source[region['source']].append(region)
+        return cls(sources, regions_by_source, clusters_by_source, profiles)
 
 
-class UnitCache:
-    """Reuse a unit's normalized object while everything that produced it is unchanged.
+def compile_sources(plan, project, toolkit, output, config, *, jobs, cache):
+    for directory in (output / 'objects', output / 'logs'):
+        directory.mkdir(exist_ok=True)
 
-    A unit's key covers the build tools, the compiler binaries, the compile
-    profile, the regions it owns and the content of every project file it can
-    read: its sources and the transitive closure of their project includes
-    (conditional includes are all followed, so the closure only over-approximates).
-    The link and the whole-image comparison always run, so a reused object is
-    still verified as part of the exact executable.
-    """
+    def build_one(index, source):
+        key = None
+        # Toolkit members are just extracted. Optional compilers must make
+        # fresh objects and check their pinned inputs on every invocation.
+        if cache is not None and not is_library_source(source) and source not in plan.compiler_profiles:
+            cluster = plan.clusters_by_source.get(source)
+            owned = cluster['regions'] if cluster else plan.regions_by_source[source]
+            key = cache.key(source, config, owned, cluster)
+            cached = cache.load(key)
+            if cached is not None:
+                return cached, True
+        unit = compile_unit(project, toolkit, output, config, plan.regions_by_source,
+                            plan.clusters_by_source, index, source, plan.compiler_profiles)
+        return (cache.store(key, unit) if key is not None else unit), False
 
-    def __init__(self, project, toolkit, directory, config):
-        self.project, self.directory = project, directory
-        self.file_digests, self.closures = {}, {}
-        tools = hashlib.sha256()
-        for path in sorted((ROOT / 'matching2/tools').rglob('*.py')):
-            tools.update(str(path.relative_to(ROOT)).encode() + b'\0' + path.read_bytes())
-        for path in sorted((toolkit / 'bin').iterdir()):
-            if path.is_file():
-                tools.update(path.name.encode() + b'\0' + path.read_bytes())
-        self.base = {'tools': tools.hexdigest(), 'flags': config['flags'],
-                     'compiler_version': config['compiler_version']}
-
-    def digest(self, path):
-        path = Path(path)
-        if path not in self.file_digests:
-            self.file_digests[path] = sha(path.read_bytes())
-        return self.file_digests[path]
-
-    def closure(self, path):
-        """Project files reachable from a source through #include."""
-        path = Path(path).resolve()
-        if path in self.closures:
-            return self.closures[path]
-        seen, stack = set(), [path]
-        while stack:
-            current = stack.pop()
-            if current in seen:
-                continue
-            seen.add(current)
-            for name in INCLUDE_PATTERN.findall(current.read_bytes()):
-                name = name.decode('latin-1').replace('\\', '/')
-                for base in (current.parent, self.project / 'include'):
-                    candidate = (base / name).resolve()
-                    if candidate.is_file() and candidate.is_relative_to(self.project):
-                        stack.append(candidate)
-                        break
-        self.closures[path] = seen
-        return seen
-
-    def key(self, source, config, regions, cluster, profile):
-        if cluster is not None:
-            roots = [cluster['path'], *cluster['source_paths'], *cluster['included_source_paths'],
-                     *cluster['header_paths'], *cluster['additional_source_paths'],
-                     *cluster.get('ordinary_source_paths', []), *cluster.get('compilation_paths', [])]
-            if cluster['driver_path']:
-                roots.append(cluster['driver_path'])
-        else:
-            roots = [self.project / source, compilation_source(self.project, source, config)]
-        files = set()
-        for root in roots:
-            root = Path(root).resolve()
-            files |= self.closure(root) if root.suffix in ('.cpp', '.hpp', '.h') else {root}
-        record = {**self.base, 'source': source, 'regions': regions,
-                  'source_flags': config.get('source_flags', {}).get(source),
-                  'coff_aliases': config.get('coff_aliases', {}).get(source),
-                  'profile': profile, 'cluster': cluster,
-                  'files': {str(path.relative_to(self.project)): self.digest(path)
-                            for path in sorted(files)}}
-        return sha(json.dumps(record, sort_keys=True, default=str).encode())
-
-    def load(self, key):
-        entry = self.directory / key[:2] / key
-        try:
-            result = json.loads((entry / 'result.json').read_text())
-            if sha(Path(result['object']).read_bytes()) != result['cached_object_sha256']:
-                return None
-        except (OSError, ValueError, KeyError):
-            return None
-        return result
-
-    def store(self, key, result):
-        entry = self.directory / key[:2] / key
-        staging = entry.with_name(entry.name + '.partial')
-        shutil.rmtree(staging, ignore_errors=True)
-        staging.mkdir(parents=True)
-        shutil.copyfile(result['object'], staging / 'unit.obj')
-        result = {**result, 'object': str(entry / 'unit.obj'),
-                  'cached_object_sha256': sha((staging / 'unit.obj').read_bytes())}
-        (staging / 'result.json').write_text(json.dumps(result) + '\n')
-        shutil.rmtree(entry, ignore_errors=True)
-        staging.rename(entry)
-        return result
+    count = len(plan.sources)
+    compiled, failures, reused = [], [], 0
+    print(f'Building {count} maintained C++ sources with MSVC {config["compiler_version"]}'
+          f' and {len(plan.compiler_profiles)} optional compiler sources...', flush=True)
+    with ThreadPoolExecutor(max_workers=jobs) as executor:
+        pending = {executor.submit(build_one, i, source): source for i, source in enumerate(plan.sources)}
+        for completed, future in enumerate(as_completed(pending), 1):
+            try:
+                unit, hit = future.result()
+                compiled.append(unit)
+                reused += hit
+            except Exception as error:
+                failures.append({'source': pending[future], 'error': str(error)})
+            if completed % 100 == 0 or completed == count:
+                print(f'Built {completed}/{count} sources; {len(failures)} failures', flush=True)
+    libraries = sum(is_library_source(source) for source in plan.sources)
+    print(f'Reused {reused} unchanged units; compiled {count - reused - libraries - len(failures)};'
+          f' {libraries} library members extracted.', flush=True)
+    failure_log = output / 'compile-failures.json'
+    if failures:
+        failure_log.write_text(json.dumps(failures, indent=2) + '\n')
+        raise ValueError(f'{len(failures)} C++ units failed; see {failure_log}')
+    failure_log.unlink(missing_ok=True)
+    return sorted(compiled, key=lambda item: item['source'])
 
 
-def compile_unit_cached(cache, project, toolkit, output, config, by_source, cluster_by_source, index,
-                        source, compiler_profiles):
-    """compile_unit, skipped when an identical unit was already built."""
-    if cache is None or is_library_source(source) or source in compiler_profiles:
-        return compile_unit(project, toolkit, output, config, by_source, cluster_by_source, index,
-                            source, compiler_profiles), False
-    cluster = cluster_by_source.get(source)
-    owned_regions = cluster['regions'] if cluster else by_source[source]
-    key = cache.key(source, config, owned_regions, cluster, None)
-    result = cache.load(key)
-    if result is not None:
-        return result, True
-    result = compile_unit(project, toolkit, output, config, by_source, cluster_by_source, index,
-                          source, compiler_profiles)
-    return cache.store(key, result), False
+def compiler_banner(toolkit, expected_version):
+    result = subprocess.run(['wine', str(toolkit / 'bin/cl.exe')], env=compiler_environment(toolkit),
+                            capture_output=True, text=True, timeout=60)
+    banner = result.stdout + result.stderr
+    if expected_version not in banner:
+        raise ValueError('compiler version does not match project: ' + banner)
+    return banner
 
 
-from matching2.tools.common.project_paths import project_support
+def link_exact_text(output, config, regions, selected, compiled, oracle):
+    script = output / 'layout.ld'
+    make_link_script(regions, selected, config['symbols'], script)
+    objects = [unit['object'] for unit in compiled]
+    linked = output / 'linked.exe'
+    command = ['i686-w64-mingw32-ld', '--image-base', '0x400000', '--disable-auto-import',
+               '--disable-reloc-section', '--no-insert-timestamp', '--entry', '_port_text_start',
+               '-T', str(script), '-Map', str(output / 'linked.map'), *objects, '-o', str(linked)]
+    run(command, output / 'link.log', output)
+    image = PEImage(linked.read_bytes())
+    text = verify_linked(image, config, oracle)
+    (output / 'text.bin').write_bytes(text)
+    return text, image.dos_stub(), command
+
+
+def print_summary(report):
+    package = report['package']
+    equivalent = report['equivalent_recoveries']
+    summary = report['summary']
+    if package['exact']:
+        print(f"Whole EXE exact: {package['size']:,} bytes.")
+    else:
+        total = sum(item['bytes'] for item in equivalent)
+        identical = set(report['equivalent_bodies_identical_to_retail'])
+        identical_bytes = sum(item['bytes'] for item in equivalent if item['region'] in identical)
+        print(f"EXE exact outside {len(equivalent)} equivalent regions built from C++ "
+              f"({total:,} bytes): {package['size']:,} bytes. "
+              "Use --exact for the bit-identical image.")
+        print(f"Equivalent C++ bodies already byte-identical to retail: {len(identical):,} of "
+              f"{len(equivalent):,} regions / {identical_bytes:,} of {total:,} bytes.")
+    if package['verified_against_oracle']:
+        print(f"Full-file comparison against retail: {package['oracle_differing_bytes']:,} differing bytes.")
+    counts, sizes = summary['regions'], summary['bytes']
+    print(f"Byte-matched game regions: {counts['semantic']:,} regions / {sizes['semantic']:,} bytes.")
+    print(f"Equivalent C++: {counts['equivalent']:,} regions / {sizes['equivalent']:,} bytes.")
+    for item in equivalent:
+        print('  ' + describe(item))
+    print(f"Assembly-only (no C++ recovery): {counts['asm']:,} regions / {sizes['asm']:,} bytes.")
+    print(f"Toolkit runtime library: {counts['library']:,} regions / {sizes['library']:,} bytes.")
+    print(f"Embedded .text data: {sizes['data']:,} bytes; padding: {sizes['padding']:,} bytes.")
+    print(recovered(summary, equivalent))
+    print(package['output'])
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--project', type=Path, default=DEFAULT_PROJECT)
@@ -330,8 +314,11 @@ def main():
     parser.add_argument('--output', type=Path, default=ROOT / 'matching2/build/msvc')
     parser.add_argument('--verify', type=Path, help='optional post-build comparison with retail')
     parser.add_argument('--jobs', type=int, default=4)
-    parser.add_argument('--exact', action='store_true',
-                        help='build equivalent regions from their assembly: the bit-identical executable')
+    mode = parser.add_mutually_exclusive_group()
+    mode.add_argument('--exact', action='store_true',
+                      help='build equivalent regions from their assembly: the bit-identical executable')
+    mode.add_argument('--require-cpp-parity', action='store_true',
+                      help='require the retail image hash, no assembly regions, and no explicit assembly in project sources')
     parser.add_argument('--no-cache', action='store_true',
                         help='recompile every unit instead of reusing unchanged ones')
     args = parser.parse_args()
@@ -341,122 +328,58 @@ def main():
     output.mkdir(parents=True, exist_ok=True)
     for name in ('th10.exe', 'port-report.json', 'text.bin', 'report.json', 'linked.exe'):
         (output / name).unlink(missing_ok=True)
-    config = json.loads((project_support(project, 'regions.json')).read_text())
-    reference = json.loads((project_support(project, 'pe_layout.json')).read_text())['reference']
-    regions, units = validate_project(config, reference)
-    clusters = load_clusters(project, config, regions)
-    compiler_profiles = validate_source_compilers(project, config, clusters)
-    cluster_by_source = {source: cluster for cluster in clusters for source in cluster['source_names']}
-    cluster_additional_sources = {
-        source for cluster in clusters
-        for source in [*cluster['additional_sources'], *cluster.get('owned_includes', {})]
-    }
-    dos_regions = config['dos_regions']
-    dos_units = sorted({region['source'] for region in dos_regions})
-    units = sorted((set(units + dos_units) - cluster_additional_sources))
+    layout = project_support(project, 'pe_layout.json')
+    config = json.loads(project_support(project, 'regions.json').read_text())
+    reference = json.loads(layout.read_text())['reference']
+    regions, sources = validate_project(config, reference)
+    plan = CompilationPlan.from_manifest(project, config, regions, sources)
     oracle = args.verify.read_bytes() if args.verify else None
     if oracle is not None and sha(oracle) != reference['executable_sha256']:
         raise ValueError('verification executable does not match the supported reference')
-    env = compiler_environment(toolkit)
-    compiler = toolkit / 'bin/cl.exe'
-    banner = subprocess.run(['wine', str(compiler)], env=env, capture_output=True, text=True, timeout=60)
-    if config['compiler_version'] not in banner.stdout + banner.stderr:
-        raise ValueError('compiler version does not match project: ' + banner.stdout + banner.stderr)
-    objects, logs = output / 'objects', output / 'logs'
-    objects.mkdir(exist_ok=True)
-    logs.mkdir(exist_ok=True)
-    by_source = defaultdict(list)
-    for region in regions + dos_regions:
-        by_source[region['source']].append(region)
-    compiled, failures, reused = [], [], 0
+    banner = compiler_banner(toolkit, config['compiler_version'])
     cache = None if args.no_cache else UnitCache(project, toolkit, output / 'cache', config)
-    print(f'Building {len(units)} maintained C++ sources with MSVC {config["compiler_version"]}'
-          f' and {len(config.get("source_compilers", {}))} optional compiler sources...', flush=True)
-    with ThreadPoolExecutor(max_workers=args.jobs) as executor:
-        pending = {executor.submit(compile_unit_cached, cache, project, toolkit, output, config,
-                                   by_source, cluster_by_source, index, source,
-                                   compiler_profiles): source
-                   for index, source in enumerate(units)}
-        for index, future in enumerate(as_completed(pending), 1):
-            try:
-                unit, hit = future.result()
-                compiled.append(unit)
-                reused += hit
-            except Exception as error:
-                failures.append({'source': pending[future], 'error': str(error)})
-            if index % 100 == 0 or index == len(units):
-                print(f'Built {index}/{len(units)} sources; {len(failures)} failures', flush=True)
-    uncached = sum(is_library_source(source) for source in units)
-    print(f'Reused {reused} unchanged units; compiled {len(units) - reused - uncached - len(failures)};'
-          f' {uncached} library members extracted.', flush=True)
-    if failures:
-        (output / 'compile-failures.json').write_text(json.dumps(failures, indent=2) + '\n')
-        raise ValueError(f'{len(failures)} C++ units failed; see {output / "compile-failures.json"}')
-    (output / 'compile-failures.json').unlink(missing_ok=True)
-    compiled.sort(key=lambda item: item['source'])
-    selected = {}
-    for unit in compiled:
-        for region in unit['normalization']['regions']:
-            selected[region['symbol']] = {**region, 'object': unit['object']}
-    script = output / 'layout.ld'
-    make_link_script(regions, selected, config['symbols'], script)
-    command = ['i686-w64-mingw32-ld', '--image-base', '0x400000', '--disable-auto-import',
-               '--disable-reloc-section', '--no-insert-timestamp', '--entry', '_port_text_start',
-               '-T', str(script), '-Map', str(output / 'linked.map'),
-               *[unit['object'] for unit in compiled if unit['source'] not in dos_units], '-o', str(output / 'linked.exe')]
-    run(command, output / 'link.log', output)
-    raw = verify_linked(output / 'linked.exe', config, oracle)
-    (output / 'text.bin').write_bytes(raw)
+    compiled = compile_sources(plan, project, toolkit, output, config, jobs=args.jobs, cache=cache)
+    selected = {region['symbol']: {**region, 'object': unit['object']}
+                for unit in compiled for region in unit['normalization']['regions']}
+    raw, dos_stub, command = link_exact_text(output, config, regions, selected, compiled, oracle)
     equivalent, bodies = verify_all(project, config, regions, toolkit, raw, output)
-    region_offsets = {region['name']: int(region['address'], 0) - 0x401000 for region in regions}
-    identical_bodies = {name: len(body) for name, body in bodies.items()
-                        if raw[region_offsets[name]:region_offsets[name] + len(body)] == body}
+    identical_bodies = sorted(item['region'] for item in equivalent if item['differing_bytes'] == 0)
+    use_cpp_models = bool(bodies) and not args.exact
     packed = output / 'text.bin'
-    if bodies and not args.exact:
+    if use_cpp_models:
         packed = output / 'text-equivalent.bin'
         packed.write_bytes(apply_bodies(raw, regions, bodies))
-    dos_code = bytearray()
-    for region in sorted(dos_regions, key=lambda r: int(r['address'], 0)):
-        item = selected[region['symbol']]
-        if item['relocation_count']:
-            raise ValueError('DOS payload must have no relocations')
-        _, payload, _ = read_coff_function(item['object'], region['symbol'])
-        dos_code.extend(payload)
-    package = build_image(project_support(project, 'pe_layout.json'), packed, output / 'th10.exe',
-                          args.verify.resolve() if args.verify else None, dos_code=bytes(dos_code),
-                          exact=packed == output / 'text.bin')
-    summary = summarize(regions, config.get('equivalent_recoveries', ()))
-    report = {'compiler': banner.stdout + banner.stderr,
+    expected_differences = sum(item['differing_bytes'] for item in equivalent) if use_cpp_models else 0
+    package = build_image(layout, packed, output / 'th10.exe', dos_stub=dos_stub,
+                          expected_differing_bytes=expected_differences, oracle=oracle)
+    report = {
+        'compiler': banner,
         'compiler_sha256': toolchain_hashes(toolkit, ('cl.exe', 'c1.dll', 'c1xx.dll', 'c2.dll')),
         'translation_unit_count': sum(unit.get('compiler_translation_unit_count', 1) for unit in compiled),
-        'maintained_source_count': len(units), 'compiled_units': compiled, 'summary': summary,
+        'maintained_source_count': len(plan.sources),
+        'compiled_units': compiled,
+        'summary': summarize(regions, config.get('equivalent_recoveries', ())),
         'equivalent_recoveries': equivalent,
-        'equivalent_bodies_identical_to_retail': sorted(identical_bodies),
+        'equivalent_bodies_identical_to_retail': identical_bodies,
         'source_sha256': {str(path.relative_to(project)): sha(path.read_bytes())
                           for path in sorted(project.rglob('*')) if path.is_file()},
-        'link_command': command, 'package': package, 'masked_bytes': 0,
+        'link_command': command,
+        'package': package,
+        'masked_bytes': 0,
         'retail_executable_used_for_build': False,
-        'equivalent_regions_built_from': 'assembly' if package['exact'] else 'c++',
-        'note': 'Built from maintained C++ sources using the recorded compilers, including inline-assembly scaffolding. The link from exact sources is required to match retail byte for byte. Unless --exact is given, each equivalent region is then built from its C++ source, which is checked to differ from the exact bytes only by its recorded differences.'}
+        'equivalent_regions_built_from': ('c++' if use_cpp_models else 'assembly') if bodies else None,
+        'note': ('Built from maintained C++ sources using the recorded compilers, including inline-assembly '
+                 'scaffolding. The link from exact sources is required to match retail byte for byte. Unless '
+                 '--exact is given, each equivalent region is then built from its C++ source, which is checked '
+                 'to differ from the exact bytes only by its recorded differences.'),
+    }
     (output / 'port-report.json').write_text(json.dumps(report, indent=2) + '\n')
-    if package['exact']:
-        print(f"Whole EXE exact: {package['size']:,} bytes.")
-    else:
-        print(f"EXE exact outside {len(bodies)} equivalent regions built from C++ "
-              f"({sum(map(len, bodies.values())):,} bytes): {package['size']:,} bytes. "
-              "Use --exact for the bit-identical image.")
-        print(f"Equivalent C++ bodies already byte-identical to retail: {len(identical_bodies):,} of "
-              f"{len(bodies):,} regions / {sum(identical_bodies.values()):,} of "
-              f"{sum(map(len, bodies.values())):,} bytes.")
-    print(f"Ordinary C++: {summary['regions'].get('semantic', 0):,} regions / {summary['bytes']['semantic']:,} bytes.")
-    print(f"Equivalent C++: {summary['regions']['equivalent']:,} regions / {summary['bytes']['equivalent']:,} bytes.")
-    for item in equivalent:
-        print('  ' + describe(item))
-    print(f"Remaining assembly: {summary['regions'].get('asm', 0):,} regions / {summary['bytes']['asm']:,} bytes.")
-    print(f"Toolkit runtime library: {summary['regions']['library']:,} regions / {summary['bytes']['library']:,} bytes.")
-    print(f"Embedded .text data: {summary['bytes']['data']:,} bytes; padding: {summary['bytes']['padding']:,} bytes.")
-    print(recovered(summary, equivalent))
-    print(output / 'th10.exe')
+    print_summary(report)
+    if args.require_cpp_parity:
+        issues = list(cpp_parity_issues(project, regions, package['exact']))
+        if issues:
+            raise SystemExit('C++ parity check failed:\n  ' + '\n  '.join(issues))
+        print('C++ parity check passed.')
 
 
 if __name__ == '__main__':

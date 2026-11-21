@@ -1,11 +1,13 @@
 # th10 decompilation handoff — 2026-10-25
 
-## Where the project stands
+## Historical snapshot (2026-10-25)
+
+For current byte parity and inline-assembly status, see the [build overview](README.md).
 
 - `make` is green and `make EXACT=1` produces the bit-identical executable
   (SHA-256 `2f14760b6fbbf575…`, verified after every promotion).
 - **100.0% of game code recovered** (322,064 of 322,064 bytes, 2,322 of 2,322
-  regions); no inline assembly in the default build.
+  regions). This measures coverage, not absence of inline assembly.
 - **85.8% byte-exact C++** (2,307 regions), **99.5%** counting the identical
   instructions of the 15 equivalent regions.
 - `callsite_abi.py`, the 129 unit tests and `git diff --check` pass.

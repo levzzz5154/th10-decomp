@@ -2,24 +2,6 @@
 
 #include "th10/render/anm_texture.hpp"
 
-// The A1R5G5B5 (format 25) and A4R4G4B4 (format 26) pixel layouts. MSVC
-// packs bitfields from the low bit up, so b is bits 0-4/0-3 and a the top
-// bit/nibble; the compiler tests the alpha field with a byte sign/nibble
-// test and extracts the channels with shifts and masks, as retail does.
-struct Pixel15552 {
-    unsigned short b : 5;
-    unsigned short g : 5;
-    unsigned short r : 5;
-    unsigned short a : 1;
-};
-
-struct Pixel44442 {
-    unsigned short b : 4;
-    unsigned short g : 4;
-    unsigned short r : 4;
-    unsigned short a : 4;
-};
-
 // The locked-rectangle record LockRect fills. D3DLOCKED_RECT.
 struct AnmLockedRect {
     int pitch;                                         // +0x00, bytes per row

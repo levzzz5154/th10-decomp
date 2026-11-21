@@ -12,6 +12,8 @@
     "src/core/sprtfunc/anm_vm_draw_dispatch.cpp"
   ],
   "headers": [
+    "include/th10/render/sprite_quad.hpp",
+    "include/th10/render/textured_quad.hpp",
     "include/th10/render/quad_batch.hpp"
   ],
   "image_base": "0x00400000",

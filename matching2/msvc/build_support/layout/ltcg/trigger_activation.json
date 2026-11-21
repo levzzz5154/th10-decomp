@@ -4,6 +4,7 @@
   "source": "src/game/player/trigger_activation.cpp",
   "driver": "build_support/layout/ltcg/trigger_activation/context.cpp",
   "included_sources": [
+    "src/core/sound/sound_queue.cpp",
     "build_support/layout/ltcg/result_open/find.cpp",
     "build_support/layout/ltcg/result_open/allocate.cpp",
     "build_support/layout/ltcg/result_open/dispatcher_animation_helpers.cpp",
@@ -26,7 +27,8 @@
     "include/th10/platform/sound_queue.hpp",
     "include/th10/render/resource_registrar.hpp",
     "include/th10/types.hpp",
-    "include/th10/game/player.hpp"
+    "include/th10/game/player.hpp",
+    "include/th10/game/stage_route.hpp"
   ],
   "image_base": "0x00400000",
   "description": "Complete trigger activation with native allocation, list, position, sound-queue and script-loader contexts; only the activation is selected.",

@@ -13,6 +13,7 @@
     "build_support/layout/ltcg/projectile_clear_region/find.cpp"
   ],
   "included_sources": [
+    "build_support/layout/ltcg/laser_grow/loader.cpp",
     "build_support/layout/ltcg/laser_cut/allocator.cpp",
     "build_support/layout/ltcg/laser_cut/configure.cpp",
     "build_support/layout/ltcg/laser_cut/dependencies.cpp",
@@ -24,6 +25,7 @@
     "include/th10/game/projectile_manager.hpp",
     "include/th10/math/vector.hpp",
     "build_support/layout/ltcg/laser_cut/animation_ids.hpp",
+    "include/th10/game/item_velocity.hpp",
     "build_support/layout/ltcg/laser_cut/item_spawn.hpp",
     "include/th10/render/animation_public_callers.hpp",
     "include/th10/game/entity.hpp",
