@@ -111,12 +111,12 @@ int EntityDraw5(RenderEntity* entity, SprtCtrlBatchView* manager) {
     }
 
     const unsigned char format = 2;
-    if (*(void**)((unsigned char*)manager + 0x3ADA70) != entity->texture) goto update_stage;
+    if (manager->cached_sprite != entity->texture) goto update_stage;
     if (entity->uv_scroll_x != 0.0f) goto update_stage;
     if (entity->uv_scroll_x == 0.0f) goto skip_stage;
 update_stage:
     {
-        *(void**)((unsigned char*)manager + 0x3ADA70) = entity->texture;
+        manager->cached_sprite = entity->texture;
         tex_matrix = view->texture_transform;
         tex_matrix.m[8] = entity->texture->u0 + entity->uv_scroll_x;
         tex_matrix.m[9] = entity->texture->v0 + entity->uv_scroll_y;
@@ -129,7 +129,7 @@ skip_stage:
         RenderDevice* stream_device = g_d3d_device;
         typedef long (__stdcall *SetStreamSource)(void*, unsigned int, void*, unsigned int, unsigned int);
         ((SetStreamSource)stream_device->vtable[0x190 / 4])(
-            stream_device, 0, *(void**)((unsigned char*)manager + 0x3ADA74), 0, 20);
+            stream_device, 0, manager->quad_vertex_buffer, 0, 20);
         g_d3d_device->Format(0x102);
         g_d3d_device->Stage(0, 6, 3);
         g_d3d_device->Stage(0, 3, 3);

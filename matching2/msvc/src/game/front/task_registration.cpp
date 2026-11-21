@@ -4,7 +4,7 @@
 struct BulletResourceCache;
 #include "th10/platform/text_log.hpp"
 extern "C" {
-void* __fastcall Recovery_LoadCachedResource(
+void* __fastcall SprtCtrl_LoadCachedResource(
     int index, BulletResourceCache* cache, const char* name);
 SchedulerTask* __stdcall SchedulerTask_Create(TaskRoutine routine);
 int __stdcall ScoreTask_Setup(void* state);
@@ -20,7 +20,7 @@ int __fastcall ItemFront_RenderThunk(void* state);
 #pragma code_seg(".text$00d_ciitem")
 extern "C" __declspec(noinline) int __stdcall
 Front_RegisterTasks(FrontTaskView* state) {
-    void* resource = Recovery_LoadCachedResource(
+    void* resource = SprtCtrl_LoadCachedResource(
         6, g_sprt_ctrl, str_front_anm);
     state->front_resource = resource;
     if (!resource) {

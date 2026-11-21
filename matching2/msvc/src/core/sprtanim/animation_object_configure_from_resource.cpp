@@ -5,7 +5,7 @@
 
 #pragma code_seg(".text$01configure")
 __declspec(noinline) int Resource2::ConfigureObject(
-    AnimationObject3* object, int index) {
+    SpriteDimensionsView* object, int index) {
     unsigned char* res = reinterpret_cast<unsigned char*>(this);
     if (*reinterpret_cast<void**>(res + 0x108) == 0 ||
         *reinterpret_cast<unsigned int*>(res + 0x124) != 0)

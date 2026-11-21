@@ -1,4 +1,4 @@
-#include "th10/game/ending_script/worker.hpp"
+#include "th10/platform/worker.hpp"
 
 // ESI is selected by native LTCG from the real caller/callee relationship.
 #pragma code_seg(".text$0044c150_fn")

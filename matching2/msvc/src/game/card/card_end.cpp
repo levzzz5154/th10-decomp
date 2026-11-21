@@ -5,7 +5,7 @@
 #include "th10/game/card_end.hpp"
 
 #pragma code_seg(".text$01a_end")
-void Card5::End() {
+void CardEndView::End() {
     if (flags & 1) {
         g_background->flags |= 1;
         effects[0].StopAtFrame1();

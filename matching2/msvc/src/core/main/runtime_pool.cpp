@@ -1,3 +1,4 @@
+// 0x004388F0: RuntimeAllocationPool_Initialize
 #include "th10/runtime/asm_symbols.hpp"
 
 // Recovered semantic C++ definitions.

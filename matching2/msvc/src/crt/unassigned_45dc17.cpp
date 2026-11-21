@@ -1,5 +1,5 @@
 extern "C" unsigned char g_crt_decimal_point;
-extern "C" void __cdecl asm_unassigned_0045dc17(char* text) {
+extern "C" void __cdecl crt_unassigned_45dc17(char* text) {
     char* cursor = text;
     char decimal = static_cast<char>(g_crt_decimal_point);
     while (*cursor && *cursor != decimal) ++cursor;

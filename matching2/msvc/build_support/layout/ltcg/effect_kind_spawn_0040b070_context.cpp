@@ -5,7 +5,7 @@
 #pragma inline_depth(0)
 #pragma code_seg(".text$0040a000_context")
 extern "C" int __stdcall EffectKindSpawnContext(
-        const int* kinds, EffectSpawnView** owners, AnimationHandle2* outs,
+        const int* kinds, EffectSpawnView** owners, EffectAnimationHandle* outs,
         void** arguments, int count) {
     for (int index = 0; index < count; ++index) {
         outs[index] = owners[index]->SpawnEffect(arguments[index], kinds[index]);

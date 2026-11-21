@@ -34,9 +34,12 @@ struct SprtCtrlBatchView {
     void* cached_texture;
     unsigned char cached_blend, cached_unknown_69, cached_format, cached_unknown_6b;
     unsigned char cached_unknown_6c, cached_unknown_6d, cached_filter, cached_unknown_6f;
-    unsigned char unknown5[0x3ADAC8 - 0x3ADA70];
+    void* cached_sprite;
+    void* quad_vertex_buffer;
+    unsigned char unknown5[0x3ADAC8 - 0x3ADA78];
     int quad_count;
-    unsigned char unknown6[0x72DACC - 0x3ADACC];
+    TexturedVertex quad_vertices[1];
+    unsigned char unknown6[0x72DACC - 0x3ADACC - sizeof(TexturedVertex)];
     TexturedVertex* cursor;
     void* batch_start;
     unsigned char unknown7[0x732458 - 0x72DAD4];

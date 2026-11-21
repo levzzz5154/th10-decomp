@@ -45,7 +45,7 @@
     "_LoadBulletAnm",
     "_LoadFrontAnm",
     "_LoadStartupResources2",
-    "_Recovery_ReleaseRawPair@4",
+    "_Scheduler_ReleaseTaskPairImpl@4",
     "_Bomb_Release@4",
     "_Effect_Release@4",
     "_LaserManager_Destroy@4",
@@ -324,7 +324,7 @@
     },
     {
       "name": "Recovery_ReleaseRawPair_0043cb00",
-      "symbol": "_Recovery_ReleaseRawPair@4",
+      "symbol": "_Scheduler_ReleaseTaskPairImpl@4",
       "section": ".text$00hcpairrelease",
       "address": "0x0043CB00",
       "size": 127,
@@ -671,7 +671,7 @@
       "kind": "relative_code"
     },
     {
-      "symbol": "@Recovery_LoadCachedResource@12",
+      "symbol": "@SprtCtrl_LoadCachedResource@12",
       "address": "0x00447280",
       "kind": "relative_code"
     },

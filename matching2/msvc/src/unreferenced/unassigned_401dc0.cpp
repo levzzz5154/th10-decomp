@@ -9,6 +9,6 @@ __declspec(noinline) int __stdcall Entity_InitFromResource(
         Entity* entity, Resource2* resource, int sprite) {
     Entity_Init(0, entity);
     entity->script_resource = resource;
-    return resource->ConfigureObject(reinterpret_cast<AnimationObject3*>(entity), sprite);
+    return resource->ConfigureObject(reinterpret_cast<SpriteDimensionsView*>(entity), sprite);
 }
 #pragma code_seg()

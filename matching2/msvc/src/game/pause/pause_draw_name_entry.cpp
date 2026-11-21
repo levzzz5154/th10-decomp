@@ -1,3 +1,4 @@
+// 0x004224C0: DrawNameEntry2
 #include <stddef.h>
 #include <string.h>
 #include "th10/game/name_entry_queue.hpp"
@@ -18,7 +19,7 @@ typedef char NameEntry_position_is_12[sizeof(Vec32) == 12 ? 1 : -1];
 
 extern "C" {
 extern const char* g_name_entry_grid;
-extern GameThread2* g_ascii_manager;
+extern GameThreadQueueView* g_ascii_manager;
 extern const char str_string_format[];
 extern const char str_underscore[];
 extern const char str_char_format[];

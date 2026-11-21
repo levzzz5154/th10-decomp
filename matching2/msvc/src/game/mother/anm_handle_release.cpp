@@ -1,3 +1,4 @@
+// 0x00421300: ReleaseAnimationHandles
 #include "th10/render/queued_cleanup_pair.hpp"
 // 0x00421300..0x0042140C: mark queued animations and unprocessed children
 // for release, clear all three handles, then mark the controller complete.

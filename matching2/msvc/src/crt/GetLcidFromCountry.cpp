@@ -9,19 +9,19 @@ extern "C" unsigned char g_crt_lcid_country;
 extern "C" unsigned char g_crt_lcid_country_b;
 extern "C" unsigned char g_crt_lcid_country_c;
 
-extern "C" unsigned int __cdecl asm_strlen_00456720(const char* text);
-extern "C" int __stdcall asm_FUN_0045c544_0045c544(char* locale_name);
+extern "C" unsigned int __cdecl crt_strlen(const char* text);
+extern "C" int __stdcall crt_helper_45c544(char* locale_name);
 
-extern "C" void __cdecl asm_GetLcidFromCountry_0045c93e() {
+extern "C" void __cdecl crt_libcmt_getqloc_GetLcidFromCountry() {
     const char* const country_text =
         *reinterpret_cast<const char* const*>(&g_crt_lcid_country_c);
     *reinterpret_cast<std::uint32_t*>(&g_crt_lcid_country_b) =
-        asm_strlen_00456720(country_text) == 3 ? 1u : 0u;
+        crt_strlen(country_text) == 3 ? 1u : 0u;
 
     const EnumSystemLocalesAFunction enum_system_locales_a =
         *reinterpret_cast<EnumSystemLocalesAFunction const*>(
             &imp_EnumSystemLocalesA);
-    enum_system_locales_a(&asm_FUN_0045c544_0045c544, 1);
+    enum_system_locales_a(&crt_helper_45c544, 1);
 
     const std::uint8_t locale_match_state_low_byte =
         *reinterpret_cast<const std::uint8_t*>(&g_crt_lcid_country);

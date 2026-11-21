@@ -3,5 +3,5 @@
 
 // Complete local formatter definition lets LTCG derive the retail private ABI.
 __declspec(noinline) void __cdecl AsciiManager_AddFormatted(
-    const Vec32* position, GameThread2* thread,
+    const Vec32* position, GameThreadQueueView* thread,
     const char* format, ...);

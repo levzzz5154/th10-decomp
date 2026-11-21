@@ -31,7 +31,7 @@ struct PauseOwner {
 };
 struct PauseFlags { unsigned char reserved[0x58]; unsigned flags; };
 extern PauseFlags* g_pause_flags;
-extern AnimationManager9 g_music_requests;
+extern AnmResourceRegistrar g_music_requests;
 extern float g_game_speed;
 
 typedef char HandleSizeCheck[(sizeof(Handle4) == 4) ? 1 : -1];

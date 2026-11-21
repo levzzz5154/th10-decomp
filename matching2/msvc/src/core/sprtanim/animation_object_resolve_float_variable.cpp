@@ -1,3 +1,4 @@
+// 0x0043ED00: ResolveFloatVariable
 enum AnmFloatRefId {
     ANM_REF_F0 = 10004,
     ANM_REF_F1 = 10005,

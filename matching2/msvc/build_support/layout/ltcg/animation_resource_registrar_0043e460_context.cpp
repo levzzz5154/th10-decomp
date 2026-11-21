@@ -5,14 +5,14 @@ int __stdcall Music_Load(int slot, const char* file_name);
 int __stdcall Music_Play(int track, int heard_index);
 int __stdcall Music_Stop();
 int __stdcall Music_PlayFile(int heard_index, const char* file_name);
-void __stdcall MusicRequests_Unpause(AnimationManager9* requests);
-void __stdcall MusicRequests_Pause(AnimationManager9* requests);
-void __stdcall MusicRequests_SetVolume(AnimationManager9* requests);
+void __stdcall MusicRequests_Unpause(AnmResourceRegistrar* requests);
+void __stdcall MusicRequests_Pause(AnmResourceRegistrar* requests);
+void __stdcall MusicRequests_SetVolume(AnmResourceRegistrar* requests);
 int __stdcall Music_FadeOut(float frames);
 
 #pragma code_seg(".text$03context")
 extern "C" __declspec(noinline) int __stdcall RegistrarContext_0043e460(
-        AnimationManager9** managers, int count, const char* name, int resource, int parameter) {
+        AnmResourceRegistrar** managers, int count, const char* name, int resource, int parameter) {
     int total = 0;
     // The music requests are reached only through their addresses here.
     *(int (__stdcall**)(int, const char*))managers[count] = Music_Load;
@@ -26,7 +26,7 @@ extern "C" __declspec(noinline) int __stdcall RegistrarContext_0043e460(
         total += Music_PlayFile(index, name);
     }
     while (count--) {
-        AnimationManager9* manager = *managers++;
+        AnmResourceRegistrar* manager = *managers++;
         total += (int)manager->RegisterResource(name, resource, parameter);
         MusicRequests_Unpause(manager);
         MusicRequests_Pause(manager);

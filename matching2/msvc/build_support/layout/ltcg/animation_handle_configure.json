@@ -80,7 +80,7 @@
     },
     {
       "name": "AnimationObject_0043e5a0_ConfigureFromResource_abi_anchor",
-      "symbol": "?ConfigureObject@Resource2@@QAEHPAUAnimationObject3@@H@Z",
+      "symbol": "?ConfigureObject@Resource2@@QAEHPAUSpriteDimensionsView@@H@Z",
       "section": ".text$01configure",
       "address": "0x0043E5A0",
       "size": 356

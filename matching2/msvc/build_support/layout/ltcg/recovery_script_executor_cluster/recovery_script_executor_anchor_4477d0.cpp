@@ -15,7 +15,7 @@ struct AnimationResource6 {
 
 extern "C" void __cdecl crt_free_startup(void* memory);
 
-struct AnimationManager13 {
+struct AnmSlotManager {
     unsigned char pad_000[0x3AD06C];
     AnimationResource6* slots_3ad06c[0x21];   // +0x3AD06C
 
@@ -23,7 +23,7 @@ struct AnimationManager13 {
 };
 
 #pragma code_seg(".text$004477d0_fn")
-void AnimationManager13::ClearResourceSlot(int index) {
+void AnmSlotManager::ClearResourceSlot(int index) {
     if ((unsigned)index >= 0x21u)
         return;
     if (slots_3ad06c[index] == 0)

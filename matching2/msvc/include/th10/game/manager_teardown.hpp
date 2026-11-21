@@ -25,7 +25,7 @@ struct AnimationPosition {
 // The game thread object; only the animation fields the teardown touches are
 // described. Identical to the local definition in the lazy-animation-fetch
 // recovery, so both spellings can co-compile in one whole-program unit.
-struct GameThread6 {
+struct GameThreadResourceView {
     unsigned char reserved_0000[0x8994];
     void* animation_resource;                       // +0x8994
     unsigned char reserved_8998[0x89A4 - 0x8998];
@@ -76,7 +76,7 @@ extern struct ScoreState g_globals;
 // The score archive; flushed first so the run's record file is written.
 extern struct ScoreArchive* g_score;
 // The game thread.
-extern GameThread6* g_ascii_manager;
+extern GameThreadResourceView* g_ascii_manager;
 // Stage file pointers; equality marks the stage-end state.
 extern void* g_globals_stage;
 extern void* g_globals_stage_shown;
@@ -112,7 +112,7 @@ extern void* g_card;
 extern struct FuncCtrl* g_func_ctrl;
 // The shared animation resource name and the manager that re-registers it.
 extern char str_dummy[];
-extern struct AnimationManager9 g_sound_manager;
+extern struct AnmResourceRegistrar g_sound_manager;
 // Extra-content flag byte for the resource index choice.
 extern unsigned char g_sound_flags;
 // The published manager-state pointer, cleared with the state.

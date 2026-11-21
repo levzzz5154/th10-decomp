@@ -24,7 +24,7 @@ int ReplayManager2::LoadFile(const char* name) {
             return -1;
         if (File_OpenSharedReadPath(path) != 0)
             return -1;
-        header = (ReplayHeader2*)ReadShared2(sizeof(ReplayHeader2));
+        header = (ReplayArchiveHeader*)ReadShared2(sizeof(ReplayArchiveHeader));
         if (header->magic != 0x72303174) {
             File_CloseProbeHandle();
             return -1;
@@ -36,7 +36,7 @@ int ReplayManager2::LoadFile(const char* name) {
         packed = (unsigned char*)ReadShared2(header->packed_size);
         File_CloseProbeHandle();
     } else {
-        header = (ReplayHeader2*)Archive_LoadFile(name, &archive_size, 0);
+        header = (ReplayArchiveHeader*)Archive_LoadFile(name, &archive_size, 0);
         packed = (unsigned char*)(header + 1);
     }
 

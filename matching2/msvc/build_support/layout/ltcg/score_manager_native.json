@@ -52,7 +52,7 @@
     },
     {
       "name": "ScoreSettings_InitializeDefaults",
-      "symbol": "_Recovery_InitializeRandomTable@4",
+      "symbol": "_ScoreSettings_InitializeDefaults@4",
       "address": "0x0042ADD0",
       "size": 142,
       "section": ".text$01b",
@@ -304,7 +304,7 @@
     },
     {
       "caller": "??0ScoreArchiveManager@@QAE@XZ",
-      "callee": "_Recovery_InitializeRandomTable@4",
+      "callee": "_ScoreSettings_InitializeDefaults@4",
       "address": "0x0042AE8A",
       "instruction": "call"
     }

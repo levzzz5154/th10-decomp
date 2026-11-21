@@ -52,7 +52,7 @@
   "anchors": [
     {
       "name": "EnsureAnimationResource",
-      "symbol": "?EnsureAnimationResource@GameThread6@@QAEPAXMM@Z",
+      "symbol": "?EnsureAnimationResource@GameThreadResourceView@@QAEPAXMM@Z",
       "section": ".text$01lazy",
       "address": "0x0040C540",
       "size": 75
@@ -94,7 +94,7 @@
     },
     {
       "name": "RegisterResource",
-      "symbol": "?RegisterResource@AnimationManager9@@QAEPADPBDHH@Z",
+      "symbol": "?RegisterResource@AnmResourceRegistrar@@QAEPADPBDHH@Z",
       "section": ".text$07reg",
       "address": "0x0043E460",
       "size": 104
@@ -297,7 +297,7 @@
       "kind": "relative_code"
     },
     {
-      "symbol": "_ScoreExtendedObject_DestroyRetail@4",
+      "symbol": "_ScoreExtendedObject_Destroy@4",
       "address": "0x0041C1C0",
       "kind": "relative_code"
     },

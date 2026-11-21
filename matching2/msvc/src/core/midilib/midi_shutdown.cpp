@@ -1,3 +1,4 @@
+// 0x0043AE20: ShutdownMidi
 #include "th10/platform/window_midi_native.hpp"
 extern "C" unsigned int (__stdcall *IatShutdownTimeKillEvent)(unsigned int);
 extern "C" unsigned int (__stdcall *IatShutdownTimeEndPeriod)(unsigned int);

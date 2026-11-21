@@ -51,7 +51,7 @@
     },
     {
       "name": "ConfigureObject",
-      "symbol": "?ConfigureObject@Resource2@@QAEHPAUAnimationObject3@@H@Z",
+      "symbol": "?ConfigureObject@Resource2@@QAEHPAUSpriteDimensionsView@@H@Z",
       "section": ".text$01configure",
       "address": "0x0043E5A0",
       "size": 356
@@ -154,7 +154,7 @@
   ],
   "absolute_symbols": [
     {
-      "symbol": "@Recovery_LoadCachedResource@12",
+      "symbol": "@SprtCtrl_LoadCachedResource@12",
       "address": "0x00447280",
       "kind": "relative_code"
     },

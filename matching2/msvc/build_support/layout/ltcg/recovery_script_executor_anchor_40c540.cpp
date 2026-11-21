@@ -34,7 +34,7 @@ struct AnimationPosition {
     float z;
 };
 
-struct GameThread6 {
+struct GameThreadResourceView {
     unsigned char reserved_0000[0x8994];
     void* animation_resource;                       // +0x8994
     unsigned char reserved_8998[0x89A4 - 0x8998];
@@ -49,7 +49,7 @@ void** __stdcall AnimationManager_CreatePositionedPrimary(
     const AnimationPosition* position);
 
 __declspec(noinline)
-void* GameThread6::EnsureAnimationResource(float x, float y) {
+void* GameThreadResourceView::EnsureAnimationResource(float x, float y) {
     AnimationPosition position;
     position.x = x;
     position.y = y;

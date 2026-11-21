@@ -54,12 +54,12 @@ __declspec(noinline) int __stdcall TitleMode9(Title* room) {
     case PRAC_PHASE_ENTER:
         room->cursor.item_count = PRAC_STAGE_COUNT;
         SelectItem8(room->cursor, g_title_practice_selection);
-        RecoveryMusicInstallSlot(room, 106);
+        Title_InstallAnimationSlot(room, 106);
         {
             // MATCH: a named local: its symbol precedes the cursor's, which the
             // unlock test's operand order in phase 2 depends on.
             int character_slot = g_globals_character + 107;
-            RecoveryMusicInstallSlot(room, character_slot);
+            Title_InstallAnimationSlot(room, character_slot);
         }
         room->SetTimerTarget(PRAC_PHASE_WAIT_OPEN);
     case PRAC_PHASE_WAIT_OPEN:
@@ -114,7 +114,7 @@ __declspec(noinline) int __stdcall TitleMode9(Title* room) {
     case PRAC_PHASE_CONFIRM_LAUNCH:
         if (room->timer.current == 10) {
             g_ascii_manager->EnsureAnimationResource(480.0f, 392.0f);
-            RecoveryAscii_Create(0x2b, 5, 0x20, 0, 0, 0);
+            AsciiText_Create(0x2b, 5, 0x20, 0, 0, 0);
         }
         if (room->timer.current >= 40) {
             MenuCursor* cursor = &room->cursor;

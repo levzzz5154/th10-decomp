@@ -1,3 +1,4 @@
+// 0x0042A8A0: RecorderPool::AppendPacket
 #include "th10/platform/input_recorder_dependencies.hpp"
 
 #pragma code_seg(".text$07packet")

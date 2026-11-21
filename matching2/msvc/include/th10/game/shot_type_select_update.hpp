@@ -1,12 +1,12 @@
 #ifndef TH10_SHOT_TYPE_SELECT_UPDATE_00430A60_HPP
 #define TH10_SHOT_TYPE_SELECT_UPDATE_00430A60_HPP
 #include "th10/game/difficulty_select_update.hpp"
-#include "th10/game/recovery_script_executor_ascii_anchors.hpp"
+#include "th10/game/ending_script_ascii_anchors.hpp"
 #include "th10/game/stage_route.hpp"
 #include "th10/game/title_score_file.hpp"
 
 // A child reference seen as the handle whose hidden flag 0x004495E0 clears.
-struct AnimationHandle12 {
+struct ClearFlagAnmHandle {
     AnimationScriptId id;
     __declspec(noinline) void ClearFlag();
 };

@@ -1,12 +1,12 @@
 extern "C" int g_crt_mbcs_ready;
 extern "C" unsigned char* g_crt_cmdline;
 extern "C" unsigned char g_crt_empty_string;
-extern "C" void __cdecl asm_initmbctable_0045d2ac();
-extern "C" int __cdecl asm_ismbblead_0045f590(unsigned int);
+extern "C" void __cdecl crt_initmbctable();
+extern "C" int __cdecl crt_ismbblead(unsigned int);
 
-extern "C" unsigned char* __cdecl asm_wincmdln_004590d8() {
+extern "C" unsigned char* __cdecl crt_wincmdln() {
     int quoted = 0;
-    if (g_crt_mbcs_ready == 0) asm_initmbctable_0045d2ac();
+    if (g_crt_mbcs_ready == 0) crt_initmbctable();
     unsigned char* text = g_crt_cmdline;
     if (!text) text = &g_crt_empty_string;
     for (;;) {
@@ -19,7 +19,7 @@ extern "C" unsigned char* __cdecl asm_wincmdln_004590d8() {
             }
         }
         if (ch == '"') quoted = !quoted;
-        if (asm_ismbblead_0045f590(ch)) ++text;
+        if (crt_ismbblead(ch)) ++text;
         ++text;
     }
 }

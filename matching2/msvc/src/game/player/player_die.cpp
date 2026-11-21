@@ -11,7 +11,7 @@ struct AnimationRecord {
     unsigned char pad_0004[0x3AC - 4];
 };
 
-struct AnimationManager4 {
+struct LifeStockAnmManager {
     unsigned char pad_0000[0x4CDC];
     AnimationRecord records_4cdc[9];
     __declspec(noinline) void SetActiveCount(int count);
@@ -89,7 +89,7 @@ struct AnimationObjectFile;
 extern "C" void __stdcall LoadScript2(AnimationResourceFile*,AnimationObjectFile*, int);
 
 typedef char TimeoutCountRecordSize[sizeof(AnimationRecord) == 0x3AC ? 1 : -1];
-typedef char TimeoutCountRecordsOffset[offsetof(AnimationManager4, records_4cdc) == 0x4CDC ? 1 : -1];
+typedef char TimeoutCountRecordsOffset[offsetof(LifeStockAnmManager, records_4cdc) == 0x4CDC ? 1 : -1];
 typedef char TimeoutAnimationChildren[offsetof(TimeoutAnimation, children) == 0x14 ? 1 : -1];
 typedef char TimeoutAnimationChildrenFlag[offsetof(TimeoutAnimation, children_flagged) == 0x18 ? 1 : -1];
 typedef char TimeoutAnimationStopFrame[offsetof(TimeoutAnimation, stop_frame) == 0x304 ? 1 : -1];
@@ -130,7 +130,7 @@ extern "C" __declspec(noinline) void __stdcall Player_Die(Player* player) {
     if (power < 5000)
         g_globals_gauge = 5000;
     if (remaining >= 0)
-        reinterpret_cast<AnimationManager4*>(g_front)->SetActiveCount(remaining);
+        reinterpret_cast<LifeStockAnmManager*>(g_front)->SetActiveCount(remaining);
     player->state = PLAYER_DYING;
     SetTimer(player->state_timer, 0);
     SetTimer(player->invulnerability_timer, 180);

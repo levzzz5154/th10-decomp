@@ -1,3 +1,4 @@
+// 0x00434B70..0x00434BC0: MenuCursor::ClearDisabledItems, MenuCursor::DisableItem
 #include "th10/source_views/menu_9d8ff0_0.hpp"
 #include "th10/source_views/menu_9d8ff0_1.hpp"
 #include "th10/source_views/menu_9d8ff0_2.hpp"

@@ -3,7 +3,7 @@
 #include "th10/game/game_thread_queue_native.hpp"
 
 #pragma code_seg(".text$01append")
-__declspec(noinline) void __stdcall AsciiManager_AddString(GameThread2* thread, const char* name, const Vec32* position) {
+__declspec(noinline) void __stdcall AsciiManager_AddString(GameThreadQueueView* thread, const char* name, const Vec32* position) {
     if (thread->record_count < 0x100) {
         QueueRecord* record = &thread->records[thread->record_count++];
         strcpy(record->name, name);

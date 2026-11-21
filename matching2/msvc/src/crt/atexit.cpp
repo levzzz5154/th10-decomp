@@ -1,5 +1,5 @@
-extern "C" void* __cdecl asm_onexit_00452dd2(void*);
+extern "C" void* __cdecl crt_onexit(void*);
 
 extern "C" int __cdecl crt_atexit(void* callback) {
-    return (asm_onexit_00452dd2(callback) != 0) - 1;
+    return (crt_onexit(callback) != 0) - 1;
 }

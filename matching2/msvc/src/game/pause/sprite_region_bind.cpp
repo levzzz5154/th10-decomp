@@ -5,9 +5,9 @@
 #include "th10/game/sprite_region_bind.hpp"
 
 #pragma code_seg(".text$00424480_fn")
-int SpriteRegion::BindToAnimation(AnimationHandle8 handle,
+int SpriteRegion::BindToAnimation(UiAnimationHandle handle,
         int new_left, int new_top, int new_width, int new_height) {
-    AnimationObject2* animation = g_sprt_ctrl->Find(handle);
+    UiAnimationNodeView* animation = g_sprt_ctrl->Find(handle);
     AnimationSprite* sprite = animation->sprite;
     return Set(*animation->texture, new_left, new_top, new_width, new_height,
         static_cast<int>(sprite->left), static_cast<int>(sprite->top),

@@ -1,3 +1,4 @@
+// 0x00420C90..0x00420D90: RenderStageState4::EnableFog, RenderStageState4::DisableFog, RenderStageState4::EnableDepthWrite (+2 more)
 #include "th10/source_views/fun_a1dd06_0.hpp"
 #include "th10/source_views/fun_a1dd06_1.hpp"
 int RenderStageState4::EnableFog() {

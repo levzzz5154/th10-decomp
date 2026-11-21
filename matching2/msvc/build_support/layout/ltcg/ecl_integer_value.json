@@ -33,14 +33,14 @@
   "anchors": [
     {
       "name": "Find",
-      "symbol": "?Find@AnimationManager15@@QAIPAXPAUAnimationLookupContext@@UAnimationScriptId2@@@Z",
+      "symbol": "?Find@ResultAnmManagerView@@QAIPAXPAUAnimationLookupContext@@UAnimationScriptId2@@@Z",
       "section": ".text$04find",
       "address": "0x004491C0",
       "size": 73
     },
     {
       "name": "ResolveAnimationHandle",
-      "symbol": "?ResolveAnimationHandle@@YGPAXPAUAnimationHandle10@@@Z",
+      "symbol": "?ResolveAnimationHandle@@YGPAXPAUValidatedAnmHandle@@@Z",
       "section": ".text$06validate",
       "address": "0x00449450",
       "size": 21

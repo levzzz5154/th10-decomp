@@ -1,3 +1,4 @@
+// 0x00438690..0x00438840: LegacyAllocator::Deallocate, LegacyAllocator::MaxSize, LegacyAllocator::Allocate
 #include "th10/source_views/heap_0e4835_0.hpp"
 void* LegacyAllocator::Allocate(uint32_t count) {
     return ::operator new(count);

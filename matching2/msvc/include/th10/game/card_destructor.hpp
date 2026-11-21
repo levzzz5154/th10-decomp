@@ -36,7 +36,7 @@ struct CardSprite2 {
 };
 
 // The 0x37B0-byte spell-card manager, as its destructor sees it.
-struct Card2 {
+struct CardDestructorView {
     unsigned int flags;
     unsigned int reserved_0004;
     SchedulerTask* update_task;
@@ -49,9 +49,9 @@ struct Card2 {
     unsigned char reserved_3734[0x37AC - 0x3734];
     SchedulerTask* trailing_task;               // +0x37AC
 
-    __declspec(noinline) ~Card2();    // 0x00408AF0
+    __declspec(noinline) ~CardDestructorView();    // 0x00408AF0
 };
-typedef char CardSize2[sizeof(Card2) == 0x37B0 ? 1 : -1];
-typedef char CardEffects[offsetof(Card2, effects) == 0x768 ? 1 : -1];
+typedef char CardSize2[sizeof(CardDestructorView) == 0x37B0 ? 1 : -1];
+typedef char CardEffects[offsetof(CardDestructorView, effects) == 0x768 ? 1 : -1];
 
-extern "C" Card2* g_card;
+extern "C" CardDestructorView* g_card;

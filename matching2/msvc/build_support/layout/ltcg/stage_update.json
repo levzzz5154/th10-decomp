@@ -122,8 +122,8 @@
       "size": 217
     },
     {
-      "name": "?ConfigureObject@Resource2@@QAEHPAUAnimationObject3@@H@Z",
-      "symbol": "?ConfigureObject@Resource2@@QAEHPAUAnimationObject3@@H@Z",
+      "name": "?ConfigureObject@Resource2@@QAEHPAUSpriteDimensionsView@@H@Z",
+      "symbol": "?ConfigureObject@Resource2@@QAEHPAUSpriteDimensionsView@@H@Z",
       "section": ".text$0043e5a0_fn",
       "address": "0x43e5a0",
       "size": 356
@@ -206,8 +206,8 @@
       "size": 101
     },
     {
-      "name": "?Stage_StartQuadScripts@@YGXPAUStage2@@@Z",
-      "symbol": "?Stage_StartQuadScripts@@YGXPAUStage2@@@Z",
+      "name": "?Stage_StartQuadScripts@@YGXPAUStageUpdateView@@@Z",
+      "symbol": "?Stage_StartQuadScripts@@YGXPAUStageUpdateView@@@Z",
       "section": ".text$00404450_fn",
       "address": "0x404450",
       "size": 214
@@ -304,8 +304,8 @@
       "size": 136
     },
     {
-      "name": "?Create@EnemySpawn2@@QAEPAUEnemy4@@PAUEnemyCtrlSpawnView@@PBD@Z",
-      "symbol": "?Create@EnemySpawn2@@QAEPAUEnemy4@@PAUEnemyCtrlSpawnView@@PBD@Z",
+      "name": "?Create@EnemySpawn2@@QAEPAUEnemySpawnView@@PAUEnemyCtrlSpawnView@@PBD@Z",
+      "symbol": "?Create@EnemySpawn2@@QAEPAUEnemySpawnView@@PAUEnemyCtrlSpawnView@@PBD@Z",
       "section": ".text$0040cfb0_fn",
       "address": "0x40cfb0",
       "size": 577
@@ -318,8 +318,8 @@
       "size": 65
     },
     {
-      "name": "?RegisterResource@AnimationManager9@@QAEPADPBDHH@Z",
-      "symbol": "?RegisterResource@AnimationManager9@@QAEPADPBDHH@Z",
+      "name": "?RegisterResource@AnmResourceRegistrar@@QAEPADPBDHH@Z",
+      "symbol": "?RegisterResource@AnmResourceRegistrar@@QAEPADPBDHH@Z",
       "section": ".text$0043e460_fn",
       "address": "0x43e460",
       "size": 104
@@ -771,7 +771,7 @@
       "kind": "relative_code"
     },
     {
-      "symbol": "?g_music_requests@@3UAnimationManager9@@A",
+      "symbol": "?g_music_requests@@3UAnmResourceRegistrar@@A",
       "address": "0x492590",
       "kind": "data"
     },
@@ -2511,7 +2511,7 @@
   ],
   "anchor_roots": [
     "?InitializeObject@FrontAnimationResource@@QAEXPAUEntity@@H@Z",
-    "?Stage_StartQuadScripts@@YGXPAUStage2@@@Z",
+    "?Stage_StartQuadScripts@@YGXPAUStageUpdateView@@@Z",
     "?Music_Play@@YGHHH@Z"
   ],
   "included_sources": [

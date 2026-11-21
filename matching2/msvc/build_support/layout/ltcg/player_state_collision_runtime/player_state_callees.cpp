@@ -22,8 +22,8 @@ void PlayerInputMode::Set(int value) {
     else mode = 2;
 }
 // src/game/background/power_display_set_digits.cpp
-inline AnimationObject3* DigitSprite(unsigned char* storage) {
-    return reinterpret_cast<AnimationObject3*>(storage);
+inline SpriteDimensionsView* DigitSprite(unsigned char* storage) {
+    return reinterpret_cast<SpriteDimensionsView*>(storage);
 }
 
 #pragma code_seg(".text$f004054b0F")
@@ -35,7 +35,7 @@ void PowerDisplayOwner::SetPowerDigits(int whole, int fraction) {
 // src/core/sprtanim/animation_object_configure_from_resource.cpp
 #pragma code_seg(".text$f0043e5a0F")
 __declspec(noinline) int Resource2::ConfigureObject(
-    AnimationObject3* object, int index) {
+    SpriteDimensionsView* object, int index) {
     unsigned char* res = reinterpret_cast<unsigned char*>(this);
     if (*reinterpret_cast<void**>(res + 0x108) == 0 ||
         *reinterpret_cast<unsigned int*>(res + 0x124) != 0)

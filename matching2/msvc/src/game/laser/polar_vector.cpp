@@ -1,3 +1,4 @@
+// 0x0041F800: PathPolarVector::SetPathPolar
 #include "th10/math/scaled_polar.hpp"
 
 // 0x41f800: x87 polar-vector setter.

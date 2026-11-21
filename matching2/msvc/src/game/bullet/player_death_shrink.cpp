@@ -1,3 +1,4 @@
+// 0x004076A0: PlayerDeathShrinkState::AdvanceDeathShrink
 #include "th10/game/player_motion_helpers.hpp"
 extern "C" float flt_1;
 extern "C" float flt_1_01;

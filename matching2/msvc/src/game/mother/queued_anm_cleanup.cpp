@@ -1,3 +1,4 @@
+// 0x00421070: QueuedAnimationCleanup
 #include "th10/render/queued_cleanup_pair.hpp"
 // 0x00421070..0x0042117B: mark queued animations and unprocessed children
 // to stop, clear the queued handles and controller, then clear the shared gate.

@@ -1,0 +1,14 @@
+#ifndef TH10_RECOVERY_SCRIPT_EXECUTOR_TEXT_SIBLING_ANCHORS_HPP
+#define TH10_RECOVERY_SCRIPT_EXECUTOR_TEXT_SIBLING_ANCHORS_HPP
+
+#include <stddef.h>
+#include "th10/game/hint_text/script_executor_caller.hpp"
+
+// Both sibling formatters additionally read the shared animation resource's
+// width at +34. The complete resource allocation size remains unspecified.
+
+// The width offset assertion lives in the shared resource header.
+
+// The genuine variadic member prototypes FormatRightAligned and FormatCentered
+// belong to HintVm in the caller's shared header.
+#endif

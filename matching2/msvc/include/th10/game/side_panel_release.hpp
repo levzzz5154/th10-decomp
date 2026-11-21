@@ -24,12 +24,12 @@ struct PanelAnimationManager2 {
 
 extern "C" PanelAnimationManager2* g_sprt_ctrl;
 // The run's counters; the run flags sit at +0x60.
-struct RunState3 {
+struct SidePanelRunState {
     unsigned char reserved_00[0x60];
     unsigned int flags;                       // +0x60
 };
 
-extern "C" RunState3 g_globals;
+extern "C" SidePanelRunState g_globals;
 
 // The side panel's stage-owned parts.
 struct FrontStagePartsView {

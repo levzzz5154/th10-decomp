@@ -1,3 +1,4 @@
+// 0x0043A910: CleanupMidi
 #include "th10/platform/window_midi_native.hpp"
 extern "C" __declspec(noinline) int ShutdownMidi(MidiSequencer*);
 extern "C" unsigned int (__stdcall *IatShutdownTimeKillEvent)(unsigned int);

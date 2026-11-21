@@ -25,7 +25,7 @@ extern "C" __declspec(noinline) void __stdcall PauseMenu_Initialize(PauseUpdateV
     AnimationLookupContext* manager = g_sprt_ctrl;
     reinterpret_cast<AnimationSecondaryLists*>(manager)->RegisterSecondaryBack(&handle, first);
     state->cursor_animation = handle;
-    AnimationHandle8 descriptor_handle;
+    UiAnimationHandle descriptor_handle;
     descriptor_handle.value = handle.value;
     reinterpret_cast<SpriteRegion*>(manager)->BindToAnimation(descriptor_handle, 32, 16, 384, 448);
     AnimationBank* second_resource = g_front->resource;
@@ -39,7 +39,7 @@ extern "C" __declspec(noinline) void __stdcall PauseMenu_Initialize(PauseUpdateV
     state->background = handle;
     state->background.StopAtFrame3();
     g_sound_manager.Queue(32, 0);
-    reinterpret_cast<AnimationManager9*>(&g_sound_manager)->RegisterResource(str_pause, 6, 0);
+    reinterpret_cast<AnmResourceRegistrar*>(&g_sound_manager)->RegisterResource(str_pause, 6, 0);
     if (g_game->replay_mode) {
         state->background.FindChildRef(117).MarkAndClear();
     }

@@ -1,10 +1,10 @@
-extern "C" unsigned int __cdecl asm_FUN_0045d746_0045d746(
+extern "C" unsigned int __cdecl crt_strgtold12(
     unsigned char*, int*, const unsigned char*, int, int, int, int);
-extern "C" int __cdecl asm_ld12told_0045d5fa(const void*, void*);
+extern "C" int __cdecl crt_ld12told(const void*, void*);
 
-extern "C" void __cdecl asm_FUN_0045d6bb_0045d6bb(void* output, const unsigned char* text) {
+extern "C" void __cdecl crt_helper_45d6bb(void* output, const unsigned char* text) {
     unsigned char converted[12];
     int status;
-    asm_FUN_0045d746_0045d746(converted, &status, text, 1, 0, 0, 0);
-    asm_ld12told_0045d5fa(converted, output);
+    crt_strgtold12(converted, &status, text, 1, 0, 0, 0);
+    crt_ld12told(converted, output);
 }

@@ -154,7 +154,7 @@ enum CardStartConstants {
 };
 
 #pragma code_seg(".text$00409280_fn")
-void Card4::StartSpell(int index, const char* name, int duration) {
+void CardUpdateView::StartSpell(int index, const char* name, int duration) {
     timer.Set(0);
     record_index = index;
     const char* panel_name_cursor = name;

@@ -1,3 +1,4 @@
+// 0x0044B010..0x0044B080: Input_UpdateKeyboardState, Input_NormalizeKeyboardState
 #include "th10/platform/windows_types.hpp"
 
 extern "C" __declspec(dllimport) BOOL __stdcall GetKeyboardState(BYTE* state);

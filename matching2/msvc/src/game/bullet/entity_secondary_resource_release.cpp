@@ -1,3 +1,4 @@
+// 0x00405DE0: EntitySecondaryResource_Release
 #include "th10/source_views/entity_cacea2_0.hpp"
 #include "th10/source_views/entity_cacea2_1.hpp"
 #include "th10/source_views/entity_cacea2_2.hpp"

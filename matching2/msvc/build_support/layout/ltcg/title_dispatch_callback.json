@@ -7,10 +7,10 @@
     "include/th10/game/title_input.hpp",
     "include/th10/game/menu_cursor.hpp",
     "include/th10/render/animation_script_id.hpp",
-    "include/th10/game/recovery_script_executor.hpp",
-    "include/th10/game/recovery_script_executor_ascii_anchors.hpp",
+    "include/th10/game/ending_script_executor.hpp",
+    "include/th10/game/ending_script_ascii_anchors.hpp",
     "include/th10/game/title_menu.hpp",
-    "include/th10/game/recovery_script_executor_text_anchors.hpp",
+    "include/th10/game/ending_script_text_anchors.hpp",
     "include/th10/game/stage_route.hpp",
     "include/th10/core/func_ctrl.hpp",
     "include/th10/game/title_dispatch_callback.hpp",
@@ -42,15 +42,15 @@
   },
   "anchors": [
     {
-      "name": "?RecoveryMusicStopHandle@@YGXPAUAnmScriptHandle@@@Z",
-      "symbol": "?RecoveryMusicStopHandle@@YGXPAUAnmScriptHandle@@@Z",
+      "name": "?Title_StopAnimationHandle@@YGXPAUAnmScriptHandle@@@Z",
+      "symbol": "?Title_StopAnimationHandle@@YGXPAUAnmScriptHandle@@@Z",
       "section": ".text$00409e50_fn",
       "address": 4198400,
       "size": 65
     },
     {
-      "name": "?StopHandle2@@YGXPAUAnimationHandle3@@@Z",
-      "symbol": "?StopHandle2@@YGXPAUAnimationHandle3@@@Z",
+      "name": "?StopHandle2@@YGXPAUStageReloadAnmHandle@@@Z",
+      "symbol": "?StopHandle2@@YGXPAUStageReloadAnmHandle@@@Z",
       "section": ".text$00409e50_title_fn",
       "address": 4198480,
       "size": 65
@@ -70,8 +70,8 @@
       "size": 80
     },
     {
-      "name": "?RecoveryMusicInstallSlot@@YGXPAUTitle@@H@Z",
-      "symbol": "?RecoveryMusicInstallSlot@@YGXPAUTitle@@H@Z",
+      "name": "?Title_InstallAnimationSlot@@YGXPAUTitle@@H@Z",
+      "symbol": "?Title_InstallAnimationSlot@@YGXPAUTitle@@H@Z",
       "section": ".text$0042c670_fn",
       "address": 4198736,
       "size": 92

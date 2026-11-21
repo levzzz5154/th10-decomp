@@ -2,11 +2,11 @@
 #include "th10/game/pause_result_open/descriptor.hpp"
 
 #pragma code_seg(".text$00424480_fn")
-int SpriteRegion::BindToAnimation(AnimationHandle8 handle,
+int SpriteRegion::BindToAnimation(UiAnimationHandle handle,
         int new_left, int new_top, int new_width, int new_height) {
     AnimationScriptId id(static_cast<int>(handle.value));
-    AnimationObject2* animation =
-        static_cast<AnimationObject2*>(AnimationManager_Find(
+    UiAnimationNodeView* animation =
+        static_cast<UiAnimationNodeView*>(AnimationManager_Find(
             static_cast<AnimationLookupContext*>(g_sprt_ctrl), id));
     AnimationSprite* sprite = animation->sprite;
     return Set(*animation->texture, new_left, new_top, new_width, new_height,

@@ -111,8 +111,12 @@ The [front loader](../build_support/layout/ltcg/front_initialize/load_script_bod
 uses the front HUD's own type declarations in both initialization and stage update.
 
 `crt/` contains maintained C-runtime functions, `static_init/` contains the
-compiler-generated global initializers and destructors, and `unreferenced/`
-contains recovered code nothing in the game calls.
+compiler-generated global initializers and destructors, and
+[`unreferenced/`](unreferenced/README.md) contains 807 out-of-line copies of
+inline methods kept in retail `th10.exe` for byte-exact matching (no game code
+path calls them). Shared headers live under `include/th10/` (with zero
+`build_support/` includes from `src/`); auto-split per-region header snippets
+used by standalone units live under `include/th10/source_views/`.
 
 For script execution, start at the dispatcher for the bytecode you are reading:
 

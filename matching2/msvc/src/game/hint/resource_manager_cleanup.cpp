@@ -1,3 +1,4 @@
+// 0x00418EE0: ResourceCleanup
 #include "th10/game/resource_cleanup.hpp"
 #include "th10/render/animation_mark_for_removal.hpp"
 

@@ -1,3 +1,4 @@
+// 0x0043AA60..0x0043AAD0: MidiSequencer::ReleaseTracks, MidiSequencer::ParseLoadedFile
 #include "th10/platform/midi_sequencer.hpp"
 #include <string.h>
 

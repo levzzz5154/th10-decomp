@@ -1,3 +1,4 @@
+// 0x00449C00..0x00449ED0: FuncCtrl_RunPrimary, FuncCtrl_RunSecondary2, SchedulerTask_Create
 #include "th10/runtime/asm_symbols.hpp"
 #include "th10/core/func_ctrl.hpp"
 #include "th10/platform/thread_sync.hpp"

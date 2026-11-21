@@ -1,3 +1,4 @@
+// 0x00465A60: StaticExit_Archive
 #include "th10/archive/dat_archive_types.hpp"
 
 // 0x00465A60: atexit destructor of the global archive at 0x00497990. Its ordinary C++

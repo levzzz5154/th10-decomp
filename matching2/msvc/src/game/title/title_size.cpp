@@ -1,3 +1,4 @@
+// 0x0042C5B0: Title_GetSize
 #include "th10/runtime/asm_symbols.hpp"
 
 // 0x0042C5B0: the only slot of the title's info vtable (0x0046ECF0):

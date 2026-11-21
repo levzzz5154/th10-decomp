@@ -3,7 +3,7 @@
 
 #pragma code_seg(".text$03context")
 int __stdcall AnimationObjectConfigureCompilerContext(
-    AnimationObject3** objects, int count,
+    SpriteDimensionsView** objects, int count,
     Resource2* resource) {
     int result = 0;
     for (int slot = 0; slot < count; ++slot)

@@ -1,3 +1,4 @@
+// 0x00406770: BulletSlotTable::OnUpdate
 #include "th10/runtime/asm_symbols.hpp"
 
 // 0x00406770..0x00406797: the bullet manager's update task (registered by

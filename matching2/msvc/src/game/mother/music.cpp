@@ -1,3 +1,4 @@
+// 0x00420A90..0x00420C30: Music_Load, Music_Play, Music_PlayFile (+2 more)
 #include "th10/source_views/music_requests_0b68f8_0.hpp"
 __declspec(noinline) int __stdcall Music_Load(int slot, const char* file_name) {
     char path[256];

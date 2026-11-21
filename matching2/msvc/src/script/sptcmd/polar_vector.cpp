@@ -1,3 +1,4 @@
+// 0x004501B0: EclPolarVector::SetPolar
 #include "th10/math/scaled_polar.hpp"
 
 // 0x4501b0: x87 polar-vector setter.

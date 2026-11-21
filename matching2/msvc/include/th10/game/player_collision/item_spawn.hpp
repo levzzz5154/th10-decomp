@@ -2,7 +2,7 @@
 #include <stddef.h>
 #include "th10/game/item_velocity.hpp"
 #include "th10/game/player_collision/collision.hpp"
-#include "th10/game/player_collision/timer.hpp"
+#include "th10/math/timer.hpp"
 struct AnimationResourceFile;
 __declspec(noinline) void __stdcall Entity_StartScript(AnimationResourceFile* resource, Entity* entity, int script);
 struct SpawnItem {

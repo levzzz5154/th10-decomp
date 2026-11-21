@@ -1,3 +1,4 @@
+// 0x004049A0: ?Step
 #include "th10/math/interpolator.hpp"
 #include "th10/render/stage_fog.hpp"
 

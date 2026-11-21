@@ -174,6 +174,9 @@ int __stdcall AnmVm::Tick(AnmVm* vm) {
             break;
 
         // Spawn on either list, front or back, and inherit position and offset.
+        // -------------------------------------------------------------------
+        // Child VM spawning & flags
+        // -------------------------------------------------------------------
         case ANM_SPAWN_PRIMARY_BACK: {
             AnmHandle handle;
             Anm_CreatePrimaryBack(vm->anm, &handle, READ_INT(0), vm->layer);
@@ -279,6 +282,9 @@ int __stdcall AnmVm::Tick(AnmVm* vm) {
         case ANM_SET_BLEND:
             vm->blend = ins->i[0];
             break;
+        // -------------------------------------------------------------------
+        // Direct transforms, colors & flow control
+        // -------------------------------------------------------------------
         case ANM_SET_POS:
             if (!vm->alt_position)
                 vm->position = Float3(READ_FLOAT(0), READ_FLOAT(1), READ_FLOAT(2));
@@ -362,6 +368,9 @@ int __stdcall AnmVm::Tick(AnmVm* vm) {
             break;
 
         // Arm interpolators now; their first evaluation is in the frame update.
+        // -------------------------------------------------------------------
+        // Property interpolators (pos, color, alpha, rotation, scale)
+        // -------------------------------------------------------------------
         case ANM_INTERP_POS:
             vm->position_interp.end_time = READ_INT(0);
             vm->position_interp.control_1 = g_zero_vector;
@@ -434,6 +443,9 @@ int __stdcall AnmVm::Tick(AnmVm* vm) {
             break;
 
         // Assignment, then three-operand arithmetic: slot 0 = slot 1 op slot 2.
+        // -------------------------------------------------------------------
+        // Register arithmetic (int & float)
+        // -------------------------------------------------------------------
         case ANM_SET_INT: {
             int value = READ_INT(1);
             *INT_DEST_PTR() = value;
@@ -564,6 +576,9 @@ int __stdcall AnmVm::Tick(AnmVm* vm) {
         }
 
         // RNG selection is per VM; the remaining cases here are unary math.
+        // -------------------------------------------------------------------
+        // RNG, trigonometry & conditional jumps
+        // -------------------------------------------------------------------
         case ANM_RAND_INT:
             *INT_DEST_PTR() = vm->f30 ? g_replay_rng.NextModulo(READ_INT(1))
                                      : g_effect_rng.NextModulo(READ_INT(1));

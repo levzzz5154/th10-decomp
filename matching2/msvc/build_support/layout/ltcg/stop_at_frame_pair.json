@@ -64,7 +64,7 @@
     },
     {
       "name": "AnimationHandle_00449470_SetStopFrame",
-      "symbol": "?SetStopFrame@AnimationHandle11@@QAEXG@Z",
+      "symbol": "?SetStopFrame@StopFrameAnmHandle@@QAEXG@Z",
       "section": ".text$75stop",
       "address": "0x00449470",
       "size": 65,
@@ -109,7 +109,7 @@
     },
     {
       "name": "FindChildRef_004497d0",
-      "symbol": "?FindChildRef@AnimationHandle15@@QAE?AUAnimationRef2@@H@Z",
+      "symbol": "?FindChildRef@ChildLookupAnmHandle@@QAE?AUAnimationRef2@@H@Z",
       "section": ".text$84childref",
       "address": "0x004497D0",
       "size": 70,

@@ -63,14 +63,14 @@ struct ReplayStage {
 typedef char ReplayStageSize[sizeof(ReplayStage) == 0x1C4 ? 1 : -1];
 
 // The file header of a replay.
-struct ReplayHeader2 {
+struct ReplayArchiveHeader {
     unsigned int magic;           // +0x00: "t10r"
     short version;                // +0x04: 5
     unsigned char reserved_06[0x16];
     int packed_size;              // +0x1C
     int size;                     // +0x20
 };
-typedef char ReplayHeaderSize[sizeof(ReplayHeader2) == 0x24 ? 1 : -1];
+typedef char ReplayHeaderSize[sizeof(ReplayArchiveHeader) == 0x24 ? 1 : -1];
 
 // The summary at the start of the unpacked replay; the stage records follow.
 struct ReplaySummary2 {
@@ -111,7 +111,7 @@ struct ReplayManager2 {
     ReplayTask* update_task;      // +0x08
     ReplayTask* draw_task;        // +0x0C
     int mode;                     // +0x10: 0 = record, 1 = play back
-    ReplayHeader2* header;         // +0x14
+    ReplayArchiveHeader* header;         // +0x14
     ReplaySummary2* summary;       // +0x18
     ReplayStage* stage_data[8];   // +0x1C
     ReplayPoolLink pools[8];      // +0x3C: the input pages of each stage

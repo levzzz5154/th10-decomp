@@ -1,3 +1,4 @@
+// 0x0043CCF0: Sound_InitThread
 #include "th10/runtime/asm_symbols.hpp"
 
 // 0x0043CD30 is the sound-device/window initialisation routine that follows

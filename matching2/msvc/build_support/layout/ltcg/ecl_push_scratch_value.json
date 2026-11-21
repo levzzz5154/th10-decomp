@@ -11,7 +11,7 @@
   "functions": [
     {
       "name": "EclFrame_PushScratchValue",
-      "symbol": "?Push@EclFrame4@@QAEHH@Z",
+      "symbol": "?Push@EclStackFrame@@QAEHH@Z",
       "section": ".text$01push",
       "address": "0x00450690",
       "size": 64,

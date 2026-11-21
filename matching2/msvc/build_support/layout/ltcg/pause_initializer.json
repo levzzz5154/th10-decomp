@@ -72,7 +72,7 @@
     },
     {
       "name": "Descriptor",
-      "symbol": "?BindToAnimation@SpriteRegion@@QAEHUAnimationHandle8@@HHHH@Z",
+      "symbol": "?BindToAnimation@SpriteRegion@@QAEHUUiAnimationHandle@@HHHH@Z",
       "section": ".text$07descriptor",
       "address": "0x424480",
       "size": 162
@@ -86,7 +86,7 @@
     },
     {
       "name": "Registrar",
-      "symbol": "?RegisterResource@AnimationManager9@@QAEPADPBDHH@Z",
+      "symbol": "?RegisterResource@AnmResourceRegistrar@@QAEPADPBDHH@Z",
       "section": ".text$09registrar",
       "address": "0x43e460",
       "size": 104

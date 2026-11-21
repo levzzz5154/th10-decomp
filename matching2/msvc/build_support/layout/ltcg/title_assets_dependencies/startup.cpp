@@ -4,12 +4,12 @@
 // whole-program pass sees a receiver the callee never reads.
 #pragma code_seg(".text$00startup")
 int LoadingView::LoadStartupResources() {
-    if (!Recovery_LoadCachedResource(
+    if (!SprtCtrl_LoadCachedResource(
             6, g_sprt_ctrl, (const char *)0x0046D254)) {
         ((TextLog *)0x00474F70)->Append((char *)0x0046CB68);
         return -1;
     }
-    if (!Recovery_LoadCachedResource(
+    if (!SprtCtrl_LoadCachedResource(
             7, g_sprt_ctrl, (const char *)0x0046CD88)) {
         ((TextLog *)0x00474F70)->Append((char *)0x0046CD54);
         return -1;

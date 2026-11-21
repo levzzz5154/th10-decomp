@@ -1,3 +1,4 @@
+// 0x00436370..0x004364F0: BufferFile::Write, BufferFile::~BufferFile (deleting), BufferFile::~BufferFile (+5 more)
 #include "th10/runtime/asm_symbols.hpp"
 
 

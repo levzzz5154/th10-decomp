@@ -6,7 +6,7 @@ void* __fastcall AnimationManager_SetFlag2(AnimationLookupContext*, AnimationScr
 extern "C" AnimationLookupContext* g_sprt_ctrl;
 struct PauseFlags { unsigned char reserved[0x58]; unsigned flags; };
 extern PauseFlags* g_pause_flags;
-extern AnimationManager9 g_music_requests;
+extern AnmResourceRegistrar g_music_requests;
 extern float g_game_speed;
 struct PauseOwner {
  unsigned char reserved[0x1DC];

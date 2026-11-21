@@ -6,7 +6,7 @@
   "headers": [
     "include/th10/app/data_version.hpp",
     "include/th10/platform/archive_file.hpp",
-    "include/th10/archive/native_read/archive.hpp",
+    "include/th10/archive/read/archive.hpp",
     "include/th10/archive/dat_archive_types.hpp",
     "include/th10/platform/file.hpp",
     "include/th10/platform/windows_types.hpp",

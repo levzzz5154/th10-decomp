@@ -1,3 +1,4 @@
+// 0x0044A5F0: FUN_0044a5f0_0044a5f0
 #include "th10/platform/windows_types.hpp"
 
 // 0x0044A5F0..0x0044A941: publish one binding set's key mask and age it.

@@ -40,7 +40,7 @@ struct ResultTimedState {
     __declspec(noinline) void InitializeTimedState();
 };
 
-typedef char RecoveryTimedState_00423510_size_must_fit[
+typedef char ResultTimedState_size_must_fit[
     sizeof(ResultTimedState) == 0x2C4 ? 1 : -1];
 
 #pragma code_seg(".text$45timed")

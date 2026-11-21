@@ -1,3 +1,4 @@
+// 0x00417800: PathState::Reset
 extern "C" float g_game_speed;
 
 struct PathState {

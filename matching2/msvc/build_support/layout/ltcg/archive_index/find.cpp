@@ -1,4 +1,4 @@
-#include "th10/archive/index/archive.hpp"
+#include "th10/archive/read/archive.hpp"
 #ifndef ARCHIVE_FIND_SECTION
 #define ARCHIVE_FIND_SECTION ".text$a02find"
 #endif

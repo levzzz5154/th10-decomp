@@ -1,6 +1,6 @@
-extern "C" void __cdecl asm_amsg_exit_0045373d(int value);
+extern "C" void __cdecl crt_amsg_exit(int value);
 
 // Exit after CRT message 2.
-extern "C" void __cdecl asm_FUN_0045fdaf_0045fdaf() {
-    asm_amsg_exit_0045373d(2);
+extern "C" void __cdecl crt_helper_45fdaf() {
+    crt_amsg_exit(2);
 }

@@ -23,10 +23,19 @@ struct TaskLink {
         previous = 0;
     }
 };
+enum SchedulerTaskFlagBits {
+    SCHEDULER_TASK_FLAG_ACTIVE = 2u
+};
+
 struct SchedulerTask {
     int priority;
-    unsigned int heap_owned : 1;
-    unsigned int reserved_flags : 31;
+    union {
+        unsigned int flags;
+        struct {
+            unsigned int heap_owned : 1;
+            unsigned int reserved_flags : 31;
+        };
+    };
     TaskRoutine on_tick;
     TaskRoutine on_register;
     TaskRoutine on_remove;

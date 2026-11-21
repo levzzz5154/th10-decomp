@@ -3,7 +3,7 @@
   "name": "stage_reader_parser",
   "source": "src/game/hint/script_text_reader.cpp",
   "headers": [
-    "include/stage_parser_model.hpp",
+    "include/th10/game/stage_parser_model.hpp",
     "include/th10/platform/archive_file.hpp"
   ],
   "image_base": "0x00400000",

@@ -1,3 +1,4 @@
+// 0x0042A430: ReplayManager_OnDraw
 #include "th10/runtime/asm_symbols.hpp"
 
 // 0x0042A430: the replay manager's draw task (registered by 0x00428F60).
@@ -9,9 +10,14 @@ extern "C" unsigned char g_game;                       // 0x00477810  active sce
 
 typedef int (__fastcall* SceneTick)(int self, void* scene);
 
+struct ReplayGameScene {
+    unsigned char pad_00[0x58];
+    unsigned char flags;
+};
+
 int __fastcall ReplayManager_OnDraw(void* self) {
-    void* scene = *(void**)&g_game;
-    if (scene != 0 && (*(unsigned char*)((char*)scene + 0x58) & 4) != 0)
+    ReplayGameScene* scene = *reinterpret_cast<ReplayGameScene**>(&g_game);
+    if (scene != 0 && (scene->flags & 4) != 0)
         return 1;
     return ((SceneTick)ReplayManager_DrawPanel)((int)self, self);
 }

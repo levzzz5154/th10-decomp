@@ -1,3 +1,4 @@
+// 0x0041D2C0: EffectAccel3::Update
 extern "C" float flt_1;
 extern "C" float flt_1_01;
 extern "C" float flt_0_99;

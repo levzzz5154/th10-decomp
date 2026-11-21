@@ -1,3 +1,4 @@
+// 0x00415E90: ResultDispatcher2
 #include "th10/game/pause_result_open/dispatcher_contract.hpp"
 
 // 0x00415E90: packed stage-dialogue and stage-clear command dispatcher (byte-exact

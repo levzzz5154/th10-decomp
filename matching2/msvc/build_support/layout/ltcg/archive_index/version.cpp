@@ -1,4 +1,4 @@
-#include "th10/archive/index/archive.hpp"
+#include "th10/archive/read/archive.hpp"
 #include "log.hpp"
 extern "C" int __cdecl archive_sprintf(char*,const char*,...);
 extern "C" DatArchive g_archive;

@@ -1,3 +1,4 @@
+// 0x004086B0: PlayfieldPoint::OutsideBounds
 #include "th10/source_views/playfield_bounds_7c91ed_0.hpp"
 int PlayfieldPoint::OutsideBounds(float horizontal_margin,
                                   float vertical_margin) const {

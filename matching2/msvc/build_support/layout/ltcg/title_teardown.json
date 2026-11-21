@@ -196,7 +196,7 @@
     }
   ],
   "context": {
-    "symbol": "?Recovery_ReleaseGlobalStates@@YGXXZ",
+    "symbol": "?Supervisor_ReleaseGlobalStates@@YGXXZ",
     "section": ".text$05globals",
     "address": "0x004203F0",
     "size": 128,

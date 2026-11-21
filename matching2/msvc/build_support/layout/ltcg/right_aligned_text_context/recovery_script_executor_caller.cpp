@@ -1,4 +1,4 @@
-#include "th10/game/hint_text/recovery_script_executor_caller.hpp"
+#include "th10/game/hint_text/script_executor_caller.hpp"
 
 extern "C" void* g_sprt_ctrl;
 extern "C" void* g_ascii_manager;
@@ -71,7 +71,7 @@ int HintLink::Drain(
         if (entry->intensity <= recovery_indicator_one_00470afc) {
             void* result;
             state->handles[state->slot] = reinterpret_cast<unsigned int>(
-                *RecoveryPlayerAnimationCreate(
+                *AnmManager_CreatePositionedAnimation(
                     static_cast<HintThread*>(g_ascii_manager)->resource,
                     &result, state->slot + 2, &entry->position));
             manager = g_sprt_ctrl;
@@ -93,7 +93,7 @@ int HintLink::Drain(
         } else if (entry->intensity <= recovery_indicator_two_00470b08) {
             void* result;
             state->handles[state->slot] = reinterpret_cast<unsigned int>(
-                *RecoveryPlayerAnimationCreate(
+                *AnmManager_CreatePositionedAnimation(
                     static_cast<HintThread*>(g_ascii_manager)->resource,
                     &result, state->slot + 12, &entry->position));
             unsigned int* handle = &state->handles[state->slot];
@@ -121,7 +121,7 @@ int HintLink::Drain(
         } else {
             void* result;
             state->handles[state->slot] = reinterpret_cast<unsigned int>(
-                *RecoveryPlayerAnimationCreate(
+                *AnmManager_CreatePositionedAnimation(
                     static_cast<HintThread*>(g_ascii_manager)->resource,
                     &result, state->slot + 12, &entry->position));
             manager = g_sprt_ctrl;

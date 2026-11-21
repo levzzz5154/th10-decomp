@@ -4,8 +4,8 @@
   "source": "src/script/sptlib/ecl_bind_name.cpp",
   "driver": "build_support/layout/ltcg/script_resolver_callers_context.cpp",
   "headers": [
-    "include/script_resolver.hpp",
-    "include/script_vm.hpp"
+    "include/th10/script/script_resolver.hpp",
+    "include/th10/script/script_vm.hpp"
   ],
   "image_base": "0x00400000",
   "description": "Sorted script-table resolver compiled with native LTCG so the table receiver arrives in EAX, the script name remains on the stack, and the result is returned with RET 4.",

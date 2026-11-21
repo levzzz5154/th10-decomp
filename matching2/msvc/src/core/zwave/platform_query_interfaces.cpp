@@ -2,7 +2,7 @@
 // combining their HRESULTs with OR. The historical Query name is retained.
 // Native LTCG gives this member's internal receiver convention: the state
 // arrives in EDI and the result is returned in EAX.
-typedef int (__stdcall *RecoveryLeafD600Query)(void*, unsigned int);
+typedef int (__stdcall *SoundDevice_QueryInterfaces)(void*, unsigned int);
 
 struct PlatformQueryInterfaces {
     unsigned char unknown_000[4];
@@ -20,7 +20,7 @@ __declspec(noinline) int PlatformQueryInterfaces::Query() {
     for (unsigned int index = 0; index < count_010; ++index) {
         void* entry = entries_004[index];
         void** vtable = *reinterpret_cast<void***>(entry);
-        result |= reinterpret_cast<RecoveryLeafD600Query>(
+        result |= reinterpret_cast<SoundDevice_QueryInterfaces>(
             vtable[0x34 / 4])(entry, 0);
     }
     return result;

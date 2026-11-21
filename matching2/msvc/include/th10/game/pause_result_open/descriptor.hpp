@@ -5,7 +5,7 @@
 #include "th10/game/pause_result_open/open_animation.hpp"
 
 // This handle is the same four-byte animation identifier used by the lookup.
-struct AnimationHandle8 {
+struct UiAnimationHandle {
     unsigned int value;
 };
 
@@ -18,7 +18,7 @@ struct AnimationSprite {
     float width;                         // +0x34
 };
 
-struct AnimationObject2 {
+struct UiAnimationNodeView {
     unsigned char reserved_000[0x308];
     int* texture;                        // +0x308
     unsigned char reserved_30c[0x88];
@@ -58,14 +58,14 @@ struct SpriteRegion {
         return 0;
     }
 
-    __declspec(noinline) int BindToAnimation(AnimationHandle8 handle,
+    __declspec(noinline) int BindToAnimation(UiAnimationHandle handle,
         int new_left, int new_top, int new_width, int new_height);
 };
 
 typedef char DescriptorSizeCheck[(sizeof(SpriteRegion) == 0x2C) ? 1 : -1];
 typedef char DescriptorTextureOffsetCheck[(offsetof(SpriteRegion, texture) == 4) ? 1 : -1];
-typedef char AnimationTextureOffsetCheck[(offsetof(AnimationObject2, texture) == 0x308) ? 1 : -1];
-typedef char AnimationSpriteOffsetCheck[(offsetof(AnimationObject2, sprite) == 0x394) ? 1 : -1];
+typedef char AnimationTextureOffsetCheck[(offsetof(UiAnimationNodeView, texture) == 0x308) ? 1 : -1];
+typedef char AnimationSpriteOffsetCheck[(offsetof(UiAnimationNodeView, sprite) == 0x394) ? 1 : -1];
 typedef char SpriteHeightOffsetCheck[(offsetof(AnimationSprite, height) == 0x30) ? 1 : -1];
 typedef char SpriteWidthOffsetCheck[(offsetof(AnimationSprite, width) == 0x34) ? 1 : -1];
 

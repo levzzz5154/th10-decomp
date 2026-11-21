@@ -48,7 +48,7 @@ struct GameSelection3 {
 };
 
 // The header block of a loaded replay.
-struct ReplayHeader5 {
+struct ReplayDisplayHeader {
     char name[12];                       // +0x00
     time_t date;                         // +0x0C
     int score;                           // +0x10
@@ -77,7 +77,7 @@ struct ReplayStageSlot {
 
 struct ReplayFile2 {
     unsigned char pad_00[0x18];
-    ReplayHeader5* header;       // +0x18
+    ReplayDisplayHeader* header;       // +0x18
     unsigned char pad_1C[0xB0 - 0x1C];
     ReplayStageSlot stages[8];  // +0xB0, indexed by stage number
 };
@@ -116,7 +116,7 @@ struct TitleDrawView {
 };
 
 extern "C" {
-extern GameThread2* g_ascii_manager;
+extern GameThreadQueueView* g_ascii_manager;
 extern GameSelection3 g_globals_character;
 extern ScoreCharacter* g_score;
 extern ReplayFile2* g_replay;  // the replay just played

@@ -1,3 +1,4 @@
+// 0x00420EA0: GameUiThreadHost::Spawn
 #include "th10/game/ui_thread_host.hpp"
 
 extern "C" {

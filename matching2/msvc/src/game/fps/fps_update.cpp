@@ -1,3 +1,4 @@
+// 0x004134B0: FPS::Update
 #include "th10/source_views/fps_update_7bb61f_0.hpp"
 int FPS::Update() {
     double now = FrameTimer_GetDelta();

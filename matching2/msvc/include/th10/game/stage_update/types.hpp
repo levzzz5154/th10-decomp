@@ -97,7 +97,7 @@ struct StageFile {
     short object_count;
 };
 
-struct Stage2 {
+struct StageUpdateView {
     unsigned char reserved_0000[8];
     StageTask* update_task;            // +0x08
     StageTask* draw_task;              // +0x0c
@@ -658,4 +658,4 @@ __declspec(noinline) void SetInputMode(InputState* state, int mode);
 #undef g_main_state
 #undef g_sound_manager
 
-__declspec(noinline) void __stdcall Stage_StartQuadScripts(Stage2* stage);
+__declspec(noinline) void __stdcall Stage_StartQuadScripts(StageUpdateView* stage);

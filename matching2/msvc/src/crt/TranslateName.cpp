@@ -1,7 +1,7 @@
 struct NameEntry { const char* name; const char* value; };
 extern "C" int __cdecl crt_stricmp(const char*, const char*);
 
-extern "C" int __cdecl asm_TranslateName_0045c2fd(NameEntry* entries, int high, const char** key) {
+extern "C" int __cdecl crt_libcmt_getqloc_TranslateName(NameEntry* entries, int high, const char** key) {
     int low = 0;
     int comparison = 1;
     if (high >= 0) {

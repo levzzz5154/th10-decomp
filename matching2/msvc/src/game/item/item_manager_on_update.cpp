@@ -1,3 +1,4 @@
+// 0x0041BA00: ItemManager::OnUpdate
 #include "th10/game/item_manager_destructor.hpp"
 
 // 0x0041BA00: skip the item update when the active scene sets flags 0, 2 or 10.

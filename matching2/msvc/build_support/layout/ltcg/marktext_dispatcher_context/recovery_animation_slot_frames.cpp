@@ -1,4 +1,4 @@
-#include "th10/game/ending_script/recovery_script_executor_caller_433ef0.hpp"
+#include "th10/game/ending_script/script_executor_caller_433ef0.hpp"
 
 extern "C" void* g_sprt_ctrl;
 

@@ -167,9 +167,9 @@ void** __stdcall AnimationManager_CreatePositionedPrimary(
 // 0x0040C540's own caller, shaped like the game's animation users.  Not
 // recovered game code.
 #pragma code_seg(".text$0bcontext")
-int __stdcall LazyResourceCompilerContext(GameThread6** items, int count) {
+int __stdcall LazyResourceCompilerContext(GameThreadResourceView** items, int count) {
     while (count--) {
-        GameThread6* thread = *items++;
+        GameThreadResourceView* thread = *items++;
         thread->EnsureAnimationResource(480.0f, 392.0f);
     }
     return 0;

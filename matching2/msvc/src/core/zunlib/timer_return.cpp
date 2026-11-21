@@ -1,3 +1,4 @@
+// 0x0044BFA0: ReturningFrameTimer::TickReturningFrame
 #include "th10/math/timer_return.hpp"
 
 extern float g_frame_timer_normal_lower;

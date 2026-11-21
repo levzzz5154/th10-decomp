@@ -5,7 +5,7 @@
 #include "../manager_teardown_native/scheduler.cpp"
 
 #pragma code_seg(".text$01b_context")
-void __stdcall CardTeardownCompilerContext(Card2* manager) {
+void __stdcall CardTeardownCompilerContext(CardDestructorView* manager) {
     delete manager;
 }
 #pragma code_seg()

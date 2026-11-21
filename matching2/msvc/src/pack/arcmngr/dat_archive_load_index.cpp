@@ -1,6 +1,6 @@
 // 0x00434F70: open, decode and publish a DAT archive index.
 // The complete Version -> Open caller graph derives the private ESI receiver.
-#include "th10/archive/index/archive.hpp"
+#include "th10/archive/read/archive.hpp"
 #include "th10/archive/index/parser.hpp"
 extern "C" const char* g_dat_archive_read_mode;
 #pragma code_seg(".text$a10index")

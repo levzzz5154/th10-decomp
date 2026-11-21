@@ -1,3 +1,4 @@
+// 0x0042C6D0..0x0042C770: Title::ClearAnimationSlot, Title::SetSlotFrame
 #include "th10/game/title_menu.hpp"
 
 extern "C" void* g_sprt_ctrl;

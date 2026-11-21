@@ -1,12 +1,12 @@
 extern "C" int g_crt_app_errno_flag;
 extern "C" int g_crt_banner_flag;
 extern "C" void (__cdecl *g_crt_initterm)();
-extern "C" void __cdecl asm_FUN_00458efd_00458efd(int);
+extern "C" void __cdecl crt_NMSG_WRITE(int);
 
-extern "C" void __cdecl asm_FF_MSGBANNER_0045909f() {
+extern "C" void __cdecl crt_FF_MSGBANNER() {
     if (g_crt_app_errno_flag == 1 || (g_crt_app_errno_flag == 0 && g_crt_banner_flag == 1)) {
-        asm_FUN_00458efd_00458efd(0xfc);
+        crt_NMSG_WRITE(0xfc);
         if (g_crt_initterm) g_crt_initterm();
-        asm_FUN_00458efd_00458efd(0xff);
+        crt_NMSG_WRITE(0xff);
     }
 }

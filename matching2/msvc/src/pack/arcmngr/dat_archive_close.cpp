@@ -1,3 +1,4 @@
+// 0x00434D10: DatArchive::Close
 #include "th10/archive/dat_archive_types.hpp"
 #include "th10/util/heap.hpp"
 

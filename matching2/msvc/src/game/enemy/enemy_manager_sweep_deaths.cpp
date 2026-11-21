@@ -25,9 +25,9 @@ static inline void TickClock(FrameTimer* clock) {
 
 #pragma code_seg(".text$079kz_sweep")
 void __stdcall EnemyCtrl_SweepDeaths(EnemyCtrlDeathView* manager) {
-    EnemyNode3* next;
-    for (EnemyNode3* node = manager->first; node; node = next) {
-        Enemy6* enemy = node->enemy;
+    EnemyDeathListNode* next;
+    for (EnemyDeathListNode* node = manager->first; node; node = next) {
+        EnemyDeathView* enemy = node->enemy;
         next = node->next;
         unsigned int flags = enemy->flags;
         if (((flags & 0x50) || (flags & 0xC000)) && !(flags & 0x80))

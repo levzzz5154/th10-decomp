@@ -22,7 +22,7 @@ extern "C" int __stdcall EnemySpawnContext(EnemySpawn2** spawns, EnemyCtrlSpawnV
 // across opaque calls the way the real body does, so the record is handed
 // over in ESI.
 #pragma code_seg(".text$0040d830_fn")
-Enemy4::Enemy4(const char* entry) {
+EnemySpawnView::EnemySpawnView(const char* entry) {
     EnemySpawnEscape(this, 0);
     EnemySpawnEscape((void*)entry, 1);
     EnemySpawnEscape(this, 2);

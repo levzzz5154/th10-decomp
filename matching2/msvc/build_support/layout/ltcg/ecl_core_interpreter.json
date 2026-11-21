@@ -11,7 +11,7 @@
   "headers": [
     "include/th10/runtime/script/sptcmd/ecl_core_interpreter.hpp",
     "include/th10/script/ecl_float_values.hpp",
-    "include/script_resolver.hpp"
+    "include/th10/script/script_resolver.hpp"
   ],
   "included_sources": [
     "src/script/sptcmd/ecl_start_child.cpp",

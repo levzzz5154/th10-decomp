@@ -37,8 +37,8 @@ struct Item2 {
     // 0x0041BE40
     __declspec(noinline) int EnterState2();
 
-    AnimationObject3* Sprite() {
-        return reinterpret_cast<AnimationObject3*>(this);
+    SpriteDimensionsView* Sprite() {
+        return reinterpret_cast<SpriteDimensionsView*>(this);
     }
 };
 

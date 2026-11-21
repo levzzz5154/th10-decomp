@@ -69,7 +69,7 @@ __declspec(noinline) int __stdcall TitleMode16(Title* room) {
             sprintf(path, "th10_%.2d.rpy", number);
             screen.replay_list.files[number - 1] = ReplayFile_Open(path);
         }
-        RecoveryMusicInstallSlot(room, 105);
+        Title_InstallAnimationSlot(room, 105);
         screen.SetTimerTarget(RSAVE_PHASE_WAIT_OPEN);
     case RSAVE_PHASE_WAIT_OPEN: {
         const bool opening_delay_done = (screen.timer.current > 6);
@@ -201,7 +201,7 @@ __declspec(noinline) int __stdcall TitleMode16(Title* room) {
             screen.SetSlotFrame(0x5a, 8);
             screen.SetSlotFrame(0x5b, 8);
             screen.ClearAnimationSlot(94);
-            RecoveryMusicStopHandle(&screen.fallback_handle);
+            Title_StopAnimationHandle(&screen.fallback_handle);
             screen.DisableTimerWithOwner(RSAVE_TARGET_MAIN_MENU);
             screen.cursor.PopSelection();
             ReplayFile* recorded = g_replay;

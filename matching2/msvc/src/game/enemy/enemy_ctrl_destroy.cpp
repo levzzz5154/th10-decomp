@@ -27,7 +27,7 @@ extern "C" void _ReadWriteBarrier(void);
 // bodies and their whole-program register agreements.
 #include "th10/game/enemy_manager_dependencies.hpp"
 
-class AnimationManager13 {
+class AnmSlotManager {
 public:
     unsigned char pad_000[0x3AD06C];
     AnimationResource6 *slots_3ad06c[0x21];
@@ -87,7 +87,7 @@ void EnemyCtrl::Destroy() {
             if ((unsigned int)index >= 0x21u)
                 continue;
             AnimationResource6 **slot =
-                &((AnimationManager13 *)g_sprt_ctrl)->slots_3ad06c[index];
+                &((AnmSlotManager *)g_sprt_ctrl)->slots_3ad06c[index];
             if (*slot == 0)
                 continue;
             (*slot)->Release();

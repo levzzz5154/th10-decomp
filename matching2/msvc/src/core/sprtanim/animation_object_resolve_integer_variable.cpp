@@ -1,3 +1,4 @@
+// 0x0043EDA0: ResolveIntegerVariable
 enum AnmIntRefId {
     ANM_REF_I0 = 10000,
     ANM_REF_I1 = 10001,

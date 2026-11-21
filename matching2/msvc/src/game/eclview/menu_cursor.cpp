@@ -1,3 +1,4 @@
+// 0x0040AD50..0x0040ADD0: MenuCursor::SetWrap, MenuCursor::Previous, MenuCursor::Next (+3 more)
 #include "th10/source_views/menu_9d8ff0_0.hpp"
 void MenuCursor::SetWrap(int enabled) {
     wrap = enabled;

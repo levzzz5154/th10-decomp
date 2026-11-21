@@ -1,3 +1,4 @@
+// 0x00439FF0: Startup_InstanceCheck
 #include "th10/platform/startup_shortcut.hpp"
 #include <string.h>
 

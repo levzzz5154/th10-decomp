@@ -1,8 +1,8 @@
 #include <string.h>
-#include "th10/game/hint_text/recovery_script_executor.hpp"
+#include "th10/game/hint_text/script_executor.hpp"
 extern "C" void* g_sprt_ctrl;
 extern "C" EndingOwner* g_ending;
-extern "C" GameThread6* g_ascii_manager;
+extern "C" GameThreadResourceView* g_ascii_manager;
 extern "C" unsigned int g_input_keys_raw;
 extern "C" unsigned int g_input_keys_held;
 extern "C" int g_globals_difficulty;
@@ -20,7 +20,7 @@ static __forceinline EndingScriptCommand* NextRecoveryCommand(EndingScriptComman
     return reinterpret_cast<EndingScriptCommand*>(reinterpret_cast<unsigned char*>(command) + command->argument_bytes + 4);
 }
 #pragma code_seg(".text$0040bd80_fn")
-extern "C" __declspec(noinline) int __stdcall RecoveryScript_Execute2(EndingScriptState* state) {
+extern "C" __declspec(noinline) int __stdcall EndingScript_Execute(EndingScriptState* state) {
     const unsigned int flags = state->flags;
     if (flags & 4u)
         return 0;
@@ -50,12 +50,12 @@ extern "C" __declspec(noinline) int __stdcall RecoveryScript_Execute2(EndingScri
                 AnmTextVm* object = static_cast<AnmTextVm*>(manager->Find(reinterpret_cast<AnmLookupContext*>(g_sprt_ctrl), id));
                 if (object == 0)
                     state->text_handles[0].value = 0;
-                const char* text = RecoveryDecodePath(reinterpret_cast<const unsigned char*>(state->command) + 4);
+                const char* text = EndingScript_DecodePath(reinterpret_cast<const unsigned char*>(state->command) + 4);
                 object->MarkText(g_sprt_ctrl, state->color, text);
                 state->text_handles[0].StopAtFrame2();
                 ++state->text_ring_position;
             } else {
-                const char* text = RecoveryDecodePath(reinterpret_cast<const unsigned char*>(command) + 4);
+                const char* text = EndingScript_DecodePath(reinterpret_cast<const unsigned char*>(command) + 4);
                 AnmLookup* manager = reinterpret_cast<AnmLookup*>(g_sprt_ctrl);
                 AnmTextVm* object = static_cast<AnmTextVm*>(manager->Validate(&state->text_handles[state->text_ring_position]));
                 object->MarkText(g_sprt_ctrl, state->color, text);
@@ -110,7 +110,7 @@ extern "C" __declspec(noinline) int __stdcall RecoveryScript_Execute2(EndingScri
             break;
         case 7:
             g_ascii_manager->EnsureAnimationResource(480.0f, 392.0f);
-            reinterpret_cast<AnimationManager13*>(g_sprt_ctrl)->ClearResourceSlot(state->command->arguments[0] + 29);
+            reinterpret_cast<AnmSlotManager*>(g_sprt_ctrl)->ClearResourceSlot(state->command->arguments[0] + 29);
             state->background_data = reinterpret_cast<const unsigned char*>(state->command) + 8;
             state->flags |= 4u;
             state->worker.Start(state, recovery_background_thread);
@@ -162,10 +162,10 @@ extern "C" __declspec(noinline) int __stdcall RecoveryScript_Execute2(EndingScri
             continue;
         }
         case 13:
-            RecoveryAscii_Create(0x31, 0, static_cast<unsigned int>(command->arguments[0]), 0, 0, 0);
+            AsciiText_Create(0x31, 0, static_cast<unsigned int>(command->arguments[0]), 0, 0, 0);
             break;
         case 14:
-            RecoveryAscii_Create(0x31, 5, static_cast<unsigned int>(command->arguments[0]), 0, 0, 0);
+            AsciiText_Create(0x31, 5, static_cast<unsigned int>(command->arguments[0]), 0, 0, 0);
             break;
         case 15:
             if (g_globals_difficulty == 1) {

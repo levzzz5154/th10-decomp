@@ -32,7 +32,7 @@ extern "C" __declspec(noinline) char* __stdcall UiFinalExtractLine(char* destina
 
 // Cluster-only stand-in for the two-list lookup (0x004491C0) whose parameter
 // order steers the order in which the music room loads the arguments.
-#include "th10/game/recovery_script_executor.hpp"
+#include "th10/game/ending_script_executor.hpp"
 #include "th10/game/title_menu.hpp"
 #pragma code_seg(".text$004491c0_fn")
 extern "C" __declspec(noinline) void* __fastcall UiFinalFind(

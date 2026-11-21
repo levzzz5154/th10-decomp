@@ -1,3 +1,4 @@
+// 0x004220E0: Pause_Construct
 #include <string.h>
 
 // 0x004220E0: the pause menu's constructor (Pause, pause.cpp, PauseInf), run in place on fresh storage.
@@ -35,7 +36,7 @@ void* __fastcall Pause_Construct(int unused, Pause* state) {
     state->field_24 = 0;
     state->field_F8 = 0;
     state->field_F4 = 1;
-    // The two maxima are written through a raw pointer: retail materialises the
+    // MATCH: the two maxima are written through a raw pointer: retail materialises the
     // constant beside the stores and only schedules it there for an indirect
     // store, while a member store lets the optimiser sink it past the callee
     // save.

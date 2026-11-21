@@ -1,3 +1,4 @@
+// 0x00408660: WrappedAngleDifference
 #include "th10/source_views/angle_4872c8_0.hpp"
 float __stdcall WrappedAngleDifference(float first, float second) {
     const float pi = 3.14159265358979323846f;

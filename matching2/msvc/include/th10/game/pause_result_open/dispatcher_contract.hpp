@@ -7,7 +7,7 @@
 #include "th10/game/stage_route.hpp"
 #include "th10/platform/sound_queue.hpp"
 #include "th10/core/screen.hpp"
-#include "th10/game/recovery_mark_text_and_dispatcher.hpp"
+#include "th10/game/ending_text_dispatcher.hpp"
 
 // Genuine source inputs recovered from the retail body. All private register
 // choices require these helpers' complete ordinary bodies in the native graph.

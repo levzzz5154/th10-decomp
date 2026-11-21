@@ -53,7 +53,7 @@ extern "C" {
     extern unsigned int g_app_flags;
     extern const char* g_title_demo_paths[4];
     extern char g_replay_path[];
-    extern GameThread6* g_ascii_manager;
+    extern GameThreadResourceView* g_ascii_manager;
     extern float flt_0_99, flt_1_01, flt_1;
 }
 // These declarations describe logical inputs, not promises about retail ABI.
@@ -164,7 +164,7 @@ __declspec(noinline) int __stdcall TitleDispatcher(
         manager->MarkResourceForRemoval(*reinterpret_cast<void**>(manager_bytes + 0x3ad06c));
         AnmScriptHandle* handle = reinterpret_cast<AnmScriptHandle*>(
             reinterpret_cast<unsigned char*>(g_ascii_manager) + 0x89a4);
-        RecoveryMusicStopHandle(handle);
+        Title_StopAnimationHandle(handle);
         handle->value = 0;
         if (transition == 3) {
             MenuCursor* cursor = &room->cursor;
@@ -172,7 +172,7 @@ __declspec(noinline) int __stdcall TitleDispatcher(
             SetSelection(cursor, 0);
             cursor->PushSelection();
             room->DisableTimerWithOwner(TITLE_MODE_NAME_ENTRY);
-            RecoveryMusicInstallSlot(room, 91);
+            Title_InstallAnimationSlot(room, 91);
             room->SetSlotFrame(91, 9);
             g_main_mode_request = 1;
             MarkTitleCallback(room);
@@ -196,7 +196,7 @@ __declspec(noinline) int __stdcall TitleDispatcher(
             if (g_globals_score.difficulty == 4)
                 SetSelection(&room->cursor, 1);
             room->DisableTimerWithOwner(TITLE_MODE_MAIN_MENU);
-            RecoveryMusicInstallSlot(room, 91);
+            Title_InstallAnimationSlot(room, 91);
             // Entering the main menu shares mode 2's handler call.
             goto main_menu;
         } else if (transition == 2) {
@@ -205,7 +205,7 @@ __declspec(noinline) int __stdcall TitleDispatcher(
             SetSelection(cursor, 3);
             cursor->PushSelection();
             room->DisableTimerWithOwner(TITLE_MODE_REPLAY_SELECT);
-            RecoveryMusicInstallSlot(room, 91);
+            Title_InstallAnimationSlot(room, 91);
             room->SetSlotFrame(91, 9);
             g_main_mode_request = 1;
             MarkTitleCallback(room);

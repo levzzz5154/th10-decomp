@@ -17,7 +17,7 @@ void Win32Timer::Release() {
 #pragma code_seg()
 
 #pragma code_seg(".text$13register")
-char* AnimationManager9::RegisterResource(const char* name, int resource, int parameter) {
+char* AnmResourceRegistrar::RegisterResource(const char* name, int resource, int parameter) {
     int index = 0;
     for (; index < 31; ++index) {
         if (records[index].resource == 0) {

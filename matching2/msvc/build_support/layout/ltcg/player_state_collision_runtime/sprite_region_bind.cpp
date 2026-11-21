@@ -12,9 +12,9 @@ struct PickupAnimationLists {
 };
 
 #pragma code_seg(".text$f00424480F")
-int SpriteRegion::BindToAnimation(AnimationHandle8 handle,
+int SpriteRegion::BindToAnimation(UiAnimationHandle handle,
         int new_left, int new_top, int new_width, int new_height) {
-    AnimationObject2* animation = reinterpret_cast<AnimationObject2*>(
+    UiAnimationNodeView* animation = reinterpret_cast<UiAnimationNodeView*>(
         static_cast<PickupAnimationLists*>(g_sprt_ctrl)->Find(AnimationRef(handle.value)));
     AnimationSprite* sprite = animation->sprite;
     return Set(*animation->texture, new_left, new_top, new_width, new_height,

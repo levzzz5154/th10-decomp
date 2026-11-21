@@ -3,7 +3,7 @@
 
 #include <stdarg.h>
 #include <string.h>
-#include "th10/game/hint_text/recovery_script_executor_text_sibling_anchors.hpp"
+#include "th10/game/hint_text/script_executor_text_sibling_anchors.hpp"
 
 extern "C" int __cdecl recovery_vsprintf(
     char* buffer, const char* format, char* args);
@@ -35,7 +35,7 @@ void __cdecl HintVm::FormatRightAligned(
     const float resource_width =
         text_resource->width;
     const int horizontal_offset = static_cast<int>(resource_width - text_width);
-    RecoveryDispatchText2(
+    SpriteText_Dispatch(
         text_resource, text_resource->texture, horizontal_offset,
         static_cast<int>(height), color, buffer, mode);
     flags |= 1;

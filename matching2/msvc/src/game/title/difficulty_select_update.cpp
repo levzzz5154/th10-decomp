@@ -36,14 +36,14 @@
 static __forceinline void StopConfirmedChild(Title* room, int slot) {
     if (g_globals_difficulty < 4) {
         AnimationRef2 child =
-            reinterpret_cast<AnimationHandle15*>(&room->animation_slots[slot])
+            reinterpret_cast<ChildLookupAnmHandle*>(&room->animation_slots[slot])
                 ->FindChildRef(room->cursor.selection + 0x6d);
-        reinterpret_cast<AnimationHandle11*>(&child)->SetStopFrame(2);
+        reinterpret_cast<StopFrameAnmHandle*>(&child)->SetStopFrame(2);
     } else {
         AnimationRef2 child =
-            reinterpret_cast<AnimationHandle15*>(&room->animation_slots[slot])
+            reinterpret_cast<ChildLookupAnmHandle*>(&room->animation_slots[slot])
                 ->FindChildRef(0x71);
-        reinterpret_cast<AnimationHandle11*>(&child)->SetStopFrame(2);
+        reinterpret_cast<StopFrameAnmHandle*>(&child)->SetStopFrame(2);
     }
 }
 
@@ -77,12 +77,12 @@ __declspec(noinline) int __stdcall TitleMode6(Title* room) {
         EnsureTitleMenuBackdrop(room, handle);
         room->cursor.item_count = g_globals_difficulty < DIFF_LEVEL_EXTRA ? 4 : 1;
         room->ClearAnimationSlot(slot);
-        RecoveryMusicInstallSlot(room, slot);
+        Title_InstallAnimationSlot(room, slot);
         AnimationManager_SetStopFrameAndRun(
             3, reinterpret_cast<AnmLookupContext*>(g_sprt_ctrl),
             room->animation_slots[slot]);
         room->SetSlotFrame(slot, room->cursor.selection + 0x11);
-        RecoveryMusicInstallSlot(room, 98);
+        Title_InstallAnimationSlot(room, 98);
         room->SetTimerTarget(DIFF_PHASE_WAIT_OPEN);
     case DIFF_PHASE_WAIT_OPEN:
         if (room->timer.current > 6)
@@ -128,7 +128,7 @@ __declspec(noinline) int __stdcall TitleMode6(Title* room) {
             room->SetSlotFrame(0x5a, 8);
             room->SetSlotFrame(0x5b, 8);
             room->ClearAnimationSlot(94);
-            RecoveryMusicStopHandle(&room->fallback_handle);
+            Title_StopAnimationHandle(&room->fallback_handle);
             room->DisableTimerWithOwner(DIFF_TARGET_MAIN_MENU);
             if (g_globals_difficulty < DIFF_LEVEL_EXTRA)
                 g_globals_difficulty = room->cursor.selection;

@@ -194,7 +194,7 @@
       "kind": "relative_code"
     },
     {
-      "symbol": "@Recovery_LoadCachedResource@12",
+      "symbol": "@SprtCtrl_LoadCachedResource@12",
       "address": "0x00447280",
       "kind": "relative_code"
     },

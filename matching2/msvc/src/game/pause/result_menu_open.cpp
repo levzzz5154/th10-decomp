@@ -19,7 +19,7 @@ __forceinline void PauseOpenState::Open(bool result) {
         AnimationScriptId assigned = lists->RegisterSecondaryBack(object);
         cursor_animation = assigned;
     }
-    AnimationHandle8 cursor_handle;
+    UiAnimationHandle cursor_handle;
     cursor_handle.value = (unsigned int)cursor_animation.value;
     reinterpret_cast<SpriteRegion*>(lists)->BindToAnimation(cursor_handle, 32, 16, 384, 448);
     resource = g_front->result_resource;

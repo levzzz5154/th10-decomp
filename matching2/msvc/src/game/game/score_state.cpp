@@ -1,3 +1,4 @@
+// 0x00418A90..0x00418B80: ScoreState::IncrementCappedCount, ScoreState::SetGauge
 #include "th10/source_views/score_bookkeeping_7e27a0_0.hpp"
 #include "th10/source_views/score_bookkeeping_7e27a0_1.hpp"
 #include "th10/source_views/score_bookkeeping_7e27a0_2.hpp"

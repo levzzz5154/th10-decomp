@@ -1,4 +1,4 @@
-#include "th10/game/hint_text/recovery_script_executor_caller.hpp"
+#include "th10/game/hint_text/script_executor_caller.hpp"
 
 extern "C" void* g_sprt_ctrl;
 extern "C" void* __cdecl AnimationPool_AllocateEntry(void* manager);
@@ -12,7 +12,7 @@ extern "C" float recovery_indicator_y_origin_00470b48;
 // Full 00448DB0 body. Its real allocator, script loader and list registrar
 // are co-visible; the compiler chooses the private position-register ABI.
 #pragma code_seg(".text$00448db0_fn")
-void** __stdcall RecoveryPlayerAnimationCreate(
+void** __stdcall AnmManager_CreatePositionedAnimation(
         void* resource, void** result, int script,
         const HintPosition* position) {
     unsigned char* object = static_cast<unsigned char*>(

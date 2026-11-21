@@ -1,5 +1,5 @@
 // 0x0044B360: load a named file either from the packed archive index or from disk.
-#include "th10/game/hint_text/archive_file.hpp"
+#include "th10/platform/archive_file.hpp"
 
 struct ArchiveEntry {
     const char* name;       // +0x00

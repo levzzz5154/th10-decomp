@@ -1,5 +1,6 @@
+// 0x0040BD80: EndingScript_Execute
 #include <string.h>
-#include "th10/game/ending_script/recovery_script_executor.hpp"
+#include "th10/game/ending_script/script_executor.hpp"
 // The animation manager is read as a plain global: its address is never
 // taken, so the whole-program optimizer keeps one load across callees that
 // cannot write it (Find, the path decoder) and reloads it after the text
@@ -10,9 +11,9 @@ extern "C" void* g_sprt_ctrl;
 // the handle in ESI and no receiver; the text writer 0x00447A50 with the text
 // object as an explicit second argument; the flag setter 0x004492A0 with only
 // the id pushed; the script loader 0x0040B480 with the buffer first.
-__declspec(noinline) AnmTextVm* __cdecl RecoveryValidateHandle(AnmScriptHandle* handle);
-__declspec(noinline) void __cdecl RecoveryMarkText(void* manager, AnmTextVm* vm, ...);
-__declspec(noinline) void* __fastcall RecoverySetFlag(AnmLookupContext* context, int id);
+__declspec(noinline) AnmTextVm* __cdecl AnmHandle_Validate(AnmScriptHandle* handle);
+__declspec(noinline) void __cdecl EndingScript_MarkText(void* manager, AnmTextVm* vm, ...);
+__declspec(noinline) void* __fastcall AnmHandle_SetFlag(AnmLookupContext* context, int id);
 __declspec(noinline) char* __stdcall LoadAsset(AssetBuffer* buffer, const char* name);
 // The owner pointer is reassigned by init/teardown paths and the key-state
 // masks by the window procedure and the input recorder; retail re-reads them
@@ -20,7 +21,7 @@ __declspec(noinline) char* __stdcall LoadAsset(AssetBuffer* buffer, const char* 
 // intact while matching the retail reloads.
 extern "C" EndingOwner* g_ending;
 #define OWNER (*(EndingOwner* const volatile*)&g_ending)
-extern "C" GameThread6* g_ascii_manager;
+extern "C" GameThreadResourceView* g_ascii_manager;
 
 
 // The key-state mask is written asynchronously by the window procedure and by
@@ -108,7 +109,7 @@ enum EndingInputMask {
     END_KEY_CONFIRM = 0x1001u
 };
 
-extern "C" __declspec(noinline) int __stdcall RecoveryScript_Execute2(EndingScriptState* state) {
+extern "C" __declspec(noinline) int __stdcall EndingScript_Execute(EndingScriptState* state) {
     void* output_records[3];
     const unsigned int flags = state->flags;
     if (flags & END_FLAG_ASYNC_BUSY)
@@ -126,20 +127,20 @@ extern "C" __declspec(noinline) int __stdcall RecoveryScript_Execute2(EndingScri
             if (state->text_ring_position == 0) {
                 for (int i = 0; i < 5; ++i) {
                     AnmTextVm* object = ValidateInPlace(&state->text_handles[i]);
-                    RecoveryMarkText(g_sprt_ctrl, object, 0xFFFFFFu, recovery_script_empty_text);
+                    EndingScript_MarkText(g_sprt_ctrl, object, 0xFFFFFFu, recovery_script_empty_text);
                     state->text_handles[i].StopAtFrame3();
                 }
                 AnmTextVm* object = ValidateInPlace(&state->text_handles[0]);
-                const char* text = RecoveryDecodePath(reinterpret_cast<const unsigned char*>(state->command) + 4);
-                RecoveryMarkText(g_sprt_ctrl, object, state->color, text);
+                const char* text = EndingScript_DecodePath(reinterpret_cast<const unsigned char*>(state->command) + 4);
+                EndingScript_MarkText(g_sprt_ctrl, object, state->color, text);
                 state->text_handles[0].StopAtFrame2();
                 ++state->text_ring_position;
             } else {
                 // One expression: retail validates the handle between the color
                 // push and the manager load.
-                RecoveryMarkText(g_sprt_ctrl,
-                    RecoveryValidateHandle(&state->text_handles[state->text_ring_position]),
-                    state->color, RecoveryDecodePath(reinterpret_cast<const unsigned char*>(command) + 4));
+                EndingScript_MarkText(g_sprt_ctrl,
+                    AnmHandle_Validate(&state->text_handles[state->text_ring_position]),
+                    state->color, EndingScript_DecodePath(reinterpret_cast<const unsigned char*>(command) + 4));
                 state->text_handles[state->text_ring_position].StopAtFrame2();
                 ++state->text_ring_position;
                 if (state->text_ring_position >= 5)
@@ -191,7 +192,7 @@ extern "C" __declspec(noinline) int __stdcall RecoveryScript_Execute2(EndingScri
             break;
         case END_OP_LOAD_RESOURCE_ASYNC:
             g_ascii_manager->EnsureAnimationResource(480.0f, 392.0f);
-            reinterpret_cast<AnimationManager13*>(g_sprt_ctrl)->ClearResourceSlot(state->command->arguments[0] + 29);
+            reinterpret_cast<AnmSlotManager*>(g_sprt_ctrl)->ClearResourceSlot(state->command->arguments[0] + 29);
             state->flags |= END_FLAG_ASYNC_BUSY;
             state->background_data = reinterpret_cast<const unsigned char*>(state->command) + 8;
             state->worker.Start(state, recovery_background_thread);
@@ -200,7 +201,7 @@ extern "C" __declspec(noinline) int __stdcall RecoveryScript_Execute2(EndingScri
         case END_OP_CREATE_SPRITE: {
             void* record;
             unsigned int* handle = &state->animation_handles[command->arguments[0]];
-            RecoverySetFlag(reinterpret_cast<AnmLookupContext*>(g_sprt_ctrl), static_cast<int>(*handle));
+            AnmHandle_SetFlag(reinterpret_cast<AnmLookupContext*>(g_sprt_ctrl), static_cast<int>(*handle));
             *handle = 0;
             state->animation_handles[state->command->arguments[0]] =
                 reinterpret_cast<unsigned int>(*AnimationManager_CreatePrimaryBack(
@@ -238,7 +239,7 @@ extern "C" __declspec(noinline) int __stdcall RecoveryScript_Execute2(EndingScri
             break;
         case END_OP_LOAD_NEXT_SCRIPT: {
             for (int i = 0; i < 5; ++i) {
-                RecoverySetFlag(reinterpret_cast<AnmLookupContext*>(g_sprt_ctrl), static_cast<int>(state->text_handles[i].value));
+                AnmHandle_SetFlag(reinterpret_cast<AnmLookupContext*>(g_sprt_ctrl), static_cast<int>(state->text_handles[i].value));
                 state->text_handles[i].value = 0;
             }
             char* loaded = LoadAsset(reinterpret_cast<AssetBuffer*>(OWNER), reinterpret_cast<const char*>(state->command) + 4);
@@ -254,10 +255,10 @@ extern "C" __declspec(noinline) int __stdcall RecoveryScript_Execute2(EndingScri
             continue;
         }
         case END_OP_FADE_IN:
-            RecoveryAscii_Create(0x31, 0, static_cast<unsigned int>(command->arguments[0]), 0, 0, 0);
+            AsciiText_Create(0x31, 0, static_cast<unsigned int>(command->arguments[0]), 0, 0, 0);
             break;
         case END_OP_FADE_OUT:
-            RecoveryAscii_Create(0x31, 5, static_cast<unsigned int>(command->arguments[0]), 0, 0, 0);
+            AsciiText_Create(0x31, 5, static_cast<unsigned int>(command->arguments[0]), 0, 0, 0);
             break;
         }
         state->command = NextRecoveryCommand(state->command);

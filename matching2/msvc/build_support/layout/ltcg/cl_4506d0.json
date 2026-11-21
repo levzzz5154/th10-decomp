@@ -11,7 +11,7 @@
   "functions": [
     {
       "name": "Pop_004506d0",
-      "symbol": "?Pop@EclFrame4@@QAEHXZ",
+      "symbol": "?Pop@EclStackFrame@@QAEHXZ",
       "section": ".text$01fn",
       "address": "0x004506D0",
       "size": 41,
@@ -20,7 +20,7 @@
     }
   ],
   "context": {
-    "symbol": "?EclFramePopContext_004506d0@@YGHPAUEclFrame4@@H@Z",
+    "symbol": "?EclFramePopContext_004506d0@@YGHPAUEclStackFrame@@H@Z",
     "section": ".text$03context",
     "address": "0x00450700",
     "size": 43,

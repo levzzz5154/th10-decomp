@@ -1,4 +1,5 @@
-#include "script_vm.hpp"
+// 0x00450500: ScriptTable2::CreateVm
+#include "th10/script/script_vm.hpp"
 void* __cdecl operator new(unsigned int size);
 extern "C" const unsigned int g_enemy_vtable_released[];
 inline ScriptVm::ScriptVm()

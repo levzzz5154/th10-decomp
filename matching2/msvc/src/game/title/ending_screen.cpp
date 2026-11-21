@@ -50,8 +50,8 @@ int __stdcall EndingScreen_Update2(Title* room) {
         if (reinterpret_cast<AnmLookup*>(g_sprt_ctrl)->Find(
                 reinterpret_cast<AnmLookupContext*>(g_sprt_ctrl),
                 room->animation_slots[88]) == 0) {
-            RecoveryMusicInstallSlot(room, 88);
-            RecoveryMusicInstallSlot(room, 90);
+            Title_InstallAnimationSlot(room, 88);
+            Title_InstallAnimationSlot(room, 90);
             void* handle;
             void** result = AnimationManager_CreatePrimaryBack(
                 reinterpret_cast<void*>(room->reserved_018), &handle, 0, 15);
@@ -70,7 +70,7 @@ int __stdcall EndingScreen_Update2(Title* room) {
             room->SetSlotFrame(90, 6);
             room->SetTimerTarget(OPENING_PHASE_FADE_OUT);
             g_sound_manager.Queue(OPENING_SFX_START, 0);
-            RecoveryMusicStopHandle(
+            Title_StopAnimationHandle(
                 reinterpret_cast<AnmScriptHandle*>(&room->reserved_684));
         }
         break;

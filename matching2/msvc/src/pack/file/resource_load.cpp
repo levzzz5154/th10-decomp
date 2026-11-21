@@ -7,7 +7,7 @@ struct ResourcePath { char text[1]; __declspec(noinline) unsigned char* Load(uns
 extern "C" char* __cdecl FirstByteSearch(const char*, int);
 extern "C" const char* g_resource_archive_path;
 #pragma code_seg(".text$09load")
-__declspec(noinline) unsigned char* __stdcall ResourceLoadRetail(const char* path, unsigned char* output) {
+__declspec(noinline) unsigned char* __stdcall Resource_LoadFromArchive(const char* path, unsigned char* output) {
     DatArchive* archive = (DatArchive*)((const ArchiveName*)path)->Find();
     if (archive) {
         const char* slash = FirstByteSearch(path, '/');

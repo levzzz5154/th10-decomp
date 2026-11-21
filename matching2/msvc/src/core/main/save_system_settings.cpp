@@ -1,6 +1,7 @@
+// 0x004392E0: SystemSettings_Save
 #include "th10/source_views/window_exact_0.hpp"
 #include "th10/source_views/window_exact_1.hpp"
-int __stdcall SaveSystemSettingsRetail2() {
+int __stdcall SystemSettings_Save() {
     SystemParametersInfoA(0x10, 0, &g_screen_saver_active, 0);
     SystemParametersInfoA(0x53, 0, &g_screen_saver_timeout, 0);
     SystemParametersInfoA(0x54, 0, &g_monitor_power_off, 0);

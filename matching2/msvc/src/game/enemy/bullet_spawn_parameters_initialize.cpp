@@ -1,3 +1,4 @@
+// 0x0040CF40: BulletSpawnParameters_Initialize
 #include "th10/source_views/bullet_99a1d5_0.hpp"
 #include "th10/source_views/bullet_99a1d5_1.hpp"
 #include "th10/source_views/bullet_99a1d5_2.hpp"

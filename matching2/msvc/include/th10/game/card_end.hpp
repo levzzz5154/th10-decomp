@@ -78,7 +78,7 @@ struct CardScoreFile {
 typedef char CardShotScoresSize[sizeof(CardShotScores) == 0x437C ? 1 : -1];
 
 // The spell card state at 0x004776F4.
-struct Card5 {
+struct CardEndView {
     unsigned char reserved_0000[0x768];
     AnimationHandle effects[3];    // +0x768
     CardAnimation2 name;      // +0x774, the name banner
@@ -89,7 +89,7 @@ struct Card5 {
 
     __declspec(noinline) void End();
 };
-typedef char CardFlagsOffset[offsetof(Card5, flags) == 0x378C ? 1 : -1];
+typedef char CardFlagsOffset[offsetof(CardEndView, flags) == 0x378C ? 1 : -1];
 
 extern "C" {
 extern CardInterface* g_background;

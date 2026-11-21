@@ -10,7 +10,7 @@
     "include/th10/platform/worker.hpp",
     "include/th10/platform/sound_wave_types.hpp",
     "include/th10/game/title_asset_workers.hpp",
-    "include/th10/archive/native_read/archive.hpp",
+    "include/th10/archive/read/archive.hpp",
     "include/th10/archive/dat_archive_types.hpp",
     "include/th10/platform/file.hpp",
     "include/th10/platform/windows_types.hpp",
@@ -354,7 +354,7 @@
       "kind": "data"
     },
     {
-      "symbol": "@Recovery_LoadCachedResource@12",
+      "symbol": "@SprtCtrl_LoadCachedResource@12",
       "address": "0x447280",
       "kind": "relative_code"
     },

@@ -1,3 +1,4 @@
+// 0x0043B8D0..0x0043BA90: GameInputSystem::InitializeDevices, Input_InitThread
 #include "th10/platform/native_game_input.hpp"
 #include "th10/platform/text_log.hpp"
 extern "C" TextLog g_log;

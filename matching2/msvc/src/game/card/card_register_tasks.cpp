@@ -1,3 +1,4 @@
+// 0x004089C0: CardTasks::InitializeTasks
 #include "th10/game/card_tasks.hpp"
 
 extern "C" void _ReadWriteBarrier(void);

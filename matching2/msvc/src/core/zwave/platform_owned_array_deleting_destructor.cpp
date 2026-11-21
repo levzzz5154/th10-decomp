@@ -1,3 +1,4 @@
+// 0x0044CF00..0x0044D710: PlatformOwnedArray_DeletingDestructor, Platform_ReleaseOwnedArray, SoundBuffer_DeletingDestructor
 #include "th10/source_views/recovery_leaves_f39a06_0.hpp"
 #include "th10/source_views/recovery_leaves_f39a06_1.hpp"
 #include "th10/source_views/recovery_leaves_f39a06_2.hpp"
@@ -60,7 +61,7 @@ void __fastcall Platform_ReleaseOwnedArray(PlatformOwnedArray* owner) {
 #include "th10/source_views/recovery_leaves_f39a06_8.hpp"
 void* __fastcall SoundBuffer_DeletingDestructor(SoundBuffer* sound_buffer, unsigned int unused,
                                                 unsigned int flags) {
-    SoundBuffer_DestructBaseRetail(sound_buffer);
+    SoundBuffer_DestructBase(sound_buffer);
     if (flags & 1)
         operator delete(sound_buffer);
     return sound_buffer;

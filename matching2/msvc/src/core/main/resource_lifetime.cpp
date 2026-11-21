@@ -1,3 +1,4 @@
+// 0x00436660..0x004366C0: ResourceFile::~ResourceFile (deleting), ResourceFile::~ResourceFile, ResourceFile::Open
 #include "th10/platform/memory_file.hpp"
 #include "th10/platform/buffer_file_lifetime.inl"
 

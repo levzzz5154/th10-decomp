@@ -79,7 +79,7 @@
     },
     {
       "name": "Configure",
-      "symbol": "?ConfigureObject@Resource2@@QAEHPAUAnimationObject3@@H@Z",
+      "symbol": "?ConfigureObject@Resource2@@QAEHPAUSpriteDimensionsView@@H@Z",
       "section": ".text$a06configure",
       "address": "0x43e5a0",
       "size": 356

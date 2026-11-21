@@ -4,7 +4,7 @@
   "source": "src/pack/arcmngr/dat_archive_load_index.cpp",
   "driver": "build_support/layout/ltcg/archive_index_00434f70_context.cpp",
   "headers": [
-    "include/th10/archive/index/archive.hpp",
+    "include/th10/archive/read/archive.hpp",
     "include/th10/archive/index/parser.hpp",
     "build_support/layout/ltcg/archive_index/log.hpp",
     "include/th10/archive/dat_archive_types.hpp",

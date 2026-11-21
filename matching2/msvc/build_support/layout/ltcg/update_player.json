@@ -77,7 +77,7 @@
     },
     {
       "name": "EnemyReleaseOnDeath",
-      "symbol": "?Enemy_ReleaseOnDeath@@YGHPAUEnemy6@@@Z",
+      "symbol": "?Enemy_ReleaseOnDeath@@YGHPAUEnemyDeathView@@@Z",
       "section": ".text$079k_death",
       "address": "0x40e5f0",
       "size": 162,
@@ -104,7 +104,7 @@
     },
     {
       "name": "ScoreEvaluate",
-      "symbol": "?CopyVectorAndEvaluate@LaserManager3@@QAEHPBMMH@Z",
+      "symbol": "?CopyVectorAndEvaluate@LaserScoreManagerView@@QAEHPBMMH@Z",
       "address": "0x41c800",
       "size": 76,
       "section": ".text$090score"

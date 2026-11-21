@@ -93,7 +93,7 @@ __declspec(noinline) int __stdcall TitleMode12(Title* room) {
         UpdateBoundedCounter(g_title_replay_selection, reinterpret_cast<unsigned int*>(&room->cursor));
         g_title_replay_selection = 0;
         EnsureTitleMenuBackdrop(room, handle);
-        RecoveryMusicInstallSlot(room, 101);
+        Title_InstallAnimationSlot(room, 101);
         room->SetTimerTarget(RSEL_PHASE_WAIT_OPEN);
         memset(room->replay_list.files, 0, sizeof(room->replay_list.files));
         for (int number = 1; number <= RSEL_NUMBERED_SLOTS; ++number) {
@@ -172,7 +172,7 @@ __declspec(noinline) int __stdcall TitleMode12(Title* room) {
         break;
     case RSEL_PHASE_LAUNCH_REPLAY:
         if (room->timer.current == 2) {
-            RecoveryAscii_Create(0x2b, 5, 0x20, 0, 0, 0);
+            AsciiText_Create(0x2b, 5, 0x20, 0, 0, 0);
             g_ascii_manager->EnsureAnimationResource(480.0f, 392.0f);
         }
         if (room->timer.current >= 32) {
@@ -206,7 +206,7 @@ __declspec(noinline) int __stdcall TitleMode12(Title* room) {
             room->SetSlotFrame(0x5a, 8);
             room->SetSlotFrame(0x5b, 8);
             room->ClearAnimationSlot(94);
-            RecoveryMusicStopHandle(&room->fallback_handle);
+            Title_StopAnimationHandle(&room->fallback_handle);
             room->DisableTimerWithOwner(RSEL_TARGET_MAIN_MENU);
             PopSelection2(room->cursor);
         }

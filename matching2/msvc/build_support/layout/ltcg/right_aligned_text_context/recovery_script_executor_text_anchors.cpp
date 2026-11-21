@@ -2,12 +2,12 @@
 // The native MSVC LTCG build determines the helpers' private register inputs.
 
 #include <stdarg.h>
-#include "th10/game/hint_text/recovery_mark_text_and_dispatcher.hpp"
+#include "th10/game/hint_text/text_dispatcher.hpp"
 
 extern "C" unsigned char recovery_decoded_path_00497d40[];
 
 #pragma code_seg(".text$00417010_fn")
-char* __stdcall RecoveryDecodePath(const unsigned char* encoded) {
+char* __stdcall EndingScript_DecodePath(const unsigned char* encoded) {
     unsigned char* output = recovery_decoded_path_00497d40;
     unsigned char key = 0x77;
     unsigned char increment = 7;

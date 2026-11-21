@@ -1,3 +1,4 @@
+// 0x00437D10: DeleteFontCacheObjects2
 struct GdiSurface2;
 extern "C" GdiSurface2 g_font_atlas_surface;
 bool __stdcall ReleaseSurface2(GdiSurface2* surface);

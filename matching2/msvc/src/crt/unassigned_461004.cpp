@@ -1,4 +1,4 @@
-extern "C" unsigned int __cdecl asm_unassigned_00461004(unsigned int status) {
+extern "C" unsigned int __cdecl crt_libcmt_ieee87_abstract_sw(unsigned int status) {
     unsigned char flags = static_cast<unsigned char>(status);
     unsigned int result = 0;
     if (flags & 1) result = 0x10;

@@ -1,5 +1,5 @@
 // 0x0043A1C0: checksum the executable, excluding its final complete dword.
-#include "th10/archive/native_read/archive.hpp"
+#include "th10/archive/read/archive.hpp"
 #include "th10/platform/archive_file.hpp"
 extern "C" unsigned long (__stdcall *imp_GetModuleFileNameA)(void*, char*, unsigned long);
 extern "C" void __cdecl crt_free(void*);

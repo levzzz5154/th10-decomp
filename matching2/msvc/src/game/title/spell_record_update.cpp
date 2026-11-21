@@ -101,19 +101,19 @@ __declspec(noinline) int __stdcall TitleMode11(Title* room) {
         MenuCursor* page = &records->page;
         page->wrap = 1;
         EnsureTitleMenuBackdrop(room, handle);
-        RecoveryMusicInstallSlot(room, 102);
+        Title_InstallAnimationSlot(room, 102);
         room->SetTimerTarget(SPELL_PHASE_WAIT_OPEN);
-        RecoveryMusicInstallSlot(room, room->cursor.selection / 3 + 152);
-        RecoveryMusicInstallSlot(room, room->cursor.selection + 154);
-        RecoveryMusicInstallSlot(room, records->difficulty.selection + 160);
-        RecoveryMusicInstallSlot(room, 168);
-        RecoveryMusicInstallSlot(room, 169);
-        RecoveryMusicInstallSlot(room, 170);
-        RecoveryMusicInstallSlot(room, 171);
-        RecoveryMusicInstallSlot(room, 165);
-        RecoveryMusicInstallSlot(room, 166);
-        RecoveryMusicInstallSlot(room, 167);
-        RecoveryMusicInstallSlot(room, 172);
+        Title_InstallAnimationSlot(room, room->cursor.selection / 3 + 152);
+        Title_InstallAnimationSlot(room, room->cursor.selection + 154);
+        Title_InstallAnimationSlot(room, records->difficulty.selection + 160);
+        Title_InstallAnimationSlot(room, 168);
+        Title_InstallAnimationSlot(room, 169);
+        Title_InstallAnimationSlot(room, 170);
+        Title_InstallAnimationSlot(room, 171);
+        Title_InstallAnimationSlot(room, 165);
+        Title_InstallAnimationSlot(room, 166);
+        Title_InstallAnimationSlot(room, 167);
+        Title_InstallAnimationSlot(room, 172);
     }
     case SPELL_PHASE_WAIT_OPEN:
         if (room->timer.current > 6)
@@ -139,7 +139,7 @@ __declspec(noinline) int __stdcall TitleMode11(Title* room) {
         if (difficulty->previous_selection != difficulty->selection) {
             g_sound_manager.Queue(SPELL_SFX_MOVE, 0);
             room->ClearAnimationSlot(records->difficulty.previous_selection + 160);
-            RecoveryMusicInstallSlot(room, difficulty->selection + 160);
+            Title_InstallAnimationSlot(room, difficulty->selection + 160);
             if (records->page.selection > 0) {
                 SelectItem10(records->page, 1);
                 reinterpret_cast<TitleDrawView*>(room)->BuildSpellList();
@@ -162,10 +162,10 @@ __declspec(noinline) int __stdcall TitleMode11(Title* room) {
             g_sound_manager.Queue(SPELL_SFX_MOVE, 0);
             if (room->cursor.selection / 3 != room->cursor.previous_selection / 3) {
                 room->ClearAnimationSlot(room->cursor.previous_selection / 3 + 152);
-                RecoveryMusicInstallSlot(room, room->cursor.selection / 3 + 152);
+                Title_InstallAnimationSlot(room, room->cursor.selection / 3 + 152);
             }
             room->ClearAnimationSlot(room->cursor.previous_selection + 154);
-            RecoveryMusicInstallSlot(room, room->cursor.selection + 154);
+            Title_InstallAnimationSlot(room, room->cursor.selection + 154);
             if (records->page.selection > 0)
                 reinterpret_cast<TitleDrawView*>(room)->BuildSpellList();
         }
@@ -183,7 +183,7 @@ __declspec(noinline) int __stdcall TitleMode11(Title* room) {
             page->Advance(1);
             if (page->selection == 0) {
                 for (int line = 0; line < SPELL_LINES_PER_PAGE; ++line)
-                    RecoveryMusicStopHandle(&records->lines[line]);
+                    Title_StopAnimationHandle(&records->lines[line]);
             } else {
                 reinterpret_cast<TitleDrawView*>(room)->BuildSpellList();
             }
@@ -247,7 +247,7 @@ __declspec(noinline) int __stdcall TitleMode11(Title* room) {
             room->SetSlotFrame(90, 8);
             room->SetSlotFrame(91, 8);
             room->ClearAnimationSlot(94);
-            RecoveryMusicStopHandle(&room->fallback_handle);
+            Title_StopAnimationHandle(&room->fallback_handle);
             room->DisableTimerWithOwner(SPELL_TARGET_MAIN_MENU);
             room->cursor.PopSelection();
         }

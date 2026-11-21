@@ -92,28 +92,28 @@ __declspec(noinline) int __stdcall TitleMode8(Title* room) {
                 DisableItem4(room->cursor, 2);
             }
         }
-        RecoveryMusicInstallSlot(room, 100);
+        Title_InstallAnimationSlot(room, 100);
         room->ClearAnimationSlot(g_globals_character + 150);
-        RecoveryMusicInstallSlot(room, g_globals_character + 150);
+        Title_InstallAnimationSlot(room, g_globals_character + 150);
         AnimationManager_SetStopFrameAndRun(
             3, reinterpret_cast<AnmLookupContext*>(g_sprt_ctrl),
             room->animation_slots[g_globals_character + 150]);
         room->SetSlotFrame(g_globals_character + 150, room->cursor.selection + 0x11);
         room->SetTimerTarget(SHOT_PHASE_WAIT_OPEN);
         if (g_score->shots[g_globals_character][0].clears[g_globals_difficulty] == 0) {
-            AnimationRef2 child = reinterpret_cast<AnimationHandle15*>(
+            AnimationRef2 child = reinterpret_cast<ChildLookupAnmHandle*>(
                 &room->animation_slots[g_globals_character + 150])->FindChildRef(g_globals_character * 3 + 0x8a);
-            reinterpret_cast<AnimationHandle12*>(&child)->ClearFlag();
+            reinterpret_cast<ClearFlagAnmHandle*>(&child)->ClearFlag();
         }
         if (g_score->shots[g_globals_character][1].clears[g_globals_difficulty] == 0) {
-            AnimationRef2 child = reinterpret_cast<AnimationHandle15*>(
+            AnimationRef2 child = reinterpret_cast<ChildLookupAnmHandle*>(
                 &room->animation_slots[g_globals_character + 150])->FindChildRef(g_globals_character * 3 + 0x8b);
-            reinterpret_cast<AnimationHandle12*>(&child)->ClearFlag();
+            reinterpret_cast<ClearFlagAnmHandle*>(&child)->ClearFlag();
         }
         if (g_score->shots[g_globals_character][2].clears[g_globals_difficulty] == 0) {
-            AnimationRef2 child = reinterpret_cast<AnimationHandle15*>(
+            AnimationRef2 child = reinterpret_cast<ChildLookupAnmHandle*>(
                 &room->animation_slots[g_globals_character + 150])->FindChildRef(g_globals_character * 3 + 0x8c);
-            reinterpret_cast<AnimationHandle12*>(&child)->ClearFlag();
+            reinterpret_cast<ClearFlagAnmHandle*>(&child)->ClearFlag();
         }
     case SHOT_PHASE_WAIT_OPEN:
         if (room->timer.current > 6)
@@ -135,10 +135,10 @@ __declspec(noinline) int __stdcall TitleMode8(Title* room) {
         } else if (g_input_keys_held & SHOT_KEY_CONFIRM) {
             room->SetTimerTarget(SHOT_PHASE_CONFIRM_LEAVE);
             g_sound_manager.Queue(SHOT_SFX_CONFIRM, 0);
-            AnimationRef2 child = reinterpret_cast<AnimationHandle15*>(
+            AnimationRef2 child = reinterpret_cast<ChildLookupAnmHandle*>(
                 &room->animation_slots[g_globals_character + 150])->FindChildRef(
                     cursor->selection + (g_globals_character * 3 + 0x3f) * 2);
-            reinterpret_cast<AnimationHandle11*>(&child)->SetStopFrame(6);
+            reinterpret_cast<StopFrameAnmHandle*>(&child)->SetStopFrame(6);
         }
         break;
     }
@@ -146,7 +146,7 @@ __declspec(noinline) int __stdcall TitleMode8(Title* room) {
         if (room->timer.current == 10) {
             if ((g_globals_flags & SHOT_GLOBAL_FLAG_PRACTICE) == 0) {
                 g_ascii_manager->EnsureAnimationResource(480.0f, 392.0f);
-                RecoveryAscii_Create(0x2b, 5, 0x20, 0, 0, 0);
+                AsciiText_Create(0x2b, 5, 0x20, 0, 0, 0);
             } else {
                 g_globals_shot_type = room->cursor.selection;
                 room->cursor.PushSelection();

@@ -83,9 +83,9 @@ __declspec(noinline) int __stdcall TitleMode7(Title* room) {
                 DisableItem3(room->cursor, CHAR_MARISA);
             }
         }
-        RecoveryMusicInstallSlot(room, 99);
+        Title_InstallAnimationSlot(room, 99);
         room->ClearAnimationSlot(125);
-        RecoveryMusicInstallSlot(room, 125);
+        Title_InstallAnimationSlot(room, 125);
         AnimationManager_SetStopFrameAndRun(
             3, reinterpret_cast<AnmLookupContext*>(g_sprt_ctrl),
             room->animation_slots[125]);
@@ -109,23 +109,23 @@ __declspec(noinline) int __stdcall TitleMode7(Title* room) {
             room->SetTimerTarget(CHAR_PHASE_CANCEL_LEAVE);
             g_sound_manager.Queue(CHAR_SFX_CANCEL, 0);
         } else if (g_input_keys_held & CHAR_KEY_CONFIRM) {
-            AnimationHandle15* handle =
-                reinterpret_cast<AnimationHandle15*>(&room->animation_slots[125]);
+            ChildLookupAnmHandle* handle =
+                reinterpret_cast<ChildLookupAnmHandle*>(&room->animation_slots[125]);
             {
                 AnimationRef2 child = handle->FindChildRef(cursor->selection + 0x79);
-                reinterpret_cast<AnimationHandle11*>(&child)->SetStopFrame(6);
+                reinterpret_cast<StopFrameAnmHandle*>(&child)->SetStopFrame(6);
             }
             {
                 AnimationRef2 child = handle->FindChildRef(room->cursor.selection + 0x7b);
-                reinterpret_cast<AnimationHandle11*>(&child)->SetStopFrame(6);
+                reinterpret_cast<StopFrameAnmHandle*>(&child)->SetStopFrame(6);
             }
             {
                 AnimationRef2 child = handle->FindChildRef(0x7a - room->cursor.selection);
-                reinterpret_cast<AnimationHandle11*>(&child)->SetStopFrame(1);
+                reinterpret_cast<StopFrameAnmHandle*>(&child)->SetStopFrame(1);
             }
             {
                 AnimationRef2 child = handle->FindChildRef(0x7c - room->cursor.selection);
-                reinterpret_cast<AnimationHandle11*>(&child)->SetStopFrame(1);
+                reinterpret_cast<StopFrameAnmHandle*>(&child)->SetStopFrame(1);
             }
             g_sound_manager.Queue(CHAR_SFX_CONFIRM, 0);
             room->SetTimerTarget(CHAR_PHASE_CONFIRM_LEAVE);

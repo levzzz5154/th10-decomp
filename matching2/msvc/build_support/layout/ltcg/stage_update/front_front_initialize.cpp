@@ -69,12 +69,12 @@ void FrontInitializeView::Initialize() {
     int whole = g_globals.power_units / 20;
     int fraction = (g_globals.power_units % 20) * 100 / 20;
     reinterpret_cast<Resource2 *>(captions)->ConfigureObject(
-        reinterpret_cast<AnimationObject3 *>(&animations[29]), whole + 8);
+        reinterpret_cast<SpriteDimensionsView *>(&animations[29]), whole + 8);
     int digit = fraction % 10;
     reinterpret_cast<Resource2 *>(captions)->ConfigureObject(
-        reinterpret_cast<AnimationObject3 *>(&animations[31]), fraction / 10 + 8);
+        reinterpret_cast<SpriteDimensionsView *>(&animations[31]), fraction / 10 + 8);
     reinterpret_cast<Resource2 *>(captions)->ConfigureObject(
-        reinterpret_cast<AnimationObject3 *>(&animations[32]), digit + 8);
+        reinterpret_cast<SpriteDimensionsView *>(&animations[32]), digit + 8);
     if (g_main_state != 8) {
         if (!(g_globals.flags.bytes[0] & 0x20)) {
             Entity *object = AllocateFrontObject(alternate_resource, 0);

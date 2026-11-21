@@ -31,7 +31,7 @@ struct StageFile {
     short object_count;
 };
 
-struct Stage2 {
+struct StageUpdateView {
     unsigned char reserved_0000[8];
     StageTask* update_task;            // +0x08
     StageTask* draw_task;              // +0x0c
@@ -49,7 +49,7 @@ struct Stage2 {
 };
 
 #pragma code_seg(".text$00m_stage")
-__declspec(noinline) void __stdcall Stage_StartQuadScripts(Stage2* stage) {
+__declspec(noinline) void __stdcall Stage_StartQuadScripts(StageUpdateView* stage) {
     stage->update_task->flags |= 2;
     stage->draw_task->flags |= 2;
     stage->after_draw_task->flags |= 2;

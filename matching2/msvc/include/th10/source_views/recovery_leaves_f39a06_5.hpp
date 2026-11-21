@@ -4,7 +4,7 @@
 // 0x0042ADD0: maintained in src/game/score/score_settings_initialize_defaults.cpp.
 
 
-// 0x00447280..0x004472D1: Recovery_LoadCachedResource
+// 0x00447280..0x004472D1: SprtCtrl_LoadCachedResource
 // Return the resource cached for the given index, loading it through 0x004470C0
 // when the slot is still empty. The load runs on a worker thread: the entry is
 // flagged busy (+0x124) and this side waits a millisecond at a time until the

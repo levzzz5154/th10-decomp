@@ -24,7 +24,7 @@ struct BulletManager4 {
 };
 
 extern "C" {
-void *__fastcall Recovery_LoadCachedResource(int id, void *cache, const char *name);
+void *__fastcall SprtCtrl_LoadCachedResource(int id, void *cache, const char *name);
 SchedulerTask *__stdcall SchedulerTask_Create(void *callback);
 int __fastcall BulletManagerUpdate(void *manager);
 int __fastcall BulletManagerDraw(void *manager);
@@ -35,7 +35,7 @@ extern FuncCtrl *g_func_ctrl;
 #pragma code_seg(".text$00_b_init")
 extern "C" __declspec(noinline) int __stdcall
 BulletManager_Initialize(BulletManager4 *manager) {
-    manager->bullet_resource = Recovery_LoadCachedResource(
+    manager->bullet_resource = SprtCtrl_LoadCachedResource(
             7, g_sprt_ctrl, "bullet.anm");
     if (!manager->bullet_resource) {
         ((TextLog *)0x474F70)->Append((char *)0x46CD54);

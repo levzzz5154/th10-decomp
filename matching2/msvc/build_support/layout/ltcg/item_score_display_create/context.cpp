@@ -35,7 +35,7 @@ ItemScoreDisplay::ItemScoreDisplay(void* script) {
 extern "C" void __stdcall ScoreDisplayStandIn_Publish(int* next_stage);
 
 #pragma code_seg(".text$01c_context")
-int __stdcall ItemScoreDisplayCompilerContext(ItemManager2** managers, int* stages, int count) {
+int __stdcall ItemScoreDisplayCompilerContext(ItemScoreManagerView** managers, int* stages, int count) {
     ScoreDisplayStandIn_Publish(&g_stage_progress);
     for (int i = 0; i < count; ++i)
         managers[i]->CreateScoreDisplay(stages[i]);

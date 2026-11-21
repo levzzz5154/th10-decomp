@@ -1,3 +1,4 @@
+// 0x00406160..0x004061D0: PlayfieldPoint::OutsidePlayfield, PlayfieldPoint::OutsidePlayfieldInclusive
 #include "th10/source_views/entity_cacea2_0.hpp"
 int32_t PlayfieldPoint::OutsidePlayfield(float width, float height) const {
     float half_width = width * 0.5f;

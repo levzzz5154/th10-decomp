@@ -6,7 +6,7 @@
 #include "th10/game/card_destructor.hpp"
 
 #pragma code_seg(".text$01a_dtor")
-Card2::~Card2() {
+CardDestructorView::~CardDestructorView() {
     AnimationLookupContext* animations = g_sprt_ctrl;
     effects[0].Release(animations);
     effects[1].Release(animations);

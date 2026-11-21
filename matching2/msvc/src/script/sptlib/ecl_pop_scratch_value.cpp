@@ -4,7 +4,7 @@
 #include "th10/script/ecl_frame.hpp"
 
 #pragma code_seg(".text$01fn")
-int EclFrame4::Pop() {
+int EclStackFrame::Pop() {
     int base = frame_base;
     if (sp - (int)sizeof(int) >= 0) {
         sp -= sizeof(int);

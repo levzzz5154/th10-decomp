@@ -65,14 +65,14 @@ static __forceinline void ManagerCreateStandIn_Unregister(ManagerCreateStandInTa
 // removals keep every callee-saved register busy, so the receiver stays on
 // the stack.
 #pragma code_seg(".text$01ctor")
-Card3::Card3() {
+CardConstructView::CardConstructView() {
     ManagerCreateStandIn_Unregister(reinterpret_cast<ManagerCreateStandInTasks*>(this));
     ManagerCreateStandIn_MayThrow(0);
 }
 
 // The task in ESI and its priority in EDI leave EBX to the receiver.
 #pragma code_seg(".text$02init")
-int Card3::Initialize() {
+int CardConstructView::Initialize() {
     ManagerCreateStandInTasks* tasks = reinterpret_cast<ManagerCreateStandInTasks*>(this);
     SchedulerTask* update = ManagerCreateStandIn_Task(tail);
     update->reserved_flags &= ~1u;
@@ -88,7 +88,7 @@ int Card3::Initialize() {
 }
 
 #pragma code_seg(".text$03dtor")
-Card3::~Card3() {
+CardConstructView::~CardConstructView() {
     ManagerCreateStandIn_Unregister(reinterpret_cast<ManagerCreateStandInTasks*>(this));
 }
 

@@ -60,7 +60,7 @@
     },
     {
       "name": "RegisterResource",
-      "symbol": "?RegisterResource@AnimationManager9@@QAEPADPBDHH@Z",
+      "symbol": "?RegisterResource@AnmResourceRegistrar@@QAEPADPBDHH@Z",
       "section": ".text$13register",
       "address": "0x0043E460",
       "size": 104
@@ -198,7 +198,7 @@
       "kind": "relative_code"
     },
     {
-      "symbol": "@Recovery_LoadCachedResource@12",
+      "symbol": "@SprtCtrl_LoadCachedResource@12",
       "address": "0x00447280",
       "kind": "relative_code"
     },
@@ -538,7 +538,7 @@
       "kind": "relative_code"
     },
     {
-      "symbol": "?Recovery_ReleaseGlobalStates@@YGXXZ",
+      "symbol": "?Supervisor_ReleaseGlobalStates@@YGXXZ",
       "address": "0x004203F0",
       "kind": "relative_code"
     },

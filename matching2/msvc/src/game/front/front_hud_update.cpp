@@ -112,15 +112,20 @@ __forceinline void FlagStopFrame(unsigned int handle, unsigned short frame) {
     }
 }
 
+struct AnimationTreeFlagsView {
+    unsigned char pad_000[0x35C];
+    unsigned int flags;
+};
+
 // Flag one animation tree (and its unflagged children) for removal.
 __forceinline void FlagTreeFlags(unsigned int handle) {
     AnimationTreeNode* node = FindTree(handle);
     if (node != 0) {
-        *(unsigned int*)((char*)node + 0x35C) |= FRONT_ANM_REMOVE;
+        reinterpret_cast<AnimationTreeFlagsView*>(node)->flags |= FRONT_ANM_REMOVE;
         if (!node->children_flagged) {
             for (AnimationTreeNode* child = node->children;
                  child != 0; child = child->next)
-                *(unsigned int*)((char*)child->object + 0x35C) |= FRONT_ANM_REMOVE;
+                reinterpret_cast<AnimationTreeFlagsView*>(child->object)->flags |= FRONT_ANM_REMOVE;
         }
     }
 }
@@ -222,7 +227,7 @@ __declspec(noinline) int __stdcall FrontHudUpdate(
             int digit = value / divisor;
             value = value % divisor;
             ((Resource2*)front->resource_9ec8)->ConfigureObject(
-                (AnimationObject3*)obj, digit + 0x1E);
+                (SpriteDimensionsView*)obj, digit + 0x1E);
             divisor = divisor / 10;
             AnmVm_Run(obj);
             obj += 1;
@@ -395,10 +400,10 @@ __declspec(noinline) int __stdcall FrontHudUpdate(
             }
             if (front->script_pos_9ec0 != front->script_marked_9ec4) {
                 ((Resource2*)front->resource_9ec8)->ConfigureObject(
-                    (AnimationObject3*)&front->objects[13],
+                    (SpriteDimensionsView*)&front->objects[13],
                     front->script_pos_9ec0 / 10 + 8);
                 ((Resource2*)front->resource_9ec8)->ConfigureObject(
-                    (AnimationObject3*)&front->objects[14],
+                    (SpriteDimensionsView*)&front->objects[14],
                     front->script_pos_9ec0 % 10 + 8);
             }
             front->script_marked_9ec4 = front->script_pos_9ec0;

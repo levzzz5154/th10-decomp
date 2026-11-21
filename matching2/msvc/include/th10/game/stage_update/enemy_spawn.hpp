@@ -12,10 +12,10 @@ struct EnemyVector {
 };
 
 // A link of the enemy manager's list.
-struct EnemyNode2 {
+struct EnemySpawnListNode {
     void* enemy;
-    EnemyNode2* next;
-    EnemyNode2* previous;
+    EnemySpawnListNode* next;
+    EnemySpawnListNode* previous;
 };
 
 struct EnemyFlags {
@@ -38,7 +38,7 @@ struct EnemyData {
     unsigned char reserved_00f4[8];
     int variables[8];                   // +0x00FC
     unsigned char reserved_011c[0x130 - 0x11C];
-    EnemyNode2 node;            // +0x0130
+    EnemySpawnListNode node;            // +0x0130
     unsigned char reserved_013c[0x13BC - 0x13C];
     int life;                           // +0x13BC
     int score;                          // +0x13C0
@@ -65,21 +65,21 @@ typedef char EnemyDataFlags[offsetof(EnemyData, flags) == 0x1444 ? 1 : -1];
 extern "C" void __stdcall EnemyData_Start(EnemyData* enemy);
 
 // The 0x2518-byte enemy record: script interpreter, then the enemy.
-struct Enemy4 {
+struct EnemySpawnView {
     unsigned char reserved_0000[0x1024];
     unsigned char difficulty_mask;      // +0x1024
     unsigned char reserved_1025[0x103C - 0x1025];
     EnemyData data;            // +0x103C
 
     // 0x0040D830: bind the record to the named script entry.
-    __forceinline Enemy4(const char* entry);
+    __forceinline EnemySpawnView(const char* entry);
 };
-typedef char EnemySize[sizeof(Enemy4) == 0x2518 ? 1 : -1];
+typedef char EnemySize[sizeof(EnemySpawnView) == 0x2518 ? 1 : -1];
 
 struct EnemyCtrlSpawnView {
     unsigned char reserved_00[0x58];
-    EnemyNode2* head;           // +0x58
-    EnemyNode2* tail;           // +0x5C
+    EnemySpawnListNode* head;           // +0x58
+    EnemySpawnListNode* tail;           // +0x5C
     int count;                          // +0x60
     int created;                        // +0x64
 };
@@ -96,7 +96,7 @@ struct EnemySpawn2 {
 
     // 0x0040CFB0: create an enemy running the named script entry and append
     // it to the manager's list.
-    __declspec(noinline) Enemy4* Create(EnemyCtrlSpawnView* manager, const char* entry);
+    __declspec(noinline) EnemySpawnView* Create(EnemyCtrlSpawnView* manager, const char* entry);
 };
 typedef char EnemySpawnSize[sizeof(EnemySpawn2) == 0x40 ? 1 : -1];
 
@@ -112,7 +112,7 @@ extern "C" RunState g_globals;
 struct EnemyScriptEntity;
 struct BindScriptName { const char* value; };
 __declspec(noinline) EnemyScriptEntity* __fastcall InitializeEnemyScriptEntity(int,EnemyScriptEntity*,BindScriptName);
-__forceinline Enemy4::Enemy4(const char* entry) {
+__forceinline EnemySpawnView::EnemySpawnView(const char* entry) {
     BindScriptName name={entry};
     InitializeEnemyScriptEntity(0,reinterpret_cast<EnemyScriptEntity*>(this),name);
 }

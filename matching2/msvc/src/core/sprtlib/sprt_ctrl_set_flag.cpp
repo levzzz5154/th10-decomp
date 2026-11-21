@@ -1,3 +1,4 @@
+// 0x004492A0: SprtCtrl::SetFlag
 #include "th10/source_views/animation_manager_12b25f_0.hpp"
 #include "th10/source_views/animation_manager_12b25f_1.hpp"
 void* __fastcall SprtCtrl::SetFlag(AnimationLookupContext* context, int id) {

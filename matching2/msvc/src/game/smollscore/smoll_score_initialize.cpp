@@ -39,7 +39,7 @@ int SmollScoreView::Initialize() {
     Resource2* sprite_resource = resource;
     Entity_Init(0, entity);
     entity->script_resource = sprite_resource;
-    sprite_resource->ConfigureObject(reinterpret_cast<AnimationObject3*>(entity), 0xC4);
+    sprite_resource->ConfigureObject(reinterpret_cast<SpriteDimensionsView*>(entity), 0xC4);
     return 0;
 }
 #pragma code_seg()

@@ -76,7 +76,7 @@ static __forceinline void ConfigureHundreds(
     LabelAnimation* label = FindLabel(manager, room, script);
     if (label == 0)
         return;
-    AnimationObject3* object = reinterpret_cast<AnimationObject3*>(label);
+    SpriteDimensionsView* object = reinterpret_cast<SpriteDimensionsView*>(label);
     object->resource->ConfigureObject(object, volume / 100 + font);
 }
 
@@ -86,7 +86,7 @@ static __forceinline void ConfigureTens(
     LabelAnimation* label = FindLabel(manager, room, script);
     if (label == 0)
         return;
-    AnimationObject3* object = reinterpret_cast<AnimationObject3*>(label);
+    SpriteDimensionsView* object = reinterpret_cast<SpriteDimensionsView*>(label);
     object->resource->ConfigureObject(object, volume / 10 % 10 + font);
 }
 
@@ -96,7 +96,7 @@ static __forceinline void ConfigureOnes(
     LabelAnimation* label = FindLabel(manager, room, script);
     if (label == 0)
         return;
-    AnimationObject3* object = reinterpret_cast<AnimationObject3*>(label);
+    SpriteDimensionsView* object = reinterpret_cast<SpriteDimensionsView*>(label);
     object->resource->ConfigureObject(object, volume % 10 + font);
 }
 
@@ -122,7 +122,7 @@ __declspec(noinline) void __stdcall RefreshOptions2(
 
     // The request queue records "bgm/th10_02.wav" for resource 8; the retail
     // form passes the queue in a register (EAX) and the name in EDX.
-    reinterpret_cast<AnimationManager9*>(&g_sound_manager)->RegisterResource(str_set_vol, 8, 0);
+    reinterpret_cast<AnmResourceRegistrar*>(&g_sound_manager)->RegisterResource(str_set_vol, 8, 0);
 
     int sound = g_key_bindings.sound_volume;
     g_options_sound_volume = sound;

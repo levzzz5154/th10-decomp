@@ -3,7 +3,7 @@
 
 #include <stddef.h>
 #include "th10/game/title_input.hpp"
-#include "th10/game/recovery_script_executor.hpp"
+#include "th10/game/ending_script_executor.hpp"
 
 struct TitleVec3 { float x, y, z; };
 struct TitleAnmVm;

@@ -62,8 +62,8 @@
       "size": 73
     },
     {
-      "name": "?SetStopFrame@AnimationHandle11@@QAEXG@Z",
-      "symbol": "?SetStopFrame@AnimationHandle11@@QAEXG@Z",
+      "name": "?SetStopFrame@StopFrameAnmHandle@@QAEXG@Z",
+      "symbol": "?SetStopFrame@StopFrameAnmHandle@@QAEXG@Z",
       "section": ".text$00449470_stop",
       "address": "0x00449470",
       "size": 65

@@ -1,3 +1,4 @@
+// 0x00434B80: MusicRequests_SetVolume
 #include "th10/source_views/music_requests_0b68f8_0.hpp"
 #include "th10/source_views/music_requests_0b68f8_1.hpp"
 #include "th10/source_views/music_requests_0b68f8_2.hpp"
@@ -6,6 +7,6 @@
 #include "th10/source_views/music_requests_0b68f8_5.hpp"
 #include "th10/source_views/music_requests_0b68f8_6.hpp"
 #include "th10/source_views/music_requests_0b68f8_7.hpp"
-__declspec(noinline) void __stdcall MusicRequests_SetVolume(AnimationManager9* requests) {
+__declspec(noinline) void __stdcall MusicRequests_SetVolume(AnmResourceRegistrar* requests) {
     requests->RegisterResource("SetVol", kMusicCommandSetVolume, 0);
 }

@@ -1,5 +1,5 @@
-extern "C" unsigned int __cdecl asm_control87_0046105e(unsigned int, unsigned int);
+extern "C" unsigned int __cdecl crt_control87(unsigned int, unsigned int);
 
-extern "C" unsigned int __cdecl asm_controlfp_00461090(unsigned int new_value, unsigned int mask) {
-    return asm_control87_0046105e(new_value, mask & 0xfff7ffff);
+extern "C" unsigned int __cdecl crt_controlfp(unsigned int new_value, unsigned int mask) {
+    return crt_control87(new_value, mask & 0xfff7ffff);
 }

@@ -1,3 +1,4 @@
+// 0x0044C100: PlatformWorker::Destroy
 #include "th10/platform/worker.hpp"
 
 extern "C" void __cdecl crt_free_startup(void* memory);

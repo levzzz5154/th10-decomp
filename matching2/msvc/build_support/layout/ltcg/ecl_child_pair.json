@@ -6,7 +6,7 @@
   "headers": [
     "include/th10/script/ecl_float_values.hpp",
     "include/th10/runtime/script/sptcmd/ecl_core_interpreter.hpp",
-    "include/script_resolver.hpp"
+    "include/th10/script/script_resolver.hpp"
   ],
   "included_sources": [
     "build_support/layout/ltcg/ecl_child_script_anchor.cpp",

@@ -110,7 +110,7 @@ __declspec(noinline) LineLaser2* __fastcall LineLaser_Construct2(LineLaser2* sel
 __declspec(noinline) BeamLaser* __fastcall BeamLaser_Construct2(BeamLaser* self);
 
 // The laser manager: a list of at most 256 lasers.
-struct LaserManager2 {
+struct LaserSpawnManager {
     unsigned char reserved_000[0x434];
     LaserBase* tail;            // +0x434
     int count;                           // +0x438
@@ -131,9 +131,9 @@ struct LaserManager2 {
 struct LaserSpawnParameters {
     // 0x0041C510: create a laser of a kind from these parameters; returns its
     // id, 0 when the manager is full.
-    __declspec(noinline) int SpawnIn(LaserManager2* manager, int kind) const;
+    __declspec(noinline) int SpawnIn(LaserSpawnManager* manager, int kind) const;
 };
 
-extern "C" LaserManager2* g_laser_manager;
+extern "C" LaserSpawnManager* g_laser_manager;
 
 #endif

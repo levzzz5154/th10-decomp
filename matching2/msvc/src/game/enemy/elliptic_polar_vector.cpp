@@ -1,3 +1,4 @@
+// 0x00413270: EllipticPolarVector::SetEllipticPolar
 #include "th10/math/scaled_polar.hpp"
 
 // 0x00413270: independent horizontal and vertical scales; callee pops 12 bytes.

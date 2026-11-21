@@ -1,3 +1,4 @@
+// 0x00404ED0: FrameTimer::Tick
 #include "th10/source_views/frame_timer_ef24e7_0.hpp"
 void FrameTimer::Tick() {
     previous = current;

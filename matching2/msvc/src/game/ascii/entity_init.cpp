@@ -1,3 +1,4 @@
+// 0x00401DE0: Entity_Init
 #include <string.h>
 #include "th10/game/entity.hpp"
 
@@ -28,9 +29,11 @@ __declspec(noinline) void __stdcall Entity_Init(Entity* entity) {
     m.values[2][2] = 1.0f;
     m.values[1][1] = 1.0f;
     m.values[0][0] = 1.0f;
+    // MATCH: writing the three frame-timer fields through a subobject view keeps
+    // MSVC's exact register/store ordering after the identity-matrix setup.
     struct FrameState { int32_t previous_frame; int32_t current_frame; float frame_elapsed; };
     entity->end_marker = 7;
-    FrameState& frame = *(FrameState*)((char*)entity + 0x5C);
+    FrameState& frame = *reinterpret_cast<FrameState*>(&entity->previous_frame);
     frame.current_frame = 0;
     frame.previous_frame = 0xFFF0BDC1;
     frame.frame_elapsed = 0.0f;

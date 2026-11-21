@@ -10,7 +10,7 @@
 #include "th10/script/ecl_frame.hpp"
 
 #pragma code_seg(".text$01push")
-int EclFrame4::Push(int size) {
+int EclStackFrame::Push(int size) {
     int old = sp;
     int next = old + size;
     if (next >= 0x1000) {

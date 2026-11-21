@@ -106,8 +106,8 @@ __declspec(noinline) int __stdcall TitleMainMenu(Title* room) {
         if (reinterpret_cast<AnmLookup*>(g_sprt_ctrl)->Find(
                 reinterpret_cast<AnmLookupContext*>(g_sprt_ctrl),
                 room->animation_slots[88]) == 0)
-            RecoveryMusicInstallSlot(room, 88);
-        RecoveryMusicInstallSlot(room, 0);
+            Title_InstallAnimationSlot(room, 88);
+        Title_InstallAnimationSlot(room, 0);
         room->SetTimerTarget(MAIN_MENU_WAIT_OPEN);
     case MAIN_MENU_WAIT_OPEN:
         if (room->timer.current > 10) {

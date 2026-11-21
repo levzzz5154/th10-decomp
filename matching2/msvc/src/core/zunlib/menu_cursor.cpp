@@ -1,3 +1,4 @@
+// 0x0044BE20..0x0044BEA0: MenuCursor::PushSelection, MenuCursor::PopSelection, MenuCursor::Advance
 #include "th10/source_views/menu_9d8ff0_0.hpp"
 #include "th10/source_views/menu_9d8ff0_1.hpp"
 #include "th10/source_views/menu_9d8ff0_2.hpp"

@@ -4,7 +4,7 @@ extern "C" void* g_crt_lconv_num_b;
 extern "C" void* g_crt_lconv_num_c;
 extern "C" void __cdecl crt_free(void*);
 
-extern "C" void __cdecl asm_free_lconv_num_0045b5bc(void** values) {
+extern "C" void __cdecl crt_free_lconv_num(void** values) {
     if (values) {
         void* value = values[0];
         if (value != g_crt_lconv_ptrs[0] && value != g_crt_lconv_num_a) crt_free(value);

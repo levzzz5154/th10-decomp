@@ -2,7 +2,7 @@
 #include <stddef.h>
 #include "th10/game/player_collision/registration.hpp"
 #include <math.h>
-#include "th10/game/player_collision/timer.hpp"
+#include "th10/math/timer.hpp"
 #include "th10/game/player.hpp"
 #include "th10/game/bomb.hpp"
 

@@ -11,6 +11,6 @@ extern "C" int __stdcall SetProbeCompilerContext(
         timers[index].Set(value + index);
         timers[index].Advance(1.0f);
     }
-    return RecoveryScript_Execute2(script);
+    return EndingScript_Execute(script);
 }
 #pragma code_seg()

@@ -292,7 +292,7 @@ extern "C" __declspec(noinline) void __stdcall Player_RefreshOptions(
                 }
                 player->familiars[i].handle = SpawnFamiliar(player, FAMILIAR_SCRIPT_ORBIT_C);
                 if (player->alternate)
-                    ((AnimationHandle11*)&player->familiars[i].handle)
+                    ((StopFrameAnmHandle*)&player->familiars[i].handle)
                         ->SetStopFrame(3);
                 player->familiars[i].callback = (FamiliarCallback)
                     &PlaybackState_OnSwitch;

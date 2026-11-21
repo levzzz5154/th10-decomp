@@ -10,6 +10,16 @@ extern "C" void *__cdecl Create5();
 extern "C" void *__cdecl Create7();
 extern "C" void *__cdecl Create4();
 
+struct EclParserHeader {
+    unsigned char pad_00[0x08];
+    int script_count;
+};
+
+struct EclEnemyCtrlView {
+    unsigned char pad_00[0x54];
+    EclParserHeader* parser;
+};
+
 // Complete 101-byte original: member receiver ESI, result EAX, plain RET.
 #pragma code_seg(".text$00b")
 int FactoryCallerState::InitializeManagers() {
@@ -20,8 +30,8 @@ int FactoryCallerState::InitializeManagers() {
     Create7();
     EnemyCtrl_Create(scripts_034[script_index_114]);
     Create4();
-    void *parser = *(void **)((char *)g_enemy_ctrl + 0x54);
-    menu_1ec.item_count = *(int *)((char *)parser + 8);
+    EclParserHeader* parser = static_cast<EclEnemyCtrlView*>(g_enemy_ctrl)->parser;
+    menu_1ec.item_count = parser->script_count;
     menu_1ec.Advance(1);
     menu_1ec.Advance(-1);
     state_030 = 1;

@@ -1,3 +1,4 @@
+// 0x00436890..0x00465580: GdiFontState::GdiFontState, GdiFontFaceName::~GdiFontFaceName, GdiFontState_UnwindFace_00465580
 #include "th10/render/gdi_font_state.hpp"
 
 // 0x00436890. If AssignRange throws, the already constructed face member is

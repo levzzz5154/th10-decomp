@@ -15,7 +15,7 @@ struct AnimationRef2 {
     int value;
     AnimationRef2(int value) : value(value) {}
 };
-struct AnimationHandle15 {
+struct ChildLookupAnmHandle {
     __declspec(noinline) AnimationRef2 FindChildRef(int script_id);
 };
 
@@ -48,14 +48,14 @@ int __stdcall StopAtFrameCompilerContext(AnimationHandle* handles, int count,
         handles->StopAtFrame1();
         handles->StopAtFrame2();
         handles->StopAtFrame3();
-        reinterpret_cast<AnimationHandle11*>(handles)->SetStopFrame(
+        reinterpret_cast<StopFrameAnmHandle*>(handles)->SetStopFrame(
             *reinterpret_cast<unsigned short*>(states));
         AnimationManager_SetStopFrame(*reinterpret_cast<unsigned short*>(states),
             reinterpret_cast<AnimationLookupContext*>(states),
             *reinterpret_cast<AnimationScriptId*>(handles));
         reinterpret_cast<AnimationHandle7*>(handles)->StopAtFrame6();
         reinterpret_cast<AnimationHandle16*>(handles)->FindChild(count);
-        reinterpret_cast<AnimationHandle15*>(handles)->FindChildRef(count);
+        reinterpret_cast<ChildLookupAnmHandle*>(handles)->FindChildRef(count);
         Title_DispatchAnimationSlot(count, reinterpret_cast<Title*>(states));
         Title_DispatchAnimationSlotSecondary(count, reinterpret_cast<Title*>(states));
         reinterpret_cast<AnimationRunHandle*>(handles)->SetStopFrameAndRun(

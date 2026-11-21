@@ -1,3 +1,4 @@
+// 0x00449AE0..0x00449F60: FuncCtrl_RegisterPrimary, FuncCtrl_RegisterSecondary, FuncCtrl_RemoveLocked (+1 more)
 #include "th10/core/func_ctrl.hpp"
 #include "th10/platform/thread_sync.hpp"
 

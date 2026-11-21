@@ -5,7 +5,7 @@
 #include "th10/game/spt_test.hpp"
 #include "th10/game/game_thread_queue_native.hpp"
 
-extern "C" GameThread2* g_ascii_manager;
+extern "C" GameThreadQueueView* g_ascii_manager;
 
 #pragma code_seg(".text$05draw")
 int SptTest2::Draw() {

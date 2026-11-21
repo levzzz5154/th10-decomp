@@ -13,7 +13,7 @@
   "functions": [
     {
       "name": "Card_End",
-      "symbol": "?End@Card5@@QAEXXZ",
+      "symbol": "?End@CardEndView@@QAEXXZ",
       "section": ".text$01a_end",
       "address": "0x00409C00",
       "actual_abi": "card in EAX; plain RET",
@@ -21,7 +21,7 @@
     }
   ],
   "context": {
-    "symbol": "?CardEndCompilerContext@@YGXPAPAUCard5@@H@Z",
+    "symbol": "?CardEndCompilerContext@@YGXPAPAUCardEndView@@H@Z",
     "section": ".text$01b_context",
     "address": "0x00409D90",
     "size": 50,

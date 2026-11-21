@@ -9,7 +9,7 @@
   "functions": [
     {
       "name": "AnimationManager_SetActiveCount",
-      "symbol": "?SetActiveCount@AnimationManager4@@QAEXH@Z",
+      "symbol": "?SetActiveCount@LifeStockAnmManager@@QAEXH@Z",
       "section": ".text$01accessor",
       "address": "0x00413790",
       "size": 77,
@@ -17,7 +17,7 @@
     }
   ],
   "context": {
-    "symbol": "?AnimationSetActiveCountCompilerContext@@YGHPAPAUAnimationManager4@@H@Z",
+    "symbol": "?AnimationSetActiveCountCompilerContext@@YGHPAPAULifeStockAnmManager@@H@Z",
     "section": ".text$03context",
     "address": "0x004137F0",
     "size": 40,

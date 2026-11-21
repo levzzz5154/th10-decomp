@@ -26,7 +26,7 @@
     "include/th10/math/vector.hpp",
     "include/th10/game/laser_cut/animation_ids.hpp",
     "include/th10/game/item_velocity.hpp",
-    "include/th10/game/laser_cut/item_spawn.hpp",
+    "include/th10/game/item_line/item_spawn.hpp",
     "include/th10/render/animation_public_callers.hpp",
     "include/th10/game/entity.hpp",
     "include/th10/types.hpp",

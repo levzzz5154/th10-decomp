@@ -1,3 +1,4 @@
+// 0x00418D40..0x00419090: Hint::InitializeLayout, Hint_Initialize, Hint_Create
 #include <string.h>
 #include "th10/game/hint_layout.hpp"
 static void SetOwner(HintDataRecord* record,

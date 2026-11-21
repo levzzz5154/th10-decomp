@@ -1,3 +1,4 @@
+// 0x00449870: AnimationBank::InitializeObject
 #include "th10/game/player_collision/animation_public_callers.hpp"
 // 0x00449870: reset animation vectors and start a script while preserving object state.
 #include "th10/game/entity_script_start.hpp"

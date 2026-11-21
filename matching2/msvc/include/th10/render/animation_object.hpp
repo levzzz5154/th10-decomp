@@ -2,12 +2,12 @@
 
 // Animation object and resource record views used by ConfigureFromResource
 // (0x0043E5A0).
-struct AnimationObject3;
+struct SpriteDimensionsView;
 
 struct Resource2 {
     unsigned char reserved[0x200];
 
-    __declspec(noinline) int ConfigureObject(AnimationObject3* object, int index);
+    __declspec(noinline) int ConfigureObject(SpriteDimensionsView* object, int index);
 };
 
 struct Matrix4x42 {
@@ -16,7 +16,7 @@ struct Matrix4x42 {
     __forceinline void SetIdentity();
 };
 
-struct AnimationObject3 {
+struct SpriteDimensionsView {
     unsigned char reserved_0000[0x04C];
     float width;                                       // +0x04C
     float height;                                      // +0x050

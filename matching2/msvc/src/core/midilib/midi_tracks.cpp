@@ -1,3 +1,4 @@
+// 0x0043A730..0x0043ACE0: ReadMidiVariableLength, MidiSequencer::ResetTracks
 #include "th10/platform/midi_sequencer.hpp"
 
 #pragma code_seg(".text$10read")

@@ -60,11 +60,16 @@ typedef char EndingWorkerOffset[offsetof(EndingText,worker) == 0xD0 ? 1 : -1];
 #define TH10_ENDING_TEXT_CONSTRUCTOR_SECTION ".text$01ctor"
 #endif
 #pragma code_seg(TH10_ENDING_TEXT_CONSTRUCTOR_SECTION)
+struct AsciiManagerBankView {
+    unsigned char pad_0000[0x899C];
+    AnimationBank* bank;
+};
+
 EndingText::EndingText(void* script_data) {
     AnimationLookupContext* manager = (AnimationLookupContext*)g_sprt_ctrl;
     memset(this, 0, sizeof(*this));
     for (unsigned int i = 0; i < 5; ++i) {
-        AnimationBank* bank = *(AnimationBank**)((char*)g_ascii_manager + 0x899C);
+        AnimationBank* bank = static_cast<AsciiManagerBankView*>(g_ascii_manager)->bank;
         EndingGlyph* glyph = (EndingGlyph*)((AnimationPool*)manager)->Allocate();
         unsigned int old_flags = glyph->flags;
         glyph->render_bucket = 15;

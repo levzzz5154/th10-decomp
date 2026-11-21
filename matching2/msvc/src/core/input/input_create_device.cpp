@@ -1,3 +1,4 @@
+// 0x0043BAF0: Input_CreateDevice
 #include "th10/platform/windows_types.hpp"
 
 // 0x0043BAF0..0x0043BB23: create the DirectInput device the input subsystem

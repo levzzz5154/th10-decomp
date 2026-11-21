@@ -171,6 +171,9 @@ int Enemy::Execute2() {
     // spawn when boss slot zero is empty. Numeric operands follow the packed name.
     case ECL_ENEMY_CREATE_NO_BOSS:
         if (g_enemy_ctrl->boss[0] != 0) break;
+    // -----------------------------------------------------------------------
+    // Enemy spawning (0x100..0x10f)
+    // -----------------------------------------------------------------------
     case ECL_ENEMY_CREATE: {
         int first_numeric_word = (instruction->i[0] + 4) / 4;
         EnemySpawn spawn;
@@ -269,6 +272,9 @@ int Enemy::Execute2() {
     }
 
     // Animation files, attached slots and independent effects.
+    // -----------------------------------------------------------------------
+    // Animations & visual effects (0x102..0x111)
+    // -----------------------------------------------------------------------
     case ECL_ANM_SELECT:
         anm_file = Int(0);
         return 0;
@@ -364,6 +370,9 @@ int Enemy::Execute2() {
     // Motion. Paired opcodes select absolute or relative state before applying
     // the same operation. An unset component leaves the current value in place
     // or supplies the mode-specific interpolation default.
+    // -----------------------------------------------------------------------
+    // Motion & trajectories (0x118..0x12b)
+    // -----------------------------------------------------------------------
     case ECL_MOVE_POS_ABS:
     case ECL_MOVE_POS_REL: {
         EnemyMotion* motion = instruction->id == ECL_MOVE_POS_ABS ? &absolute : &relative;
@@ -584,6 +593,9 @@ int Enemy::Execute2() {
     case ECL_SET_LIFE_MARKER:
         g_front->SetMarker(Int(0), MaxLife(), Float(1), Int(2));
         return 0;
+    // -----------------------------------------------------------------------
+    // Hitboxes, bounds, drops, boss/spell state & difficulty (0x140..0x170)
+    // -----------------------------------------------------------------------
     case ECL_SET_HITBOX:
         fb0 = Float(0);
         fb4 = Float(1);
@@ -706,6 +718,9 @@ int Enemy::Execute2() {
         break;
 
     // Shooter slots: reset, copy, fire and configure the shot.
+    // -----------------------------------------------------------------------
+    // Bullet shooters & lasers (0x190..0x1b4)
+    // -----------------------------------------------------------------------
     case ECL_SHOOTER_RESET: {
         int index = Int(0);
         memset(&shooters[index], 0, sizeof(Shooter));

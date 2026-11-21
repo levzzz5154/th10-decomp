@@ -15,7 +15,7 @@ SchedulerCreatePrimary::Create(void* context, int priority) {
     SchedulerTask* task =
         SchedulerTask_Create((void*)this);
     task->context = context;
-    *(unsigned int*)((char*)task + 4) |= 2u;
+    task->flags |= SCHEDULER_TASK_FLAG_ACTIVE;
     FuncCtrl_RegisterPrimary(g_func_ctrl, task, priority);
     return task;
 }

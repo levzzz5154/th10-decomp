@@ -1,3 +1,4 @@
+// 0x00427C50: Sound_ForwardFloatAsDouble
 extern "C" void __cdecl Sound_ForwardDouble(double value);
 
 // 0x00427C50 widens a float for the CRT floor routine. Its retail callers

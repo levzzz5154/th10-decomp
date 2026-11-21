@@ -80,7 +80,7 @@ AnimationScriptId __stdcall Card_CreateAnimation(void* file, int script, int lay
 #include "../../../../src/core/sound/sound_queue.cpp"
 
 #pragma code_seg(".text$01b_context")
-void __stdcall CardEndCompilerContext(Card5** cards, int count) {
+void __stdcall CardEndCompilerContext(CardEndView** cards, int count) {
     // The game counters' address escapes, as it does in the whole program.
     CardStandIn_Allocate(&g_globals_score);
     while (count--) (*cards++)->End();

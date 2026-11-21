@@ -32,7 +32,7 @@
     },
     {
       "name": "Stage_ReloadAnm",
-      "symbol": "?ReloadAnm@Stage3@@QAEHXZ",
+      "symbol": "?ReloadAnm@StageReloadView@@QAEHXZ",
       "section": ".text$05reload",
       "address": "0x0040C3C0",
       "size": 126,
@@ -43,7 +43,7 @@
   "anchors": [
     {
       "name": "StopHandleAnchor",
-      "symbol": "?StopHandle2@@YGXPAUAnimationHandle3@@@Z",
+      "symbol": "?StopHandle2@@YGXPAUStageReloadAnmHandle@@@Z",
       "section": ".text$00anchor",
       "address": "0x00409E50",
       "size": 65
@@ -91,7 +91,7 @@
       "kind": "relative_code"
     },
     {
-      "symbol": "?Recovery_LoadCachedResource@@YIPAUCachedResource@@HPAXPBD@Z",
+      "symbol": "?SprtCtrl_LoadCachedResource@@YIPAUCachedResource@@HPAXPBD@Z",
       "address": "0x00447280",
       "kind": "relative_code"
     },

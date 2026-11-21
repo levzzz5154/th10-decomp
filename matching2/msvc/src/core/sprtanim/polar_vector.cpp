@@ -1,3 +1,4 @@
+// 0x00441EF0: AnimationLeafPolarVector::SetAnimationPolar
 #include "th10/math/scaled_polar.hpp"
 
 // 0x441ef0: x87 polar-vector setter.

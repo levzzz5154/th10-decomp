@@ -1,12 +1,12 @@
-extern "C" void* __cdecl asm_heap_alloc_0045265f(unsigned int);
-extern "C" int __cdecl asm_callnewh_00455737(unsigned int);
+extern "C" void* __cdecl crt_heap_alloc(unsigned int);
+extern "C" int __cdecl crt_callnewh(unsigned int);
 
-extern "C" void* __cdecl asm_nh_malloc_004526da(unsigned int size, int retry) {
+extern "C" void* __cdecl crt_nh_malloc(unsigned int size, int retry) {
     if (size <= 0xffffffe0u) {
         do {
-            void* block = asm_heap_alloc_0045265f(size);
+            void* block = crt_heap_alloc(size);
             if (block || !retry) return block;
-        } while (asm_callnewh_00455737(size));
+        } while (crt_callnewh(size));
     }
     return 0;
 }

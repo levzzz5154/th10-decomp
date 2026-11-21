@@ -1,3 +1,4 @@
+// 0x00415AE0: Front_OnUpdate
 #include "th10/runtime/asm_symbols.hpp"
 
 // 0x00415AE0: the HUD's update task. Forward the object pointer into the still-assembly routine at

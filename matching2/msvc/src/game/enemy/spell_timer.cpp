@@ -1,3 +1,4 @@
+// 0x004127A0: SpellTimerState::AdvanceSlots
 #include <stddef.h>
 extern "C" void _ReadWriteBarrier(void);
 #pragma intrinsic(_ReadWriteBarrier)

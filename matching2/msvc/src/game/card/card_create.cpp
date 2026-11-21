@@ -4,8 +4,8 @@
 #include "th10/game/card_create.hpp"
 
 #pragma code_seg(".text$04create")
-Card3* __stdcall Card_Create2() {
-    Card3* manager = new Card3;
+CardConstructView* __stdcall Card_Create2() {
+    CardConstructView* manager = new CardConstructView;
     if (manager->Initialize()) {
         delete manager;
         return 0;

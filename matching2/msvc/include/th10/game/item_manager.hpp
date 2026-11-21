@@ -2,7 +2,7 @@
 
 #include "th10/game/item.hpp"
 
-struct ItemManager3 {
+struct ItemPoolManager {
     enum { ITEM_COUNT = 0x896 };
 
     unsigned char reserved_00[0x14];
@@ -16,13 +16,13 @@ struct ItemPauseState {
     unsigned char flags;                               // +0x58
 };
 
-struct AnimationManager5;
+struct StageAnmManagerView;
 
 extern "C" ItemPauseState* g_game;
-extern "C" AnimationManager5* g_sprt_ctrl;
+extern "C" StageAnmManagerView* g_sprt_ctrl;
 
 // 0x004451C0: entity in EAX, manager in ECX.
 extern "C" __declspec(noinline) int __cdecl AnmVm_DrawDispatch(
-        AnimationObject3* entity, AnimationManager5* manager);
+        SpriteDimensionsView* entity, StageAnmManagerView* manager);
 
-int __fastcall ItemManager_OnDraw2(ItemManager3* manager);
+int __fastcall ItemManager_OnDraw2(ItemPoolManager* manager);

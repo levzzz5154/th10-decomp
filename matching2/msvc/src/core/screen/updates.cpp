@@ -21,6 +21,7 @@ struct ScreenFadeIn {
     volatile float elapsed;      // +0x38; preserves retail x87 load order
     const float* delta;          // +0x3C
 
+    FrameTimer* Timer() { return reinterpret_cast<FrameTimer*>(&previous); }
     __declspec(noinline) int Tick();
 };
 
@@ -55,7 +56,7 @@ int ScreenFadeIn::Tick() {
     if (frame >= divisor)
         return SCREEN_TASK_REMOVE;
 
-    reinterpret_cast<FrameTimer*>(reinterpret_cast<unsigned char*>(this) + 0x30)->Tick();
+    Timer()->Tick();
     return SCREEN_TASK_CONTINUE;
 }
 #pragma code_seg()
@@ -84,6 +85,7 @@ struct ScreenFadeOut {
     volatile float elapsed;
     const float* delta;
 
+    FrameTimer* Timer() { return reinterpret_cast<FrameTimer*>(&previous); }
     __declspec(noinline) int Tick();
 };
 
@@ -109,11 +111,9 @@ int ScreenFadeOut::Tick() {
     if (frame >= divisor + 2)
         return SCREEN_TASK_REMOVE;
 
-    void* state = g_game;
-    if (state == 0 || (((*(unsigned int*)((char*)state + 0x58) >> 2) |
-                        *(unsigned int*)((char*)state + 0x58)) & 1) == 0) {
-        reinterpret_cast<FrameTimer*>(reinterpret_cast<unsigned char*>(this) +
-                                      0x30)->Tick();
+    GameScene* state = g_game;
+    if (state == 0 || (((state->flags >> 2) | state->flags) & 1) == 0) {
+        Timer()->Tick();
     }
     return SCREEN_TASK_CONTINUE;
 }
@@ -141,12 +141,18 @@ struct ScreenFlash {
     int value;                 // +0x18
     int length;                // +0x1C
     int countdown;             // +0x20
-    unsigned char pad_24[0xC];
+    unsigned char pad_24[3];
+    unsigned char start_alpha; // +0x27
+    unsigned char pad_28[8];
     int previous;              // +0x30, embedded FrameTimer::previous
     int frame;                 // +0x34, embedded FrameTimer::current
     float elapsed;             // +0x38, embedded FrameTimer::elapsed
     const float* delta;        // +0x3C, embedded FrameTimer::speed
 
+    FrameTimer* Timer() { return reinterpret_cast<FrameTimer*>(&previous); }
+    PlayerSchedulerRecord* SchedulerRecord() {
+        return reinterpret_cast<PlayerSchedulerRecord*>(&previous);
+    }
     __declspec(noinline) int Tick();
 };
 
@@ -155,7 +161,7 @@ typedef char AnimationCursor_0043c460_size_must_fit[
 
 #pragma code_seg(".text$11c460")
 int ScreenFlash::Tick() {
-    int mode = *(unsigned char*)((unsigned char*)this + 0x27);
+    int mode = start_alpha;
     if (g_screen_effects_frozen != 0)
         return SCREEN_TASK_STOP;
 
@@ -170,11 +176,10 @@ int ScreenFlash::Tick() {
         value = 0;
         if (--countdown <= 0)
             return SCREEN_TASK_STOP;
-        reinterpret_cast<PlayerSchedulerRecord*>(reinterpret_cast<unsigned char*>(this) + 0x30)
-            ->SetSchedulerValue(0);
+        SchedulerRecord()->SetSchedulerValue(0);
     }
 
-    reinterpret_cast<FrameTimer*>(reinterpret_cast<unsigned char*>(this) + 0x30)->Tick();
+    Timer()->Tick();
     return SCREEN_TASK_CONTINUE;
 }
 #pragma code_seg()

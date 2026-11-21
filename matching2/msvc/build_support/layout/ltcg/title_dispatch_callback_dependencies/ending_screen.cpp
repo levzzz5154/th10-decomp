@@ -5,10 +5,10 @@
 
 extern "C" void* g_sprt_ctrl;
 extern "C" unsigned int g_input_keys_held;
-__declspec(noinline) void __stdcall RecoveryMusicInstallSlot(
+__declspec(noinline) void __stdcall Title_InstallAnimationSlot(
     Title* room, int index);
-struct AnimationHandle3 { unsigned int id; };
-__declspec(noinline) void StopHandle2(AnimationHandle3* handle);
+struct StageReloadAnmHandle { unsigned int id; };
+__declspec(noinline) void StopHandle2(StageReloadAnmHandle* handle);
 
 #pragma code_seg(".text$0042d300_fn")
 __declspec(noinline) int __stdcall EndingScreen_Update2(
@@ -18,8 +18,8 @@ __declspec(noinline) int __stdcall EndingScreen_Update2(
         AnimationScriptId id = room->animation_slots[88];
         if (reinterpret_cast<AnmLookup*>(g_sprt_ctrl)->Find(
                 reinterpret_cast<AnmLookupContext*>(g_sprt_ctrl), id) == 0) {
-            RecoveryMusicInstallSlot(room, 88);
-            RecoveryMusicInstallSlot(room, 90);
+            Title_InstallAnimationSlot(room, 88);
+            Title_InstallAnimationSlot(room, 90);
             void* handle;
             void** result = AnimationManager_CreatePrimaryBack(
                 reinterpret_cast<void*>(room->reserved_018), &handle, 0, 15);
@@ -44,7 +44,7 @@ __declspec(noinline) int __stdcall EndingScreen_Update2(
             room->SetSlotFrame(90, 6);
             room->SetTimerTarget(4);
             g_sound_manager.Queue(32, 0);
-            StopHandle2(reinterpret_cast<AnimationHandle3*>(
+            StopHandle2(reinterpret_cast<StageReloadAnmHandle*>(
                 &room->reserved_684));
         }
         break;

@@ -1,3 +1,4 @@
+// 0x00439390: GameFrameAdvance
 #include "th10/source_views/fun_a1dd06_0.hpp"
 int GameFrameAdvance(GameFrame* frame) {
     frame->frame_time = FrameTimer_GetDelta();
@@ -28,7 +29,7 @@ int GameFrameAdvance(GameFrame* frame) {
             RenderDevice* device = g_d3d_device;
             ((BeginScene2)device->vtable[0xA4 / 4])(device);
             SprtCtrlBatchView* manager = g_sprt_ctrl;
-            TexturedVertex* buffer = (TexturedVertex*)((unsigned char*)manager + 0x3ADACC);
+            TexturedVertex* buffer = manager->quad_vertices;
             manager->quad_count = 0;
             manager->cursor = buffer;
             manager->batch_start = buffer;

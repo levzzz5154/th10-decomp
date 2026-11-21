@@ -1,3 +1,4 @@
+// 0x00405860: Bomb_Start
 #include "th10/source_views/bomb_start_bf1de1_0.hpp"
 #include "th10/source_views/bomb_start_bf1de1_1.hpp"
 #include "th10/source_views/bomb_start_bf1de1_2.hpp"

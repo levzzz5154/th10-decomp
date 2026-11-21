@@ -8,7 +8,7 @@ extern "C" int __cdecl sprintf(char* buffer, const char* format, ...);
 extern "C" void __cdecl free(void* block);
 void* __cdecl operator new(unsigned int size);
 
-struct ScriptEntry2 {
+struct SptTestScriptEntry {
     const char* name;
     void* code;
 };
@@ -30,7 +30,7 @@ struct ScriptParser {
     int reserved_004;
     int entry_count;
     unsigned char reserved_00c[0x8C - 0x0C];
-    ScriptEntry2* entries;
+    SptTestScriptEntry* entries;
     unsigned char reserved_090[0x1090 - 0x90];
     ScriptParserTail tail;
 

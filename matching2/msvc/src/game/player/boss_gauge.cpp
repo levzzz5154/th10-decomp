@@ -1,3 +1,4 @@
+// 0x00428C20: BossGauge_Update
 #include "th10/runtime/asm_symbols.hpp"
 
 // 0x00428C20..0x00428C9C: FUN15
@@ -29,7 +30,7 @@ struct BossGaugeState {
     BossGaugeSource* source;      // +0x58
 };
 
-int __fastcall BossGauge_UpdateRetail(int* manager, BossGaugeState* state) {
+int __fastcall BossGauge_Update(int* manager, BossGaugeState* state) {
     Vector3 position;
     BossGaugeSource* source = state->source;
     int* entry = (int*)((char*)manager + 152 * source->slot + 0x3244);

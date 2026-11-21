@@ -34,15 +34,10 @@ inline unsigned int& ManagerFadeColor(SprtCtrlBatchView* manager) {
     return *reinterpret_cast<unsigned int*>(&manager->fade_blue);
 }
 
-// The first word after the cached state block (+0x3ADA70).
-inline int& ManagerCachedTail(SprtCtrlBatchView* manager) {
-    return *reinterpret_cast<int*>(manager->unknown5);
-}
-
 #pragma code_seg(".text$001z3gapa0frame")
 int RenderStageState3::BeginFrame() {
     SprtCtrlBatchView* manager = g_sprt_ctrl;
-    ManagerCachedTail(manager) = 0;
+    manager->cached_sprite = 0;
     manager->cached_texture = 0;
     manager->cached_unknown_69 = 0xff;
     manager->cached_blend = 3;

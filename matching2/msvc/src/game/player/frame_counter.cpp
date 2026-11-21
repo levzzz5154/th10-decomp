@@ -1,3 +1,4 @@
+// 0x00427C70: FrameCounterPair::AtInterval
 #include "th10/runtime/asm_symbols.hpp"
 
 // Recovered semantic C++ definitions.

@@ -13,7 +13,7 @@
   "functions": [
     {
       "name": "Card_Create",
-      "symbol": "?Card_Create2@@YGPAUCard3@@XZ",
+      "symbol": "?Card_Create2@@YGPAUCardConstructView@@XZ",
       "section": ".text$04create",
       "address": "0x00408C90",
       "actual_abi": "no arguments; manager returned in EAX; compiler-generated EH frame",
@@ -31,7 +31,7 @@
     },
     {
       "name": "CardCreateHandler",
-      "symbol": "__ehhandler$?Card_Create2@@YGPAUCard3@@XZ",
+      "symbol": "__ehhandler$?Card_Create2@@YGPAUCardConstructView@@XZ",
       "section": ".text$x",
       "address": "0x0046586B",
       "actual_abi": "compiler-generated EH handler",
@@ -158,21 +158,21 @@
   "anchors": [
     {
       "name": "ConstructorStandIn",
-      "symbol": "??0Card3@@QAE@XZ",
+      "symbol": "??0CardConstructView@@QAE@XZ",
       "section": ".text$01ctor",
       "address": "0x00408910",
       "size": 138
     },
     {
       "name": "InitializeStandIn",
-      "symbol": "?Initialize@Card3@@QAEHXZ",
+      "symbol": "?Initialize@CardConstructView@@QAEHXZ",
       "section": ".text$02init",
       "address": "0x004089C0",
       "size": 96
     },
     {
       "name": "DestructorStandIn",
-      "symbol": "??1Card3@@QAE@XZ",
+      "symbol": "??1CardConstructView@@QAE@XZ",
       "section": ".text$03dtor",
       "address": "0x00408AF0",
       "size": 127

@@ -1,3 +1,4 @@
+// 0x00447F70: SprtCtrlTargetsView::Clear
 #include "th10/render/native_render_targets.hpp"
 #pragma code_seg(".text$a12clear")
 void SprtCtrlTargetsView::Clear(int index) {

@@ -14,7 +14,7 @@
   "functions": [
     {
       "name": "LaserSpawnParameters_SpawnIn",
-      "symbol": "?SpawnIn@LaserSpawnParameters@@QBEHPAULaserManager2@@H@Z",
+      "symbol": "?SpawnIn@LaserSpawnParameters@@QBEHPAULaserSpawnManager@@H@Z",
       "section": ".text$0041c510_fn",
       "address": "0x0041C510",
       "size": 153,

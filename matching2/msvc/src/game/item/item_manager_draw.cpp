@@ -8,7 +8,7 @@
 #include "th10/game/item_manager.hpp"
 
 #pragma code_seg(".text$00draw")
-__declspec(noinline) int ItemManager3::Draw() {
+__declspec(noinline) int ItemPoolManager::Draw() {
     Item2* item = items;
     for (int remaining = ITEM_COUNT; remaining != 0; --remaining, ++item) {
         if (item->state == 0) continue;
@@ -35,7 +35,7 @@ __declspec(noinline) int ItemManager3::Draw() {
 #pragma code_seg()
 
 #pragma code_seg(".text$00ondraw")
-int __fastcall ItemManager_OnDraw2(ItemManager3* manager) {
+int __fastcall ItemManager_OnDraw2(ItemPoolManager* manager) {
     if (g_game != 0 && (g_game->flags & 4))
         return 1;
     return manager->Draw();

@@ -1,6 +1,6 @@
 #pragma once
 // 0x0041C800..0x0041C84B (76 bytes):
-//   ?CopyVectorAndEvaluate@LaserManager3@@QAEHPBMMH@Z
+//   ?CopyVectorAndEvaluate@LaserScoreManagerView@@QAEHPBMMH@Z
 //
 // Copies the caller's three-component vector into the record area at this+0x440
 // and then walks the linked record list rooted at this+0x18, adding up what each
@@ -47,7 +47,7 @@ struct LaserListNode3 {
 
 struct Vector38 { float x; float y; float z; };
 
-struct LaserManager3 {
+struct LaserScoreManagerView {
     unsigned char reserved_000[0x18];
     LaserListNode3* linked_head;    // +0x18
     unsigned char reserved_01C[0x440 - 0x1C];
@@ -58,9 +58,9 @@ struct LaserManager3 {
 };
 
 typedef char LaserManager_0041c800_head_must_be_18[
-    (offsetof(LaserManager3, linked_head) == 0x18) ? 1 : -1];
+    (offsetof(LaserScoreManagerView, linked_head) == 0x18) ? 1 : -1];
 typedef char LaserManager_0041c800_vector_must_be_440[
-    (offsetof(LaserManager3, vector_440) == 0x440) ? 1 : -1];
+    (offsetof(LaserScoreManagerView, vector_440) == 0x440) ? 1 : -1];
 typedef char LaserListNode_0041c800_next_must_be_8[
     (offsetof(LaserListNode3, next) == 0x08) ? 1 : -1];
 typedef char LaserListNode_0041c800_type_must_be_c[

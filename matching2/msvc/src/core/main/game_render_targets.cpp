@@ -1,3 +1,4 @@
+// 0x00438A60: SprtCtrlTargetsView::FinishTargets
 #include "th10/render/native_render_targets.hpp"
 #pragma code_seg(".text$a04targets")
 void SprtCtrlTargetsView::FinishTargets() {

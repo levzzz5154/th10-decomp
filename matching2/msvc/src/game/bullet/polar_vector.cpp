@@ -1,3 +1,4 @@
+// 0x00408750: ScoreGameplayPolarVector::SetScorePolar
 #include "th10/math/scaled_polar.hpp"
 
 // 0x408750: x87 polar-vector setter.

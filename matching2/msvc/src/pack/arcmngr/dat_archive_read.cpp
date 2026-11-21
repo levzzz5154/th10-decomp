@@ -1,3 +1,4 @@
+// 0x00434DD0: DatArchiveRead
 #include "th10/archive/read/archive.hpp"
 #ifndef ARCHIVE_READ_SECTION
 #define ARCHIVE_READ_SECTION ".text$a00read"

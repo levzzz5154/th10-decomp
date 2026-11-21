@@ -10,8 +10,8 @@
 // 0x00448D00 inline: script `index` of a file as a new animation at the back
 // of the primary list.
 static __forceinline void CreatePrimaryBack(
-        AnimationBank* file, AnimationHandle2* out, int index, int bucket) {
-    AnimationNode2* object =
+        AnimationBank* file, EffectAnimationHandle* out, int index, int bucket) {
+    EffectAnimationNode* object =
         reinterpret_cast<AnimationPool2*>(g_sprt_ctrl)->Allocate();
     unsigned int flags = object->flags;
     object->render_bucket = bucket;
@@ -21,12 +21,12 @@ static __forceinline void CreatePrimaryBack(
 }
 
 #pragma code_seg(".text$0040b070_fn")
-AnimationHandle2 __stdcall EffectSpawnView::SpawnEffect(
+EffectAnimationHandle __stdcall EffectSpawnView::SpawnEffect(
         void* argument, int kind) {
     EffectKind* entry = &g_effect_kinds[kind];
-    AnimationHandle2 created;
+    EffectAnimationHandle created;
     CreatePrimaryBack(file, &created, entry->script, 15);
-    AnimationNode2* node = g_sprt_ctrl->Find(created);
+    EffectAnimationNode* node = g_sprt_ctrl->Find(created);
     if (!node)
         created.value = 0;
     if (entry->setup)
@@ -42,12 +42,12 @@ AnimationHandle2 __stdcall EffectSpawnView::SpawnEffect(
 // Also uncalled. The two bodies are written out separately: a shared inline
 // body changes 0x0040B070.
 #pragma code_seg(".text$0040b110_fn")
-AnimationHandle2 __stdcall SpawnEffectFromFile(
+EffectAnimationHandle __stdcall SpawnEffectFromFile(
         int kind, AnimationBank* file, void* argument) {
     EffectKind* entry = &g_effect_kinds[kind];
-    AnimationHandle2 created;
+    EffectAnimationHandle created;
     CreatePrimaryBack(file, &created, entry->script, 15);
-    AnimationNode2* node = g_sprt_ctrl->Find(created);
+    EffectAnimationNode* node = g_sprt_ctrl->Find(created);
     if (!node)
         created.value = 0;
     if (entry->setup)

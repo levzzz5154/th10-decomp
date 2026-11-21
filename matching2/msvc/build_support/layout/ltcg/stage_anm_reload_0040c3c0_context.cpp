@@ -15,7 +15,7 @@ struct AnimationNode_0040c3c0 {
 
 // Model of 0x00409E50 at its retail address; it earns the EAX handle.
 #pragma code_seg(".text$00anchor")
-__declspec(noinline) void StopHandle2(AnimationHandle3* handle) {
+__declspec(noinline) void StopHandle2(StageReloadAnmHandle* handle) {
     unsigned int id = *(unsigned short*)&handle->id;
     AnimationNode_0040c3c0* node = (AnimationNode_0040c3c0*)find_opaque(id);
     if (node != 0) {

@@ -2,7 +2,7 @@ extern "C" unsigned int g_crt_handle_count;
 extern "C" char* g_crt_file_table[];
 
 // 0x00459F7D..0x00459FA6: Test the CRT character-device flag.
-extern "C" int __cdecl asm_isatty_00459f7d(int handle) {
+extern "C" int __cdecl crt_isatty(int handle) {
     if (static_cast<unsigned int>(handle) >= g_crt_handle_count)
         return 0;
     char* block = g_crt_file_table[handle >> 5];

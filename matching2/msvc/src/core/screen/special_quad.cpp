@@ -1,3 +1,4 @@
+// 0x0043BDA0: DrawSolidQuad
 #include "th10/render/quad_batch.hpp"
 #pragma code_seg(".text$01quad")
 int __stdcall DrawSolidQuad(const ScreenRect* rect, unsigned int color) {

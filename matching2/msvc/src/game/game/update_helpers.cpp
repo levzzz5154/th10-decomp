@@ -84,9 +84,9 @@ void ItemRunState::AddLives(int amount) {
 }
 #pragma code_seg(".text$f004054b0F")
 void ItemHud::SetPowerDigits(int whole,int fraction) {
-    AnimationResource()->ConfigureObject(reinterpret_cast<AnimationObject3*>(storage+0x6A8C),whole+8);
-    AnimationResource()->ConfigureObject(reinterpret_cast<AnimationObject3*>(storage+0x71E4),fraction/10+8);
-    AnimationResource()->ConfigureObject(reinterpret_cast<AnimationObject3*>(storage+0x7590),fraction%10+8);
+    AnimationResource()->ConfigureObject(reinterpret_cast<SpriteDimensionsView*>(storage+0x6A8C),whole+8);
+    AnimationResource()->ConfigureObject(reinterpret_cast<SpriteDimensionsView*>(storage+0x71E4),fraction/10+8);
+    AnimationResource()->ConfigureObject(reinterpret_cast<SpriteDimensionsView*>(storage+0x7590),fraction%10+8);
 }
 #pragma code_seg(".text$f0042b9c0F")
 void ItemSmollScoreView::Spawn(int value,const Vector3* position,unsigned int color) {

@@ -1,4 +1,4 @@
-// 0x0041A050..0x0041A09A: Recovery_SplitResourcePath
+// 0x0041A050..0x0041A09A: Hint_SplitResourcePath
 //
 // Copy the line into the key buffer, split it at the first colon, move the
 // value into the value buffer and trim both halves.  Retail passes the line in

@@ -1,4 +1,4 @@
-#include "script_resolver.hpp"
+#include "th10/script/script_resolver.hpp"
 
 extern "C" int __cdecl strcmp(const char*, const char*);
 #pragma intrinsic(strcmp)
@@ -8,10 +8,10 @@ __declspec(noinline) int ScriptTable2::Resolve(const char* name) {
     int low = 0;
     int high = this->count;
     if (--high >= 0) {
-        const ScriptEntry3* entries = this->entries;
+        const EclTableEntry* entries = this->entries;
         do {
             const int middle = low + (high - low) / 2;
-            const ScriptEntry3* entry = &entries[middle];
+            const EclTableEntry* entry = &entries[middle];
             const int order = strcmp(name, entry->name);
             if (order == 0)
                 return static_cast<int>(entry->value) + 16;

@@ -1,3 +1,4 @@
+// 0x0043DAB0: WaveSoundManager::StopMusicWorker
 #include "th10/platform/native_sound_shutdown.hpp"
 enum MidiWorkerStopConst {
     MIDI_WM_QUIT = 0x12,

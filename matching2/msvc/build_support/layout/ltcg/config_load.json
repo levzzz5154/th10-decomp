@@ -6,7 +6,7 @@
   "headers": [
     "include/th10/app/config_load.hpp",
     "include/th10/game/large_initialization_state.hpp",
-    "include/th10/archive/native_read/archive.hpp",
+    "include/th10/archive/read/archive.hpp",
     "include/th10/archive/dat_archive_types.hpp",
     "include/th10/platform/file.hpp",
     "include/th10/platform/windows_types.hpp"

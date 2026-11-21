@@ -4,16 +4,16 @@ struct RuntimeException13 {
     int owns_message;
     RuntimeException13* Init(const char** source);
 };
-extern "C" unsigned int __cdecl asm_strlen_00456720(const char*);
+extern "C" unsigned int __cdecl crt_strlen(const char*);
 extern "C" void* __cdecl crt_malloc(unsigned int);
-extern "C" char* __cdecl asm_FUN_0045bd80_0045bd80(char*, const char*);
+extern "C" char* __cdecl crt_strcpy(char*, const char*);
 RuntimeException13* RuntimeException13::Init(const char** source) {
     vtable = reinterpret_cast<void*>(0x46ca68);
     if (*source) {
-        char* allocated = reinterpret_cast<char*>(crt_malloc(asm_strlen_00456720(*source) + 1));
+        char* allocated = reinterpret_cast<char*>(crt_malloc(crt_strlen(*source) + 1));
         message = allocated;
         if (allocated)
-            asm_FUN_0045bd80_0045bd80(allocated, *source);
+            crt_strcpy(allocated, *source);
     } else {
         message = 0;
     }

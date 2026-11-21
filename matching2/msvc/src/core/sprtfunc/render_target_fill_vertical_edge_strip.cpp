@@ -1,3 +1,4 @@
+// 0x00444BE0: EdgeStripSurface::FillVertical
 #include "th10/render/edge_strip_fillers.hpp"
 
 // 0x00444BE0..0x00444CA8. Fill alternating left and right vertices of a

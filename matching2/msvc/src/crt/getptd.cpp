@@ -13,14 +13,14 @@ extern "C" ThreadData* (__stdcall *g_crt_ptd_get)(unsigned int);
 extern "C" int (__stdcall *g_crt_ptd_set)(unsigned int, ThreadData*);
 extern "C" unsigned int g_crt_tls_index;
 extern "C" char g_crt_ptd_init_marker;
-extern "C" ThreadData* __cdecl asm_FUN_0045794d_0045794d(unsigned int, unsigned int);
-extern "C" void __cdecl asm_amsg_exit_0045373d(int);
+extern "C" ThreadData* __cdecl crt_calloc(unsigned int, unsigned int);
+extern "C" void __cdecl crt_amsg_exit(int);
 
-extern "C" ThreadData* __cdecl asm_getptd_00456357() {
+extern "C" ThreadData* __cdecl crt_getptd() {
     unsigned int saved_error = imp_GetLastError();
     ThreadData* data = g_crt_ptd_get(g_crt_tls_index);
     if (!data) {
-        data = asm_FUN_0045794d_0045794d(1, 0x8c);
+        data = crt_calloc(1, 0x8c);
         if (data && g_crt_ptd_set(g_crt_tls_index, data)) {
             data->initaddr = &g_crt_ptd_init_marker;
             data->holdrand = 1;
@@ -28,7 +28,7 @@ extern "C" ThreadData* __cdecl asm_getptd_00456357() {
             data->thread_handle = 0xffffffff;
             data->thread_id = id;
         } else {
-            asm_amsg_exit_0045373d(0x10);
+            crt_amsg_exit(0x10);
         }
     }
     imp_SetLastError(saved_error);

@@ -28,8 +28,8 @@ typedef char BossOverlay_0041EA40_PrimaryPositionOffset[(offsetof(GrowLaser, pri
 typedef char BossOverlay_0041EA40_SecondaryPositionOffset[(offsetof(GrowLaser, secondary) + offsetof(RenderEntity, base_position) == 0xCFC) ? 1 : -1];
 #pragma code_seg(".text$001z2boss")
 int GrowLaser::Draw() {
-    RenderEntity* vm = (RenderEntity*)((unsigned char*)this + 0x61C);
-    RenderVec3& primary_position = *(RenderVec3*)((unsigned char*)this + 0x950);
+    RenderEntity* vm = &primary;
+    RenderVec3& primary_position = primary.base_position;
     primary_position.x = position.x + 224.0f;
     primary_position.y = position.y + 16.0f;
     primary_position.z = position.z;
@@ -37,7 +37,7 @@ int GrowLaser::Draw() {
     vm->flags |= 4;
     AnmVm_DrawDispatch(g_sprt_ctrl, vm);
     if (secondary_visibility == 0.0f) {
-        RenderVec3& secondary_position = *(RenderVec3*)((unsigned char*)this + 0xCFC);
+        RenderVec3& secondary_position = secondary.base_position;
         secondary_position.x = position.x + 224.0f;
         secondary_position.y = position.y + 16.0f;
         secondary_position.z = position.z;

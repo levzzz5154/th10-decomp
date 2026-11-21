@@ -36,7 +36,7 @@ extern "C" {
     extern unsigned int g_app_flags;
     extern const char* g_title_demo_paths[4];
     extern char g_replay_path[];
-    extern GameThread6* g_ascii_manager;
+    extern GameThreadResourceView* g_ascii_manager;
     extern float flt_0_99, flt_1_01, flt_1;
 }
 // These declarations describe logical inputs, not promises about retail ABI.
@@ -119,14 +119,14 @@ __declspec(noinline) int __stdcall Title_DispatchUpdate(
         manager->MarkResourceForRemoval(*reinterpret_cast<void**>(manager_bytes + 0x3ad06c));
         AnmScriptHandle* handle = reinterpret_cast<AnmScriptHandle*>(
             reinterpret_cast<unsigned char*>(g_ascii_manager) + 0x89a4);
-        RecoveryMusicStopHandle(handle);
+        Title_StopAnimationHandle(handle);
         handle->value = 0;
         if (transition == 3) {
             room->cursor.item_count = 10;
             SetSelection(&room->cursor, 0);
             TitleSaveInputHistory_0044be20();
             room->DisableTimerWithOwner(15);
-            RecoveryMusicInstallSlot(room, 91);
+            Title_InstallAnimationSlot(room, 91);
             room->SetSlotFrame(91, 9);
             g_main_mode_request = 1;
             MarkTitleCallback(room);
@@ -148,7 +148,7 @@ __declspec(noinline) int __stdcall Title_DispatchUpdate(
             if (g_globals_difficulty == 4)
                 SetSelection(&room->cursor, 1);
             room->DisableTimerWithOwner(2);
-            RecoveryMusicInstallSlot(room, 91);
+            Title_InstallAnimationSlot(room, 91);
             MarkTitleCallback(room);
             TitleMainMenu(room);
             break;
@@ -157,7 +157,7 @@ __declspec(noinline) int __stdcall Title_DispatchUpdate(
             SetSelection(&room->cursor, 3);
             TitleSaveInputHistory_0044be20();
             room->DisableTimerWithOwner(12);
-            RecoveryMusicInstallSlot(room, 91);
+            Title_InstallAnimationSlot(room, 91);
             room->SetSlotFrame(91, 9);
             g_main_mode_request = 1;
             MarkTitleCallback(room);

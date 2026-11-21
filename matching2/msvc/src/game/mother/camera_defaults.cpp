@@ -1,3 +1,4 @@
+// 0x004216F0: RenderCamera_InitializeDefaults
 #include "th10/render/camera_batch.hpp"
 // Camera members begin the two 0x118-byte render-stage records.
 extern "C" RenderCamera g_back_camera;

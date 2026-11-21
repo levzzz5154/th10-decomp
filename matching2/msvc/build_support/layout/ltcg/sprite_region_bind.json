@@ -11,7 +11,7 @@
   "functions": [
     {
       "name": "SpriteRegion_BindToAnimation",
-      "symbol": "?BindToAnimation@SpriteRegion@@QAEHUAnimationHandle8@@HHHH@Z",
+      "symbol": "?BindToAnimation@SpriteRegion@@QAEHUUiAnimationHandle@@HHHH@Z",
       "section": ".text$00424480_fn",
       "address": "0x00424480",
       "size": 162,
@@ -28,7 +28,7 @@
   "anchors": [
     {
       "name": "AnimationLists_Find",
-      "symbol": "?Find@AnimationLists5@@QAEPAUAnimationObject2@@UAnimationHandle8@@@Z",
+      "symbol": "?Find@SpriteBindAnimationLists@@QAEPAUUiAnimationNodeView@@UUiAnimationHandle@@@Z",
       "section": ".text$004491c0_fn",
       "address": "0x004491C0",
       "size": 73

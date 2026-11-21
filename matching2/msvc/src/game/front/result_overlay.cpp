@@ -40,7 +40,7 @@ void __stdcall ResultOverlay_SetMode(int kind, ResultOverlayState* front, int nu
             if (value) leading_digit_seen = 1;
             Entity* object = reinterpret_cast<Entity*>(ResultAnimation_Find(g_sprt_ctrl, *digit));
             if (object) {
-                AnimationObject3* vm = reinterpret_cast<AnimationObject3*>(object);
+                SpriteDimensionsView* vm = reinterpret_cast<SpriteDimensionsView*>(object);
                 vm->resource->ConfigureObject(vm, value + 8);
             }
             if (!leading_digit_seen) digit->Hide();

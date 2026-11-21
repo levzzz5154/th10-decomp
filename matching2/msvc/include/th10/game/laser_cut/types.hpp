@@ -1,7 +1,7 @@
 #pragma once
 #include <stddef.h>
 #include "th10/game/laser_cut/animation_ids.hpp"
-#include "th10/game/laser_cut/item_spawn.hpp"
+#include "th10/game/item_line/item_spawn.hpp"
 #include "th10/game/laser_spawn.hpp"
 #include "th10/render/animation_public_callers.hpp"
 struct CutVector : Vector3 {
@@ -66,7 +66,7 @@ struct CutLaser {
 };
 typedef char CutLengthOffset[offsetof(CutLaser,length)==0x40?1:-1];
 typedef char CutScriptOffset[offsetof(CutLaser,script)==0x466?1:-1];
-struct CutAnimationBank : LaserManager2 {
+struct CutAnimationBank : LaserSpawnManager {
  unsigned char reserved_440[0x458-0x440];
  void* line_animation;
 };

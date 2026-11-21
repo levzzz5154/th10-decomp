@@ -2,7 +2,7 @@
 #define TH10_GAME_SPRITE_REGION_BIND_00424480_HPP
 
 // A handle to a running animation; zero when there is none.
-struct AnimationHandle8 {
+struct UiAnimationHandle {
     unsigned int value;
 };
 
@@ -17,9 +17,9 @@ struct AnimationSprite {
 };
 
 // A running animation as this code sees it.
-struct AnimationObject2 {
-    AnimationObject2* object;    // +0x000: list nodes point at the animation
-    AnimationObject2* next;      // +0x004
+struct UiAnimationNodeView {
+    UiAnimationNodeView* object;    // +0x000: list nodes point at the animation
+    UiAnimationNodeView* next;      // +0x004
     unsigned char reserved_008[0x300];
     int* texture;                        // +0x308
     unsigned char reserved_30c[0x88];
@@ -27,17 +27,17 @@ struct AnimationObject2 {
 };
 
 // The animation manager's two running lists.
-struct AnimationLists5 {
+struct SpriteBindAnimationLists {
     unsigned char reserved_000[0x72DAD4];
-    AnimationObject2* primary;   // +0x72DAD4
+    UiAnimationNodeView* primary;   // +0x72DAD4
     int reserved_72dad8;
-    AnimationObject2* secondary; // +0x72DADC
+    UiAnimationNodeView* secondary; // +0x72DADC
 
     // 0x004491C0: find a running animation by handle.
-    __declspec(noinline) AnimationObject2* Find(AnimationHandle8 handle);
+    __declspec(noinline) UiAnimationNodeView* Find(UiAnimationHandle handle);
 };
 
-extern "C" AnimationLists5* g_sprt_ctrl;
+extern "C" SpriteBindAnimationLists* g_sprt_ctrl;
 
 // A screen rectangle filled from a region of a texture.
 struct SpriteRegion {
@@ -73,7 +73,7 @@ struct SpriteRegion {
     }
 
     // 0x00424480: bind to the sprite an animation currently shows.
-    __declspec(noinline) int BindToAnimation(AnimationHandle8 handle,
+    __declspec(noinline) int BindToAnimation(UiAnimationHandle handle,
         int new_left, int new_top, int new_width, int new_height);
 };
 

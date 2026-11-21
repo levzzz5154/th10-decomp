@@ -1,4 +1,4 @@
-// 0x0041A0A0..0x0041A111: Recovery_TrimWhitespace
+// 0x0041A0A0..0x0041A111: Hint_TrimWhitespace
 //
 // Strip leading and trailing spaces, tabs, newlines and carriage returns from a
 // NUL-terminated string, in place.  Retail receives and returns the string

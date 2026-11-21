@@ -51,7 +51,7 @@ int HintLink::Drain(
         if (entry->intensity <= 1.0f) {
             void* animations = g_ascii_manager->text_animations;
             void* created;
-            state->handles[state->slot] = *AsHandle(RecoveryPlayerAnimationCreate(
+            state->handles[state->slot] = *AsHandle(AnmManager_CreatePositionedAnimation(
                 animations, &created, state->slot + 2, &entry->position));
             vm = IndicatorHandle_GetInline(state->handles[state->slot]);
             vm->font_width = 15;
@@ -66,7 +66,7 @@ int HintLink::Drain(
         } else if (entry->intensity <= 2.0f) {
             void* animations = g_ascii_manager->text_animations;
             void* created;
-            state->handles[state->slot] = *AsHandle(RecoveryPlayerAnimationCreate(
+            state->handles[state->slot] = *AsHandle(AnmManager_CreatePositionedAnimation(
                 animations, &created, state->slot + 12, &entry->position));
             vm = IndicatorHandle_Get(state->handles[state->slot]);
             vm->font_width = static_cast<unsigned char>(entry->intensity * 15.0f);
@@ -81,7 +81,7 @@ int HintLink::Drain(
         } else {
             void* animations = g_ascii_manager->text_animations;
             void* created;
-            state->handles[state->slot] = *AsHandle(RecoveryPlayerAnimationCreate(
+            state->handles[state->slot] = *AsHandle(AnmManager_CreatePositionedAnimation(
                 animations, &created, state->slot + 12, &entry->position));
             vm = IndicatorHandle_Get(state->handles[state->slot]);
             vm->font_width = 30;

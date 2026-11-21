@@ -10,8 +10,8 @@
     "include/th10/game/menu_cursor.hpp",
     "include/th10/platform/worker.hpp",
     "include/th10/script/ecl_children.hpp",
-    "include/script_vm.hpp",
-    "include/script_resolver.hpp"
+    "include/th10/script/script_vm.hpp",
+    "include/th10/script/script_resolver.hpp"
   ],
   "image_base": "0x00400000",
   "description": "Spt Test screen update with the screen in ECX and its tail-jump scheduler callback, compiled with copies of the mode switch, key test, name clear, cursor advance, worker start/stop, interpreter tick and interpreter create so each keeps its private registers.",

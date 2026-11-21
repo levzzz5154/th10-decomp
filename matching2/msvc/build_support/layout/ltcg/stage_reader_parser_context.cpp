@@ -1,6 +1,6 @@
 // Compiler context of the stage-tip parser cluster: the record constructor and
 // the named-value lookup the parser calls, then the real parser and reader.
-#include "stage_parser_model.hpp"
+#include "th10/game/stage_parser_model.hpp"
 #include "th10/platform/archive_file.hpp"
 #include <new>
 #include <string.h>

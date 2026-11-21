@@ -10,7 +10,7 @@ int* EclVm3::ResolveIntDestination(int index) {
     if (table->valid_mask & (1 << index)) {
         const int& offset = table->offsets[index];
         if (offset >= 0) {
-            EclFrame3* frame = &this->frame;
+            EclFloatDestFrame* frame = &this->frame;
             return (int*)((char*)frame + frame->frame_base + offset);
         }
         return this->frame.owner->ResolveExternalInt(offset);

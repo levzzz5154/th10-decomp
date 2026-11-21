@@ -1,3 +1,4 @@
+// 0x004088C0: InputPattern_CountMatches
 extern signed char g_input_pattern_table[110];
 
 // 0x004088C0: count a signed pattern value across the fixed 22-by-5 table.

@@ -10,7 +10,7 @@
     "include/th10/game/pause_result_open/open_animation.hpp",
     "include/th10/game/pause_result_open/open_state.hpp",
     "include/th10/game/entity.hpp",
-    "include/th10/game/recovery_mark_text_and_dispatcher.hpp",
+    "include/th10/game/ending_text_dispatcher.hpp",
     "include/th10/core/screen.hpp",
     "include/th10/core/func_ctrl.hpp",
     "include/th10/game/score.hpp",
@@ -84,14 +84,14 @@
     },
     {
       "name": "Descriptor",
-      "symbol": "?BindToAnimation@SpriteRegion@@QAEHUAnimationHandle8@@HHHH@Z",
+      "symbol": "?BindToAnimation@SpriteRegion@@QAEHUUiAnimationHandle@@HHHH@Z",
       "section": ".text$00424480_fn",
       "address": "0x424480",
       "size": 162
     },
     {
       "name": "Registrar",
-      "symbol": "?RegisterResource@AnimationManager9@@QAEPADPBDHH@Z",
+      "symbol": "?RegisterResource@AnmResourceRegistrar@@QAEPADPBDHH@Z",
       "section": ".text$0043e460_fn",
       "address": "0x43e460",
       "size": 104
@@ -245,7 +245,7 @@
     },
     {
       "name": "RecoveryDispatchText2",
-      "symbol": "?RecoveryDispatchText2@@YGXPAUAnmTextResource@@PAXHHIPBDH@Z",
+      "symbol": "?SpriteText_Dispatch@@YGXPAUAnmTextResource@@PAXHHIPBDH@Z",
       "section": ".text$004479d0_fn",
       "address": "0x004479D0",
       "size": 127
@@ -308,7 +308,7 @@
     },
     {
       "name": "semantic_AnimationObject_0043e5a0_ConfigureFromResource_0043e5a0",
-      "symbol": "?ConfigureObject@Resource2@@QAEHPAUAnimationObject3@@H@Z",
+      "symbol": "?ConfigureObject@Resource2@@QAEHPAUSpriteDimensionsView@@H@Z",
       "section": ".text$0043e5a0_fn",
       "address": "0x0043E5A0",
       "size": 356
@@ -564,7 +564,7 @@
       "kind": "data"
     },
     {
-      "symbol": "?g_music_requests@@3UAnimationManager9@@A",
+      "symbol": "?g_music_requests@@3UAnmResourceRegistrar@@A",
       "address": "0x492590",
       "kind": "data"
     },

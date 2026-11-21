@@ -1,3 +1,4 @@
+// 0x00402050: Entity_Constructor
 #include "th10/source_views/entity_cacea2_0.hpp"
 #include "th10/source_views/entity_cacea2_1.hpp"
 #include "th10/source_views/entity_cacea2_2.hpp"

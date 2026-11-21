@@ -1,3 +1,4 @@
+// 0x00437A00: InitializeFontCache
 #include "th10/source_views/font_cache_init_d7bc6e_0.hpp"
 extern "C" void __cdecl InitializeFontCache() {
     if (!FontSurface_Create(&g_font_atlas_surface,0x400,0x40,0x1a))

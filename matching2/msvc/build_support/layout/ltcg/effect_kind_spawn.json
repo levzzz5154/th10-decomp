@@ -11,7 +11,7 @@
   "functions": [
     {
       "name": "EffectKind_SpawnFromOwner",
-      "symbol": "?SpawnEffect@EffectSpawnView@@QAG?AUAnimationHandle2@@PAXH@Z",
+      "symbol": "?SpawnEffect@EffectSpawnView@@QAG?AUEffectAnimationHandle@@PAXH@Z",
       "section": ".text$0040b070_fn",
       "address": "0x0040B070",
       "size": 159,
@@ -19,7 +19,7 @@
     },
     {
       "name": "EffectKind_SpawnFromFile",
-      "symbol": "?SpawnEffectFromFile@@YG?AUAnimationHandle2@@HPAUAnimationBank@@PAX@Z",
+      "symbol": "?SpawnEffectFromFile@@YG?AUEffectAnimationHandle@@HPAUAnimationBank@@PAX@Z",
       "section": ".text$0040b110_fn",
       "address": "0x0040B110",
       "size": 148,
@@ -43,14 +43,14 @@
     },
     {
       "name": "AnimationLists_Find",
-      "symbol": "?Find@AnimationLists2@@QAEPAUAnimationNode2@@UAnimationHandle2@@@Z",
+      "symbol": "?Find@EffectAnimationLists@@QAEPAUEffectAnimationNode@@UEffectAnimationHandle@@@Z",
       "section": ".text$004491c0_fn",
       "address": "0x004491C0",
       "size": 73
     },
     {
       "name": "AnimationPool_Allocate",
-      "symbol": "?Allocate@AnimationPool2@@QAEPAUAnimationNode2@@XZ",
+      "symbol": "?Allocate@AnimationPool2@@QAEPAUEffectAnimationNode@@XZ",
       "section": ".text$00449950_fn",
       "address": "0x00449950",
       "size": 171

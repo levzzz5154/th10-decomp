@@ -1,3 +1,4 @@
+// 0x0043A3A0: StartupDialog_Procedure
 #include "th10/platform/startup_dialog.hpp"
 
 extern "C" __declspec(dllimport) UINT __stdcall IsDlgButtonChecked(HWND, int);

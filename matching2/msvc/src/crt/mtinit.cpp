@@ -6,11 +6,11 @@ struct ThreadData {
     unsigned char padding1[0x3c];
     void* initaddr;
 };
-extern "C" int __cdecl asm_mtinitlocks_00453aa1();
-extern "C" void __cdecl asm_mtterm_00456327();
-extern "C" void __stdcall asm_freefls_4_004563c8(void*);
-extern "C" unsigned int __stdcall asm_FUN_0045631e_0045631e(void*);
-extern "C" ThreadData* __cdecl asm_FUN_0045794d_0045794d(unsigned int, unsigned int);
+extern "C" int __cdecl crt_mtinitlocks();
+extern "C" void __cdecl crt_mtterm();
+extern "C" void __stdcall crt_freefls_4(void*);
+extern "C" unsigned int __stdcall crt_helper_45631e(void*);
+extern "C" ThreadData* __cdecl crt_calloc(unsigned int, unsigned int);
 extern "C" void* (__stdcall *imp_GetModuleHandleA)(const char*);
 extern "C" void* (__stdcall *imp_GetProcAddress)(void*, const char*);
 extern "C" unsigned int (__stdcall *imp_GetCurrentThreadId)();
@@ -24,9 +24,9 @@ extern "C" void* g_crt_ptd_init;
 extern "C" unsigned int g_crt_tls_index;
 extern "C" char g_crt_ptd_init_marker;
 
-extern "C" int __cdecl asm_mtinit_0045654a() {
-    if (!asm_mtinitlocks_00453aa1()) {
-        asm_mtterm_00456327();
+extern "C" int __cdecl crt_mtinit() {
+    if (!crt_mtinitlocks()) {
+        crt_mtterm();
         return 0;
     }
     void* module = imp_GetModuleHandleA(reinterpret_cast<const char*>(0x46aa5c));
@@ -39,13 +39,13 @@ extern "C" int __cdecl asm_mtinit_0045654a() {
         if (!g_crt_ptd_get) {
             g_crt_ptd_get = imp_TlsGetValue;
             g_crt_ptd_set = imp_TlsSetValue;
-            g_crt_ptd_alloc = reinterpret_cast<void*>(&asm_FUN_0045631e_0045631e);
+            g_crt_ptd_alloc = reinterpret_cast<void*>(&crt_helper_45631e);
             g_crt_ptd_init = imp_TlsFree;
         }
     }
-    g_crt_tls_index = reinterpret_cast<unsigned int (__stdcall*)(void*)>(g_crt_ptd_alloc)(reinterpret_cast<void*>(&asm_freefls_4_004563c8));
+    g_crt_tls_index = reinterpret_cast<unsigned int (__stdcall*)(void*)>(g_crt_ptd_alloc)(reinterpret_cast<void*>(&crt_freefls_4));
     if (g_crt_tls_index != 0xffffffff) {
-        ThreadData* data = asm_FUN_0045794d_0045794d(1, 0x8c);
+        ThreadData* data = crt_calloc(1, 0x8c);
         if (data && reinterpret_cast<int (__stdcall*)(unsigned int, ThreadData*)>(g_crt_ptd_set)(g_crt_tls_index, data)) {
             data->initaddr = &g_crt_ptd_init_marker;
             data->holdrand = 1;
@@ -55,6 +55,6 @@ extern "C" int __cdecl asm_mtinit_0045654a() {
             return 1;
         }
     }
-    asm_mtterm_00456327();
+    crt_mtterm();
     return 0;
 }

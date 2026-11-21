@@ -16,8 +16,8 @@ struct PowerDisplayOwner {
     __declspec(noinline) void SetPowerDigits(int whole, int fraction);
 };
 
-inline AnimationObject3* DigitSprite(unsigned char* storage) {
-    return reinterpret_cast<AnimationObject3*>(storage);
+inline SpriteDimensionsView* DigitSprite(unsigned char* storage) {
+    return reinterpret_cast<SpriteDimensionsView*>(storage);
 }
 
 #pragma code_seg(".text$00m_digits")

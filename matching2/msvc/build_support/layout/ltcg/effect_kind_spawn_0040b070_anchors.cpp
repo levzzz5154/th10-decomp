@@ -15,7 +15,7 @@ static unsigned int NextPoolIndex_00449950(unsigned int index) {
 }
 
 #pragma code_seg(".text$00449950_fn")
-AnimationNode2* AnimationPool2::Allocate() {
+EffectAnimationNode* AnimationPool2::Allocate() {
     unsigned char* bytes = (unsigned char*)this;
     unsigned int index = *(unsigned int*)(bytes + 0x3AD068);
     if (bytes[0x3AC068 + index] != 0) {
@@ -28,14 +28,14 @@ AnimationNode2* AnimationPool2::Allocate() {
             Entity_Init_00401de0(0, allocated);
             *(unsigned int*)(bytes + 0x3AD068) =
                 NextPoolIndex_00449950(*(unsigned int*)(bytes + 0x3AD068));
-            return (AnimationNode2*)allocated;
+            return (EffectAnimationNode*)allocated;
         }
     }
     unsigned char* slot = bytes + 0x68 + index * 0x3AC;
     bytes[0x3AC068 + index] = 1;
     *(unsigned int*)(bytes + 0x3AD068) =
         NextPoolIndex_00449950(*(unsigned int*)(bytes + 0x3AD068));
-    return (AnimationNode2*)slot;
+    return (EffectAnimationNode*)slot;
 }
 
 #pragma code_seg(".text$004489d0_fn")
@@ -69,13 +69,13 @@ extern "C" __declspec(noinline) void** __cdecl AnimationManager_RegisterPrimaryB
 }
 
 #pragma code_seg(".text$004491c0_fn")
-AnimationNode2* AnimationLists2::Find(AnimationHandle2 handle) {
+EffectAnimationNode* EffectAnimationLists::Find(EffectAnimationHandle handle) {
     if (!handle.value)
         return 0;
-    for (AnimationNode2* node = primary; node != 0; node = node->next)
+    for (EffectAnimationNode* node = primary; node != 0; node = node->next)
         if (*reinterpret_cast<unsigned int*>(node->object) == handle.value)
             return node->object;
-    for (AnimationNode2* node = secondary; node != 0; node = node->next)
+    for (EffectAnimationNode* node = secondary; node != 0; node = node->next)
         if (*reinterpret_cast<unsigned int*>(node->object) == handle.value)
             return node->object;
     return 0;

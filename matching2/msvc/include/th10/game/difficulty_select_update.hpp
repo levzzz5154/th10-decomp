@@ -19,12 +19,12 @@ struct AnimationRef2 {
     AnimationRef2(int value) : value(value) {}
 };
 // An animation slot seen as the handle 0x004497D0 searches.
-struct AnimationHandle15 {
+struct ChildLookupAnmHandle {
     AnimationScriptId id;
     AnimationRef2 FindChildRef(int script_id);
 };
 // A child reference seen as the handle 0x00449470 works on.
-struct AnimationHandle11 {
+struct StopFrameAnmHandle {
     unsigned int value;
     __declspec(noinline) void SetStopFrame(unsigned short frame);
 };
@@ -50,7 +50,7 @@ extern "C" {
 extern KeyRepeatState g_input_keys_raw;
 extern int g_globals_difficulty;               // difficulty (4 and above: fixed entry)
 extern int g_globals_character;               // character
-extern GameThread6* g_ascii_manager;
+extern GameThreadResourceView* g_ascii_manager;
 }
 
 // 0x00449250: set the stop frame of an animation and run it once.
@@ -74,7 +74,7 @@ static __forceinline void EnsureTitleMenuBackdrop(Title* room, void*& handle) {
             room->animation_slots[BackdropSlot]) != 0)
         return;
 
-    RecoveryMusicInstallSlot(room, BackdropSlot);
+    Title_InstallAnimationSlot(room, BackdropSlot);
     void* resource = g_ascii_manager->animation_resource;
     void** result = AnimationManager_CreatePrimaryBack(resource, &handle, BackdropScript, MenuLayer);
     room->fallback_handle.value = reinterpret_cast<unsigned int>(*result);

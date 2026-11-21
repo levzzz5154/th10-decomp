@@ -1,3 +1,4 @@
+// 0x0040D6B0: EnemyCtrl_Create
 #include "th10/source_views/enemy_ctrl_create_c34965_0.hpp"
 extern "C" __declspec(noinline) EnemyCtrl *__stdcall
 EnemyCtrl_Create(int script_name) {

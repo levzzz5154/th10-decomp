@@ -18,7 +18,7 @@ struct DatArchive {
 extern "C" void __cdecl DeleteFontCacheObjects2();
 extern "C" void __cdecl crt_free(void* memory);
 extern "C" void __cdecl crt_free_startup(void* memory);
-void __stdcall Recovery_ReleaseGlobalStates();
+void __stdcall Supervisor_ReleaseGlobalStates();
 __declspec(noinline) void DeletePublishedBlock(PublishedBlock* block);
 
 // The part of a COM interface this routine uses: IUnknown::Release and, for
@@ -58,7 +58,7 @@ extern "C" App2 g_application;
 extern "C" PlatformWorker g_input_worker;
 extern "C" int g_sound_init_status;
 extern "C" AnimationManagerSurface* g_sprt_ctrl;
-extern "C" AnimationManager9 g_sound_manager;
+extern "C" AnmResourceRegistrar g_sound_manager;
 extern "C" DatArchive g_archive;
 extern "C" const char str_dummy[];
 
@@ -78,7 +78,7 @@ int App2::Shutdown() {
         crt_free(g_application.buffer_764);
         g_application.buffer_764 = 0;
     }
-    Recovery_ReleaseGlobalStates();
+    Supervisor_ReleaseGlobalStates();
     DeletePublishedBlock(g_fps);
     ComObject2** back_buffer = &g_sprt_ctrl->back_buffer;
     if (*back_buffer) {

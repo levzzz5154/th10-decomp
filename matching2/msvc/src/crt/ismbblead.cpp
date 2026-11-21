@@ -1,5 +1,5 @@
-extern "C" int __cdecl asm_x_ismbbtype_0045f4c9(unsigned int character, int locale, int mask);
+extern "C" int __cdecl crt_x_ismbbtype(unsigned int character, int locale, int mask);
 
-extern "C" int __cdecl asm_ismbblead_0045f590(unsigned int character) {
-    return asm_x_ismbbtype_0045f4c9(character, 0, 4);
+extern "C" int __cdecl crt_ismbblead(unsigned int character) {
+    return crt_x_ismbbtype(character, 0, 4);
 }

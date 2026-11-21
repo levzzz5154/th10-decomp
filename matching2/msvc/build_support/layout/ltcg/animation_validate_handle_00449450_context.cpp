@@ -4,7 +4,7 @@
 
 #pragma code_seg(".text$05context")
 int __stdcall AnimationValidateHandleCompilerContext(
-        AnimationManager15* manager, AnimationHandle10* handles, int count) {
+        ResultAnmManagerView* manager, ValidatedAnmHandle* handles, int count) {
     int validated = count;
     while (count--)
         manager->ValidateHandle(handles++);

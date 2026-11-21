@@ -3,7 +3,7 @@
 #include "th10/game/life_stock_add.hpp"
 
 #pragma code_seg(".text$00413790_fn")
-void AnimationManager4::SetActiveCount(int count) {
+void LifeStockAnmManager::SetActiveCount(int count) {
     int index = 0;
     for (; index < count; ++index)
         records_4cdc[index].flags_0000 |= 2;
@@ -37,20 +37,20 @@ void** __stdcall AnimationManager_CreatePrimaryBack(
     return out;
 }
 #pragma code_seg(".text$004491c0_fn")
-AnimationNode6* AnimationLists4::Find(AnimationHandle6 handle) {
+LifeStockAnimationNode* LifeStockAnimationLists::Find(LifeStockAnmHandle handle) {
     if (!handle.value)
         return 0;
-    for (AnimationNode6* node = primary; node != 0; node = node->next)
+    for (LifeStockAnimationNode* node = primary; node != 0; node = node->next)
         if (*reinterpret_cast<unsigned int*>(node->object) == handle.value)
             return node->object;
-    for (AnimationNode6* node = secondary; node != 0; node = node->next)
+    for (LifeStockAnimationNode* node = secondary; node != 0; node = node->next)
         if (*reinterpret_cast<unsigned int*>(node->object) == handle.value)
             return node->object;
     return 0;
 }
 #pragma code_seg(".text$004492a0_fn")
-AnimationNode6* AnimationLists4::MarkForRemoval(AnimationHandle6 handle) {
-    AnimationNode6* node = Find(handle);
+LifeStockAnimationNode* LifeStockAnimationLists::MarkForRemoval(LifeStockAnmHandle handle) {
+    LifeStockAnimationNode* node = Find(handle);
     if (node) {
         node->flags |= 0x04000000u;
         if (!node->children_flagged)

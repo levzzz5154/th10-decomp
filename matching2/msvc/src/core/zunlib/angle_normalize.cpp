@@ -1,3 +1,4 @@
+// 0x0044BC10..0x0044BC70: Angle_NormalizeSum, Angle_Normalize
 #include "th10/source_views/angle_4872c8_0.hpp"
 #include "th10/source_views/angle_4872c8_1.hpp"
 float Angle_Normalize(float angle) {

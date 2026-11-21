@@ -1,10 +1,10 @@
-extern "C" int __cdecl asm_tolower_00460cee(int);
-extern "C" int __cdecl asm_isdigit_0045685e(int);
+extern "C" int __cdecl crt_tolower(int);
+extern "C" int __cdecl crt_isdigit(int);
 extern "C" char g_crt_decimal_point;
 
-extern "C" void __cdecl asm_forcdecpt_0045dbdb(char* text) {
-    if (asm_tolower_00460cee(*text) != 'e') {
-        do { ++text; } while (asm_isdigit_0045685e(*text));
+extern "C" void __cdecl crt_forcdecpt(char* text) {
+    if (crt_tolower(*text) != 'e') {
+        do { ++text; } while (crt_isdigit(*text));
     }
     char previous = *text;
     *text++ = g_crt_decimal_point;

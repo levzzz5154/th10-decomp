@@ -1,3 +1,4 @@
+// 0x0044B9B0..0x0044BB90: RngState::NextWord, Rng_NextU32, Rng_NextU32Alternate (+3 more)
 #include "th10/math/rng.hpp"
 #include <string.h>
 

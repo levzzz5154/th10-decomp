@@ -1,5 +1,5 @@
 // 0x0044B360: load a named file either from the packed archive index or from disk.
-#include "th10/archive/native_read/archive.hpp"
+#include "th10/archive/read/archive.hpp"
 
 extern "C" DatArchive g_archive;
 extern "C" unsigned char g_file_lock_depth;

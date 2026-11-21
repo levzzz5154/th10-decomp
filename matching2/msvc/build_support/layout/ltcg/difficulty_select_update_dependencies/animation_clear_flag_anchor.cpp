@@ -13,7 +13,7 @@ struct AnimationNode11 {
     unsigned int flags;                         // +0x35C
 };
 #pragma code_seg(".text$004495e0_fn")
-void AnimationHandle12::ClearFlag() {
+void ClearFlagAnmHandle::ClearFlag() {
     AnimationNode11* node = reinterpret_cast<AnimationNode11*>(
         reinterpret_cast<AnmLookup*>(g_sprt_ctrl)->Find(
             reinterpret_cast<AnmLookupContext*>(g_sprt_ctrl), id));

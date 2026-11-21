@@ -1,4 +1,5 @@
-#include "script_vm.hpp"
+// 0x00450700: BindName
+#include "th10/script/script_vm.hpp"
 // 0x00450700: bind a named subroutine and reset its frame time.
 #pragma code_seg(".text$05bindname")
 int __fastcall BindName(const char* name, ScriptVm* vm) {

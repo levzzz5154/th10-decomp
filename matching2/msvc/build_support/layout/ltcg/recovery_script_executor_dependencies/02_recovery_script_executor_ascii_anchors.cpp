@@ -1,8 +1,8 @@
 // Compiler-only full semantic anchors for the executor's ASCII factory call.
 // Every helper retains its complete retail behavior; none is a selected region.
 #include <string.h>
-#include "th10/game/ending_script/recovery_script_executor_ascii_anchors.hpp"
-#include "th10/game/ending_script/thread_sync.hpp"
+#include "th10/game/ending_script/script_executor_ascii_anchors.hpp"
+#include "th10/platform/thread_sync.hpp"
 
 extern "C" {
 extern FuncCtrl* g_func_ctrl;
@@ -175,7 +175,7 @@ void AsciiTextController::Configure(unsigned int draw_priority,
 
 #pragma code_seg(".text$0043c8b0_fn")
 extern "C" AsciiTextManager* __stdcall
-RecoveryAscii_Create(unsigned int draw_priority, unsigned int mode,
+AsciiText_Create(unsigned int draw_priority, unsigned int mode,
     unsigned int payload, unsigned int argument_20,
     unsigned int argument_24, unsigned int argument_28) {
     AsciiTextController* manager = new AsciiTextController;

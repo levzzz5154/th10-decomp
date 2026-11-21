@@ -37,13 +37,13 @@ public:
 
 extern "C" AnimationLookupContext* g_sprt_ctrl;
 
-struct AnimationHandle15 {
+struct ChildLookupAnmHandle {
     AnimationScriptId id;
     __declspec(noinline) AnimationRef2 FindChildRef(int script_id);
 };
 
 #pragma code_seg(".text$84childref")
-AnimationRef2 AnimationHandle15::FindChildRef(int script_id) {
+AnimationRef2 ChildLookupAnmHandle::FindChildRef(int script_id) {
     AnimationNode12* node = reinterpret_cast<AnimationNode12*>(
         reinterpret_cast<SprtCtrl*>(g_sprt_ctrl)->Find(g_sprt_ctrl, id));
     if (node == 0)

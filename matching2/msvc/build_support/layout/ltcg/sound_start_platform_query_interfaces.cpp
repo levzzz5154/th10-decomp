@@ -5,7 +5,7 @@ __declspec(noinline) int PlatformQueryInterfaces::Query() {
     for (unsigned int index = 0; index < count_010; ++index) {
         void* entry = entries_004[index];
         void** vtable = *reinterpret_cast<void***>(entry);
-        result |= reinterpret_cast<RecoveryLeafD600Query>(
+        result |= reinterpret_cast<SoundDevice_QueryInterfaces>(
             vtable[0x34 / 4])(entry, 0);
     }
     return result;

@@ -1,3 +1,4 @@
+// 0x00430250: KeyConfigReassignSlot2
 #include "th10/game/key_config_refresh.hpp"
 #include "th10/platform/sound_queue.hpp"
 extern "C" __declspec(noinline) void __stdcall RefreshTitleKeyConfigView(TitleKeyConfigView*);

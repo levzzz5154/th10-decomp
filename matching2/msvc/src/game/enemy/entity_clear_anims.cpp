@@ -1,3 +1,4 @@
+// 0x0040CC70: Entity_ClearAnims2
 #include "th10/source_views/bullet_99a1d5_0.hpp"
 ClearAnimsOwner* __fastcall Entity_ClearAnims2(int unused, ClearAnimsOwner* owner) {
     ClearActiveFlag(&owner->flag_12C);

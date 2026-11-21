@@ -19,7 +19,7 @@ struct Title {
 
 // Declared here exactly as the co-compiled TextLog translation unit defines it.
 #include "th10/platform/text_log.hpp"
-extern "C" void *__fastcall Recovery_LoadCachedResource(
+extern "C" void *__fastcall SprtCtrl_LoadCachedResource(
         int id, void *cache, const char *name);
 extern "C" SchedulerTask *__stdcall SchedulerTask_Create(void *callback);
 extern "C" void *g_sprt_ctrl;
@@ -41,13 +41,13 @@ Title_RegisterTasks(Title *title) {
     FuncCtrl_RegisterSecondary(g_func_ctrl, task, 3);
     title->draw_task = task;
 
-    title->title_resource = Recovery_LoadCachedResource(
+    title->title_resource = SprtCtrl_LoadCachedResource(
             0x19, g_sprt_ctrl, "title.anm");
     if (!title->title_resource) {
         ((TextLog *)0x474F70)->Append((char *)0x46CB68);
         return -1;
     }
-    title->title_v_resource = Recovery_LoadCachedResource(
+    title->title_v_resource = SprtCtrl_LoadCachedResource(
             0x1A, g_sprt_ctrl, "title_v.anm");
     if (!title->title_v_resource) {
         ((TextLog *)0x474F70)->Append((char *)0x46CB68);

@@ -32,7 +32,7 @@
     "include/th10/game/laser_cut/types.hpp",
     "include/th10/game/laser_cut/animation_ids.hpp",
     "include/th10/game/item_velocity.hpp",
-    "include/th10/game/laser_cut/item_spawn.hpp",
+    "include/th10/game/item_line/item_spawn.hpp",
     "include/th10/render/animation_public_callers.hpp",
     "include/th10/game/entity.hpp",
     "include/th10/types.hpp",
@@ -123,7 +123,7 @@
     },
     {
       "name": "function_0041c510",
-      "symbol": "?SpawnIn@LaserSpawnParameters@@QBEHPAULaserManager2@@H@Z",
+      "symbol": "?SpawnIn@LaserSpawnParameters@@QBEHPAULaserSpawnManager@@H@Z",
       "section": ".text$f0041c510F",
       "address": "0x41c510",
       "size": 151

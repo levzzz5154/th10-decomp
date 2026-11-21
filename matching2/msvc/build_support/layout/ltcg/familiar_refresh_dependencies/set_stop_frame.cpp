@@ -33,7 +33,7 @@ public:
 extern "C" AnimationLookupContext* g_sprt_ctrl;
 
 #pragma code_seg(".text$00449470_stop")
-void AnimationHandle11::SetStopFrame(unsigned short frame) {
+void StopFrameAnmHandle::SetStopFrame(unsigned short frame) {
     AnimationScriptId id;
     id.value = (int)value;
     AnimationTreeNode* node = reinterpret_cast<AnimationTreeNode*>(

@@ -46,11 +46,11 @@
     "include/th10/game/player_collision/runtime.hpp",
     "include/th10/game/player_collision/effect_update.hpp",
     "include/th10/game/player_collision/registration.hpp",
-    "include/th10/game/player_collision/sound_queue.hpp",
+    "include/th10/platform/sound_queue.hpp",
     "include/th10/game/player_collision/collision.hpp",
     "include/th10/game/item_velocity.hpp",
     "include/th10/game/player_collision/item_spawn.hpp",
-    "include/th10/game/player_collision/timer.hpp",
+    "include/th10/math/timer.hpp",
     "include/th10/game/player_collision/animation_public_callers.hpp",
     "include/th10/game/entity.hpp",
     "include/th10/types.hpp",
@@ -61,7 +61,6 @@
     "include/th10/game/power_display.hpp",
     "include/th10/render/animation_object.hpp",
     "include/th10/game/player.hpp",
-    "include/th10/math/timer.hpp",
     "include/th10/game/player_collision/animation_tree.hpp",
     "include/th10/game/pause_result_open/descriptor.hpp",
     "include/th10/game/pause_result_open/music.hpp",
@@ -439,7 +438,7 @@
     },
     {
       "name": "function_0043e5a0",
-      "symbol": "?ConfigureObject@Resource2@@QAEHPAUAnimationObject3@@H@Z",
+      "symbol": "?ConfigureObject@Resource2@@QAEHPAUSpriteDimensionsView@@H@Z",
       "section": ".text$f0043e5a0F",
       "address": "0x43e5a0",
       "size": 356
@@ -453,14 +452,14 @@
     },
     {
       "name": "anchor_00424480",
-      "symbol": "?BindToAnimation@SpriteRegion@@QAEHUAnimationHandle8@@HHHH@Z",
+      "symbol": "?BindToAnimation@SpriteRegion@@QAEHUUiAnimationHandle@@HHHH@Z",
       "section": ".text$f00424480F",
       "address": "0x424480",
       "size": 162
     },
     {
       "name": "anchor_0043e460",
-      "symbol": "?RegisterResource@AnimationManager9@@QAEPADPBDHH@Z",
+      "symbol": "?RegisterResource@AnmResourceRegistrar@@QAEPADPBDHH@Z",
       "section": ".text$f0043e460F",
       "address": "0x43e460",
       "size": 104
@@ -1082,7 +1081,7 @@
       "kind": "data"
     },
     {
-      "symbol": "?g_music_requests@@3UAnimationManager9@@A",
+      "symbol": "?g_music_requests@@3UAnmResourceRegistrar@@A",
       "address": "0x492590",
       "kind": "data"
     },

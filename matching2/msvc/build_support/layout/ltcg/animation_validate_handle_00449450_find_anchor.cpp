@@ -13,7 +13,7 @@ struct AnimationLookupContext {
 };
 
 #pragma code_seg(".text$01find")
-void* __fastcall AnimationManager15::Find(
+void* __fastcall ResultAnmManagerView::Find(
         AnimationLookupContext* context, AnimationScriptId2 id) {
     if (!id.value)
         return 0;

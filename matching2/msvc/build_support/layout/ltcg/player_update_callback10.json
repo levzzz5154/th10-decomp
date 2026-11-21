@@ -58,7 +58,7 @@
     },
     {
       "name": "ScoreEvaluate",
-      "symbol": "?CopyVectorAndEvaluate@LaserManager3@@QAEHPBMMH@Z",
+      "symbol": "?CopyVectorAndEvaluate@LaserScoreManagerView@@QAEHPBMMH@Z",
       "address": "0x41c800",
       "size": 76,
       "section": ".text$090score"

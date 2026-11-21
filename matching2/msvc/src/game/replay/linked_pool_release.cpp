@@ -1,3 +1,4 @@
+// 0x0042AB20: ReplayPool_Clear
 #include "th10/game/replay_pool_append.hpp"
 #include <stdlib.h>
 #pragma code_seg(".text$40release")

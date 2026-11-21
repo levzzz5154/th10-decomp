@@ -1,3 +1,4 @@
+// 0x0042BB30: SptTest_Construct
 #include "th10/game/spt_test_state.hpp"
 extern "C" void* __cdecl memset(void*, int, unsigned int);
 extern "C" unsigned char g_spt_test;

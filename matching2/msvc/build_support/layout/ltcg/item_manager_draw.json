@@ -13,7 +13,7 @@
   "functions": [
     {
       "name": "ItemManager_Draw",
-      "symbol": "?Draw@ItemManager3@@QAEHXZ",
+      "symbol": "?Draw@ItemPoolManager@@QAEHXZ",
       "section": ".text$00draw",
       "address": "0x0041B8E0",
       "size": 281,
@@ -21,7 +21,7 @@
     },
     {
       "name": "ItemManager_OnDraw",
-      "symbol": "?ItemManager_OnDraw2@@YIHPAUItemManager3@@@Z",
+      "symbol": "?ItemManager_OnDraw2@@YIHPAUItemPoolManager@@@Z",
       "section": ".text$00ondraw",
       "address": "0x0041BA30",
       "size": 29,
@@ -31,7 +31,7 @@
   "anchors": [
     {
       "name": "ConfigureFromResource_anchor",
-      "symbol": "?ConfigureObject@Resource2@@QAEHPAUAnimationObject3@@H@Z",
+      "symbol": "?ConfigureObject@Resource2@@QAEHPAUSpriteDimensionsView@@H@Z",
       "section": ".text$01configure",
       "address": "0x0043E5A0",
       "size": 356
@@ -45,7 +45,7 @@
     }
   ],
   "context": {
-    "symbol": "?ItemManagerDrawCompilerContext_0041b8e0@@YGHPAPAUItemManager3@@H@Z",
+    "symbol": "?ItemManagerDrawCompilerContext_0041b8e0@@YGHPAPAUItemPoolManager@@H@Z",
     "section": ".text$05context",
     "address": "0x004451E0",
     "size": 78,
@@ -142,6 +142,6 @@
     "src/core/sprtanim/animation_object_configure_from_resource.cpp"
   ],
   "roots": [
-    "?ItemManager_OnDraw2@@YIHPAUItemManager3@@@Z"
+    "?ItemManager_OnDraw2@@YIHPAUItemPoolManager@@@Z"
   ]
 }

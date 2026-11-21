@@ -20,7 +20,7 @@ struct ItemScoreDisplay {
 };
 
 // The item manager, as far as its score display goes.
-struct ItemManager2 {
+struct ItemScoreManagerView {
     unsigned char reserved_0000[0x9EB8];
     ItemScoreDisplay* score_display;   // +0x9EB8
     ItemScoreTableEntry* score_table;  // +0x9EBC, directory then scripts

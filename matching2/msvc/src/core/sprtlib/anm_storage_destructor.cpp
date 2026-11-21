@@ -1,3 +1,4 @@
+// 0x00446220..0x0046520A: AnimationManagerStorage::~AnimationManagerStorage, ManagerPoolUnwind_004651e0, ManagerMiddleUnwind_004651fc (+1 more)
 #include "th10/game/game_thread.hpp"
 #include "th10/render/anm_manager_lists.hpp"
 

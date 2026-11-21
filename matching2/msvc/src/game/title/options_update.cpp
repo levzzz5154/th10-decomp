@@ -117,7 +117,7 @@ __declspec(noinline) int __stdcall TitleOptions(Title* room) {
     case OPT_PHASE_ENTER:
         room->cursor.item_count = OPT_ITEM_COUNT;
         SelectItem4(room->cursor, OPT_ITEM_SCREEN_MODE);
-        RecoveryMusicInstallSlot(room, 1);
+        Title_InstallAnimationSlot(room, 1);
         RefreshOptions2(room);
         room->SetTimerTarget(OPT_PHASE_WAIT_OPEN);
     case OPT_PHASE_WAIT_OPEN:

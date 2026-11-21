@@ -19,7 +19,7 @@ struct AnimationResource6 {
     __declspec(noinline) void Release();
 };
 
-struct AnimationManager13 {
+struct AnmSlotManager {
     unsigned char pad_000[0x3AD06C];
     AnimationResource6* slots_3ad06c[0x21];
     __declspec(noinline) void ClearResourceSlot(int index);
@@ -37,7 +37,7 @@ struct AnimationResourceEntry {
 #pragma code_seg(".text$30context")
 int __stdcall AnimationManagerHelperCompilerContext(BulletPool** pools,
                                                     AnimationResource6** records,
-                                                    AnimationManager13* manager,
+                                                    AnmSlotManager* manager,
                                                     int first, int count) {
     while (count--) {
         BulletPool* pool = *pools++;

@@ -108,7 +108,7 @@ struct PanelTask {
 };
 
 // The run's counters; the run flags sit at +0x60.
-struct RunState2 {
+struct SidePanelRunState {
     unsigned char reserved_00[0x60];
     unsigned int flags;                             // +0x60 (0x00474CA0)
 };
@@ -142,7 +142,7 @@ typedef char SidePanelStageSlot[offsetof(SidePanel, stage_slot) == 0x9EB8 ? 1 : 
 
 extern "C" {
 extern PanelAnimationManager* g_sprt_ctrl;
-extern RunState2 g_globals;
+extern SidePanelRunState g_globals;
 extern void* g_next_stage_buffer;         // the stage buffer kept for the next stage
 }
 

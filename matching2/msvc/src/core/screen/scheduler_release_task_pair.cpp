@@ -4,7 +4,7 @@
 #include "th10/game/scheduler_remove_locked.hpp"
 
 #pragma code_seg(".text$00hcpairrelease")
-extern "C" __declspec(noinline) void __stdcall Recovery_ReleaseRawPair(SchedulerTaskPair* pair) {
+extern "C" __declspec(noinline) void __stdcall Scheduler_ReleaseTaskPairImpl(SchedulerTaskPair* pair) {
     RemoveScheduledTaskPair(pair);
 }
 #pragma code_seg()

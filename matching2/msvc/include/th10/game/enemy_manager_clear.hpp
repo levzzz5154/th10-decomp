@@ -9,7 +9,7 @@ struct EnemyTask {
 };
 
 // An enemy; only its deleting entry in slot 5 is called.
-struct Enemy3 {
+struct EnemyVtableView {
     virtual void Slot00() = 0;
     virtual void Slot04() = 0;
     virtual void Slot08() = 0;
@@ -18,7 +18,7 @@ struct Enemy3 {
     virtual void Destroy(int release) = 0;
 };
 struct EnemyNode {
-    Enemy3* enemy;
+    EnemyVtableView* enemy;
     EnemyNode* next;
 };
 

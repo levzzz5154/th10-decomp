@@ -3,7 +3,7 @@
 
 #pragma code_seg(".text$03context")
 extern "C" __declspec(noinline) int __stdcall EclPushScratchValueContext(
-        EclFrame4** items, int size, int count) {
+        EclStackFrame** items, int size, int count) {
     int last = 0;
     while (count--) {
         last = (*items++)->Push(size);

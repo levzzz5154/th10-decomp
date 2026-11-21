@@ -1,3 +1,4 @@
+// 0x00418D00: HintData_Initialize
 #include "th10/runtime/asm_symbols.hpp"
 #include "th10/game/hint_data.hpp"
 

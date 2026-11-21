@@ -6,7 +6,7 @@
 #include "th10/game/item_score_display_create.hpp"
 
 #pragma code_seg(".text$01b_create")
-void ItemManager2::CreateScoreDisplay(int stage) {
+void ItemScoreManagerView::CreateScoreDisplay(int stage) {
     score_display = new ItemScoreDisplay(
         reinterpret_cast<char*>(score_table) + score_table[stage].offset);
     score_display->stage = stage;

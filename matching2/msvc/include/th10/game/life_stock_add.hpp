@@ -4,35 +4,35 @@
 #include "th10/platform/sound_queue.hpp"
 
 // A handle to a running animation; zero when there is none.
-struct AnimationHandle6 {
+struct LifeStockAnmHandle {
     unsigned int value;
 };
 
 // A running animation as the handle lookup sees it.
-struct AnimationNode6 {
-    AnimationNode6* object;      // +0x000: list nodes point at the animation
-    AnimationNode6* next;        // +0x004
+struct LifeStockAnimationNode {
+    LifeStockAnimationNode* object;      // +0x000: list nodes point at the animation
+    LifeStockAnimationNode* next;        // +0x004
     unsigned char reserved_008[0x0C];
-    AnimationNode6* children;    // +0x014
+    LifeStockAnimationNode* children;    // +0x014
     int children_flagged;                // +0x018
     unsigned char reserved_01c[0x340];
     unsigned int flags;                  // +0x35C
 };
 
 // The animation manager's two running lists.
-struct AnimationLists4 {
+struct LifeStockAnimationLists {
     unsigned char reserved_000[0x72DAD4];
-    AnimationNode6* primary;     // +0x72DAD4
+    LifeStockAnimationNode* primary;     // +0x72DAD4
     int reserved_72dad8;
-    AnimationNode6* secondary;   // +0x72DADC
+    LifeStockAnimationNode* secondary;   // +0x72DADC
 
     // 0x004491C0: find a running animation by handle.
-    __declspec(noinline) AnimationNode6* Find(AnimationHandle6 handle);
+    __declspec(noinline) LifeStockAnimationNode* Find(LifeStockAnmHandle handle);
     // 0x004492A0: mark an animation and its children for removal.
-    __declspec(noinline) AnimationNode6* MarkForRemoval(AnimationHandle6 handle);
+    __declspec(noinline) LifeStockAnimationNode* MarkForRemoval(LifeStockAnmHandle handle);
 };
 
-extern "C" AnimationLists4* g_sprt_ctrl;
+extern "C" LifeStockAnimationLists* g_sprt_ctrl;
 
 // 0x00448D00: start script `index` of a resource as a new animation at the
 // back of the primary list; the handle is written to `out` and returned.
@@ -46,11 +46,11 @@ struct AnimationRecord {
 };
 
 // The side panel: nine life icons and the extend banner.
-struct AnimationManager4 {
+struct LifeStockAnmManager {
     unsigned char pad_0000[0x4CDC];
     AnimationRecord records_4cdc[9];
     unsigned char pad_6de8[0x9E18 - 0x6DE8];
-    AnimationHandle6 extend_banner;  // +0x9E18
+    LifeStockAnmHandle extend_banner;  // +0x9E18
     unsigned char pad_9e1c[0x9EC8 - 0x9E1C];
     void* animation_resource;            // +0x9EC8
 
@@ -58,7 +58,7 @@ struct AnimationManager4 {
     __declspec(noinline) void SetActiveCount(int count);
 };
 
-extern "C" AnimationManager4* g_front;
+extern "C" LifeStockAnmManager* g_front;
 
 // The run's counters; the power sits at +0x08 and the life stock at +0x30.
 struct RunCounters {

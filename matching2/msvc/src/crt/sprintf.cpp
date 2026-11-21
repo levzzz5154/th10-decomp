@@ -5,8 +5,8 @@ struct PrintStream {
     int flags;
     unsigned int padding[4];
 };
-extern "C" int __cdecl asm_FUN_00454ed7_00454ed7(PrintStream*, const char*, void*);
-extern "C" int __cdecl asm_flsbuf_00454d11(int, PrintStream*);
+extern "C" int __cdecl crt_helper_454ed7(PrintStream*, const char*, void*);
+extern "C" int __cdecl crt_flsbuf(int, PrintStream*);
 
 extern "C" int __cdecl crt_sprintf(char* destination, const char* format, ...) {
     PrintStream stream;
@@ -14,10 +14,10 @@ extern "C" int __cdecl crt_sprintf(char* destination, const char* format, ...) {
     stream.flags = 0x42;
     stream.base = destination;
     stream.ptr = destination;
-    int written = asm_FUN_00454ed7_00454ed7(&stream, format, &format + 1);
+    int written = crt_helper_454ed7(&stream, format, &format + 1);
     if (destination) {
         if (--stream.count >= 0) *stream.ptr = 0;
-        else asm_flsbuf_00454d11(0, &stream);
+        else crt_flsbuf(0, &stream);
     }
     return written;
 }

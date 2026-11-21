@@ -12,7 +12,7 @@ struct AnimationHandle14 {
 
 #pragma code_seg(".text$50findzz")
 __declspec(noinline) void AnimationHandle14::ConfigureFromResource(Resource2* resource, int index) {
-    AnimationObject3* object = reinterpret_cast<AnimationObject3*>(
+    SpriteDimensionsView* object = reinterpret_cast<SpriteDimensionsView*>(
         reinterpret_cast<SprtCtrl*>(g_sprt_ctrl)->Find(g_sprt_ctrl, id));
     if (object != 0)
         resource->ConfigureObject(object, index);

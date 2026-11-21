@@ -1,3 +1,4 @@
+// 0x0041CFD0: LineLaserBounce2::Bounce
 #include "th10/game/laser_spawn.hpp"
 #include "th10/platform/sound_queue.hpp"
 

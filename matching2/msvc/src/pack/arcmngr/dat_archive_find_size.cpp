@@ -1,3 +1,4 @@
+// 0x00434EF0: DatArchive_FindSize
 #include "th10/archive/dat_archive_types.hpp"
 
 extern "C" int __cdecl crt_stricmp(

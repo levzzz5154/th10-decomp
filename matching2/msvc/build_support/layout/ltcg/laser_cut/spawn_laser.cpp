@@ -10,7 +10,7 @@ void* __cdecl operator new(unsigned int size);
 // in EDI, the manager in ESI and the kind on the stack. A failed allocation
 // is not checked.
 #pragma code_seg(".text$f0041c510F")
-int LaserSpawnParameters::SpawnIn(LaserManager2* manager, int kind) const {
+int LaserSpawnParameters::SpawnIn(LaserSpawnManager* manager, int kind) const {
     if (manager->count >= 256)
         return 0;
     if (++manager->next_id == 0)

@@ -1,3 +1,4 @@
+// 0x00408030..0x00408100: PlayerCollisionRecord::Activate, PlayerCollisionEngine::Check
 #include "th10/game/player_collision/collision.hpp"
 
 // 0x00408030: start a live record's vanish.

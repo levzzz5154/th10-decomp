@@ -1,7 +1,7 @@
 #include "th10/game/title_menu.hpp"
 
 extern "C" void* g_sprt_ctrl;
-extern "C" GameThread6* g_ascii_manager;
+extern "C" GameThreadResourceView* g_ascii_manager;
 extern "C" SoundQueue g_sound_manager;
 extern "C" unsigned int g_input_keys_held;
 extern "C" unsigned short recovery_music_repeat;
@@ -80,7 +80,7 @@ void Title::DisableTimerWithOwner(int owner) {
 // 0x0042C620 SetTimerTarget is defined in the class.
 #pragma code_seg()
 // 0x0042C670: src/game/title/recovery_install_animation_slot_0042c670.cpp.
-void __stdcall RecoveryMusicInstallSlot(Title* room, int index);
+void __stdcall Title_InstallAnimationSlot(Title* room, int index);
 // A cluster that places another body at these retail addresses parks the
 // stand-ins below through the TH10_MUSIC_*_SECTION macros.
 #ifndef TH10_MUSIC_SKIP_LINE_SECTION
@@ -173,7 +173,7 @@ char* MusicRequestQueue::RegisterResource(
     return reinterpret_cast<char*>(slot);
 }
 #pragma code_seg(".text$00409e50_fn")
-__declspec(noinline) void __stdcall RecoveryMusicStopHandle(AnmScriptHandle* handle) {
+__declspec(noinline) void __stdcall Title_StopAnimationHandle(AnmScriptHandle* handle) {
     MusicSetTreeFrame(MusicFind(handle->value), 1);
 }
 #pragma code_seg(".text$0044be70_fn")
@@ -234,13 +234,13 @@ extern "C" __declspec(noinline) int __stdcall Title_UpdateMusicRoom(
             room->cursor.item_count = 6;
             room->cursor.selection = MusicFirstSelection(room->cursor.item_count);
             if (MusicFind(room->animation_slots[95].value) == 0) {
-                RecoveryMusicInstallSlot(room, 95);
+                Title_InstallAnimationSlot(room, 95);
                 void* handle;
                 void** result = AnimationManager_CreatePrimaryBack(
                     g_ascii_manager->animation_resource, &handle, 8, 15);
                 room->fallback_handle.value = reinterpret_cast<unsigned int>(*result);
             }
-            RecoveryMusicInstallSlot(room, 103);
+            Title_InstallAnimationSlot(room, 103);
             int remaining;
             int tracks = 0;
             char* text = Archive_LoadFile(recovery_music_comment_file, &remaining, 0);
@@ -417,7 +417,7 @@ extern "C" __declspec(noinline) int __stdcall Title_UpdateMusicRoom(
             room->SetSlotFrame(90, 8);
             room->SetSlotFrame(91, 8);
             room->ClearAnimationSlot(95);
-            RecoveryMusicStopHandle(&room->fallback_handle);
+            Title_StopAnimationHandle(&room->fallback_handle);
             room->DisableTimerWithOwner(2);
             recovery_replace_extension(0, recovery_music_restore_bgm);
             recovery_play_dummy(0, 0);
@@ -435,7 +435,7 @@ leave_room:
     room->file_buffer = 0;
     room->cursor.PopSelection();
     for (int row = 0; row < room->parsed_track_count; ++row)
-        RecoveryMusicStopHandle(&room->row_handles[row]);
+        Title_StopAnimationHandle(&room->row_handles[row]);
     // Retail inlines the two-list lookup for this eight-handle cleanup.
     AnmLookupContext* context = reinterpret_cast<AnmLookupContext*>(g_sprt_ctrl);
     for (int row = 0; row < 8; ++row) {

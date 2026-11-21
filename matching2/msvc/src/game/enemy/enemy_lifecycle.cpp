@@ -1,3 +1,4 @@
+// 0x0040DAE0: Enemy_Release
 #include "th10/runtime/asm_symbols.hpp"
 
 // 0x0040DAE0. Teardown of one enemy record: unlink it from the manager's list,

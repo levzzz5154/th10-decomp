@@ -1,3 +1,4 @@
+// 0x00421E00: SoundFadeManager::TickFades
 #include "th10/platform/sound_fade_manager.hpp"
 #pragma code_seg(".text$00e_fade")
 void SoundFadeManager::TickFades() {

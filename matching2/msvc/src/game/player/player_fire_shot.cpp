@@ -1,7 +1,7 @@
 // 0x00427E90: fire one shot from the first free bullet slot.
 #include "th10/game/player_collision/effect_update.hpp"
 #include "th10/game/player_collision/animation_public_callers.hpp"
-#include "th10/game/player_collision/sound_queue.hpp"
+#include "th10/platform/sound_queue.hpp"
 
 // Looks an animation up by handle and clears a stale handle.
 static __forceinline AnimationObject* ResolveOrClear(unsigned int* handle) {

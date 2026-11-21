@@ -1,3 +1,4 @@
+// 0x0043D250: Resource_FindChunk
 #include "th10/platform/memory_file.hpp"
 
 extern "C" int __cdecl strncmp(const char*, const char*, unsigned int);

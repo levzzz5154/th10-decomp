@@ -15,7 +15,7 @@ struct AnimationBank {
 };
 
 #pragma code_seg(".text$0042c670_fn")
-__declspec(noinline) void __stdcall RecoveryMusicInstallSlot(
+__declspec(noinline) void __stdcall Title_InstallAnimationSlot(
         Title* room, int index) {
     void* resource = room->animation_resource;
     TitleAnmVm* object = static_cast<TitleAnmVm*>(

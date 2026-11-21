@@ -19,7 +19,7 @@ void* __fastcall AnmLookup::Find(AnmLookupContext* context, AnimationScriptId id
 }
 #include "../recovery_script_executor_caller_433ef0.cpp"
 #pragma code_seg(".text$00409e50_title_fn")
-void StopHandle2(AnimationHandle3* handle) {
+void StopHandle2(StageReloadAnmHandle* handle) {
     AnimationScriptId id = { static_cast<int>(handle->id) };
     TitleAnmVm* object = static_cast<TitleAnmVm*>(
         reinterpret_cast<AnmLookup*>(g_sprt_ctrl)->Find(

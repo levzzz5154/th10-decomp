@@ -9,7 +9,7 @@
 #include "../../../src/game/title/title_animation_slot_frames.cpp"
 #include "th10/game/replay_save_update.hpp"
 #include "th10/game/options_update.hpp"
-#include "th10/game/recovery_script_executor_caller.hpp"
+#include "th10/game/ending_script_caller.hpp"
 #include "th10/game/title_menu.hpp"
 // 0x0042CDF0, a separate translation unit of this link.
 __declspec(noinline) int __stdcall Title_DispatchUpdate(Title* room);
@@ -30,7 +30,7 @@ extern "C" int __stdcall DifficultySelectUpdateCompilerContext(
     objects[7] = g_keyboard_state;
     objects[8] = &g_main_state;
     objects[9] = &application_state;
-    return RecoveryScript_Execute2(script) + head->Drain(indicator, release)
+    return EndingScript_Execute(script) + head->Drain(indicator, release)
         + Title_UpdateMusicRoom(music_room)
         + Title_DispatchUpdate(music_room);
 }

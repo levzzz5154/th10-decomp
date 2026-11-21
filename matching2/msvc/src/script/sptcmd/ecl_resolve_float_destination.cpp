@@ -13,7 +13,7 @@ float* EclVm3::ResolveFloatDestination(int index) {
     if (table->valid_mask & (1 << index)) {
         const float& displacement = table->displacements[index];
         if (displacement >= 0.0f) {
-            EclFrame3* frame = &this->frame;
+            EclFloatDestFrame* frame = &this->frame;
             return (float*)((char*)frame + frame->frame_base + (int)displacement);
         }
         return this->frame.owner->ResolveExternalFloat((int)displacement);

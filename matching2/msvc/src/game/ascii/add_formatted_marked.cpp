@@ -1,10 +1,11 @@
+// 0x00401690: AsciiManager_AddFormattedMarked
 #include <stdio.h>
 #include <stdarg.h>
 #include "th10/game/game_thread_queue_native.hpp"
 
 // Complete marked-text writer100: thread ESI, position EBX, format/varargs stack.
 #pragma code_seg(".text$03marked")
-__declspec(noinline) void __cdecl AsciiManager_AddFormattedMarked(GameThread2 *thread,
+__declspec(noinline) void __cdecl AsciiManager_AddFormattedMarked(GameThreadQueueView *thread,
                 const Vec32 *position, const char *format, ...) {
     char text[0x200];
     va_list args;

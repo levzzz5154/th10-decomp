@@ -31,8 +31,8 @@ enum EnemyDeathEffectId {
 };
 
 #pragma code_seg(".text$0040cfb0_fn")
-Enemy4* EnemySpawn2::Create(EnemyCtrlSpawnView* manager, const char* entry) {
-    Enemy4* enemy = new Enemy4(entry);
+EnemySpawnView* EnemySpawn2::Create(EnemyCtrlSpawnView* manager, const char* entry) {
+    EnemySpawnView* enemy = new EnemySpawnView(entry);
 
     enemy->data.position = position;
     enemy->data.life = life;
@@ -82,11 +82,11 @@ Enemy4* EnemySpawn2::Create(EnemyCtrlSpawnView* manager, const char* entry) {
     }
     enemy->data.death_callback = 0;
 
-    EnemyNode2* node = &enemy->data.node;
+    EnemySpawnListNode* node = &enemy->data.node;
     if (manager->head == 0) {
         manager->head = node;
     } else {
-        EnemyNode2* tail = manager->tail;
+        EnemySpawnListNode* tail = manager->tail;
         if (tail->next != 0) {
             node->next = tail->next;
             tail->next->previous = node;

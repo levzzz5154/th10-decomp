@@ -74,7 +74,7 @@
     },
     {
       "name": "registrar",
-      "symbol": "?RegisterResource@AnimationManager9@@QAEPADPBDHH@Z",
+      "symbol": "?RegisterResource@AnmResourceRegistrar@@QAEPADPBDHH@Z",
       "section": ".text$46registrar",
       "address": "0x43e460",
       "size": 104
@@ -269,7 +269,7 @@
       "kind": "data"
     },
     {
-      "symbol": "?g_music_requests@@3UAnimationManager9@@A",
+      "symbol": "?g_music_requests@@3UAnmResourceRegistrar@@A",
       "address": "0x492590",
       "kind": "data"
     },

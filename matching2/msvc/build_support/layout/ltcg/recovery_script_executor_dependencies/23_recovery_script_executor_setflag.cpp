@@ -3,7 +3,7 @@
 // member-SetFlag and original-order LoadAsset bodies untouched; this region's
 // retail call shapes need two differently spelled stand-ins, provided here:
 //
-//  - RecoverySetFlag is a free function whose first parameter is never read,
+//  - AnmHandle_SetFlag is a free function whose first parameter is never read,
 //    so the pass drops it and callers push only the id (retail's one-push
 //    shape, see 0x00449630). The id slot is forwarded to Find without an
 //    entry-block copy, which reproduces retail's `mov eax,[esp+4]; push eax`
@@ -13,15 +13,15 @@
 //    declared parameter order sets the order callers load the arguments, and
 //    retail's caller loads the name first.
 #include <string.h>
-#include "th10/game/ending_script/recovery_script_executor.hpp"
-#include "th10/game/ending_script/archive_callers.hpp"
+#include "th10/game/ending_script/script_executor.hpp"
+#include "th10/platform/archive_callers.hpp"
 
 extern "C" void* g_sprt_ctrl;
 extern "C" char g_recovery_script_path[];
 extern "C" void __cdecl crt_free(void*);
 
 #pragma code_seg(".text$004492a0_fn")
-__declspec(noinline) void* __fastcall RecoverySetFlag(AnmLookupContext* context, int id) {
+__declspec(noinline) void* __fastcall AnmHandle_SetFlag(AnmLookupContext* context, int id) {
     AnmLookupNode* node = static_cast<AnmLookupNode*>(
         reinterpret_cast<AnmLookup*>(g_sprt_ctrl)->Find(
             context,

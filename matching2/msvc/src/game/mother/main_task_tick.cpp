@@ -1,3 +1,4 @@
+// 0x0041FF80: MainTask_Tick
 #include "th10/platform/sound_fade_manager.hpp"
 
 enum MainTaskTickFlags {

@@ -39,6 +39,14 @@ struct StageAssets {
     unsigned char reserved_00[0x24];
     int music_index;
 };
+struct LargeTaskView {
+    unsigned char pad_0000[0x37AC];
+    Game_UpdateTask* card_task;
+};
+struct FrontBossActiveView {
+    unsigned char pad_0000[0x9EB8];
+    int boss_active;
+};
 struct StageScoreRecord {
     unsigned char reserved_00[0x4cc];
     int frames;
@@ -54,7 +62,7 @@ extern unsigned int stage_transition_mask;
 extern unsigned char stage_config;
 extern unsigned int stage_game_flags;
 extern int stage_result;
-extern Stage2 *stage_quads;
+extern StageUpdateView *stage_quads;
 extern BackGround *stage_fade;
 extern BackGround *stage_mode;
 extern BulletPool *stage_bullets;
@@ -83,7 +91,7 @@ void __stdcall StageDestroyGameState(void *state);
 }
 void __cdecl operator delete(void *object);
 int __stdcall Music_Play(int track, int heard_index);
-extern "C" AnimationManager9 stage_requests;
+extern "C" AnmResourceRegistrar stage_requests;
 
 typedef char StageContextTimerOffset[offsetof(Game, timer) == 0x10 ? 1 : -1];
 typedef char StageContextFlagsOffset[offsetof(Game, flags) == 0x58 ? 1 : -1];
@@ -134,9 +142,7 @@ extern "C" __declspec(noinline) int __stdcall Game_Update(Game *context) {
             stage_popups->PauseRequired();
             StageTaskPair *large = stage_large;
             large->PauseOptional();
-            (*reinterpret_cast<Game_UpdateTask **>(reinterpret_cast<unsigned char *>(large) +
-                                                   0x37ac))
-                ->flags |= 2;
+            reinterpret_cast<LargeTaskView *>(large)->card_task->flags |= 2;
             stage_timer_tasks->PauseOptional();
 
             if (!(stage_game_flags & 0x20))
@@ -171,8 +177,7 @@ extern "C" __declspec(noinline) int __stdcall Game_Update(Game *context) {
         stage_popups->PauseRequired();
         StageTaskPair *large = stage_large;
         large->PauseOptional();
-        (*reinterpret_cast<Game_UpdateTask **>(reinterpret_cast<unsigned char *>(large) + 0x37ac))
-            ->flags |= 2;
+        reinterpret_cast<LargeTaskView *>(large)->card_task->flags |= 2;
         stage_timer_tasks->PauseOptional();
         if (stage_config & 0x10)
             stage_requests.RegisterResource(str_dummy, 4, 0);
@@ -220,8 +225,7 @@ extern "C" __declspec(noinline) int __stdcall Game_Update(Game *context) {
             ++*played;
     }
     if (stage_enemies->field_10 == 0 &&
-        *reinterpret_cast<int *>(reinterpret_cast<unsigned char *>(stage_front_g_front) +
-                                 0x9eb8) == 0 &&
+        reinterpret_cast<FrontBossActiveView *>(stage_front_g_front)->boss_active == 0 &&
         context->timer.current >= 90)
         stage_gauge.DecayGauge();
     ++stage_frames;

@@ -1,3 +1,4 @@
+// 0x0044BD10: Platform_GetOsVersionCode
 #include "th10/source_views/process_00435c_0.hpp"
 int Platform_GetOsVersionCode() {
     OSVERSIONINFOA version_info;

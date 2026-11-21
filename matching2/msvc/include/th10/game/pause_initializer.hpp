@@ -42,7 +42,7 @@ struct AnimationTreeNode {
 };
 
 // A handle to a running animation; zero when there is none.
-struct AnimationHandle8 {
+struct UiAnimationHandle {
     unsigned int value;
 };
 
@@ -57,9 +57,9 @@ struct AnimationSprite {
 };
 
 // A running animation as this code sees it.
-struct AnimationObject2 {
-    AnimationObject2* object;    // +0x000: list nodes point at the animation
-    AnimationObject2* next;      // +0x004
+struct UiAnimationNodeView {
+    UiAnimationNodeView* object;    // +0x000: list nodes point at the animation
+    UiAnimationNodeView* next;      // +0x004
     unsigned char reserved_008[0x300];
     int* texture;                        // +0x308
     unsigned char reserved_30c[0x88];
@@ -101,7 +101,7 @@ struct SpriteRegion {
     }
 
     // 0x00424480: bind to the sprite an animation currently shows.
-    __declspec(noinline) int BindToAnimation(AnimationHandle8 handle,
+    __declspec(noinline) int BindToAnimation(UiAnimationHandle handle,
         int new_left, int new_top, int new_width, int new_height);
 };
 
@@ -119,8 +119,8 @@ struct PauseMenuRuntime {
     unsigned char unknown_0c[8]; int elapsed;
     unsigned char reserved_018[0x58 - 0x18]; unsigned int flags; int replay_mode;
 };
-struct PauseResourceOwner1 { unsigned char reserved[0x8998]; AnimationBank* resource; };
-struct PauseResourceOwner2 { unsigned char reserved[0x9EC8]; AnimationBank* resource; };
+struct PauseFrontResourceView { unsigned char reserved[0x8998]; AnimationBank* resource; };
+struct PauseMenuResourceView { unsigned char reserved[0x9EC8]; AnimationBank* resource; };
 struct PauseUpdateView {
     int unknown_00; unsigned int phase; unsigned char unknown_08[8];
     int previous_frame; int current_frame; float elapsed; const float* speed; unsigned int timer_flags;
@@ -140,8 +140,8 @@ extern "C" unsigned char g_globals_flags;
 extern "C" unsigned char g_input_keys_held;
 extern "C" unsigned char g_app_flags;
 extern "C" PauseMenuRuntime* g_game;
-extern "C" PauseResourceOwner1* g_ascii_manager;
-extern "C" PauseResourceOwner2* g_front;
+extern "C" PauseFrontResourceView* g_ascii_manager;
+extern "C" PauseMenuResourceView* g_front;
 extern "C" float flt_0_99;
 extern "C" float flt_1_01;
 extern "C" float g_game_speed;

@@ -1,3 +1,4 @@
+// 0x00437DB0: FontAtlas_DrawText
 #include <string.h>
 #include "th10/render/font_atlas.hpp"
 #include "th10/runtime/asm_symbols.hpp"
@@ -41,7 +42,7 @@ struct SrgbRect {
 // atlas and upload the touched rectangle to its D3D surface. The string is
 // drawn twice: a black copy offset by (2,2) that forms the outline, then the
 // caller's colour on top.
-int __stdcall sub_437DB0(DWORD* destination_rect, int x, int size, COLORREF color,
+int __stdcall FontAtlas_DrawText(DWORD* destination_rect, int x, int size, COLORREF color,
                          LPCSTR text, void* surface_owner) {
     HGDIOBJ font;
     if (size <= 17)

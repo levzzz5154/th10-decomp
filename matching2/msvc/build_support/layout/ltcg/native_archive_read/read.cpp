@@ -1,4 +1,4 @@
-#include "th10/archive/native_read/archive.hpp"
+#include "th10/archive/read/archive.hpp"
 #ifndef ARCHIVE_READ_SECTION
 #define ARCHIVE_READ_SECTION ".text$a00read"
 #endif

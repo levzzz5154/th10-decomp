@@ -86,11 +86,11 @@ static __forceinline int UpdateNameEntryScreen(const NameEntryScreen& screen) {
         Music_Load2(0, "bgm/th10_17.wav");
         Music_Play2(0, 17);
         EnsureTitleMenuBackdrop(room, handle);
-        RecoveryMusicInstallSlot(room, 104);
+        Title_InstallAnimationSlot(room, 104);
         room->SetTimerTarget(WaitForInput);
-        RecoveryMusicInstallSlot(room, g_globals_character + 152);
-        RecoveryMusicInstallSlot(room, g_globals_character * 3 + g_globals_shot_type + 154);
-        RecoveryMusicInstallSlot(room, g_globals_difficulty + 160);
+        Title_InstallAnimationSlot(room, g_globals_character + 152);
+        Title_InstallAnimationSlot(room, g_globals_character * 3 + g_globals_shot_type + 154);
+        Title_InstallAnimationSlot(room, g_globals_difficulty + 160);
         int rank = InsertCompletedRunScore();
         if (rank >= 0) {
             room->timer.Set(0);

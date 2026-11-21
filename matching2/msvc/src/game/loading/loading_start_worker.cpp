@@ -1,3 +1,4 @@
+// 0x0041FAC0: LoadingView::StartWorker
 #include "th10/core/func_ctrl.hpp"
 #include "th10/platform/worker.hpp"
 
@@ -18,14 +19,13 @@ unsigned int __cdecl crt_beginthreadex(
 #pragma code_seg(".text$02starter")
 int LoadingView::StartWorker() {
     SchedulerTask* primary = SchedulerTask_Create(LoadingPrimary);
-    // Clear callback flag 0x2 before registration.
-    *(unsigned int*)((unsigned char*)primary + 4) &= ~2u;
+    primary->flags &= ~SCHEDULER_TASK_FLAG_ACTIVE;
     primary->context = this;
     FuncCtrl_RegisterPrimary(g_func_ctrl, primary, 3);
     primary_task = primary;
 
     SchedulerTask* secondary = SchedulerTask_Create(LoadingSecondary);
-    *(unsigned int*)((unsigned char*)secondary + 4) &= ~2u;
+    secondary->flags &= ~SCHEDULER_TASK_FLAG_ACTIVE;
     secondary->context = this;
     FuncCtrl_RegisterSecondary(g_func_ctrl, secondary, 2);
     secondary_task = secondary;

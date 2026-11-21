@@ -1,3 +1,4 @@
+// 0x00420DD0: VersionList::Match
 extern "C" int __cdecl crt_strncmp(const char*, const char*, unsigned);
 extern "C" int __cdecl crt_sscanf(const char*, const char*, ...);
 extern "C" char* __cdecl crt_strchr(const char*, int);

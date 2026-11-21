@@ -1,3 +1,4 @@
+// 0x0043DC90: SoundQueue::Queue
 #include "th10/platform/sound_queue.hpp"
 extern "C" short g_sound_priority[];
 

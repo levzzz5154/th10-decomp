@@ -1,3 +1,4 @@
+// 0x004391F0: DeviceReset2
 #include "th10/source_views/device_reset_24c334_0.hpp"
 extern "C" __declspec(noinline) void __cdecl DeviceReset2() {
     char filename[256];

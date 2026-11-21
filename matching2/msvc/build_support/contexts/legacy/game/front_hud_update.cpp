@@ -220,7 +220,7 @@ __declspec(noinline) int __stdcall FrontHudUpdate(
             int digit = value / divisor;
             value = value % divisor;
             ((Resource2*)front->resource_9ec8)->ConfigureObject(
-                (AnimationObject3*)obj, digit + 0x1E);
+                (SpriteDimensionsView*)obj, digit + 0x1E);
             divisor = divisor / 10;
             AnmVm_Run(obj);
             obj += 1;
@@ -404,10 +404,10 @@ __declspec(noinline) int __stdcall FrontHudUpdate(
                 if (front->script_pos_9ec0 != front->script_marked_9ec4) {
                     int shown = front->script_pos_9ec0;
                     ((Resource2*)front->resource_9ec8)->ConfigureObject(
-                        (AnimationObject3*)&front->objects[13],
+                        (SpriteDimensionsView*)&front->objects[13],
                         shown / 10 + 8);
                     ((Resource2*)front->resource_9ec8)->ConfigureObject(
-                        (AnimationObject3*)&front->objects[14],
+                        (SpriteDimensionsView*)&front->objects[14],
                         shown % 10 + 8);
                 }
                 front->script_marked_9ec4 = front->script_pos_9ec0;

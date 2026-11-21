@@ -42,7 +42,7 @@ extern "C" void __stdcall ReleaseGlobalScript_0042cb60(void*);
 extern "C" void __stdcall ReleaseGlobalMessage_0040b7b0(void*);
 extern "C" void __stdcall ReleaseGlobalPending_004294a0(void*);
 #pragma code_seg(".text$05globals")
-void Recovery_ReleaseGlobalStates() {
+void Supervisor_ReleaseGlobalStates() {
     void* manager_state = g_game;
     if (manager_state) { Game_Destroy(manager_state);crt_free_startup(manager_state); }
     void* script_state = g_title;

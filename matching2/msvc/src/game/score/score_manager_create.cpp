@@ -1,3 +1,4 @@
+// 0x0042AF20: ScoreManager_Create2
 #include <new>
 #include "th10/game/score_archive_manager.hpp"
 extern "C" ScoreArchiveManager *g_score;

@@ -1,3 +1,4 @@
+// 0x0043EC70: AnimationObjectVariables::ReadIntegerVariable
 #include "th10/source_views/animation_manager_12b25f_0.hpp"
 
 enum AnmIntVarOffset {

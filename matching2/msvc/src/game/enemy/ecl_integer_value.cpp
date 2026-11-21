@@ -1,7 +1,7 @@
 // 0x00411FC0: integer ECL value resolver and its compiler-generated switch table.
 #include <stddef.h>
 #include "th10/render/animation_validate_handle.hpp"
-__declspec(noinline) void* ResolveAnimationHandle(AnimationHandle10* handle);
+__declspec(noinline) void* ResolveAnimationHandle(ValidatedAnmHandle* handle);
 #include <math.h>
 
 #include "th10/math/rng.hpp"
@@ -34,7 +34,7 @@ struct EclIntegerSource {
     float value_10dc;
     float value_10e0;
     unsigned char padding_10e4[0x18];
-    mutable AnimationHandle10 animation_handle;
+    mutable ValidatedAnmHandle animation_handle;
     unsigned char padding_1100[0x38];
     int value_1138;
     int value_113c;

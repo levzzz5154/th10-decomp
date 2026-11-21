@@ -1,9 +1,10 @@
+// 0x004203F0: Supervisor_ReleaseGlobalStates
 #include "th10/source_views/recovery_leaves_f39a06_0.hpp"
 #include "th10/source_views/recovery_leaves_f39a06_1.hpp"
 #include "th10/source_views/recovery_leaves_f39a06_2.hpp"
 #include "th10/source_views/recovery_leaves_f39a06_3.hpp"
 #include "th10/source_views/recovery_leaves_f39a06_4.hpp"
-void Recovery_ReleaseGlobalStates() {
+void Supervisor_ReleaseGlobalStates() {
     void* manager_state = *(void**)&g_game;
     if (manager_state) {
         ((GlobalStateDestroyFn)Game_DestroyState)(manager_state);

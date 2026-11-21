@@ -3,7 +3,7 @@
 #include "th10/platform/text_log.hpp"
 #include "th10/core/func_ctrl.hpp"
 struct CachedResource;
-CachedResource* __fastcall Recovery_LoadCachedResource(int,void*,const char*);
+CachedResource* __fastcall SprtCtrl_LoadCachedResource(int,void*,const char*);
 extern "C" {
     // The selection words are fields of one game-state struct other code
     // reaches through its address, so field loads are never folded.
@@ -37,7 +37,7 @@ struct PlayerBounds3 { float x, y, z; };
 int PlayerResetBlock::Initialize() {
     const char* name;
     if (!g_globals_character.shot_type) name=str_pl00_anm; else name=str_pl01_anm;
-    CachedResource* resource=Recovery_LoadCachedResource(8,g_sprt_ctrl,name);
+    CachedResource* resource=SprtCtrl_LoadCachedResource(8,g_sprt_ctrl,name);
     resource_handle.value=(void*)resource;
     if (!resource) { g_log.Append(str_player_data_missing); return -1; }
     if (g_player_parameter_file) {

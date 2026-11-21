@@ -1,3 +1,4 @@
+// 0x00409D90: ScoreState::AddScore
 #include "th10/source_views/score_bookkeeping_7e27a0_0.hpp"
 void ScoreState::AddScore(int amount) {
     score += amount / 10;

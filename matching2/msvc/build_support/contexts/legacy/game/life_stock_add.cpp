@@ -12,11 +12,11 @@ void RunCounters::AddLives(int amount) {
         lives = 9;
     } else {
         g_sound_manager.Queue(44, 0);
-        AnimationHandle6* banner = &g_front->extend_banner;
+        LifeStockAnmHandle* banner = &g_front->extend_banner;
         g_sprt_ctrl->MarkForRemoval(*banner);
         banner->value = 0;
-        AnimationHandle6 created;
-        *banner = *reinterpret_cast<AnimationHandle6*>(
+        LifeStockAnmHandle created;
+        *banner = *reinterpret_cast<LifeStockAnmHandle*>(
             AnimationManager_CreatePrimaryBack(
                 g_front->animation_resource, reinterpret_cast<void**>(&created), 75, 15));
     }
@@ -35,11 +35,11 @@ int RunCounters::AddPower(int amount) {
     power += amount;
     if (power > 100) {
         power = 100;
-        AnimationHandle6* banner = &g_front->extend_banner;
+        LifeStockAnmHandle* banner = &g_front->extend_banner;
         g_sprt_ctrl->MarkForRemoval(*banner);
         banner->value = 0;
-        AnimationHandle6 created;
-        *banner = *reinterpret_cast<AnimationHandle6*>(
+        LifeStockAnmHandle created;
+        *banner = *reinterpret_cast<LifeStockAnmHandle*>(
             AnimationManager_CreatePrimaryBack(
                 g_front->animation_resource, reinterpret_cast<void**>(&created), 73, 15));
     }

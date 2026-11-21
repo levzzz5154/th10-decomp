@@ -1,3 +1,4 @@
+// 0x004074B0: PlayerAnimationState::AdvanceAnimationFrame
 #include "th10/game/player_motion_helpers.hpp"
 extern "C" float flt_1;
 extern "C" float flt_1_01;

@@ -1,7 +1,8 @@
+// 0x0043E3A0: MidiWorker_MessageLoop
 #include "th10/runtime/asm_symbols.hpp"
 
 
-// 0x0043E3A0..0x0043E45C: MidiWorker_MessageLoopRetail
+// 0x0043E3A0..0x0043E45C: MidiWorker_MessageLoop
 // DirectSound music worker: service notification events while playing and
 // drain queued messages, finishing after WM_QUIT or a missing global stream.
 // Historical field names below: stream at +0x30 means playing; stopping at

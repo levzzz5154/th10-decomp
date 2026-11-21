@@ -1,11 +1,11 @@
 // Experiment TU: MarkText body in isolation for receiver-register study.
 #include <string.h>
 #include <stdarg.h>
-#include "th10/game/recovery_script_executor_cluster/recovery_script_executor_text_anchors.hpp"
+#include "th10/game/ending_script_cluster/script_executor_text_anchors.hpp"
 
 extern "C" int __cdecl recovery_vsprintf(
     char* buffer, const char* format, char* args);
-void __stdcall RecoveryDispatchText2(
+void __stdcall SpriteText_Dispatch(
     AnmTextResource* resource, int font_height,
     const char* text, void* texture, int horizontal_offset,
     unsigned int color, int unshadowed);
@@ -16,7 +16,7 @@ void AnmTextVm::MarkText(
     char buffer[128];
     recovery_vsprintf(buffer, format, const_cast<char*>(format));
     AnmTextResource* text_resource = resource;
-    RecoveryDispatchText2(
+    SpriteText_Dispatch(
         text_resource, static_cast<int>(font_height), buffer,
         text_resource->texture, 0, color, (flags_360 >> 1) & 1);
     flags_35c |= 1;

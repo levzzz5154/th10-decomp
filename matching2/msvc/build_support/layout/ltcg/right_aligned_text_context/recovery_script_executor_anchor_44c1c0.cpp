@@ -1,4 +1,4 @@
-#include "th10/game/hint_text/worker.hpp"
+#include "th10/platform/worker.hpp"
 
 // 0x0044C1C0 (56 bytes): start the worker thread.
 //

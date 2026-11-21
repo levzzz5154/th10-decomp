@@ -1,3 +1,4 @@
+// 0x0043A290: ResolveShortcutTarget
 #include "th10/platform/startup_shortcut.hpp"
 // 0x0043A290: load a shell link through IPersistFile and fetch its ANSI path.
 #pragma code_seg(".text$02resolver")

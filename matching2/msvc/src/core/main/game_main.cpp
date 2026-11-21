@@ -60,7 +60,7 @@ extern char str_restart_required[];    // "an option that needs a restart was ch
 extern char str_log_footer[];    // "------ ..."
 }
 
-int __stdcall SaveSystemSettingsRetail2();
+int __stdcall SystemSettings_Save();
 int __stdcall ComputeExecutableChecksum();
 int __stdcall StartupDialog_Procedure(void* dialog, unsigned int message,
                                       unsigned int parameter, long detail);
@@ -199,7 +199,7 @@ __declspec(noinline) int __stdcall GameMain2(
     if (Startup_InstanceCheck() == -1)
         goto close_pass;
     g_application.instance = instance;
-    SaveSystemSettingsRetail2();
+    SystemSettings_Save();
     if (reinterpret_cast<GameApp2*>(&g_application)->LoadConfig("th10.cfg") != 0)
         goto close_pass;
     if (g_application.config.flags & 0x100) {

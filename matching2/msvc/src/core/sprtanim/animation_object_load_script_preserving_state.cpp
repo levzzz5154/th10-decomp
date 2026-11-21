@@ -1,3 +1,4 @@
+// 0x0043E7E0: LoadScriptPreservingState
 #include <string.h>
 #include "th10/game/entity.hpp"
 struct AnimationObject4 : Entity {};

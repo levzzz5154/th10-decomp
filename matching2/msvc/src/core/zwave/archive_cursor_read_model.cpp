@@ -1,3 +1,4 @@
+// 0x0044DE10: ArchiveCursorRead
 #include "th10/game/archive_cursor_read_model.hpp"
 #include <string.h>
 #pragma intrinsic(memcpy)

@@ -16,7 +16,7 @@ __declspec(noinline) int* EclOwner2::ResolveIntDestination(int index) {
     if (vm->table->valid_mask & (1 << index)) {
         const int& offset = vm->table->offsets[index];
         if (offset >= 0) {
-            EclFrame3* frame = &vm->frame;
+            EclFloatDestFrame* frame = &vm->frame;
             return (int*)((char*)frame + frame->frame_base + offset);
         }
         return vm->frame.owner->ResolveExternalInt(offset);

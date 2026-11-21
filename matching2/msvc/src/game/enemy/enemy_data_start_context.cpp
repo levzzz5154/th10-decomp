@@ -11,9 +11,9 @@
 extern "C" {
 extern Player* g_player;
 extern Bomb* g_bomb;
-extern GameThread7* g_card;
+extern GameThreadFlagsView* g_card;
 extern Gui2* g_front;
-extern AnimationManager3* g_sprt_ctrl;
+extern EnemyAnmManagerView* g_sprt_ctrl;
 extern ScoreState2 g_globals;
 extern SoundQueue g_sound_manager;
 extern int g_enemy_hittable;
@@ -70,7 +70,7 @@ struct AnimationNode4 {
     unsigned char reserved_1c[0x324];
     PolarVec3 position;                  // +0x340
 };
-struct AnimationManager3 {
+struct EnemyAnmManagerView {
     unsigned char reserved[0x72DAD4];
     AnimationNode4* primary_bucket;
     int reserved_2;
@@ -78,7 +78,7 @@ struct AnimationManager3 {
 };
 #pragma code_seg(".text$004491c0_find")
 Animation2* __fastcall AnimationFinder::Find(
-        AnimationManager3* manager, ScriptChangeHandle id) {
+        EnemyAnmManagerView* manager, ScriptChangeHandle id) {
     if (!id.id)
         return 0;
     for (AnimationNode4* node = manager->primary_bucket; node != 0; node = node->next)
@@ -93,7 +93,7 @@ Animation2* __fastcall AnimationFinder::Find(
 // src/core/sprtlib/animation_manager_set_translated_position.cpp
 #pragma code_seg(".text$00449350_sett")
 void __fastcall SetAnimationTranslatedPosition(
-        AnimationManager3* manager, const PolarVec3* position, ScriptChangeHandle id) {
+        EnemyAnmManagerView* manager, const PolarVec3* position, ScriptChangeHandle id) {
     AnimationNode4* entry = (AnimationNode4*)AnimationManager_Find(manager, id);
     if (entry != 0) {
         entry->position.x = position->x + 224.0f;
@@ -113,7 +113,7 @@ void __fastcall SetAnimationTranslatedPosition(
 // src/game/laser/laser_manager.cpp
 #pragma code_seg(".text$004492f0_setp")
 void __fastcall Animation_SetPosition(
-        AnimationManager3* manager, const PolarVec3* position, ScriptChangeHandle id) {
+        EnemyAnmManagerView* manager, const PolarVec3* position, ScriptChangeHandle id) {
     AnimationNode4* object = (AnimationNode4*)AnimationManager_Find(manager, id);
     if (object != 0) {
         object->position = *position;
@@ -157,9 +157,36 @@ struct ResourceRecord {
     void* resource;
     ResourceRecord* next;
 };
+struct EnemyRecordLayout {
+    unsigned char pad_0000[0x08];
+    float root_time;                 // +0x0008
+    void* root_instruction;          // +0x000C
+    unsigned char pad_0010[0x1018 - 0x10];
+    int slot_id;                     // +0x1018
+    void* owner_self;                // +0x101C
+    int state_word;                  // +0x1020
+    unsigned char pad_1024[0x04];
+    unsigned int script_flags;       // +0x1028
+    unsigned char pad_102c[0x04];
+    void* frame_head;                // +0x1030
+    ResourceRecord* resource_head;   // +0x1034
+    void* resource_tail;             // +0x1038
+};
+struct FrontBossView {
+    unsigned char pad_0000[0x9EB8];
+    int boss_active;
+};
+struct PlayerHitboxView {
+    unsigned char pad_0000[0x404];
+    Vec2 hitbox_min;                 // +0x0404
+    unsigned char pad_040c[0x04];
+    Vec2 hitbox_max;                 // +0x0410
+    unsigned char pad_0418[0x4310 - 0x418];
+    int invincible_timer;            // +0x4310
+};
 #pragma code_seg(".text$0040c6e0_clr")
 void EnemyRecord::ClearResourceList() {
-    ResourceRecord* record = *(ResourceRecord**)((unsigned char*)this + 0x1034);
+    ResourceRecord* record = reinterpret_cast<EnemyRecordLayout*>(this)->resource_head;
     while (record != 0) {
         ResourceRecord* next = record->next;
         ext_free(record->resource);
@@ -171,17 +198,17 @@ void EnemyRecord::ClearResourceList() {
 // src/game/enemy/ecl_record_reset.cpp
 #pragma code_seg(".text$0040c730_rst")
 void EnemyRecord::ResetScript() {
-    unsigned char* self = (unsigned char*)this;
-    *(float*)(self + 0x8) = 0.0f;
-    *(void**)(self + 0xC) = 0;
-    *(unsigned int*)(self + 0x1028) &= ~1u;
-    *(void**)(self + 0x101C) = this;
-    *(int*)(self + 0x1018) = -1;
-    *(int*)(self + 0x1020) = 0;
-    current = (ScriptFrame*)(self + 0x8);
-    *(void**)(self + 0x1030) = self + 0x8;
-    *(void**)(self + 0x1034) = 0;
-    *(void**)(self + 0x1038) = 0;
+    EnemyRecordLayout* self = reinterpret_cast<EnemyRecordLayout*>(this);
+    self->root_time = 0.0f;
+    self->root_instruction = 0;
+    self->script_flags &= ~1u;
+    self->owner_self = this;
+    self->slot_id = -1;
+    self->state_word = 0;
+    current = reinterpret_cast<ScriptFrame*>(&self->root_time);
+    self->frame_head = &self->root_time;
+    self->resource_head = 0;
+    self->resource_tail = 0;
 }
 
 // src/script/sptlib/final_script_runtime.cpp
@@ -190,10 +217,10 @@ int ScriptTable2::Resolve(const char* name) {
     int low = 0;
     int high = this->count;
     if (--high >= 0) {
-        const ScriptEntry3* entries = this->entries;
+        const EclTableEntry* entries = this->entries;
         do {
             const int middle = low + (high - low) / 2;
-            const ScriptEntry3* entry = &entries[middle];
+            const EclTableEntry* entry = &entries[middle];
             const int order = strcmp(name, entry->name);
             if (order == 0)
                 return static_cast<int>(entry->value) + 16;
@@ -220,8 +247,9 @@ int __fastcall BindName(EnemyRecord* record, const char* name) {
 #pragma code_seg(".text$004266b0_fld")
 int __fastcall FieldContact(
         const PolarVec3* position, Player* player, const Vec2* size) {
-    const Vec2* low = (const Vec2*)((unsigned char*)player + 0x404);
-    const Vec2* high = (const Vec2*)((unsigned char*)player + 0x410);
+    const PlayerHitboxView* hitbox = reinterpret_cast<const PlayerHitboxView*>(player);
+    const Vec2* low = &hitbox->hitbox_min;
+    const Vec2* high = &hitbox->hitbox_max;
     Vec2 minimum(position->x - size->x * 0.5f, position->y - size->y * 0.5f);
     Vec2 maximum(position->x + size->x * 0.5f, position->y + size->y * 0.5f);
     if (low->x > maximum.x || maximum.y < low->y || high->x < minimum.x || high->y < minimum.y) {
@@ -232,11 +260,11 @@ int __fastcall FieldContact(
             return 0;
         return 2;
     }
-    if (g_front && *(int*)((unsigned char*)g_front + 0x9EB8))
+    if (g_front && reinterpret_cast<FrontBossView*>(g_front)->boss_active)
         return 0;
     if (player->state == 2 || player->state == 4 || player->state == 3)
         return 0;
-    if (*(int*)((unsigned char*)player + 0x4310) <= 0)
+    if (hitbox->invincible_timer <= 0)
         ext_call(player, 0);
     return 1;
 }

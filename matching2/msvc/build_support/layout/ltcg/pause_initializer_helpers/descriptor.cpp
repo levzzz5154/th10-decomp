@@ -5,10 +5,10 @@
 #include "th10/game/pause_initializer.hpp"
 
 #pragma code_seg(".text$07descriptor")
-int SpriteRegion::BindToAnimation(AnimationHandle8 handle,
+int SpriteRegion::BindToAnimation(UiAnimationHandle handle,
         int new_left, int new_top, int new_width, int new_height) {
     AnimationScriptId id; id.value = (int)handle.value;
-    AnimationObject2* animation = reinterpret_cast<AnimationObject2*>(AnimationManager_Find(g_sprt_ctrl, id));
+    UiAnimationNodeView* animation = reinterpret_cast<UiAnimationNodeView*>(AnimationManager_Find(g_sprt_ctrl, id));
     AnimationSprite* sprite = animation->sprite;
     return Set(*animation->texture, new_left, new_top, new_width, new_height,
         static_cast<int>(sprite->left), static_cast<int>(sprite->top),

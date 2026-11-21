@@ -1,3 +1,4 @@
+// 0x0040AC20..0x0040AD20: KeyRepeatState::Update, UpdateBoundedCounter
 #include "th10/runtime/asm_symbols.hpp"
 #include "th10/game/score.hpp"
 

@@ -1,3 +1,4 @@
+// 0x00438250..0x00438800: LegacyString::Length, LegacyString::AssignSubstring, LegacyString::Assign (+8 more)
 #include "th10/util/heap.hpp"
 #include <string.h>
 #include <new>

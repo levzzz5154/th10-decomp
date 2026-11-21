@@ -1,3 +1,4 @@
+// 0x0043BFA0: DrawGradientQuad
 #include "th10/render/quad_batch.hpp"
 #pragma code_seg(".text$02gradient")
 int __stdcall DrawGradientQuad(const ScreenRect* rect, unsigned int top_left, unsigned int top_right, unsigned int bottom_left, unsigned int bottom_right) {

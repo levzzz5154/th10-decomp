@@ -35,7 +35,7 @@ struct AnimationListEntry {
     unsigned char reserved_1c[0x340];
     unsigned int flags;
 };
-struct AnimationLists3 {
+struct FrontDestroyAnimationLists {
     unsigned char reserved[0x72DAD4];
     AnimationListEntry* primary;
     int reserved_2;
@@ -45,7 +45,7 @@ struct AnimationLists3 {
 // The lookup and the flag setter again, written out so that they can be
 // expanded in place: the destructor's loop holds a copy of both.
 __forceinline AnimationListEntry* AnimationLists_Find(AnimationLookupContext* context, AnimationScriptId id) {
-    AnimationLists3* lists = reinterpret_cast<AnimationLists3*>(context);
+    FrontDestroyAnimationLists* lists = reinterpret_cast<FrontDestroyAnimationLists*>(context);
     AnimationListEntry* node;
     int* object;
     if (!id.value)

@@ -15,7 +15,7 @@ extern "C" __declspec(noinline) int __stdcall TitleMenu_DrawReplayBrowser2(
         TitleDrawView* menu) {
     switch (menu->phase) {
     case 4: {
-        ReplayHeader5* header = menu->replays[menu->selected_replay]->header;
+        ReplayDisplayHeader* header = menu->replays[menu->selected_replay]->header;
         Vec32 position = {80.0f, 80.0f, 0.0f};
         if (menu->phase_frames < 10)
             position.y = (10.0f - menu->phase_elapsed) * (menu->selected_replay * 15) * 0.1f + 80.0f;
@@ -57,7 +57,7 @@ extern "C" __declspec(noinline) int __stdcall TitleMenu_DrawReplayBrowser2(
         for (int slot = 0; slot < 25; ++slot) {
             g_ascii_manager->current_4c = menu->cursor == slot ? 0xFFFFFF00 : 0xFF808080;
             if (menu->replays[slot]) {
-                ReplayHeader5* header = menu->replays[slot]->header;
+                ReplayDisplayHeader* header = menu->replays[slot]->header;
                 tm* date = localtime(&header->date);
                 AsciiManager_AddFormatted(
                     g_ascii_manager, &position,

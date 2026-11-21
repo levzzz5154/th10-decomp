@@ -39,6 +39,6 @@ struct SoundBuffer : PlatformOwnedArray {
 
 int __fastcall Platform_InvokeInterface(SoundBuffer* sound_buffer);
 void __fastcall Platform_ReleaseOwnedArray(PlatformOwnedArray* owner);
-void __fastcall SoundBuffer_DestructBaseRetail(SoundBuffer* sound_buffer);
+void __fastcall SoundBuffer_DestructBase(SoundBuffer* sound_buffer);
 
 extern char sound_buffer_vtable;

@@ -208,7 +208,7 @@
     },
     {
       "name": "function_0043e5a0",
-      "symbol": "?ConfigureObject@Resource2@@QAEHPAUAnimationObject3@@H@Z",
+      "symbol": "?ConfigureObject@Resource2@@QAEHPAUSpriteDimensionsView@@H@Z",
       "section": ".text$f0043e5a0F",
       "address": "0x43e5a0",
       "size": 356

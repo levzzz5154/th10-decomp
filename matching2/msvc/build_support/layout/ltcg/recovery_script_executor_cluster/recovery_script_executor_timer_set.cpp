@@ -2,7 +2,7 @@
 // proven frame_timer family module: a record type whose flags live at +0x10,
 // a noinline store member, plain __thiscall declaration. The interprocedural
 // pass picks the receiver's private register for this module.
-#include "th10/game/recovery_script_executor.hpp"
+#include "th10/game/ending_script_executor.hpp"
 
 extern float g_frame_timer_normal_lower;
 extern float g_frame_timer_normal_upper;

@@ -119,7 +119,7 @@ void store_week_number(
 
 // Semantic model of the CRT __expandtime helper at 0x0045A82D.
 //
-// This is deliberately not named asm_expandtime_0045a82d: the retail ABI has
+// This is deliberately not named crt_expandtime: the retail ABI has
 // no ordinary MSVC spelling.  AL carries the token, ECX points to the output
 // cursor, EBX points to the remaining-capacity count, and four values are on
 // the stack.  The typed parameters below make those values explicit for a

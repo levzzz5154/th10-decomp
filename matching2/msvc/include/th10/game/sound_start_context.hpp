@@ -152,7 +152,7 @@ struct PlatformInterfaceState {
 // combining their HRESULTs with OR. The historical Query name is retained.
 // Native LTCG gives this member's internal receiver convention: the state
 // arrives in EDI and the result is returned in EAX.
-typedef int (__stdcall *RecoveryLeafD600Query)(void*, unsigned int);
+typedef int (__stdcall *SoundDevice_QueryInterfaces)(void*, unsigned int);
 
 struct PlatformQueryInterfaces {
     unsigned char unknown_000[4];

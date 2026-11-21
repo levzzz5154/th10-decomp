@@ -11,7 +11,7 @@ void** __stdcall ItemAnimation_CreateOffset(
     void* resource, void** out, int index, const Vector3* position);
 
 #pragma code_seg(".text$079k_death")
-int __stdcall Enemy_ReleaseOnDeath(Enemy6* enemy) {
+int __stdcall Enemy_ReleaseOnDeath(EnemyDeathView* enemy) {
     if (enemy->death_sound >= 0)
         g_sound_manager.QueuePan(enemy->death_sound, enemy->position.position[0]);
     if (enemy->death_script >= 0) {

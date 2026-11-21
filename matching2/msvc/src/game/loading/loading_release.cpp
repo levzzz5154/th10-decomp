@@ -1,3 +1,4 @@
+// 0x0041FB50..0x0046568B: TitleState::~TitleState, LoadingUnwind_00465680, TitleAnimationUnwind_0046568b
 #include "th10/game/title_teardown/title_teardown_dependencies.hpp"
 
 inline void ReleaseLoadingBank(int index) {

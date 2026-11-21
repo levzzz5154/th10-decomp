@@ -1,3 +1,4 @@
+// 0x0040BA70: EndingUpdateView::OnUpdate
 #include "th10/game/ending_update.hpp"
 
 #pragma code_seg(".text$00zcallback")

@@ -440,12 +440,12 @@
       "kind": "relative_code"
     },
     {
-      "symbol": "?Recovery_ReleaseGlobalStates@@YGXXZ",
+      "symbol": "?Supervisor_ReleaseGlobalStates@@YGXXZ",
       "address": "0x004203F0",
       "kind": "relative_code"
     },
     {
-      "symbol": "?RegisterResource@AnimationManager9@@QAEPADPBDHH@Z",
+      "symbol": "?RegisterResource@AnmResourceRegistrar@@QAEPADPBDHH@Z",
       "address": "0x0043E460",
       "kind": "relative_code"
     },
@@ -470,7 +470,7 @@
       "kind": "relative_code"
     },
     {
-      "symbol": "?SaveSystemSettingsRetail2@@YGHXZ",
+      "symbol": "?SystemSettings_Save@@YGHXZ",
       "address": "0x004392E0",
       "kind": "relative_code"
     },

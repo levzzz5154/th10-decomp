@@ -1,7 +1,7 @@
 // A call or spawn enters a named ECL subroutine with a fresh or nested frame.
 #include <string.h>
 #include "th10/runtime/script/sptcmd/ecl_core_interpreter.hpp"
-#include "script_resolver.hpp"
+#include "th10/script/script_resolver.hpp"
 
 typedef char ChildExtent[sizeof(EclVm) == 0x1024 ? 1 : -1];
 typedef char MaskOffset[offsetof(EclVm, rank) == 0x101c ? 1 : -1];

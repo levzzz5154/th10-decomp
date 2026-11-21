@@ -1,3 +1,4 @@
+// 0x0044D5B0: Platform_InvokeInterface
 #include "th10/source_views/process_00435c_0.hpp"
 #include "th10/source_views/process_00435c_1.hpp"
 int __fastcall Platform_InvokeInterface(SoundBuffer* sound_buffer) {

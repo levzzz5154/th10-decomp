@@ -1,3 +1,4 @@
+// 0x00412E70: ScoreState::ReduceGauge
 #include "th10/source_views/score_bookkeeping_7e27a0_0.hpp"
 #include "th10/source_views/score_bookkeeping_7e27a0_1.hpp"
 void ScoreState::ReduceGauge(int amount) {

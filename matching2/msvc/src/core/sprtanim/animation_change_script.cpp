@@ -20,9 +20,11 @@ void __stdcall ChangeAnimationScript(ScriptChangeResource* resource, Entity* obj
     object->current_frame = 0;
     object->frame_elapsed = 0.0f;
     object->previous_frame = (int)0xFFF0BDC1u;
-    int& first_slot = *(int*)((char*)object+0xB4);
+    // MATCH: binding the two cleared header slots through local int& aliases
+    // prevents MSVC from hoisting 0xFFF0BDC1 into EDI before primary_color.
+    int& first_slot = *reinterpret_cast<int*>(&object->pad_0B4[0]);
     first_slot = 0;
-    int& second_slot = *(int*)((char*)object+0x100);
+    int& second_slot = *reinterpret_cast<int*>(&object->pad_100[0]);
     second_slot = 0;
     object->pad_12C[0] = 0;
     object->pad_178[0] = 0;
@@ -33,8 +35,10 @@ void __stdcall ChangeAnimationScript(ScriptChangeResource* resource, Entity* obj
     unsigned int mask = object->AnimationFlags() & 0xFFFFF9FFu;
     object->ScriptResource() = resource;
     object->AnimationFlags() = mask;
+    // MATCH: binding base+cursor through a local ScriptPair& alias preserves
+    // the retail store ordering between AnimationFlags() and flags_06C.
     struct ScriptPair { void* base; void* cursor; };
-    ScriptPair& pair = *(ScriptPair*)((char*)object + 0x38C);
+    ScriptPair& pair = *reinterpret_cast<ScriptPair*>(&object->ScriptBase());
     pair.base = script;
     pair.cursor = script;
     if ((object->flags_06C & 1) == 0) {

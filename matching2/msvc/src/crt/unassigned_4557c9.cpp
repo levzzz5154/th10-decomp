@@ -1,11 +1,11 @@
 struct ThreadData { unsigned char padding[0x64]; void* locale; };
-extern "C" ThreadData* __cdecl asm_getptd_00456357();
-extern "C" void* __cdecl asm_updatetlocinfo_00455ade();
+extern "C" ThreadData* __cdecl crt_getptd();
+extern "C" void* __cdecl crt_updatetlocinfo();
 extern "C" void* g_crt_locale_data;
-extern "C" int __cdecl asm_isctype_mt_00455752(void* locale, int character, int mask);
+extern "C" int __cdecl crt_isctype_mt(void* locale, int character, int mask);
 
-extern "C" int __cdecl asm_unassigned_004557c9(int character, int mask) {
-    void* locale = asm_getptd_00456357()->locale;
-    if (locale != g_crt_locale_data) locale = asm_updatetlocinfo_00455ade();
-    return asm_isctype_mt_00455752(locale, character, mask);
+extern "C" int __cdecl crt_unassigned_4557c9(int character, int mask) {
+    void* locale = crt_getptd()->locale;
+    if (locale != g_crt_locale_data) locale = crt_updatetlocinfo();
+    return crt_isctype_mt(locale, character, mask);
 }

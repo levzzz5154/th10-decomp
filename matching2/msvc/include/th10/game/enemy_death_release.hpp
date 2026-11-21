@@ -11,11 +11,11 @@ struct EnemyCtrlDeathView {
     void* animation_files[4];                 // +0x30
     FrameTimer clock;                         // +0x40
     int reserved_54;
-    struct EnemyNode3* first;         // +0x58
+    struct EnemyDeathListNode* first;         // +0x58
 };
 
 // An enemy, as far as its death touches it.
-struct Enemy6 {
+struct EnemyDeathView {
     unsigned char reserved_0000[0x1068];
     DropSource position;             // +0x1068
     unsigned char reserved_1074[0x2408 - 0x1074];
@@ -28,16 +28,16 @@ struct Enemy6 {
 };
 
 // A link of the manager's enemy list.
-struct EnemyNode3 {
-    Enemy6* enemy;
-    EnemyNode3* next;
+struct EnemyDeathListNode {
+    EnemyDeathView* enemy;
+    EnemyDeathListNode* next;
 };
 
 extern "C" EnemyCtrlDeathView* g_enemy_ctrl;
 extern "C" ScoreState g_globals;
 
 // 0x0040E5F0: sound, burst, drops and gauge hold of a dying enemy.
-int __stdcall Enemy_ReleaseOnDeath(Enemy6* enemy);
+int __stdcall Enemy_ReleaseOnDeath(EnemyDeathView* enemy);
 
 // 0x0040E6A0: start the bursts of the enemies that just died and tick the clock.
 void __stdcall EnemyCtrl_SweepDeaths(EnemyCtrlDeathView* manager);

@@ -1,3 +1,4 @@
+// 0x0044D6A0: SoundStreamingState::SoundStreamingState
 void* __cdecl operator new(unsigned int bytes);
 #pragma code_seg(".text$05single")
 // 0x0044D6A0: streaming constructor, 109 original bytes.

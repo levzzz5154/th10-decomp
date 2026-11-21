@@ -59,6 +59,7 @@ struct FrameTimer {
     __declspec(noinline) void Tick();
     __declspec(noinline) void Advance(float delta);
     __declspec(noinline) void Decrement(int count);
+    __declspec(noinline) int AtInterval(int interval);
 };
 
 // 0x00405410 is this function where retail did not expand it in place.

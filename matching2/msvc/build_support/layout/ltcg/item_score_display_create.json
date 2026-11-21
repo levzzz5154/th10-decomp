@@ -12,7 +12,7 @@
   "functions": [
     {
       "name": "ItemManager_CreateScoreDisplay",
-      "symbol": "?CreateScoreDisplay@ItemManager2@@QAEXH@Z",
+      "symbol": "?CreateScoreDisplay@ItemScoreManagerView@@QAEXH@Z",
       "section": ".text$01b_create",
       "address": "0x00415DB0",
       "actual_abi": "manager in EDI, stage in ESI; plain RET; compiler-generated EH frame",
@@ -30,7 +30,7 @@
     },
     {
       "name": "ItemScoreDisplayCreateHandler",
-      "symbol": "__ehhandler$?CreateScoreDisplay@ItemManager2@@QAEXH@Z",
+      "symbol": "__ehhandler$?CreateScoreDisplay@ItemScoreManagerView@@QAEXH@Z",
       "section": ".text$x",
       "address": "0x0046582B",
       "actual_abi": "compiler-generated EH handler",
@@ -39,7 +39,7 @@
     }
   ],
   "context": {
-    "symbol": "?ItemScoreDisplayCompilerContext@@YGHPAPAUItemManager2@@PAHH@Z",
+    "symbol": "?ItemScoreDisplayCompilerContext@@YGHPAPAUItemScoreManagerView@@PAHH@Z",
     "section": ".text$01c_context",
     "address": "0x00415E30",
     "size": 71,

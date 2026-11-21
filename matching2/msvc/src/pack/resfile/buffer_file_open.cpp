@@ -1,3 +1,4 @@
+// 0x00436400: BufferFile::Open
 #include "th10/platform/memory_file.hpp"
 
 // The retail resource routines use the path pointer itself in ECX. This ABI

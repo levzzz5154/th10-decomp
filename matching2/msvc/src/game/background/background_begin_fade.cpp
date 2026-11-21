@@ -1,3 +1,4 @@
+// 0x00404530: BackGround::BeginFade
 #include "th10/game/background_fade.hpp"
 #include "th10/core/screen.hpp"
 extern "C" float g_game_speed;

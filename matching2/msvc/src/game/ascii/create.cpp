@@ -34,7 +34,7 @@ struct AsciiManager2 {
 
 
 extern "C" {
-void *__fastcall Recovery_LoadCachedResource(int id, void *cache, const char *name);
+void *__fastcall SprtCtrl_LoadCachedResource(int id, void *cache, const char *name);
 SchedulerTask *__stdcall SchedulerTask_Create(void *callback);
 int __fastcall AsciiManagerUpdate(void *manager);
 int __fastcall AsciiManagerDraw(void *manager);
@@ -46,19 +46,19 @@ extern FuncCtrl *g_func_ctrl;
 #pragma code_seg(".text$00_b_load")
 int AsciiManager2::LoadResources() {
     AsciiManager2 *manager = this;
-    manager->ascii_resource = (Resource2 *)Recovery_LoadCachedResource(
+    manager->ascii_resource = (Resource2 *)SprtCtrl_LoadCachedResource(
             2, g_sprt_ctrl, "ascii.anm");
     if (!manager->ascii_resource) {
         ((TextLog *)0x474F70)->Append((char *)0x46CB68);
         return -1;
     }
-    manager->text_resource = (Resource2 *)Recovery_LoadCachedResource(
+    manager->text_resource = (Resource2 *)SprtCtrl_LoadCachedResource(
             0, g_sprt_ctrl, "text.anm");
     if (!manager->text_resource) {
         ((TextLog *)0x474F70)->Append((char *)0x46CB68);
         return -1;
     }
-    manager->capture_resource = (Resource2 *)Recovery_LoadCachedResource(
+    manager->capture_resource = (Resource2 *)SprtCtrl_LoadCachedResource(
             3, g_sprt_ctrl, "capture.anm");
     if (!manager->capture_resource) {
         ((TextLog *)0x474F70)->Append((char *)0x46CB68);
@@ -87,12 +87,12 @@ int AsciiManager2::LoadResources() {
     Resource2 *resource = manager->ascii_resource;
     Entity_Init(0, sprite);
     sprite->script_resource = resource;
-    resource->ConfigureObject(reinterpret_cast<AnimationObject3 *>(sprite), 0);
+    resource->ConfigureObject(reinterpret_cast<SpriteDimensionsView *>(sprite), 0);
     sprite = &manager->secondary_sprite;
     resource = manager->ascii_resource;
     Entity_Init(0, sprite);
     sprite->script_resource = resource;
-    resource->ConfigureObject(reinterpret_cast<AnimationObject3 *>(sprite), 0x62);
+    resource->ConfigureObject(reinterpret_cast<SpriteDimensionsView *>(sprite), 0x62);
     return 0;
 }
 #pragma code_seg()

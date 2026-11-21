@@ -2,7 +2,7 @@
 // The native MSVC LTCG build determines the helpers' private register inputs.
 
 #include <stdarg.h>
-#include "th10/game/recovery_script_executor_text_anchors.hpp"
+#include "th10/game/ending_script_text_anchors.hpp"
 
 extern "C" {
 extern unsigned char recovery_decoded_path_00497d40[];
@@ -21,7 +21,7 @@ void __stdcall recovery_draw_unshadowed(
 }
 
 #pragma code_seg(".text$00417010_fn")
-char* __stdcall RecoveryDecodePath(const unsigned char* encoded) {
+char* __stdcall EndingScript_DecodePath(const unsigned char* encoded) {
     unsigned char* output = recovery_decoded_path_00497d40;
     unsigned char key = 0x77;
     unsigned char increment = 7;
@@ -39,7 +39,7 @@ char* __stdcall RecoveryDecodePath(const unsigned char* encoded) {
 #pragma code_seg()
 
 #pragma code_seg(".text$004479d0_fn")
-void __stdcall RecoveryDispatchText2(
+void __stdcall SpriteText_Dispatch(
     AnmTextResource* resource, int font_height,
     const char* text, void* texture, int horizontal_offset,
     unsigned int color, int unshadowed) {
@@ -79,7 +79,7 @@ void __cdecl AnmTextVm::MarkText(
     const unsigned int color = va_arg(color_home, unsigned int);
     va_end(color_home);
     AnmTextResource* text_resource = resource;
-    RecoveryDispatchText2(
+    SpriteText_Dispatch(
         text_resource, height, buffer, text_resource->texture, 0, color,
         (flags_360 >> 1) & 1);
     flags_35c |= 1;

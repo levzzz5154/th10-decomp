@@ -138,7 +138,7 @@ int __stdcall TitleMenuFlow(Title* room) {
     case KEYCFG_PHASE_ENTER:
         room->cursor.item_count = KEYCFG_ITEM_COUNT;
         SelectItem5(room->cursor, 0);
-        RecoveryMusicInstallSlot(room, 2);
+        Title_InstallAnimationSlot(room, 2);
         room->SetTimerTarget(KEYCFG_PHASE_WAIT_OPEN);
         LoadBindings(room);
         // Retail intentionally processes phase 1 on this same frame.

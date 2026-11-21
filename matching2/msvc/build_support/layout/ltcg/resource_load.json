@@ -20,7 +20,7 @@
   "functions": [
     {
       "name": "ResourceLoad",
-      "symbol": "?ResourceLoadRetail@@YGPAEPBDPAE@Z",
+      "symbol": "?Resource_LoadFromArchive@@YGPAEPBDPAE@Z",
       "section": ".text$09load",
       "address": "0x00435800",
       "size": 214,
@@ -38,7 +38,7 @@
     },
     {
       "name": "ResourceLoadExceptionHandler",
-      "symbol": "__ehhandler$?ResourceLoadRetail@@YGPAEPBDPAE@Z",
+      "symbol": "__ehhandler$?Resource_LoadFromArchive@@YGPAEPBDPAE@Z",
       "section": ".text$x",
       "address": "0x004653A8",
       "size": 10,

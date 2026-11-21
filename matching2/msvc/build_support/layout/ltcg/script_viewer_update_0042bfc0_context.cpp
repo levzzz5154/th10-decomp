@@ -4,7 +4,7 @@
 // carry their own section names because the originals' sort out of address
 // order when combined.
 #include "th10/script/ecl_children.hpp"
-#include "script_vm.hpp"
+#include "th10/script/script_vm.hpp"
 #include "../../../src/game/spttest/spt_test_update.cpp"
 
 extern "C" void __cdecl crt_free(void* memory);

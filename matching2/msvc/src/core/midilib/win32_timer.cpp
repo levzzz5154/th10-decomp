@@ -1,3 +1,4 @@
+// 0x0043A620..0x0043A6B0: Win32Timer::~Win32Timer, Win32Timer::Start, Win32Timer::Stop
 #include "th10/source_views/win32_timer_c08c99_0.hpp"
 #include "th10/source_views/win32_timer_c08c99_1.hpp"
 #include "th10/source_views/win32_timer_c08c99_2.hpp"

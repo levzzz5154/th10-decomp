@@ -1,4 +1,5 @@
-#include "th10/archive/native_read/archive.hpp"
+// 0x00434F30: ArchiveFind
+#include "th10/archive/read/archive.hpp"
 #ifndef ARCHIVE_FIND_SECTION
 #define ARCHIVE_FIND_SECTION ".text$a02find"
 #endif

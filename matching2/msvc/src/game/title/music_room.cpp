@@ -17,7 +17,7 @@
 #include <math.h>
 
 extern "C" void* g_sprt_ctrl;
-extern "C" GameThread6* g_ascii_manager;
+extern "C" GameThreadResourceView* g_ascii_manager;
 extern "C" SoundQueue g_sound_manager;
 extern "C" unsigned int g_input_keys_held;
 extern "C" unsigned short recovery_music_repeat;
@@ -83,10 +83,10 @@ static __forceinline void MusicSelect(MenuCursor& cursor, int index) {
 }
 
 // 0x0042C670, 0x004349E0, 0x00434A20: defined in their own sources.
-void __stdcall RecoveryMusicInstallSlot(Title* room, int index);
+void __stdcall Title_InstallAnimationSlot(Title* room, int index);
 char* __stdcall StageText_SkipLine(char* cursor, int* remaining);
 extern "C" char* __stdcall UiFinalExtractLine(char* destination, char* cursor, int* remaining);
-void __stdcall RecoveryMusicStopHandle(AnmScriptHandle* handle);
+void __stdcall Title_StopAnimationHandle(AnmScriptHandle* handle);
 extern "C" void __stdcall UiFinalTransition(TitleAnmVm* self, int mode, const TitleVec3* target, const TitleVec3* base, unsigned char flag);
 
 // The body of 0x00448D00, where the whole-program link expanded it in place.
@@ -191,7 +191,7 @@ __declspec(noinline) int __stdcall TitleMusicRoom(Title* room) {
     void* handle;
     int remaining;
     int index;
-    AnimationManager9* requests;
+    AnmResourceRegistrar* requests;
 
     switch (room->phase) {
     case MUSIC_ROOM_LOAD:
@@ -201,12 +201,12 @@ __declspec(noinline) int __stdcall TitleMusicRoom(Title* room) {
             if (UiFinalFind(g_sprt_ctrl,
                             reinterpret_cast<AnmLookupContext*>(g_sprt_ctrl),
                             room->animation_slots[95]) == 0) {
-                RecoveryMusicInstallSlot(room, 95);
+                Title_InstallAnimationSlot(room, 95);
                 void* resource = g_ascii_manager->animation_resource;
                 void** result = AnimationManager_CreatePrimaryBack(resource, &handle, 8, 15);
                 room->fallback_handle.value = reinterpret_cast<unsigned int>(*result);
             }
-            RecoveryMusicInstallSlot(room, 103);
+            Title_InstallAnimationSlot(room, 103);
             int tracks = 0;
             room->file_buffer = Archive_LoadFile(recovery_music_comment_file, &remaining, 0);
             char* text = room->file_buffer;
@@ -327,7 +327,7 @@ __declspec(noinline) int __stdcall TitleMusicRoom(Title* room) {
             room->displayed_track = room->cursor.selection;
             room->preview_cursor = 0;
             MusicResetTimer(&room->timer);
-            requests = reinterpret_cast<AnimationManager9*>(&g_sound_manager);
+            requests = reinterpret_cast<AnmResourceRegistrar*>(&g_sound_manager);
             if (!recovery_music_player[0x1D892 + room->displayed_track]
                     && !room->preview_armed) {
                 if (recovery_music_mode & 0x10u)
@@ -356,7 +356,7 @@ leave_room:
         room->file_buffer = 0;
         room->cursor.PopSelection();
         for (int row = 0; row < room->parsed_track_count; ++row)
-            RecoveryMusicStopHandle(&room->row_handles[row]);
+            Title_StopAnimationHandle(&room->row_handles[row]);
         // 0x00409E50 on each comment line, the search of 0x004491C0 expanded in place.
         for (int row = 0; row < 8; ++row)
             MusicSetTreeFrame(MusicFindInPlace(
@@ -373,7 +373,7 @@ leave_room:
             room->SetSlotFrame(90, 8);
             room->SetSlotFrame(91, 8);
             room->ClearAnimationSlot(95);
-            RecoveryMusicStopHandle(&room->fallback_handle);
+            Title_StopAnimationHandle(&room->fallback_handle);
             room->DisableTimerWithOwner(2);
             recovery_replace_extension(0, recovery_music_restore_bgm);
             recovery_play_dummy(0, 0);

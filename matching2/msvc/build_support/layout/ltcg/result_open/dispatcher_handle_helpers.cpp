@@ -141,8 +141,8 @@ DispatcherRef DispatcherHandle::FindChildRef(int script_id) {
 #pragma code_seg(".text$00449670_fn")
 void DispatcherRef::SelectCurrentSprite(int index) {
     AnimationScriptId id(value);
-    AnimationObject3* object =
-        reinterpret_cast<AnimationObject3*>(
+    SpriteDimensionsView* object =
+        reinterpret_cast<SpriteDimensionsView*>(
             DispatcherFindAnimation(
             reinterpret_cast<AnimationLookupContext*>(g_sprt_ctrl), id));
     if (object != 0)
@@ -154,8 +154,8 @@ void DispatcherRef::SelectCurrentSprite(int index) {
 void DispatcherRef::SelectResourceSprite(
         AnimationBank* resource, int index) {
     AnimationScriptId id(value);
-    AnimationObject3* object =
-        reinterpret_cast<AnimationObject3*>(
+    SpriteDimensionsView* object =
+        reinterpret_cast<SpriteDimensionsView*>(
             DispatcherFindAnimation(
             reinterpret_cast<AnimationLookupContext*>(g_sprt_ctrl), id));
     if (object != 0)

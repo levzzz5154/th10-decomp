@@ -32,7 +32,7 @@
     },
     {
       "name": "Stage_StartQuadScripts",
-      "symbol": "?Stage_StartQuadScripts@@YGXPAUStage2@@@Z",
+      "symbol": "?Stage_StartQuadScripts@@YGXPAUStageUpdateView@@@Z",
       "section": ".text$00m_stage",
       "address": "0x00404450",
       "size": 214,
@@ -162,7 +162,7 @@
   ],
   "roots": [
     "?Initialize@Laser2@@QAEHPBULaserParams2@@@Z",
-    "?Stage_StartQuadScripts@@YGXPAUStage2@@@Z",
+    "?Stage_StartQuadScripts@@YGXPAUStageUpdateView@@@Z",
     "?Initialize@LineLaser3@@QAEHPBULineLaserParams3@@@Z"
   ],
   "additional_sources": [

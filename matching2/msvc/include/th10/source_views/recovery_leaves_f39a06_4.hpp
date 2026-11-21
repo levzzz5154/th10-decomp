@@ -1,7 +1,7 @@
 #pragma once
 
 
-// 0x004203F0..0x0042046F: Recovery_ReleaseGlobalStates
+// 0x004203F0..0x0042046F: Supervisor_ReleaseGlobalStates
 // Tear down every global state object the engine allocated for the running
 // session: manager state, script state, resource state, the small state and the
 // pending block. Each object is destroyed through its own release routine and

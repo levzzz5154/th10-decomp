@@ -45,7 +45,7 @@
   "anchors": [
     {
       "name": "SetActiveCount",
-      "symbol": "?SetActiveCount@AnimationManager4@@QAEXH@Z",
+      "symbol": "?SetActiveCount@LifeStockAnmManager@@QAEXH@Z",
       "section": ".text$00413790_fn",
       "address": "0x00413790",
       "size": 77

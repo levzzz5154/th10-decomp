@@ -1,3 +1,4 @@
+// 0x0041F7A0: ViewportPosition::IsPartiallyOutside
 #include "th10/source_views/playfield_bounds_7c91ed_0.hpp"
 #include "th10/source_views/playfield_bounds_7c91ed_1.hpp"
 int ViewportPosition::IsPartiallyOutside(float horizontal_margin,

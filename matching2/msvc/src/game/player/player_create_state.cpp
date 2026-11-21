@@ -1,3 +1,4 @@
+// 0x004246C0..0x00425020: PlayerResetBlock::PlayerResetBlock, Create6
 #include "th10/game/large_player_native.hpp"
 void* __cdecl operator new(unsigned int);
 void __cdecl operator delete(void*);

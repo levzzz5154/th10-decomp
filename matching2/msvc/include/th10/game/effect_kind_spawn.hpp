@@ -3,16 +3,16 @@
 
 // A handle to a running animation; zero when there is none. Its constructor
 // makes functions return it through a hidden pointer.
-struct AnimationHandle2 {
+struct EffectAnimationHandle {
     unsigned int value;
 
-    AnimationHandle2() {}
+    EffectAnimationHandle() {}
 };
 
 // A running animation, as far as the spawners touch it.
-struct AnimationNode2 {
-    AnimationNode2* object;      // +0x000: list nodes point at the animation
-    AnimationNode2* next;        // +0x004
+struct EffectAnimationNode {
+    EffectAnimationNode* object;      // +0x000: list nodes point at the animation
+    EffectAnimationNode* next;        // +0x004
     unsigned char reserved_008[0x18];
     int render_bucket;                   // +0x020
     unsigned char reserved_024[0x338];
@@ -28,14 +28,14 @@ struct AnimationBank {
 };
 
 // The animation manager's two running lists.
-struct AnimationLists2 {
+struct EffectAnimationLists {
     unsigned char reserved_000[0x72DAD4];
-    AnimationNode2* primary;     // +0x72DAD4
+    EffectAnimationNode* primary;     // +0x72DAD4
     int reserved_72dad8;
-    AnimationNode2* secondary;   // +0x72DADC
+    EffectAnimationNode* secondary;   // +0x72DADC
 
     // 0x004491C0: find a running animation by handle.
-    __declspec(noinline) AnimationNode2* Find(AnimationHandle2 handle);
+    __declspec(noinline) EffectAnimationNode* Find(EffectAnimationHandle handle);
 };
 
 // The animation manager's object pool.
@@ -43,10 +43,10 @@ struct AnimationPool2 {
     // 0x00449950: take a free animation object (heap-allocated when the pool
     // is full). It has to be a member: the callee-cleans-stack call is what
     // orders the entry of 0x0040B110.
-    __declspec(noinline) AnimationNode2* Allocate();
+    __declspec(noinline) EffectAnimationNode* Allocate();
 };
 
-extern "C" AnimationLists2* g_sprt_ctrl;
+extern "C" EffectAnimationLists* g_sprt_ctrl;
 extern "C" void** __cdecl AnimationManager_RegisterPrimaryBack(
     void* manager, void** out, void* entity);
 
@@ -54,7 +54,7 @@ extern "C" void** __cdecl AnimationManager_RegisterPrimaryBack(
 // copied into the new animation.
 struct EffectKind {
     short script;                                            // +0x00
-    void (__fastcall* setup)(AnimationNode2* node, void* argument);  // +0x04
+    void (__fastcall* setup)(EffectAnimationNode* node, void* argument);  // +0x04
     int value_a;                                             // +0x08
     int value_b;                                             // +0x0C
 };
@@ -67,11 +67,11 @@ struct EffectSpawnView {
     AnimationBank* file;    // +0x10
 
     // 0x0040B070: start an effect of a kind from the owner's file.
-    AnimationHandle2 __stdcall SpawnEffect(void* argument, int kind);
+    EffectAnimationHandle __stdcall SpawnEffect(void* argument, int kind);
 };
 
 // 0x0040B110: the same for an animation file given directly.
-AnimationHandle2 __stdcall SpawnEffectFromFile(
+EffectAnimationHandle __stdcall SpawnEffectFromFile(
     int kind, AnimationBank* file, void* argument);
 
 #endif

@@ -5,10 +5,10 @@
 // so the object never has its address taken and LTCG passes it in ESI like
 // the member's receiver. Same body as AnmTextVm::MarkText.
 #include <stdarg.h>
-#include "th10/game/recovery_mark_text_and_dispatcher.hpp"
+#include "th10/game/ending_text_dispatcher.hpp"
 extern "C" int __cdecl recovery_vsprintf(char* buffer, const char* format, char* args);
 #pragma code_seg(".text$00447a50_standin")
-__declspec(noinline) void __cdecl RecoveryMarkText(void* manager, AnmTextVm* vm, ...) {
+__declspec(noinline) void __cdecl EndingScript_MarkText(void* manager, AnmTextVm* vm, ...) {
     char buffer[128];
     const unsigned int height = vm->font_height;
     va_list args = reinterpret_cast<va_list>(&manager) + 2 * sizeof(void*);
@@ -18,7 +18,7 @@ __declspec(noinline) void __cdecl RecoveryMarkText(void* manager, AnmTextVm* vm,
     recovery_vsprintf(buffer, format, args);
     const unsigned int color = va_arg(color_home, unsigned int);
     AnmTextResource* text_resource = vm->resource;
-    RecoveryDispatchText2(
+    SpriteText_Dispatch(
         text_resource, text_resource->texture, 0, height, color, buffer,
         (vm->flags_360 >> 1) & 1);
     vm->flags_35c |= 1;

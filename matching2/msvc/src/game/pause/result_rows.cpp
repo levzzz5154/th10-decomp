@@ -41,7 +41,7 @@ extern "C" __declspec(noinline) int __stdcall ResultScreen_DrawRows(
             g_ascii_manager->current_4c = state->cursor == row ? RESULT_COLOR_HIGHLIGHT : RESULT_COLOR_DIM;
             ReplayFile2* file = state->records[row];
             if (file) {
-                ReplayHeader5* header = file->header;
+                ReplayDisplayHeader* header = file->header;
                 tm* date = localtime(&header->date);
                 AsciiManager_AddFormatted(
                     g_ascii_manager, &position, str_ranking_row_named_format, row + 1, header->name,
@@ -72,7 +72,7 @@ extern "C" __declspec(noinline) int __stdcall ResultScreen_DrawRows(
         position.x = 102.0f;
         DrawNameEntry2(state, position);
         position.x = 48.0f;
-        ReplayHeader5* header = g_replay->header;
+        ReplayDisplayHeader* header = g_replay->header;
         tm* date = localtime(&header->date);
         AsciiManager_AddFormatted(
             g_ascii_manager, &position, str_ranking_row_format, cursor + 1,

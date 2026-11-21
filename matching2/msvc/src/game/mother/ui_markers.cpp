@@ -1,3 +1,4 @@
+// 0x00420F20..0x00421180: GameUiThreadHost::StopWorker, GameUiThreadHost::CreateMarkers, GameUi_ShowMarkers2
 #include "th10/game/ui_thread_host.hpp"
 #include "th10/game/pause_result_open/dispatcher_contract.hpp"
 

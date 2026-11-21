@@ -1,1 +1,1 @@
-extern "C" int __cdecl asm_FUN_0045598d_0045598d() { return 0; }
+extern "C" int __cdecl crt_helper_45598d() { return 0; }

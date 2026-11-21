@@ -1,12 +1,12 @@
 extern "C" void* g_crt_lock_table[];
-extern "C" int __cdecl asm_mtinitlocknum_00453b6c(int);
-extern "C" void __cdecl asm_amsg_exit_0045373d(int);
+extern "C" int __cdecl crt_mtinitlocknum(int);
+extern "C" void __cdecl crt_amsg_exit(int);
 extern "C" void (__stdcall *imp_EnterCriticalSection)(void*);
 
-extern "C" void __cdecl asm_lock_00453c0c(int number) {
+extern "C" void __cdecl crt_lock(int number) {
     void** slot = &g_crt_lock_table[number * 2];
-    if (!*slot && !asm_mtinitlocknum_00453b6c(number)) {
-        asm_amsg_exit_0045373d(0x11);
+    if (!*slot && !crt_mtinitlocknum(number)) {
+        crt_amsg_exit(0x11);
     }
     imp_EnterCriticalSection(*slot);
 }

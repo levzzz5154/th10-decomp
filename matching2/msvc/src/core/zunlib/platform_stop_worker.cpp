@@ -1,3 +1,4 @@
+// 0x0044C150: PlatformWorker::Stop
 #include "th10/platform/worker.hpp"
 
 // ESI is selected by native LTCG from the real caller/callee relationship.

@@ -1,3 +1,4 @@
+// 0x00435320..0x004356A0: FileHandle::~FileHandle (deleting), FileHandle::~FileHandle, FileHandle::Close (+8 more)
 #include "th10/source_views/file_581343_0.hpp"
 __declspec(noinline) FileHandle::~FileHandle() {
     Close();

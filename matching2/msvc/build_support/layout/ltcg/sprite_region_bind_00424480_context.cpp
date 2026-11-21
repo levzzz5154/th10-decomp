@@ -5,7 +5,7 @@
 #pragma inline_depth(0)
 #pragma code_seg(".text$0040a000_context")
 extern "C" int __stdcall SpriteRegionBindContext(SpriteRegion** regions,
-        const AnimationHandle8* handles, int count) {
+        const UiAnimationHandle* handles, int count) {
     int total = 0;
     for (int index = 0; index < count; ++index)
         total += regions[index]->BindToAnimation(handles[index], 32, 16, 384, 448);

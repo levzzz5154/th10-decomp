@@ -1,3 +1,4 @@
+// 0x0043D640: SoundPendingSlots::LoadPendingSlot
 #include "th10/platform/archive_file.hpp"
 
 // 0x0043D640 (37 bytes): load a sound file from the archive into pending slot

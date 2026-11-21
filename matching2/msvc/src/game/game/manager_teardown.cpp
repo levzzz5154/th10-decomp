@@ -48,7 +48,7 @@ extern "C" void __stdcall Front_Destroy(void* manager);
 extern "C" void __stdcall StageManager_Destroy(void* manager);
 extern "C" void __stdcall BulletManager_Destroy(void* manager);
 extern "C" void __stdcall ItemManager_Destroy(void* manager);
-extern "C" void __stdcall ScoreExtendedObject_DestroyRetail(void* object);
+extern "C" void __stdcall ScoreExtendedObject_Destroy(void* object);
 extern "C" void __stdcall ResourceCleanup2(void* state);
 extern "C" void __stdcall EffectManager_Destroy(void* manager);
 extern "C" void __stdcall ManagerOwned_Destroy(void* manager);
@@ -120,17 +120,17 @@ void __stdcall Game_Destroy(Game* state) {
         if (g_globals_stage_shown == g_globals_stage)
             g_globals_flags |= 1u;
     } else if (g_supervisor.next_state == 0xB) {
-        GameThread6* thread = g_ascii_manager;
+        GameThreadResourceView* thread = g_ascii_manager;
         thread->EnsureAnimationResource(224.0f, 416.0f);
         g_globals_flags |= replay_bit;
     } else if (g_supervisor.next_state == 4) {
-        GameThread6* thread = g_ascii_manager;
+        GameThreadResourceView* thread = g_ascii_manager;
         thread->EnsureAnimationResource(480.0f, 392.0f);
     } else if (g_supervisor.next_state == 0xF) {
-        GameThread6* thread = g_ascii_manager;
+        GameThreadResourceView* thread = g_ascii_manager;
         thread->EnsureAnimationResource(480.0f, 392.0f);
     } else if (g_supervisor.next_state == 0xD) {
-        GameThread6* thread = g_ascii_manager;
+        GameThreadResourceView* thread = g_ascii_manager;
         thread->EnsureAnimationResource(480.0f, 392.0f);
         if (g_globals_stage_shown != g_globals_stage) {
             g_globals.IncrementCappedCount();
@@ -185,7 +185,7 @@ void __stdcall Game_Destroy(Game* state) {
         }
         void* score_extended = g_laser_manager;
         if (score_extended) {
-            ScoreExtendedObject_DestroyRetail(score_extended);
+            ScoreExtendedObject_Destroy(score_extended);
             crt_free_startup(score_extended);
         }
         void* resource_state = g_hint;

@@ -1,3 +1,4 @@
+// 0x00429A70: ReplayManager_Draw
 #include "th10/game/game_thread_queue_native.hpp"
 extern "C" const float flt_50;
 extern "C" const char str_int3_format[];
@@ -23,7 +24,7 @@ __declspec(noinline) int __fastcall ReplayManager_Draw(void* callback_context_ec
         color=0xffa0a0ffu;
     else
         color=0xffffffffu;
-    GameThread2* thread=g_ascii_manager;
+    GameThreadQueueView* thread=g_ascii_manager;
     thread->current_4c=color;
     AsciiManager_AddFormatted(thread,&position,str_int3_format,(int)panel->value);
     g_ascii_manager->current_4c=-1;

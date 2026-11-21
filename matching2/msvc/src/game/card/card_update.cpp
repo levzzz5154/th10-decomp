@@ -51,11 +51,11 @@ int __stdcall RunAnimationVm(FrontSprite2* sprite);
 
 static inline void Configure(FrontSprite2* sprite, int script) {
     g_front->digits->ConfigureObject(
-        reinterpret_cast<AnimationObject3*>(sprite), script);
+        reinterpret_cast<SpriteDimensionsView*>(sprite), script);
 }
 
 #pragma code_seg(".text$a00update")
-int Card4::Update() {
+int CardUpdateView::Update() {
     if (!(flags & 1))
         return 1;
     if (timer.current >= 60)
@@ -134,7 +134,7 @@ int Card4::Update() {
 #pragma code_seg()
 
 #pragma code_seg(".text$a01callback")
-extern "C" int __fastcall CardPrimary(Card4* hud) {
+extern "C" int __fastcall CardPrimary(CardUpdateView* hud) {
     return hud->Update();
 }
 #pragma code_seg()

@@ -22,7 +22,7 @@ struct BulletResourceCache;
 // Declared here exactly as the co-compiled TextLog translation unit defines it,
 // so the whole-program pass can pick the register agreement retail used.
 #include "th10/platform/text_log.hpp"
-extern "C" void * __fastcall Recovery_LoadCachedResource(
+extern "C" void * __fastcall SprtCtrl_LoadCachedResource(
         int id, BulletResourceCache *cache, const char *name);
 extern "C" SchedulerTask * __stdcall SchedulerTask_Create(void *callback);
 extern "C" BulletResourceCache *g_sprt_ctrl;
@@ -31,7 +31,7 @@ extern "C" FuncCtrl *g_func_ctrl;
 #pragma code_seg(".text$00a_loadscripts")
 extern "C" __declspec(noinline) int __stdcall Effect_Initialize(
         Effect *state) {
-    void *resource = Recovery_LoadCachedResource(
+    void *resource = SprtCtrl_LoadCachedResource(
             7, g_sprt_ctrl, (const char *)0x46CD88);
     state->bullet_resource = resource;
     if (!resource) {

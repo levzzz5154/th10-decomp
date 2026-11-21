@@ -1,4 +1,4 @@
-#include "th10/game/ending_script/worker.hpp"
+#include "th10/platform/worker.hpp"
 
 // 0x0044C1C0 (56 bytes): start the worker thread.
 //

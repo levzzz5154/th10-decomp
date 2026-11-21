@@ -13,7 +13,7 @@
 
 #include "th10/render/resource_registrar.hpp"
 
-extern AnimationManager9 g_music_requests;   // 0x00492590
+extern AnmResourceRegistrar g_music_requests;   // 0x00492590
 extern unsigned char g_config_flags;                 // 0x00491D78
 extern float g_game_speed;                           // 0x00476F78
 

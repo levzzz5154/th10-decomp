@@ -1,3 +1,4 @@
+// 0x00449350: SetAnimationTranslatedPosition
 #include "th10/render/position_setter_pair.hpp"
 
 // 0x00449350: translate x/y, copy z, and apply the same position to children.

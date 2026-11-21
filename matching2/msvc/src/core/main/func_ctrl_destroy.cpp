@@ -1,3 +1,4 @@
+// 0x00438880..0x00465358: FuncCtrlDestroyView::~FuncCtrlDestroyView, D3DManagerUnwindPrimary_00465350, D3DManagerUnwindSecondary_00465358
 #include "th10/render/d3d_destroy.hpp"
 #include "th10/platform/worker.hpp"
 extern PlatformWorker g_destroy_worker;

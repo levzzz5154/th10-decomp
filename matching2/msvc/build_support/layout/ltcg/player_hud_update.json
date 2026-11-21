@@ -19,7 +19,7 @@
   "functions": [
     {
       "name": "Card_Update",
-      "symbol": "?Update@Card4@@QAEHXZ",
+      "symbol": "?Update@CardUpdateView@@QAEHXZ",
       "section": ".text$a00update",
       "address": "0x00408D60",
       "size": 1057,
@@ -37,7 +37,7 @@
   "anchors": [
     {
       "name": "configure",
-      "symbol": "?ConfigureObject@Resource2@@QAEHPAUAnimationObject3@@H@Z",
+      "symbol": "?ConfigureObject@Resource2@@QAEHPAUSpriteDimensionsView@@H@Z",
       "section": ".text$a02configure",
       "address": "0x0043E5A0",
       "size": 356
@@ -58,14 +58,14 @@
     },
     {
       "name": "stop",
-      "symbol": "?SetStopFrame@AnimationHandle11@@QAEXG@Z",
+      "symbol": "?SetStopFrame@StopFrameAnmHandle@@QAEXG@Z",
       "section": ".text$a05stop",
       "address": "0x00449470",
       "size": 65
     }
   ],
   "context": {
-    "symbol": "?CardUpdateContext@@YGHPAP6IHPAUCard4@@@Z0PAPAUGameSelection@@PAPAPAUScoreFile@@@Z",
+    "symbol": "?CardUpdateContext@@YGHPAP6IHPAUCardUpdateView@@@Z0PAPAUGameSelection@@PAPAPAUScoreFile@@@Z",
     "section": ".text$a95context",
     "address": "0x0044E100",
     "size": 42,

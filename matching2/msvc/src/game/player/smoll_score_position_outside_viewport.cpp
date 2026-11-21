@@ -1,3 +1,4 @@
+// 0x00428D70: SmollScorePosition::OutsideViewport
 #include "th10/source_views/playfield_bounds_7c91ed_0.hpp"
 #include "th10/source_views/playfield_bounds_7c91ed_1.hpp"
 #include "th10/source_views/playfield_bounds_7c91ed_2.hpp"

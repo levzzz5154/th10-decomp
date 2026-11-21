@@ -24,7 +24,7 @@
     },
     {
       "name": "AnimationManager_ClearResourceSlot",
-      "symbol": "?ClearResourceSlot@AnimationManager13@@QAEXH@Z",
+      "symbol": "?ClearResourceSlot@AnmSlotManager@@QAEXH@Z",
       "section": ".text$08clear",
       "address": "0x004477D0",
       "size": 55,
@@ -86,7 +86,7 @@
     }
   ],
   "context": {
-    "symbol": "?AnimationManagerHelperCompilerContext@@YGHPAPAUBulletPool@@PAPAUAnimationResource6@@PAUAnimationManager13@@HH@Z",
+    "symbol": "?AnimationManagerHelperCompilerContext@@YGHPAPAUBulletPool@@PAPAUAnimationResource6@@PAUAnmSlotManager@@HH@Z",
     "section": ".text$30context",
     "address": "0x00449480",
     "size": 129,

@@ -14,7 +14,13 @@ struct BulletPool {
     unsigned char reserved_000[0x10];
     unsigned int* cursor;
     unsigned char reserved_014[0x60 - 0x14];
-    unsigned int slots[0xF82BC];
+    union {
+        unsigned int slots[0xF82BC];
+        struct {
+            unsigned char pad_tail[0x3E07A6 - 0x60];
+            unsigned short tail_state;
+        };
+    };
     void* animation;
 
     __declspec(noinline) void Reset();
@@ -26,6 +32,6 @@ void BulletPool::Reset() {
     manager->MarkResourceForRemoval(animation);
     memset(slots, 0, sizeof(slots));
     cursor = slots;
-    *reinterpret_cast<unsigned short*>(reinterpret_cast<unsigned char*>(this) + 0x3E07A6) = 5;
+    tail_state = 5;
 }
 #pragma code_seg()

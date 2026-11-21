@@ -1,2 +1,2 @@
 // 0x00456A8B: Empty CRT hook.
-extern "C" void __cdecl asm_FUN_00456a8b_00456a8b() {}
+extern "C" void __cdecl crt_helper_456a8b() {}

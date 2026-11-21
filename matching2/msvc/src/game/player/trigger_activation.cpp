@@ -1,3 +1,4 @@
+// 0x00426CF0: Player_Hit
 #include "th10/game/pause_result_open/dispatcher_contract.hpp"
 #include "th10/math/timer.hpp"
 #include "th10/game/player.hpp"

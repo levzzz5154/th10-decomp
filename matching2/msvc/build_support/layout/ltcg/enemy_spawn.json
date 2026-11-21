@@ -12,7 +12,7 @@
   "functions": [
     {
       "name": "EnemySpawn_Create",
-      "symbol": "?Create@EnemySpawn2@@QAEPAUEnemy4@@PAUEnemyCtrlSpawnView@@PBD@Z",
+      "symbol": "?Create@EnemySpawn2@@QAEPAUEnemySpawnView@@PAUEnemyCtrlSpawnView@@PBD@Z",
       "section": ".text$0040cfb0_fn",
       "address": "0x0040CFB0",
       "size": 577,
@@ -29,7 +29,7 @@
   "anchors": [
     {
       "name": "Enemy_Construct",
-      "symbol": "??0Enemy4@@QAE@PBD@Z",
+      "symbol": "??0EnemySpawnView@@QAE@PBD@Z",
       "section": ".text$0040d830_fn",
       "address": "0x0040D830",
       "size": 36

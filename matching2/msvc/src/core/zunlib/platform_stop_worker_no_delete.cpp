@@ -1,3 +1,4 @@
+// 0x0044C130: PlatformWorker::StopNoDelete
 #include "th10/platform/worker.hpp"
 
 // The native link keeps this public entry's ECX receiver and chooses ESI for

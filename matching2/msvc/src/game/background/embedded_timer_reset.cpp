@@ -1,3 +1,4 @@
+// 0x004050D0: EmbeddedTimer::Reset
 struct EmbeddedTimer {
     unsigned char unknown_0000[0x30];
     int current;

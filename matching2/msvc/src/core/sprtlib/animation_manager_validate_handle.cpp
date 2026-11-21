@@ -2,7 +2,7 @@
 #include "th10/render/animation_validate_handle.hpp"
 
 #pragma code_seg(".text$03validate")
-void* __cdecl AnimationManager15::ValidateHandle(AnimationHandle10* handle) {
+void* __cdecl ResultAnmManagerView::ValidateHandle(ValidatedAnmHandle* handle) {
     AnimationScriptId2 id = { (int)handle->value };
     void* object = Find(g_sprt_ctrl, id);
     if (object == 0)

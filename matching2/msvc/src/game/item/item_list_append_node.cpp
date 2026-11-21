@@ -1,3 +1,4 @@
+// 0x0041AB10: ItemListNode::Append
 #include <stddef.h>
 
 struct ItemListNode {

@@ -8,7 +8,7 @@
     "include/th10/game/replay_stage_begin.hpp",
     "include/th10/math/rng.hpp",
     "include/th10/math/timer.hpp",
-    "include/th10/archive/native_read/archive.hpp",
+    "include/th10/archive/read/archive.hpp",
     "include/th10/archive/dat_archive_types.hpp",
     "include/th10/platform/file.hpp",
     "include/th10/platform/windows_types.hpp",

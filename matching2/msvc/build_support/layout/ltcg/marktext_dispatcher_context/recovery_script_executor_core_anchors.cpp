@@ -1,4 +1,4 @@
-#include "th10/game/ending_script/recovery_script_executor.hpp"
+#include "th10/game/ending_script/script_executor.hpp"
 extern "C" void* g_sprt_ctrl;
 extern float g_frame_timer_normal_lower;
 extern float g_frame_timer_normal_upper;

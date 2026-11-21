@@ -8,20 +8,19 @@
     "include/th10/game/title_input.hpp",
     "include/th10/game/menu_cursor.hpp",
     "include/th10/render/animation_script_id.hpp",
-    "include/th10/game/hint_text/recovery_script_executor.hpp",
-    "include/th10/game/hint_text/recovery_mark_text_and_dispatcher.hpp",
-    "include/th10/game/hint_text/recovery_script_executor_ascii_anchors.hpp",
-    "include/th10/game/hint_text/worker.hpp",
-    "include/th10/game/hint_text/archive_callers.hpp",
-    "include/th10/game/hint_text/archive_file.hpp",
-    "include/th10/game/hint_text/sound_queue.hpp",
-    "include/th10/game/hint_text/scheduler.hpp",
-    "include/th10/game/hint_text/timer.hpp",
-    "include/th10/game/hint_text/thread_sync.hpp",
-    "include/th10/game/hint_text/recovery_script_executor_caller.hpp",
-    "include/th10/game/hint_text/entity_movement_slot.hpp",
-    "include/th10/game/hint_text/recovery_script_executor_text_sibling_anchors.hpp",
-    "include/th10/game/hint_text/recovery_script_executor_caller_433ef0.hpp"
+    "include/th10/game/hint_text/script_executor.hpp",
+    "include/th10/game/hint_text/text_dispatcher.hpp",
+    "include/th10/game/hint_text/script_executor_ascii_anchors.hpp",
+    "include/th10/platform/worker.hpp",
+    "include/th10/platform/archive_callers.hpp",
+    "include/th10/platform/archive_file.hpp",
+    "include/th10/core/func_ctrl.hpp",
+    "include/th10/math/timer.hpp",
+    "include/th10/platform/thread_sync.hpp",
+    "include/th10/game/hint_text/script_executor_caller.hpp",
+    "include/th10/game/entity_movement_slot.hpp",
+    "include/th10/game/hint_text/script_executor_text_sibling_anchors.hpp",
+    "include/th10/game/hint_text/script_executor_caller_433ef0.hpp"
   ],
   "image_base": "0x00400000",
   "description": "Complete right-aligned VM formatter selected alone; genuine complete callers, exact MarkText/dispatcher and complete sibling models establish private ABI. Unselected contexts add no recovered bytes.",
@@ -104,14 +103,14 @@
     },
     {
       "name": "RecoveryDecodePath",
-      "symbol": "?RecoveryDecodePath@@YGPADPBE@Z",
+      "symbol": "?EndingScript_DecodePath@@YGPADPBE@Z",
       "section": ".text$00417010_fn",
       "address": "0x00417010",
       "size": 41
     },
     {
       "name": "RecoveryAscii_Create",
-      "symbol": "_RecoveryAscii_Create@24",
+      "symbol": "_AsciiText_Create@24",
       "section": ".text$0043c8b0_fn",
       "address": "0x0043C8B0",
       "size": 88
@@ -160,14 +159,14 @@
     },
     {
       "name": "FullHelper_0040c540",
-      "symbol": "?EnsureAnimationResource@GameThread6@@QAEPAXMM@Z",
+      "symbol": "?EnsureAnimationResource@GameThreadResourceView@@QAEPAXMM@Z",
       "section": ".text$0040c540_fn",
       "address": "0x0040C540",
       "size": 75
     },
     {
       "name": "FullHelper_004477d0",
-      "symbol": "?ClearResourceSlot@AnimationManager13@@QAEXH@Z",
+      "symbol": "?ClearResourceSlot@AnmSlotManager@@QAEXH@Z",
       "section": ".text$004477d0_fn",
       "address": "0x004477D0",
       "size": 55
@@ -251,7 +250,7 @@
     },
     {
       "name": "RecoveryPlayerAnimationCreate",
-      "symbol": "?RecoveryPlayerAnimationCreate@@YGPAPAXPAXPAPAXHPBUHintPosition@@@Z",
+      "symbol": "?AnmManager_CreatePositionedAnimation@@YGPAPAXPAXPAPAXHPBUHintPosition@@@Z",
       "section": ".text$00448db0_fn",
       "address": "0x00448DB0",
       "size": 118
@@ -265,7 +264,7 @@
     },
     {
       "name": "RecoveryMusicStopHandle",
-      "symbol": "?RecoveryMusicStopHandle@@YGXPAUAnmScriptHandle@@@Z",
+      "symbol": "?Title_StopAnimationHandle@@YGXPAUAnmScriptHandle@@@Z",
       "section": ".text$00409e50_fn",
       "address": "0x00409E50",
       "size": 65
@@ -286,7 +285,7 @@
     },
     {
       "name": "RecoveryMusicInstallSlot",
-      "symbol": "?RecoveryMusicInstallSlot@@YGXPAUTitle@@H@Z",
+      "symbol": "?Title_InstallAnimationSlot@@YGXPAUTitle@@H@Z",
       "section": ".text$0042c670_fn",
       "address": "0x0042C670",
       "size": 95
@@ -335,7 +334,7 @@
     },
     {
       "name": "RecoveryScript_Execute",
-      "symbol": "_RecoveryScript_Execute2@4",
+      "symbol": "_EndingScript_Execute@4",
       "section": ".text$0040bd80_fn",
       "address": "0x0040BD80",
       "size": 1500
@@ -370,7 +369,7 @@
     },
     {
       "name": "RecoveryDispatchText2",
-      "symbol": "?RecoveryDispatchText2@@YGXPAUAnmTextResource@@PAXHHIPBDH@Z",
+      "symbol": "?SpriteText_Dispatch@@YGXPAUAnmTextResource@@PAXHHIPBDH@Z",
       "section": ".text$004479d0_fn",
       "address": "0x004479D0",
       "size": 127

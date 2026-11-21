@@ -1,3 +1,4 @@
+// 0x0043AEB0: CompleteMidiHeader2
 #include "th10/platform/window_midi_native.hpp"
 // Native LTCG supplies manager in EDX and header in ESI from the real callback.
 #pragma code_seg(".text$20complete")

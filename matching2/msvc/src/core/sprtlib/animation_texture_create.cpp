@@ -8,6 +8,12 @@ extern "C" int __stdcall Th10_D3DXCreateTexture(
         void*, unsigned int, unsigned int, unsigned int, unsigned int,
         unsigned int, unsigned int, void**);
 
+struct AnmTextureOut {
+    void* texture;
+    unsigned char pad_04[0x08];
+    int format;
+};
+
 #ifndef ANIMATION_TEXTURE_CREATE_SECTION
 #define ANIMATION_TEXTURE_CREATE_SECTION ".text$01anim"
 #endif
@@ -15,9 +21,10 @@ extern "C" int __stdcall Th10_D3DXCreateTexture(
 __declspec(noinline) int AnimationTextureCreate2(
         int width, int height, void* output, int format_index) {
     int format = g_texture_formats_a[format_index];
+    AnmTextureOut* out = static_cast<AnmTextureOut*>(output);
     Th10_D3DXCreateTexture(g_d3d_device, width, height, 1, 0, format, 1,
-                                   (void**)output);
-    *(int*)((unsigned char*)output + 0xc) = g_texture_formats_b[format_index];
+                                   &out->texture);
+    out->format = g_texture_formats_b[format_index];
     return 0;
 }
 #pragma code_seg()

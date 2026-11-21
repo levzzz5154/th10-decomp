@@ -1,3 +1,4 @@
+// 0x0044B4D0..0x0044B7E0: File_ProbeExistsPath, File_OpenSharedWritePath, File_OpenSharedReadPath (+1 more)
 #include "th10/source_views/file_581343_0.hpp"
 #include "th10/source_views/file_581343_1.hpp"
 #include "th10/source_views/file_581343_2.hpp"

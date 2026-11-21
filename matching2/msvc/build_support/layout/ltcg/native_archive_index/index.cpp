@@ -1,5 +1,5 @@
 #include "native_archive_read/archive.hpp"
-#include "th10/archive/native_index/parser.hpp"
+#include "th10/archive/index/parser.hpp"
 extern "C" const char* g_dat_archive_read_mode;
 #pragma code_seg(".text$a10index")
 struct EncodedDatHeader {
