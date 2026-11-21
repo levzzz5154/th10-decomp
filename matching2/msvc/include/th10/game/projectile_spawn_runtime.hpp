@@ -137,11 +137,11 @@ struct ProjectileSpawnManager {
 typedef char ProjectileSpawnManager_current[offsetof(ProjectileSpawnManager, current) == 0x10 ? 1 : -1];
 typedef char ProjectileSpawnManager_animations[offsetof(ProjectileSpawnManager, animations) == 0x3E0B50 ? 1 : -1];
 
-// The spawn request: an origin, a command script, a grid and the per-colour
+// The spawn request: an origin, a command script, a grid and the per-type
 // layout fields 0x4067D0 interprets.
 struct ProjectileBlueprint {
-    short colour;                               // 0x00
-    short script_offset;                        // 0x02
+    short bullet_type;                          // 0x00
+    short color;                                // 0x02
     float field_04;                             // 0x04
     float field_08;                             // 0x08
     float field_0c;                             // 0x0C
@@ -164,12 +164,12 @@ typedef char ProjectileBlueprint_commands[offsetof(ProjectileBlueprint, commands
 typedef char ProjectileBlueprint_columns[offsetof(ProjectileBlueprint, columns) == 0x1F4 ? 1 : -1];
 typedef char ProjectileBlueprint_flags[offsetof(ProjectileBlueprint, flags) == 0x1FC ? 1 : -1];
 
-// A per-colour constant table (int / float variants).
-extern "C" int g_bullet_script_first[];                 // 0x00474170 first script per colour
-extern "C" float g_bullet_speed_per_colour[];               // 0x004741E0 speed per colour
-extern "C" int g_bullet_field_per_colour[];                 // 0x00474250 per colour
-extern "C" int g_bullet_death_selector[];                 // 0x004742C0 death table selector
-extern "C" int g_bullet_death_animation[];                 // 0x0047432C death animation per script
+// Per-bullet-type constant tables (indexed by bullet_type 0..24).
+extern "C" int g_bullet_script_first[];                 // 0x00474170 first ANM script per bullet type
+extern "C" float g_bullet_hitbox_per_type[];            // 0x004741E0 hitbox diameter per bullet type
+extern "C" int g_bullet_field_per_type[];               // 0x00474250 per bullet type
+extern "C" int g_bullet_death_selector[];               // 0x004742C0 death table selector per bullet type
+extern "C" int g_bullet_death_animation[];              // 0x0047432C death animation per color
 extern "C" float flt_0_5;                 // 0.5
 extern "C" float flt_2pi;                 // 2*pi
 extern "C" float flt_pi;                 // pi

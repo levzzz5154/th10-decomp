@@ -152,6 +152,8 @@ void ProjectileCommandRuntime::Tick() {
             record.command_index = index + 1;
             continue;
         case BULLET_CMD_CHANGE_SPRITE:
+            // Retail only swaps the ANM script (value_c = bullet_type, value_d = color)
+            // and never updates width_3f0 / height_3f4 from g_bullet_hitbox_per_type.
             Entity_StartScript(
                 reinterpret_cast<AnimationResourceFile*>(
                     reinterpret_cast<ProjectileSpawnManager*>(g_bullet_manager)->animations),
@@ -194,8 +196,8 @@ void ProjectileCommandRuntime::Tick() {
             const unsigned int vanish = command->value_c & 0x80000000u;
             const int word = command->value_c;
             pattern.layout = 0;
-            pattern.colour = 0;
-            pattern.script_offset = reinterpret_cast<const signed char*>(&command->value_c)[1];
+            pattern.bullet_type = 0;
+            pattern.color = reinterpret_cast<const signed char*>(&command->value_c)[1];
             pattern.y_head = command->value_a;
             pattern.command_index = word & 0xFF;
             pattern.columns = (short)command->value_d;

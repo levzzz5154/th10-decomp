@@ -304,12 +304,12 @@
       "kind": "data"
     },
     {
-      "symbol": "_g_bullet_speed_per_colour",
+      "symbol": "_g_bullet_hitbox_per_type",
       "address": "0x004741E0",
       "kind": "data"
     },
     {
-      "symbol": "_g_bullet_field_per_colour",
+      "symbol": "_g_bullet_field_per_type",
       "address": "0x00474250",
       "kind": "data"
     },
