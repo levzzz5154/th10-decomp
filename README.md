@@ -3,7 +3,7 @@
 C++ recovery of Touhou 10, checked against the retail `th10.exe` using the
 original MSVC 7.1 whole-program optimizer and byte comparisons.
 
-![Touhou 10 build status: 2,321 of 2,322 game regions match retail; the default executable differs by 8 bytes.](docs/status.png)
+![Touhou 10: 322,056 of 322,064 game-code bytes match at their retail offsets (99.9975%); 8 bytes differ.](docs/status.svg)
 
 **2,321 of 2,322 game-code regions match retail byte for byte.** Together they
 cover 319,744 of 322,064 game bytes (99.3%), including the entire 1,400-byte
