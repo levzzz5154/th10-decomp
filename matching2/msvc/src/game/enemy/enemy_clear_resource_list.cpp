@@ -1,4 +1,4 @@
-// 0x0040C6E0..0x0040C70C: release every resource record attached to a bullet.
+// 0x0040C6E0..0x0040C70C: release every resource record attached to an enemy.
 //
 // This member is entered by the game's internal EAX convention rather than by
 // the ordinary MSVC thiscall ABI.  The native-LTCG cluster in
@@ -12,7 +12,7 @@ struct BulletResourceRecord {
     BulletResourceRecord* next;
 };
 
-struct BulletEntity3 {
+struct EnemyResourceOwner {
     unsigned char reserved_000[0x1034];
     BulletResourceRecord* resource_records;
 
@@ -20,7 +20,7 @@ struct BulletEntity3 {
 };
 
 #pragma code_seg(".text$01clear")
-void BulletEntity3::ClearResourceList() {
+void EnemyResourceOwner::ClearResourceList() {
     BulletResourceRecord* record = resource_records;
     while (record != 0) {
         BulletResourceRecord* next = record->next;

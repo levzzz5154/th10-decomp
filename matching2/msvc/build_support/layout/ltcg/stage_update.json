@@ -234,8 +234,8 @@
       "size": 45
     },
     {
-      "name": "_ReplayPauseReset@4",
-      "symbol": "_ReplayPauseReset@4",
+      "name": "_Player_ResetForStage@4",
+      "symbol": "_Player_ResetForStage@4",
       "section": ".text$00424d90_fn",
       "address": "0x424d90",
       "size": 273

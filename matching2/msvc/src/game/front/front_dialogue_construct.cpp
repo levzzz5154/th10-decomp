@@ -1,4 +1,6 @@
-// 0x00415B00: construct the per-stage score display, then clear live effects.
+// 0x00415B00: FrontDialogue::FrontDialogue — construct the stage .msg dialogue
+// runner, create its two ASCII dialogue text sprites, cancel all enemy bullets
+// and non-curvy lasers, and sweep active enemies.
 #include <string.h>
 #include "th10/game/stage_score_display.hpp"
 #include "th10/game/entity_script_start.hpp"
@@ -17,7 +19,7 @@ static __forceinline Entity* ResolveSlotAnimation(SlotRef* handle) {
     return object;
 }
 #pragma code_seg(".text$00415b00_fn")
-StageScoreDisplay::StageScoreDisplay(const void* description) {
+FrontDialogue::FrontDialogue(const void* description) {
     memset(this,0,sizeof(*this));
     first.Set(0);
     second.Set(0);

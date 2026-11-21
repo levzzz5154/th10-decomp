@@ -89,7 +89,7 @@
   "included_sources": [
     "build_support/layout/ltcg/effect_manager_teardown/owned_delete.cpp",
     "build_support/layout/ltcg/manager_teardown_native/scheduler.cpp",
-    "src/game/smollscore/effect_manager_teardown.cpp"
+    "src/game/smollscore/smoll_score_destroy.cpp"
   ],
   "functions": [
     {
@@ -108,7 +108,7 @@
       "address": "0x0042B570",
       "size": 232,
       "actual_abi": "Logical receiver; expected stack receiver RET4, genuine member cleanup",
-      "source": "src/game/smollscore/effect_manager_teardown.cpp"
+      "source": "src/game/smollscore/smoll_score_destroy.cpp"
     },
     {
       "name": "SmollScoreAnimationUnwind",
@@ -119,7 +119,7 @@
       "actual_abi": "Actual member animation receiver+0x18, destructor401FF0",
       "generated": true,
       "native_symbol_pattern": "\\$L[0-9]+",
-      "source": "src/game/smollscore/effect_manager_teardown.cpp"
+      "source": "src/game/smollscore/smoll_score_destroy.cpp"
     },
     {
       "name": "SmollScoreHandler",
@@ -129,7 +129,7 @@
       "size": 10,
       "actual_abi": "Native member cleanup FuncInfo4712B0",
       "generated": true,
-      "source": "src/game/smollscore/effect_manager_teardown.cpp"
+      "source": "src/game/smollscore/smoll_score_destroy.cpp"
     }
   ],
   "anchors": [
@@ -193,9 +193,9 @@
   ],
   "additional_sources": [],
   "owned_includes": {
-    "src/game/smollscore/effect_manager_teardown.cpp": "src/game/ascii/effect_animation_destroy.cpp"
+    "src/game/smollscore/smoll_score_destroy.cpp": "src/game/ascii/effect_animation_destroy.cpp"
   },
   "compilation_units": {
-    "src/game/ascii/effect_animation_destroy.cpp": "src/game/smollscore/effect_manager_teardown.cpp"
+    "src/game/ascii/effect_animation_destroy.cpp": "src/game/smollscore/smoll_score_destroy.cpp"
   }
 }

@@ -14,7 +14,7 @@ struct ViewportPosition {
                            float vertical_margin) const;
 };
 
-struct SmollScorePosition {
+struct PlayfieldPosition {
     float x;
     float y;
 

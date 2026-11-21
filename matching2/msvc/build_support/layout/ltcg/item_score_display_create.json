@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "name": "item_score_display_create",
-  "source": "src/game/front/item_score_display_create.cpp",
+  "source": "src/game/front/front_dialogue_start.cpp",
   "driver": "build_support/layout/ltcg/item_score_display_create/context.cpp",
   "headers": [
     "include/th10/game/item_score_display_create.hpp",
@@ -12,7 +12,7 @@
   "functions": [
     {
       "name": "ItemManager_CreateScoreDisplay",
-      "symbol": "?CreateScoreDisplay@ItemScoreManagerView@@QAEXH@Z",
+      "symbol": "?StartDialogue@FrontDialogueOwner@@QAEXH@Z",
       "section": ".text$01b_create",
       "address": "0x00415DB0",
       "actual_abi": "manager in EDI, stage in ESI; plain RET; compiler-generated EH frame",
@@ -30,7 +30,7 @@
     },
     {
       "name": "ItemScoreDisplayCreateHandler",
-      "symbol": "__ehhandler$?CreateScoreDisplay@ItemScoreManagerView@@QAEXH@Z",
+      "symbol": "__ehhandler$?StartDialogue@FrontDialogueOwner@@QAEXH@Z",
       "section": ".text$x",
       "address": "0x0046582B",
       "actual_abi": "compiler-generated EH handler",
@@ -39,7 +39,7 @@
     }
   ],
   "context": {
-    "symbol": "?ItemScoreDisplayCompilerContext@@YGHPAPAUItemScoreManagerView@@PAHH@Z",
+    "symbol": "?ItemScoreDisplayCompilerContext@@YGHPAPAUFrontDialogueOwner@@PAHH@Z",
     "section": ".text$01c_context",
     "address": "0x00415E30",
     "size": 71,
@@ -152,7 +152,7 @@
   "anchors": [
     {
       "name": "ConstructorStandIn",
-      "symbol": "??0ItemScoreDisplay@@QAE@PAX@Z",
+      "symbol": "??0FrontDialogueState@@QAE@PAX@Z",
       "section": ".text$01a_ctor",
       "address": "0x00415B00",
       "size": 151

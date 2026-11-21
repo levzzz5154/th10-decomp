@@ -73,7 +73,7 @@ void EnemyCtrl::Destroy() {
 
     void **blocks = blocks_054;
     if (blocks) {
-        ((BulletEntity6 *)blocks)->ReleaseResource();
+        ((EnemyOwnedResourceView *)blocks)->ReleaseResource();
         crt_free_startup(blocks);
     }
     blocks_054 = 0;

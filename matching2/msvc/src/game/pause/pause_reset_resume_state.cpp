@@ -1,6 +1,6 @@
-// 0x00423510..0x00423568: reset a timed game-state record, point its curve
-// timer at the shared speed value and stop both of the animation handles it
-// carries.
+// 0x00423510..0x00423568: PauseResumeState::InitializeTimedState — enter
+// pause-menu resume state 13, reset the menu timer (+0x10), stop the two pause
+// animations (+0x1D4/+0x1D8), and restore g_game_speed (+0x2C0).
 //
 // Retail enters this member with the record in ESI, a receiver no C++
 // declaration names, so the body is compiled in the native-LTCG cluster
@@ -22,7 +22,7 @@
 
 extern "C" float g_game_speed;
 
-struct ResultTimedState {
+struct PauseResumeState {
     unsigned char unknown_00[0x04];
     int state;                                 // +0x04
     unsigned char unknown_08[0x08];
@@ -41,10 +41,10 @@ struct ResultTimedState {
 };
 
 typedef char ResultTimedState_size_must_fit[
-    sizeof(ResultTimedState) == 0x2C4 ? 1 : -1];
+    sizeof(PauseResumeState) == 0x2C4 ? 1 : -1];
 
 #pragma code_seg(".text$45timed")
-void ResultTimedState::InitializeTimedState() {
+void PauseResumeState::InitializeTimedState() {
     int* record = &state;
     record[0] = 13;
     if ((timer_flags & 1) == 0) {

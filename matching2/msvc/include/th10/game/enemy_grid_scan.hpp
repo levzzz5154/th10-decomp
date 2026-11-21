@@ -37,7 +37,7 @@ int __stdcall SpawnPatternCell2(ProjectilePattern* pattern,
                                         int column, int row, float aim);
 
 // 0x004073E0: spawn every cell of a pattern, aimed at the player.
-int __stdcall EnemyGrid_ScanCells2(ProjectilePattern* pattern,
+int __stdcall BulletManager_SpawnPattern(ProjectilePattern* pattern,
                                            ProjectileManager2* manager);
 
 #endif

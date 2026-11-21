@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "name": "score_owned_destroy",
-  "source": "src/game/ending/score_owned_destroy.cpp",
+  "source": "src/game/ending/ending_delete.cpp",
   "driver": "build_support/layout/ltcg/score_owned_destroy_context.cpp",
   "headers": [],
   "image_base": "0x00400000",
@@ -9,7 +9,7 @@
   "functions": [
     {
       "name": "ScoreOwnedObject_Destroy",
-      "symbol": "?ScoreOwnedObject_Destroy@@YGXPAUScoreOwnedObject@@@Z",
+      "symbol": "?Ending_Delete@@YGXPAUEndingObject@@@Z",
       "section": ".text$01destroy",
       "address": "0x0040B9D0",
       "size": 18,
@@ -17,7 +17,7 @@
     }
   ],
   "context": {
-    "symbol": "?ScoreOwnedObjectDestroyCompilerContext@@YGXPAPAUScoreOwnedObject@@H@Z",
+    "symbol": "?ScoreOwnedObjectDestroyCompilerContext@@YGXPAPAUEndingObject@@H@Z",
     "section": ".text$03context",
     "address": "0x0040B9F0",
     "size": 39,

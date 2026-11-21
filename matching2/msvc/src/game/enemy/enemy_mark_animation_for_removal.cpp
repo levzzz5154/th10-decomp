@@ -1,5 +1,5 @@
-// 0x0040CEA0 - Mark a bullet's active animation for deferred removal and
-// invalidate the bullet-local handle.
+// 0x0040CEA0 - Mark an enemy's active animation for deferred removal and
+// invalidate the enemy-local handle.
 
 struct AnimationLookupContext;
 class SprtCtrl {
@@ -7,7 +7,7 @@ public:
     void* __fastcall SetFlag(AnimationLookupContext* context, int id);
 };
 
-struct BulletEntity4 {
+struct EnemyAnimRetireView {
     unsigned char reserved_000[0x774];
     int animation_handle;
     unsigned char reserved_778[0x378c - 0x778];
@@ -22,7 +22,7 @@ __forceinline void MarkAnimationPending(unsigned int* flags) {
     *flags |= 0x10;
 }
 
-void __fastcall BulletEntity4::MarkAnimationForRemoval(
+void __fastcall EnemyAnimRetireView::MarkAnimationForRemoval(
         SprtCtrl* manager) {
     MarkAnimationPending(reinterpret_cast<unsigned int*>(
         reinterpret_cast<unsigned char*>(this) + 0x378c));

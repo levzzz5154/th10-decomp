@@ -266,24 +266,24 @@ struct BulletPool {
 extern "C" void _ReadWriteBarrier();
 #pragma intrinsic(_ReadWriteBarrier)
 
-struct PauseFrameTimer {
+struct PlayerResetTimer {
     int previous;
     int current;
     float elapsed;
     const float* speed;
     unsigned int flags;
 };
-struct PauseState2 {
+struct PlayerResetView {
     unsigned char reserved_000[0x458];
     int state;
     unsigned char reserved_45c[4];
-    PauseFrameTimer timers[3];
+    PlayerResetTimer timers[3];
     unsigned char reserved_49c[0x329c-0x49c];
     int animation_handle;
 };
-typedef char PauseFrameTimerSize[sizeof(PauseFrameTimer)==0x14?1:-1];
-typedef char PauseResetTimerOffset[offsetof(PauseState2,timers)==0x460?1:-1];
-typedef char PauseResetHandleOffset[offsetof(PauseState2,animation_handle)==0x329c?1:-1];
+typedef char PauseFrameTimerSize[sizeof(PlayerResetTimer)==0x14?1:-1];
+typedef char PauseResetTimerOffset[offsetof(PlayerResetView,timers)==0x460?1:-1];
+typedef char PauseResetHandleOffset[offsetof(PlayerResetView,animation_handle)==0x329c?1:-1];
 
 struct PauseAnimationRecord {
     unsigned int flags;
@@ -568,7 +568,7 @@ struct PlayerSchedulerRecord {
 // Every retail caller loads the object from a fixed global (0x00491C28) into
 // EAX and pushes a literal mode, which is the shape the synthetic caller in
 // build_support/layout/ltcg/set_input_mode.json reproduces. The body was carved out of
-// src/game/eclview/score.cpp, where the same offsets are used by other state code.
+// src/game/eclview/key_repeat_update.cpp, where the same offsets are used by other state code.
 
 struct InputState {
     unsigned char unknown_0000[0x390];

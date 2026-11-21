@@ -57,7 +57,7 @@
   "anchors": [
     {
       "name": "BulletEntity_0040d680_ReleaseResource_abi_anchor",
-      "symbol": "?ReleaseResource@BulletEntity6@@QAEXXZ",
+      "symbol": "?ReleaseResource@EnemyOwnedResourceView@@QAEXXZ",
       "section": ".text$03anchor",
       "address": "0x0040D680",
       "size": 36

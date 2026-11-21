@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "name": "bullet_entity_find_by_id",
-  "source": "src/game/enemy/bullet_entity_find_by_id.cpp",
+  "source": "src/game/enemy/enemy_find_by_id.cpp",
   "driver": "build_support/layout/ltcg/bullet_entity_find_by_id_0040cf90_context.cpp",
   "headers": [],
   "image_base": "0x00400000",
@@ -9,7 +9,7 @@
   "functions": [
     {
       "name": "BulletEntityFindById",
-      "symbol": "?FindById@BulletEntityFindByIdManager@@QAEPAUBulletEntityFindByIdNode@@H@Z",
+      "symbol": "?FindById@EnemyListFinder@@QAEPAUEnemyListNode@@H@Z",
       "section": ".text$01findbyid",
       "address": "0x0040CF90",
       "size": 22,
@@ -17,7 +17,7 @@
     }
   ],
   "context": {
-    "symbol": "?BulletEntityFindByIdCompilerContext@@YGHPAPAUBulletEntityFindByIdManager@@HH@Z",
+    "symbol": "?BulletEntityFindByIdCompilerContext@@YGHPAPAUEnemyListFinder@@HH@Z",
     "section": ".text$03context",
     "address": "0x0040CFB0",
     "size": 47,

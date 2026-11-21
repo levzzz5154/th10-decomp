@@ -152,7 +152,7 @@ extern "C" __declspec(noinline) int __stdcall EclVm_TickChildren(EclChildOwner* 
     return 0;
 }
 
-// src/game/enemy/bullet_entity_clear_resource_list.cpp
+// src/game/enemy/enemy_clear_resource_list.cpp
 struct ResourceRecord {
     void* resource;
     ResourceRecord* next;

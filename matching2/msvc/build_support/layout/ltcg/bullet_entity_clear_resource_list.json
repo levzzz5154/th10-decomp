@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "name": "bullet_entity_clear_resource_list",
-  "source": "src/game/enemy/bullet_entity_clear_resource_list.cpp",
+  "source": "src/game/enemy/enemy_clear_resource_list.cpp",
   "driver": "build_support/layout/ltcg/bullet_entity_clear_resource_list_0040c6e0_context.cpp",
   "headers": [],
   "image_base": "0x00400000",
@@ -9,7 +9,7 @@
   "functions": [
     {
       "name": "BulletEntity_ClearResourceList",
-      "symbol": "?ClearResourceList@BulletEntity3@@QAEXXZ",
+      "symbol": "?ClearResourceList@EnemyResourceOwner@@QAEXXZ",
       "section": ".text$01clear",
       "address": "0x0040C6E0",
       "size": 45,
@@ -17,7 +17,7 @@
     }
   ],
   "context": {
-    "symbol": "?BulletEntityClearResourceListCompilerContext@@YGHPAPAUBulletEntity3@@H@Z",
+    "symbol": "?BulletEntityClearResourceListCompilerContext@@YGHPAPAUEnemyResourceOwner@@H@Z",
     "section": ".text$03context",
     "address": "0x0040C710",
     "size": 36,

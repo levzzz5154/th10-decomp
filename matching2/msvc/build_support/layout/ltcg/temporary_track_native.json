@@ -238,22 +238,22 @@
       "kind": "data"
     },
     {
-      "symbol": "_g_music_room_commands",
+      "symbol": "_g_shot_on_fire_table",
       "address": "0x0047476C",
       "kind": "data"
     },
     {
-      "symbol": "_g_music_room_easings",
+      "symbol": "_g_shot_on_update_table",
       "address": "0x00474778",
       "kind": "data"
     },
     {
-      "symbol": "_g_music_room_variable_map",
+      "symbol": "_g_shot_extra_table",
       "address": "0x00491BF4",
       "kind": "data"
     },
     {
-      "symbol": "_g_music_room_callback_map",
+      "symbol": "_g_shot_skip_hit_table",
       "address": "0x00491BF8",
       "kind": "data"
     },

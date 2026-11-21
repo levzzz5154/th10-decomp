@@ -66,7 +66,7 @@ extern StageUpdateView *stage_quads;
 extern BackGround *stage_fade;
 extern BackGround *stage_mode;
 extern BulletPool *stage_bullets;
-extern PauseState2 *stage_player;
+extern PlayerResetView *stage_player;
 extern EnemyCtrlClearView *stage_enemies;
 extern EnemyCtrlSpawnView *stage_spawn_manager;
 extern ScoreChain *stage_chain;
@@ -119,7 +119,7 @@ extern "C" __declspec(noinline) int __stdcall Game_Update(Game *context) {
         } else {
             context->flags &= ~0x800u;
             stage_bullets->Reset();
-            ReplayPauseReset(stage_player);
+            Player_ResetForStage(stage_player);
             memset(stage_effects + 0x14, 0, 0x873a8 * 4);
             stage_enemies->Clear();
             stage_chain->ReleaseChain();
@@ -154,7 +154,7 @@ extern "C" __declspec(noinline) int __stdcall Game_Update(Game *context) {
     } else if (frame == 30 && (context->flags & 0x800)) {
         context->flags &= ~0x800u;
         stage_bullets->Reset();
-        ReplayPauseReset(stage_player);
+        Player_ResetForStage(stage_player);
         memset(stage_effects + 0x14, 0, 0x873a8 * 4);
         stage_enemies->Clear();
         stage_chain->ReleaseChain();

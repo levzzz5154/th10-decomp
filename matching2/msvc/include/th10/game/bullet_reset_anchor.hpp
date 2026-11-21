@@ -6,7 +6,7 @@
 // each timer reset together before the next timer flag is read.
 extern "C" float g_game_speed;
 
-struct Player2 {
+struct BulletTimerResetView {
     unsigned char unknown_0000[0x3F8];
     int link_1_previous;       // +0x3F8
     int link_1_current;        // +0x3FC
@@ -21,11 +21,11 @@ struct Player2 {
     unsigned char unknown_0420[0x26];
     unsigned short marker; // +0x446
 
-    __declspec(noinline) void ResetSchedulerLinks();
+    __declspec(noinline) void ResetTimers();
 };
 
 #pragma code_seg(".text$00breset")
-void Player2::ResetSchedulerLinks() {
+void BulletTimerResetView::ResetTimers() {
     unsigned short* record = &marker;
     record[0] = 0;
     if ((link_1_flags & 1) == 0) {

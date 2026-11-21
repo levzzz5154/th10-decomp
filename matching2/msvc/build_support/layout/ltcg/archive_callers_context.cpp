@@ -23,7 +23,7 @@ struct SoundPendingSlots {
 };
 
 #pragma code_seg(".text$07context")
-int __stdcall ArchiveCallersContext(AssetBuffer** buffers, const char** names, MapResource** maps, ParameterLoader** parameters, SoundManager2** managers, const char* track_name, int count, BackGround** stages) {
+int __stdcall ArchiveCallersContext(AssetBuffer** buffers, const char** names, MapResource** maps, PlayerShotLoader** parameters, SoundManager2** managers, const char* track_name, int count, BackGround** stages) {
     for (int i = 0; i < count; ++i) {
         LoadAsset(names[i], buffers[i]);
         maps[i]->LoadMap(names[i]);

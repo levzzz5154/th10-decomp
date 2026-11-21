@@ -1,4 +1,5 @@
-// 0x00413A20..0x00413B40: initialize the task's cached and archive resources.
+// 0x00413A20..0x00413B40: Front_LoadStageResources — load the current stage's
+// HUD logo ANM and dialogue message archive onto the Front HUD object.
 #include <stddef.h>
 extern "C" void _ReadWriteBarrier(void);
 #pragma intrinsic(_ReadWriteBarrier)
@@ -26,7 +27,7 @@ extern void* g_sprt_ctrl;
 extern char g_recovery_script_path[];
 }
 
-struct ScoreTaskClock {
+struct FrontClock {
     int previous_frame;
     int current_frame;
     float elapsed;
@@ -49,11 +50,11 @@ struct ScoreTaskClock {
 };
 
 typedef char ScoreTaskClock_00413a20_size_check[
-    sizeof(ScoreTaskClock) == 0x14 ? 1 : -1];
+    sizeof(FrontClock) == 0x14 ? 1 : -1];
 
 struct FrontResourcesView {
     unsigned char reserved_0000[0x9e60];
-    ScoreTaskClock clock;
+    FrontClock clock;
     unsigned char reserved_9e74[4];
     unsigned int field_9e78;
     unsigned char reserved_9e7c[4];
@@ -79,7 +80,7 @@ static void LogResourceLoadFailure() {
 // Public stdcall task callback: state pointer on the stack and result in EAX.
 // Legacy callers retain their fixed-address assembly symbol alias.
 #pragma code_seg(".text$02xscore")
-extern "C" __declspec(noinline) int __stdcall ScoreTask_Setup(
+extern "C" __declspec(noinline) int __stdcall Front_LoadStageResources(
     FrontResourcesView* state) {
 
     void*& cached_resource = state->cached_resource_9e80;

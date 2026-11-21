@@ -5,7 +5,7 @@ struct PlayerAnimationResources {
     unsigned char pad00[0x3E0B50];
     AnimationResourceFile* resource;
 };
-typedef PlayerFlags PlayerInitializeGlobal;
+typedef CardCaptureFlags PlayerInitializeGlobal;
 extern "C" PlayerAnimationResources* g_bullet_manager;
 extern "C" PlayerInitializeGlobal* g_card;
 extern "C" PowerDisplayOwner* g_front;

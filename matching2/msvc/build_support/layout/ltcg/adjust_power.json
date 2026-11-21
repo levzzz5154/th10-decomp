@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "name": "adjust_power",
-  "source": "src/game/bomb/player_adjustpower.cpp",
+  "source": "src/game/bomb/globals_adjust_rank.cpp",
   "driver": "build_support/layout/ltcg/adjust_power_context.cpp",
   "headers": [],
   "image_base": "0x00400000",
@@ -9,7 +9,7 @@
   "functions": [
     {
       "name": "PlayerPowerState_AdjustPower",
-      "symbol": "?AdjustPower@PlayerPowerState@@QAEXH@Z",
+      "symbol": "?AdjustRank@DifficultyRankState@@QAEXH@Z",
       "section": ".text$01adjustpower",
       "address": "0x00405B60",
       "size": 42,

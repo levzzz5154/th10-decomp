@@ -11,7 +11,7 @@
 
 extern "C" void __cdecl crt_free_startup(void* block);
 
-struct BulletEntity6 {
+struct EnemyOwnedResourceView {
     unsigned int vtable;
     unsigned char reserved_004[0x88];
     void* owned_resource;
@@ -27,7 +27,7 @@ struct Releaseable {
 
 #pragma code_seg(".text$01del")
 void* Releaseable::Delete(int flags) {
-    ((BulletEntity6*)this)->ReleaseResource();
+    ((EnemyOwnedResourceView*)this)->ReleaseResource();
     if ((flags & 1) != 0) {
         crt_free_startup(this);
     }

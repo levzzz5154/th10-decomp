@@ -1,4 +1,6 @@
-// 0x00408030..0x00408100: PlayerCollisionRecord::Activate, PlayerCollisionEngine::Check
+// 0x00408030..0x00408100: BulletCancelEntry::Activate (cancel one enemy bullet),
+// BulletCancelManager::Check (cancel all enemy bullets within a radius and
+// optionally spawn cancel-star items, type 8).
 #include "th10/game/player_collision/collision.hpp"
 
 // 0x00408030: start a live record's vanish.
@@ -8,7 +10,7 @@
 // timer, one already more than 8 units outside is just flagged for removal.
 // The record arrives in ESI.
 #pragma code_seg(".text$f00408030F")
-int PlayerCollisionRecord::Activate() {
+int BulletCancelEntry::Activate() {
     if (state != 2 && state != 1) return 0;
     if (!reinterpret_cast<const PlayfieldPoint*>(&position)->OutsideBounds(8.0f, 8.0f)) {
         state = 3;
@@ -49,9 +51,9 @@ struct CollisionDisplacement : Vec3 {
 };
 
 #pragma code_seg(".text$f00408100F")
-int PlayerCollisionEngine::Check(const Vec3* point,
+int BulletCancelManager::Check(const Vec3* point,
         float radius, int spawn_item, int filter_countdown) {
-    PlayerCollisionRecord* record = records;
+    BulletCancelEntry* record = records;
     int remaining = 2000;
     do {
         if (record->state != 0 && record->state != 3 &&

@@ -1,6 +1,6 @@
 // Complete genuine helper bodies adapted to the coherent item-update types.
-// Sources: score_bookkeeping.cpp, replay_progress.cpp, frame_timer.cpp,
-// life_stock_add.cpp, player_adjustpower.cpp,
+// Sources: score_bookkeeping.cpp, score_state_advance_gauge_timer.cpp, frame_timer.cpp,
+// life_stock_add.cpp, globals_adjust_rank.cpp,
 // power_display_set_digits.cpp, floating_text_draw.cpp,
 // entity_angle_from_point.cpp, sound_queue_pan2.cpp.
 #include <math.h>

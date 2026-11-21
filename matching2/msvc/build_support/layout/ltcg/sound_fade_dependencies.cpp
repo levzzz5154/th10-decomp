@@ -5,7 +5,7 @@ extern "C" void __stdcall Title_DestroyMode(void*);
 extern "C" void __stdcall Ending_DestroyMode(void*);
 extern "C" void __cdecl MainTask_FreeMode(void*);
 #pragma code_seg(".text$00a_score_destroy")
-void ScoreOwnedObject_Destroy(ScoreOwnedObject* object) {
+void Ending_Delete(EndingObject* object) {
     if (object) { Ending_DestroyMode(object); MainTask_FreeMode(object); }
 }
 #pragma code_seg(".text$00b0_ui_destroy")

@@ -1,4 +1,6 @@
-// 0x00427B50: EffectIndicatorPool_Allocate
+// 0x00427B50: Player_AddDamageSourceSlot — allocate and initialize one of the
+// 32 Player::damage_sources slots (at Player+0x350C, stride 0x6C), e.g. for
+// ReimuA/homing splash damage circles.
 #include <stddef.h>
 typedef unsigned int uint32_t;
 typedef int int32_t;
@@ -6,7 +8,7 @@ typedef int int32_t;
 
 extern "C" float g_game_speed;
 
-struct EffectIndicatorTimer {
+struct PlayerDamageTimer {
     uint32_t previous_frame_bits;  // +0x00; -999999 before the first countdown
     uint32_t current_frame_bits; // +0x04
     float elapsed;        // +0x08; retail stores the float image
@@ -14,15 +16,15 @@ struct EffectIndicatorTimer {
     uint32_t flags;              // +0x10; bit 0 means initialized
 };
 
-struct EffectIndicatorPosition { float x, y, z; };
+struct PlayerDamagePos { float x, y, z; };
 
-struct EffectIndicatorSlot {
+struct PlayerDamageSlot {
     uint32_t value_00_bits;       // +0x00; caller supplies raw dword bits
     uint32_t value_04_bits;       // +0x04
     uint32_t reserved_08[4];      // +0x08..+0x17
-    EffectIndicatorPosition position;            // +0x18..+0x23
+    PlayerDamagePos position;            // +0x18..+0x23
     uint32_t reserved_24[8];      // +0x24..+0x43
-    EffectIndicatorTimer timer; // +0x44..+0x57
+    PlayerDamageTimer timer; // +0x44..+0x57
     uint32_t mode;                // +0x58
     uint32_t counter;             // +0x5C
     uint32_t limit;               // +0x60
@@ -30,34 +32,34 @@ struct EffectIndicatorSlot {
     uint32_t flags;               // +0x68; bit 0 is occupied, bit 1 is active
 };
 
-struct EffectIndicatorManager {
+struct PlayerDamagePoolView {
     unsigned char unknown_0000_350b[0x350c];
-    EffectIndicatorSlot slots[0x20];
+    PlayerDamageSlot slots[0x20];
 };
 
 typedef char EffectIndicatorSlotRetail_size_must_be_0x6c[
-    sizeof(EffectIndicatorSlot) == 0x6c ? 1 : -1];
+    sizeof(PlayerDamageSlot) == 0x6c ? 1 : -1];
 typedef char EffectIndicatorSlots_offset_must_be_0x350c[
-    offsetof(EffectIndicatorManager, slots) == 0x350c ? 1 : -1];
+    offsetof(PlayerDamagePoolView, slots) == 0x350c ? 1 : -1];
 
 // Ghidra's 0x00427B50 entry is __fastcall-shaped: ECX is unused, the manager
 // is in EDX, and the position plus four scalar words are on the stack. The two
 // scalar payloads are kept as raw bits because callers pass float encodings.
 // The return value is the first available slot, or the one-past-pool pointer.
-extern "C" __declspec(noinline) EffectIndicatorSlot* __fastcall
-EffectIndicatorPool_Allocate(
+extern "C" __declspec(noinline) PlayerDamageSlot* __fastcall
+Player_AddDamageSourceSlot(
     uint32_t unused_ecx,
-    EffectIndicatorManager* manager,
-    const EffectIndicatorPosition* volatile position,
+    PlayerDamagePoolView* manager,
+    const PlayerDamagePos* volatile position,
     uint32_t value_00_bits,
     uint32_t value_04_bits,
     int32_t countdown_frames,
     uint32_t mode) {
     (void)unused_ecx;
     // Retail reads the stack position pointer once before searching the pool.
-    const EffectIndicatorPosition* saved_position = position;
+    const PlayerDamagePos* saved_position = position;
 
-    EffectIndicatorSlot* slot = manager->slots;
+    PlayerDamageSlot* slot = manager->slots;
     for (int index = 0; index < 0x20; ++index, ++slot) {
         if ((slot->flags & 1u) != 0) {
             continue;

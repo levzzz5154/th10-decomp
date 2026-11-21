@@ -1,12 +1,13 @@
-// 0x00407E40: wrap an object that left the playfield through the top or the
-// bottom to the opposite edge.
+// 0x00407E40: BulletExWrapState::WrapVertical — enemy-bullet Ex-transform
+// vertical wrap (flags +0x43C bit 21): wraps a bullet that leaves the
+// playfield vertically to the opposite edge.
 //
 // The vertical twin of 0x00407DA0, with its own timer and flag. The object
 // arrives in EBX.
 #include "th10/game/player_wrap.hpp"
 
 #pragma code_seg(".text$01mvertical")
-void PlayerWrapHorizontalState::WrapVertical() {
+void BulletExWrapState::WrapVertical() {
     if (!position_3B4.OutsidePlayfieldInclusive(bounds_39C->extent_34, bounds_39C->extent_30))
         return;
 

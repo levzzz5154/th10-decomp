@@ -26,7 +26,7 @@ struct EffectVector3 {
 
 // 0x00407560..0x00407690: accelerate the enemy's velocity and auxiliary
 // motion until the duration expires, then advance the frame timer.
-struct EffectAccel2 {
+struct BulletExAccelerate {
     unsigned char reserved_000[0x3C0];
     EffectVector3 velocity; // +0x3C0
     unsigned char reserved_3cc[0x0C];

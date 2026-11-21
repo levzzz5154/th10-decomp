@@ -13,7 +13,7 @@ struct PlayfieldPoint {
                                            float vertical_margin) const;
 };
 
-struct PlayerCollisionRecord {
+struct BulletCancelEntry {
     unsigned int flags;
     int countdown;
     unsigned char reserved_008[0x30c - 8];
@@ -49,7 +49,7 @@ struct AnimationResourceFile {
 };
 
 #pragma code_seg(".text$00408030_s")
-int PlayerCollisionRecord::Activate() {
+int BulletCancelEntry::Activate() {
     if (state != 2 && state != 1)
         return 0;
     if (!reinterpret_cast<const PlayfieldPoint*>(&position)->OutsideBounds(8.0f, 8.0f)) {

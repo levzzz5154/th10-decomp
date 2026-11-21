@@ -1,6 +1,6 @@
-// 0x00405410: store a scheduler value into the record whose address arrives in
-// EAX, initialising the record to its defaults while its "initialised" flag is
-// still clear.
+// 0x00405410: FrameTimer::Set — set a FrameTimer (EAX) to an integer frame
+// value, lazily binding it to the default speed global (0x00476F78) if its
+// initialized flag is still clear.
 //
 // Retail: 8B 48 10           mov ecx,[eax+0x10]
 //         F6 C1 01           test cl,1

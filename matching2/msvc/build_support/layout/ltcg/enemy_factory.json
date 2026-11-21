@@ -81,8 +81,8 @@
       "section": ".text$10b"
     },
     {
-      "name": "?ReleaseResource@BulletEntity6@@QAEXXZ",
-      "symbol": "?ReleaseResource@BulletEntity6@@QAEXXZ",
+      "name": "?ReleaseResource@EnemyOwnedResourceView@@QAEXXZ",
+      "symbol": "?ReleaseResource@EnemyOwnedResourceView@@QAEXXZ",
       "address": "0x40d680",
       "size": 36,
       "section": ".text$03b"
@@ -374,7 +374,7 @@
       "kind": "data"
     },
     {
-      "symbol": "_ScoreTask_Setup@4",
+      "symbol": "_Front_LoadStageResources@4",
       "address": "0x00413A20",
       "kind": "relative_code"
     },

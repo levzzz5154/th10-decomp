@@ -10,7 +10,7 @@ extern "C" {
     struct GameSelectionView { int shot_type, character, unknown_08, difficulty; };
     extern GameSelectionView g_globals_character;
     extern void* g_sprt_ctrl;
-    extern ParameterFile* g_player_parameter_file;
+    extern ShotFileHeader* g_player_parameter_file;
     extern FuncCtrl* g_func_ctrl;
     extern char str_pl00_anm[],str_pl01_anm[],str_player_data_missing[];
     extern const char* data_00476fc0[];
@@ -44,7 +44,7 @@ int PlayerResetBlock::Initialize() {
         Word(0x45c)=(unsigned int)g_player_parameter_file;g_player_parameter_file=0;
     } else {
         const char* parameter_name=data_00476fc0[g_globals_character.character+3*g_globals_character.shot_type];
-        if (((ParameterLoader*)this)->Load(parameter_name)) {
+        if (((PlayerShotLoader*)this)->Load(parameter_name)) {
             g_log.Append(str_player_data_missing);return -1;
         }
     }
@@ -60,7 +60,7 @@ int PlayerResetBlock::Initialize() {
     // (msvc-ltcg-callee-param-order-sets-caller-load-order): the receiver is
     // declared last so its lea is created before the resource push, as retail.
     ConfigureItemEntity_00404f30(0,blk->resource_handle,(ItemConfiguredEntity_00404f30*)((char*)blk+0x14));
-    ParameterFile* parameters=(ParameterFile*)Word(0x45c);
+    ShotFileHeader* parameters=(ShotFileHeader*)Word(0x45c);
     Float(0x3c0)=0;Float(0x3c4)=400;
     Word(0x3cc)=0;Word(0x3d0)=40000;
     Word(0x3d4)=(int)(parameters->width*100.0f);

@@ -1,4 +1,5 @@
-// 0x0042B570: unregister both tasks and destroy the actual owned animation.
+// 0x0042B570: SmollScore destructor — unregister update/draw scheduler tasks
+// and clear g_smoll_score.
 #include "th10/game/smoll_score_destructor.hpp"
 
 #pragma code_seg(".text$03manager_dtor")

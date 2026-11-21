@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "name": "player_scheduler_links",
-  "source": "src/game/bomb/player_scheduler.cpp",
+  "source": "src/game/bomb/bullet_reset_timers.cpp",
   "driver": "build_support/layout/ltcg/player_scheduler_links_00405be0_context.cpp",
   "headers": [],
   "image_base": "0x00400000",
@@ -9,7 +9,7 @@
   "functions": [
     {
       "name": "Player_SchedulerLinks_00405be0_Reset",
-      "symbol": "?ResetSchedulerLinks@Player2@@QAEXXZ",
+      "symbol": "?ResetTimers@BulletTimerResetView@@QAEXXZ",
       "section": ".text$01accessor",
       "address": "0x00405BE0",
       "size": 158,

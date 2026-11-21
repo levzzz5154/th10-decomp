@@ -1,4 +1,6 @@
-// 0x0041D2C0: EffectAccel3::Update
+// 0x0041D2C0: LaserExAccelerate::Update — laser Ex-transform acceleration step
+// (flags +0x404 bit 4): accelerates velocity and auxiliary speed over duration
+// frames, recomputing angle via atan2, then clears bit 4.
 extern "C" float flt_1;
 extern "C" float flt_1_01;
 extern "C" float flt_0_99;
@@ -9,20 +11,20 @@ extern "C" int __cdecl crt_ftol2();
 
 extern "C" double __cdecl atan2(double, double);
 
-struct EffectVector32 {
+struct LaserAccelVec3 {
     float x;
     float y;
     float z;
 
-    EffectVector32(float x_value, float y_value, float z_value)
+    LaserAccelVec3(float x_value, float y_value, float z_value)
         : x(x_value), y(y_value), z(z_value) {
     }
 
-    EffectVector32 operator*(float scale) const {
-        return EffectVector32(x * scale, y * scale, z * scale);
+    LaserAccelVec3 operator*(float scale) const {
+        return LaserAccelVec3(x * scale, y * scale, z * scale);
     }
 
-    EffectVector32& operator+=(const EffectVector32& value) {
+    LaserAccelVec3& operator+=(const LaserAccelVec3& value) {
         x += value.x;
         y += value.y;
         z += value.z;
@@ -30,9 +32,9 @@ struct EffectVector32 {
     }
 };
 
-struct EffectAccel3 {
+struct LaserExAccelerate {
     unsigned char reserved_000[0x30];
-    EffectVector32 velocity;
+    LaserAccelVec3 velocity;
     float angle;
     unsigned char reserved_040[8];
     float auxiliary;
@@ -44,7 +46,7 @@ struct EffectAccel3 {
     unsigned int timer_flags;
     float auxiliary_acceleration;
     unsigned char reserved_0a4[4];
-    EffectVector32 acceleration;
+    LaserAccelVec3 acceleration;
     int duration;
     unsigned char reserved_0b8[0x404 - 0xb8];
     unsigned int flags;
@@ -53,7 +55,7 @@ struct EffectAccel3 {
 };
 
 #pragma code_seg(".text$04effect_accel")
-void EffectAccel3::Update() {
+void LaserExAccelerate::Update() {
     if (current >= duration) {
         flags &= ~0x10u;
     } else {

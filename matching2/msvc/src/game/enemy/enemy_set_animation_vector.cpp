@@ -1,4 +1,4 @@
-// 0x0040CF60..0x0040CF76: copy an animation vector into a bullet.
+// 0x0040CF60..0x0040CF76: copy an animation vector into an enemy.
 
 struct AnimationVector {
     float x;
@@ -6,7 +6,7 @@ struct AnimationVector {
     float z;
 };
 
-struct BulletEntity5 {
+struct EnemyAnimVectorView {
     unsigned char unknown_000[0x430];
     AnimationVector animation_vector;
 
@@ -15,7 +15,7 @@ struct BulletEntity5 {
 };
 
 #pragma code_seg(".text$01setanimation")
-void BulletEntity5::SetAnimationVector(
+void EnemyAnimVectorView::SetAnimationVector(
     const AnimationVector& value) {
     animation_vector = value;
 }

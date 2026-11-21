@@ -3,7 +3,7 @@
 #include "th10/game/player_motion_helpers.hpp"
 #include "th10/game/player.hpp"
 
-struct PlayerHomingState {
+struct BulletExHoming {
     unsigned char reserved_000[0x3B4];
     float position_x;
     float position_y;
@@ -26,8 +26,8 @@ struct PlayerHomingState {
     __declspec(noinline) void HomeTowardTarget();
 };
 
-typedef char PlayerHoming_position_offset[offsetof(PlayerHomingState,position_x)==0x3B4 ? 1 : -1];
-typedef char PlayerHoming_timer_offset[offsetof(PlayerHomingState,homing_timer)==0x7B4 ? 1 : -1];
-typedef char PlayerHoming_deadline_offset[offsetof(PlayerHomingState,homing_deadline_7DC)==0x7DC ? 1 : -1];
-typedef char PlayerHoming_size_check[sizeof(PlayerHomingState)==0x7E0 ? 1 : -1];
+typedef char PlayerHoming_position_offset[offsetof(BulletExHoming,position_x)==0x3B4 ? 1 : -1];
+typedef char PlayerHoming_timer_offset[offsetof(BulletExHoming,homing_timer)==0x7B4 ? 1 : -1];
+typedef char PlayerHoming_deadline_offset[offsetof(BulletExHoming,homing_deadline_7DC)==0x7DC ? 1 : -1];
+typedef char PlayerHoming_size_check[sizeof(BulletExHoming)==0x7E0 ? 1 : -1];
 #endif

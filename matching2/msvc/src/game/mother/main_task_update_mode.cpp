@@ -32,7 +32,7 @@ int MainTaskState::UpdateMode() {
                 Title_CreateMode();
                 break;
             case MAIN_MODE_ENDING:
-                ScoreOwnedObject_Destroy(g_ending);
+                Ending_Delete(g_ending);
                 Title_CreateMode();
                 break;
             }
@@ -43,7 +43,7 @@ int MainTaskState::UpdateMode() {
             case MAIN_MODE_INIT_DONE:
                 break;
             case MAIN_MODE_ENDING:
-                ScoreOwnedObject_Destroy(g_ending);
+                Ending_Delete(g_ending);
                 break;
             case MAIN_MODE_GAME:
                 Game_Delete(g_game);

@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "name": "player_animation_frame",
-  "source": "src/game/bullet/player_animation_advance_frame.cpp",
+  "source": "src/game/bullet/bullet_ex_speedup.cpp",
   "driver": "build_support/layout/ltcg/player_animation_frame_context.cpp",
   "headers": [
     "include/th10/game/player_motion_helpers.hpp",
@@ -13,7 +13,7 @@
   "functions": [
     {
       "name": "AdvanceAnimationFrame",
-      "symbol": "?AdvanceAnimationFrame@PlayerAnimationState@@QAEXXZ",
+      "symbol": "?StepSpeedup@BulletExSpeedup@@QAEXXZ",
       "section": ".text$01animation",
       "address": "0x004074B0",
       "size": 164,

@@ -51,7 +51,7 @@ struct PlayerSchedulerRecord {
 };
 struct PlayerPracticeState { unsigned char reserved_00[0x10]; int mode; };
 extern "C" {
-extern PlayerCollisionEngine* g_bullet_manager;
+extern BulletCancelManager* g_bullet_manager;
 extern LaserManager* g_laser_manager;
 extern PlayerItemManager* g_item_manager;
 extern PauseOpenState* g_pause;

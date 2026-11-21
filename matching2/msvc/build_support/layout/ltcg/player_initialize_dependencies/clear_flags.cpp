@@ -1,13 +1,13 @@
 // Complete player flag expiry at 0x00405500; slot 2 retains its pending bit.
-struct PlayerOwnedEntity {
+struct CardOwnedEntity {
     unsigned char reserved_000[0x378];
     unsigned int flags;                                // +0x378
     unsigned char reserved_37c[0x3AC - 0x37C];
 };
 
-struct PlayerFlags {
+struct CardCaptureFlags {
     unsigned char reserved_0000[0x75C];
-    PlayerOwnedEntity entities[8];            // +0x75C
+    CardOwnedEntity entities[8];            // +0x75C
     unsigned char reserved_24bc[0x3738 - 0x24BC];
     int elapsed_frames;                                // +0x3738
     unsigned char reserved_373c[0x3788 - 0x373C];
@@ -19,11 +19,11 @@ struct PlayerFlags {
 };
 
 #pragma code_seg(".text$a03flags")
-void PlayerFlags::ClearExpiredFlags() {
+void CardCaptureFlags::ClearExpiredFlags() {
     if (elapsed_frames >= 60) {
         pending_state = 0;
         flags &= ~2u;
-        PlayerOwnedEntity* entity = entities;
+        CardOwnedEntity* entity = entities;
         for (int i = 0; i < 8; ++i, ++entity)
             if (i != 2)
                 entity->flags &= ~2u;

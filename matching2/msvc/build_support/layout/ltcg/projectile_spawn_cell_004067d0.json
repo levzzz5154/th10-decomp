@@ -19,7 +19,7 @@
     "src/core/zunlib/angle_normalize.cpp",
     "src/core/zunlib/rng.cpp",
     "src/game/background/entity_start_script.cpp",
-    "src/game/bullet/enemy_grid_scan.cpp",
+    "src/game/bullet/bullet_spawn_pattern.cpp",
     "src/game/bullet/wrapped_angle_difference.cpp"
   ],
   "headers": [
@@ -72,7 +72,7 @@
     },
     {
       "name": "EnemyGrid_ScanCells2",
-      "symbol": "?EnemyGrid_ScanCells2@@YGHPAUProjectilePattern@@PAUProjectileManager2@@@Z",
+      "symbol": "?BulletManager_SpawnPattern@@YGHPAUProjectilePattern@@PAUProjectileManager2@@@Z",
       "section": ".text$004073e0_fn",
       "address": "0x4073e0",
       "size": 194

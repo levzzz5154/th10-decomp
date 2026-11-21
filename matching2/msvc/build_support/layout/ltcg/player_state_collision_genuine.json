@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "name": "player_state_collision_genuine_00408030_00408100",
-  "source": "src/game/bullet/player_collision.cpp",
+  "source": "src/game/bullet/bullet_cancel.cpp",
   "driver": "build_support/layout/ltcg/player_state_collision_runtime/runtime.cpp",
   "additional_sources": [
     "build_support/layout/ltcg/player_state_collision_runtime/creation.cpp",
@@ -73,7 +73,7 @@
   "functions": [
     {
       "name": "function_00408030",
-      "symbol": "?Activate@PlayerCollisionRecord@@QAEHXZ",
+      "symbol": "?Activate@BulletCancelEntry@@QAEHXZ",
       "section": ".text$f00408030F",
       "address": "0x408030",
       "size": 199,
@@ -81,7 +81,7 @@
     },
     {
       "name": "function_00408100",
-      "symbol": "?Check@PlayerCollisionEngine@@QAEHPBUVector3@@MHH@Z",
+      "symbol": "?Check@BulletCancelManager@@QAEHPBUVector3@@MHH@Z",
       "section": ".text$f00408100F",
       "address": "0x408100",
       "size": 260,

@@ -7,11 +7,11 @@
 // is entered and destroyed when the next mode replaces it.
 struct Game;             // active gameplay/stage controller (replay_mode flag at +0x5C)
 struct Title;            // title / main menu screen
-struct ScoreOwnedObject; // ending / staffroll screen
+struct EndingObject; // ending / staffroll screen
 
 extern "C" Game* g_game;
 extern "C" Title* g_title;
-extern "C" ScoreOwnedObject* g_ending;
+extern "C" EndingObject* g_ending;
 extern "C" int g_main_mode_request;
 
 // Gameplay keeps the mode argument (0 = normal play, 1 = replay playback) at +0x5C.
@@ -50,6 +50,6 @@ extern "C" void* __stdcall Game_CreateMode(unsigned int);
 extern "C" void* __stdcall Ending_CreateMode();
 __declspec(noinline) void Game_Delete(Game*);
 __declspec(noinline) void Title_Delete(Title*);
-__declspec(noinline) void ScoreOwnedObject_Destroy(ScoreOwnedObject*);
+__declspec(noinline) void Ending_Delete(EndingObject*);
 
 #endif

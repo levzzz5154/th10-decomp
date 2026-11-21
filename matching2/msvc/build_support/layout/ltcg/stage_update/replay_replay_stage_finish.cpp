@@ -75,7 +75,7 @@ void ReplayManager2::FinishStage() {
         }
         for (int index = 0; index < 4; ++index)
             player->options[index].reset_position = 0;
-        ReplayPauseReset((PauseState2*)player);
+        Player_ResetForStage((PlayerResetView*)player);
     }
     field_1c8 = 0;
 }

@@ -1,5 +1,6 @@
-// 0x00407DA0: wrap an object that left the playfield sideways to the opposite
-// edge.
+// 0x00407DA0: BulletExWrapState::WrapHorizontal — enemy-bullet Ex-transform
+// horizontal wrap (flags +0x43C bit 20): wraps a bullet that leaves the
+// playfield sideways to the opposite edge.
 //
 // Each wrap spends one count of the wrap timer and plays the object's sound;
 // once the timer has run out the horizontal wrap flag is toggled. The object
@@ -7,7 +8,7 @@
 #include "th10/game/player_wrap.hpp"
 
 #pragma code_seg(".text$01lwrap")
-void PlayerWrapHorizontalState::WrapHorizontal() {
+void BulletExWrapState::WrapHorizontal() {
     if (!position_3B4.OutsidePlayfieldInclusive(bounds_39C->extent_34, bounds_39C->extent_30))
         return;
 

@@ -6,8 +6,8 @@
 extern "C" void __stdcall ReplayFinishClearPools(ReplayManager2* manager, int stage);
 // 0x00426F70: recompute the options from the power level.
 extern "C" void __stdcall PlayerRefresh2(Player* player);
-// 0x00424D90 (src/game/player/pause_menu_reset.cpp): reset the player's pause timers.
-struct PauseState2;
-extern "C" void __stdcall ReplayPauseReset(PauseState2* owner);
+// 0x00424D90 (src/game/player/player_reset_for_stage.cpp): reset the player's pause timers.
+struct PlayerResetView;
+extern "C" void __stdcall Player_ResetForStage(PlayerResetView* owner);
 
 #endif

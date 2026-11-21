@@ -10,7 +10,7 @@ struct PolarVector2 {
 
 // Offset model for the animation-clock leaf. The player arrives in ESI at the
 // retail call edge; the whole-cluster LTCG route must bind that private entry.
-struct PlayerAnimationState {
+struct BulletExSpeedup {
     unsigned char reserved_000[0x3C0];
     PolarVector2 velocity;
     float velocity_z;
@@ -23,10 +23,10 @@ struct PlayerAnimationState {
     unsigned char reserved_440[0x1D4];
     FrameTimer animation_timer;
 
-    __declspec(noinline) void AdvanceAnimationFrame();
+    __declspec(noinline) void StepSpeedup();
 };
 
-struct PlayerDeathShrinkState {
+struct BulletExCurve {
     unsigned char reserved_000[0x3C0];
     PolarVector2 velocity;
     unsigned char reserved_3C8[0x10];
@@ -42,10 +42,10 @@ struct PlayerDeathShrinkState {
     unsigned char reserved_698[0x0C];
     int death_deadline_6A4;
 
-    __declspec(noinline) void AdvanceDeathShrink();
+    __declspec(noinline) void StepCurve();
 };
 
 
-typedef char AnimationTimerOffset[offsetof(PlayerAnimationState,animation_timer)==0x614 ? 1 : -1];
-typedef char DeathTimerOffset[offsetof(PlayerDeathShrinkState,death_timer)==0x67c ? 1 : -1];
-typedef char DeathDeadlineOffset[offsetof(PlayerDeathShrinkState,death_deadline_6A4)==0x6a4 ? 1 : -1];
+typedef char AnimationTimerOffset[offsetof(BulletExSpeedup,animation_timer)==0x614 ? 1 : -1];
+typedef char DeathTimerOffset[offsetof(BulletExCurve,death_timer)==0x67c ? 1 : -1];
+typedef char DeathDeadlineOffset[offsetof(BulletExCurve,death_deadline_6A4)==0x6a4 ? 1 : -1];

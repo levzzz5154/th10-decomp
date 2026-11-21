@@ -11,7 +11,7 @@
 
 #include "player_state_callees.cpp"
 
-#include "../../../../src/game/bullet/player_collision.cpp"
+#include "../../../../src/game/bullet/bullet_cancel.cpp"
 #include "collision_bounds.cpp"
 
 #include "item_polar.cpp"

@@ -1,29 +1,29 @@
-// Complete pause timer/animation reset, 0x00424D90..0x00424EA0.
-// Source declaration is ordinary C++; native LTCG selects the observed ESI
-// owner and plain RET. The active-count dependency below is the complete
-// genuine 77-byte routine at 0x00413790, not an abbreviated ABI anchor.
+// 0x00424D90..0x00424EA0: Player_ResetForStage — reset Player::state (+0x458)
+// to PLAYER_ALIVE, reset all three player timers (+0x460), retire the focus
+// marker (+0x329C), and sync the HUD active-count indicators (0x00413790).
+// Native LTCG selects the observed ESI owner and plain RET.
 #include <stddef.h>
 extern "C" void _ReadWriteBarrier();
 #pragma intrinsic(_ReadWriteBarrier)
 
-struct PauseFrameTimer {
+struct PlayerResetTimer {
     int previous;
     int current;
     float elapsed;
     const float* speed;
     unsigned int flags;
 };
-struct PauseState2 {
+struct PlayerResetView {
     unsigned char reserved_000[0x458];
     int state;
     unsigned char reserved_45c[4];
-    PauseFrameTimer timers[3];
+    PlayerResetTimer timers[3];
     unsigned char reserved_49c[0x329c-0x49c];
     int animation_handle;
 };
-typedef char PauseFrameTimerSize[sizeof(PauseFrameTimer)==0x14?1:-1];
-typedef char PauseResetTimerOffset[offsetof(PauseState2,timers)==0x460?1:-1];
-typedef char PauseResetHandleOffset[offsetof(PauseState2,animation_handle)==0x329c?1:-1];
+typedef char PauseFrameTimerSize[sizeof(PlayerResetTimer)==0x14?1:-1];
+typedef char PauseResetTimerOffset[offsetof(PlayerResetView,timers)==0x460?1:-1];
+typedef char PauseResetHandleOffset[offsetof(PlayerResetView,animation_handle)==0x329c?1:-1];
 
 struct PauseAnimationRecord {
     unsigned int flags;
@@ -56,7 +56,7 @@ extern int pause_active_count;
 }
 
 #pragma code_seg(".text$03pause")
-extern "C" __declspec(noinline) void __stdcall ReplayPauseReset(PauseState2* owner) {
+extern "C" __declspec(noinline) void __stdcall Player_ResetForStage(PlayerResetView* owner) {
     int* state=&owner->state;
     state[0]=1;
     unsigned int flags=owner->timers[0].flags;

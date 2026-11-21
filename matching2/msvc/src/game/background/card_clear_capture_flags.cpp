@@ -1,17 +1,18 @@
-// 0x00405500 (81 bytes): once sixty frames have elapsed, drop the "pending"
-// bit (bit 1) from the player's flags and from seven of its eight owned
-// entities (slot 2 keeps it), and reset the pending state.
+// 0x00405500 (81 bytes): CardCaptureFlags::ClearExpiredFlags — called on g_card
+// when a bomb starts: once 60 frames have elapsed in the active spellcard,
+// drop bit 1 (capture-bonus flag) from the card's flags and seven of its eight
+// owned entities (slot 2 keeps it), and clear pending_state.
 //
-// Native LTCG passes the player in EAX.
-struct PlayerOwnedEntity {
+// Native LTCG passes the card pointer in EAX.
+struct CardOwnedEntity {
     unsigned char reserved_000[0x378];
     unsigned int flags;                                // +0x378
     unsigned char reserved_37c[0x3AC - 0x37C];
 };
 
-struct PlayerFlags {
+struct CardCaptureFlags {
     unsigned char reserved_0000[0x75C];
-    PlayerOwnedEntity entities[8];            // +0x75C
+    CardOwnedEntity entities[8];            // +0x75C
     unsigned char reserved_24bc[0x3738 - 0x24BC];
     int elapsed_frames;                                // +0x3738
     unsigned char reserved_373c[0x378C - 0x373C];
@@ -22,7 +23,7 @@ struct PlayerFlags {
 };
 
 #pragma code_seg(".text$01flags")
-void PlayerFlags::ClearExpiredFlags() {
+void CardCaptureFlags::ClearExpiredFlags() {
     if (elapsed_frames >= 60) {
         pending_state = 0;
         flags &= ~2u;

@@ -1,9 +1,9 @@
 // Compiler context only; never selected as recovered game code.
-#include "../../../src/game/enemy/bullet_entity_set_animation_vector.cpp"
+#include "../../../src/game/enemy/enemy_set_animation_vector.cpp"
 
 #pragma code_seg(".text$03context")
 int __stdcall BulletEntitySetAnimationVectorCompilerContext(
-        BulletEntity5** entities, int count,
+        EnemyAnimVectorView** entities, int count,
         const AnimationVector* value) {
     while (count--) {
         (*entities++)->SetAnimationVector(*value);

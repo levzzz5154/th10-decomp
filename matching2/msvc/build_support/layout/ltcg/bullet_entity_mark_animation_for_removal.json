@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "name": "bullet_entity_mark_animation_for_removal",
-  "source": "src/game/enemy/bullet_entity_mark_animation_for_removal.cpp",
+  "source": "src/game/enemy/enemy_mark_animation_for_removal.cpp",
   "driver": "build_support/layout/ltcg/bullet_entity_mark_animation_for_removal_0040cea0_context.cpp",
   "headers": [],
   "image_base": "0x00400000",
@@ -9,7 +9,7 @@
   "functions": [
     {
       "name": "BulletEntity_MarkAnimationForRemoval",
-      "symbol": "?MarkAnimationForRemoval@BulletEntity4@@QAIXPAVSprtCtrl@@@Z",
+      "symbol": "?MarkAnimationForRemoval@EnemyAnimRetireView@@QAIXPAVSprtCtrl@@@Z",
       "section": ".text$01mark",
       "address": "0x0040CEA0",
       "size": 36,
@@ -17,7 +17,7 @@
     }
   ],
   "context": {
-    "symbol": "?BulletEntityMarkAnimationForRemovalCompilerContext@@YGHPAVSprtCtrl@@PAUBulletEntity4@@@Z",
+    "symbol": "?BulletEntityMarkAnimationForRemovalCompilerContext@@YGHPAVSprtCtrl@@PAUEnemyAnimRetireView@@@Z",
     "section": ".text$03context",
     "address": "0x0040CEE0",
     "size": 20,

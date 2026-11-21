@@ -65,7 +65,7 @@
     },
     {
       "name": "Clear",
-      "symbol": "?ClearExpiredFlags@PlayerFlags@@QAEXXZ",
+      "symbol": "?ClearExpiredFlags@CardCaptureFlags@@QAEXXZ",
       "section": ".text$a03flags",
       "address": "0x405500",
       "size": 176

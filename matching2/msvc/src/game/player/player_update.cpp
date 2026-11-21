@@ -41,7 +41,7 @@ static __forceinline ScaledVec3 operator*(const Vec3& a, float f) {
     return ScaledVec3(a.x * f, a.y * f, a.z * f);
 }
 static inline void ActivatePlayerCollisions(bool idle_only) {
-    PlayerCollisionRecord* record = g_bullet_manager->records;
+    BulletCancelEntry* record = g_bullet_manager->records;
     for (int remaining = 2000; remaining; --remaining, ++record)
         if (record->state != 0 && record->state != 3 &&
                 (!idle_only || record->countdown == 0))

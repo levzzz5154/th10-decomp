@@ -3,7 +3,7 @@
   "name": "stop_at_frame_pair",
   "source": "src/game/card/anm_propagate.cpp",
   "additional_sources": [
-    "src/game/pause/result_reset_timed_state.cpp",
+    "src/game/pause/pause_reset_resume_state.cpp",
     "src/game/pause/pause_mark_animation_tree.cpp",
     "src/core/sprtlib/animation_manager_find.cpp",
     "src/core/sprtlib/animation_manager_find_child_by_script_index.cpp",
@@ -82,8 +82,8 @@
     },
     {
       "name": "RecoveryTimedState_InitializeTimedState_00423510",
-      "source": "src/game/pause/result_reset_timed_state.cpp",
-      "symbol": "?InitializeTimedState@ResultTimedState@@QAEXXZ",
+      "source": "src/game/pause/pause_reset_resume_state.cpp",
+      "symbol": "?InitializeTimedState@PauseResumeState@@QAEXXZ",
       "section": ".text$45timed",
       "address": "0x00423510",
       "size": 89,
@@ -181,7 +181,7 @@
     }
   ],
   "context": {
-    "symbol": "?StopAtFrameCompilerContext@@YGHPAUAnimationHandle@@HPAUResultTimedState@@@Z",
+    "symbol": "?StopAtFrameCompilerContext@@YGHPAUAnimationHandle@@HPAUPauseResumeState@@@Z",
     "section": ".text$80context",
     "address": "0x004494E0",
     "size": 185,

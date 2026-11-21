@@ -312,7 +312,7 @@
       "kind": "relative_code"
     },
     {
-      "symbol": "?ReleaseResource@BulletEntity6@@QAEXXZ",
+      "symbol": "?ReleaseResource@EnemyOwnedResourceView@@QAEXXZ",
       "address": "0x0040D680",
       "kind": "relative_code"
     },

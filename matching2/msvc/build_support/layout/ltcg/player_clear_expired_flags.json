@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "name": "player_clear_expired_flags_00405500",
-  "source": "src/game/background/player_clear_expired_flags.cpp",
+  "source": "src/game/background/card_clear_capture_flags.cpp",
   "driver": "build_support/layout/ltcg/player_clear_expired_flags_00405500_context.cpp",
   "headers": [],
   "image_base": "0x00400000",
@@ -9,7 +9,7 @@
   "functions": [
     {
       "name": "PlayerFlags_ClearExpiredFlags_00405500",
-      "symbol": "?ClearExpiredFlags@PlayerFlags@@QAEXXZ",
+      "symbol": "?ClearExpiredFlags@CardCaptureFlags@@QAEXXZ",
       "section": ".text$01flags",
       "address": "0x00405500",
       "size": 81,

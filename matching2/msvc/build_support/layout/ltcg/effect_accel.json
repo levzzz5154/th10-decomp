@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "name": "effect_accel_00407560",
-  "source": "src/game/bullet/enemy_motion_steps.cpp",
+  "source": "src/game/bullet/bullet_ex_accelerate.cpp",
   "driver": "build_support/layout/ltcg/effect_accel_00407560_context.cpp",
   "headers": [],
   "image_base": "0x00400000",
@@ -9,7 +9,7 @@
   "functions": [
     {
       "name": "EnemyAccelerationUpdate_00407560",
-      "symbol": "?Update@EffectAccel2@@QAEXXZ",
+      "symbol": "?Update@BulletExAccelerate@@QAEXXZ",
       "section": ".text$01update",
       "address": "0x00407560",
       "size": 305,
@@ -17,7 +17,7 @@
     }
   ],
   "context": {
-    "symbol": "?EffectAccelCompilerContext_00407560@@YGHPAPAUEffectAccel2@@H@Z",
+    "symbol": "?EffectAccelCompilerContext_00407560@@YGHPAPAUBulletExAccelerate@@H@Z",
     "section": ".text$03context",
     "address": "0x004076A0",
     "size": 41,

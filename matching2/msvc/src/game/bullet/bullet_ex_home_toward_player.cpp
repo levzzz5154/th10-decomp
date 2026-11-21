@@ -1,4 +1,6 @@
-// 0x00407EF0: PlayerHomingState::HomeTowardTarget
+// 0x00407EF0: BulletExHoming::HomeTowardTarget — enemy-bullet Ex-transform
+// homing (flags +0x43C bit 0x04000000): steers the bullet toward g_player
+// with an angular offset and turn rate until the deadline, then clears the bit.
 #include "th10/game/player_homing.hpp"
 #include "th10/math/angle.hpp"
 #include <math.h>
@@ -9,7 +11,7 @@ extern "C" float flt_0, flt_1_01, flt_0_99, g_game_speed;
 // Steer toward the target with an angular offset and scaled turn rate until
 // the deadline, then clear the homing flag. The homing timer always advances.
 #pragma code_seg(".text$01homing")
-void PlayerHomingState::HomeTowardTarget() {
+void BulletExHoming::HomeTowardTarget() {
     if (homing_timer.current >= homing_deadline_7DC) {
         flags_43C &= ~0x04000000u;
     } else {

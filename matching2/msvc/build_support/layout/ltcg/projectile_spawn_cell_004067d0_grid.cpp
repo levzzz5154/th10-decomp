@@ -10,7 +10,7 @@ extern "C" const float flt_5_2083335;
 #include "../../../build_support/layout/ltcg/enemy_grid_scan_dependencies/sound_pan.cpp"
 #undef code_seg
 
-#include "../../../src/game/bullet/enemy_grid_scan.cpp"
+#include "../../../src/game/bullet/bullet_spawn_pattern.cpp"
 
 
 // The entry only anchors the link; its body is never exported as recovered
@@ -22,7 +22,7 @@ extern "C" int __stdcall ProjectileSpawnCellContext(
         ProjectilePattern* patterns, ProjectileManager2* manager, int count) {
     int total = 0;
     for (int index = 0; index < count; ++index)
-        total += EnemyGrid_ScanCells2(&patterns[index], manager);
+        total += BulletManager_SpawnPattern(&patterns[index], manager);
     return total;
 }
 #pragma code_seg()

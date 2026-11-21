@@ -1,5 +1,5 @@
-// 0x0040B9D0. Tear down a score-owned object: detach its registered animation,
-// then release its storage. Retail passes the object in ESI:
+// 0x0040B9D0: Ending_Delete — release the ending state (0x0040B7B0) and free
+// its storage. Retail passes the object in ESI:
 //
 //   L10: test esi,esi          ; 85 f6
 //               je   L11       ; 74 0d
@@ -15,15 +15,15 @@
 // compiled in the native LTCG cluster of build_support/layout/ltcg/score_owned_destroy.json,
 // whose synthetic array caller keeps the pointer in ESI across both calls.
 
-struct ScoreOwnedObject;
+struct EndingObject;
 
 extern "C" void Ending_ReleaseState(void* object);      // 0x0040B7B0, __stdcall
 extern "C" void __cdecl crt_free_startup(void* memory);    // 0x004524A1, __cdecl
 
-__declspec(noinline) void ScoreOwnedObject_Destroy(ScoreOwnedObject* object);
+__declspec(noinline) void Ending_Delete(EndingObject* object);
 
 #pragma code_seg(".text$01destroy")
-void ScoreOwnedObject_Destroy(ScoreOwnedObject* object) {
+void Ending_Delete(EndingObject* object) {
     if (object) {
         Ending_ReleaseState(object);
         crt_free_startup(object);

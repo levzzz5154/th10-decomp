@@ -7,7 +7,7 @@ extern "C" void __cdecl crt_free(void* memory);
 #include "th10/game/enemy_manager_dependencies.hpp"
 
 #pragma code_seg(".text$03b")
-void BulletEntity6::ReleaseResource() {
+void EnemyOwnedResourceView::ReleaseResource() {
     void* const resource = owned_resource;
     vtable = 0x0046D0F0;
     if (resource != 0) {

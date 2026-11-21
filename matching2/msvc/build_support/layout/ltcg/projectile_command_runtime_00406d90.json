@@ -60,14 +60,14 @@
     },
     {
       "name": "EnemyGrid_ScanCells",
-      "symbol": "?EnemyGrid_ScanCells2@@YGHPAUProjectilePattern@@PAUProjectileManager2@@@Z",
+      "symbol": "?BulletManager_SpawnPattern@@YGHPAUProjectilePattern@@PAUProjectileManager2@@@Z",
       "section": ".text$004073e0_fn",
       "address": "0x004073E0",
       "size": 194
     },
     {
       "name": "PlayerCollisionRecord_Activate",
-      "symbol": "?Activate@PlayerCollisionRecord@@QAEHXZ",
+      "symbol": "?Activate@BulletCancelEntry@@QAEHXZ",
       "section": ".text$00408030_s",
       "address": "0x00408030",
       "size": 202
@@ -302,7 +302,7 @@
     "build_support/layout/ltcg/projectile_spawn_runtime/scheduler_set.cpp",
     "src/core/sprtanim/animation_object_load_script.cpp",
     "src/game/background/entity_start_script.cpp",
-    "src/game/bullet/enemy_grid_scan.cpp"
+    "src/game/bullet/bullet_spawn_pattern.cpp"
   ],
   "additional_sources": [
     "build_support/layout/ltcg/projectile_command_runtime_00406d90_entities.cpp",

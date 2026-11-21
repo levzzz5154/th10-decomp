@@ -29,7 +29,7 @@ struct EffectVector3 {
 
 // 0x00407560..0x00407690: accelerate the enemy's velocity and auxiliary
 // motion until the duration expires, then advance the frame timer.
-struct EffectAccel2 {
+struct BulletExAccelerate {
     unsigned char reserved_000[0x3C0];
     EffectVector3 velocity; // +0x3C0
     unsigned char reserved_3cc[0x0C];
@@ -53,7 +53,7 @@ struct EffectAccel2 {
 };
 
 #pragma code_seg(".text$01abeffect")
-void EffectAccel2::Update() {
+void BulletExAccelerate::Update() {
     if (current >= duration) {
         flags &= ~0x10u;
     } else {

@@ -1,4 +1,4 @@
-// 0x00407560: EffectAccel2::Update
+// 0x00407560: BulletExAccelerate::Update
 extern "C" float flt_1;
 extern "C" float flt_1_01;
 extern "C" float flt_0_99;
@@ -29,9 +29,10 @@ struct EffectVector3 {
     }
 };
 
-// 0x00407560..0x00407690: accelerate the enemy's velocity and auxiliary
-// motion until the duration expires, then advance the frame timer.
-struct EffectAccel2 {
+// 0x00407560..0x00407690: BulletExAccelerate::Update — enemy-bullet
+// Ex-transform linear acceleration until the duration expires, then advance
+// the embedded frame timer.
+struct BulletExAccelerate {
     unsigned char reserved_000[0x3C0];
     EffectVector3 velocity;                  // +0x3C0
     unsigned char reserved_3cc[0x0C];
@@ -55,7 +56,7 @@ struct EffectAccel2 {
 };
 
 #pragma code_seg(".text$01update")
-void EffectAccel2::Update() {
+void BulletExAccelerate::Update() {
     if (current >= duration) {
         flags &= ~0x10u;
     } else {

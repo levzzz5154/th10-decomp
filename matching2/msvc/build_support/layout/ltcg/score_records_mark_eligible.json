@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "name": "score_records_mark_eligible",
-  "source": "src/game/laser/score_records_mark_eligible.cpp",
+  "source": "src/game/laser/laser_mark_eligible.cpp",
   "driver": "build_support/layout/ltcg/score_records_mark_eligible_0041c7d0_context.cpp",
   "headers": [],
   "image_base": "0x00400000",
@@ -9,7 +9,7 @@
   "functions": [
     {
       "name": "ScoreRecords_0041c7d0_MarkEligible",
-      "symbol": "?MarkEligible@ScoreRecords@@QAEHXZ",
+      "symbol": "?MarkEligible@LaserListView@@QAEHXZ",
       "section": ".text$01mark",
       "address": "0x0041C7D0",
       "size": 44,
@@ -17,7 +17,7 @@
     }
   ],
   "context": {
-    "symbol": "?ScoreRecordsMarkEligibleCompilerContext@@YGHPAPAUScoreRecords@@H@Z",
+    "symbol": "?ScoreRecordsMarkEligibleCompilerContext@@YGHPAPAULaserListView@@H@Z",
     "section": ".text$03context",
     "address": "0x0041C800",
     "size": 40,

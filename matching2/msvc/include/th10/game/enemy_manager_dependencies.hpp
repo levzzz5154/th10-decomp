@@ -30,7 +30,7 @@ struct AnimationResource6 {
 };
 
 
-struct BulletEntity6 {
+struct EnemyOwnedResourceView {
     unsigned int vtable;
     unsigned char reserved_004[0x88];
     void* owned_resource;

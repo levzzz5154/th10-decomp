@@ -1,9 +1,9 @@
 // Compiler-only dependencies: complete pool, primary-list, lookup and activation bodies.
-#include "../../../src/game/front/stage_score_display.cpp"
+#include "../../../src/game/front/front_dialogue_construct.cpp"
 void* __cdecl operator new(unsigned int,void*);
 
 #pragma code_seg(".text$00401000_context")
-extern "C" StageScoreDisplay* __stdcall entry(StageScoreDisplay* target,const void* data) { return new(target) StageScoreDisplay(data); }
+extern "C" FrontDialogue* __stdcall entry(FrontDialogue* target,const void* data) { return new(target) FrontDialogue(data); }
 #pragma code_seg()
 void* __cdecl operator new(unsigned int,void* target) { return target; }
 #pragma code_seg(".text$004489d0_fn")

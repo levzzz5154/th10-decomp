@@ -16,7 +16,7 @@
 #include "th10/platform/sound_queue.hpp"
 
 // The vanishing activation 0x00408030, whose receiver retail keeps in ESI;
-// PlayerCollisionRecord and the manager root g_bullet_manager are declared by
+// BulletCancelEntry and the manager root g_bullet_manager are declared by
 // the activate.cpp anchor included at the bottom of this file.
 
 // The point the aim commands fall back to: the player origin, with the point
@@ -164,7 +164,7 @@ void ProjectileCommandRuntime::Tick() {
                 ->SetSchedulerValue(command->value_c);
             break;
         case BULLET_CMD_VANISH:
-            reinterpret_cast<PlayerCollisionRecord*>(this)->Activate();
+            reinterpret_cast<BulletCancelEntry*>(this)->Activate();
             break;
         case BULLET_CMD_PLAY_SFX:
             g_sound_manager.QueuePan(command->value_c, record.position.x);
@@ -214,13 +214,13 @@ void ProjectileCommandRuntime::Tick() {
             pattern.x_spacing = command->value_b;
             pattern.field_204 = -1;
             memcpy(pattern.commands, record.commands, sizeof(record.commands));
-            EnemyGrid_ScanCells2(
+            BulletManager_SpawnPattern(
                 reinterpret_cast<ProjectilePattern*>(pattern_words),
                 reinterpret_cast<ProjectileManager2*>(g_bullet_manager));
             ++record.command_index;
             if (vanish == 0)
                 continue;
-            reinterpret_cast<PlayerCollisionRecord*>(this)->Activate();
+            reinterpret_cast<BulletCancelEntry*>(this)->Activate();
             break;
         }
         case BULLET_CMD_SET_TURN_COUNT:

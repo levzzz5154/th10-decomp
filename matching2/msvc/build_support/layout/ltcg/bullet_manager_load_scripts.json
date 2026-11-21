@@ -856,7 +856,7 @@
       "kind": "data"
     },
     {
-      "symbol": "_ScoreTask_Setup@4",
+      "symbol": "_Front_LoadStageResources@4",
       "address": "0x00413A20",
       "kind": "relative_code"
     },

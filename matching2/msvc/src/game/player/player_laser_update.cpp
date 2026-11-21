@@ -1,19 +1,15 @@
-// 0x00428C20: BossGauge_Update
-#include "th10/runtime/asm_symbols.hpp"
-
-// 0x00428C20..0x00428C9C: FUN15
-// The manager (ECX) owns the 0x98-byte score slots based at +0x3244 and the
-// state (EDX) names, through +0x58, the record that selects the live slot. Each
-// update rebuilds the gauge position from the slot's two counters scaled to
-// playfield units, publishes it as a vector, then folds the running
-// displacement back in and reports success.
+// 0x00428C20..0x00428C9C: PlayerLaser_Update (ShotDefinition::on_update[2]).
+// Pins an active MarisaB player laser (EDX = PlayerBullet*) to its firing
+// option's world position (ECX = Player*; options[0] is at +0x32A0, stride
+// 0x98, position at +0x3C, and 1-based option index simplifies to +0x3244 + 152*slot),
+// then adds the shot offset and compensates for velocity.
 struct Vector3 {
     float x;
     float y;
     float z;
 };
 
-struct BossGaugeSource {          // state->source, at state + 0x58
+struct PlayerLaserDef {          // state->source, at state + 0x58
     char pad_000[4];
     float value;                  // +0x04
     float maximum;                // +0x08
@@ -21,18 +17,18 @@ struct BossGaugeSource {          // state->source, at state + 0x58
     signed char slot;             // +0x1C
 };
 
-struct BossGaugeState {
+struct PlayerLaserBullet {
     char pad_000[0x14];
     Vector3 position;             // +0x14
     float offset_x;               // +0x20
     float offset_y;               // +0x24
     char pad_028[0x58 - 0x28];
-    BossGaugeSource* source;      // +0x58
+    PlayerLaserDef* source;      // +0x58
 };
 
-int __fastcall BossGauge_Update(int* manager, BossGaugeState* state) {
+int __fastcall PlayerLaser_Update(int* manager, PlayerLaserBullet* state) {
     Vector3 position;
-    BossGaugeSource* source = state->source;
+    PlayerLaserDef* source = state->source;
     int* entry = (int*)((char*)manager + 152 * source->slot + 0x3244);
     Vector3* dst = &state->position;
 

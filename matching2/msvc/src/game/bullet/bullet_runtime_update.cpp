@@ -43,7 +43,7 @@ enum BulletRuntimeAssets {
 #pragma code_seg(".text$00fruntime")
 extern "C" int __stdcall BulletRuntimeTick(BulletRuntimeState* state) {
     if (state->flags & BULLET_FLAG_RETIRE) {
-        reinterpret_cast<Player2*>(state)->ResetSchedulerLinks();
+        reinterpret_cast<BulletTimerResetView*>(state)->ResetTimers();
         return -1;
     }
     switch (state->mode) {
@@ -64,11 +64,11 @@ extern "C" int __stdcall BulletRuntimeTick(BulletRuntimeState* state) {
         reinterpret_cast<ProjectileCommandRuntime*>(state)->Tick();
         if (state->motion_flags) {
             if (state->motion_flags & BULLET_MOTION_SPEED_CURVE)
-                reinterpret_cast<PlayerAnimationState*>(state)->AdvanceAnimationFrame();
+                reinterpret_cast<BulletExSpeedup*>(state)->StepSpeedup();
             if (state->motion_flags & BULLET_MOTION_ACCEL_VECTOR)
-                reinterpret_cast<EffectAccel2*>(state)->Update();
+                reinterpret_cast<BulletExAccelerate*>(state)->Update();
             if (state->motion_flags & BULLET_MOTION_ANGULAR_ACCEL)
-                reinterpret_cast<PlayerDeathShrinkState*>(state)->AdvanceDeathShrink();
+                reinterpret_cast<BulletExCurve*>(state)->StepCurve();
             if (state->motion_flags & BULLET_MOTION_TURN_STEP)
                 reinterpret_cast<BulletRuntimeDeceleration*>(state)->TurnStep();
             if (state->motion_flags & BULLET_MOTION_EASE_STEP)
@@ -78,7 +78,7 @@ extern "C" int __stdcall BulletRuntimeTick(BulletRuntimeState* state) {
             if (state->motion_flags & BULLET_MOTION_BOUNCE_ANY)
                 reinterpret_cast<BulletRuntimeDeceleration*>(state)->Bounce();
             if (state->motion_flags & BULLET_MOTION_HOME)
-                reinterpret_cast<PlayerHomingState*>(state)->HomeTowardTarget();
+                reinterpret_cast<BulletExHoming*>(state)->HomeTowardTarget();
             if (state->motion_flags & BULLET_MOTION_WAIT) {
                 if (state->immunity_timer.current <= 0)
                     state->motion_flags ^= BULLET_MOTION_WAIT;
@@ -113,13 +113,13 @@ extern "C" int __stdcall BulletRuntimeTick(BulletRuntimeState* state) {
     }
     if (state->bounds) {
         if (state->motion_flags & BULLET_MOTION_WRAP_HORIZONTAL)
-            reinterpret_cast<PlayerWrapHorizontalState*>(state)->WrapHorizontal();
+            reinterpret_cast<BulletExWrapState*>(state)->WrapHorizontal();
         if (state->motion_flags & BULLET_MOTION_WRAP_VERTICAL)
-            reinterpret_cast<PlayerWrapHorizontalState*>(state)->WrapVertical();
+            reinterpret_cast<BulletExWrapState*>(state)->WrapVertical();
         if (state->bounds_grace <= 0 &&
             reinterpret_cast<PlayfieldPoint*>(&state->position)
                 ->OutsidePlayfield(state->bounds->extent_34, state->bounds->extent_30)) {
-            reinterpret_cast<Player2*>(state)->ResetSchedulerLinks();
+            reinterpret_cast<BulletTimerResetView*>(state)->ResetTimers();
             return -1;
         }
     }
@@ -129,7 +129,7 @@ extern "C" int __stdcall BulletRuntimeTick(BulletRuntimeState* state) {
         --state->bounds_grace;
     int result = RunAnimationVm(state->animation);
     if (result) {
-        reinterpret_cast<Player2*>(state)->ResetSchedulerLinks();
+        reinterpret_cast<BulletTimerResetView*>(state)->ResetTimers();
         return -1;
     }
     return result;

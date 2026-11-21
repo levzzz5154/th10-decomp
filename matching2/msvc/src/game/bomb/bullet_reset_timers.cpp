@@ -1,13 +1,15 @@
-// 0x00405BE0..0x00405C7D: reset both player scheduler links.
+// 0x00405BE0..0x00405C7D: BulletTimerResetView::ResetTimers — deactivate an
+// enemy bullet (state at +0x446 = 0) and reset its two FrameTimers (+0x3F8 and
+// +0x40C).
 //
-// Retail enters this member with the player record in EAX, a convention no C++
+// Retail enters this member with the bullet record in EAX, a convention no C++
 // declaration names, so the body is compiled in the native-LTCG cluster
 // build_support/layout/ltcg/player_scheduler_links.json, whose synthetic caller
 // walks an array of records and leaves the receiver in EAX.
 //
 // Each link is the same previous/current/elapsed/speed/flags timer block the
 // score timer (src/game/title/title_disable_timer_with_owner.cpp) and the recovery state
-// (src/game/pause/result_reset_timed_state.cpp) carry: current and
+// (src/game/pause/pause_reset_resume_state.cpp) carry: current and
 // elapsed are cleared, previous takes the inactive sentinel -1, and while the
 // block is not yet running the countdown is armed with 0xFFF0BDC1 and the
 // shared float g_game_speed as its speed before the running bit is raised.
@@ -28,7 +30,7 @@
 //  * the shared pointer value keeps all three in front of that load: 0.
 extern "C" float g_game_speed;
 
-struct Player2 {
+struct BulletTimerResetView {
     unsigned char unknown_0000[0x3F8];
     int link_1_previous;         // +0x3F8
     int link_1_current;          // +0x3FC
@@ -43,11 +45,11 @@ struct Player2 {
     unsigned char unknown_0420[0x26];
     unsigned short marker;       // +0x446
 
-    __declspec(noinline) void ResetSchedulerLinks();
+    __declspec(noinline) void ResetTimers();
 };
 
 #pragma code_seg(".text$01accessor")
-void Player2::ResetSchedulerLinks() {
+void BulletTimerResetView::ResetTimers() {
     unsigned short* record = &marker;
     record[0] = 0;
     if ((link_1_flags & 1) == 0) {

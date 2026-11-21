@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "name": "stage_score_display",
-  "source": "src/game/front/stage_score_display.cpp",
+  "source": "src/game/front/front_dialogue_construct.cpp",
   "driver": "build_support/layout/ltcg/stage_score_display_00415b00_context.cpp",
   "headers": [
     "include/th10/game/entity.hpp",
@@ -19,7 +19,7 @@
   "functions": [
     {
       "name": "StageScoreDisplay_Construct",
-      "symbol": "??0StageScoreDisplay@@QAE@PBX@Z",
+      "symbol": "??0FrontDialogue@@QAE@PBX@Z",
       "section": ".text$00415b00_fn",
       "address": "0x00415B00",
       "size": 683,

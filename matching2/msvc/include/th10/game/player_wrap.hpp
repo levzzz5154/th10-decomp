@@ -20,7 +20,7 @@ struct PlayerWrapBounds {
     float extent_34;
 };
 
-struct PlayerWrapHorizontalState {
+struct BulletExWrapState {
     unsigned char reserved_000[0x39C];
     PlayerWrapBounds* bounds_39C;
     unsigned char reserved_3A0[0x14];

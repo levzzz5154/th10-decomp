@@ -7,7 +7,7 @@ extern "C" {
 void* __fastcall SprtCtrl_LoadCachedResource(
     int index, BulletResourceCache* cache, const char* name);
 SchedulerTask* __stdcall SchedulerTask_Create(TaskRoutine routine);
-int __stdcall ScoreTask_Setup(void* state);
+int __stdcall Front_LoadStageResources(void* state);
 extern BulletResourceCache* g_sprt_ctrl;
 extern FuncCtrl* g_func_ctrl;
 extern TextLog g_log;
@@ -27,7 +27,7 @@ Front_RegisterTasks(FrontTaskView* state) {
         g_log.Append(str_data_corrupted);
         return -1;
     }
-    if (ScoreTask_Setup(state) != 0)
+    if (Front_LoadStageResources(state) != 0)
         return -1;
 
     SchedulerTask* update = SchedulerTask_Create(

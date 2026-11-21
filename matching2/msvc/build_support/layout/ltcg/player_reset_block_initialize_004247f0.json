@@ -50,7 +50,7 @@
     },
     {
       "name": "ParameterLoad",
-      "symbol": "?Load@ParameterLoader@@QAEHPBD@Z",
+      "symbol": "?Load@PlayerShotLoader@@QAEHPBD@Z",
       "section": ".text$a11body",
       "address": "0x426520",
       "size": 229
@@ -481,22 +481,22 @@
       "kind": "data"
     },
     {
-      "symbol": "_g_music_room_commands",
+      "symbol": "_g_shot_on_fire_table",
       "address": "0x47476c",
       "kind": "data"
     },
     {
-      "symbol": "_g_music_room_easings",
+      "symbol": "_g_shot_on_update_table",
       "address": "0x474778",
       "kind": "data"
     },
     {
-      "symbol": "_g_music_room_variable_map",
+      "symbol": "_g_shot_extra_table",
       "address": "0x491bf4",
       "kind": "data"
     },
     {
-      "symbol": "_g_music_room_callback_map",
+      "symbol": "_g_shot_skip_hit_table",
       "address": "0x491bf8",
       "kind": "data"
     },

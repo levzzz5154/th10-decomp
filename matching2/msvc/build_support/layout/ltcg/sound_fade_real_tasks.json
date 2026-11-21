@@ -360,7 +360,7 @@
   "anchors": [
     {
       "name": "ScoreOwnedDestroy",
-      "symbol": "?ScoreOwnedObject_Destroy@@YGXPAUScoreOwnedObject@@@Z",
+      "symbol": "?Ending_Delete@@YGXPAUEndingObject@@@Z",
       "section": ".text$00a_score_destroy",
       "address": "0x0040B9D0",
       "size": 18

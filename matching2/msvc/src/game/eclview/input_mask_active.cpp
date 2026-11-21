@@ -24,7 +24,7 @@
 
 struct KeyRepeatState {
     unsigned char  unknown_00[4];
-    unsigned short pressed;     // +0x04, see src/game/eclview/score.cpp
+    unsigned short pressed;     // +0x04, see src/game/eclview/key_repeat_update.cpp
     unsigned short unknown_06;  // +0x06
     __declspec(noinline) int InputMaskActive(unsigned short mask);
 };

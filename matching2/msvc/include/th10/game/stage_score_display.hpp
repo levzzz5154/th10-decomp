@@ -93,7 +93,7 @@ struct SlotVector {
     SlotVector() {}
     SlotVector(float x_,float y_,float z_) : x(x_),y(y_),z(z_) {}
 };
-struct StageScoreDisplay {
+struct FrontDialogue {
     int id;
     SlotTimer first, second, third;
     unsigned reserved40[3];
@@ -102,12 +102,12 @@ struct StageScoreDisplay {
     const void* definition;
     SlotVector radius, region;
     unsigned reserved78[2], field80, field84, color_a, color_b;
-    __declspec(noinline) StageScoreDisplay(const void* definition);
+    __declspec(noinline) FrontDialogue(const void* definition);
 };
-typedef char StageScoreDisplaySize[sizeof(StageScoreDisplay)==0x90?1:-1];
+typedef char StageScoreDisplaySize[sizeof(FrontDialogue)==0x90?1:-1];
 
 #define DISPLAY_OFFSET(field, value) \
-    typedef char Display_##field##_offset[offsetof(StageScoreDisplay, field) == value ? 1 : -1]
+    typedef char Display_##field##_offset[offsetof(FrontDialogue, field) == value ? 1 : -1]
 DISPLAY_OFFSET(first, 0x4);
 DISPLAY_OFFSET(second, 0x18);
 DISPLAY_OFFSET(third, 0x2C);

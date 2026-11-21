@@ -52,8 +52,8 @@
     },
     {
       "name": "ParameterLoader_Load",
-      "source": "src/game/player/music_room.cpp",
-      "symbol": "?Load@ParameterLoader@@QAEHPBD@Z",
+      "source": "src/game/player/player_load_shot_type.cpp",
+      "symbol": "?Load@PlayerShotLoader@@QAEHPBD@Z",
       "section": ".text$02zparameter",
       "address": "0x00426520",
       "size": 229,
@@ -88,8 +88,8 @@
     },
     {
       "name": "ScoreTask_Setup",
-      "source": "src/game/front/score_tasks.cpp",
-      "symbol": "_ScoreTask_Setup@4",
+      "source": "src/game/front/front_load_resources.cpp",
+      "symbol": "_Front_LoadStageResources@4",
       "section": ".text$02xscore",
       "address": "0x00413A20",
       "size": 289,
@@ -310,22 +310,22 @@
       "kind": "data"
     },
     {
-      "symbol": "_g_music_room_commands",
+      "symbol": "_g_shot_on_fire_table",
       "address": "0x0047476C",
       "kind": "data"
     },
     {
-      "symbol": "_g_music_room_easings",
+      "symbol": "_g_shot_on_update_table",
       "address": "0x00474778",
       "kind": "data"
     },
     {
-      "symbol": "_g_music_room_variable_map",
+      "symbol": "_g_shot_extra_table",
       "address": "0x00491BF4",
       "kind": "data"
     },
     {
-      "symbol": "_g_music_room_callback_map",
+      "symbol": "_g_shot_skip_hit_table",
       "address": "0x00491BF8",
       "kind": "data"
     },
@@ -428,20 +428,20 @@
   "additional_sources": [
     "src/game/enemy/enemy_script_file_load.cpp",
     "src/unreferenced/fun_43e9d0.cpp",
-    "src/game/player/music_room.cpp",
+    "src/game/player/player_load_shot_type.cpp",
     "src/core/midilib/midi_load_track.cpp",
     "src/game/background/background_load.cpp",
-    "src/game/front/score_tasks.cpp",
+    "src/game/front/front_load_resources.cpp",
     "src/unreferenced/unassigned_43d670.cpp",
     "src/core/sound/sound_load_pending_slot.cpp"
   ],
   "roots": [
     "?Load@ScriptFileLoader@@QAEHPBD@Z",
-    "_ScoreTask_Setup@4"
+    "_Front_LoadStageResources@4"
   ],
   "driver": "build_support/layout/ltcg/archive_callers_context.cpp",
   "context": {
-    "symbol": "?ArchiveCallersContext@@YGHPAPAUAssetBuffer@@PAPBDPAPAUMapResource@@PAPAUParameterLoader@@PAPAUSoundManager2@@PBDHPAPAUBackGround@@@Z",
+    "symbol": "?ArchiveCallersContext@@YGHPAPAUAssetBuffer@@PAPBDPAPAUMapResource@@PAPAUPlayerShotLoader@@PAPAUSoundManager2@@PBDHPAPAUBackGround@@@Z",
     "section": ".text$07context",
     "address": "0x0044B500",
     "size": 203,

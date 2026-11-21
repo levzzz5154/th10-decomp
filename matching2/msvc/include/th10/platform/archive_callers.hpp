@@ -10,22 +10,22 @@ struct MapResource {
     unsigned int* map;
     __declspec(noinline) void LoadMap(const char* name);
 };
-struct ParameterRecord {
+struct ShotDefinitionRecord {
     signed char kind;
     char reserved[0x24 - 1];
     unsigned int command, easing, variable, callback;
 };
-struct ParameterGroup { union { unsigned int offset; ParameterRecord* records; }; int reserved; };
-struct ParameterFile {
+struct ShotGroupEntry { union { unsigned int offset; ShotDefinitionRecord* records; }; int reserved; };
+struct ShotFileHeader {
     unsigned short version, group_count;
     char reserved[0x10 - 4];
     float width, height, projected_width, projected_height;
     char reserved_020[0x110 - 0x20];
-    ParameterGroup groups[1];
+    ShotGroupEntry groups[1];
 };
-struct ParameterLoader {
+struct PlayerShotLoader {
     char reserved[0x45C];
-    ParameterFile* file;
+    ShotFileHeader* file;
     __declspec(noinline) int Load(const char* name);
 };
 #endif

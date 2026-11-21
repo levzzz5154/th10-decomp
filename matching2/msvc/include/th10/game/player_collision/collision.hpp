@@ -5,7 +5,7 @@ struct PlayfieldPoint {
     float x, y;
     __declspec(noinline) int OutsideBounds(float horizontal_margin, float vertical_margin) const;
 };
-struct PlayerCollisionRecord {
+struct BulletCancelEntry {
     unsigned int flags;
     int countdown;
     unsigned char reserved_008[0x30c-8];
@@ -26,16 +26,16 @@ struct PlayerCollisionRecord {
     unsigned char reserved_448[0x7f0-0x448];
     __declspec(noinline) int Activate();
 };
-struct PlayerCollisionEngine {
+struct BulletCancelManager {
     unsigned char reserved_000[0x60];
-    PlayerCollisionRecord records[2000];
+    BulletCancelEntry records[2000];
     unsigned char reserved_after_records[0x3e0b50-0x60-2000*0x7f0];
     void* item_animation;
     __declspec(noinline) int Check(const Vec3* point, float radius, int spawn_item, int filter_countdown);
 };
 struct PlayerItemManager;
 extern "C" {
-extern PlayerCollisionEngine* g_bullet_manager;
+extern BulletCancelManager* g_bullet_manager;
 extern PlayerItemManager* g_item_manager;
 extern float flt_0_5;
 }
@@ -48,8 +48,8 @@ struct AnimationResourceFile {
     __declspec(noinline) void* LoadScript(Entity* object, int index);
     __declspec(noinline) AnimationRef CreateOffset(int index, const Vector3* position);
 };
-typedef char CollisionRecordSize[sizeof(PlayerCollisionRecord)==0x7f0?1:-1];
-typedef char CollisionRecordPosition[offsetof(PlayerCollisionRecord,position)==0x3b4?1:-1];
-typedef char CollisionRecordRadius[offsetof(PlayerCollisionRecord,collision_diameter)==0x3f0?1:-1];
-typedef char CollisionRecordStatus[offsetof(PlayerCollisionRecord,state)==0x446?1:-1];
-typedef char CollisionAnimationResource[offsetof(PlayerCollisionEngine,item_animation)==0x3e0b50?1:-1];
+typedef char CollisionRecordSize[sizeof(BulletCancelEntry)==0x7f0?1:-1];
+typedef char CollisionRecordPosition[offsetof(BulletCancelEntry,position)==0x3b4?1:-1];
+typedef char CollisionRecordRadius[offsetof(BulletCancelEntry,collision_diameter)==0x3f0?1:-1];
+typedef char CollisionRecordStatus[offsetof(BulletCancelEntry,state)==0x446?1:-1];
+typedef char CollisionAnimationResource[offsetof(BulletCancelManager,item_animation)==0x3e0b50?1:-1];

@@ -41,7 +41,7 @@
     },
     {
       "name": "PauseReset",
-      "symbol": "_ReplayPauseReset@4",
+      "symbol": "_Player_ResetForStage@4",
       "section": ".text$03pause",
       "address": "0x00424D90",
       "size": 273
@@ -196,6 +196,6 @@
     "build_support/layout/ltcg/replay_stage_finish_dependencies/pause_reset.cpp"
   ],
   "included_sources": [
-    "src/game/player/pause_menu_reset.cpp"
+    "src/game/player/player_reset_for_stage.cpp"
   ]
 }

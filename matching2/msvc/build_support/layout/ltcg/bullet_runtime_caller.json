@@ -6,13 +6,13 @@
     "build_support/layout/ltcg/bullet_runtime_dependencies/animation_manager_queue_resource.cpp",
     "build_support/layout/ltcg/bullet_runtime_dependencies/bullet_aim_step.cpp",
     "build_support/layout/ltcg/bullet_runtime_dependencies/bullet_bounce.cpp",
-    "src/game/bullet/player_wrap_horizontal.cpp",
+    "src/game/bullet/bullet_ex_wrap_horizontal.cpp",
     "build_support/layout/ltcg/bullet_runtime_dependencies/bullet_turn_step.cpp",
-    "src/game/bullet/player_wrap_vertical.cpp",
+    "src/game/bullet/bullet_ex_wrap_vertical.cpp",
     "build_support/layout/ltcg/bullet_runtime_dependencies/player_animation_advance_frame.cpp",
     "build_support/layout/ltcg/bullet_runtime_dependencies/field_contact.cpp",
     "build_support/layout/ltcg/bullet_runtime_dependencies/player_animation_create.cpp",
-    "src/game/bullet/player_death_shrink.cpp",
+    "src/game/bullet/bullet_ex_curve.cpp",
     "build_support/layout/ltcg/bullet_runtime_dependencies/enemy_motion_steps.cpp",
     "build_support/layout/ltcg/bullet_runtime_dependencies/sound_queue_pan.cpp",
     "src/game/bullet/bullet_ease_step.cpp",
@@ -57,30 +57,30 @@
     },
     {
       "name": "DeathShrink",
-      "symbol": "?AdvanceDeathShrink@PlayerDeathShrinkState@@QAEXXZ",
+      "symbol": "?StepCurve@BulletExCurve@@QAEXXZ",
       "section": ".text$01acdeath",
       "address": "0x004076A0",
       "size": 209,
       "actual_abi": "state in ESI; plain RET",
-      "source": "src/game/bullet/player_death_shrink.cpp"
+      "source": "src/game/bullet/bullet_ex_curve.cpp"
     },
     {
       "name": "Player_WrapHorizontal",
-      "symbol": "?WrapHorizontal@PlayerWrapHorizontalState@@QAEXXZ",
+      "symbol": "?WrapHorizontal@BulletExWrapState@@QAEXXZ",
       "section": ".text$01lwrap",
       "address": "0x00407DA0",
       "size": 148,
       "actual_abi": "object in EBX; plain RET",
-      "source": "src/game/bullet/player_wrap_horizontal.cpp"
+      "source": "src/game/bullet/bullet_ex_wrap_horizontal.cpp"
     },
     {
       "name": "Player_WrapVertical",
-      "symbol": "?WrapVertical@PlayerWrapHorizontalState@@QAEXXZ",
+      "symbol": "?WrapVertical@BulletExWrapState@@QAEXXZ",
       "section": ".text$01mvertical",
       "address": "0x00407E40",
       "size": 172,
       "actual_abi": "object in EBX; plain RET",
-      "source": "src/game/bullet/player_wrap_vertical.cpp"
+      "source": "src/game/bullet/bullet_ex_wrap_vertical.cpp"
     }
   ],
   "gaps": [
@@ -503,7 +503,7 @@
     },
     {
       "name": "AdvanceAnimationFrame",
-      "symbol": "?AdvanceAnimationFrame@PlayerAnimationState@@QAEXXZ",
+      "symbol": "?StepSpeedup@BulletExSpeedup@@QAEXXZ",
       "section": ".text$01aanimation",
       "address": "0x004074B0",
       "size": 164
@@ -517,7 +517,7 @@
     },
     {
       "name": "EffectAccel",
-      "symbol": "?Update@EffectAccel2@@QAEXXZ",
+      "symbol": "?Update@BulletExAccelerate@@QAEXXZ",
       "section": ".text$01abeffect",
       "address": "0x00407560",
       "size": 305
@@ -531,7 +531,7 @@
     },
     {
       "name": "HomeTowardTarget",
-      "symbol": "?HomeTowardTarget@PlayerHomingState@@QAEXXZ",
+      "symbol": "?HomeTowardTarget@BulletExHoming@@QAEXXZ",
       "section": ".text$02ahoming",
       "address": "0x407ef0",
       "size": 306
@@ -552,7 +552,7 @@
     },
     {
       "name": "ResetSchedulerLinks",
-      "symbol": "?ResetSchedulerLinks@Player2@@QAEXXZ",
+      "symbol": "?ResetTimers@BulletTimerResetView@@QAEXXZ",
       "section": ".text$00breset",
       "address": "0x00405BE0",
       "size": 158

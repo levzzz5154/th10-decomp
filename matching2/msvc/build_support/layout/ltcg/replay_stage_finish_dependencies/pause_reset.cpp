@@ -1,1 +1,1 @@
-#include "../../../../src/game/player/pause_menu_reset.cpp"
+#include "../../../../src/game/player/player_reset_for_stage.cpp"
