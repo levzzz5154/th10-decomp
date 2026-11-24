@@ -221,7 +221,7 @@
       "number_of_linenumbers": 0,
       "characteristics": 1073741888,
       "executable": false,
-      "source": "../../reference/data/rsrc.bin",
+      "source": "manifest:rsrc_layout.json",
       "sha256": "6b21d22ec89e8ebfd957251a2c8001dc7b36e3a34f1f0e539850d8f791673665"
     }
   ]

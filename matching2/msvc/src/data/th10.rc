@@ -1,0 +1,20 @@
+// Touhou 10 (Mountain of Faith) Win32 resources (.rsrc at 0x0049A000).
+// Built deterministically via matching2/msvc/build_support/rsrc_layout.json.
+
+#include <winresrc.h>
+
+LANGUAGE LANG_JAPANESE, SUBLANG_DEFAULT
+
+IDI_ICON3 ICON "../../build/assets/th10_icon.ico"
+
+203 DIALOGEX 0, 0, 135, 50
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | DS_CENTER | WS_POPUP | WS_CAPTION
+EXSTYLE WS_EX_TOPMOST
+CAPTION "\x8c\x8c\x95\xfb\x95\x97\x90\x5f\x98\x5e" // 東方風神録
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    DEFPUSHBUTTON   "フルスクリーン", 201, 14, 15, 50, 14
+    PUSHBUTTON      "ウィンドウ", 203, 70, 15, 50, 14
+    LTEXT           "ウィンドウモードを選択してください", IDC_STATIC, 7, 3, 120, 8
+    AUTOCHECKBOX    "起動時に毎回聞く", 202, 7, 34, 120, 10
+END
