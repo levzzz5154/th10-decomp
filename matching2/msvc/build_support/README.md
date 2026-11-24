@@ -5,13 +5,12 @@ implementations used by the default build. This directory holds the machinery
 which places that code in the retail executable:
 
 - `regions.json`: the complete `.text` partition, region ownership, compiler
-  flags, private symbol bindings, native clusters and equivalent recoveries.
+  flags, private symbol bindings, native LTCG clusters and (currently empty)
+  `equivalent_recoveries` list.
 - `pe_layout.json`: PE headers and packing; non-code payloads remain in
   `matching2/reference/data/`.
 - `layout/`: compiler profiles, native-LTCG manifests, ABI-only callers and
   helpers, and wrappers which preserve the original compiler scopes and order.
-- `exact/`: the item update's assembly counterpart, used to validate the C++
-  recovery and to build `EXACT=1`.
 - `contexts/`: unselected compiler contexts and historical model collaborators.
 - `include/`: private symbol bindings and copied ABI views.
 - `imports/` and `data/`: import thunks and embedded data. The standard DOS
@@ -31,9 +30,10 @@ MSVC sources. The build normalizes only the functions attributed to each
 maintained source, while compiling its preserved original context. Shared
 runtime declarations are exposed under `include/th10/source_views/`.
 
-Equivalent-recovery manifests name the public C++ implementations under `src/`;
-their unselected ABI collaborators stay here. Verification-cache keys cover
-project source, header and manifest contents, including these contexts.
+When equivalent recoveries are active, their manifests name the public C++
+implementations under `src/` while unselected ABI collaborators stay here.
+Verification-cache keys cover project source, header and manifest contents,
+including these contexts.
 
 ## Following a build in the tools
 

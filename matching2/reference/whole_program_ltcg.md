@@ -107,7 +107,8 @@ The existing `tools/matching/ltcg_cluster.py` supports both schema-1
 synthetic-context clusters and schema-2 real-entry batches. Schema 1 now also
 accepts explicit roots when a context must preserve an independently reachable
 public ABI. The worked manifest is
-[`platform_worker_shutdown.json`](../msvc/layout/ltcg/platform_worker_shutdown.json).
+[`worker_owner_stop.json`](../msvc/build_support/layout/ltcg/worker_owner_stop.json)
+(originally named `platform_worker_shutdown.json`).
 
 1. `source` and `additional_sources` name all maintained inputs in the batch.
    Each is compiled separately with the existing retail flags plus `/GL`.

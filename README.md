@@ -18,22 +18,22 @@ assembly, so `make verify-cpp` continues to reject this checkpoint as not assemb
 ## Building
 
 ```sh
-make             # Compile what changed; equivalent regions built from their C++
-make EXACT=1     # The same with equivalent regions from assembly: the bit-identical executable
-make rebuild     # The same, recompiling every unit from scratch
-make verify-cpp  # Require the retail file hash and no explicit assembly in maintained sources
-make progress    # Region and byte counts per kind, without building
-make abi-check   # Equivalent models must pass retail callees the same register arguments
+make                 # Incremental build of the bit-identical th10.exe
+make EXACT=1         # Same, forcing assembly fallbacks if any equivalent region is active
+make rebuild         # Recompile every unit from scratch
+make verify-cpp      # Require the retail file hash and no explicit assembly in maintained sources
+make progress        # Region and byte counts per kind, without building
+make abi-check       # Check equivalent models pass retail callees the expected register arguments
 make behavior-check  # abi-check plus the Unicorn differential tests (see below)
-make ltcg-proof  # After make, or with LTCG_ARGS='--oracle /path/to/retail.exe'
+make ltcg-proof      # After make, or with LTCG_ARGS='--oracle /path/to/retail.exe'
 ```
 
 The output is `matching2/build/msvc/th10.exe`. The build reports both the size
 of complete byte-matched regions and the number of individual game bytes that
 match at their retail offsets. The latter compares the actual relocated bytes,
-including embedded jump tables and any padding within an equivalent region;
-it does not estimate a byte percentage from instruction counts. Runtime
-libraries and padding outside game regions are excluded from both counts.
+including embedded jump tables and any padding within a region; it does not
+estimate a byte percentage from instruction counts. Runtime libraries and
+padding outside game regions are excluded from both counts.
 
 Requires Python 3.10+, Wine, MSVC 13.10.6030 with LINK 7.10.6030, GNU x86 PE
 binutils (`i686-w64-mingw32-ld`), and the pinned GCC, Clang and LLVM-MC
@@ -115,62 +115,27 @@ did. `matching2/tools/waves/adopt_crt_library.py` finds such sections; see the
 
 ## Equivalent recoveries
 
-Some functions have C++ accepted with recorded instruction differences, such
-as which of two registers is encoded as base and which as index.
-`equivalent_recoveries` in `regions.json` names a layout under
-`build_support/layout/equivalent/` for the maintained C++ under
-`matching2/msvc/src/`; the exact-only assembly lives under
-`build_support/exact/`.
+All 2,322 game-code regions are currently byte-exact (`equivalent_recoveries` in
+`regions.json` is empty). The build and verification pipeline still supports
+equivalent C++ recoveries when developing or bisecting a region: an equivalent
+layout under `build_support/layout/equivalent/` is checked instruction by
+instruction against retail by [`equivalence.py`](matching2/tools/matching/equivalence.py)
+and audited for call-site register conventions by `make abi-check`. Once a model
+matches retail byte for byte, it is promoted to a native LTCG cluster and its
+equivalent layout and assembly fallback are removed (see
+[the 0x0042E5A0 promotion](matching2/reference/recovery_notes/options_label_refresh_0042e5a0_exact_2026_10_16.md)).
 
-Every `make` first links the whole image from exact sources (the region's
-assembly included) and requires the retail `.text` hash, then compiles the
-C++, relocates it to the region's address and compares it with the exact bytes
-instruction by instruction. Base/index swaps are accepted by rule and counted;
-every other difference must be listed verbatim in the layout with a reviewed
-class, and any drift fails the build. Listing a difference does not make it
-acceptable: the build fails when the C++ calls a function or names an image
-address that retail does not (or the reverse), when a difference swaps one
-callee for another, when a difference of a tie-break class changes calls or
-branches, or when the differences exceed their budget (structural classes —
-`block-order`, `branch-target`, `code-shape` — over an eighth of the region's
-instructions; all classes over a third).
+## Validating the build
 
-A model outside those limits is a draft: its layout stays under
-`build_support/layout/equivalent/` without an `equivalent_recoveries` entry and
-is neither built nor counted.
-`python3 matching2/tools/matching/equivalence.py --layout build_support/layout/equivalent/<name>.json`
-prints its differences and what keeps it out; `--record` prints the current
-differences when preparing a layout. The gate does not prove that a call site
-loads the registers its callee expects, so a model's link context must carry
-the callee bodies that give retail's private conventions; `make abi-check`
-catches the cases where it does not.
-
-An equivalent model with no recorded differences can still differ from retail
-in its bytes, because the gate accepts a branch to an identical copy of the
-same tail. Once the relocated model matches retail byte for byte, it is
-promoted: an LTCG cluster selects it with the model's context as anchors, its
-region becomes `semantic`, and the equivalent layout and assembly are removed.
-See [the 0x0042E5A0 promotion](matching2/reference/recovery_notes/options_label_refresh_0042e5a0_exact_2026_10_16.md).
-
-## Validating the default build
-
-The instruction comparison is a structural check, not proof of gameplay
-equivalence. Every runtime failure found so far sat at a seam between a C++
-model and the retail code around it: a helper called with the wrong register
-convention, a missing `ret 4`, extraction that cut instructions or a jump
-table. See
-[the investigation](matching2/reference/recovery_notes/equivalent_runtime_failures_2026_10_14.md).
-Three checks cover that:
+Beyond whole-image byte verification, three behavioral checks guard against
+regressions during refactoring:
 
 * `make abi-check` (`matching2/tools/matching/callsite_abi.py`, needs
-  `capstone`) pairs each model's calls into retail code with retail's and
-  compares where every register argument comes from. Cases reviewed by hand as
-  passing the same value are listed with their reason in
-  `callsite_abi_reviewed.json`.
-* `make behavior-check` also runs Unicorn differential tests for the installed
-  item update, replay submenu and high-score keyboard. The keyboard test runs
-  all 91 grid cells against retail, including editing a full name, the input-delay
-  boundary and saving a short name without overwriting bytes after its NUL:
+  `capstone`) pairs any active equivalent model's calls into retail code with
+  retail's and compares where every register argument comes from.
+* `make behavior-check` also runs Unicorn differential tests for the item
+  update (473 cases), high-score keyboard (307 cases across all 91 grid cells),
+  and replay submenu (48 cases):
 
   ```sh
   python3 -m venv matching2/build/behavior-venv
@@ -198,9 +163,9 @@ test modules when their data, helpers or unwind tables must move with the code.
 
 - `matching2/msvc/src/` and `include/`: maintained implementations and types,
   organised by ZUN's retail files; see [the source map](matching2/msvc/src/README.md).
-- `matching2/msvc/build_support/`: placement manifests, private compiler units,
-  exact-only counterparts, ABI contexts, import thunks and embedded data; see
-  [the build-support guide](matching2/msvc/build_support/README.md).
+- `matching2/msvc/build_support/`: placement manifests, native LTCG cluster
+  specs, private compiler units, ABI contexts, import thunks and embedded data;
+  see [the build-support guide](matching2/msvc/build_support/README.md).
 - `matching2/reference/recovery_notes/`: one note per recovered or parked
   region, with what moved it and what is left.
 - `matching2/reference/compiler_traces/`: gdb tracers for c2.dll internals

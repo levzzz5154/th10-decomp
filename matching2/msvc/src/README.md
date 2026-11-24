@@ -75,8 +75,8 @@ machine code stay unchanged. The old mixed `app/`, `platform/`, `render/`,
 `math/`, `archive/` and top-level `game/` sources have been split into these
 retail owners.
 
-Default-build C++ recoveries are here too. Their exact-only counterparts,
-compiler contexts, placement tables, import thunks and embedded `.text` data
+All 2,322 byte-matched game-code regions live here. Compiler contexts, LTCG
+cluster manifests, placement tables, import thunks and embedded `.text` data
 live under [`../build_support/`](../build_support/README.md). Some maintained
 files are compiled through private wrappers which preserve retail function
 order; use the top-level `make` rather than compiling folders independently.
