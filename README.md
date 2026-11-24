@@ -3,21 +3,17 @@
 C++ recovery of Touhou 10, checked against the retail `th10.exe` using the
 original MSVC 7.1 whole-program optimizer and byte comparisons.
 
-![Touhou 10: 322,056 of 322,064 game-code bytes match at their retail offsets (99.9975%); 8 bytes differ.](docs/status.svg)
+![Touhou 10: 322,064 of 322,064 game-code bytes match at their retail offsets (100%); 0 bytes differ.](docs/status.svg)
 
-**2,321 of 2,322 game-code regions match retail byte for byte.** Together they
-cover 319,744 of 322,064 game bytes (99.3%), including the entire 1,400-byte
-[high-score keyboard](matching2/reference/recovery_notes/name_entry_update_00432cb0_exact.md).
+**All 2,322 of 2,322 game-code regions match retail byte for byte.** Together they
+cover all 322,064 of 322,064 game bytes (100%), including the 2,320-byte
+[item update at `0x0041AFD0`](matching2/msvc/src/game/item/item_update.cpp) and the
+1,400-byte [high-score keyboard](matching2/reference/recovery_notes/name_entry_update_00432cb0_exact.md).
 
-The only difference in the 487,936-byte default executable is in the
-[item update at `0x0041AFD0`](matching2/msvc/src/game/item/item_update.cpp).
-Two adjacent loads occur in the opposite order: **8 bytes differ** at their
-retail offsets. The C++ implementation remains an accepted near-match:
-all 44 external call sites match, and all 473 bounded differential cases pass.
-
-Five byte-matched renderer functions still use inline x87 assembly.
-`make EXACT=1` uses the item's assembly fallback to reproduce the retail hash;
-`make verify-cpp` correctly rejects this checkpoint as not assembly-free or byte-identical.
+The default 487,936-byte executable reproduces the retail `th10.exe` hash
+(`2f14760b6fbbf57549541583283badb9a19a4222b90f0a146d5aa17f01dc9040`) with **0 differing bytes**
+and no assembly-only fallbacks. Five byte-matched renderer functions still use inline x87
+assembly, so `make verify-cpp` continues to reject this checkpoint as not assembly-free.
 
 ## Building
 

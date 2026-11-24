@@ -274,7 +274,7 @@
     "symbol": "_ItemManager_UpdateItems@4",
     "section": ".text$f0041afd0F",
     "address": "0x41afd0",
-    "size": 2340,
+    "size": 2332,
     "description": "Shared item update as the compiler context for ConvertItems, AddPower and AddLives; not selected as game code in this cluster."
   },
   "gaps": [
@@ -330,8 +330,8 @@
     },
     {
       "section": ".text$f0041ba50A",
-      "address": "0x41b8f4",
-      "size": 348
+      "address": "0x41b8ec",
+      "size": 356
     },
     {
       "section": ".text$f0041bb00A",

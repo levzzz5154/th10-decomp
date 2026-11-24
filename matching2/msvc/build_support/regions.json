@@ -16881,13 +16881,22 @@
       "kind": "padding"
     },
     {
-      "name": "asm_FUN_0041afd0_0041afd0",
-      "source": "build_support/exact/game/item/manager_factories.cpp",
-      "symbol": "_asm_FUN_0041afd0_0041afd0",
+      "name": "semantic_ItemManager_UpdateItems_0041afd0",
+      "source": "src/game/item/item_update.cpp",
+      "symbol": "_ItemManager_UpdateItems@4",
       "address": "0x0041AFD0",
       "size": 2320,
-      "kind": "asm",
-      "owner": "0x0041AFD0"
+      "kind": "semantic",
+      "owner": "0x0041AFD0",
+      "previous_record": {
+        "name": "asm_FUN_0041afd0_0041afd0",
+        "source": "build_support/exact/game/item/manager_factories.cpp",
+        "symbol": "_asm_FUN_0041afd0_0041afd0",
+        "address": "0x0041AFD0",
+        "size": 2320,
+        "kind": "asm",
+        "owner": "0x0041AFD0"
+      }
     },
     {
       "name": "semantic_ItemManager_Draw_0041b8e0",
@@ -55714,7 +55723,6 @@
     "_asm_FUN_0041adf0_0041adf0@4": "0x0041ADF0",
     "_asm_FUN_0041aed0_0041aed0": "0x0041AED0",
     "_asm_FUN_0041afb0_0041afb0": "0x0041AFB0",
-    "_asm_FUN_0041afd0_0041afd0": "0x0041AFD0",
     "_asm_FUN_0041b8e0_0041b8e0": "0x0041B8E0",
     "_asm_FUN_0041b8e0_part_0041b900": "0x0041B900",
     "_asm_FUN_0041bb00_0041bb00": "0x0041BB00",
@@ -60639,7 +60647,7 @@
     "src/core/sprtanim/animation_change_script.cpp",
     "src/core/sprtlib/anm_texture_fill_transparent_pixels.cpp",
     "src/game/enemy/enemy_execute.cpp",
-    "build_support/exact/game/item/manager_factories.cpp",
+    "src/game/item/item_update.cpp",
     "build_support/layout/ltcg/large_player_dependencies/runtime.cpp",
     "src/game/title/name_entry_update.cpp",
     "src/game/title/music_room.cpp",
@@ -63586,7 +63594,8 @@
     "build_support/layout/ltcg/player_reset_block_initialize_004247f0.json",
     "build_support/layout/ltcg/front_hud_update_00414900.json",
     "build_support/layout/ltcg/projectile_command_runtime_00406d90.json",
-    "build_support/layout/ltcg/projectile_spawn_cell_004067d0.json"
+    "build_support/layout/ltcg/projectile_spawn_cell_004067d0.json",
+    "build_support/layout/ltcg/item_update.json"
   ],
   "coff_aliases": {
     "lib/libcmt.lib/build/intel/mt_obj/exsup3.obj": {
@@ -64570,12 +64579,7 @@
     "src/script/sptcmd/polar_vector.cpp": "build_support/layout/compiler/gcc_x87_polar.json",
     "src/game/enemy/elliptic_polar_vector.cpp": "build_support/layout/compiler/gcc_x87_polar.json"
   },
-  "equivalent_recoveries": [
-    {
-      "region": "asm_FUN_0041afd0_0041afd0",
-      "layout": "build_support/layout/equivalent/item_update.json"
-    }
-  ],
+  "equivalent_recoveries": [],
   "compilation_units": {
     "src/game/ascii/entity_constructor.cpp": "build_support/layout/units/entity_cacea2.cpp",
     "src/game/bullet/bullet_slot_destruct.cpp": "build_support/layout/units/entity_cacea2.cpp",
