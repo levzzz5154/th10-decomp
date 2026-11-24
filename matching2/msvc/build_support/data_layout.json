@@ -1,0 +1,861 @@
+{
+  "schema_version": 1,
+  "name": ".data",
+  "project_root": "..",
+  "regions_manifest": "regions.json",
+  "image_base": "0x00400000",
+  "virtual_address": "0x00473000",
+  "raw_size": 16896,
+  "sha256": "203a192def522690cedf9f4c90a6fe3544c9ec5042d28e9c7a2e4cb1566c0f7c",
+  "entries": [
+    {
+      "kind": "library",
+      "library": "libcmt.lib",
+      "member": "build/intel/mt_obj/mlock.obj",
+      "section": ".data",
+      "address": "0x00473080",
+      "section_index": 2
+    },
+    {
+      "kind": "library",
+      "library": "libcmt.lib",
+      "member": "build/intel/mt_obj/setlocal.obj",
+      "section": ".data",
+      "address": "0x004731b0",
+      "relocations": {
+        "0x40": "0x00473aa4",
+        "0x50": "0x0046b1c0",
+        "0x54": "0x004739e8",
+        "0x5c": "0x004731b8"
+      },
+      "section_index": 2
+    },
+    {
+      "kind": "library",
+      "library": "libcmt.lib",
+      "member": "../build/intel/mt_obj/fpinit.obj",
+      "section": ".data",
+      "address": "0x004733a0",
+      "relocations": {
+        "0x8": "0x00456ad4",
+        "0xc": "0x00456a8b",
+        "0x10": "0x00456a8b"
+      },
+      "section_index": 2
+    },
+    {
+      "kind": "library",
+      "library": "libcmt.lib",
+      "member": "build/intel/mt_obj/dosmap.obj",
+      "section": ".data",
+      "address": "0x004733b8",
+      "section_index": 2
+    },
+    {
+      "kind": "library",
+      "library": "libcmt.lib",
+      "member": "build/intel/mt_obj/timeset.obj",
+      "section": ".data",
+      "address": "0x00473520",
+      "relocations": {
+        "0x90": "0x00473530",
+        "0x94": "0x00473570"
+      },
+      "section_index": 3
+    },
+    {
+      "kind": "library",
+      "library": "libcmt.lib",
+      "member": "build/intel/mt_obj/tzset.obj",
+      "section": ".data",
+      "address": "0x004735b8",
+      "section_index": 3
+    },
+    {
+      "kind": "library",
+      "library": "libcmt.lib",
+      "member": "build/intel/mt_obj/winxfltr.obj",
+      "section": ".data",
+      "address": "0x004735d0",
+      "section_index": 2
+    },
+    {
+      "kind": "library",
+      "library": "libcmt.lib",
+      "member": "../build/intel/mt_obj/floor.obj",
+      "section": ".data",
+      "address": "0x0047365c",
+      "section_index": 2
+    },
+    {
+      "kind": "library",
+      "library": "libcmt.lib",
+      "member": "build/intel/mt_obj/seccook.obj",
+      "section": ".data",
+      "address": "0x00473660",
+      "section_index": 2
+    },
+    {
+      "kind": "library",
+      "library": "libcmt.lib",
+      "member": "build/intel/mt_obj/crt0msg.obj",
+      "section": ".data",
+      "address": "0x00473670",
+      "relocations": {
+        "0x4": "0x0046afb8",
+        "0xc": "0x0046af8c",
+        "0x14": "0x0046af60",
+        "0x1c": "0x0046aec8",
+        "0x24": "0x0046ae9c",
+        "0x2c": "0x0046ae6c",
+        "0x34": "0x0046ae48",
+        "0x3c": "0x0046ae1c",
+        "0x44": "0x0046ade4",
+        "0x4c": "0x0046adbc",
+        "0x54": "0x0046ad84",
+        "0x5c": "0x0046ad4c",
+        "0x64": "0x0046ad24",
+        "0x6c": "0x0046ac80",
+        "0x74": "0x0046ac70",
+        "0x7c": "0x0046ac60",
+        "0x84": "0x0046ac50",
+        "0x8c": "0x0046ac4c",
+        "0x94": "0x0046ac3c"
+      },
+      "section_index": 3
+    },
+    {
+      "kind": "library",
+      "library": "libcmt.lib",
+      "member": "build/intel/mt_obj/ioinit.obj",
+      "section": ".data",
+      "address": "0x00473708",
+      "section_index": 2
+    },
+    {
+      "kind": "library",
+      "library": "libcmt.lib",
+      "member": "build/intel/mt_obj/exsup.obj",
+      "section": ".data",
+      "address": "0x0047372c",
+      "section_index": 2
+    },
+    {
+      "kind": "library",
+      "library": "libcmt.lib",
+      "member": "build/intel/mt_obj/_file.obj",
+      "section": ".data",
+      "address": "0x00473740",
+      "relocations": {
+        "0x0": "0x004981e0",
+        "0x8": "0x004981e0"
+      },
+      "section_index": 5
+    },
+    {
+      "kind": "library",
+      "library": "libcmt.lib",
+      "member": "build/intel/mt_obj/strftime.obj",
+      "section": ".data",
+      "address": "0x004739e8",
+      "relocations": {
+        "0x0": "0x0046b6fc",
+        "0x4": "0x0046b6f8",
+        "0x8": "0x0046b6f4",
+        "0xc": "0x0046b6f0",
+        "0x10": "0x0046b6ec",
+        "0x14": "0x0046b6e8",
+        "0x18": "0x0046b6e4",
+        "0x1c": "0x0046b6dc",
+        "0x20": "0x0046b6d4",
+        "0x24": "0x0046b6cc",
+        "0x28": "0x0046b6c0",
+        "0x2c": "0x0046b6b4",
+        "0x30": "0x0046b6ac",
+        "0x34": "0x0046b6a0",
+        "0x38": "0x0046b69c",
+        "0x3c": "0x0046b698",
+        "0x40": "0x0046b694",
+        "0x44": "0x0046b690",
+        "0x48": "0x0046b68c",
+        "0x4c": "0x0046b688",
+        "0x50": "0x0046b684",
+        "0x54": "0x0046b680",
+        "0x58": "0x0046b67c",
+        "0x5c": "0x0046b678",
+        "0x60": "0x0046b674",
+        "0x64": "0x0046b670",
+        "0x68": "0x0046b668",
+        "0x6c": "0x0046b65c",
+        "0x70": "0x0046b654",
+        "0x74": "0x0046b64c",
+        "0x78": "0x0046b68c",
+        "0x7c": "0x0046b644",
+        "0x80": "0x0046b63c",
+        "0x84": "0x0046b634",
+        "0x88": "0x0046b628",
+        "0x8c": "0x0046b620",
+        "0x90": "0x0046b614",
+        "0x94": "0x0046b608",
+        "0x98": "0x0046b604",
+        "0x9c": "0x0046b600",
+        "0xa0": "0x0046b5f4",
+        "0xa4": "0x0046b5e0",
+        "0xa8": "0x0046b5d4"
+      },
+      "section_index": 3
+    },
+    {
+      "kind": "library",
+      "library": "libcmt.lib",
+      "member": "build/intel/mt_obj/lconv.obj",
+      "section": ".data",
+      "address": "0x00473aa0",
+      "relocations": {
+        "0x4": "0x00473aa0",
+        "0x8": "0x0047761c",
+        "0xc": "0x0047761c",
+        "0x10": "0x0047761c",
+        "0x14": "0x0047761c",
+        "0x18": "0x0047761c",
+        "0x1c": "0x0047761c",
+        "0x20": "0x0047761c",
+        "0x24": "0x0047761c",
+        "0x28": "0x0047761c",
+        "0x34": "0x00473aa4"
+      },
+      "section_index": 2
+    },
+    {
+      "kind": "library",
+      "library": "libcmt.lib",
+      "member": "build/intel/mt_obj/nlsdata1.obj",
+      "section": ".data",
+      "address": "0x00473af0",
+      "section_index": 2
+    },
+    {
+      "kind": "library",
+      "library": "libcmt.lib",
+      "member": "build/intel/mt_obj/mbctype.obj",
+      "section": ".data",
+      "address": "0x00473b00",
+      "section_index": 2
+    },
+    {
+      "kind": "library",
+      "library": "libcmt.lib",
+      "member": "../build/intel/mt_obj/intrncvt.obj",
+      "section": ".data",
+      "address": "0x00473bf8",
+      "section_index": 2
+    },
+    {
+      "kind": "library",
+      "library": "libcmt.lib",
+      "member": "build/intel/mt_obj/days.obj",
+      "section": ".data",
+      "address": "0x00473c28",
+      "section_index": 2
+    },
+    {
+      "kind": "library",
+      "library": "libcmt.lib",
+      "member": "../build/intel/mt_obj/matherr.obj",
+      "section": ".data",
+      "address": "0x00473c90",
+      "section_index": 2
+    },
+    {
+      "kind": "library",
+      "library": "libcmt.lib",
+      "member": "../build/intel/mt_obj/fpexcept.obj",
+      "section": ".data",
+      "address": "0x00473c98",
+      "relocations": {
+        "0x4": "0x0046ac04",
+        "0xc": "0x0046abf8",
+        "0x14": "0x0046f7c8",
+        "0x1c": "0x0046abfc",
+        "0x24": "0x0046c640",
+        "0x2c": "0x0046c638",
+        "0x34": "0x0046c630",
+        "0x3c": "0x0046c628",
+        "0x44": "0x0046c620",
+        "0x4c": "0x0046abc0",
+        "0x54": "0x0046c618",
+        "0x5c": "0x0046c610",
+        "0x64": "0x0046c60c",
+        "0x6c": "0x0046c608",
+        "0x74": "0x0046c604",
+        "0x7c": "0x0046abc8",
+        "0x84": "0x0046abd0",
+        "0x8c": "0x0046c5fc",
+        "0x94": "0x0046abd8",
+        "0x9c": "0x0046c5f4",
+        "0xa4": "0x0046c5ec",
+        "0xac": "0x0046c5e4",
+        "0xb4": "0x0046c5dc",
+        "0xbc": "0x0046c5d4",
+        "0xc4": "0x0046c5d0",
+        "0xcc": "0x0046c5cc",
+        "0xd4": "0x0046c5c8",
+        "0xdc": "0x0046c5c0",
+        "0xe4": "0x0046c5b4"
+      },
+      "section_index": 2
+    },
+    {
+      "kind": "library",
+      "library": "libcmt.lib",
+      "member": "../build/intel/mt_obj/huge.obj",
+      "section": ".data",
+      "address": "0x00473d80",
+      "section_index": 2
+    },
+    {
+      "kind": "library",
+      "library": "libcmt.lib",
+      "member": "../build/intel/mt_obj/fpctrl.obj",
+      "section": ".data",
+      "address": "0x00473da8",
+      "section_index": 2
+    },
+    {
+      "kind": "library",
+      "library": "libcmt.lib",
+      "member": "../build/intel/mt_obj/constpow.obj",
+      "section": ".data",
+      "address": "0x00473dc0",
+      "section_index": 2
+    },
+    {
+      "kind": "library",
+      "library": "libcmt.lib",
+      "member": "../build/intel/mt_obj/rtti.obj",
+      "section": ".data",
+      "address": "0x0047407c",
+      "relocations": {
+        "0x0": "0x0046ca54"
+      },
+      "section_index": 7
+    },
+    {
+      "kind": "library",
+      "library": "libcpmt.lib",
+      "member": "build/intel/mt_obj/string.obj",
+      "section": ".data",
+      "address": "0x00474094",
+      "relocations": {
+        "0x0": "0x0046ca54"
+      },
+      "section_index": 118
+    },
+    {
+      "kind": "library",
+      "library": "libcpmt.lib",
+      "member": "build/intel/mt_obj/string.obj",
+      "section": ".data",
+      "address": "0x004740b4",
+      "relocations": {
+        "0x0": "0x0046ca54"
+      },
+      "section_index": 137
+    },
+    {
+      "kind": "library",
+      "library": "libcpmt.lib",
+      "member": "build/intel/mt_obj/string.obj",
+      "section": ".data",
+      "address": "0x004740d4",
+      "relocations": {
+        "0x0": "0x0046ca54"
+      },
+      "section_index": 152
+    },
+    {
+      "kind": "library",
+      "library": "libcmt.lib",
+      "member": "../build/intel/mt_obj/typinfo.obj",
+      "section": ".data",
+      "address": "0x004740f8",
+      "relocations": {
+        "0x0": "0x0046ca54"
+      },
+      "section_index": 7
+    },
+    {
+      "kind": "library",
+      "library": "libcmt.lib",
+      "member": "../build/intel/mt_obj/rtti.obj",
+      "section": ".data",
+      "address": "0x00474110",
+      "relocations": {
+        "0x0": "0x0046ca54"
+      },
+      "section_index": 38
+    },
+    {
+      "kind": "library",
+      "library": "libcmt.lib",
+      "member": "../build/intel/mt_obj/rtti.obj",
+      "section": ".data",
+      "address": "0x00474128",
+      "relocations": {
+        "0x0": "0x0046ca54"
+      },
+      "section_index": 9
+    },
+    {
+      "kind": "library",
+      "library": "libcmt.lib",
+      "member": "../build/intel/mt_obj/rtti.obj",
+      "section": ".data",
+      "address": "0x00474144",
+      "relocations": {
+        "0x0": "0x0046ca54"
+      },
+      "section_index": 4
+    },
+    {
+      "kind": "library",
+      "library": "libcmt.lib",
+      "member": "../build/intel/mt_obj/87fmod.obj",
+      "section": ".data",
+      "address": "0x00477010",
+      "relocations": {
+        "0x10": "0x00463bc4",
+        "0x14": "0x004640e6",
+        "0x18": "0x0046407f",
+        "0x1c": "0x004640e6",
+        "0x20": "0x00464044",
+        "0x24": "0x004640e6",
+        "0x28": "0x0046407f",
+        "0x2c": "0x004640e6",
+        "0x30": "0x0046407d",
+        "0x34": "0x0046407d",
+        "0x38": "0x004640a7",
+        "0x3c": "0x0046407d",
+        "0x40": "0x004640e6",
+        "0x44": "0x004640e6",
+        "0x48": "0x0046407f",
+        "0x4c": "0x004640e6"
+      },
+      "section_index": 2
+    },
+    {
+      "kind": "library",
+      "library": "libcmt.lib",
+      "member": "../build/intel/mt_obj/acos.obj",
+      "section": ".data",
+      "address": "0x00477060",
+      "section_index": 2
+    },
+    {
+      "kind": "library",
+      "library": "libcmt.lib",
+      "member": "../build/intel/mt_obj/87disp.obj",
+      "section": ".data",
+      "address": "0x00477070",
+      "section_index": 2
+    },
+    {
+      "kind": "library",
+      "library": "libcmt.lib",
+      "member": "../build/intel/mt_obj/adj_fdiv.obj",
+      "section": ".data",
+      "address": "0x004770a0",
+      "relocations": {
+        "0x5e": "0x00464234",
+        "0x62": "0x0046423a",
+        "0x66": "0x0046423f",
+        "0x6a": "0x00464245",
+        "0x6e": "0x0046424a",
+        "0x72": "0x00464250",
+        "0x76": "0x00464256",
+        "0x7a": "0x0046425c",
+        "0x7e": "0x00464262",
+        "0x82": "0x0046427e",
+        "0x86": "0x00464283",
+        "0x8a": "0x00464299",
+        "0x8e": "0x0046429e",
+        "0x92": "0x004642ba",
+        "0x96": "0x004642ca",
+        "0x9a": "0x004642de",
+        "0x9e": "0x004642ee",
+        "0xa2": "0x0046430e",
+        "0xa6": "0x00464313",
+        "0xaa": "0x0046432d",
+        "0xae": "0x00464332",
+        "0xb2": "0x00464352",
+        "0xb6": "0x00464366",
+        "0xba": "0x0046437e",
+        "0xbe": "0x00464392",
+        "0xc2": "0x004643b2",
+        "0xc6": "0x004643b7",
+        "0xca": "0x004643d1",
+        "0xce": "0x004643d6",
+        "0xd2": "0x004643f6",
+        "0xd6": "0x0046440a",
+        "0xda": "0x00464422",
+        "0xde": "0x00464436",
+        "0xe2": "0x00464456",
+        "0xe6": "0x0046445b",
+        "0xea": "0x00464475",
+        "0xee": "0x0046447a",
+        "0xf2": "0x0046449a",
+        "0xf6": "0x004644ae",
+        "0xfa": "0x004644c6",
+        "0xfe": "0x004644da",
+        "0x102": "0x004644fa",
+        "0x106": "0x004644ff",
+        "0x10a": "0x00464519",
+        "0x10e": "0x0046451e",
+        "0x112": "0x0046453e",
+        "0x116": "0x00464552",
+        "0x11a": "0x0046456a",
+        "0x11e": "0x0046457e",
+        "0x122": "0x0046459e",
+        "0x126": "0x004645a3",
+        "0x12a": "0x004645bd",
+        "0x12e": "0x004645c2",
+        "0x132": "0x004645e2",
+        "0x136": "0x004645f6",
+        "0x13a": "0x0046460e",
+        "0x13e": "0x00464622",
+        "0x142": "0x00464642",
+        "0x146": "0x00464647",
+        "0x14a": "0x00464661",
+        "0x14e": "0x00464666",
+        "0x152": "0x00464686",
+        "0x156": "0x0046469a",
+        "0x15a": "0x004646b2"
+      },
+      "section_index": 2
+    },
+    {
+      "kind": "pointer_table",
+      "address": "0x00473004",
+      "values": [
+        "0x0045f1f3",
+        "0x004658c0",
+        "0x004658f0",
+        "0x00465910",
+        "0x00465940",
+        "0x00465950",
+        "0x00465960",
+        "0x004659a0",
+        "0x004659c0",
+        "0x004659d0",
+        "0x004659e0"
+      ]
+    },
+    {
+      "kind": "pointer_table",
+      "address": "0x00473038",
+      "values": [
+        "0x00452daa",
+        "0x00458b53",
+        "0x00459fad",
+        "0x0045d2ac",
+        "0x00463aaa"
+      ]
+    },
+    {
+      "kind": "pointer_table",
+      "address": "0x00473054",
+      "values": [
+        "0x0045a056"
+      ]
+    },
+    {
+      "kind": "pointer_table",
+      "address": "0x00473060",
+      "values": [
+        "0x00463abd"
+      ]
+    },
+    {
+      "kind": "pointer_table",
+      "address": "0x00473070",
+      "values": [
+        "0x004576fd",
+        "0x00000002",
+        "0x00000010"
+      ]
+    },
+    {
+      "kind": "pointer_table",
+      "address": "0x004731a0",
+      "values": [
+        "0x0046a7fc",
+        "0x0046a7ec",
+        "0x00455693"
+      ]
+    },
+    {
+      "kind": "pointer_table",
+      "address": "0x00473348",
+      "values": [
+        "0x0046a9e0",
+        "0x00000000",
+        "0x0045598d",
+        "0x0046a9d4",
+        "0x004731b0",
+        "0x0045bd72",
+        "0x0046a9c8",
+        "0x004731b0",
+        "0x0045bb33",
+        "0x0046a9bc",
+        "0x004731b0",
+        "0x0045b8f4",
+        "0x0046a9b0",
+        "0x004731b0",
+        "0x0045b61b",
+        "0x0046a9a8",
+        "0x004731b0",
+        "0x0045b52a",
+        "0xffffffff",
+        "0x00000000"
+      ]
+    },
+    {
+      "kind": "pointer_table",
+      "address": "0x00473658",
+      "values": [
+        "0x0045e3a0"
+      ]
+    },
+    {
+      "kind": "pointer_table",
+      "address": "0x004739c0",
+      "values": [
+        "0x0045fdaf",
+        "0x0045fdaf",
+        "0x0045fdaf",
+        "0x0045fdaf",
+        "0x0045fdaf",
+        "0x0045fdaf",
+        "0x0046b1c0",
+        "0x0046b3c2",
+        "0x004739e8"
+      ]
+    },
+    {
+      "kind": "pointer_table",
+      "address": "0x00473ae0",
+      "values": [
+        "0x00000001"
+      ]
+    },
+    {
+      "kind": "pointer_table",
+      "address": "0x00473d88",
+      "values": [
+        "0x00000000",
+        "0xfff80000",
+        "0xffffffff",
+        "0x7fefffff",
+        "0x00000000",
+        "0x00100000",
+        "0x00000000",
+        "0x80000000"
+      ]
+    },
+    {
+      "kind": "pointer_table",
+      "address": "0x004740f4",
+      "values": [
+        "0x00463a5c"
+      ]
+    },
+    {
+      "kind": "pointer_table",
+      "address": "0x00474164",
+      "values": [
+        "0x00463a5c"
+      ]
+    },
+    {
+      "kind": "cpp",
+      "source": "src/data/game_data.cpp",
+      "placements": [
+        {
+          "section": ".d01",
+          "address": "0x00474170",
+          "size": 112
+        },
+        {
+          "section": ".d02",
+          "address": "0x004741e0",
+          "size": 112
+        },
+        {
+          "section": ".d03",
+          "address": "0x00474250",
+          "size": 112
+        },
+        {
+          "section": ".d04",
+          "address": "0x004742c0",
+          "size": 108
+        },
+        {
+          "section": ".d05",
+          "address": "0x0047432c",
+          "size": 36
+        },
+        {
+          "section": ".d06",
+          "address": "0x00474350",
+          "size": 64
+        },
+        {
+          "section": ".d07",
+          "address": "0x00474390",
+          "size": 32
+        },
+        {
+          "section": ".d08",
+          "address": "0x004743b0",
+          "size": 16
+        },
+        {
+          "section": ".d09",
+          "address": "0x004743c0",
+          "size": 112
+        },
+        {
+          "section": ".d10",
+          "address": "0x00474430",
+          "size": 16
+        },
+        {
+          "section": ".d11",
+          "address": "0x00474440",
+          "size": 52
+        },
+        {
+          "section": ".d12",
+          "address": "0x00474474",
+          "size": 32
+        },
+        {
+          "section": ".d13",
+          "address": "0x00474494",
+          "size": 24
+        },
+        {
+          "section": ".d14",
+          "address": "0x004744b0",
+          "size": 552
+        },
+        {
+          "section": ".d15",
+          "address": "0x004746d8",
+          "size": 148
+        },
+        {
+          "section": ".d16",
+          "address": "0x0047476c",
+          "size": 28
+        },
+        {
+          "section": ".d17",
+          "address": "0x00474788",
+          "size": 384
+        },
+        {
+          "section": ".d18",
+          "address": "0x00474908",
+          "size": 12
+        },
+        {
+          "section": ".d19",
+          "address": "0x00474918",
+          "size": 144
+        },
+        {
+          "section": ".d20",
+          "address": "0x004749a8",
+          "size": 4
+        },
+        {
+          "section": ".d21",
+          "address": "0x004749c0",
+          "size": 4
+        },
+        {
+          "section": ".d22",
+          "address": "0x004749c8",
+          "size": 632
+        },
+        {
+          "section": ".d23",
+          "address": "0x00474c54",
+          "size": 4
+        },
+        {
+          "section": ".d24",
+          "address": "0x00474c74",
+          "size": 4
+        },
+        {
+          "section": ".d25",
+          "address": "0x00474db0",
+          "size": 4
+        },
+        {
+          "section": ".d26",
+          "address": "0x00474dd4",
+          "size": 4
+        },
+        {
+          "section": ".d27",
+          "address": "0x00474df0",
+          "size": 64
+        },
+        {
+          "section": ".d28",
+          "address": "0x00474e88",
+          "size": 18
+        },
+        {
+          "section": ".d29",
+          "address": "0x00474ef2",
+          "size": 18
+        },
+        {
+          "section": ".d30",
+          "address": "0x00474f5c",
+          "size": 18
+        },
+        {
+          "section": ".d31",
+          "address": "0x00476f70",
+          "size": 4
+        },
+        {
+          "section": ".d32",
+          "address": "0x00476f78",
+          "size": 4
+        },
+        {
+          "section": ".d33",
+          "address": "0x00476f84",
+          "size": 28
+        },
+        {
+          "section": ".d34",
+          "address": "0x00476fa0",
+          "size": 32
+        },
+        {
+          "section": ".d35",
+          "address": "0x00476fc0",
+          "size": 76
+        }
+      ]
+    }
+  ]
+}

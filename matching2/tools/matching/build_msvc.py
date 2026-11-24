@@ -351,7 +351,8 @@ def main():
         packed.write_bytes(apply_bodies(raw, regions, bodies))
     expected_differences = sum(item['differing_bytes'] for item in equivalent) if use_cpp_models else 0
     package = build_image(layout, packed, output / 'th10.exe', dos_stub=dos_stub,
-                          expected_differing_bytes=expected_differences, oracle=oracle)
+                          expected_differing_bytes=expected_differences, oracle=oracle,
+                          toolkit=toolkit, cache_dir=output / 'noncode_cache')
     report = {
         'compiler': banner,
         'compiler_sha256': toolchain_hashes(toolkit, ('cl.exe', 'c1.dll', 'c1xx.dll', 'c2.dll')),

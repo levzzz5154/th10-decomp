@@ -206,7 +206,7 @@
       "number_of_linenumbers": 0,
       "characteristics": 3221225536,
       "executable": false,
-      "source": "../../reference/data/data.bin",
+      "source": "manifest:data_layout.json",
       "sha256": "203a192def522690cedf9f4c90a6fe3544c9ec5042d28e9c7a2e4cb1566c0f7c"
     },
     {

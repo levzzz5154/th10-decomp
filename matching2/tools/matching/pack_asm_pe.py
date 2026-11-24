@@ -289,7 +289,8 @@ def _validate_layout(layout: Mapping[str, Any]) -> list[Mapping[str, Any]]:
 
 def build_image(layout_path: Path, text_path: Path, output_path: Path, *,
                 dos_stub: bytes, expected_differing_bytes: int = 0,
-                oracle: bytes | None = None) -> dict[str, Any]:
+                oracle: bytes | None = None, toolkit: Path | None = None,
+                cache_dir: Path | None = None) -> dict[str, Any]:
     """Package the checked .text. An explicit oracle verifies the entire file.
 
     Only the caller's already-verified equivalent bodies may contribute
@@ -337,7 +338,18 @@ def build_image(layout_path: Path, text_path: Path, output_path: Path, *,
             source = section.get("source")
             if not isinstance(source, str) or source == "input.text":
                 raise PackError(f"non-code section {name} has no versioned data source")
-            payload = _read_asset(layout_path, source, size, str(section.get("sha256")))
+            if source.startswith("manifest:"):
+                from matching2.tools.matching.noncode_sections import build_section
+                manifest_path = (layout_path.parent / source[len("manifest:"):]).resolve()
+                payload = build_section(manifest_path, toolkit=toolkit, cache_dir=cache_dir, oracle=oracle)
+                if len(payload) != size:
+                    raise PackError(f"section {name} manifest produced {len(payload)} bytes; expected {size}")
+                expected_hash = str(section.get("sha256"))
+                actual_hash = _sha256(payload)
+                if actual_hash != expected_hash:
+                    raise PackError(f"section {name} hash mismatch: expected {expected_hash}, got {actual_hash}")
+            else:
+                payload = _read_asset(layout_path, source, size, str(section.get("sha256")))
         image[start:start + size] = payload
 
     actual_image_hash = _sha256(image)
