@@ -14,7 +14,8 @@ Scripts under `matching2/tools/` fall into two groups: active build/verification
 | `matching/progress.py` | `make progress` and `make verify-cpp` region/byte reporting and inline-assembly audit. |
 | `matching/unit_cache.py` | Content-addressed per-unit build cache (`matching2/build/msvc/cache/`). |
 | `matching/_llvm_coff.py`, `gcc_llvm_backend.py`, `clang_llvm_backend.py` | Pinned GCC/Clang/LLVM-MC backends for the 9 optional-compiler sources in `regions.json`. |
-| `matching/pack_asm_pe.py` | Packages the verified `.text` image with preserved non-code sections (`pe_layout.json`). |
+| `matching/noncode_sections.py` | Reconstructs `.data`, `.rdata`, and `.rsrc` from `data_layout.json`, `rdata_layout.json`, and `rsrc_layout.json` (compiled C++ data units, MSVC 7.1 toolkit CRT libraries, declarative import tables, and Win32 resources). |
+| `matching/pack_asm_pe.py` | Packages the verified `.text` image and reconstructed non-code sections with declarative DOS/Rich/PE headers (`pe_layout.json`). |
 | `matching/experiment_ltcg.py` | `make ltcg-proof`: reproduces positive/negative LTCG compiler controls. |
 | `common/coff.py`, `coff_regions.py`, `library.py`, `pe.py`, `project_paths.py`, `wine.py` | Shared COFF/PE readers, region normalization, toolkit library extraction and Wine execution helpers. |
 

@@ -7,8 +7,14 @@ which places that code in the retail executable:
 - `regions.json`: the complete `.text` partition, region ownership, compiler
   flags, private symbol bindings, native LTCG clusters and (currently empty)
   `equivalent_recoveries` list.
-- `pe_layout.json`: PE headers and packing; non-code payloads remain in
-  `matching2/reference/data/`.
+- `pe_layout.json`: declarative PE, DOS, and Rich headers plus section layout;
+  references `data_layout.json`, `rdata_layout.json`, and `rsrc_layout.json`
+  (zero committed retail `.bin` blobs).
+- `data_layout.json`, `rdata_layout.json`, `rsrc_layout.json`: manifests for
+  reconstructing `.data`, `.rdata`, and `.rsrc` from `src/data/` C++ sources,
+  MSVC 7.1 toolkit CRT libraries, declarative import/resource tables, and the
+  local gitignored icon asset (`matching2/build/assets/th10_icon.ico` or
+  `--verify` oracle).
 - `layout/`: compiler profiles, native-LTCG manifests, ABI-only callers and
   helpers, and wrappers which preserve the original compiler scopes and order.
 - `contexts/`: unselected compiler contexts and historical model collaborators.

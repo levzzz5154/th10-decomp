@@ -11,9 +11,13 @@ cover all 322,064 of 322,064 game bytes (100%), including the 2,320-byte
 1,400-byte [high-score keyboard](matching2/reference/recovery_notes/name_entry_update_00432cb0_exact.md).
 
 The default 487,936-byte executable reproduces the retail `th10.exe` hash
-(`2f14760b6fbbf57549541583283badb9a19a4222b90f0a146d5aa17f01dc9040`) with **0 differing bytes**
-and no assembly-only fallbacks. Five byte-matched renderer functions still use inline x87
-assembly, so `make verify-cpp` continues to reject this checkpoint as not assembly-free.
+(`2f14760b6fbbf57549541583283badb9a19a4222b90f0a146d5aa17f01dc9040`) with **0 differing bytes**,
+no assembly-only fallbacks, and **zero stitched retail `.bin` blobs** committed in Git
+(the DOS/Rich headers, `.data`, `.rdata`, and `.rsrc` sections are reconstructed from C++
+sources, MSVC 7.1 toolkit libraries, and declarative manifests; the 32×32 icon bitmap is
+supplied locally via `matching2/build/assets/th10_icon.ico` or `--verify /path/to/th10.exe`).
+Five byte-matched renderer functions still use inline x87 assembly, so `make verify-cpp`
+continues to reject this checkpoint as not assembly-free.
 
 ## Building
 
@@ -161,16 +165,17 @@ test modules when their data, helpers or unwind tables must move with the code.
 
 ## Repository layout
 
-- `matching2/msvc/src/` and `include/`: maintained implementations and types,
-  organised by ZUN's retail files; see [the source map](matching2/msvc/src/README.md).
-- `matching2/msvc/build_support/`: placement manifests, native LTCG cluster
-  specs, private compiler units, ABI contexts, import thunks and embedded data;
-  see [the build-support guide](matching2/msvc/build_support/README.md).
+- `matching2/msvc/src/` and `include/`: maintained implementations, data tables
+  (`src/data/`), and types, organised by ZUN's retail files; see
+  [the source map](matching2/msvc/src/README.md).
+- `matching2/msvc/build_support/`: placement manifests (`regions.json`,
+  `pe_layout.json`, `data_layout.json`, `rdata_layout.json`, `rsrc_layout.json`),
+  native LTCG cluster specs, private compiler units, ABI contexts, import thunks
+  and embedded data; see [the build-support guide](matching2/msvc/build_support/README.md).
 - `matching2/reference/recovery_notes/`: one note per recovered or parked
   region, with what moved it and what is left.
 - `matching2/reference/compiler_traces/`: gdb tracers for c2.dll internals
   (register allocation, scheduling, flow graph, stack packing, operand order).
-- `matching2/reference/data/`: preserved non-code executable bytes.
 - `matching2/reference/legacy_semantic/`: archived runtime-oriented C++ models
   for reverse-engineering reference; not build inputs.
 - `matching2/tools/`: compiler, linker, byte verification and progress tools; see
