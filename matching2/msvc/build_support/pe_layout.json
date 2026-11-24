@@ -16,7 +16,14 @@
     "size": 288,
     "sha256": "531ba79310dbcdadc07376d5ba29f720d899ffb5dd0593c921c8eb32e6276f80",
     "header": {
-      "path": "../../reference/data/dos_header.bin",
+      "e_magic": 23117,
+      "e_cblp": 144,
+      "e_cp": 3,
+      "e_cparhdr": 4,
+      "e_maxalloc": 65535,
+      "e_sp": 184,
+      "e_lfarlc": 64,
+      "e_lfanew": 288,
       "size": 64,
       "sha256": "c4bfe3c9fa083643c55a84e22d1e46201fc3aba7cf52ccfb25d517cf1b82da05"
     },
@@ -27,7 +34,24 @@
       "description": "Standard DOS compatibility program and message supplied by the PE linker."
     },
     "rich_metadata": {
-      "path": "../../reference/data/rich_metadata.bin",
+      "records": [
+        { "prod_id": 96, "build": 6030, "count": 15 },
+        { "prod_id": 105, "build": 2067, "count": 3 },
+        { "prod_id": 15, "build": 6030, "count": 33 },
+        { "prod_id": 95, "build": 6030, "count": 131 },
+        { "prod_id": 95, "build": 2179, "count": 2 },
+        { "prod_id": 28, "build": 9178, "count": 1 },
+        { "prod_id": 93, "build": 2067, "count": 2 },
+        { "prod_id": 96, "build": 4035, "count": 1 },
+        { "prod_id": 93, "build": 2179, "count": 8 },
+        { "prod_id": 1, "build": 0, "count": 187 },
+        { "prod_id": 93, "build": 4035, "count": 9 },
+        { "prod_id": 95, "build": 4035, "count": 2 },
+        { "prod_id": 100, "build": 6030, "count": 52 },
+        { "prod_id": 94, "build": 3052, "count": 1 },
+        { "prod_id": 90, "build": 6030, "count": 1 }
+      ],
+      "trailing_zeros": 16,
       "size": 160,
       "sha256": "5e159fecccb624f46066905d1d19ea4ec33354a2e702cb24713da22ae63b38ea",
       "description": "Rich signature, product records, and explicit zero padding through e_lfanew."

@@ -127,13 +127,71 @@ def _pack_section(section: Mapping[str, Any]) -> bytes:
     return struct.pack("<8sIIIIIIHHI", encoded_name.ljust(8, b"\0"), *fields)
 
 
+def _rol32(value: int, shift: int) -> int:
+    shift &= 31
+    return ((value << shift) | (value >> (32 - shift))) & 0xFFFFFFFF
+
+
+def _pack_dos_header(spec: Mapping[str, Any]) -> bytes:
+    words = [0] * 30
+    field_offsets = {
+        "e_magic": 0, "e_cblp": 1, "e_cp": 2, "e_crlc": 3, "e_cparhdr": 4,
+        "e_minalloc": 5, "e_maxalloc": 6, "e_ss": 7, "e_sp": 8, "e_csum": 9,
+        "e_ip": 10, "e_cs": 11, "e_lfarlc": 12, "e_ovno": 13,
+        "e_oemid": 18, "e_oeminfo": 19,
+    }
+    for name, idx in field_offsets.items():
+        if name in spec:
+            words[idx] = _integer(spec[name], f"dos_prefix.header.{name}")
+    e_lfanew = _integer(spec.get("e_lfanew"), "dos_prefix.header.e_lfanew")
+    return struct.pack("<30HI", *words, e_lfanew)
+
+
+def _pack_rich_metadata(spec: Mapping[str, Any], dos_header: bytes, dos_stub: bytes) -> bytes:
+    records = spec.get("records")
+    if not isinstance(records, list) or not records:
+        raise PackError("dos_prefix.rich_metadata.records must be a non-empty list")
+    prefix = dos_header + dos_stub
+    checksum = len(prefix)
+    for idx, byte in enumerate(prefix):
+        if 0x3C <= idx < 0x40:
+            continue
+        checksum = (checksum + _rol32(byte, idx)) & 0xFFFFFFFF
+    clear = bytearray(b"DanS" + b"\0" * 12)
+    for idx, entry in enumerate(records):
+        if not isinstance(entry, Mapping):
+            raise PackError(f"dos_prefix.rich_metadata.records[{idx}] must be an object")
+        prod_id = _integer(entry.get("prod_id"), f"dos_prefix.rich_metadata.records[{idx}].prod_id")
+        build = _integer(entry.get("build"), f"dos_prefix.rich_metadata.records[{idx}].build")
+        count = _integer(entry.get("count"), f"dos_prefix.rich_metadata.records[{idx}].count")
+        comp_id = (prod_id << 16) | build
+        checksum = (checksum + _rol32(comp_id, count)) & 0xFFFFFFFF
+        clear += struct.pack("<II", comp_id, count)
+    encoded = bytearray()
+    for off in range(0, len(clear), 4):
+        word = struct.unpack_from("<I", clear, off)[0]
+        encoded += struct.pack("<I", word ^ checksum)
+    trailing_zeros = _integer(spec.get("trailing_zeros", 0), "dos_prefix.rich_metadata.trailing_zeros")
+    encoded += b"Rich" + struct.pack("<I", checksum) + b"\0" * trailing_zeros
+    return bytes(encoded)
+
+
 def _build_dos_prefix(layout_path: Path, spec: Mapping[str, Any], dos_stub: bytes) -> bytes:
     header_spec = spec.get("header")
     rich_spec = spec.get("rich_metadata")
     if not isinstance(header_spec, Mapping) or not isinstance(rich_spec, Mapping):
-        raise PackError("dos_prefix requires header and rich_metadata assets")
-    header = _read_asset(layout_path, str(header_spec["path"]), _integer(header_spec["size"], "dos_prefix.header.size"),
-                         str(header_spec["sha256"]))
+        raise PackError("dos_prefix requires header and rich_metadata specs")
+    if "path" in header_spec:
+        header = _read_asset(layout_path, str(header_spec["path"]),
+                             _integer(header_spec["size"], "dos_prefix.header.size"),
+                             str(header_spec["sha256"]))
+    else:
+        header = _pack_dos_header(header_spec)
+        expected_header_size = _integer(header_spec["size"], "dos_prefix.header.size")
+        if len(header) != expected_header_size:
+            raise PackError(f"DOS header has {len(header)} bytes; expected {expected_header_size}")
+        if _sha256(header) != str(header_spec["sha256"]):
+            raise PackError(f"DOS header hash mismatch: expected {header_spec['sha256']}, got {_sha256(header)}")
     if spec["code"].get("source") != "linker.dos_stub":
         raise PackError("dos_prefix.code must come from the PE linker")
     expected_code_size = _integer(spec["code"].get("size"), "dos_prefix.code.size")
@@ -143,8 +201,17 @@ def _build_dos_prefix(layout_path: Path, spec: Mapping[str, Any], dos_stub: byte
     actual_code_hash = _sha256(dos_stub)
     if actual_code_hash != expected_code_hash:
         raise PackError(f"DOS stub hash mismatch: expected {expected_code_hash}, got {actual_code_hash}")
-    rich = _read_asset(layout_path, str(rich_spec["path"]), _integer(rich_spec["size"], "dos_prefix.rich_metadata.size"),
-                       str(rich_spec["sha256"]))
+    if "path" in rich_spec:
+        rich = _read_asset(layout_path, str(rich_spec["path"]),
+                           _integer(rich_spec["size"], "dos_prefix.rich_metadata.size"),
+                           str(rich_spec["sha256"]))
+    else:
+        rich = _pack_rich_metadata(rich_spec, header, dos_stub)
+        expected_rich_size = _integer(rich_spec["size"], "dos_prefix.rich_metadata.size")
+        if len(rich) != expected_rich_size:
+            raise PackError(f"Rich metadata has {len(rich)} bytes; expected {expected_rich_size}")
+        if _sha256(rich) != str(rich_spec["sha256"]):
+            raise PackError(f"Rich metadata hash mismatch: expected {rich_spec['sha256']}, got {_sha256(rich)}")
     prefix = header + dos_stub + rich
     expected_size = _integer(spec.get("size"), "dos_prefix.size")
     if len(prefix) != expected_size:
