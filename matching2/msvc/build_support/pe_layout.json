@@ -191,7 +191,7 @@
       "number_of_linenumbers": 0,
       "characteristics": 1073741888,
       "executable": false,
-      "source": "../../reference/data/rdata.bin",
+      "source": "manifest:rdata_layout.json",
       "sha256": "52e89c93727a0f20e09e28cd79027f5f63380a225d54584ce2f432a66a29fdfc"
     },
     {

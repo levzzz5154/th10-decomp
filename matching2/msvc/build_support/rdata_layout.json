@@ -1,0 +1,3229 @@
+{
+  "schema_version": 1,
+  "name": ".rdata",
+  "project_root": "..",
+  "regions_manifest": "regions.json",
+  "image_base": "0x00400000",
+  "virtual_address": "0x00466000",
+  "raw_size": 52224,
+  "sha256": "52e89c93727a0f20e09e28cd79027f5f63380a225d54584ce2f432a66a29fdfc",
+  "entries": [
+    {
+      "kind": "import_table",
+      "directory_va": "0x004718b8",
+      "dlls": [
+        {
+          "name": "DINPUT8.dll",
+          "name_va": "0x00471ca6",
+          "ilt_va": "0x00471980",
+          "iat_va": "0x00466000",
+          "imports": [
+            {
+              "hint": 0,
+              "name": "DirectInput8Create",
+              "hint_name_va": "0x00471c90"
+            }
+          ]
+        },
+        {
+          "name": "DSOUND.dll",
+          "name_va": "0x00471cb2",
+          "ilt_va": "0x00471988",
+          "iat_va": "0x00466008",
+          "imports": [
+            {
+              "ordinal": 11
+            }
+          ]
+        },
+        {
+          "name": "d3d9.dll",
+          "name_va": "0x00471cd0",
+          "ilt_va": "0x00471c34",
+          "iat_va": "0x004662b4",
+          "imports": [
+            {
+              "hint": 10,
+              "name": "Direct3DCreate9",
+              "hint_name_va": "0x00471cbe"
+            }
+          ]
+        },
+        {
+          "name": "d3dx9_31.dll",
+          "name_va": "0x00471e66",
+          "ilt_va": "0x00471c3c",
+          "iat_va": "0x004662bc",
+          "imports": [
+            {
+              "hint": 310,
+              "name": "D3DXVec3Normalize",
+              "hint_name_va": "0x00471cda"
+            },
+            {
+              "hint": 188,
+              "name": "D3DXLoadSurfaceFromSurface",
+              "hint_name_va": "0x00471e48"
+            },
+            {
+              "hint": 183,
+              "name": "D3DXLoadSurfaceFromFileInMemory",
+              "hint_name_va": "0x00471e26"
+            },
+            {
+              "hint": 98,
+              "name": "D3DXCreateTextureFromFileInMemoryEx",
+              "hint_name_va": "0x00471e00"
+            },
+            {
+              "hint": 313,
+              "name": "D3DXVec3Transform",
+              "hint_name_va": "0x00471dec"
+            },
+            {
+              "hint": 221,
+              "name": "D3DXMatrixRotationZ",
+              "hint_name_va": "0x00471dd6"
+            },
+            {
+              "hint": 219,
+              "name": "D3DXMatrixRotationY",
+              "hint_name_va": "0x00471dc0"
+            },
+            {
+              "hint": 203,
+              "name": "D3DXMatrixMultiply",
+              "hint_name_va": "0x00471daa"
+            },
+            {
+              "hint": 218,
+              "name": "D3DXMatrixRotationX",
+              "hint_name_va": "0x00471d94"
+            },
+            {
+              "hint": 185,
+              "name": "D3DXLoadSurfaceFromMemory",
+              "hint_name_va": "0x00471d78"
+            },
+            {
+              "hint": 93,
+              "name": "D3DXCreateTexture",
+              "hint_name_va": "0x00471d64"
+            },
+            {
+              "hint": 209,
+              "name": "D3DXMatrixPerspectiveFovLH",
+              "hint_name_va": "0x00471d46"
+            },
+            {
+              "hint": 201,
+              "name": "D3DXMatrixLookAtLH",
+              "hint_name_va": "0x00471d30"
+            },
+            {
+              "hint": 311,
+              "name": "D3DXVec3Project",
+              "hint_name_va": "0x00471d1e"
+            },
+            {
+              "hint": 312,
+              "name": "D3DXVec3ProjectArray",
+              "hint_name_va": "0x00471d06"
+            },
+            {
+              "hint": 226,
+              "name": "D3DXMatrixTranslation",
+              "hint_name_va": "0x00471cee"
+            }
+          ]
+        },
+        {
+          "name": "WINMM.dll",
+          "name_va": "0x00471f90",
+          "ilt_va": "0x00471bf0",
+          "iat_va": "0x00466270",
+          "imports": [
+            {
+              "hint": 163,
+              "name": "timeGetTime",
+              "hint_name_va": "0x00471e74"
+            },
+            {
+              "hint": 160,
+              "name": "timeEndPeriod",
+              "hint_name_va": "0x00471e82"
+            },
+            {
+              "hint": 159,
+              "name": "timeBeginPeriod",
+              "hint_name_va": "0x00471e92"
+            },
+            {
+              "hint": 38,
+              "name": "joyGetDevCapsA",
+              "hint_name_va": "0x00471f7e"
+            },
+            {
+              "hint": 42,
+              "name": "joyGetPosEx",
+              "hint_name_va": "0x00471f70"
+            },
+            {
+              "hint": 103,
+              "name": "midiOutUnprepareHeader",
+              "hint_name_va": "0x00471f56"
+            },
+            {
+              "hint": 164,
+              "name": "timeKillEvent",
+              "hint_name_va": "0x00471f46"
+            },
+            {
+              "hint": 165,
+              "name": "timeSetEvent",
+              "hint_name_va": "0x00471f36"
+            },
+            {
+              "hint": 161,
+              "name": "timeGetDevCaps",
+              "hint_name_va": "0x00471f24"
+            },
+            {
+              "hint": 89,
+              "name": "midiOutGetDevCapsA",
+              "hint_name_va": "0x00471f0e"
+            },
+            {
+              "hint": 102,
+              "name": "midiOutShortMsg",
+              "hint_name_va": "0x00471efc"
+            },
+            {
+              "hint": 96,
+              "name": "midiOutLongMsg",
+              "hint_name_va": "0x00471eea"
+            },
+            {
+              "hint": 99,
+              "name": "midiOutPrepareHeader",
+              "hint_name_va": "0x00471ed2"
+            },
+            {
+              "hint": 88,
+              "name": "midiOutClose",
+              "hint_name_va": "0x00471ec2"
+            },
+            {
+              "hint": 100,
+              "name": "midiOutReset",
+              "hint_name_va": "0x00471eb2"
+            },
+            {
+              "hint": 98,
+              "name": "midiOutOpen",
+              "hint_name_va": "0x00471ea4"
+            }
+          ]
+        },
+        {
+          "name": "KERNEL32.dll",
+          "name_va": "0x0047222c",
+          "ilt_va": "0x004719bc",
+          "iat_va": "0x0046603c",
+          "imports": [
+            {
+              "hint": 571,
+              "name": "LCMapStringW",
+              "hint_name_va": "0x00472950"
+            },
+            {
+              "hint": 570,
+              "name": "LCMapStringA",
+              "hint_name_va": "0x00472940"
+            },
+            {
+              "hint": 667,
+              "name": "RaiseException",
+              "hint_name_va": "0x0047292e"
+            },
+            {
+              "hint": 395,
+              "name": "GetOEMCP",
+              "hint_name_va": "0x00472922"
+            },
+            {
+              "hint": 245,
+              "name": "GetACP",
+              "hint_name_va": "0x00472918"
+            },
+            {
+              "hint": 565,
+              "name": "IsValidCodePage",
+              "hint_name_va": "0x00472906"
+            },
+            {
+              "hint": 567,
+              "name": "IsValidLocale",
+              "hint_name_va": "0x004728f6"
+            },
+            {
+              "hint": 165,
+              "name": "EnumSystemLocalesA",
+              "hint_name_va": "0x004728e0"
+            },
+            {
+              "hint": 364,
+              "name": "GetLocaleInfoA",
+              "hint_name_va": "0x004728ce"
+            },
+            {
+              "hint": 473,
+              "name": "GetUserDefaultLCID",
+              "hint_name_va": "0x004728b8"
+            },
+            {
+              "hint": 252,
+              "name": "GetCPInfo",
+              "hint_name_va": "0x004728ac"
+            },
+            {
+              "hint": 319,
+              "name": "GetDateFormatA",
+              "hint_name_va": "0x0047289a"
+            },
+            {
+              "hint": 470,
+              "name": "GetTimeFormatA",
+              "hint_name_va": "0x00472888"
+            },
+            {
+              "hint": 437,
+              "name": "GetStringTypeW",
+              "hint_name_va": "0x00472876"
+            },
+            {
+              "hint": 434,
+              "name": "GetStringTypeA",
+              "hint_name_va": "0x00472864"
+            },
+            {
+              "hint": 543,
+              "name": "InterlockedExchange",
+              "hint_name_va": "0x0047284e"
+            },
+            {
+              "hint": 714,
+              "name": "RtlUnwind",
+              "hint_name_va": "0x00472842"
+            },
+            {
+              "hint": 350,
+              "name": "GetFileType",
+              "hint_name_va": "0x00472834"
+            },
+            {
+              "hint": 791,
+              "name": "SetHandleCount",
+              "hint_name_va": "0x00472822"
+            },
+            {
+              "hint": 335,
+              "name": "GetEnvironmentStringsW",
+              "hint_name_va": "0x00472808"
+            },
+            {
+              "hint": 238,
+              "name": "FreeEnvironmentStringsW",
+              "hint_name_va": "0x004727ee"
+            },
+            {
+              "hint": 333,
+              "name": "GetEnvironmentStrings",
+              "hint_name_va": "0x004727d6"
+            },
+            {
+              "hint": 237,
+              "name": "FreeEnvironmentStringsA",
+              "hint_name_va": "0x004727bc"
+            },
+            {
+              "hint": 433,
+              "name": "GetStdHandle",
+              "hint_name_va": "0x004727ac"
+            },
+            {
+              "hint": 891,
+              "name": "VirtualQuery",
+              "hint_name_va": "0x0047279c"
+            },
+            {
+              "hint": 201,
+              "name": "FindFirstFileA",
+              "hint_name_va": "0x00471f9a"
+            },
+            {
+              "hint": 211,
+              "name": "FindNextFileA",
+              "hint_name_va": "0x00471fac"
+            },
+            {
+              "hint": 197,
+              "name": "FindClose",
+              "hint_name_va": "0x00471fbc"
+            },
+            {
+              "hint": 839,
+              "name": "Sleep",
+              "hint_name_va": "0x00471fc8"
+            },
+            {
+              "hint": 143,
+              "name": "EnterCriticalSection",
+              "hint_name_va": "0x00471fd0"
+            },
+            {
+              "hint": 583,
+              "name": "LeaveCriticalSection",
+              "hint_name_va": "0x00471fe8"
+            },
+            {
+              "hint": 537,
+              "name": "InitializeCriticalSection",
+              "hint_name_va": "0x00472000"
+            },
+            {
+              "hint": 122,
+              "name": "DeleteCriticalSection",
+              "hint_name_va": "0x0047201c"
+            },
+            {
+              "hint": 124,
+              "name": "DeleteFileA",
+              "hint_name_va": "0x00472034"
+            },
+            {
+              "hint": 77,
+              "name": "CreateFileA",
+              "hint_name_va": "0x00472042"
+            },
+            {
+              "hint": 782,
+              "name": "SetFilePointer",
+              "hint_name_va": "0x00472050"
+            },
+            {
+              "hint": 46,
+              "name": "CloseHandle",
+              "hint_name_va": "0x00472062"
+            },
+            {
+              "hint": 681,
+              "name": "ReadFile",
+              "hint_name_va": "0x00472070"
+            },
+            {
+              "hint": 916,
+              "name": "WriteFile",
+              "hint_name_va": "0x0047207c"
+            },
+            {
+              "hint": 347,
+              "name": "GetFileSize",
+              "hint_name_va": "0x00472088"
+            },
+            {
+              "hint": 373,
+              "name": "GetModuleFileNameA",
+              "hint_name_va": "0x00472096"
+            },
+            {
+              "hint": 96,
+              "name": "CreateProcessA",
+              "hint_name_va": "0x004720ac"
+            },
+            {
+              "hint": 338,
+              "name": "GetExitCodeProcess",
+              "hint_name_va": "0x004720be"
+            },
+            {
+              "hint": 218,
+              "name": "FindResourceA",
+              "hint_name_va": "0x004720d4"
+            },
+            {
+              "hint": 589,
+              "name": "LoadResource",
+              "hint_name_va": "0x004720e4"
+            },
+            {
+              "hint": 469,
+              "name": "GetTickCount",
+              "hint_name_va": "0x00472960"
+            },
+            {
+              "hint": 241,
+              "name": "FreeResource",
+              "hint_name_va": "0x00472104"
+            },
+            {
+              "hint": 838,
+              "name": "SizeofResource",
+              "hint_name_va": "0x00472114"
+            },
+            {
+              "hint": 663,
+              "name": "QueryPerformanceCounter",
+              "hint_name_va": "0x00472126"
+            },
+            {
+              "hint": 305,
+              "name": "GetConsoleTitleA",
+              "hint_name_va": "0x00472140"
+            },
+            {
+              "hint": 619,
+              "name": "MultiByteToWideChar",
+              "hint_name_va": "0x00472154"
+            },
+            {
+              "hint": 431,
+              "name": "GetStartupInfoA",
+              "hint_name_va": "0x0047216a"
+            },
+            {
+              "hint": 361,
+              "name": "GetLastError",
+              "hint_name_va": "0x0047217c"
+            },
+            {
+              "hint": 90,
+              "name": "CreateMutexA",
+              "hint_name_va": "0x0047218c"
+            },
+            {
+              "hint": 664,
+              "name": "QueryPerformanceFrequency",
+              "hint_name_va": "0x0047219c"
+            },
+            {
+              "hint": 105,
+              "name": "CreateThread",
+              "hint_name_va": "0x004721b8"
+            },
+            {
+              "hint": 899,
+              "name": "WaitForSingleObject",
+              "hint_name_va": "0x004721c8"
+            },
+            {
+              "hint": 73,
+              "name": "CreateEventA",
+              "hint_name_va": "0x004721de"
+            },
+            {
+              "hint": 234,
+              "name": "FormatMessageA",
+              "hint_name_va": "0x004721ee"
+            },
+            {
+              "hint": 594,
+              "name": "LocalFree",
+              "hint_name_va": "0x00472200"
+            },
+            {
+              "hint": 479,
+              "name": "GetVersionExA",
+              "hint_name_va": "0x0047220c"
+            },
+            {
+              "hint": 709,
+              "name": "ResumeThread",
+              "hint_name_va": "0x0047221c"
+            },
+            {
+              "hint": 443,
+              "name": "GetSystemInfo",
+              "hint_name_va": "0x0047278c"
+            },
+            {
+              "hint": 889,
+              "name": "VirtualProtect",
+              "hint_name_va": "0x0047277a"
+            },
+            {
+              "hint": 864,
+              "name": "UnhandledExceptionFilter",
+              "hint_name_va": "0x0047275e"
+            },
+            {
+              "hint": 530,
+              "name": "HeapSize",
+              "hint_name_va": "0x00472752"
+            },
+            {
+              "hint": 314,
+              "name": "GetCurrentProcess",
+              "hint_name_va": "0x0047273e"
+            },
+            {
+              "hint": 847,
+              "name": "TerminateProcess",
+              "hint_name_va": "0x0047272a"
+            },
+            {
+              "hint": 175,
+              "name": "ExitProcess",
+              "hint_name_va": "0x0047271c"
+            },
+            {
+              "hint": 472,
+              "name": "GetTimeZoneInformation",
+              "hint_name_va": "0x00472702"
+            },
+            {
+              "hint": 903,
+              "name": "WideCharToMultiByte",
+              "hint_name_va": "0x004726ec"
+            },
+            {
+              "hint": 408,
+              "name": "GetProcAddress",
+              "hint_name_va": "0x004726da"
+            },
+            {
+              "hint": 854,
+              "name": "TlsGetValue",
+              "hint_name_va": "0x004726cc"
+            },
+            {
+              "hint": 855,
+              "name": "TlsSetValue",
+              "hint_name_va": "0x004726be"
+            },
+            {
+              "hint": 853,
+              "name": "TlsFree",
+              "hint_name_va": "0x004726b4"
+            },
+            {
+              "hint": 317,
+              "name": "GetCurrentThread",
+              "hint_name_va": "0x004726a0"
+            },
+            {
+              "hint": 795,
+              "name": "SetLastError",
+              "hint_name_va": "0x00472690"
+            },
+            {
+              "hint": 852,
+              "name": "TlsAlloc",
+              "hint_name_va": "0x00472684"
+            },
+            {
+              "hint": 556,
+              "name": "IsBadWritePtr",
+              "hint_name_va": "0x00472674"
+            },
+            {
+              "hint": 528,
+              "name": "HeapReAlloc",
+              "hint_name_va": "0x00472666"
+            },
+            {
+              "hint": 883,
+              "name": "VirtualAlloc",
+              "hint_name_va": "0x00472656"
+            },
+            {
+              "hint": 183,
+              "name": "FatalAppExitA",
+              "hint_name_va": "0x00472646"
+            },
+            {
+              "hint": 550,
+              "name": "IsBadCodePtr",
+              "hint_name_va": "0x00472a36"
+            },
+            {
+              "hint": 886,
+              "name": "VirtualFree",
+              "hint_name_va": "0x00472638"
+            },
+            {
+              "hint": 520,
+              "name": "HeapCreate",
+              "hint_name_va": "0x0047262a"
+            },
+            {
+              "hint": 522,
+              "name": "HeapDestroy",
+              "hint_name_va": "0x0047261c"
+            },
+            {
+              "hint": 264,
+              "name": "GetCommandLineA",
+              "hint_name_va": "0x0047260a"
+            },
+            {
+              "hint": 375,
+              "name": "GetModuleHandleA",
+              "hint_name_va": "0x004725f6"
+            },
+            {
+              "hint": 318,
+              "name": "GetCurrentThreadId",
+              "hint_name_va": "0x004725e0"
+            },
+            {
+              "hint": 765,
+              "name": "SetCurrentDirectoryA",
+              "hint_name_va": "0x004725c8"
+            },
+            {
+              "hint": 312,
+              "name": "GetCurrentDirectoryA",
+              "hint_name_va": "0x004725b0"
+            },
+            {
+              "hint": 774,
+              "name": "SetEnvironmentVariableA",
+              "hint_name_va": "0x00472596"
+            },
+            {
+              "hint": 176,
+              "name": "ExitThread",
+              "hint_name_va": "0x00472588"
+            },
+            {
+              "hint": 448,
+              "name": "GetSystemTimeAsFileTime",
+              "hint_name_va": "0x0047256e"
+            },
+            {
+              "hint": 315,
+              "name": "GetCurrentProcessId",
+              "hint_name_va": "0x00472970"
+            },
+            {
+              "hint": 584,
+              "name": "LoadLibraryA",
+              "hint_name_va": "0x00472986"
+            },
+            {
+              "hint": 810,
+              "name": "SetStdHandle",
+              "hint_name_va": "0x00472996"
+            },
+            {
+              "hint": 737,
+              "name": "SetConsoleCtrlHandler",
+              "hint_name_va": "0x004729a6"
+            },
+            {
+              "hint": 229,
+              "name": "FlushFileBuffers",
+              "hint_name_va": "0x004729be"
+            },
+            {
+              "hint": 365,
+              "name": "GetLocaleInfoW",
+              "hint_name_va": "0x004729d2"
+            },
+            {
+              "hint": 52,
+              "name": "CompareStringA",
+              "hint_name_va": "0x004729e4"
+            },
+            {
+              "hint": 53,
+              "name": "CompareStringW",
+              "hint_name_va": "0x004729f6"
+            },
+            {
+              "hint": 827,
+              "name": "SetUnhandledExceptionFilter",
+              "hint_name_va": "0x00472a08"
+            },
+            {
+              "hint": 553,
+              "name": "IsBadReadPtr",
+              "hint_name_va": "0x00472a26"
+            },
+            {
+              "hint": 603,
+              "name": "LockResource",
+              "hint_name_va": "0x004720f4"
+            },
+            {
+              "hint": 69,
+              "name": "CreateDirectoryA",
+              "hint_name_va": "0x0047255a"
+            },
+            {
+              "hint": 518,
+              "name": "HeapAlloc",
+              "hint_name_va": "0x0047254e"
+            },
+            {
+              "hint": 524,
+              "name": "HeapFree",
+              "hint_name_va": "0x00472542"
+            }
+          ]
+        },
+        {
+          "name": "USER32.dll",
+          "name_va": "0x0047244e",
+          "ilt_va": "0x00471b70",
+          "iat_va": "0x004661f0",
+          "imports": [
+            {
+              "hint": 599,
+              "name": "SetForegroundWindow",
+              "hint_name_va": "0x0047238a"
+            },
+            {
+              "hint": 491,
+              "name": "MoveWindow",
+              "hint_name_va": "0x00472246"
+            },
+            {
+              "hint": 534,
+              "name": "RegisterClassA",
+              "hint_name_va": "0x00472254"
+            },
+            {
+              "hint": 714,
+              "name": "WINNLSEnableIME",
+              "hint_name_va": "0x00472266"
+            },
+            {
+              "hint": 227,
+              "name": "FindWindowA",
+              "hint_name_va": "0x00472440"
+            },
+            {
+              "hint": 601,
+              "name": "SetKeyboardState",
+              "hint_name_va": "0x0047242c"
+            },
+            {
+              "hint": 294,
+              "name": "GetKeyboardState",
+              "hint_name_va": "0x00472418"
+            },
+            {
+              "hint": 492,
+              "name": "MsgWaitForMultipleObjects",
+              "hint_name_va": "0x004723fc"
+            },
+            {
+              "hint": 516,
+              "name": "PostThreadMessageA",
+              "hint_name_va": "0x004723e6"
+            },
+            {
+              "hint": 436,
+              "name": "KillTimer",
+              "hint_name_va": "0x004723da"
+            },
+            {
+              "hint": 634,
+              "name": "SetTimer",
+              "hint_name_va": "0x004723ce"
+            },
+            {
+              "hint": 366,
+              "name": "GetWindowLongA",
+              "hint_name_va": "0x004723bc"
+            },
+            {
+              "hint": 153,
+              "name": "DestroyWindow",
+              "hint_name_va": "0x004723ac"
+            },
+            {
+              "hint": 589,
+              "name": "SetCursor",
+              "hint_name_va": "0x004723a0"
+            },
+            {
+              "hint": 571,
+              "name": "SendMessageA",
+              "hint_name_va": "0x0047237a"
+            },
+            {
+              "hint": 682,
+              "name": "TranslateMessage",
+              "hint_name_va": "0x00472366"
+            },
+            {
+              "hint": 654,
+              "name": "ShowCursor",
+              "hint_name_va": "0x00472358"
+            },
+            {
+              "hint": 478,
+              "name": "MessageBoxA",
+              "hint_name_va": "0x0047234a"
+            },
+            {
+              "hint": 96,
+              "name": "CreateWindowExA",
+              "hint_name_va": "0x00472338"
+            },
+            {
+              "hint": 511,
+              "name": "PeekMessageA",
+              "hint_name_va": "0x00472328"
+            },
+            {
+              "hint": 273,
+              "name": "GetDlgItem",
+              "hint_name_va": "0x0047231a"
+            },
+            {
+              "hint": 198,
+              "name": "EndDialog",
+              "hint_name_va": "0x0047230e"
+            },
+            {
+              "hint": 142,
+              "name": "DefWindowProcA",
+              "hint_name_va": "0x004722fc"
+            },
+            {
+              "hint": 658,
+              "name": "ShowWindow",
+              "hint_name_va": "0x004722ee"
+            },
+            {
+              "hint": 419,
+              "name": "IsDlgButtonChecked",
+              "hint_name_va": "0x004722d8"
+            },
+            {
+              "hint": 161,
+              "name": "DispatchMessageA",
+              "hint_name_va": "0x004722c4"
+            },
+            {
+              "hint": 665,
+              "name": "SystemParametersInfoA",
+              "hint_name_va": "0x004722ac"
+            },
+            {
+              "hint": 349,
+              "name": "GetSystemMetrics",
+              "hint_name_va": "0x00472298"
+            },
+            {
+              "hint": 441,
+              "name": "LoadCursorA",
+              "hint_name_va": "0x0047228a"
+            },
+            {
+              "hint": 158,
+              "name": "DialogBoxParamA",
+              "hint_name_va": "0x00472278"
+            },
+            {
+              "hint": 188,
+              "name": "DrawTextA",
+              "hint_name_va": "0x0047223a"
+            }
+          ]
+        },
+        {
+          "name": "GDI32.dll",
+          "name_va": "0x004724f8",
+          "ilt_va": "0x00471990",
+          "iat_va": "0x00466010",
+          "imports": [
+            {
+              "hint": 421,
+              "name": "GetStockObject",
+              "hint_name_va": "0x004724e6"
+            },
+            {
+              "hint": 590,
+              "name": "TextOutA",
+              "hint_name_va": "0x004724da"
+            },
+            {
+              "hint": 572,
+              "name": "SetTextColor",
+              "hint_name_va": "0x004724ca"
+            },
+            {
+              "hint": 534,
+              "name": "SetBkMode",
+              "hint_name_va": "0x004724be"
+            },
+            {
+              "hint": 45,
+              "name": "CreateCompatibleDC",
+              "hint_name_va": "0x004724a8"
+            },
+            {
+              "hint": 50,
+              "name": "CreateDIBSection",
+              "hint_name_va": "0x00472494"
+            },
+            {
+              "hint": 140,
+              "name": "DeleteDC",
+              "hint_name_va": "0x00472488"
+            },
+            {
+              "hint": 526,
+              "name": "SelectObject",
+              "hint_name_va": "0x00472478"
+            },
+            {
+              "hint": 143,
+              "name": "DeleteObject",
+              "hint_name_va": "0x00472468"
+            },
+            {
+              "hint": 57,
+              "name": "CreateFontA",
+              "hint_name_va": "0x0047245a"
+            }
+          ]
+        },
+        {
+          "name": "ole32.dll",
+          "name_va": "0x00472538",
+          "ilt_va": "0x00471c80",
+          "iat_va": "0x00466300",
+          "imports": [
+            {
+              "hint": 104,
+              "name": "CoUninitialize",
+              "hint_name_va": "0x00472516"
+            },
+            {
+              "hint": 16,
+              "name": "CoCreateInstance",
+              "hint_name_va": "0x00472502"
+            },
+            {
+              "hint": 58,
+              "name": "CoInitialize",
+              "hint_name_va": "0x00472528"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "kind": "library",
+      "library": "libcmt.lib",
+      "member": "../build/intel/mt_obj/floor_pentium4.obj",
+      "section": ".rdata",
+      "section_index": 3,
+      "address": "0x0046a700"
+    },
+    {
+      "kind": "library",
+      "library": "libcmt.lib",
+      "member": "build/intel/mt_obj/output.obj",
+      "section": ".rdata",
+      "section_index": 2,
+      "address": "0x0046a790"
+    },
+    {
+      "kind": "library",
+      "library": "libcmt.lib",
+      "member": "build/intel/mt_obj/output.obj",
+      "section": ".rdata",
+      "section_index": 4,
+      "address": "0x0046a7ec"
+    },
+    {
+      "kind": "library",
+      "library": "libcmt.lib",
+      "member": "build/intel/mt_obj/setlocal.obj",
+      "section": ".rdata",
+      "section_index": 4,
+      "address": "0x0046a828"
+    },
+    {
+      "kind": "library",
+      "library": "libcmt.lib",
+      "member": "build/intel/mt_obj/setlocal.obj",
+      "section": ".rdata",
+      "section_index": 6,
+      "address": "0x0046a9a8"
+    },
+    {
+      "kind": "library",
+      "library": "libcmt.lib",
+      "member": "build/intel/mt_obj/setlocal.obj",
+      "section": ".rdata",
+      "section_index": 7,
+      "address": "0x0046a9b0"
+    },
+    {
+      "kind": "library",
+      "library": "libcmt.lib",
+      "member": "build/intel/mt_obj/setlocal.obj",
+      "section": ".rdata",
+      "section_index": 8,
+      "address": "0x0046a9bc"
+    },
+    {
+      "kind": "library",
+      "library": "libcmt.lib",
+      "member": "build/intel/mt_obj/setlocal.obj",
+      "section": ".rdata",
+      "section_index": 9,
+      "address": "0x0046a9c8"
+    },
+    {
+      "kind": "library",
+      "library": "libcmt.lib",
+      "member": "build/intel/mt_obj/setlocal.obj",
+      "section": ".rdata",
+      "section_index": 10,
+      "address": "0x0046a9d4"
+    },
+    {
+      "kind": "library",
+      "library": "libcmt.lib",
+      "member": "build/intel/mt_obj/pipe.obj",
+      "section": ".rdata",
+      "section_index": 4,
+      "address": "0x0046aa18",
+      "relocations": {
+        "0x8": "0x004564f5",
+        "0x14": "0x00456503"
+      }
+    },
+    {
+      "kind": "library",
+      "library": "libcmt.lib",
+      "member": "build/intel/mt_obj/tidtable.obj",
+      "section": ".rdata",
+      "section_index": 32,
+      "address": "0x0046aa30"
+    },
+    {
+      "kind": "library",
+      "library": "libcmt.lib",
+      "member": "build/intel/mt_obj/tidtable.obj",
+      "section": ".rdata",
+      "section_index": 33,
+      "address": "0x0046aa38"
+    },
+    {
+      "kind": "library",
+      "library": "libcmt.lib",
+      "member": "build/intel/mt_obj/tidtable.obj",
+      "section": ".rdata",
+      "section_index": 34,
+      "address": "0x0046aa44"
+    },
+    {
+      "kind": "library",
+      "library": "libcmt.lib",
+      "member": "build/intel/mt_obj/tidtable.obj",
+      "section": ".rdata",
+      "section_index": 35,
+      "address": "0x0046aa50"
+    },
+    {
+      "kind": "library",
+      "library": "libcmt.lib",
+      "member": "build/intel/mt_obj/initcrit.obj",
+      "section": ".rdata",
+      "section_index": 9,
+      "address": "0x0046aa5c"
+    },
+    {
+      "kind": "library",
+      "library": "libcmt.lib",
+      "member": "build/intel/mt_obj/timeset.obj",
+      "section": ".rdata",
+      "section_index": 2,
+      "address": "0x0046aa6c"
+    },
+    {
+      "kind": "library",
+      "library": "libcmt.lib",
+      "member": "build/intel/mt_obj/crt0dat.obj",
+      "section": ".rdata",
+      "section_index": 5,
+      "address": "0x0046aafc"
+    },
+    {
+      "kind": "library",
+      "library": "libcmt.lib",
+      "member": "build/intel/mt_obj/checkclr.obj",
+      "section": ".rdata",
+      "section_index": 9,
+      "address": "0x0046ab0c"
+    },
+    {
+      "kind": "library",
+      "library": "libcmt.lib",
+      "member": "../build/intel/mt_obj/libm_error.obj",
+      "section": ".rdata",
+      "section_index": 3,
+      "address": "0x0046ab58"
+    },
+    {
+      "kind": "library",
+      "library": "libcmt.lib",
+      "member": "../build/intel/mt_obj/cpu_disp.obj",
+      "section": ".rdata",
+      "section_index": 10,
+      "address": "0x0046ac14"
+    },
+    {
+      "kind": "library",
+      "library": "libcmt.lib",
+      "member": "../build/intel/mt_obj/frexp.obj",
+      "section": ".rdata",
+      "section_index": 4,
+      "address": "0x0046ac28"
+    },
+    {
+      "kind": "library",
+      "library": "libcmt.lib",
+      "member": "build/intel/mt_obj/crt0msg.obj",
+      "section": ".rdata",
+      "section_index": 4,
+      "address": "0x0046ac3c"
+    },
+    {
+      "kind": "library",
+      "library": "libcmt.lib",
+      "member": "build/intel/mt_obj/crt0msg.obj",
+      "section": ".rdata",
+      "section_index": 6,
+      "address": "0x0046ac50"
+    },
+    {
+      "kind": "library",
+      "library": "libcmt.lib",
+      "member": "build/intel/mt_obj/crt0msg.obj",
+      "section": ".rdata",
+      "section_index": 7,
+      "address": "0x0046ac60"
+    },
+    {
+      "kind": "library",
+      "library": "libcmt.lib",
+      "member": "build/intel/mt_obj/crt0msg.obj",
+      "section": ".rdata",
+      "section_index": 8,
+      "address": "0x0046ac70"
+    },
+    {
+      "kind": "library",
+      "library": "libcmt.lib",
+      "member": "build/intel/mt_obj/crt0msg.obj",
+      "section": ".rdata",
+      "section_index": 9,
+      "address": "0x0046ac80"
+    },
+    {
+      "kind": "library",
+      "library": "libcmt.lib",
+      "member": "build/intel/mt_obj/crt0msg.obj",
+      "section": ".rdata",
+      "section_index": 10,
+      "address": "0x0046ad24"
+    },
+    {
+      "kind": "library",
+      "library": "libcmt.lib",
+      "member": "build/intel/mt_obj/crt0msg.obj",
+      "section": ".rdata",
+      "section_index": 11,
+      "address": "0x0046ad4c"
+    },
+    {
+      "kind": "library",
+      "library": "libcmt.lib",
+      "member": "build/intel/mt_obj/crt0msg.obj",
+      "section": ".rdata",
+      "section_index": 12,
+      "address": "0x0046ad84"
+    },
+    {
+      "kind": "library",
+      "library": "libcmt.lib",
+      "member": "build/intel/mt_obj/crt0msg.obj",
+      "section": ".rdata",
+      "section_index": 13,
+      "address": "0x0046adbc"
+    },
+    {
+      "kind": "library",
+      "library": "libcmt.lib",
+      "member": "build/intel/mt_obj/crt0msg.obj",
+      "section": ".rdata",
+      "section_index": 14,
+      "address": "0x0046ade4"
+    },
+    {
+      "kind": "library",
+      "library": "libcmt.lib",
+      "member": "build/intel/mt_obj/crt0msg.obj",
+      "section": ".rdata",
+      "section_index": 15,
+      "address": "0x0046ae1c"
+    },
+    {
+      "kind": "library",
+      "library": "libcmt.lib",
+      "member": "build/intel/mt_obj/crt0msg.obj",
+      "section": ".rdata",
+      "section_index": 16,
+      "address": "0x0046ae48"
+    },
+    {
+      "kind": "library",
+      "library": "libcmt.lib",
+      "member": "build/intel/mt_obj/crt0msg.obj",
+      "section": ".rdata",
+      "section_index": 17,
+      "address": "0x0046ae6c"
+    },
+    {
+      "kind": "library",
+      "library": "libcmt.lib",
+      "member": "build/intel/mt_obj/crt0msg.obj",
+      "section": ".rdata",
+      "section_index": 18,
+      "address": "0x0046ae9c"
+    },
+    {
+      "kind": "library",
+      "library": "libcmt.lib",
+      "member": "build/intel/mt_obj/crt0msg.obj",
+      "section": ".rdata",
+      "section_index": 19,
+      "address": "0x0046aec8"
+    },
+    {
+      "kind": "library",
+      "library": "libcmt.lib",
+      "member": "build/intel/mt_obj/crt0msg.obj",
+      "section": ".rdata",
+      "section_index": 20,
+      "address": "0x0046af60"
+    },
+    {
+      "kind": "library",
+      "library": "libcmt.lib",
+      "member": "build/intel/mt_obj/crt0msg.obj",
+      "section": ".rdata",
+      "section_index": 21,
+      "address": "0x0046af8c"
+    },
+    {
+      "kind": "library",
+      "library": "libcmt.lib",
+      "member": "build/intel/mt_obj/crt0msg.obj",
+      "section": ".rdata",
+      "section_index": 22,
+      "address": "0x0046afb8"
+    },
+    {
+      "kind": "library",
+      "library": "libcmt.lib",
+      "member": "build/intel/mt_obj/secfail.obj",
+      "section": ".rdata",
+      "section_index": 4,
+      "address": "0x0046afe0"
+    },
+    {
+      "kind": "library",
+      "library": "libcmt.lib",
+      "member": "build/intel/mt_obj/crt0msg.obj",
+      "section": ".rdata",
+      "section_index": 27,
+      "address": "0x0046b00c"
+    },
+    {
+      "kind": "library",
+      "library": "libcmt.lib",
+      "member": "build/intel/mt_obj/secfail.obj",
+      "section": ".rdata",
+      "section_index": 8,
+      "address": "0x0046b02c"
+    },
+    {
+      "kind": "library",
+      "library": "libcmt.lib",
+      "member": "build/intel/mt_obj/initcrit.obj",
+      "section": ".rdata",
+      "section_index": 8,
+      "address": "0x0046b064"
+    },
+    {
+      "kind": "library",
+      "library": "libcmt.lib",
+      "member": "build/intel/mt_obj/ctype.obj",
+      "section": ".rdata",
+      "section_index": 3,
+      "address": "0x0046b0c0"
+    },
+    {
+      "kind": "library",
+      "library": "libcmt.lib",
+      "member": "build/intel/mt_obj/strftime.obj",
+      "section": ".rdata",
+      "section_index": 4,
+      "address": "0x0046b5d4"
+    },
+    {
+      "kind": "library",
+      "library": "libcmt.lib",
+      "member": "build/intel/mt_obj/strftime.obj",
+      "section": ".rdata",
+      "section_index": 5,
+      "address": "0x0046b5e0"
+    },
+    {
+      "kind": "library",
+      "library": "libcmt.lib",
+      "member": "build/intel/mt_obj/strftime.obj",
+      "section": ".rdata",
+      "section_index": 6,
+      "address": "0x0046b5f4"
+    },
+    {
+      "kind": "library",
+      "library": "libcmt.lib",
+      "member": "build/intel/mt_obj/strftime.obj",
+      "section": ".rdata",
+      "section_index": 9,
+      "address": "0x0046b608"
+    },
+    {
+      "kind": "library",
+      "library": "libcmt.lib",
+      "member": "build/intel/mt_obj/strftime.obj",
+      "section": ".rdata",
+      "section_index": 10,
+      "address": "0x0046b614"
+    },
+    {
+      "kind": "library",
+      "library": "libcmt.lib",
+      "member": "build/intel/mt_obj/strftime.obj",
+      "section": ".rdata",
+      "section_index": 11,
+      "address": "0x0046b620"
+    },
+    {
+      "kind": "library",
+      "library": "libcmt.lib",
+      "member": "build/intel/mt_obj/strftime.obj",
+      "section": ".rdata",
+      "section_index": 12,
+      "address": "0x0046b628"
+    },
+    {
+      "kind": "library",
+      "library": "libcmt.lib",
+      "member": "build/intel/mt_obj/strftime.obj",
+      "section": ".rdata",
+      "section_index": 18,
+      "address": "0x0046b65c"
+    },
+    {
+      "kind": "library",
+      "library": "libcmt.lib",
+      "member": "build/intel/mt_obj/strftime.obj",
+      "section": ".rdata",
+      "section_index": 19,
+      "address": "0x0046b668"
+    },
+    {
+      "kind": "library",
+      "library": "libcmt.lib",
+      "member": "build/intel/mt_obj/strftime.obj",
+      "section": ".rdata",
+      "section_index": 32,
+      "address": "0x0046b6a0"
+    },
+    {
+      "kind": "library",
+      "library": "libcmt.lib",
+      "member": "build/intel/mt_obj/strftime.obj",
+      "section": ".rdata",
+      "section_index": 34,
+      "address": "0x0046b6b4"
+    },
+    {
+      "kind": "library",
+      "library": "libcmt.lib",
+      "member": "build/intel/mt_obj/strftime.obj",
+      "section": ".rdata",
+      "section_index": 35,
+      "address": "0x0046b6c0"
+    },
+    {
+      "kind": "library",
+      "library": "libcmt.lib",
+      "member": "build/intel/mt_obj/strftime.obj",
+      "section": ".rdata",
+      "section_index": 36,
+      "address": "0x0046b6cc"
+    },
+    {
+      "kind": "library",
+      "library": "libcmt.lib",
+      "member": "build/intel/mt_obj/getqloc.obj",
+      "section": ".rdata",
+      "section_index": 3,
+      "address": "0x0046b720",
+      "relocations": {
+        "0xc": "0x0046bd20",
+        "0x14": "0x0046bd18",
+        "0x38": "0x0046bd10",
+        "0x40": "0x0046bd08",
+        "0x64": "0x0046bd00",
+        "0x6c": "0x0046bcf8",
+        "0x90": "0x0046bcec",
+        "0x98": "0x0046bce4",
+        "0xbc": "0x0046bcdc",
+        "0xc4": "0x0046bcd4",
+        "0xe8": "0x0046bccc",
+        "0xf0": "0x0046bd18",
+        "0x114": "0x0046bcc4",
+        "0x11c": "0x0046bcbc",
+        "0x140": "0x0046bd00",
+        "0x148": "0x0046bcb4",
+        "0x16c": "0x0046bcac",
+        "0x174": "0x0046bca4",
+        "0x198": "0x0046bc9c",
+        "0x1a0": "0x0046bc90",
+        "0x1c4": "0x0046bc78",
+        "0x1cc": "0x0046bd18",
+        "0x1f0": "0x0046bd00",
+        "0x1f8": "0x0046bc70",
+        "0x21c": "0x0046bcc4",
+        "0x224": "0x0046bc64",
+        "0x248": "0x0046bd00",
+        "0x250": "0x0046bc58",
+        "0x274": "0x0046bcc4",
+        "0x27c": "0x0046bc4c",
+        "0x2a0": "0x0046bd00",
+        "0x2a8": "0x0046bc40",
+        "0x2cc": "0x0046bcc4",
+        "0x2d4": "0x0046bc38",
+        "0x2f8": "0x0046bc9c",
+        "0x300": "0x0046bc28",
+        "0x324": "0x0046bcc4",
+        "0x32c": "0x0046bc14",
+        "0x350": "0x0046bcc4",
+        "0x358": "0x0046bc08",
+        "0x37c": "0x0046bcc4",
+        "0x384": "0x0046bbfc",
+        "0x3a8": "0x0046bcc4",
+        "0x3b0": "0x0046bbf4",
+        "0x3d4": "0x0046bcc4",
+        "0x3dc": "0x0046bbe8",
+        "0x400": "0x0046bcc4",
+        "0x408": "0x0046bbe0",
+        "0x42c": "0x0046bcc4",
+        "0x434": "0x0046bbd8",
+        "0x458": "0x0046bcc4",
+        "0x460": "0x0046bbd0",
+        "0x484": "0x0046bcc4",
+        "0x48c": "0x0046bbc4"
+      }
+    },
+    {
+      "kind": "library",
+      "library": "libcmt.lib",
+      "member": "build/intel/mt_obj/getqloc.obj",
+      "section": ".rdata",
+      "section_index": 4,
+      "address": "0x0046bbc4"
+    },
+    {
+      "kind": "library",
+      "library": "libcmt.lib",
+      "member": "build/intel/mt_obj/getqloc.obj",
+      "section": ".rdata",
+      "section_index": 5,
+      "address": "0x0046bbd0"
+    },
+    {
+      "kind": "library",
+      "library": "libcmt.lib",
+      "member": "build/intel/mt_obj/getqloc.obj",
+      "section": ".rdata",
+      "section_index": 7,
+      "address": "0x0046bbe0"
+    },
+    {
+      "kind": "library",
+      "library": "libcmt.lib",
+      "member": "build/intel/mt_obj/getqloc.obj",
+      "section": ".rdata",
+      "section_index": 8,
+      "address": "0x0046bbe8"
+    },
+    {
+      "kind": "library",
+      "library": "libcmt.lib",
+      "member": "build/intel/mt_obj/getqloc.obj",
+      "section": ".rdata",
+      "section_index": 10,
+      "address": "0x0046bbfc"
+    },
+    {
+      "kind": "library",
+      "library": "libcmt.lib",
+      "member": "build/intel/mt_obj/getqloc.obj",
+      "section": ".rdata",
+      "section_index": 11,
+      "address": "0x0046bc08"
+    },
+    {
+      "kind": "library",
+      "library": "libcmt.lib",
+      "member": "build/intel/mt_obj/getqloc.obj",
+      "section": ".rdata",
+      "section_index": 12,
+      "address": "0x0046bc14"
+    },
+    {
+      "kind": "library",
+      "library": "libcmt.lib",
+      "member": "build/intel/mt_obj/getqloc.obj",
+      "section": ".rdata",
+      "section_index": 13,
+      "address": "0x0046bc28"
+    },
+    {
+      "kind": "library",
+      "library": "libcmt.lib",
+      "member": "build/intel/mt_obj/getqloc.obj",
+      "section": ".rdata",
+      "section_index": 15,
+      "address": "0x0046bc40"
+    },
+    {
+      "kind": "library",
+      "library": "libcmt.lib",
+      "member": "build/intel/mt_obj/getqloc.obj",
+      "section": ".rdata",
+      "section_index": 16,
+      "address": "0x0046bc4c"
+    },
+    {
+      "kind": "library",
+      "library": "libcmt.lib",
+      "member": "build/intel/mt_obj/getqloc.obj",
+      "section": ".rdata",
+      "section_index": 17,
+      "address": "0x0046bc58"
+    },
+    {
+      "kind": "library",
+      "library": "libcmt.lib",
+      "member": "build/intel/mt_obj/getqloc.obj",
+      "section": ".rdata",
+      "section_index": 18,
+      "address": "0x0046bc64"
+    },
+    {
+      "kind": "library",
+      "library": "libcmt.lib",
+      "member": "build/intel/mt_obj/getqloc.obj",
+      "section": ".rdata",
+      "section_index": 20,
+      "address": "0x0046bc78"
+    },
+    {
+      "kind": "library",
+      "library": "libcmt.lib",
+      "member": "build/intel/mt_obj/getqloc.obj",
+      "section": ".rdata",
+      "section_index": 21,
+      "address": "0x0046bc90"
+    },
+    {
+      "kind": "library",
+      "library": "libcmt.lib",
+      "member": "build/intel/mt_obj/getqloc.obj",
+      "section": ".rdata",
+      "section_index": 22,
+      "address": "0x0046bc9c"
+    },
+    {
+      "kind": "library",
+      "library": "libcmt.lib",
+      "member": "build/intel/mt_obj/getqloc.obj",
+      "section": ".rdata",
+      "section_index": 23,
+      "address": "0x0046bca4"
+    },
+    {
+      "kind": "library",
+      "library": "libcmt.lib",
+      "member": "build/intel/mt_obj/getqloc.obj",
+      "section": ".rdata",
+      "section_index": 25,
+      "address": "0x0046bcb4"
+    },
+    {
+      "kind": "library",
+      "library": "libcmt.lib",
+      "member": "build/intel/mt_obj/getqloc.obj",
+      "section": ".rdata",
+      "section_index": 27,
+      "address": "0x0046bcc4"
+    },
+    {
+      "kind": "library",
+      "library": "libcmt.lib",
+      "member": "build/intel/mt_obj/getqloc.obj",
+      "section": ".rdata",
+      "section_index": 30,
+      "address": "0x0046bcdc"
+    },
+    {
+      "kind": "library",
+      "library": "libcmt.lib",
+      "member": "build/intel/mt_obj/getqloc.obj",
+      "section": ".rdata",
+      "section_index": 31,
+      "address": "0x0046bce4"
+    },
+    {
+      "kind": "library",
+      "library": "libcmt.lib",
+      "member": "build/intel/mt_obj/getqloc.obj",
+      "section": ".rdata",
+      "section_index": 32,
+      "address": "0x0046bcec"
+    },
+    {
+      "kind": "library",
+      "library": "libcmt.lib",
+      "member": "build/intel/mt_obj/getqloc.obj",
+      "section": ".rdata",
+      "section_index": 35,
+      "address": "0x0046bd08"
+    },
+    {
+      "kind": "library",
+      "library": "libcmt.lib",
+      "member": "build/intel/mt_obj/getqloc.obj",
+      "section": ".rdata",
+      "section_index": 36,
+      "address": "0x0046bd10"
+    },
+    {
+      "kind": "library",
+      "library": "libcmt.lib",
+      "member": "build/intel/mt_obj/getqloc.obj",
+      "section": ".rdata",
+      "section_index": 38,
+      "address": "0x0046bd20"
+    },
+    {
+      "kind": "library",
+      "library": "libcmt.lib",
+      "member": "build/intel/mt_obj/getqloc.obj",
+      "section": ".rdata",
+      "section_index": 39,
+      "address": "0x0046bd3c"
+    },
+    {
+      "kind": "library",
+      "library": "libcmt.lib",
+      "member": "build/intel/mt_obj/getqloc.obj",
+      "section": ".rdata",
+      "section_index": 40,
+      "address": "0x0046bd50",
+      "relocations": {
+        "0x0": "0x0046bef4",
+        "0x8": "0x0046beec",
+        "0x10": "0x0046bee4",
+        "0x18": "0x0046bedc",
+        "0x20": "0x0046bed4",
+        "0x28": "0x0046bec4",
+        "0x30": "0x0046bebc",
+        "0x38": "0x0046beb0",
+        "0x40": "0x0046bea4",
+        "0x48": "0x0046bea0",
+        "0x50": "0x0046be94",
+        "0x58": "0x0046be88",
+        "0x60": "0x0046be7c",
+        "0x68": "0x0046be74",
+        "0x70": "0x0046be64",
+        "0x78": "0x0046be58",
+        "0x80": "0x0046be48",
+        "0x88": "0x0046be3c",
+        "0x90": "0x0046be28",
+        "0x98": "0x0046c110",
+        "0xa0": "0x0046be18",
+        "0xa8": "0x0046be08",
+        "0xb0": "0x0046c10c"
+      }
+    },
+    {
+      "kind": "library",
+      "library": "libcmt.lib",
+      "member": "build/intel/mt_obj/getqloc.obj",
+      "section": ".rdata",
+      "section_index": 41,
+      "address": "0x0046be08"
+    },
+    {
+      "kind": "library",
+      "library": "libcmt.lib",
+      "member": "build/intel/mt_obj/getqloc.obj",
+      "section": ".rdata",
+      "section_index": 42,
+      "address": "0x0046be18"
+    },
+    {
+      "kind": "library",
+      "library": "libcmt.lib",
+      "member": "build/intel/mt_obj/getqloc.obj",
+      "section": ".rdata",
+      "section_index": 43,
+      "address": "0x0046be28"
+    },
+    {
+      "kind": "library",
+      "library": "libcmt.lib",
+      "member": "build/intel/mt_obj/getqloc.obj",
+      "section": ".rdata",
+      "section_index": 44,
+      "address": "0x0046be3c"
+    },
+    {
+      "kind": "library",
+      "library": "libcmt.lib",
+      "member": "build/intel/mt_obj/getqloc.obj",
+      "section": ".rdata",
+      "section_index": 45,
+      "address": "0x0046be48"
+    },
+    {
+      "kind": "library",
+      "library": "libcmt.lib",
+      "member": "build/intel/mt_obj/getqloc.obj",
+      "section": ".rdata",
+      "section_index": 46,
+      "address": "0x0046be58"
+    },
+    {
+      "kind": "library",
+      "library": "libc.lib",
+      "member": "build/intel/st_obj/getqloc.obj",
+      "section": ".rdata",
+      "section_index": 47,
+      "address": "0x0046be64"
+    },
+    {
+      "kind": "library",
+      "library": "libcmt.lib",
+      "member": "build/intel/mt_obj/getqloc.obj",
+      "section": ".rdata",
+      "section_index": 49,
+      "address": "0x0046be7c"
+    },
+    {
+      "kind": "library",
+      "library": "libcmt.lib",
+      "member": "build/intel/mt_obj/getqloc.obj",
+      "section": ".rdata",
+      "section_index": 50,
+      "address": "0x0046be88"
+    },
+    {
+      "kind": "library",
+      "library": "libcmt.lib",
+      "member": "build/intel/mt_obj/getqloc.obj",
+      "section": ".rdata",
+      "section_index": 51,
+      "address": "0x0046be94"
+    },
+    {
+      "kind": "library",
+      "library": "libcmt.lib",
+      "member": "build/intel/mt_obj/getqloc.obj",
+      "section": ".rdata",
+      "section_index": 53,
+      "address": "0x0046bea4"
+    },
+    {
+      "kind": "library",
+      "library": "libcmt.lib",
+      "member": "build/intel/mt_obj/getqloc.obj",
+      "section": ".rdata",
+      "section_index": 54,
+      "address": "0x0046beb0"
+    },
+    {
+      "kind": "library",
+      "library": "libcmt.lib",
+      "member": "build/intel/mt_obj/getqloc.obj",
+      "section": ".rdata",
+      "section_index": 55,
+      "address": "0x0046bebc"
+    },
+    {
+      "kind": "library",
+      "library": "libcmt.lib",
+      "member": "build/intel/mt_obj/getqloc.obj",
+      "section": ".rdata",
+      "section_index": 56,
+      "address": "0x0046bec4"
+    },
+    {
+      "kind": "library",
+      "library": "libcmt.lib",
+      "member": "build/intel/mt_obj/getqloc.obj",
+      "section": ".rdata",
+      "section_index": 57,
+      "address": "0x0046bed4"
+    },
+    {
+      "kind": "library",
+      "library": "libcmt.lib",
+      "member": "build/intel/mt_obj/getqloc.obj",
+      "section": ".rdata",
+      "section_index": 60,
+      "address": "0x0046beec"
+    },
+    {
+      "kind": "library",
+      "library": "libcmt.lib",
+      "member": "build/intel/mt_obj/getqloc.obj",
+      "section": ".rdata",
+      "section_index": 61,
+      "address": "0x0046bef4"
+    },
+    {
+      "kind": "library",
+      "library": "libcmt.lib",
+      "member": "build/intel/mt_obj/getqloc.obj",
+      "section": ".rdata",
+      "section_index": 62,
+      "address": "0x0046bf00",
+      "relocations": {
+        "0x0": "0x0046c510",
+        "0x8": "0x0046c4fc",
+        "0x10": "0x0046c4e8",
+        "0x18": "0x0046c4dc",
+        "0x20": "0x0046c4d4",
+        "0x28": "0x0046c4c8",
+        "0x30": "0x0046c4c4",
+        "0x38": "0x0046c4c0",
+        "0x40": "0x0046c4b8",
+        "0x48": "0x0046c4a4",
+        "0x50": "0x0046c490",
+        "0x58": "0x0046c47c",
+        "0x60": "0x0046c468",
+        "0x68": "0x0046c458",
+        "0x70": "0x0046c444",
+        "0x78": "0x0046c438",
+        "0x80": "0x0046c428",
+        "0x88": "0x0046c41c",
+        "0x90": "0x0046c408",
+        "0x98": "0x0046c3fc",
+        "0xa0": "0x0046c3ec",
+        "0xa8": "0x0046c3e0",
+        "0xb0": "0x0046c3c8",
+        "0xb8": "0x0046c3ac",
+        "0xc0": "0x0046c3a0",
+        "0xc8": "0x0046c394",
+        "0xd0": "0x0046c388",
+        "0xd8": "0x0046c378",
+        "0xe0": "0x0046c368",
+        "0xe8": "0x0046c354",
+        "0xf0": "0x0046c344",
+        "0xf8": "0x0046c334",
+        "0x100": "0x0046c320",
+        "0x108": "0x0046c30c",
+        "0x110": "0x0046c2fc",
+        "0x118": "0x0046c2ec",
+        "0x120": "0x0046c2dc",
+        "0x128": "0x0046c2d0",
+        "0x130": "0x0046c2bc",
+        "0x138": "0x0046c2a8",
+        "0x140": "0x0046c290",
+        "0x148": "0x0046c27c",
+        "0x150": "0x0046c26c",
+        "0x158": "0x0046c25c",
+        "0x160": "0x0046c248",
+        "0x168": "0x0046c234",
+        "0x170": "0x0046c218",
+        "0x178": "0x0046c208",
+        "0x180": "0x0046c1f4",
+        "0x188": "0x0046c1e0",
+        "0x190": "0x0046c1cc",
+        "0x198": "0x0046c1bc",
+        "0x1a0": "0x0046c1ac",
+        "0x1a8": "0x0046c198",
+        "0x1b0": "0x0046c188",
+        "0x1b8": "0x0046c174",
+        "0x1c0": "0x0046c164",
+        "0x1c8": "0x0046c150",
+        "0x1d0": "0x0046c140",
+        "0x1d8": "0x0046c12c",
+        "0x1e0": "0x0046c11c",
+        "0x1e8": "0x0046c114",
+        "0x1f0": "0x0046c110",
+        "0x1f8": "0x0046c10c",
+        "0x200": "0x0046c108"
+      }
+    },
+    {
+      "kind": "library",
+      "library": "libcmt.lib",
+      "member": "build/intel/mt_obj/getqloc.obj",
+      "section": ".rdata",
+      "section_index": 67,
+      "address": "0x0046c11c"
+    },
+    {
+      "kind": "library",
+      "library": "libcmt.lib",
+      "member": "build/intel/mt_obj/getqloc.obj",
+      "section": ".rdata",
+      "section_index": 68,
+      "address": "0x0046c12c"
+    },
+    {
+      "kind": "library",
+      "library": "libcmt.lib",
+      "member": "build/intel/mt_obj/getqloc.obj",
+      "section": ".rdata",
+      "section_index": 69,
+      "address": "0x0046c140"
+    },
+    {
+      "kind": "library",
+      "library": "libcmt.lib",
+      "member": "build/intel/mt_obj/getqloc.obj",
+      "section": ".rdata",
+      "section_index": 70,
+      "address": "0x0046c150"
+    },
+    {
+      "kind": "library",
+      "library": "libcmt.lib",
+      "member": "build/intel/mt_obj/getqloc.obj",
+      "section": ".rdata",
+      "section_index": 71,
+      "address": "0x0046c164"
+    },
+    {
+      "kind": "library",
+      "library": "libcmt.lib",
+      "member": "build/intel/mt_obj/getqloc.obj",
+      "section": ".rdata",
+      "section_index": 72,
+      "address": "0x0046c174"
+    },
+    {
+      "kind": "library",
+      "library": "libcmt.lib",
+      "member": "build/intel/mt_obj/getqloc.obj",
+      "section": ".rdata",
+      "section_index": 73,
+      "address": "0x0046c188"
+    },
+    {
+      "kind": "library",
+      "library": "libcmt.lib",
+      "member": "build/intel/mt_obj/getqloc.obj",
+      "section": ".rdata",
+      "section_index": 74,
+      "address": "0x0046c198"
+    },
+    {
+      "kind": "library",
+      "library": "libcmt.lib",
+      "member": "build/intel/mt_obj/getqloc.obj",
+      "section": ".rdata",
+      "section_index": 75,
+      "address": "0x0046c1ac"
+    },
+    {
+      "kind": "library",
+      "library": "libcmt.lib",
+      "member": "build/intel/mt_obj/getqloc.obj",
+      "section": ".rdata",
+      "section_index": 76,
+      "address": "0x0046c1bc"
+    },
+    {
+      "kind": "library",
+      "library": "libcmt.lib",
+      "member": "build/intel/mt_obj/getqloc.obj",
+      "section": ".rdata",
+      "section_index": 77,
+      "address": "0x0046c1cc"
+    },
+    {
+      "kind": "library",
+      "library": "libcmt.lib",
+      "member": "build/intel/mt_obj/getqloc.obj",
+      "section": ".rdata",
+      "section_index": 78,
+      "address": "0x0046c1e0"
+    },
+    {
+      "kind": "library",
+      "library": "libcmt.lib",
+      "member": "build/intel/mt_obj/getqloc.obj",
+      "section": ".rdata",
+      "section_index": 79,
+      "address": "0x0046c1f4"
+    },
+    {
+      "kind": "library",
+      "library": "libcmt.lib",
+      "member": "build/intel/mt_obj/getqloc.obj",
+      "section": ".rdata",
+      "section_index": 80,
+      "address": "0x0046c208"
+    },
+    {
+      "kind": "library",
+      "library": "libcmt.lib",
+      "member": "build/intel/mt_obj/getqloc.obj",
+      "section": ".rdata",
+      "section_index": 81,
+      "address": "0x0046c218"
+    },
+    {
+      "kind": "library",
+      "library": "libcmt.lib",
+      "member": "build/intel/mt_obj/getqloc.obj",
+      "section": ".rdata",
+      "section_index": 82,
+      "address": "0x0046c234"
+    },
+    {
+      "kind": "library",
+      "library": "libcmt.lib",
+      "member": "build/intel/mt_obj/getqloc.obj",
+      "section": ".rdata",
+      "section_index": 83,
+      "address": "0x0046c248"
+    },
+    {
+      "kind": "library",
+      "library": "libcmt.lib",
+      "member": "build/intel/mt_obj/getqloc.obj",
+      "section": ".rdata",
+      "section_index": 84,
+      "address": "0x0046c25c"
+    },
+    {
+      "kind": "library",
+      "library": "libcmt.lib",
+      "member": "build/intel/mt_obj/getqloc.obj",
+      "section": ".rdata",
+      "section_index": 85,
+      "address": "0x0046c26c"
+    },
+    {
+      "kind": "library",
+      "library": "libcmt.lib",
+      "member": "build/intel/mt_obj/getqloc.obj",
+      "section": ".rdata",
+      "section_index": 86,
+      "address": "0x0046c27c"
+    },
+    {
+      "kind": "library",
+      "library": "libcmt.lib",
+      "member": "build/intel/mt_obj/getqloc.obj",
+      "section": ".rdata",
+      "section_index": 87,
+      "address": "0x0046c290"
+    },
+    {
+      "kind": "library",
+      "library": "libcmt.lib",
+      "member": "build/intel/mt_obj/getqloc.obj",
+      "section": ".rdata",
+      "section_index": 88,
+      "address": "0x0046c2a8"
+    },
+    {
+      "kind": "library",
+      "library": "libcmt.lib",
+      "member": "build/intel/mt_obj/getqloc.obj",
+      "section": ".rdata",
+      "section_index": 89,
+      "address": "0x0046c2bc"
+    },
+    {
+      "kind": "library",
+      "library": "libcmt.lib",
+      "member": "build/intel/mt_obj/getqloc.obj",
+      "section": ".rdata",
+      "section_index": 90,
+      "address": "0x0046c2d0"
+    },
+    {
+      "kind": "library",
+      "library": "libcmt.lib",
+      "member": "build/intel/mt_obj/getqloc.obj",
+      "section": ".rdata",
+      "section_index": 91,
+      "address": "0x0046c2dc"
+    },
+    {
+      "kind": "library",
+      "library": "libcmt.lib",
+      "member": "build/intel/mt_obj/getqloc.obj",
+      "section": ".rdata",
+      "section_index": 92,
+      "address": "0x0046c2ec"
+    },
+    {
+      "kind": "library",
+      "library": "libcmt.lib",
+      "member": "build/intel/mt_obj/getqloc.obj",
+      "section": ".rdata",
+      "section_index": 93,
+      "address": "0x0046c2fc"
+    },
+    {
+      "kind": "library",
+      "library": "libcmt.lib",
+      "member": "build/intel/mt_obj/getqloc.obj",
+      "section": ".rdata",
+      "section_index": 94,
+      "address": "0x0046c30c"
+    },
+    {
+      "kind": "library",
+      "library": "libcmt.lib",
+      "member": "build/intel/mt_obj/getqloc.obj",
+      "section": ".rdata",
+      "section_index": 95,
+      "address": "0x0046c320"
+    },
+    {
+      "kind": "library",
+      "library": "libcmt.lib",
+      "member": "build/intel/mt_obj/getqloc.obj",
+      "section": ".rdata",
+      "section_index": 96,
+      "address": "0x0046c334"
+    },
+    {
+      "kind": "library",
+      "library": "libcmt.lib",
+      "member": "build/intel/mt_obj/getqloc.obj",
+      "section": ".rdata",
+      "section_index": 97,
+      "address": "0x0046c344"
+    },
+    {
+      "kind": "library",
+      "library": "libcmt.lib",
+      "member": "build/intel/mt_obj/getqloc.obj",
+      "section": ".rdata",
+      "section_index": 98,
+      "address": "0x0046c354"
+    },
+    {
+      "kind": "library",
+      "library": "libcmt.lib",
+      "member": "build/intel/mt_obj/getqloc.obj",
+      "section": ".rdata",
+      "section_index": 99,
+      "address": "0x0046c368"
+    },
+    {
+      "kind": "library",
+      "library": "libcmt.lib",
+      "member": "build/intel/mt_obj/getqloc.obj",
+      "section": ".rdata",
+      "section_index": 100,
+      "address": "0x0046c378"
+    },
+    {
+      "kind": "library",
+      "library": "libcmt.lib",
+      "member": "build/intel/mt_obj/getqloc.obj",
+      "section": ".rdata",
+      "section_index": 101,
+      "address": "0x0046c388"
+    },
+    {
+      "kind": "library",
+      "library": "libcmt.lib",
+      "member": "build/intel/mt_obj/getqloc.obj",
+      "section": ".rdata",
+      "section_index": 102,
+      "address": "0x0046c394"
+    },
+    {
+      "kind": "library",
+      "library": "libcmt.lib",
+      "member": "build/intel/mt_obj/getqloc.obj",
+      "section": ".rdata",
+      "section_index": 103,
+      "address": "0x0046c3a0"
+    },
+    {
+      "kind": "library",
+      "library": "libcmt.lib",
+      "member": "build/intel/mt_obj/getqloc.obj",
+      "section": ".rdata",
+      "section_index": 104,
+      "address": "0x0046c3ac"
+    },
+    {
+      "kind": "library",
+      "library": "libcmt.lib",
+      "member": "build/intel/mt_obj/getqloc.obj",
+      "section": ".rdata",
+      "section_index": 105,
+      "address": "0x0046c3c8"
+    },
+    {
+      "kind": "library",
+      "library": "libcmt.lib",
+      "member": "build/intel/mt_obj/getqloc.obj",
+      "section": ".rdata",
+      "section_index": 106,
+      "address": "0x0046c3e0"
+    },
+    {
+      "kind": "library",
+      "library": "libcmt.lib",
+      "member": "build/intel/mt_obj/getqloc.obj",
+      "section": ".rdata",
+      "section_index": 107,
+      "address": "0x0046c3ec"
+    },
+    {
+      "kind": "library",
+      "library": "libcmt.lib",
+      "member": "build/intel/mt_obj/getqloc.obj",
+      "section": ".rdata",
+      "section_index": 108,
+      "address": "0x0046c3fc"
+    },
+    {
+      "kind": "library",
+      "library": "libcmt.lib",
+      "member": "build/intel/mt_obj/getqloc.obj",
+      "section": ".rdata",
+      "section_index": 109,
+      "address": "0x0046c408"
+    },
+    {
+      "kind": "library",
+      "library": "libcmt.lib",
+      "member": "build/intel/mt_obj/getqloc.obj",
+      "section": ".rdata",
+      "section_index": 110,
+      "address": "0x0046c41c"
+    },
+    {
+      "kind": "library",
+      "library": "libcmt.lib",
+      "member": "build/intel/mt_obj/getqloc.obj",
+      "section": ".rdata",
+      "section_index": 111,
+      "address": "0x0046c428"
+    },
+    {
+      "kind": "library",
+      "library": "libcmt.lib",
+      "member": "build/intel/mt_obj/getqloc.obj",
+      "section": ".rdata",
+      "section_index": 112,
+      "address": "0x0046c438"
+    },
+    {
+      "kind": "library",
+      "library": "libcmt.lib",
+      "member": "build/intel/mt_obj/getqloc.obj",
+      "section": ".rdata",
+      "section_index": 113,
+      "address": "0x0046c444"
+    },
+    {
+      "kind": "library",
+      "library": "libcmt.lib",
+      "member": "build/intel/mt_obj/getqloc.obj",
+      "section": ".rdata",
+      "section_index": 114,
+      "address": "0x0046c458"
+    },
+    {
+      "kind": "library",
+      "library": "libcmt.lib",
+      "member": "build/intel/mt_obj/getqloc.obj",
+      "section": ".rdata",
+      "section_index": 115,
+      "address": "0x0046c468"
+    },
+    {
+      "kind": "library",
+      "library": "libcmt.lib",
+      "member": "build/intel/mt_obj/getqloc.obj",
+      "section": ".rdata",
+      "section_index": 116,
+      "address": "0x0046c47c"
+    },
+    {
+      "kind": "library",
+      "library": "libcmt.lib",
+      "member": "build/intel/mt_obj/getqloc.obj",
+      "section": ".rdata",
+      "section_index": 117,
+      "address": "0x0046c490"
+    },
+    {
+      "kind": "library",
+      "library": "libcmt.lib",
+      "member": "build/intel/mt_obj/getqloc.obj",
+      "section": ".rdata",
+      "section_index": 118,
+      "address": "0x0046c4a4"
+    },
+    {
+      "kind": "library",
+      "library": "libcmt.lib",
+      "member": "build/intel/mt_obj/getqloc.obj",
+      "section": ".rdata",
+      "section_index": 119,
+      "address": "0x0046c4b8"
+    },
+    {
+      "kind": "library",
+      "library": "libcmt.lib",
+      "member": "build/intel/mt_obj/getqloc.obj",
+      "section": ".rdata",
+      "section_index": 122,
+      "address": "0x0046c4c8"
+    },
+    {
+      "kind": "library",
+      "library": "libcmt.lib",
+      "member": "build/intel/mt_obj/getqloc.obj",
+      "section": ".rdata",
+      "section_index": 123,
+      "address": "0x0046c4d4"
+    },
+    {
+      "kind": "library",
+      "library": "libcmt.lib",
+      "member": "build/intel/mt_obj/getqloc.obj",
+      "section": ".rdata",
+      "section_index": 124,
+      "address": "0x0046c4dc"
+    },
+    {
+      "kind": "library",
+      "library": "libcmt.lib",
+      "member": "build/intel/mt_obj/getqloc.obj",
+      "section": ".rdata",
+      "section_index": 125,
+      "address": "0x0046c4e8"
+    },
+    {
+      "kind": "library",
+      "library": "libcmt.lib",
+      "member": "build/intel/mt_obj/getqloc.obj",
+      "section": ".rdata",
+      "section_index": 126,
+      "address": "0x0046c4fc"
+    },
+    {
+      "kind": "library",
+      "library": "libcmt.lib",
+      "member": "build/intel/mt_obj/getqloc.obj",
+      "section": ".rdata",
+      "section_index": 127,
+      "address": "0x0046c510"
+    },
+    {
+      "kind": "library",
+      "library": "libcmt.lib",
+      "member": "build/intel/mt_obj/getqloc.obj",
+      "section": ".rdata",
+      "section_index": 167,
+      "address": "0x0046c524"
+    },
+    {
+      "kind": "library",
+      "library": "libcmt.lib",
+      "member": "../build/intel/mt_obj/testfdiv.obj",
+      "section": ".rdata",
+      "section_index": 5,
+      "address": "0x0046c560"
+    },
+    {
+      "kind": "library",
+      "library": "libcmt.lib",
+      "member": "../build/intel/mt_obj/testfdiv.obj",
+      "section": ".rdata",
+      "section_index": 6,
+      "address": "0x0046c568"
+    },
+    {
+      "kind": "library",
+      "library": "libcmt.lib",
+      "member": "../build/intel/mt_obj/testfdiv.obj",
+      "section": ".rdata",
+      "section_index": 9,
+      "address": "0x0046c570"
+    },
+    {
+      "kind": "library",
+      "library": "libcmt.lib",
+      "member": "../build/intel/mt_obj/testfdiv.obj",
+      "section": ".rdata",
+      "section_index": 10,
+      "address": "0x0046c58c"
+    },
+    {
+      "kind": "library",
+      "library": "libcmt.lib",
+      "member": "../build/intel/mt_obj/fpexcept.obj",
+      "section": ".rdata",
+      "section_index": 3,
+      "address": "0x0046c5b4"
+    },
+    {
+      "kind": "library",
+      "library": "libc.lib",
+      "member": "build/intel/st_obj/secfail.obj",
+      "section": ".rdata",
+      "section_index": 5,
+      "address": "0x0046c66c"
+    },
+    {
+      "kind": "library",
+      "library": "libcmt.lib",
+      "member": "build/intel/mt_obj/secfail.obj",
+      "section": ".rdata",
+      "section_index": 9,
+      "address": "0x0046c678"
+    },
+    {
+      "kind": "library",
+      "library": "libcmt.lib",
+      "member": "build/intel/mt_obj/secfail.obj",
+      "section": ".rdata",
+      "section_index": 10,
+      "address": "0x0046c718"
+    },
+    {
+      "kind": "library",
+      "library": "libcmt.lib",
+      "member": "build/intel/mt_obj/secfail.obj",
+      "section": ".rdata",
+      "section_index": 11,
+      "address": "0x0046c738"
+    },
+    {
+      "kind": "library",
+      "library": "libcmt.lib",
+      "member": "build/intel/mt_obj/secfail.obj",
+      "section": ".rdata",
+      "section_index": 12,
+      "address": "0x0046c7ec"
+    },
+    {
+      "kind": "library",
+      "library": "libcmt.lib",
+      "member": "build/intel/mt_obj/crtmbox.obj",
+      "section": ".rdata",
+      "section_index": 5,
+      "address": "0x0046c81c"
+    },
+    {
+      "kind": "library",
+      "library": "libcmt.lib",
+      "member": "build/intel/mt_obj/crtmbox.obj",
+      "section": ".rdata",
+      "section_index": 6,
+      "address": "0x0046c834"
+    },
+    {
+      "kind": "library",
+      "library": "libcmt.lib",
+      "member": "build/intel/mt_obj/crtmbox.obj",
+      "section": ".rdata",
+      "section_index": 7,
+      "address": "0x0046c850"
+    },
+    {
+      "kind": "library",
+      "library": "libcmt.lib",
+      "member": "build/intel/mt_obj/crtmbox.obj",
+      "section": ".rdata",
+      "section_index": 8,
+      "address": "0x0046c864"
+    },
+    {
+      "kind": "library",
+      "library": "libcmt.lib",
+      "member": "build/intel/mt_obj/crtmbox.obj",
+      "section": ".rdata",
+      "section_index": 9,
+      "address": "0x0046c874"
+    },
+    {
+      "kind": "library",
+      "library": "libcmt.lib",
+      "member": "build/intel/mt_obj/crtmbox.obj",
+      "section": ".rdata",
+      "section_index": 10,
+      "address": "0x0046c880"
+    },
+    {
+      "kind": "library",
+      "library": "libcpmt.lib",
+      "member": "build/intel/mt_obj/string.obj",
+      "section": ".rdata",
+      "section_index": 170,
+      "address": "0x0046ca08"
+    },
+    {
+      "kind": "library",
+      "library": "libcpmt.lib",
+      "member": "build/intel/mt_obj/string.obj",
+      "section": ".rdata",
+      "section_index": 197,
+      "address": "0x0046ca20"
+    },
+    {
+      "kind": "library",
+      "library": "libcmt.lib",
+      "member": "../build/intel/mt_obj/throw.obj",
+      "section": ".rdata",
+      "section_index": 5,
+      "address": "0x0046ca30"
+    },
+    {
+      "kind": "library",
+      "library": "libcmt.lib",
+      "member": "../build/intel/mt_obj/stdexcpt.obj",
+      "section": ".rdata",
+      "section_index": 22,
+      "address": "0x0046ca70"
+    },
+    {
+      "kind": "library",
+      "library": "libcpmt.lib",
+      "member": "build/intel/mt_obj/xexp.obj",
+      "section": ".rdata",
+      "section_index": 6,
+      "address": "0x00470bc0"
+    },
+    {
+      "kind": "library",
+      "library": "libc.lib",
+      "member": "../build/intel/st_obj/87cdisp.obj",
+      "section": ".rdata",
+      "section_index": 3,
+      "address": "0x00470d60"
+    },
+    {
+      "kind": "library",
+      "library": "libcmt.lib",
+      "member": "../build/intel/mt_obj/common.obj",
+      "section": ".rdata",
+      "section_index": 3,
+      "address": "0x00470d90"
+    },
+    {
+      "kind": "library",
+      "library": "libcmt.lib",
+      "member": "build/intel/mt_obj/loadcfg.obj",
+      "section": ".rdata",
+      "section_index": 2,
+      "address": "0x00470dd8",
+      "relocations": {
+        "0x3c": "0x00473660",
+        "0x40": "0x00471070",
+        "0x44": "0x0000002d"
+      }
+    },
+    {
+      "kind": "library",
+      "library": "libcpmt.lib",
+      "member": "build/intel/mt_obj/strstrea.obj",
+      "section": ".rdata",
+      "section_index": 429,
+      "address": "0x00471168"
+    },
+    {
+      "kind": "cpp",
+      "source": "src/data/rdata_dx_guids.cpp",
+      "placements": [
+        {
+          "section": ".rg01",
+          "address": "0x00466310",
+          "size": 1040
+        },
+        {
+          "section": ".rg02",
+          "address": "0x00466720",
+          "size": 16208
+        },
+        {
+          "section": ".rg03",
+          "address": "0x0046a670",
+          "size": 12
+        }
+      ]
+    },
+    {
+      "kind": "cpp",
+      "source": "src/data/rdata_strings_and_vtables.cpp",
+      "placements": [
+        {
+          "section": ".rs001",
+          "address": "0x0046a690",
+          "size": 107
+        },
+        {
+          "section": ".rs002",
+          "address": "0x0046a750",
+          "size": 59
+        },
+        {
+          "section": ".rs003",
+          "address": "0x0046a7fc",
+          "size": 39
+        },
+        {
+          "section": ".rs004",
+          "address": "0x0046a9e0",
+          "size": 51
+        },
+        {
+          "section": ".rs005",
+          "address": "0x0046aaac",
+          "size": 79
+        },
+        {
+          "section": ".rs006",
+          "address": "0x0046ab18",
+          "size": 59
+        },
+        {
+          "section": ".rs007",
+          "address": "0x0046abc0",
+          "size": 83
+        },
+        {
+          "section": ".rs008",
+          "address": "0x0046ac30",
+          "size": 11
+        },
+        {
+          "section": ".rs009",
+          "address": "0x0046ac4c",
+          "size": 2
+        },
+        {
+          "section": ".rs010",
+          "address": "0x0046b008",
+          "size": 2
+        },
+        {
+          "section": ".rs011",
+          "address": "0x0046b028",
+          "size": 3
+        },
+        {
+          "section": ".rs012",
+          "address": "0x0046b048",
+          "size": 27
+        },
+        {
+          "section": ".rs013",
+          "address": "0x0046b090",
+          "size": 43
+        },
+        {
+          "section": ".rs014",
+          "address": "0x0046b5c8",
+          "size": 11
+        },
+        {
+          "section": ".rs015",
+          "address": "0x0046b600",
+          "size": 6
+        },
+        {
+          "section": ".rs016",
+          "address": "0x0046b634",
+          "size": 37
+        },
+        {
+          "section": ".rs017",
+          "address": "0x0046b670",
+          "size": 47
+        },
+        {
+          "section": ".rs018",
+          "address": "0x0046b6ac",
+          "size": 6
+        },
+        {
+          "section": ".rs019",
+          "address": "0x0046b6d4",
+          "size": 71
+        },
+        {
+          "section": ".rs020",
+          "address": "0x0046bbd8",
+          "size": 5
+        },
+        {
+          "section": ".rs021",
+          "address": "0x0046bbf4",
+          "size": 4
+        },
+        {
+          "section": ".rs022",
+          "address": "0x0046bc38",
+          "size": 6
+        },
+        {
+          "section": ".rs023",
+          "address": "0x0046bc70",
+          "size": 6
+        },
+        {
+          "section": ".rs024",
+          "address": "0x0046bcac",
+          "size": 6
+        },
+        {
+          "section": ".rs025",
+          "address": "0x0046bcbc",
+          "size": 6
+        },
+        {
+          "section": ".rs026",
+          "address": "0x0046bccc",
+          "size": 14
+        },
+        {
+          "section": ".rs027",
+          "address": "0x0046bcf8",
+          "size": 14
+        },
+        {
+          "section": ".rs028",
+          "address": "0x0046bd18",
+          "size": 5
+        },
+        {
+          "section": ".rs029",
+          "address": "0x0046be74",
+          "size": 6
+        },
+        {
+          "section": ".rs030",
+          "address": "0x0046bea0",
+          "size": 2
+        },
+        {
+          "section": ".rs031",
+          "address": "0x0046bedc",
+          "size": 13
+        },
+        {
+          "section": ".rs032",
+          "address": "0x0046c108",
+          "size": 17
+        },
+        {
+          "section": ".rs033",
+          "address": "0x0046c4c0",
+          "size": 7
+        },
+        {
+          "section": ".rs034",
+          "address": "0x0046c51c",
+          "size": 7
+        },
+        {
+          "section": ".rs035",
+          "address": "0x0046c538",
+          "size": 33
+        },
+        {
+          "section": ".rs036",
+          "address": "0x0046c598",
+          "size": 27
+        },
+        {
+          "section": ".rs037",
+          "address": "0x0046c5c0",
+          "size": 171
+        },
+        {
+          "section": ".rs038",
+          "address": "0x0046c810",
+          "size": 11
+        },
+        {
+          "section": ".rs039",
+          "address": "0x0046c890",
+          "size": 375
+        },
+        {
+          "section": ".rs040",
+          "address": "0x0046ca50",
+          "size": 31
+        },
+        {
+          "section": ".rs041",
+          "address": "0x0046ca84",
+          "size": 16492
+        }
+      ]
+    },
+    {
+      "kind": "cpp",
+      "source": "src/data/rdata_floats_and_eh.cpp",
+      "placements": [
+        {
+          "section": ".rf001",
+          "address": "0x00470af0",
+          "size": 204
+        },
+        {
+          "section": ".rf002",
+          "address": "0x00470bc8",
+          "size": 408
+        },
+        {
+          "section": ".rf003",
+          "address": "0x00470e20",
+          "size": 56
+        },
+        {
+          "section": ".rf004",
+          "address": "0x00470e64",
+          "size": 8
+        },
+        {
+          "section": ".rf005",
+          "address": "0x00470e78",
+          "size": 44
+        },
+        {
+          "section": ".rf006",
+          "address": "0x00470eb0",
+          "size": 8
+        },
+        {
+          "section": ".rf007",
+          "address": "0x00470ec4",
+          "size": 44
+        },
+        {
+          "section": ".rf008",
+          "address": "0x00470efc",
+          "size": 8
+        },
+        {
+          "section": ".rf009",
+          "address": "0x00470f10",
+          "size": 36
+        },
+        {
+          "section": ".rf010",
+          "address": "0x00470f40",
+          "size": 8
+        },
+        {
+          "section": ".rf011",
+          "address": "0x00470f54",
+          "size": 12
+        },
+        {
+          "section": ".rf012",
+          "address": "0x00470f6c",
+          "size": 8
+        },
+        {
+          "section": ".rf013",
+          "address": "0x00470f80",
+          "size": 40
+        },
+        {
+          "section": ".rf014",
+          "address": "0x00470fb4",
+          "size": 8
+        },
+        {
+          "section": ".rf015",
+          "address": "0x00470fc8",
+          "size": 40
+        },
+        {
+          "section": ".rf016",
+          "address": "0x00470ffc",
+          "size": 8
+        },
+        {
+          "section": ".rf017",
+          "address": "0x00471010",
+          "size": 44
+        },
+        {
+          "section": ".rf018",
+          "address": "0x00471048",
+          "size": 8
+        },
+        {
+          "section": ".rf019",
+          "address": "0x0047105c",
+          "size": 8
+        },
+        {
+          "section": ".rf020",
+          "address": "0x00471070",
+          "size": 180
+        },
+        {
+          "section": ".rf021",
+          "address": "0x00471134",
+          "size": 20
+        },
+        {
+          "section": ".rf022",
+          "address": "0x0047115c",
+          "size": 12
+        },
+        {
+          "section": ".rf023",
+          "address": "0x00471170",
+          "size": 112
+        },
+        {
+          "section": ".rf024",
+          "address": "0x004711f0",
+          "size": 20
+        },
+        {
+          "section": ".rf025",
+          "address": "0x00471218",
+          "size": 76
+        },
+        {
+          "section": ".rf026",
+          "address": "0x00471274",
+          "size": 36
+        },
+        {
+          "section": ".rf027",
+          "address": "0x004712a8",
+          "size": 20
+        },
+        {
+          "section": ".rf028",
+          "address": "0x004712cc",
+          "size": 20
+        },
+        {
+          "section": ".rf029",
+          "address": "0x004712f0",
+          "size": 20
+        },
+        {
+          "section": ".rf030",
+          "address": "0x00471314",
+          "size": 28
+        },
+        {
+          "section": ".rf031",
+          "address": "0x00471340",
+          "size": 28
+        },
+        {
+          "section": ".rf032",
+          "address": "0x0047136c",
+          "size": 20
+        },
+        {
+          "section": ".rf033",
+          "address": "0x00471390",
+          "size": 20
+        },
+        {
+          "section": ".rf034",
+          "address": "0x004713b4",
+          "size": 28
+        },
+        {
+          "section": ".rf035",
+          "address": "0x004713e0",
+          "size": 28
+        },
+        {
+          "section": ".rf036",
+          "address": "0x0047140c",
+          "size": 4
+        },
+        {
+          "section": ".rf037",
+          "address": "0x0047141c",
+          "size": 92
+        },
+        {
+          "section": ".rf038",
+          "address": "0x00471488",
+          "size": 20
+        },
+        {
+          "section": ".rf039",
+          "address": "0x004714ac",
+          "size": 20
+        },
+        {
+          "section": ".rf040",
+          "address": "0x004714d0",
+          "size": 20
+        },
+        {
+          "section": ".rf041",
+          "address": "0x004714f4",
+          "size": 20
+        },
+        {
+          "section": ".rf042",
+          "address": "0x00471518",
+          "size": 52
+        },
+        {
+          "section": ".rf043",
+          "address": "0x0047155c",
+          "size": 20
+        },
+        {
+          "section": ".rf044",
+          "address": "0x00471580",
+          "size": 28
+        },
+        {
+          "section": ".rf045",
+          "address": "0x004715ac",
+          "size": 20
+        },
+        {
+          "section": ".rf046",
+          "address": "0x004715d0",
+          "size": 20
+        },
+        {
+          "section": ".rf047",
+          "address": "0x004715f4",
+          "size": 20
+        },
+        {
+          "section": ".rf048",
+          "address": "0x00471618",
+          "size": 20
+        },
+        {
+          "section": ".rf049",
+          "address": "0x0047163c",
+          "size": 36
+        },
+        {
+          "section": ".rf050",
+          "address": "0x00471670",
+          "size": 20
+        },
+        {
+          "section": ".rf051",
+          "address": "0x00471694",
+          "size": 20
+        },
+        {
+          "section": ".rf052",
+          "address": "0x004716b8",
+          "size": 20
+        },
+        {
+          "section": ".rf053",
+          "address": "0x004716dc",
+          "size": 28
+        },
+        {
+          "section": ".rf054",
+          "address": "0x00471708",
+          "size": 68
+        },
+        {
+          "section": ".rf055",
+          "address": "0x0047175c",
+          "size": 36
+        },
+        {
+          "section": ".rf056",
+          "address": "0x00471790",
+          "size": 20
+        },
+        {
+          "section": ".rf057",
+          "address": "0x004717b4",
+          "size": 28
+        },
+        {
+          "section": ".rf058",
+          "address": "0x004717e0",
+          "size": 20
+        },
+        {
+          "section": ".rf059",
+          "address": "0x00471804",
+          "size": 20
+        },
+        {
+          "section": ".rf060",
+          "address": "0x00471828",
+          "size": 20
+        },
+        {
+          "section": ".rf061",
+          "address": "0x0047184c",
+          "size": 20
+        },
+        {
+          "section": ".rf062",
+          "address": "0x00471870",
+          "size": 20
+        },
+        {
+          "section": ".rf063",
+          "address": "0x00471894",
+          "size": 20
+        }
+      ]
+    }
+  ]
+}
